@@ -1,0 +1,141 @@
+<section data-section-id="{{ section.id }}" data-section-type="list-collections">
+  <div class="container">
+    <div class="page__sub-header">
+      <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
+        <ol class="breadcrumb__list" role="list">
+          <li class="breadcrumb__item">
+            <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+          </li>
+
+          <li class="breadcrumb__item">
+            <span class="breadcrumb__link">{{ page.title }}</span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    {%- assign menu_handle = page.content | default: page.title | strip_html | handle -%}
+    {%- assign menu = linklists[menu_handle] -%}
+
+    {%- assign has_brand_collections = false -%}
+    {%- assign has_normal_collections = false -%}
+
+    {%- for link in menu.links -%}
+      {%- unless link.type == 'collection_link' -%}
+        {%- continue -%}
+      {%- endunless -%}
+
+      {%- if link.object.template_suffix contains 'brand' -%}
+        {%- assign has_brand_collections = true -%}
+      {%- else -%}
+        {%- assign has_normal_collections = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_normal_collections -%}
+      <div class="collection-list__section">
+        <header class="page__header page__header--stack page__header--centered">
+          <h1 class="page__title heading h1">{{ page.title }}</h1>
+        </header>
+
+        <div class="grid">
+          {%- for link in menu.links -%}
+            {%- unless link.type == 'collection_link' -%}
+              {%- continue -%}
+            {%- endunless -%}
+
+            {%- unless link.object.template_suffix contains 'brand' -%}
+              <div class="grid__cell 1/2--tablet 1/3--lap-and-up">
+                <a href="{{ link.object.url }}" class="collection-block-item collection-block-item--overlay">
+                  <div class="aspect-ratio" style="padding-bottom: 45%">
+                    <div class="collection-block-item__image lazyload image--fade-in" data-bg="{{ link.object.image | img_url: '850x' }}"></div>
+                  </div>
+
+                  <p class="collection-block-item__title heading h2">{{ link.object.title }}</p>
+                </a>
+              </div>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if has_brand_collections -%}
+      <div class="collection-list__section">
+        <header class="page__header page__header--stack page__header--centered">
+          <h1 class="page__title heading h1">{{ 'collection.general.brands' | t }}</h1>
+        </header>
+
+        <div class="quick-links">
+          {%- for link in menu.links -%}
+            {%- unless link.type == 'collection_link' -%}
+              {%- continue -%}
+            {%- endunless -%}
+
+            {%- if link.object.template_suffix contains 'brand' -%}
+              {%- assign collection_image = link.object.image | default: link.object.products.first.featured_media -%}
+              {%- assign max_height_mobile = 50 -%}
+              {%- assign max_height_desktop = 90 -%}
+              {%- assign max_width_mobile = 100 -%}
+              {%- assign max_width_desktop = 140-%}
+
+              {% comment %}
+              {%- assign max_width_mobile = 100 | divided_by: collection_image.aspect_ratio | at_most: 100 -%}
+              {%- assign max_width_desktop = 140 | divided_by: collection_image.aspect_ratio | at_most: 140 -%}
+              {% endcomment %}
+
+              {%- if collection_image.aspect_ratio < 1.5 -%}
+                {%- if collection_image.height < max_height_desktop -%}
+                  {%- assign max_width_desktop = collection_image.width | times: collection_image.aspect_ratio | round -%}
+                {%- else -%}
+                  {%- assign max_width_desktop = max_height_desktop | times: collection_image.aspect_ratio | round -%}
+                {%- endif -%}
+
+                {%- if collection_image.height < max_height_mobile -%}
+                  {%- assign max_width_mobile = collection_image.width | times: collection_image.aspect_ratio | round -%}
+                {%- else -%}
+                  {%- assign max_width_mobile = max_height_mobile | times: collection_image.aspect_ratio | round -%}
+                {%- endif -%}
+              {%- elsif collection_image.aspect_ratio > 2.5 -%}
+                {%- assign max_width_mobile = 100 -%}
+                {%- assign max_width_desktop = 140 -%}
+              {%- endif -%}
+
+              <a id="block-{{ forloop.index0 }}" href="{{ link.object.url }}" class="quick-links__link">
+                <div  class="quick-links__image-container">
+                  <div class="quick-links__image-ie-fix">
+                    <div class="aspect-ratio" style="padding-bottom: {{ 100.0 | divided_by: collection_image.aspect_ratio }}%">
+                      <img class="lazyload image--fade-in" data-src="{{ collection_image | img_url: '280x' }}" alt="{{ collection_image.alt | escape }}">
+
+                      <noscript>
+                        <img src="{{ collection_image | img_url: '280x' }}" alt="{{ collection_image.alt | escape }}">
+                      </noscript>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              <style>
+                #block-{{ forloop.index0 }} .quick-links__image-ie-fix {
+                  max-width: {{ max_width_mobile }}px;
+                }
+
+                @media screen and (min-width: 641px)  {
+                  #block-{{ forloop.index0 }} .quick-links__image-ie-fix {
+                    max-width: {{ max_width_desktop }}px;
+                  }
+                }
+              </style>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "List Collections"
+}
+{% endschema %}

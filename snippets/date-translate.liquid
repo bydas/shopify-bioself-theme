@@ -1,0 +1,13 @@
+{%- assign dateFormat = '%d %b %Y' -%}
+
+{%- assign monthsPortuguese = 'janeiro,fevereiro,março,abril,maio,junho,julho,agosto,setembro,outubro,novembro,dezembro' | split:',' -%}
+
+{%- assign formattedDate = article.published_at | date:dateFormat, 'pt_PT' -%}
+
+{%- assign monthIndex = article.published_at | date: '%m' | minus: 1 -%}
+{%- assign monthPortuguese = monthsPortuguese[monthIndex] | capitalize | slice: 0, 3 -%}
+
+{%- assign day = article.published_at | date: '%d' -%}
+{%- assign year = article.published_at | date: '%Y' -%}
+
+{{ day }} {{ monthPortuguese }} {{ year }}

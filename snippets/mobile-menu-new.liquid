@@ -1,0 +1,492 @@
+{%- assign mega_menus = section.blocks | map: 'settings' | map: 'menu_item' -%}
+
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  {%- render 'icon', icon: 'nav-triangle-borderless' -%}
+
+  
+  <div class="mobile-menu__inner">
+    <div class="mobile-menu__panel">
+      <div class="close-icon-container">
+        <button id="close-menu" style="background: none; border: none; cursor: pointer;">Fechar X</button>
+      </div>
+
+      <div class="mobile-menu__section">
+        <ul class="mobile-menu__nav" data-type="menu" role="list">
+          {% for link in linklists.menu-mobile.links %}
+            <li class="mobile-menu__nav-item">
+              {%- if link.links != blank -%}
+                {%- capture panel_id -%}mobile-panel-{{ forloop.index0 }}{%- endcapture -%}
+
+                <button class="mobile-menu__nav-link" data-type="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="{{ panel_id }}" data-action="open-panel">
+                  {{- link.title -}} {%- render 'icon', icon: 'arrow-right' -%}
+                </button>
+              {%- else -%}
+                <a href="{{ link.url }}" class="mobile-menu__nav-link" data-type="menuitem">{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      {%- capture extra_menus_one -%}
+      <div class="mobile-menu__section">
+        <h2 class="mobile-menu_title">Comprar por</h2>
+        <ul class="mobile-menu__nav" data-type="menu" role="list">
+          {% for link in linklists.menu-oportunidades.links %}
+            <li class="mobile-menu__nav-item">
+              <a class="mobile-menu__nav-link" href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+      {%- endcapture -%}
+
+      {%- capture extra_menus_two -%}
+      <div class="mobile-menu__section">
+        <ul class="mobile-menu__nav" data-type="menu" role="list">
+        {% for link in linklists.menu-info.links limit: 1 %}
+          <li class="mobile-menu__nav-item">
+            <a class="mobile-menu__nav-link-light "href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {%- endfor -%}
+          <li class="mobile-menu__nav-item">
+              <button id="close-menu-anchor" style="color: #2B6F2E; font-size: 14px;background: none; border: none; cursor: pointer;" href="#newsletter_section_homepage">Subscrição de newsletter</button>
+          </li>
+        </ul>
+      </div>
+      {%- endcapture -%}
+      {{ extra_menus_one }}
+      {{ extra_menus_two }}
+
+      {%- if section.settings.navigation_phone_number != blank or section.settings.navigation_email != blank -%}
+        <div class="mobile-menu__section mobile-menu__section--loose">
+          {%- if section.settings.navigation_phone_number != blank -%}
+            <div class="mobile-menu__help-wrapper">
+              {%- render 'icon', icon: 'bi-phone' -%}
+              <span>{{ section.settings.navigation_phone_number | escape }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.navigation_email != blank -%}
+            <div class="mobile-menu__help-wrapper">
+              {%- render 'icon', icon: 'bi-email' -%}
+              <a href="mailto:{{ section.settings.navigation_email }}">{{ section.settings.navigation_email | escape }}</a>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- capture social_media -%}{% render 'social-media', show_social_media_name: true %}{%- endcapture -%}
+
+      {%- capture social_menus -%}  
+      {%- if section.settings.show_navigation_social_media and social_media != blank -%}
+      <div class="mobile-menu__section mobile-menu__section--loose" style="border: none;">
+          {{- social_media -}}
+
+          <button id="open-second-modal" class="open-second-modal">Apoio ao Cliente</button>
+        </div>
+
+        <div id="second-modal" aria-hidden="true" style="display: none;">
+          <div class="support-window">
+            <div class="close-icon-container-support-window">
+            <button id="close-second-modal">Fechar X</button>
+            </div>
+
+            <div class="support-window-header">
+              {%- if section.settings.support-window-title != blank -%}
+                <svg fill="#ffffff" width="45px" height="45px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M192 208c0-17.67-14.33-32-32-32h-16c-35.35 0-64 28.65-64 64v48c0 35.35 28.65 64 64 64h16c17.67 0 32-14.33 32-32V208zm176 144c35.35 0 64-28.65 64-64v-48c0-35.35-28.65-64-64-64h-16c-17.67 0-32 14.33-32 32v112c0 17.67 14.33 32 32 32h16zM256 0C113.18 0 4.58 118.83 0 256v16c0 8.84 7.16 16 16 16h16c8.84 0 16-7.16 16-16v-16c0-114.69 93.31-208 208-208s208 93.31 208 208h-.12c.08 2.43.12 165.72.12 165.72 0 23.35-18.93 42.28-42.28 42.28H320c0-26.51-21.49-48-48-48h-32c-26.51 0-48 21.49-48 48s21.49 48 48 48h181.72c49.86 0 90.28-40.42 90.28-90.28V256C507.42 118.83 398.82 0 256 0z"></path></g></svg>
+                <h2 class="support-window-header-title"> {{ section.settings.support-window-title }}</h2>
+              {% endif %}
+            </div>
+
+            <div class="support-window-content">
+              {%- if section.settings.support-window-email != blank -%}
+                <div class="support-window-content-email">
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke=""><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g clip-path="url(#clip0_15_17)"> <rect width="24" height="24" fill="white"></rect> <path d="M3 17.5V6.5C3 5.94772 3.44772 5.5 4 5.5H12H20C20.5523 5.5 21 5.94772 21 6.5V17.5C21 18.0523 20.5523 18.5 20 18.5H4C3.44772 18.5 3 18.0523 3 17.5Z" stroke="#2B6F2E" stroke-linejoin="round"></path> <path d="M3 6L12 12L21 6" stroke="#2B6F2E" stroke-linejoin="round"></path> </g> <defs> <clipPath id="clip0_15_17"> <rect width="24" height="24" fill="white"></rect> </clipPath> </defs> </g></svg>
+                  {{ section.settings.support-window-email }}     
+                </div> 
+              {% endif %}      
+
+              {%- if section.settings.support-window-phone != blank -%}
+                <div class="support-window-content-phone">
+                  <svg fill="#2B6F2E" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#2B6F2E"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>phone-flip</title> <path d="M24.389 1.106h-0.006c-0.023-0-0.049-0.001-0.076-0.001-0.352 0-0.695 0.037-1.027 0.107l0.032-0.006c-0.675 0.108-1.281 0.332-1.823 0.652l0.024-0.013c-0.187 0.113-0.319 0.302-0.355 0.522l-0.001 0.004-1.424 8.97c-0.006 0.036-0.009 0.077-0.009 0.118 0 0.207 0.084 0.394 0.22 0.529l0 0c0.679 0.676 1.515 1.194 2.449 1.497l0.044 0.012c-1.64 4.015-4.764 7.139-8.674 8.741l-0.105 0.038c-0.315-0.977-0.833-1.813-1.509-2.492l0 0c-0.136-0.136-0.325-0.22-0.532-0.22-0.041 0-0.081 0.003-0.119 0.009l0.004-0.001-8.97 1.424c-0.225 0.036-0.413 0.168-0.524 0.352l-0.002 0.003c-0.301 0.504-0.521 1.094-0.625 1.723l-0.004 0.029c-0.071 0.315-0.111 0.677-0.111 1.049 0 0.027 0 0.053 0.001 0.080l-0-0.004c0.025 3.497 2.856 6.325 6.352 6.346h0.002c12.761-0.014 23.102-10.355 23.116-23.115v-0.001c-0.022-3.498-2.85-6.328-6.345-6.354h-0.002zM7.62 29.076c-2.673-0.018-4.835-2.179-4.854-4.85v-0.002c-0-0.017-0-0.037-0-0.057 0-0.272 0.030-0.538 0.086-0.793l-0.005 0.024c0.060-0.367 0.161-0.696 0.301-1.003l-0.010 0.025 8.201-1.303c0.529 0.629 0.902 1.406 1.051 2.26l0.004 0.029c0.065 0.354 0.371 0.619 0.739 0.619 0.088 0 0.172-0.015 0.25-0.043l-0.005 0.002c5.072-1.773 8.994-5.695 10.73-10.645l0.037-0.121c0.026-0.073 0.041-0.157 0.041-0.245 0-0.368-0.265-0.674-0.615-0.738l-0.005-0.001c-0.883-0.153-1.66-0.526-2.296-1.061l0.007 0.006 1.303-8.201c0.296-0.134 0.64-0.238 0.999-0.297l0.024-0.003c0.217-0.046 0.466-0.072 0.721-0.072 0.019 0 0.038 0 0.057 0l-0.003-0c2.674 0.017 4.838 2.179 4.857 4.852v0.002c-0.014 11.933-9.684 21.602-21.615 21.616h-0.001z"></path> </g></svg>
+                  {{ section.settings.support-window-phone }}     
+                </div> 
+              {% endif %} 
+
+              {%- if section.settings.support-window-schedule != blank -%}
+                <div class="support-window-content-schedule">
+                  {{ section.settings.support-window-schedule }}     
+                </div> 
+              {% endif %} 
+            </div>
+          </div>
+        </div>
+
+      </div>
+      {%- endif -%}
+      {%- endcapture-%}
+      {{ social_menus }}
+    </div>
+
+    {%- comment -%}We now need to loop again (for the second level) to create the nested panel{%- endcomment -%}
+
+    {% for link in linklists.menu-mobile.links %}
+      {%- if link.links != blank -%}
+        {%- capture panel_id -%}mobile-panel-{{ forloop.index0 }}{%- endcapture -%}
+
+        <div id="{{ panel_id }}" class="mobile-menu__panel is-nested">
+          <div class="mobile-menu__section is-sticky">
+            <button class="mobile-menu__back-button" data-action="close-panel">{% render 'icon', icon: 'arrow-left' %} {{ 'header.navigation.back' | t }}</button>
+          </div>
+
+          <div class="mobile-menu__section">
+            {%- assign is_mega_menu = false -%}
+            {%- assign downcase_title = link.title | downcase | strip -%}
+
+            {%- for mega_menu in mega_menus -%}
+              {%- assign mega_menu_setting_downcase = mega_menu | downcase | strip -%}
+
+              {%- if mega_menu_setting_downcase == downcase_title -%}
+                {%- assign is_mega_menu = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if is_mega_menu -%}
+              <div class="mobile-menu__nav-list">
+                {%- for sub_link in link.links -%}
+                  {%- capture mobile_list_id -%}mobile-list-{% increment mobile_list %}{%- endcapture -%}
+
+                  <div class="mobile-menu__nav-list-item">
+                    {%- if sub_link.levels == 0 -%}
+                      <a href="{{ sub_link.url }}" class="mobile-menu__nav-list-toggle text--strong">{{ sub_link.title }}</a>
+                    {%- else -%}
+                      <button class="mobile-menu__nav-list-toggle text--strong" aria-controls="{{ mobile_list_id }}" aria-expanded="false" data-action="toggle-collapsible" data-close-siblings="false">
+                        {{- sub_link.title -}} {% render 'icon', icon: 'arrow-bottom' %}
+                      </button>
+
+                      <div id="{{ mobile_list_id }}" class="mobile-menu__nav-collapsible">
+                        <div class="mobile-menu__nav-collapsible-content">
+                          <ul class="mobile-menu__nav" data-type="menu" role="list">
+                            {%- for sub_sub_link in sub_link.links -%}
+                              <li class="mobile-menu__nav-item">
+                                <a href="{{ sub_sub_link.url }}" class="mobile-menu__nav-link" data-type="menuitem">{{ sub_sub_link.title }}</a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        </div>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endfor -%}
+              </div>
+
+              {%- assign mega_menu_block = nil -%}
+
+              {%- for block in section.blocks -%}
+                {%- assign downcase_block_menu_item = block.settings.menu_item | downcase | strip -%}
+
+                {%- if downcase_block_menu_item == downcase_title -%}
+                  {%- assign mega_menu_block = block -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+            {%- else -%}
+              <ul class="mobile-menu__nav" data-type="menu" role="list">
+                <li class="mobile-menu__nav-item">
+                  <a href="{{ link.url }}" class="mobile-menu__nav-link text--strong">{{ link.title }}</a>
+                </li>
+
+                {%- for sub_link in link.links -%}
+                  <li class="mobile-menu__nav-item">
+                    {%- if sub_link.links != blank -%}
+                      {%- capture panel_id -%}mobile-panel-{{ forloop.index0 }}{%- endcapture -%}
+
+                      <button class="mobile-menu__nav-link" data-type="menuitem" aria-haspopup="true" aria-expanded="false" aria-controls="{{ panel_id }}" data-action="open-panel">
+                        {{- sub_link.title -}} {%- render 'icon', icon: 'arrow-right' -%}
+                      </button>
+                    {%- else -%}
+                      <a style="font-weight: 100;" href="{{ sub_link.url }}" class="mobile-menu__nav-link" data-type="menuitem">{{ sub_link.title }}</a>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+          {{ extra_menus_two }}
+
+          <div class="mobile-menu__section mobile-menu__section--loose" style="border: none;">
+            {{- social_media -}}
+
+            <button id="open-second-modal" class="open-second-modal">Apoio ao Cliente</button>
+          </div>
+
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%}Finally we need to do the same to create the third level menus{%- endcomment -%}
+
+    {% for link in linklists.menu-mobile.links %}
+      {%- if link.links != blank -%}
+        {%- assign downcase_title = link.title | downcase -%}
+
+        {%- unless mega_menus contains downcase_title -%}
+          {%- for sub_link in link.links -%}
+            {%- if sub_link.links != blank -%}
+              {%- capture panel_id -%}mobile-panel-{{ forloop.index0 }}{%- endcapture -%}
+
+              <div id="{{ panel_id }}" class="mobile-menu__panel is-nested">
+                <div class="mobile-menu__section is-sticky">
+                test 
+                <button class="mobile-menu__back-button" data-action="close-panel">{% render 'icon', icon: 'arrow-left' %} {{ 'header.navigation.back' | t }}</button>
+                </div>
+
+                <div class="mobile-menu__section">
+                  <ul class="mobile-menu__nav" data-type="menu" role="list">
+                    <li class="mobile-menu__nav-item">
+                      <a href="{{ sub_link.url }}" class="mobile-menu__nav-link text--strong">{{ sub_link.title }}</a>
+                    </li>
+
+                    {%- for sub_sub_link in sub_link.links -%}
+                      <li class="mobile-menu__nav-item">
+                        <a href="{{ sub_sub_link.url }}" class="mobile-menu__nav-link" data-type="menuitem">{{ sub_sub_link.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <script>
+    const openSecondModalButton = document.querySelectorAll('.open-second-modal');
+    const secondModal = document.getElementById('second-modal');
+    const closeSecondModalButton = document.getElementById('close-second-modal');
+
+
+    function toggleSecondModal() {
+        const isHidden = secondModal.getAttribute('aria-hidden') === 'true';
+        secondModal.setAttribute('aria-hidden', !isHidden);
+        secondModal.style.display = isHidden ? 'block' : 'none';
+    }
+
+    openSecondModalButton.forEach(button => {
+      button.addEventListener('click', toggleSecondModal);
+    });
+
+
+    closeSecondModalButton.addEventListener('click', toggleSecondModal);
+  </script>
+
+<style>
+  .featured-collection-section .section__header .section__header-stack, .image-with-text, .section__header-stack {
+    justify-content: space-between !important;
+  }
+
+  .social-media__item-list {
+    justify-content: flex-start;
+  }
+
+  a.mobile-menu__nav-link, button.mobile-menu__nav-link {
+    font-weight: 700;
+    color: #2B6F2E;
+    font-size: 16px;
+  }
+
+  li.mobile-menu__nav-item-small a {
+    font-weight: 100;
+    color: #2B6F2E;
+    font-size: 12px;
+  }
+
+  .mobile-menu__section:not(:last-child) {
+    border-top: 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .close-icon-container {
+    margin: 0 20px;
+    color: #2B6F2E;
+    background: #f7f7f7;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .mobile-menu__section {
+    margin: 0 20px !important;
+  }
+
+  button#open-second-modal {
+    background: #4C8740;
+    width: 100%;
+    height: 44px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+
+  div#second-modal {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background: #4C8740;
+    top: 0;
+    border-top-right-radius: 15px;
+    z-index: 999;
+  }
+
+  .support-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+
+  .support-window-header {
+    background: #fff;
+    width: 100%;
+    background: #4C8740;
+    display: flex;
+    justify-content: center;
+    height: 20%;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .support-window-content {
+    width: 100%;
+    height: 80%;
+    background: #fff;
+    border-radius: 15px 15px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+    align-content: center;
+  }
+
+  h2.support-window-header-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .support-window-content-email {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+  }
+
+  .support-window-content-email p {
+    color: #2B6F2E;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .support-window-content-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+  }
+
+  .support-window-content-phone p {
+    color: #2B6F2E;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .support-window-content-schedule p {
+    color: #818181;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  a.mobile-menu__nav-link-light {
+    color: #2B6F2E;
+    font-size: 14px;
+  }
+
+  h2.mobile-menu_title {
+    color: #707070;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  #shopify-section-header_new .header__logo {
+    margin-left: 0px !important;
+    right: 20px;
+    position: relative;
+  }
+
+  @media screen and (max-width: 460px) {
+    #shopify-section-header_new .header__logo {
+      margin-left: 10px !important;
+    }
+  }
+
+  .close-icon-container-support-window {
+    color: #fff;
+    position: relative;
+    left: 130px;
+    top: 10px;
+  }
+
+  ul.mobile-menu__nav {
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+
+svg.icon.icon--nav-triangle-borderless {
+  display: none !important;
+}
+
+.mobile-menu__panel, .mobile-menu__inner {
+  height:  calc(100vh - 80px);
+}
+
+.mobile-menu__panel, .close-icon-container, .mobile-menu__section {
+    background: #fff;
+}
+
+.mobile-menu__nav-link {
+  padding: 0 5px;
+}
+
+.mobile-menu__panel {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+@media screen and (max-height: 700px) {
+.mobile-menu__panel {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0px;
+}
+
+.mobile-menu__nav-link {
+  padding: 0 3px;
+}
+
+svg.icon.icon--hamburger-mobile {
+    height: 20px !important;
+    width: 20px  !important;
+}
+}
+</style>

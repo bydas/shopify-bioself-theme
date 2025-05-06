@@ -1,0 +1,208 @@
+{% schema %}
+{
+  "name": "Product collection custom",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "selected_collection",
+      "label": "Selecione uma coleção"
+    },
+    {
+      "type": "text",
+      "id": "title_collection",
+      "label": "Selecione um título"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product collection custom",
+      "category": "Collection",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #product_collection_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #product_collection_custom_mobile {
+    display: none;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #product_collection_custom > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #product_collection_custom > div > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #product_collection_custom > div > h1 {
+      font-size: 24px;
+    }
+
+    #product_collection_custom > div > a > button {
+      padding: 0.3rem 1.5rem !important;
+      font-size: 13px !important;
+    }
+  }
+
+  #product_collection_custom_mobile > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #product_collection_custom_mobile > div > a,
+  #product_collection_custom_mobile > a {
+    display: grid;
+  }
+
+  #product_collection_custom > div > a > button,
+  #product_collection_custom_mobile > a > button {
+    background-color: #308a36;
+    border: none;
+    border-radius: 0.45rem;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    padding: 0.35rem 2rem;
+    font-size: 14px;
+    transition: all 0.15s ease;
+  }
+
+  #product_collection_custom > div > a > button:hover,
+  #product_collection_custom_mobile > a > button:hover {
+    background-color: #ffbb12;
+    color: black;
+  }
+
+  #product_collection_custom_mobile > div > a > button {
+    width: 100%;
+  }
+
+  #product_collection_custom > ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
+
+  #product_collection_custom_mobile > ul {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    gap: 0.5rem;
+  }
+
+  #product_collection_custom_mobile > ul > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  @media screen and (max-width: 370px) {
+    #product_collection_custom_mobile > ul > div {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  #product_collection_custom > ul > li,
+  #product_collection_custom_mobile > ul > div > li,
+  #product_collection_custom_mobile > ul > li {
+    display: grid;
+  }
+
+  @media screen and (max-width: 1699px) {
+    #product_collection_custom > ul {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    #product_collection_custom > ul > li:nth-child(5) {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #product_collection_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #product_collection_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #product_collection_custom {
+      display: none;
+    }
+
+    #product_collection_custom_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="product_collection_custom">
+  {% assign collection = collections[section.settings.selected_collection] %}
+
+  <div>
+    <h1>{{ section.settings.title_collection }}</h1>
+
+    {% if collection.title %}
+      <a href="{{ collection.url }}">
+        <button>Ver Categoria {{ collection.title }}</button>
+      </a>
+    {% endif %}
+  </div>
+
+  {% if collection and collection.products.size > 0 %}
+    <ul>
+      {% for product in collection.products limit: 5 %}
+        <li>
+          {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<section id="product_collection_custom_mobile">
+  {% assign collection = collections[section.settings.selected_collection] %}
+  <h1>{{ section.settings.title_collection }}</h1>
+
+  {% if collection and collection.products.size > 0 %}
+    <ul>
+      <div>
+        {% for product in collection.products limit: 6 %}
+          <li>
+            {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
+          </li>
+        {% endfor %}
+      </div>
+    </ul>
+  {% endif %}
+
+  {% if collection.title %}
+    <a href="{{ collection.url }}">
+      <button>Ver Categoria {{ collection.title }}</button>
+    </a>
+  {% endif %}
+</section>

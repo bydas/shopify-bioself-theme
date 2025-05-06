@@ -1,0 +1,422 @@
+{% schema %}
+{
+  "name": "Collection with image 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "selected_section_title",
+      "label": "Título da coleção"
+    },
+    {
+      "type": "product",
+      "id": "selected_product",
+      "label": "Selecionar produto principal"
+    },
+    {
+      "type": "image_picker",
+      "id": "selected_product_image",
+      "label": "Selecionar imagem do produto principal"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Imagem de fundo para desktop",
+      "info": "550x378px"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Imagem de fundo para mobile",
+      "info": "390x162px"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Selecionar coleção"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection with image 2",
+      "category": "Collection",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #product_collection_with_image {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #product_collection_with_image_mobile {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #product_collection_with_image > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  #product_collection_with_image_mobile > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #product_collection_with_image > div {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1.5rem;
+  }
+
+  #product_collection_with_image > div > a {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    align-content: end;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 2rem;
+    border-radius: 0.65rem;
+    min-width: 580px;
+    min-height: 480px;
+  }
+
+  #product_collection_with_image_mobile > div > a {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    align-content: end;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 1rem;
+    border-radius: 0.65rem;
+  }
+
+  #product_collection_with_image > div > a > div,
+  #product_collection_with_image_mobile > div > a > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    color: white;
+  }
+
+  #product_collection_with_image_mobile > div > a > img {
+    object-fit: cover;
+    min-height: 120px;
+    margin-left: 4dvw;
+  }
+
+  #product_collection_with_image > div > a > div > h1 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 22px;
+    max-width: 24rem;
+    font-weight: 700 !important;
+    align-self: end;
+  }
+
+  #product_collection_with_image_mobile > div > a > div > h1 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 16px;
+    max-width: 15rem;
+  }
+
+  @media screen and (max-width: 390px) {
+    #product_collection_with_image_mobile > div > a > div > h1 {
+      max-width: 12rem;
+    }
+  }
+
+  #product_collection_with_image > div > a > div > div,
+  #product_collection_with_image_mobile > div > a > div > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #product_collection_with_image > div > a > div > div > span:nth-child(1) {
+    text-align: right;
+    font-size: 18px;
+    text-decoration: line-through;
+    line-height: 22px;
+    font-weight: 600;
+  }
+
+  #product_collection_with_image_mobile > div > a > div > div > span:nth-child(1) {
+    text-align: right;
+    font-size: 14px;
+    text-decoration: line-through;
+    line-height: 14px;
+    font-weight: 600;
+  }
+
+  #product_collection_with_image > div > a > div > div > span:nth-child(2) {
+    font-size: 26px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+
+  #product_collection_with_image_mobile > div > a > div > div > span:nth-child(2) {
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
+  }
+
+  #product_collection_with_image_mobile > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+  }
+
+  #product_collection_with_image > div > img {
+    max-width: 450px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  #product_collection_with_image_mobile > div > img {
+    width: 100%;
+    height: 162px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  #product_collection_with_image > div > ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.45rem;
+    list-style-type: none;
+  }
+
+  #product_collection_with_image_mobile > div > ul {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #product_collection_with_image_mobile > div > ul > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  #product_collection_with_image > div > ul > li,
+  #product_collection_with_image_mobile > div > ul > div > li {
+    display: grid;
+  }
+
+  @media screen and (max-width: 2199px) {
+    #product_collection_with_image > div > ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    #product_collection_with_image > div > ul > li:nth-child(4) {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 1900px) {
+    #product_collection_with_image > div > a {
+      min-width: 550px;
+    }
+  }
+
+  @media screen and (max-width: 1299px) {
+    #product_collection_with_image > div > ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #product_collection_with_image > div > ul > li:nth-child(3) {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #product_collection_with_image > div > a {
+      padding: 1rem;
+      min-width: 450px;
+      min-height: 0;
+    }
+
+    #product_collection_with_image > div > a > img {
+      width: 200px;
+    }
+
+    #product_collection_with_image > div > a > div > h1 {
+      font-size: 20px;
+      line-height: 20px;
+      max-width: 22rem;
+    }
+
+    #product_collection_with_image > h1 {
+      font-size: 24px;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #product_collection_with_image {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #product_collection_with_image {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    #product_collection_with_image > div > a {
+      min-width: 400px;
+      min-height: 350px;
+    }
+
+    #product_collection_with_image > div > a > div > h1 {
+      font-size: 18px;
+      line-height: 18px;
+      max-width: 20rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #product_collection_with_image {
+      display: none;
+    }
+
+    #product_collection_with_image_mobile {
+      display: grid;
+    }
+  }
+
+
+  @media screen and (max-width: 370px) {
+    #product_collection_with_image_mobile > div > ul > div {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, max-content);
+    }
+  }
+</style>
+
+<section id="product_collection_with_image">
+  {% if section.settings.selected_section_title %}
+    <h1>{{ section.settings.selected_section_title }}</h1>
+  {% endif %}
+
+  <div>
+    {% if section.settings.desktop_image and section.settings.selected_product %}
+      <a
+        href="{{ section.settings.selected_product.url }}"
+        style="background-image: url({{ section.settings.desktop_image | img_url: 'master' }})"
+      >
+        {% if section.settings.selected_product_image %}
+          <img
+            loading="lazy"
+            src="{{ section.settings.selected_product_image | img_url: 'master' }}"
+            width="220px"
+            height="100%"
+            alt="{{ section.settings.selected_product.title }}"
+          >
+        {% else %}
+          <img
+            loading="lazy"
+            src="{{ section.settings.selected_product.featured_image | img_url: 'master' }}"
+            width="220px"
+            height="100%"
+          >
+        {% endif %}
+
+        <div>
+          <h1>{{ section.settings.selected_product.title }}</h1>
+
+          <div>
+            <span>{{ section.settings.selected_product.compare_at_price | money }}</span>
+
+            <span>{{ section.settings.selected_product.price | money }}</span>
+          </div>
+        </div>
+      </a>
+    {% endif %}
+
+    {% assign collection = collections[section.settings.collection] %}
+    {% if collection and collection.products.size > 0 %}
+      <ul>
+        {% for product in collection.products limit: 4 %}
+          <li>
+            {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</section>
+
+<section id="product_collection_with_image_mobile">
+  {% if section.settings.selected_section_title %}
+    <h1>{{ section.settings.selected_section_title }}</h1>
+  {% endif %}
+
+  <div>
+    {% if section.settings.mobile_image and section.settings.selected_product %}
+      <a
+        href="{{ section.settings.selected_product.url }}"
+        style="background-image: url({{ section.settings.mobile_image | img_url: 'master' }})"
+      >
+        {% if section.settings.selected_product_image %}
+          <img
+            loading="lazy"
+            src="{{ section.settings.selected_product_image | img_url: 'master' }}"
+            width="80px"
+            height="100%"
+          >
+        {% else %}
+          <img
+            loading="lazy"
+            src="{{ section.settings.selected_product.featured_image | img_url: 'master' }}"
+            width="80px"
+            height="100%"
+          >
+        {% endif %}
+
+        <div>
+          <h1>{{ section.settings.selected_product.title }}</h1>
+
+          <div>
+            <span>{{ section.settings.selected_product.compare_at_price | money }}</span>
+
+            <span>{{ section.settings.selected_product.price | money }}</span>
+          </div>
+        </div>
+      </a>
+    {% endif %}
+
+    {% assign collection = collections[section.settings.collection] %}
+    {% if collection and collection.products.size > 0 %}
+      <ul>
+        <div>
+          {% for product in collection.products limit: 4 %}
+            <li>
+              {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
+            </li>
+          {% endfor %}
+        </div>
+      </ul>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,342 @@
+{% schema %}
+{
+  "name": "Image and Text Overlay",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Selecione uma imagem",
+      "info": "1350x650px"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Selecione uma imagem mobile",
+      "info": "215x240px"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_icon",
+      "label": "Selecione um ícone"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição Desktop"
+    },
+    {
+      "type": "richtext",
+      "id": "description_2",
+      "label": "Descrição Mobile"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "URL do link"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Texto do link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image and Text Overlay",
+      "category": "Custom",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #image_text_overlay {
+    position: relative;
+    margin: 2rem 0 11rem 0;
+  }
+
+  #image_text_overlay_mobile {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    margin: 3rem 0;
+  }
+
+  @media screen and (max-width: 360px) {
+    #image_text_overlay_mobile {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    #image_text_overlay_mobile > #text_custom_overlay {
+      align-content: center;
+    }
+  }
+
+  #image_text_overlay > #image_custom_background {
+    display: grid;
+    position: relative;
+    width: 70%;
+    height: 650px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #image_text_overlay > #image_custom_background > img {
+      max-width: 200px;
+    }
+
+    #image_text_overlay > #text_custom_overlay {
+      top: 16% !important;
+      padding: 3rem 3vw 3rem 6rem !important;
+    }
+
+    #image_text_overlay > #text_custom_overlay > h1 {
+      font-size: 20px !important;
+    }
+
+    #image_text_overlay > #text_custom_overlay > span {
+      font-size: 16px !important;
+    }
+
+    #image_text_overlay > #text_custom_overlay > a {
+      font-size: 17px !important;
+    }
+
+    #image_text_overlay > #image_custom_background {
+      height: 550px !important;
+    }
+
+    #image_text_overlay > #image_custom_background > #retangulo_custom {
+      height: 420px !important;
+    }
+  }
+
+  #image_text_overlay_mobile > #image_custom_background {
+    display: grid;
+    background-size: cover;
+    background-position: center;
+    min-height: 240px;
+    background-repeat: no-repeat;
+  }
+
+  #image_text_overlay > #image_custom_background > img {
+    align-self: center;
+  }
+
+  #image_text_overlay_mobile > #image_custom_background > img {
+    align-self: end;
+    margin-bottom: 0.5rem;
+    width: 100px;
+    height: 100px;
+  }
+
+  #image_text_overlay > #image_custom_background > #retangulo_custom {
+    position: absolute;
+    border: 2px solid #88A44E;
+    width: 42vw;
+    top: 4rem;
+    height: 470px;
+    left: 30vw;
+  }
+
+  @media screen and (min-width: 2000px) {
+    #image_text_overlay > #text_custom_overlay {
+      width: 60%;
+    }
+
+    #image_text_overlay > #text_custom_overlay > span {
+      max-width: 60rem !important;
+    }
+
+    #image_text_overlay > #image_custom_background {
+      height: 580px;
+    }
+  }
+
+  #image_text_overlay > #text_custom_overlay {
+    position: absolute;
+    top: 18%;
+    right: 0;
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 2rem;
+    text-align: left;
+    justify-content: left;
+    align-items: center;
+    background-color: #258439;
+    padding: 3rem 3vw 3rem 8rem;
+    color: white;
+    box-shadow: -8px 0 15px -5px rgba(0, 0, 0, 0.5);
+  }
+
+  #image_text_overlay_mobile > #text_custom_overlay {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1rem;
+    text-align: left;
+    justify-content: left;
+    align-items: center;
+    background-color: #258439;
+    padding: 2rem 1rem;
+    align-content: center;
+    color: white;
+  }
+
+  #image_text_overlay > #text_custom_overlay > h1 {
+    font-size: 28px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #image_text_overlay_mobile > #text_custom_overlay > h1 {
+    font-size: 18px;
+    text-transform: uppercase;
+    line-height: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  #image_text_overlay > #text_custom_overlay > span {
+    max-width: 45rem;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+  }
+
+  #image_text_overlay_mobile > #text_custom_overlay > span {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 16px;
+    font-weight: 500;
+  }
+
+  #image_text_overlay > #text_custom_overlay > a {
+    font-size: 21px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+
+  #image_text_overlay_mobile > #text_custom_overlay > a {
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    line-height: 16px;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width: 1400px) {
+    #image_text_overlay > #image_custom_background {
+      width: 60%;
+    }
+
+    #image_text_overlay > #text_custom_overlay {
+      padding: 3rem 3vw 3rem 6rem;
+    }
+
+    #image_text_overlay > #image_custom_background > img {
+      width: 250px;
+    }
+
+    #image_text_overlay > #image_custom_background > #retangulo_custom {
+      left: 25vw;
+    }
+
+    #image_text_overlay > #text_custom_overlay > span {
+      max-width: 40rem;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    #image_text_overlay > #text_custom_overlay > span {
+      max-width: 45rem;
+    }
+
+    #image_text_overlay > #image_custom_background > #retangulo_custom {
+      left: 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #image_text_overlay {
+      display: none;
+    }
+
+    #image_text_overlay_mobile {
+      display: grid;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    #image_text_overlay_mobile > #text_custom_overlay {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<section id="image_text_overlay">
+  {% if section.settings.background_image %}
+    <div
+      class="lazy-bg"
+      id="image_custom_background"
+      data-bg="{{ section.settings.background_image | img_url: 'master' }}"
+    >
+      {% if section.settings.background_icon %}
+        <img loading="lazy" src="{{ section.settings.background_icon | img_url: 'master' }}">
+
+        <div id="retangulo_custom"></div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div id="text_custom_overlay">
+    {% if section.settings.title %}
+      <h1>{{ section.settings.title }}</h1>
+    {% endif %}
+
+    {% if section.settings.description %}
+      <span>{{ section.settings.description }}</span>
+    {% endif %}
+
+    {% if section.settings.link_text and section.settings.link_url %}
+      <a href="{{ section.settings.link_url }}">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </div>
+</section>
+
+<section id="image_text_overlay_mobile">
+  {% if section.settings.background_image_mobile %}
+    <div
+      class="lazy-bg"
+      id="image_custom_background"
+      data-bg="{{ section.settings.background_image_mobile | img_url: 'master' }}"
+    >
+      {% if section.settings.background_icon %}
+        <img loading="lazy" src="{{ section.settings.background_icon | img_url: 'master' }}">
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div id="text_custom_overlay">
+    {% if section.settings.title %}
+      <h1>{{ section.settings.title }}</h1>
+    {% endif %}
+
+    {% if section.settings.description_2 %}
+      <span>{{ section.settings.description_2 }}</span>
+    {% endif %}
+
+    {% if section.settings.link_text and section.settings.link_url %}
+      <a href="{{ section.settings.link_url }}">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </div>
+</section>

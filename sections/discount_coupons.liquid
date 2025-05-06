@@ -1,0 +1,148 @@
+{% schema %}
+{
+  "name": "Biopoints Discount Coupon",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da secção"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição da secção"
+    },
+    {
+      "type": "text",
+      "id": "btn_txt",
+      "label": "Texto do botão",
+      "default": "Adere já"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Link do botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Biopoints Discount Coupon",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section id="biopoints_discount_coupons">
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% unless section.settings.description == blank %}
+    {{ section.settings.description }}
+  {% endunless %}
+
+  {% unless section.settings.btn_txt == blank and section.settings.btn_url == blank %}
+    <a href="{{ section.settings.btn_url }}">{{ section.settings.btn_txt }}</a>
+  {% endunless %}
+</section>
+
+<style>
+  #biopoints_discount_coupons {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 2rem;
+    margin: 8rem var(--desktop-container-gutter) 4rem var(--desktop-container-gutter);
+    padding: 2rem 4rem;
+    border-radius: 0.5rem;
+    border: 1px solid #258439;
+    place-items: center;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #biopoints_discount_coupons {
+      margin: 8rem 9vw 4rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #biopoints_discount_coupons {
+      margin: 8rem 18vw 4rem 18vw;
+    }
+  }
+
+  #biopoints_discount_coupons > h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 36px;
+    font-weight: 900 !important;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: normal;
+  }
+
+  #biopoints_discount_coupons > p {
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  #biopoints_discount_coupons > a {
+    padding: 0.6rem 3rem;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    border-radius: 0.5rem;
+    background-color: #258439;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.15s ease;
+    width: max-content;
+    border: 1px solid transparent;
+  }
+
+  #biopoints_discount_coupons > a:hover {
+    border-color: #258439;
+    background-color: transparent;
+    color: #258439;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #biopoints_discount_coupons > h1 {
+      font-size: 26px;
+    }
+
+    #biopoints_discount_coupons > p {
+      font-size: 16px;
+    }
+
+    #biopoints_discount_coupons > a {
+      padding: 0.5rem 2rem;
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #biopoints_discount_coupons {
+      gap: 1rem;
+      margin: 2rem var(--mobile-container-gutter);
+      padding: 1rem;
+    }
+
+    #biopoints_discount_coupons > h1 {
+      font-size: 21px;
+    }
+
+    #biopoints_discount_coupons > p {
+      font-size: 16px;
+    }
+
+    #biopoints_discount_coupons > a {
+      padding: 0.5rem 2rem;
+      font-size: 14px;
+    }
+  }
+</style>

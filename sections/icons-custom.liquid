@@ -1,0 +1,207 @@
+{% schema %}
+{
+  "name": "Icons custom",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Imagem e títulos",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtítulo"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Icons custom",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #icons_custom {
+    margin: 6rem var(--mobile-container-gutter);
+  }
+
+  #icons_custom > ul {
+    display: grid;
+    grid-auto-columns:  max-content;
+    grid-auto-flow: column;
+    gap: 2rem;
+    list-style-type: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #icons_custom > ul > li > img {
+      width: 30px !important;
+    }
+
+    #icons_custom > ul > li > h1 {
+      font-size: 18px !important;
+    }
+
+    #icons_custom > ul > li > span {
+      font-size: 16px !important;
+    }
+  }
+
+  #icons_custom > ul > .divisor_custom_icons {
+    height: 25%;
+    background-color: #258439;
+    width: 0.1rem;
+  }
+
+  #icons_custom > ul > li {
+    display: grid;
+    grid-auto-rows:  max-content;
+    grid-auto-flow: row;
+    text-align: center;
+    justify-items: center;
+    color: #308a36;
+    position: relative;
+  }
+
+  #icons_custom > ul > li > img {
+    width: 40px;
+    height: auto;
+    margin: 0 auto 0.5rem auto;
+    display: block;
+  }
+
+  #icons_custom > ul > li > h1,
+  #icons_custom > ul > li > span {
+    font-size: 21px;
+    max-width: 13rem;
+    margin: 0 auto;
+    text-align: center;
+    line-height: normal;
+    font-weight: 500;
+  }
+
+  #icons_custom > ul > li > img,
+  #icons_custom > ul > li > h1,
+  #icons_custom > ul > li > span {
+    vertical-align: middle;
+  }
+
+  .line-space {
+    height: 30%;
+    width: 1px;
+    background-color: #308a36;
+    align-self: center;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #icons_custom {
+      margin: 4rem var(--mobile-container-gutter) 4rem var(--mobile-container-gutter);
+    }
+
+    #icons_custom > ul {
+      gap: 0.5rem;
+    }
+
+    #icons_custom > ul > li > img {
+      width: 20px;
+    }
+
+    #icons_custom > ul > li > h1 {
+      font-size: 14px;
+      max-width: 8rem;
+    }
+
+    #icons_custom > ul > li > span {
+      font-size: 13px;
+      max-width: 10rem;
+    }
+
+    .line-space {
+      height: 20%;
+    }
+  }
+
+  @media screen and (max-width: 319px) {
+    #icons_custom > ul {
+      grid-auto-rows: max-content;
+      grid-auto-flow: row;
+      justify-items: center;
+    }
+
+    #icons_custom > ul > .divisor_custom_icons {
+      width: 25%;
+      background-color: #258439;
+      height: 1px;
+    }
+  }
+
+  @media screen and (max-width: 376px) {
+    #icons_custom > ul > li > h1,
+    #icons_custom > ul > li > span {
+      max-width: 6rem;
+    }
+  }
+
+  @media screen and (max-width: 390px) and (min-width: 376px) {
+    #icons_custom > ul > li > img {
+      width: 16px;
+    }
+
+    #icons_custom > ul > li > h1 {
+      font-size: 12px;
+      max-width: 7rem;
+    }
+
+    #icons_custom > ul > li > span {
+      font-size: 12px;
+      max-width: 8rem;
+    }
+
+    #icons_custom > ul > li > img {
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<section id="icons_custom">
+  <ul>
+    {% for block in section.blocks %}
+      {% if forloop.index == 2 %}
+        <div class="divisor_custom_icons"></div>
+      {% endif %}
+
+      <li>
+        <img
+          src="{{ block.settings.image | img_url: 'master' }}"
+          width="80px"
+          height="100%"
+        >
+
+        <h1>{{ block.settings.title }}</h1>
+
+        <span>{{ block.settings.subtitle }}</span>
+      </li>
+
+      {% if forloop.index == 2 %}
+        <div class="divisor_custom_icons"></div>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>

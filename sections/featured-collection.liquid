@@ -1,0 +1,321 @@
+{%- capture section_settings -%}
+{
+  "stackable": {% if section.settings.layout == 'vertical' and section.settings.stack_products == false %}false{% else %}true{% endif %},
+  "layout": {{ section.settings.layout | json }}
+}
+{%- endcapture -%}
+
+<section
+  class="section featured-collection-section {% if section.settings.show_only_mobile != blank %} hidden-lap-and-up {% endif %} {% if section.settings.show_only_desktop != blank %} hidden-pocket {% endif %}"
+  data-section-id="{{ section.id }}"
+  data-section-type="featured-collection"
+  data-section-settings="{{ section_settings }}"
+>
+  {%- assign collection = collections[section.settings.collection] -%}
+
+  <div class="container">
+    <header class="section__header">
+      <div class="section__header-stack">
+        <h2 class="section__title heading h3">{{ section.settings.title | default: collection.title | escape }}</h2>
+
+        {%- if collection and collection.title != blank -%}
+          <div class="section_title_button_container">
+            <a href="{{ collection.url | default: '#' }}">
+              <button class="section_title_button">Ver Categoria {{ collection.title }}</button>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.link_title != blank -%}
+        <a
+          href="{{ section.settings.link_url | default: collection.url | default: '#' }}"
+          class="section__action-link link"
+        >
+          {{- section.settings.link_title | escape }}
+          {% render 'icon', icon: 'tail-right' -%}
+        </a>
+      {%- endif -%}
+    </header>
+  </div>
+
+  <div class="container {% if section.settings.layout != 'vertical' or section.settings.stack_products %}container--flush{% endif %}">
+    {%- capture product_list -%}
+      <div class="product-list product-list--{{ section.settings.layout }} {% if section.settings.stack_products %}product-list--stackable{% elsif section.settings.layout == 'vertical' %}product-list--scrollable{% endif %}">
+        {%- assign use_placeholder = true -%}
+
+        {%- if collection.empty? -%}
+          {%- assign products = (1..section.settings.products_count) -%}
+        {%- else -%}
+          {%- assign products = collection.products -%}
+          {%- assign use_placeholder = false -%}
+        {%- endif -%}
+
+        {%- for product in products limit: section.settings.products_count -%}
+          {%- if section.settings.layout == 'vertical' -%}
+            {%- assign products_per_row = section.settings.products_count | at_most: 4 -%}
+
+            {%- if section.settings.stack_products -%}
+              {%- capture grid_classes -%}1/1 1/4--lap 1/4--desk 1/4--wide{%- endcapture -%}
+            {%- else -%}
+              {%- capture grid_classes -%}1/1 1/4--lap 1/4--desk 1/4--wide{%- endcapture -%}
+            {%- endif -%}
+
+            {%- if use_placeholder -%}
+              {%- include 'product-item-placeholder', product: product, grid_classes: grid_classes, show_add_to_cart: section.settings.show_quick_buy -%}
+            {%- else -%}
+              {%- include 'product-item', product: product, grid_classes: grid_classes, show_add_to_cart: section.settings.show_quick_buy -%}
+            {%- endif -%}
+          {%- elsif section.settings.layout == 'horizontal' -%}
+            {%- if use_placeholder -%}
+              {%- include 'product-item-placeholder', product: product, horizontal: true, grid_classes: '1/2--tablet 1/3--lap-and-up', show_add_to_cart: false -%}
+            {%- else -%}
+              {%- include 'product-item', product: product, horizontal: true, grid_classes: '1/2--tablet 1/3--lap-and-up', show_add_to_cart: false -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- assign mod = forloop.index0 | modulo: 3 -%}
+
+            {%- if mod == 0 -%}
+              <div class="product-list__column product-list__column--highlight">
+            {%- elsif mod == 1 -%}
+              <div class="product-list__column {% if forloop.last %}product-list__column--shrink{% endif %}">
+            {%- endif -%}
+
+            {%- if mod == 0 -%}
+              {%- if use_placeholder -%}
+                {%- include 'product-item-placeholder', product: product, show_add_to_cart: false -%}
+              {%- else -%}
+                {%- include 'product-item', product: product, show_add_to_cart: false -%}
+              {%- endif -%}
+            {%- else -%}
+              {%- if use_placeholder -%}
+                {%- include 'product-item-placeholder', product: product, horizontal: true, show_add_to_cart: false -%}
+              {%- else -%}
+                {%- include 'product-item', product: product, horizontal: true, show_add_to_cart: false -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if mod == 0 or mod == 2 or forloop.last -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endcapture -%}
+
+    {%- if section.settings.layout == 'vertical' and section.settings.stack_products == false -%}
+      <div class="scroller">
+        <div class="scroller__inner">
+          {{ product_list }}
+        </div>
+      </div>
+    {%- else -%}
+      {{ product_list }}
+    {%- endif -%}
+
+    {%- if section.settings.mobile_button_text != blank -%}
+      <div class="section_title_button_container_mobile">
+        <button class="section_title_button_mobile">
+          {{ section.settings.mobile_button_text }}
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+    .section_title_button_container {
+      margin-top: 10px;
+    }
+
+    .section_title_button {
+      color: #ffffff;
+      border: none;
+      padding: 0.25rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    @media screen and (max-width: 768px) {
+      .section_title_button {
+        font-size: 10px; /* Fonte menor no mobile */
+        padding: 4px 8px;
+      }
+    }
+
+    .button--primary.swym-button.swym-add-to-wishlist-view-product {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile {
+      background: #F7D147;
+      border-radius: 15px;
+      font-weight: 500;
+      font-size: 15px;
+      text-transform: uppercase;
+      width: 100%;
+      margin-top: 12px;
+      font-family: 'RedHatDisplay';
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile {
+      display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }}  button.section_title_button {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile p {
+      padding: 7px 0;
+      line-height: 18px;
+      font-size: 12px;
+      font-family: 'RedHatDisplay';
+      text-transform: none;
+    }
+    }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .product-item:nth-of-type(1) {
+      grid-column: 1 / 2;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(2) {
+      grid-column: 2 / 3;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(3) {
+      grid-column: 1 / 3;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(3) a.product-item__title.text--strong.link {
+      margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(3) .button__group-wrapper {
+      width: 200%;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(4) {
+      display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(5) {
+      display: none;
+  }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_only_desktop",
+      "label": "Show only desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_mobile",
+      "label": "Show only mobile",
+      "default": false
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured collection"
+    },
+    {
+      "type": "text",
+      "id": "title_button",
+      "label": "Heading button",
+      "default": "EXPLORA MAIS"
+    },
+    {
+      "type": "richtext",
+      "id": "mobile_button_text",
+      "label": "Button text",
+      "default": "<p>EXPLORA MAIS</p>"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Products to show",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        },
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "collage",
+          "label": "Collage"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_products",
+      "label": "Stack products",
+      "info": "Only applicable if layout is set to vertical",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_buy",
+      "label": "Show quick buy",
+      "default": false,
+      "info": "Only shows if layout is set to vertical"
+    },
+    {
+      "type": "text",
+      "id": "link_title",
+      "label": "Link title",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL",
+      "info": "If empty, the collection URL is used."
+    }
+  ],
+  "presets": [
+    {
+      "category": "Collection",
+      "name": "Featured collection",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

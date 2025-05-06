@@ -1,0 +1,435 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    {% style %}
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Light.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Light.ttf?v=1740500321") format("truetype");
+        font-weight: 100 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-LightItalic.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-LightItalic.ttf?v=1740500320") format("truetype");
+        font-weight: 100 300;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Regular.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Regular.ttf?v=1740500321") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Italic.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Italic.ttf?v=1740500321") format("truetype");
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Medium.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Medium.ttf?v=1740500321") format("truetype");
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-MediumItalic.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-MediumItalic.ttf?v=1740500321") format("truetype");
+        font-weight: 500;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBold.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBold.ttf?v=1740500320") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBoldItalic.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBoldItalic.ttf?v=1740500321") format("truetype");
+        font-weight: 600;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Bold.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Bold.ttf?v=1740500321") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BoldItalic.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BoldItalic.ttf?v=1740500320") format("truetype");
+        font-weight: 700;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBold.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBold.ttf?v=1740500320") format("truetype");
+        font-weight: 800;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBoldItalic.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBoldItalic.ttf?v=1740500321") format("truetype");
+        font-weight: 800;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Black.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Black.ttf?v=1740500320") format("truetype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Red Hat Display";
+        src: url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BlackItalic.woff2?v=1740479613") format("woff2"),
+             url("https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BlackItalic.ttf?v=1740500320") format("truetype");
+        font-weight: 900;
+        font-style: italic;
+      }
+    {% endstyle %}
+
+    <meta name="facebook-domain-verification" content="2ofac6fkqmxfrhdtzztfz5d7m3mcul">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, maximum-scale=1.0">
+    <meta name="theme-color" content="{{ settings.accent_color }}">
+
+    {% if product %}
+      {% assign product_has_collection = false %}
+
+      {% for collection in product.collections %}
+        {% if collection.title == 'Estimulante sexual' %}
+          {% assign product_has_collection = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if product.tags contains 'Estimulante sexual' or product_has_collection %}
+        <meta name="robots" content="noindex">
+      {% endif %}
+    {% endif %}
+
+    {% if collection and collection.title == 'Estimulante sexual' %}
+      <meta name="robots" content="noindex">
+    {% endif %}
+
+    <script>
+      (function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"343146853", enableAutoSpaTracking: true};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");
+    </script>
+
+    <script>
+      window.uetq = window.uetq || [];
+
+      var consent = localStorage.getItem('shopify_consent');
+      var adStorageDefault = (consent === 'granted') ? 'granted' : 'denied';
+
+      window.uetq.push('consent', 'default', {
+        'ad_storage': adStorageDefault
+      });
+    </script>
+
+    {%- capture seo_page_title -%}
+      {%- if request.page_type == 'search' and search.terms != blank -%}
+        {{ search.terms | split: ' AND ' | last | split: 'product_type:' | last }} - {{ shop.name }}
+      {%- else -%}
+        {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+      {%- endif -%}
+    {%- endcapture -%}
+
+    <title>{{- seo_page_title -}}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+      <meta name="twitter:description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const collectionLink = document.querySelector(".link_collection");
+        
+        const canonicalTag = document.createElement("link");
+        canonicalTag.rel = "canonical";
+        
+        if (collectionLink && collectionLink.href) {
+          const linkPart = collectionLink.href.split("pt")[1];
+          
+          canonicalTag.href = `{{ shop.url }}${linkPart}{{ request.path }}`;
+        } else {
+          canonicalTag.href = "{{ shop.url }}{{ request.path }}";
+        }
+
+        document.head.appendChild(canonicalTag);
+      });
+    </script>
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png">
+    {%- endif -%}
+
+    {%- comment -%}Few prefech to increase performance on commonly used third-parties{%- endcomment -%}
+    <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
+    <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com">
+    <link rel="preconnect" href="https://fonts.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.googleapis.com">
+    <link rel="dns-prefetch" href="https://maps.gstatic.com">
+
+    {% render 'social-meta-tags' %}
+    {% render 'css-variables' %}
+
+    {{ content_for_header }}
+
+    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+
+    <script>
+      window.theme = {
+        pageType: {{ request.page_type | json }},
+        cartCount: {{ cart.item_count | json }},
+        moneyFormat: {{ shop.money_format | json }},
+        moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+        showDiscount: {% if settings.show_discount %}true{% else %}false{% endif %},
+        discountMode: {{ settings.discount_mode | json }},
+        searchMode: {{ settings.search_mode | json }},
+        cartType: {{ settings.cart_type | json }}
+      };
+
+      window.routes = {
+        rootUrl: {{ routes.root_url | json }},
+        rootUrlWithoutSlash: {% if routes.root_url == '/' %}''{% else %}{{ routes.root_url | json }}{% endif %},
+        cartUrl: {{ routes.cart_url | json }},
+        cartAddUrl: {{ routes.cart_add_url | json }},
+        cartChangeUrl: {{ routes.cart_change_url | json }},
+        searchUrl: {{ routes.search_url | json }},
+        productRecommendationsUrl: {{ routes.product_recommendations_url | json }}
+      };
+
+      window.languages = {
+        productRegularPrice: {{ 'product.general.regular_price' | t | json }},
+        productSalePrice: {{ 'product.general.sale_price' | t | json }},
+        collectionOnSaleLabel: {{ 'collection.product.discount_html' | t | json }},
+        productFormUnavailable: {{ 'product.form.unavailable' | t | json }},
+        productFormAddToCart: {% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | json }}{% else %}{{ 'product.form.add_to_cart' | t | json }}{% endif %},
+        productFormSoldOut: {{ 'product.form.sold_out' | t | json }},
+        productAdded: {{ 'product.form.added' | t | json }},
+        productAddedShort: {{ 'product.form.added_short' | t | json }},
+        shippingEstimatorNoResults: {{ 'cart.shipping_estimator.no_results_title' | t | json }},
+        shippingEstimatorOneResult: {{ 'cart.shipping_estimator.one_result_title' | t | json }},
+        shippingEstimatorMultipleResults: {{ 'cart.shipping_estimator.multiple_results_title' | t | json }},
+        shippingEstimatorErrors: {{ 'cart.shipping_estimator.errors' | t | json }}
+      };
+
+      window.lazySizesConfig = {
+        loadHidden: false,
+        hFac: 0.8,
+        expFactor: 3,
+        customMedia: {
+          '--phone': '(max-width: 640px)',
+          '--tablet': '(min-width: 641px) and (max-width: 1023px)',
+          '--lap': '(min-width: 1024px)'
+        }
+      };
+
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    {%- if request.page_type == 'customers/addresses' -%}
+      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+      <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+    {%- endif -%}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js" defer></script>
+    <script src="{{ 'custom.js' | asset_url }}" defer></script>
+
+    {%- if request.page_type != 'cart' -%}
+      <script>
+        (function () {
+          window.onpageshow = function () {
+            document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+              bubbles: true,
+              detail: {scrollToTop: false}
+            }));
+          };
+        })();
+      </script>
+    {%- endif -%}
+
+    {% capture boostersnippet %}
+      {% render "booster-apps-common" %}
+    {% endcapture %}
+
+    {% unless boostersnippet contains 'Liquid error' %}
+      {{ boostersnippet }}
+    {% endunless %}
+
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y) {
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "ick368r4xr");
+    </script>
+
+    {% render 'microdata-schema' %}
+  </head>
+
+  <body
+    class="bioself--v1 {% if settings.animation_image_zoom %}features--animate-zoom{% endif %} template-{{ request.page_type | handle }} {% if request.page_type contains '/' %}template-{{ request.page_type | split: '/' | last | handle }}{% endif %}"
+    data-instant-intensity="viewport"
+  >
+    <div id="loader"></div>
+
+    <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
+    <span class="loading-bar"></span>
+
+    {% section 'announcement-bar' %}
+
+    {%- unless request.page_type == 'cart' -%}
+      {% section 'popups_custom' %}
+    {%- endunless -%}
+
+    {% section 'header_custom' %}
+
+    {% if template.name == 'index' %}
+      {% section 'announcement-bar-bottom' %}
+    {% endif %}
+
+    <main id="main" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'newsletter' %}
+    {% section 'footer-customizado' %}
+    {% section 'footer-last-custom' %}
+    {% section 'footer' %}
+
+    <ul hidden>
+      <li id="a11y-new-window-message">{{ 'general.accessibility.new_window' | t }}</li>
+    </ul>
+
+    {% render 'swymSnippet' %}
+    {% render 'rivoSnippet' %}
+    {% render 'subscribe-it-helper' %}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
+      
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const element = entry.target;
+              const bgUrl = element.getAttribute('data-bg');
+              if (bgUrl) {
+                element.style.backgroundImage = `url('${bgUrl}')`;
+                element.removeAttribute('data-bg');
+              }
+              observer.unobserve(element);
+            }
+          });
+        });
+      
+        lazyBackgrounds.forEach(bg => observer.observe(bg));
+      });
+    </script>
+
+    <style>
+      #modal_overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        display: none;
+      }
+    </style>
+
+    <div id="modal_overlay"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const anchors = document.querySelectorAll(".go_to_ebook");
+
+        const onResize = () => {
+          if (anchors.length > 0) {
+            if (window.innerWidth > 1000) {
+              anchors.forEach((anchor) => anchor.href = "/pages/ebook-suplementacao#newsletter_custom");
+            } else {
+              anchors.forEach((anchor) => anchor.href = "/pages/ebook-suplementacao#newsletter_custom_mobile_1");
+            }
+          }
+        }
+
+        onResize();
+
+        window.addEventListener("resize", onResize);
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const allAnchors = document.querySelectorAll('a');
+
+        allAnchors.forEach(anchor => {
+          const anchorLink = anchor.href.split("#")[1];
+
+          anchor.addEventListener("click", function(e) {
+            if (anchor.href.includes("#") && anchor.href.split("#")[0] === window.location.href.split("#")[0]) {
+              e.preventDefault();
+
+              const targetElement = document.getElementById(anchorLink);
+
+              if (targetElement) {
+                window.scrollTo({ top: targetElement.offsetTop - 100 });
+              }
+            }
+          });
+        });
+      });
+    </script>
+
+    <script>
+      window.addEventListener("click", function(e) {
+        const elementId = e.target.getAttribute("id");
+
+        if (elementId === "shopify-pc__banner__btn-accept" || elementId === "shopify-pc__prefs__header-accept") {
+          localStorage.setItem('shopify_consent','granted');
+
+          window.uetq = window.uetq || [];
+          window.uetq.push('consent', 'update', {
+            'ad_storage': 'granted'
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

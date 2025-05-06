@@ -1,0 +1,201 @@
+{%- assign dateFormat = '%d %b %Y' -%}
+
+{%- assign monthsPortuguese = 'janeiro,fevereiro,março,abril,maio,junho,julho,agosto,setembro,outubro,novembro,dezembro' | split:',' -%}
+
+{%- assign formattedDate = article.published_at | date:dateFormat, 'pt_PT' -%}
+
+{%- assign monthIndex = article.published_at | date: '%m' | minus: 1 -%}
+{%- assign monthPortuguese = monthsPortuguese[monthIndex] | capitalize | slice: 0, 3 -%}
+
+{%- assign day = article.published_at | date: '%d' -%}
+{%- assign year = article.published_at | date: '%Y' -%}
+
+{%- capture article_first_tag -%}
+  {%- if section.settings.show_category and article.tags.size > 0 -%}
+
+    {% for tag in article.tags %}
+      {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao' %}
+        {% assign tags_without_author = tag %}
+        <span class="article-item__meta-item article-tag">{{ tags_without_author }}</span>
+      {% endunless %}
+    {% endfor %}
+
+  {%- endif -%}
+{%- endcapture -%}
+
+{% if featured %}
+    <div class="article-item article-item--featured">
+      {%- if article.image -%}
+        <a href="{{ article.url }}" class="article-item__image-container">
+          {%- capture supported_sizes -%}
+            {%- render 'image-size', sizes: '200,300,400,500,600,700,800,900,1000,1200,1400', image: article.image -%}{%- endcapture -%}
+          {%- assign image_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {%- assign blog_sidebar_image = article.metafields.article.blog_sidebar_image.value | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+          <div class="aspect-ratio" style="padding-bottom: 54%">
+            <img
+              class="article-item__image lazyload image--fade-in"
+              data-src="{{ image_url }}"
+              data-widths="[{{ supported_sizes }}]"
+              data-sizes="auto"
+              alt="{{ article.image.alt | escape }}">
+
+            <noscript>
+              <img
+                class="article-item__image"
+                src="{{ article.image | img_url: '600x' }}"
+                alt="{{ article.image.alt | escape }}">
+            </noscript>
+
+            {{ article_first_tag }}
+          </div>
+        </a>
+      {%- endif -%}
+
+      {%- capture article_title -%}
+        {%- if request.page_type == 'index' -%}
+          <h3 class="article-item__title heading h4">
+            <a href="{{ article.url }}" class="link">{{ article.title | truncate: 100, "..." }}</a>
+          </h3>
+        {%- else -%}
+          <h2 class="article-item__title heading {% if featured %}h1{% else %}h3{% endif %}">
+            <a href="{{ article.url }}" class="link">{{ article.title | truncate: 100, "..." }}</a>
+          </h2>
+          <div class="article-item-content">
+            {%- if section.settings.list_show_excerpt -%}
+              {%- if article.excerpt != blank -%}
+                {{- article.excerpt -}}
+              {%- else -%}
+                {{ article.content | strip_html | truncate: 150, "..." }}
+              {% endif %}
+              {% endif %}
+          </div>
+        {%- endif -%}
+      {%- endcapture -%}
+
+      {%- capture article_meta -%}
+        <div class="article_details">
+          {%- if section.settings.show_author -%}
+            {%- for tag in article.tags -%}
+              {% if tag contains 'author' %}
+                {% assign author = tag | split: "_" %}
+                <a class="article-author" href="/blogs/{{ blog.handle }}/tagged/{{ tag | handle }}">{{ author[1] }},
+                </a>
+              {% endif %}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if section.settings.show_date -%}
+            <time class="article-item__meta-item article-date">{{ day }} {{ monthPortuguese }} {{ year }}</time>
+          {%- endif -%}
+        </div>
+      {%- endcapture -%}
+
+      {%- if article_meta != blank -%}
+        <div class="article-item__meta">
+          {{ article_meta }}
+          {{ article_title }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_excerpt -%}
+        <div class="article-item__excerpt rte">
+          {%- if article.excerpt != blank -%}
+            {{- article.excerpt -}}
+          {%- else -%}
+            {{- article.content | strip_html | truncate: 150 -}}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+{% else %}
+
+    <div class="article-item">
+      {%- if article.image -%}
+        <a href="{{ article.url }}" class="article-item__image-container">
+          {%- capture supported_sizes -%}
+            {%- render 'image-size', sizes: '200,300,400,500,600,700,800,900,1000,1200,1400', image: article.image -%}
+          {%- endcapture -%}
+          {%- assign image_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+          {%- assign blog_article_list_image = article.metafields.article.blog_article_list_image.value | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+          <div class="aspect-ratio" style="padding-bottom: 54%">
+            <img
+              class="article-item__image lazyload image--fade-in"
+              data-src="{{ blog_article_list_image }}"
+              data-widths="[{{ supported_sizes }}]"
+              data-sizes="auto"
+              alt="{{ article.image.alt | escape }}" />
+
+            <noscript>
+              <img
+                class="article-item__image"
+                src="{{ blog_sidebar_image | img_url: '600x' }}"
+                alt="{{ article.image.alt | escape }}">
+            </noscript>
+
+            {{ article_first_tag }}
+          </div>
+        </a>
+      {%- endif -%}
+
+      {%- capture article_title -%}
+        {%- if request.page_type == 'index' -%}
+          <h3 class="article-item__title heading h4">
+            <a href="{{ article.url }}" class="link">{{ article.title | truncate: 100, "..." }}</a>
+          </h3>
+        {%- else -%}
+          <h2 class="article-item__title heading {% if featured %}h1{% else %}h3{% endif %}">
+            <a href="{{ article.url }}" class="link">{{ article.title | truncate: 100, "..." }}</a>
+          </h2>
+          <div class="article-item-content">
+            {%- if section.settings.list_show_excerpt -%}
+            {%- if article.excerpt != blank -%}
+              {{- article.excerpt -}}
+            {%- else -%}
+              {{ article.content | strip_html | truncate: 150, "..." }}
+            {% endif %}
+            {% endif %}
+          </div>
+        {%- endif -%}
+      {%- endcapture -%}
+
+      {%- capture article_meta -%}
+        <div class="article_details">
+          {%- if section.settings.show_author -%}
+            {%- for tag in article.tags -%}
+              {% if tag contains 'author' %}
+                {% assign author = tag | split: "_" %}
+                <a class="article-author" href="/blogs/{{ blog.handle }}/tagged/{{ tag | handle }}">{{ author[1] }},
+                </a>
+              {% endif %}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if section.settings.show_date -%}
+            <time class="article-item__meta-item article-date">{{ day }} {{ monthPortuguese }} {{ year }}</time>
+          {%- endif -%}
+        </div>
+      {%- endcapture -%}
+
+      {%- if article_meta != blank -%}
+        <div class="article-item__meta">
+          {{ article_meta }}
+          {{ article_title }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_excerpt -%}
+        <div class="article-item__excerpt rte">
+          {%- if article.excerpt != blank -%}
+            {{- article.excerpt -}}
+          {%- else -%}
+            {{- article.content | strip_html | truncate: 150 -}}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  
+{% endif %}
+

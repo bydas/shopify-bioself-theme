@@ -1,0 +1,104 @@
+<style>
+  #banner_collections_custom {
+    display: grid;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #banner_collections_custom > img {
+    width: 100%;
+    height: auto;
+    max-height: 45dvh;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #banner_collections_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #banner_collections_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #banner_collections_custom {
+      margin: 1rem var(--mobile-container-gutter);
+    }
+
+    #banner_collections_custom > img {
+      max-height: 20dvh;
+    }
+  }
+</style>
+
+{% assign block_has_tag = false %}
+
+{% unless section.blocks.size == 0 %}
+  {% for block in section.blocks %}
+    {% unless block_has_tag == true %}
+      {% assign array_tags = block.settings.tags | split: ',' %}
+  
+      {% for tag in array_tags %}
+        {% if collection.tags contains tag %}
+          {% assign block_has_tag = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      
+      {% unless block_has_tag == false %}
+        <section id="banner_collections_custom">
+          {% unless block.settings.banner == blank %}
+            <img
+              src="{{ block.settings.banner | img_url: 'master' }}"
+              alt="{% if block.settings.title == blank %}Imagem do banner{% else %}{{ block.settings.title }}{% endif %}"
+              width="0"
+              height="0"
+            >
+          {% endunless %}
+        </section>
+      {% endunless %}
+    {% endunless %}
+  {% endfor %}
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Banner Custom",
+    "blocks": [
+      {
+        "type": "custom",
+        "name": "Banner da Coleção",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Título do bloco"
+          },
+          {
+            "type": "image_picker",
+            "id": "banner",
+            "label": "Imagem do banner",
+            "info": "Recomendado: 1920x500px"
+          },
+          {
+            "type": "text",
+            "id": "tags",
+            "label": "Selecionar tags",
+            "info": "Separe as tags por vírgula e com o texto exatamente igual. E.g: 'Naturmil,Dietmed'"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner Custom",
+        "category": "banner"
+      }
+    ]
+  }
+{% endschema %}

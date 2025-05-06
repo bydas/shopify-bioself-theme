@@ -1,0 +1,199 @@
+<section class="section" data-section-id="{{ section.id }}" data-section-type="image-with-text">
+  <div class="full_container">
+         
+    {%- capture text -%}
+      <div class="image-with-text__text-container" style="background-color: {{ section.settings.text_area-background_color }} !important;">
+        <div class="image-with-text__text-aligner">
+          {%- if section.settings.title != blank -%}
+            <h2 class="heading h3" style="color: {{ section.settings.text_area-heading_color }} !important;">{{ section.settings.title | escape }}</h2>
+          {%- endif -%}
+
+          <div class="rte" style="color: {{ section.settings.text_area-text_color }} !important;">
+            {{ section.settings.content }}
+
+            {%- if section.settings.button_link != blank and section.settings.button_text != blank -%}
+              <a href="{{ section.settings.button_link }}" class="promo-block__cta button button--floating" style="background-color:{{ section.settings.main_button_background_color }}; color: {{ section.settings.main_button_text_color }};">{{ section.settings.button_text | escape }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endcapture -%}
+
+    {%- capture image -%}
+    <div class="image-with-text__image-container">
+    </div>
+    {%- endcapture -%}
+
+    <div class="image-with-text">
+        {{ text }}
+        {{ image }}
+    </div>
+  </div>
+</section>
+
+<style>
+  @media screen and (max-width: 999px) {
+  .image-with-text__image-container {
+    width: 100%!important;
+    order: 1;
+    }
+  }
+
+  .image-with-text__image-container {
+    height: 480px;
+  }
+
+  #shopify-section-newsletter {
+   display: none;
+  }
+
+  .image-with-text__image-container {
+    background-image: url("{{ section.settings.image | img_url: 'master' }}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-height: 100%;
+  }
+
+  .image-with-text {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .full_container {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .image-with-text__text-container:first-child {
+    margin-right: 20px;
+    padding-top: 4%;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  @media screen and (max-width: 640px) {
+    .image-with-text {
+      flex-direction: column;
+    }
+    .block-list {
+      margin-bottom: 25px;
+    }
+   
+    .image-with-text__image-container {
+      padding-bottom: 60%;
+      background-size: fill;
+      background-repeat: no-repeat;
+      margin-top: 20px;
+      margin-bottom: 0px;
+    }
+
+    .image-with-text__image-container {
+      height: 400px;
+    }
+
+    .image-with-text__text-container:first-child {
+      margin-right: 0px;
+      padding: 30px;
+    }
+    
+    .promo-block__heading {
+      font-size: 16px;
+    }
+
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1200 x 800px .jpg recommended"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_area-background_color",
+      "label": "background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Your title"
+    },
+    {
+      "type": "color",
+      "id": "text_area-heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Text",
+      "default": "<p>Use this text to share information about your brand with your customers.<br>Describe a product, share announcements, or welcome customers to your store.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_area-text_color",
+      "label": "Text area color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "main_button_background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "main_button_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Our products"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Image with text",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

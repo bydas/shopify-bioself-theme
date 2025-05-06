@@ -1,0 +1,328 @@
+<section class="section" data-section-id="{{ section.id }}" data-section-type="promo-block">
+  <div class="container">
+    {%- capture block_list -%}
+      <div class="block-list">
+        {%- for block in section.blocks -%}
+          <div id="block-{{ block.id }}" class="block-list__item {% if section.settings.expand_items %}block-list__item--grow{% endif %} 1/2--tablet-and-up 1/3--desk" {{ block.shopify_attributes }}>
+            <a {% if block.settings.button_link %}href="{{ block.settings.button_link }}"{% endif %} class="promo-block promo-block--{{ block.settings.content_position | replace: '_', '-' }} {% if block.settings.show_overlay %}promo-block--overlay{% endif %} promo-block--{{ section.settings.section_size }}">
+              <div class="promo-block__inner">
+                {%- if block.settings.icon != blank -%}
+                  <img src="{{ block.settings.icon | img_url:'master'}}" alt="{{ block.settings.icon.alt | escape }}">
+                {%- endif -%}
+
+                {%- if block.settings.title != blank -%}
+                  <p class="promo-block__heading heading h3" {% if block.settings.text_color %}style="color:{{ block.settings.text_color }};"{% endif %}>{{ block.settings.title | escape }}</p>
+                {%- endif -%}
+
+                {%- if block.settings.title != blank -%}
+                  <p class="promo-block__content">{{ block.settings.content | escape | newline_to_br }}</p>
+                {%- endif -%}
+
+                {%- if block.settings.button_text != blank -%}
+                <p class="promo-block__heading heading h3" style="color: {{ block.settings.button_text_color }};">{{ block.settings.button_text | escape | newline_to_br }}</p>
+                {%- endif -%}
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endcapture -%}
+
+    {%- if section.settings.stack_mobile -%}
+      {{ block_list }}
+    {%- else -%}
+      <div class="scroller">
+        <div class="scroller__inner">
+          {{ block_list }}
+        </div>
+      </div>
+    {%- endif -%}
+   
+    {% if section.settings.main_button_link  != blank %}
+    <a href="{{ section.settings.main_button_link }}">
+      <span class="promo-block__cta button button--floating rewards_button">{{ section.settings.main_button_text | escape }}</span>
+    </a>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  .rewards_button {
+    display: flex;
+    justify-content: center;
+    width: 25%;
+    margin-top: 75px;
+    margin-right: auto;
+    margin-bottom: 45px;
+    margin-left: auto;
+    color: #ffffff;
+    background: #308a36;
+  }
+
+  .rewards_button:hover {
+    background: #94c11f;
+  }
+
+  .block-list {
+    justify-content: space-evenly;
+  }
+
+  .block-list__item {
+    box-shadow: 0px 3px 6px #00000029;
+    margin: 30px 20px 10px;
+  }
+
+  .promo-block {
+    padding: 0px;
+  }
+
+  .promo-block__inner {
+    max-width: 360px;
+    height: 310px;
+    padding: 20px;
+  }
+
+  .promo-block__heading {
+    margin-top: 15px;
+    font-size: 18px;
+  }
+
+  .promo-block__subheading {
+    font-size: 18px;
+  }
+
+  .promo-block__content {
+    font-size: 16px;
+  }
+
+  .image-with-text__text-container:first-child {
+    margin-right: 0px;
+    padding: 45px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    .\31\/3--desk {
+      width: 25%;
+    }
+  }
+
+  @media screen and (max-width: 641px) {
+    .rewards_button {
+      display: flex;
+      justify-content: center;
+      width: 80%;
+      margin: 60px auto;
+    }
+
+    .promo-block__inner {
+      padding: 40px 20px 20px 30px;
+    }
+
+    .promo-block__inner {
+      max-width: 360px;
+      height: 350px;
+      padding-top: 20px;
+    } 
+
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Promotion blocks",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "expand_items",
+      "label": "Expand blocks to fill row",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_size",
+      "label": "Block height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_mobile",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "main_button_background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "main_button_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "main_button_text",
+      "label": "Button cta text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "main_button_link",
+      "label": "Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "icon",
+          "id" : "icon"
+        },
+        {          
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your heading"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Text",
+          "default": "Tell more about your product, collection..."
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "middle_left",
+              "label": "Middle left"
+            },
+            {
+              "value": "middle_center",
+              "label": "Middle center"
+            },
+            {
+              "value": "middle_right",
+              "label": "Middle right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "top_left"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Text",
+          "default": "#000000"
+        },
+        {
+          "type": "textarea",
+          "id": "button_text",
+          "label": "Text",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Text",
+      "name": "Promotion blocks",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "background": "#6f42ef",
+            "text_color": "#ffffff",
+            "button_text_color": "#6f42ef"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "background": "#fc2a68",
+            "text_color": "#ffffff",
+            "button_text_color": "#fc2a68"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "background": "#26c1ce",
+            "text_color": "#ffffff",
+            "button_text_color": "#26c1ce"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

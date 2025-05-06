@@ -1,0 +1,1092 @@
+{% schema %}
+{
+  "name": "Header custom",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Selecione a logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Selecione o menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_collection",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "image_1_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "image_1_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header custom",
+      "category": "header"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .cart_children_wrapper {
+    position: relative;
+  }
+
+  #search_results_modal {
+    display: none;
+    position: absolute;
+    z-index: 2000;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    overflow: auto;
+    background-color: #FFFEF8;
+    width: 100%;
+    top: 41px;
+    left: 0;
+    color: black;
+    border-radius: 0 0 0.65rem 0.65rem;
+    box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  }
+
+  #search_results_modal > p {
+    margin: 0;
+    font-size: 14px;
+    padding: 1rem;
+    background-color: #FFFEF8;
+  }
+
+  #search_results_modal > ul {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    list-style-type: none;
+  }
+
+  #search_results_modal > ul > div > a {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    transition: all 0.15s ease;
+  }
+
+  #search_results_modal > ul > div > a:hover,
+  #search_results_modal > a:hover {
+    background-color: #efefef;
+  }
+
+  #search_results_modal > button {
+    text-decoration: none;
+    color: #308a36;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.15s ease;
+    font-size: 16px;
+    font-weight: 700 !important;
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    margin: 0;
+  }
+
+  #header_custom {
+    display: grid;
+    grid-template-columns: max-content max-content 1fr max-content;
+    gap: 3rem;
+    padding: 1.25rem var(--desktop-container-gutter);
+    align-items: center;
+  }
+
+  #header_custom_mobile {
+    display: none;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    padding: 0.75rem var(--mobile-container-gutter);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #header_custom > a,
+  #header_custom_mobile > a {
+    display: grid;
+    line-height: normal;
+  }
+
+  #header_custom > a > img {
+    width: 156px;
+    object-fit: cover;
+    height: auto;
+    margin: 0;
+  }
+
+  #header_custom_mobile > a > img {
+    width: 106px;
+    object-fit: cover;
+    height: auto;
+    margin: 0;
+  }
+
+  #header_custom > #nav_header {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 2rem;
+    list-style-type: none;
+    align-items: center;
+  }
+
+  #header_custom_mobile > ul {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 1rem;
+    list-style-type: none;
+  }
+
+  #header_custom > #nav_header > .header_links_custom,
+  #header_custom > #icons_header > a,
+  #header_custom_mobile > ul > li,
+  #header_custom_mobile > ul > a > li {
+    display: grid;
+    color: #308a36;
+  }
+
+  #header_custom > #icons_header > a,
+  #header_custom_mobile > ul > li,
+  #header_custom_mobile > ul > a > li {
+    cursor: pointer;
+  }
+
+  #header_custom > #nav_header > .header_links_custom > a,
+  #header_custom > #icons_header > a > li > span {
+    color: #308a36;
+    text-decoration: none;
+    font-weight: 700 !important;
+    font-size: 16px;
+    transition: all 0.15s ease;
+    line-height: normal;
+  }
+
+  #header_custom > #nav_header > .header_links_custom > a:hover {
+    color: #ffbb12;
+  }
+
+  #search_form_mobile,
+  #header_custom > form {
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr max-content;
+    padding: 0.3rem;
+    border: 2px solid #308a36;
+    border-radius: 0.45rem;
+    background-color: #FFFEF8;
+    box-shadow: 0px 4px 0px rgba(255, 165, 0, 0.6);
+    align-items: center;
+  }
+
+  #search_form_mobile {
+    display: none;
+    margin: 0 var(--mobile-container-gutter) 0.5rem var(--mobile-container-gutter);
+  }
+
+  #search_form_mobile > #search-mobile {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    border-radius: 0.5rem;
+  }
+
+  #search_form_mobile > #search-mobile > input,
+  #header_custom > form > input {
+    border: none;
+    padding: 0 1rem;
+    background-color: #FFFEF8;
+    font-weight: 700 !important;
+  }
+
+  #search_form_mobile > #search-mobile > input {
+    padding: 0 0.5rem;
+  }
+
+  #search_form_mobile > #search-mobile > input:focus,
+  #header_custom > form > input:focus {
+    outline: none;
+  }
+
+  #search_form_mobile > #search-mobile > input::placeholder,
+  #header_custom > form > input::placeholder {
+    color: #807F7C;
+  }
+
+  #search_form_mobile > #search-mobile > button,
+  #header_custom > form > button {
+    display: grid;
+    padding: 0.45rem 0.65rem;
+    background-color: #308a36;
+    border-radius: 0.2rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  #search_form_mobile > #search-mobile > button > svg,
+  #header_custom > form > button > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #header_custom > #icons_header > a > li > svg,
+  #header_custom_mobile > ul > li > svg,
+  #header_custom_mobile > ul > a > li > svg,
+  #header_custom_mobile > ul > a > li > div > svg{
+    width: 22.5px;
+    height: 22.5px;
+  }
+
+  #header_custom > #icons_header {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    gap: 2rem;
+    list-style-type: none;
+    align-items: center;
+  }
+
+  #header_custom > #icons_header > a {
+    display: grid;
+  }
+
+  #header_custom > #icons_header > a > li {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  #header_custom > #icons_header > a > #cart_custom {
+    grid-template-columns: max-content;
+    gap: 0;
+  }
+
+  #header_custom > #icons_header > a > #cart_custom > .cart_children_wrapper > svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  #nav_header > .header_links_custom:hover > .mega-menu {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .cart_children_wrapper {
+    display: grid;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1400px) {
+    #header_custom,
+    #header_custom > #icons_header,
+    #header_custom > #nav_header {
+      gap: 1rem;
+    }
+
+    .mega-menu__linklist {
+      min-width: 720px;
+    }
+
+    #header_custom > a > img {
+      width: 120px;
+    }
+
+    #header_custom > form {
+      padding: 0.25rem;
+    }
+
+    #header_custom > form > input,
+    .mega-menu-tab-title,
+    #shopify-section-header_custom .letter_container a {
+      font-size: 13px;
+    }
+
+    #header_custom > form > button {
+      padding: 0.35rem 0.55rem;
+    }
+
+    #header_custom > #nav_header > .header_links_custom > a,
+    #header_custom > #icons_header > a > li > span {
+      font-size: 14px;
+    }
+
+    .mega-menu__promo > img {
+      min-width: 85px;
+      max-height: 160px;
+    }
+
+    #ver_tudo_tab,
+    .mega-menu__promo > span {
+      font-size: 14px !important;
+    }
+
+    .mega-menu__promo > span {
+      padding: 0.2rem 1.5rem;
+    }
+
+    .mega-menu__link {
+      font-size: 12px !important;
+    }
+
+    .mega-menu__promo > h1 {
+      font-size: 18px;
+    }
+
+    #header_custom > form > button > svg,
+    .header__cart-count {
+      width: 16px;
+      height: 16px;
+    }
+
+    .mega-manu-brands-item > a > img {
+      width: 175px;
+      height: 80px;
+    }
+
+    .header__cart-count {
+      right: -10px;
+      font-size: 10px;
+      min-width: 16px;
+    }
+
+    #header_custom > #icons_header > a > li > svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    #header_custom > #icons_header > a > #cart_custom > .cart_children_wrapper > svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    #header_custom {
+      grid-template-columns: max-content 1fr max-content;
+    }
+
+    #header_custom > #nav_header {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1399px) and (min-width: 1000px) {
+    #header_custom,
+    #header_custom > #icons_header,
+    #header_custom > #nav_header {
+      gap: 1rem !important;
+    }
+
+    .mega-menu__linklist {
+      min-width: 620px !important;
+    }
+
+    #header_custom > a > img {
+      width: 100px !important;
+    }
+
+    #header_custom > form {
+      padding: 0.25rem !important;
+    }
+
+    #header_custom > form > input,
+    .mega-menu-tab-title,
+    #shopify-section-header_custom .letter_container a {
+      font-size: 11px !important;
+    }
+
+    #header_custom > form > button {
+      padding: 0.35rem 0.55rem !important;
+    }
+
+    #header_custom > #nav_header > .header_links_custom > a,
+    #header_custom > #icons_header > a > li > span {
+      font-size: 12px !important;
+    }
+
+    .mega-menu__promo > img {
+      min-width: 65px !important;
+      max-height: 130px !important;
+    }
+
+    #ver_tudo_tab,
+    .mega-menu__promo > span {
+      font-size: 12px !important;
+    }
+
+    .mega-menu__promo > span {
+      padding: 0.2rem 1.5rem !important;
+    }
+
+    .mega-menu__link {
+      font-size: 11px !important;
+    }
+
+    .mega-menu__promo > h1 {
+      font-size: 16px !important;
+    }
+
+    #header_custom > form > button > svg,
+    .header__cart-count {
+      width: 14px !important;
+      height: 14px !important;
+    }
+
+    .mega-manu-brands-item > a > img {
+      width: 155px !important;
+      height: 55px !important;
+    }
+
+    .header__cart-count {
+      right: -9px !important;
+      font-size: 9px !important;
+      min-width: 15px !important;
+    }
+
+    #header_custom > #icons_header > a > li > svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
+
+    #header_custom > #icons_header > a > #cart_custom > .cart_children_wrapper > svg {
+      width: 22px !important;
+      height: 22px !important;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #header_custom {
+      padding: 1.25rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #header_custom {
+      padding: 1.25rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1499px) {
+    #header_custom {
+      gap: 2rem;
+    }
+
+    #header_custom > #icons_header {
+      gap: 1rem;
+    }
+
+    #header_custom > #icons_header > #cart_custom > .cart_children_wrapper > svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    #header_custom > form > button > svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    #header_custom > #icons_header > a > li > svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #header_custom {
+      display: none;
+    }
+
+    #header_custom_mobile {
+      display: grid;
+    }
+  }
+
+  @media screen and (max-height: 570px) {
+    #search_results_modal {
+      max-height: 40dvh;
+    }
+  }
+</style>
+
+<script>
+  async function searchCollections(query) {
+    const endpoint = '/api/2023-04/graphql.json';
+    const storefrontAccessToken = 'bfe1eb076dd1eeff39af26ba722acebf';
+  
+    const graphqlQuery = {
+      query: `
+        query($query: String!) {
+          collections(first: 3, query: $query) {
+            edges {
+              node {
+                id
+                title
+                handle
+                image {
+                  transformedSrc
+                }
+                custom_brand_description_2: metafield(namespace: "custom", key: "brand_description_2") { 
+                  value 
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        query: `title:*${query}*`
+      }
+    };
+  
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+      },
+      body: JSON.stringify(graphqlQuery)
+    });
+  
+    const data = await response.json();
+    const filteredData = data.data.collections.edges.filter(edge => edge.node && !!edge.node.custom_brand_description_2);
+    return filteredData.map(edge => edge.node);
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {  
+    const form = document.querySelector("#search_form");
+    const formMobile = document.querySelector("#search_form_mobile");
+    const cartIcons = document.querySelectorAll(".cart_link_custom");
+    const liMobile = document.querySelector("#open-search-bar-mobile");
+    let collectionLink = null;
+
+    liMobile.addEventListener("click", function (e) {
+      if (formMobile) {
+        if (formMobile.style.display === 'grid') {
+          formMobile.style.display = 'none';   
+        } else {
+          formMobile.style.display = 'grid';
+        }
+      }
+    });
+
+    const onResize = () => {
+      cartIcons.forEach((cartIcon) => {
+        cartIcon.addEventListener("click", function (e) {
+          e.preventDefault();
+    
+          const cart = cartIcon.nextSibling;
+  
+          if (innerWidth >= 2559) {
+            cart.style.marginRight = "17vw";
+          }
+          
+          if (innerWidth < 2559 && innerWidth >= 1499) {
+            cart.style.marginRight = "8vw";
+          }
+    
+          if (innerWidth < 1499 && innerWidth >= 1000) {
+            cart.style.marginRight = "2vw";
+          }
+    
+          if (innerWidth >= 1000) {
+            cart.style.top = "4.85rem";
+          }
+
+          if (innerWidth < 1000) {
+            cart.style.transform = 'scale(1)';
+            cart.style.maxHeight = 'calc(100vh - 40px)';
+            cart.style.padding = '1rem 1rem 2rem 1rem';
+
+            const a = cart.querySelector("a");
+
+            a.style.padding = '0 1rem';
+          }
+    
+          if (cart.style.visibility === 'visible') {
+            cart.style.visibility = 'hidden';
+            cart.style.opacity = 0;
+          } else {
+            cart.style.visibility = 'visible';
+            cart.style.opacity = 1; 
+          }
+        }); 
+      });
+    }
+
+    onResize();
+
+    window.addEventListener("resize", onResize);
+  
+    if (form) {
+      const div = form.querySelector("#search_results_modal");
+      const input = form.querySelector("input");
+
+      let currentController = null;
+      
+      input.addEventListener("input", async function (e) {
+        if (input.value) {
+          div.style.display = "grid";
+          form.style.boxShadow = "unset";
+
+          // Abortar requisição anterior
+          if (currentController) {
+            currentController.abort();
+          }
+          
+          currentController = new AbortController();
+          const { signal } = currentController;
+      
+          // Limpar completamente o div antes de adicionar novos resultados
+          div.innerHTML = "";
+
+          const showCollectionsResult = async () => {
+            try {
+              const collections = await searchCollections(e.target.value);
+              
+              if (collections.length > 0) {
+                collectionLink = `/collections/${collections[0].handle}`;
+                
+                // Verificar se já existe e remover se necessário
+                const existingResultsDiv = div.querySelector(".search-bar__result-products");
+                if (existingResultsDiv) {
+                  existingResultsDiv.remove();
+                }
+                
+                const firstDiv = document.createElement("div");
+                firstDiv.classList.add("search-bar__result-products");
+                
+                div.appendChild(firstDiv);
+                
+                collections.forEach((collection) => {
+                  const a = document.createElement("a");
+                  a.href = `/collections/${collection.handle}`;
+                  a.classList.add("search-bar__result-item");
+                  
+                  firstDiv.appendChild(a);
+                  
+                  const secondDiv = document.createElement("div");
+                  secondDiv.classList.add("search-bar__item-info");
+                  secondDiv.style.display = "grid";
+                  secondDiv.style.gridTemplateColumns = "repeat(2, max-content)";
+                  secondDiv.style.gap = "0.5rem";
+                  secondDiv.style.alignItems = "center";
+                  
+                  a.appendChild(secondDiv);
+                  
+                  const p = document.createElement("p");
+                  p.classList.add("search-bar__item-title");
+                  p.innerText = collection.title;
+                  
+                  const span = document.createElement("span");
+                  span.classList.add("search-bar__item-title");
+                  span.style.color = "#308a36";
+                  span.style.fontSize = "14px";
+                  span.style.lineHeight = "normal";
+                  span.innerText = "Marca";
+                  
+                  secondDiv.appendChild(p);
+                  secondDiv.appendChild(span);
+                });
+              }
+            } catch (error) {
+              if (error.name !== "AbortError") {
+                console.error("Error fetching collections:", error);
+              }
+            }
+          };
+
+          try {
+            // Executar busca de coleções e produtos em paralelo
+            const [productsResponse] = await Promise.all([
+              fetch(
+                `https://bioself.pt/search?view=ajax&q=${e.target.value}&options[prefix]=last&type=product`,
+                { signal }
+              ),
+              showCollectionsResult() // Esta função já está usando e.target.value
+            ]);
+            
+            const data = await productsResponse.text();
+            
+            if (data) {
+              const parser = new DOMParser();
+              const parsedHTML = parser.parseFromString(data, "text/html");
+              const elements = parsedHTML.body.children;
+              
+              Array.from(elements).forEach((element) => {
+                div.appendChild(element);
+              });
+            }
+          } catch (error) {
+            if (error.name !== "AbortError") {
+              console.error("Error when fetching data", error);
+            }
+          }
+        } else {
+          div.style.display = "none";
+          form.style.boxShadow = "0px 4px 0px rgba(255, 165, 0, 0.6)";
+        }
+      });
+  
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        if (input.value) {          
+          window.location.href = `/search?type=product&options%5Bprefix%5D=last&q=${input.value}` ?? collectionLink;
+  
+          input.value = "";
+        }
+      });
+    }
+
+    if (formMobile) {
+      const div = formMobile.querySelector("#search_results_modal");
+      const input = formMobile.querySelector("input");
+
+      let currentController = null;
+      
+      input.addEventListener("input", async function (e) {
+        if (input.value) {
+          div.style.display = "grid";
+          formMobile.style.boxShadow = "unset";
+
+          // Abortar requisição anterior
+          if (currentController) {
+            currentController.abort();
+          }
+          
+          currentController = new AbortController();
+          const { signal } = currentController;
+      
+          // Limpar completamente o div antes de adicionar novos resultados
+          div.innerHTML = "";
+
+          const showCollectionsResult = async () => {
+            try {
+              const collections = await searchCollections(e.target.value);
+              
+              if (collections.length > 0) {
+                collectionLink = `/collections/${collections[0].handle}`;
+                
+                // Verificar se já existe e remover se necessário
+                const existingResultsDiv = div.querySelector(".search-bar__result-products");
+                if (existingResultsDiv) {
+                  existingResultsDiv.remove();
+                }
+                
+                const firstDiv = document.createElement("div");
+                firstDiv.classList.add("search-bar__result-products");
+                
+                div.appendChild(firstDiv);
+                
+                collections.forEach((collection) => {
+                  const a = document.createElement("a");
+                  a.href = `/collections/${collection.handle}`;
+                  a.classList.add("search-bar__result-item");
+                  
+                  firstDiv.appendChild(a);
+                  
+                  const secondDiv = document.createElement("div");
+                  secondDiv.classList.add("search-bar__item-info");
+                  secondDiv.style.display = "grid";
+                  secondDiv.style.gridTemplateColumns = "repeat(2, max-content)";
+                  secondDiv.style.gap = "0.5rem";
+                  secondDiv.style.alignItems = "center";
+                  
+                  a.appendChild(secondDiv);
+                  
+                  const p = document.createElement("p");
+                  p.classList.add("search-bar__item-title");
+                  p.innerText = collection.title;
+                  
+                  const span = document.createElement("span");
+                  span.classList.add("search-bar__item-title");
+                  span.style.color = "#308a36";
+                  span.style.fontSize = "14px";
+                  span.style.lineHeight = "normal";
+                  span.innerText = "Marca";
+                  
+                  secondDiv.appendChild(p);
+                  secondDiv.appendChild(span);
+                });
+              }
+            } catch (error) {
+              if (error.name !== "AbortError") {
+                console.error("Error fetching collections:", error);
+              }
+            }
+          };
+
+          try {
+            // Executar busca de coleções e produtos em paralelo
+            const [productsResponse] = await Promise.all([
+              fetch(
+                `https://bioself.pt/search?view=ajax&q=${e.target.value}&options[prefix]=last&type=product`,
+                { signal }
+              ),
+              showCollectionsResult() // Esta função já está usando e.target.value
+            ]);
+            
+            const data = await productsResponse.text();
+            
+            if (data) {
+              const parser = new DOMParser();
+              const parsedHTML = parser.parseFromString(data, "text/html");
+              const elements = parsedHTML.body.children;
+              
+              Array.from(elements).forEach((element) => {
+                div.appendChild(element);
+              });
+            }
+          } catch (error) {
+            if (error.name !== "AbortError") {
+              console.error("Error when fetching data", error);
+            }
+          }
+        } else {
+          div.style.display = "none";
+          formMobile.style.boxShadow = "0px 4px 0px rgba(255, 165, 0, 0.6)";
+        }
+      });
+    
+      formMobile.addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        if (input.value) {          
+          window.location.href = `/search?type=product&options%5Bprefix%5D=last&q=${input.value}` ?? collectionLink;
+  
+          input.value = "";
+        }
+      });
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('unhandledrejection', function(event) {
+    if (event.reason && event.reason.name === 'AbortError') {
+      event.preventDefault();
+    }
+  });
+</script>
+
+<header id="header_custom">
+  {% if section.settings.logo %}
+    <a href="/">
+      <img
+        src="{{ section.settings.logo | img_url: 'master' }}"
+        alt="Bioself"
+        loading="lazy"
+      >
+    </a>
+  {% endif %}
+
+  <ul id="nav_header">
+    {% if section.settings.menu %}
+      {% for menu in linklists[section.settings.menu].links %}
+        <li class="header_links_custom">
+          <a href="{{ menu.url }}">{{ menu.title }}</a>
+
+          {%- render 'mega-menu', mega_menu: menu -%}
+        </li>
+      {% endfor %}
+    {% endif %}
+  </ul>
+
+  <form id="search_form">
+    <input type="search" placeholder="Pesquisar e... Bioself!">
+
+    <button type="submit">
+      <svg
+        stroke="#ffffff"
+        fill="none"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        height="22.5px"
+        width="22.5px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </button>
+
+    <div id="search_results_modal"></div>
+  </form>
+
+  <ul id="icons_header">
+    <a href="#ba-loyalty-home">
+      <li id="biopoints_custom">
+        <svg
+          fill="#308a36"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="22.5px"
+          height="22.5px"
+          viewBox="0 0 29.894 29.895"
+          xml:space="preserve"
+        >
+          <g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+            <g>
+              <g>
+                <g>
+                  <g>
+                    <path d="M14.308,13.048c0.355,0.35,0.924,0.35,1.28,0c1.22-1.203,3.813-3.803,4.451-4.792c0.908-1.406,1.812-2.566,1.812-4.591 S20.211,0,18.186,0c-1.416,0-2.63,0.812-3.24,1.987C14.336,0.812,13.123,0,11.707,0C9.682,0,8.042,1.64,8.042,3.665 S8.947,6.85,9.854,8.256C10.495,9.244,13.088,11.845,14.308,13.048z"></path> <path d="M15.587,16.848c-0.355-0.351-0.925-0.351-1.28,0c-1.22,1.202-3.813,3.804-4.452,4.791 c-0.907,1.406-1.813,2.566-1.813,4.593c0,2.023,1.64,3.663,3.665,3.663c1.416,0,2.63-0.812,3.24-1.985 c0.611,1.175,1.824,1.985,3.24,1.985c2.024,0,3.665-1.64,3.665-3.663c0-2.025-0.904-3.187-1.812-4.593 C19.402,20.65,16.807,18.049,15.587,16.848z"></path> <path d="M27.908,14.947c1.174-0.61,1.985-1.824,1.985-3.24c0-2.025-1.64-3.665-3.664-3.666c-2.024,0-3.186,0.906-4.592,1.813 c-0.987,0.639-3.59,3.232-4.792,4.452c-0.351,0.355-0.351,0.924,0,1.279c1.202,1.22,3.805,3.813,4.792,4.453 c1.406,0.907,2.566,1.812,4.592,1.812c2.023,0,3.664-1.642,3.664-3.666C29.896,16.771,29.083,15.557,27.908,14.947z"></path> <path d="M13.048,15.587c0.35-0.354,0.35-0.925,0-1.28c-1.203-1.22-3.804-3.813-4.792-4.452C6.851,8.948,5.69,8.042,3.667,8.042 c-2.025,0-3.665,1.641-3.665,3.666c0,1.416,0.813,2.63,1.987,3.24c-1.175,0.61-1.987,1.823-1.987,3.239 c0,2.023,1.64,3.663,3.665,3.665c2.024,0,3.185-0.905,4.59-1.812C9.245,19.4,11.845,16.807,13.048,15.587z">
+                    </path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        <span>Biopoints</span>
+      </li>
+    </a>
+
+    <a href="#swym-wishlist">
+      <li id="favorites_custom">
+        <svg xmlns="http://www.w3.org/2000/svg" height="22.5" width="22.5" viewBox="0 0 512 512">
+          <path fill="#308a36" d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8l0-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5l0 3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20-.1-.1s0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5l0 3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2l0-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/>
+        </svg>
+
+        <span>Favoritos</span>
+      </li>
+    </a>
+
+    <a href="/account{% if customer.has_account == false %}/login{% endif %}">
+      <li id="user_custom">
+        <svg width="22.5" height="22.5" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.9997 21V18.6664C18.0135 17.4439 17.5736 16.2657 16.7767 15.3906C15.9797 14.5156 14.891 14.0154 13.7498 14H5.25016C4.10902 14.0154 3.02029 14.5156 2.22334 15.3906C1.4264 16.2657 0.98648 17.4439 1.00032 18.6664V20.9991" stroke="#258439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 5.5C14 6.39001 13.7361 7.26004 13.2416 8.00006C12.7471 8.74009 12.0443 9.31686 11.2221 9.65746C10.3998 9.99805 9.49501 10.0872 8.62209 9.91353C7.74918 9.7399 6.94736 9.31132 6.31802 8.68198C5.68868 8.05264 5.2601 7.25082 5.08647 6.37791C4.91283 5.50499 5.00195 4.60019 5.34254 3.77792C5.68314 2.95566 6.25991 2.25285 6.99994 1.75839C7.73996 1.26392 8.60999 1 9.5 1C10.6935 1 11.8381 1.47411 12.682 2.31802C13.5259 3.16193 14 4.30653 14 5.5Z" stroke="#258439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <span>Conta</span>
+      </li>
+    </a>
+
+    <a href="{{ routes.cart_url }}" class="cart_link_custom">
+      <li id="cart_custom">
+        <div class="cart_children_wrapper">
+          <span class="header__cart-count">{{ cart.item_count }}</span>
+
+          <svg width="22.5" height="22.5" viewBox="0 0 31 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M27.3354 25.8083C27.3354 26.2767 27.1965 26.7346 26.9362 27.1241C26.6759 27.5135 26.306 27.817 25.8732 27.9962C25.4404 28.1753 24.9641 28.2221 24.5048 28.1306C24.0454 28.039 23.6234 27.8133 23.2924 27.4819C22.9613 27.1505 22.736 26.7284 22.6448 26.2689C22.5537 25.8095 22.6009 25.3333 22.7805 24.9007C22.96 24.468 23.2639 24.0984 23.6536 23.8384C24.0433 23.5785 24.5013 23.44 24.9697 23.4404C25.5973 23.441 26.1991 23.6907 26.6426 24.1347C27.0862 24.5788 27.3354 25.1807 27.3354 25.8083Z" fill="#258439"/>
+            <path d="M14.312 25.8083C14.312 26.2767 14.173 26.7346 13.9128 27.1241C13.6525 27.5135 13.2825 27.817 12.8497 27.9962C12.4169 28.1753 11.9407 28.2221 11.4813 28.1306C11.0219 28.039 10.6 27.8133 10.2689 27.4819C9.93787 27.1505 9.71252 26.7284 9.6214 26.2689C9.53029 25.8095 9.57749 25.3333 9.75705 24.9007C9.9366 24.468 10.2404 24.0984 10.6301 23.8384C11.0198 23.5785 11.4778 23.44 11.9463 23.4404C12.5739 23.441 13.1756 23.6907 13.6192 24.1347C14.0628 24.5788 14.312 25.1807 14.312 25.8083Z" fill="#258439"/>
+            <path d="M1.0332 1.87793H6.16386L9.60264 17.7581C9.7448 18.3232 10.0778 18.8218 10.5452 19.1697C11.0126 19.5176 11.5859 19.6934 12.168 19.6673H24.6362C25.2183 19.6934 25.7915 19.5176 26.259 19.1697C26.7264 18.8218 27.0594 18.3232 27.2015 17.7581L29.2546 7.80443H7.44652" stroke="#258439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </li>
+    </a>
+
+    {%- render 'mini-cart' -%}
+  </ul>
+</header>
+
+<header id="header_custom_mobile">
+  {% if section.settings.logo %}
+    <a href="/">
+      <img
+        src="{{ section.settings.logo | img_url: 'master' }}"
+        alt="Bioself"
+        loading="lazy"
+      >
+    </a>
+  {% endif %}
+
+  <ul>
+    <li id="open-search-bar-mobile">
+      <svg
+        stroke="currentColor"
+        fill="none"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        height="22.5px"
+        width="22.5px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </li>
+
+    <a href="/account{% if customer.has_account == false %}/login{% endif %}">
+      <li>
+        <svg width="22.5" height="22.5" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.9997 21V18.6664C18.0135 17.4439 17.5736 16.2657 16.7767 15.3906C15.9797 14.5156 14.891 14.0154 13.7498 14H5.25016C4.10902 14.0154 3.02029 14.5156 2.22334 15.3906C1.4264 16.2657 0.98648 17.4439 1.00032 18.6664V20.9991" stroke="#258439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 5.5C14 6.39001 13.7361 7.26004 13.2416 8.00006C12.7471 8.74009 12.0443 9.31686 11.2221 9.65746C10.3998 9.99805 9.49501 10.0872 8.62209 9.91353C7.74918 9.7399 6.94736 9.31132 6.31802 8.68198C5.68868 8.05264 5.2601 7.25082 5.08647 6.37791C4.91283 5.50499 5.00195 4.60019 5.34254 3.77792C5.68314 2.95566 6.25991 2.25285 6.99994 1.75839C7.73996 1.26392 8.60999 1 9.5 1C10.6935 1 11.8381 1.47411 12.682 2.31802C13.5259 3.16193 14 4.30653 14 5.5Z" stroke="#258439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </li>
+    </a>
+
+    <a href="{{ routes.cart_url }}" class="cart_link_custom">
+      <li id="cart_custom">
+        <div class="cart_children_wrapper">
+          <span class="header__cart-count">{{ cart.item_count }}</span>
+
+          <svg width="22.5" height="22.5" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25.0015 22.8387C25.0015 23.2661 24.8747 23.684 24.6372 24.0394C24.3997 24.3948 24.0621 24.6718 23.6671 24.8353C23.2721 24.9988 22.8375 25.0414 22.4183 24.9579C21.9991 24.8744 21.614 24.6684 21.3119 24.3659C21.0098 24.0635 20.8041 23.6783 20.721 23.259C20.6378 22.8397 20.6809 22.4051 20.8448 22.0103C21.0086 21.6155 21.2859 21.2781 21.6415 21.0409C21.9971 20.8037 22.4151 20.6773 22.8426 20.6777C23.4154 20.6783 23.9645 20.9062 24.3693 21.3114C24.7741 21.7166 25.0015 22.2659 25.0015 22.8387Z" fill="#258439"/>
+            <path d="M13.1168 22.8387C13.1168 23.2661 12.99 23.684 12.7524 24.0394C12.5149 24.3948 12.1773 24.6718 11.7823 24.8353C11.3874 24.9988 10.9528 25.0414 10.5335 24.9579C10.1143 24.8744 9.72926 24.6684 9.42713 24.3659C9.125 24.0635 8.91935 23.6783 8.8362 23.259C8.75305 22.8397 8.79613 22.4051 8.95999 22.0103C9.12385 21.6155 9.40113 21.2781 9.75675 21.0409C10.1124 20.8037 10.5304 20.6773 10.9578 20.6777C11.5306 20.6783 12.0797 20.9062 12.4845 21.3114C12.8894 21.7166 13.1168 22.2659 13.1168 22.8387Z" fill="#258439"/>
+            <path d="M1 1H5.68218L8.82037 15.4921C8.9501 16.0078 9.25395 16.4628 9.68053 16.7803C10.1071 17.0978 10.6302 17.2582 11.1615 17.2344H22.5398C23.071 17.2582 23.5942 17.0978 24.0207 16.7803C24.4473 16.4628 24.7512 16.0078 24.8809 15.4921L26.7545 6.40845H6.85272" stroke="#258439" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </li>
+    </a>
+
+    {%- render 'mini-cart' -%}
+  </ul>
+</header>
+
+<form id="search_form_mobile">
+  <div id="search-mobile">
+    <input type="search" placeholder="Pesquisar e... Bioself!">
+
+    <button type="submit">
+      <svg
+        stroke="#ffffff"
+        fill="none"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        height="22.5px"
+        width="22.5px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div id="search_results_modal"></div>
+</form>

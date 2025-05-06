@@ -1,0 +1,79 @@
+<div class="container container--narrow">
+  <header class="page__header page__header--stack page__header--centered">
+    {%- if section.settings.page_heading != blank and section.settings.hide_title -%}
+      <h1 class="page__title heading heading__decoration h1">{{ section.settings.page_heading | escape }}</h1>
+    {%- else -%}
+      <h1 class="page__title heading heading__decoration h1">{{ page.title }}</h1>
+    {%- endif -%}
+  </header>
+</div>
+<div class="container">
+  <div class="layout block-list">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'text' -%}
+        {% if block.settings.col_size == 50 %}
+          {%- assign grid_classes = '1/1--pocket 1/2--lap-and-up' -%} 
+        {% else %}
+          {%- assign grid_classes = '1/1--pocket 1/1--lap-and-up' -%} 
+        {% endif %}
+        <div class="{{grid_classes}}">
+          <h2 class="h4 text--strong heading--secondary">{{block.settings.title}}</h2>
+          <h3 class="h2">{{block.settings.subtitle}}</h2>
+          <p>{{block.settings.content}}</p>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_title",
+      "label": "Hide Title",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "page_heading",
+      "label": "Heading",
+      "default": "Find us"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Column",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Titulo"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitulo"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Conteúdo"
+        },
+        {
+          "type": "range",
+          "id": "col_size",
+          "min": 25,
+          "max": 100,
+          "step": 25,
+          "label": "Column size",
+          "default": 100
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

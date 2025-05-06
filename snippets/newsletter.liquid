@@ -1,0 +1,194 @@
+<section class="section-pd newsletter_section" data-section-id="{{ section.id }}" data-section-type="newsletter">
+  <div class="container container--narrow" id="newsletter_section_homepage">
+    {%- if section.settings.title != blank -%}
+      <h2 class="heading h3">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.content != blank -%}
+      <div class="rte {{ section.settings.text_color }}">
+        {{ section.settings.content }}
+      </div>
+    {%- endif -%}
+
+    {%- assign newsletter_id = 'newsletter-' | append: section.id -%}
+
+    <div class="newsletter newsletter--compact">
+      <div id="first_div_newsletter">
+        <h1>
+          SUBSCREVE A<br>
+          NOSSA NEWSLETTER
+        </h1>
+
+        {%- form 'customer', id: newsletter_id, class: 'form newsletter__form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="alert alert--success alert--center">Foi registado com sucesso na nossa newsletter!</p>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="alert alert--error alert--center">{{ form.errors.messages.email }}</p>
+            {%- endif -%}
+
+            <input type="hidden" name="contact[tags]" value="newsletter">
+
+            <div class="form__input-row">
+              <div class="form__input-wrapper form__input-wrapper--labelled">
+                <input
+                  type="text"
+                  id="newsletter[contact][name]"
+                  name="contact[first_name]"
+                  class="form__field form__field--text"
+                  required
+                >
+                <label for="first_name" class="form__floating-label">{{ 'home_page.newsletter.input_name' | t }}</label>
+              </div>
+
+              <div class="form__input-wrapper form__input-wrapper--labelled">
+                <input
+                  type="email"
+                  id="newsletter[contact][email]"
+                  name="contact[email]"
+                  class="form__field form__field--text"
+                  required
+                >
+                <label for="newsletter[contact][email]" class="form__floating-label">
+                  {{- 'home_page.newsletter.input_email' | t -}}
+                </label>
+
+                <button type="submit" class="form__submit button button--primary">
+                  {{ 'home_page.newsletter.submit' | t }}
+                </button>
+              </div>
+              {% if section.settings.post_message != blank %}
+                <p class="newsletter_post_message">{{ section.settings.post_message }}</p>
+              {% endif %}
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+        <!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter_section {
+    background-color: transparent;
+    border: 1px solid #4b8842;
+    border-radius: 1rem;
+    margin: 10px 20px 20px 0;
+  }
+
+  .newsletter.newsletter--compact {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    justify-content: center;
+    margin: 0 !important;
+    gap: 4rem;
+  }
+
+  #first_div_newsletter {
+    display: grid;
+    grid-template-columns: max-content minmax(20rem, 30rem);
+    gap: 4rem;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 769px) {
+    .newsletter.newsletter--compact > svg {
+      right: 1rem;
+      position: absolute;
+    }
+
+    .newsletter.newsletter--compact {
+      grid-template-columns: 1fr;
+    }
+
+    .section-pd {
+      padding: 1rem;
+    }
+
+    .newsletter_section {
+      margin: 20px 0 0 0;
+    }
+
+    #first_div_newsletter {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, max-content);
+      gap: 1rem;
+      text-align: center;
+    }
+
+    #first_div_newsletter > h1 {
+      font-size: 18px !important;
+    }
+  }
+
+  #first_div_newsletter > h1 {
+    font-size: 21px;
+    color: #4b8842;
+    margin: 0;
+    align-self: center;
+  }
+
+  .newsletter.newsletter--compact > svg {
+    cursor: pointer;
+    fill: #4b8842;
+    width: 25px;
+    height: 25px;
+  }
+
+  {% if section.settings.show_footer_newsletter != blank %}
+    #shopify-section-newsletter {
+      display: none;
+    }
+  {%- endif -%}
+
+  #shopify-section-{{ section.id }} h2.heading.h3 {
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} p.newsletter_post_message {
+    width: 100%;
+    text-align: left;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 100;
+  }
+
+  #shopify-section-{{ section.id }} button.form__submit.button.button--primary {
+    width: 150px;
+    right: 0;
+    position: absolute;
+    max-height: 46px !important;
+    top: 1px;
+  }
+
+  #shopify-section-{{ section.id }} .newsletter {
+    margin-top: 10px;
+  }
+
+  #shopify-section-{{ section.id }} h2.heading.h3 {
+    margin-bottom: 0px;
+  }
+
+  #shopify-section-{{ section.id }} {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 460px) {
+    #shopify-section-{{ section.id }} {
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .form__input-wrapper {
+      margin-bottom: 0;
+    }
+  }
+
+  .newsletter_section.alert.alert--success {
+    background-color: #4b8842;
+  }
+</style>

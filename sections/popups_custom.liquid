@@ -1,0 +1,276 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const isNewsletterClosed = sessionStorage.getItem("newsletterPopupClosed");
+    const isAlreadySubscribed = localStorage.getItem("newsletterAlreadySubscribed");
+
+    if (isNewsletterClosed || isAlreadySubscribed) return;
+
+    const newsletterPopup = document.getElementById("newsletter_popup_custom");
+    const delay = Number({{ section.settings.delay | json }}) * 1000;
+    const overlayElement = document.querySelector("#modal_overlay");
+
+    let bannerCheckInterval;
+
+    const checkBanner = () => {
+      const banner = document.getElementById("shopify-pc__banner");
+
+      if (banner && banner.style.display === "block") {
+        clearInterval(bannerCheckInterval);
+        return true;
+      }
+
+      return false;
+    };
+
+    bannerCheckInterval = setInterval(() => {
+      if (checkBanner()) {
+        clearInterval(bannerCheckInterval);
+      }
+    }, 100);
+
+    setTimeout(() => {
+      clearInterval(bannerCheckInterval);
+      if (!checkBanner()) {
+        overlayElement.style.display = "block";
+        newsletterPopup.style.opacity = "1";
+        newsletterPopup.style.visibility = "visible";
+      }
+    }, delay);
+
+    if (newsletterPopup) {
+      document.querySelector("svg")?.addEventListener("click", function() {
+        sessionStorage.setItem("newsletterPopupClosed", "true");
+        newsletterPopup.remove();
+        overlayElement.style.display = "none";
+      });
+
+      newsletterPopup.addEventListener("submit", function() {
+        localStorage.setItem("newsletterAlreadySubscribed", "true");
+      });
+    }
+  });
+</script>
+
+<style>
+  #newsletter_popup_custom {
+    display: grid;
+    opacity: 0;
+    visibility: hidden;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1rem;
+    justify-content: center;
+    padding: 6dvh 6dvw;
+    border-radius: 1rem;
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    position: fixed;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 1001;
+    width: auto;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    transition: opacity 0.1s;
+  }
+
+  #newsletter_popup_custom > * {
+    line-height: normal;
+  }
+
+  #newsletter_popup_custom > svg {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.1s;
+  }
+
+  #newsletter_popup_custom > svg:hover {
+    opacity: 0.8;
+  }
+
+  #newsletter_popup_custom > h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+  }
+
+  #newsletter_popup_custom > p,
+  #newsletter_popup_custom > form > span {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  #newsletter_popup_custom > form {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+  }
+
+  #newsletter_popup_custom > form > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  #newsletter_popup_custom > form > input {
+    font-size: 16px;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 2.5rem;
+    color: black;
+    background-color: white;
+  }
+
+  #newsletter_popup_custom > form > div > label > p > a {
+    font-size: 16px;
+    text-decoration: underline;
+    transition: opacity 0.1s;
+  }
+
+  #newsletter_popup_custom > form > div > label > p > a:hover {
+    opacity: 0.8;
+  }
+
+  #newsletter_popup_custom > form > button {
+    font-size: 16px;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 2.5rem;
+    color: black;
+    background-color: #FDCC10;
+    text-align: center;
+    transition: opacity 0.1s;
+  }
+
+  #newsletter_popup_custom > form > button:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 1599px) {
+    #newsletter_popup_custom > h1 {
+      font-size: 18px;
+    }
+
+    #newsletter_popup_custom > svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    #newsletter_popup_custom > p,
+    #newsletter_popup_custom > form > span,
+    #newsletter_popup_custom > form > div > label > p > a,
+    #newsletter_popup_custom > form > button,
+    #newsletter_popup_custom > form > input {
+      font-size: 14px;
+    }
+
+    #newsletter_popup_custom > form > button,
+    #newsletter_popup_custom > form > input {
+      padding: 0.8rem 1.6rem;
+    }
+  }
+</style>
+
+<section id="newsletter_popup_custom">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="14"
+    width="10.5"
+    viewBox="0 0 384 512"
+    id="escape_modal"
+  >
+    <path fill="{{ section.settings.text_color }}" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+  </svg>
+
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% unless section.settings.subtitle == blank %}
+    {{ section.settings.subtitle }}
+  {% endunless %}
+
+  {% form 'customer' %}
+    <input
+      type="hidden"
+      name="contact[tags]"
+      value="newsletter"
+    >
+
+    <input
+      id="newsletter-popup[email]"
+      type="email"
+      name="contact[email]"
+      placeholder="{{ 'general.popup.email_placeholder' | t }}"
+      autofocus
+      required
+    >
+
+    <div>
+      <input
+        id="aceitar_termos"
+        type="checkbox"
+        required
+      >
+
+      <label for="aceitar_termos">{{ section.settings.termos }}</label>
+    </div>
+
+    <button type="submit">{{ 'general.popup.subscribe' | t }}</button>
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter Popup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Descrição",
+    },
+    {
+      "type": "richtext",
+      "id": "termos",
+      "label": "Texto de aceitação dos termos",
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#88A54E"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Delay (s)",
+      "default": 5,
+      "min": 0,
+      "max": 15
+    }
+  ]
+}
+{% endschema %}

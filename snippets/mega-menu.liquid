@@ -1,0 +1,438 @@
+{% assign sorted_brands = linklists['pagina-marcas'].links | sort: 'title' %}
+{% assign marcas_links = linklists.marcas.links | sort: 'title' %}
+
+{%- if section.settings.desktop_navigation_layout == 'condensed' -%}
+  {%- assign is_condensed = true -%}
+{%- else -%}
+  {%- assign is_condensed = false -%}
+{%- endif -%}
+
+{%- assign downcase_title = mega_menu.title | downcase | strip -%}
+{%- assign mega_menu_block = null -%}
+
+{%- for block in section.blocks -%}
+  {%- assign downcase_block_menu_item = block.settings.menu_item | downcase | strip -%}
+
+  {%- if downcase_block_menu_item == downcase_title -%}
+    {%- assign mega_menu_block = block -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<style>
+  #ver_tudo_tab {
+    color: #308a36 !important;
+    text-transform: uppercase !important;
+    font-size: 16px !important;
+  }
+
+  #marcas_container {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+    margin: 2rem 20rem 4rem 20rem;
+  }
+
+  #ver_todas {
+    text-transform: unset !important;
+  }
+
+  .mega-menu {
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      box-shadow: 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  }
+
+  .alphabeth_container {
+      display: grid;
+      grid-auto-columns: max-content;
+      grid-auto-flow: column;
+      gap: 1.25rem;
+      justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .letter_container {
+      padding: 0 8px;
+  }
+
+  #shopify-section-{{ section.id }} .letter_container a {
+      font-size: 16px;
+      color: #308a36;
+      font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .letter_container a:hover {
+     text-decoration: underline;
+  }
+
+  .mega-menu__inner {
+    width: 100%;
+    margin: 0;
+    display: grid;
+  }
+
+  .mega-manu-brands-container {
+    display: grid;
+    grid-template-columns: repeat(5, max-content);
+    justify-content: center;
+    row-gap: 1rem;
+    column-gap: 0.5rem;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1399px) {
+    .mega-manu-brands-item {
+      padding: 0.5rem !important;
+    }
+
+    .mega-manu-brands-item > a > img {
+      width: 200px;
+    }
+  }
+
+  .mega-manu-brands-item {
+      border: 1px solid #308a36;
+      padding: 1rem;
+      border-radius: 0.35rem;
+  }
+
+  .mega-manu-brands-item > a {
+      display: grid;
+  }
+
+  .mega-manu-brands-item > a > img {
+      width: 225px;
+      height: 100px;
+      object-fit: contain;
+  }
+
+  .mega-menu-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, max-content);
+      justify-content: center;
+      gap: 4rem;
+  }
+
+  .mega-menu-tabs__titles {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 1fr;
+  }
+
+  .mega-menu-tab-title {
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    background-color: #f7f7f7;
+    border-radius: 0;
+    text-align: left;
+    color: black;
+  }
+
+  .mega-menu-tab-title:hover {
+    background-color: #efefef;
+  }
+
+  .mega-menu-tab-title.active {
+    background-color: #fff;
+    color: #308A36;
+  }
+
+  .mega-menu-tab-content {
+    display: none;
+    padding: 2rem 0;
+    height: 560px;
+  }
+
+  .mega-menu-tab-content.active {
+    display: grid;
+  }
+
+  .mega-menu__linklist {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    row-gap: 0.35rem;
+    column-gap: 2rem;
+    list-style-type: none;
+    padding: 0;
+    overflow: auto;
+    max-height: 500px;
+    min-width: 820px;
+  }
+
+  @media screen and (max-width: 1499px) {
+    .mega-menu-tabs {
+      gap: 1rem !important;
+    }
+
+    .mega-menu__linklist {
+      grid-template-columns: repeat(3, max-content) !important;
+      column-gap: 1rem;
+      min-width: 640px;
+    }
+
+    .mega-menu__promo {
+      padding: 1rem !important;
+    }
+  }
+
+  .mega-menu__item {
+    margin: 5px 0;
+    width: max-content;
+  }
+
+  .mega-menu__link {
+    color: black !important;
+    text-transform: none !important;
+    font-size: 14px !important;
+    width: max-content !important;
+  }
+
+  .mega-menu__link:hover {
+    text-decoration: underline;
+  }
+
+  .accordion:after, .active:after {
+    display: none;
+  }
+
+  .mega-menu__image-wrapper {
+      height: 100%;
+  }
+
+  .mega-menu__promo {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 2rem;
+    padding: 2rem 2rem 1rem 2rem;
+    place-items: center;
+    text-align: center;
+    background-color: #308a36;
+    color: white !important;
+    border-radius: 1rem;
+    text-decoration: none;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: max-content;
+    align-self: center;
+  }
+
+  .mega-menu__promo:hover {
+    background-color: #308a36 !important;
+  }
+
+  .mega-menu__promo > h1 {
+    margin: 0;
+    max-width: 12rem;
+    font-size: 20px;
+    line-height: normal;
+  }
+
+  .mega-menu__promo > img {
+    min-width: 125px;
+    height: 100%;
+    max-height: 200px;
+    object-fit: cover;
+  }
+
+  .mega-menu__promo > span {
+    padding: 0.25rem 2rem;
+    border-radius: 0.65rem;
+    background-color: #ffbb12;
+    color: black;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+</style>
+
+<div
+  id="{{ index }}"
+  class="mega-menu {% if is_floating %}mega-menu--floating{% endif %}"
+  data-type="menu"
+  aria-hidden="true"
+  role="list"
+  {{ mega_menu_block.shopify_attributes }}
+>
+  {%- capture mega_menu_inner -%}
+    {%- assign should_center = false -%}
+
+    {%- unless is_floating -%}
+      {%- assign should_center = true -%}
+    {%- endunless -%}
+
+    {%- assign has_two_images = false -%}
+
+    {%- if mega_menu_block.settings.image_1 != blank and mega_menu_block.settings.image_2 != blank -%}
+      {%- assign has_two_images = true -%}
+    {%- endif -%}
+
+    {%- assign mega_menu_classes = '' -%}
+
+    {%- if should_center and mega_menu.links.size <= 4 -%}
+      {%- if has_two_images -%}
+        {%- assign mega_menu_classes = 'mega-menu__inner--center' -%}
+      {%- else -%}
+        {%- assign mega_menu_classes = 'mega-menu__inner--center mega-menu__inner--large' -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    <div class="mega-menu__inner {{ mega_menu_classes }}">
+      {%- if mega_menu.links.size > 0 -%}
+        {%- capture mega_menu_columns -%} 
+          {% if mega_menu.title == 'Marcas' %}
+            <div id="marcas_container">
+              <div class="alphabeth_container">
+                {%- assign initials = "" -%}
+                {%- assign has_number = false -%}
+              
+                {% for link in sorted_brands %}
+                  {%- assign first_letter = link.title | slice: 0, 1 | downcase -%}
+              
+                  {%- if first_letter >= "0" and first_letter <= "9" -%}
+                    {%- assign has_number = true -%}
+                  {%- endif -%}
+                {% endfor %}
+              
+                {%- if has_number -%}
+                  <div class="letter_container">
+                    <a style="width: 20px;" href="/pages/marcas#0-9">0-9</a>
+                  </div>
+                {%- endif -%}
+              
+                {% for link in sorted_brands %}
+                  {%- assign first_letter = link.title | slice: 0, 1 | downcase -%}
+              
+                  {%- if initials contains first_letter -%}
+                    {%- continue -%}
+                  {%- endif -%}
+              
+                  {%- if first_letter < "0" or first_letter > "9" -%}
+                    <div class="letter_container">
+                      <a href="/pages/marcas#{{ first_letter | upcase }}">{{ first_letter | upcase }}</a>
+                    </div>
+                    {%- assign initials = initials | append: first_letter -%}
+                  {%- endif -%}
+                {% endfor %}
+              
+                <div class="letter_container">
+                  <a href="/pages/marcas" id="ver_todas">Ver todas</a>
+                </div>
+              </div>
+  
+              <div class="mega-manu-brands-container">
+                {% for link in marcas_links limit: 10 %}
+                  <div class="mega-manu-brands-item"> 
+                    {% for collection in collections %}
+                    <!-- {% assign image_url = collections[marca.handle].image.src | downcase %}
+  
+                        {% if image_url contains '.gif' %}
+                        {% assign wrong_format = true %}
+                      {% else %}
+                        {% assign wrong_format = false %}
+                      {% endif %}
+                
+                      {% unless image_url == empty or wrong_format %}
+                      {% endunless %} -->
+                      
+                      {% if collection.template_suffix contains "brand" %}      
+                        {% if collection.title == link.title and link.url != blank %}
+                          <a href="{{ link.url }}">  
+                            {{ collection.image | image_url: width: '225px' | image_tag }}  
+                          </a>    
+                        {% endif %}                       
+                      {% endif %}                          
+                    {% endfor %}                 
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %} 
+            <div class="mega-menu-tabs">
+              <div class="mega-menu-tabs__titles">
+                {%- for link in mega_menu.links -%}
+                  {%- assign link_handle = link.handle | default: blank -%}
+                  {% if link_handle and linklists[link_handle].links.size > 0 %}
+                    <button class="mega-menu-tab-title" onclick="openTab(event, 'tab{{ forloop.index }}')">
+                      {{ link.title }}
+                    </button>
+                  {% endif %}
+                {%- endfor -%}
+              </div>
+
+              {%- for link in mega_menu.links -%}
+                <div id="tab{{ forloop.index }}" class="mega-menu-tab-content" style="display: none;">
+                  {%- if link.links.size > 0 -%}
+                  <ul class="mega-menu__linklist" role="list">
+                    {%- for sub_link in link.links -%}
+                    <li class="mega-menu__item">
+                      {% if sub_link.title contains 'Ver' %}
+                        <a href="{{ sub_link.url }}" class="mega-menu__link link" id="ver_tudo_tab">{{ sub_link.title }}</a>
+                      {% else %}
+                        <a href="{{ sub_link.url }}" class="mega-menu__link link">{{ sub_link.title }}</a>
+                      {% endif %}
+                    </li>
+                    {%- endfor -%}
+                  </ul>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+
+              {%- if section.settings.image_1 -%}
+                <a href="{{ section.settings.image_1_link }}" class="mega-menu__promo">
+                  {% if section.settings.title_collection  %}
+                    <h1>{{ section.settings.title_collection }}</h1>
+                  {% endif %}
+                  
+                  <img loading="lazy" src="{{ section.settings.image_1 | img_url: 'master' }}">
+
+                  <span>Compra já</span>
+                </a>
+              {%- endif -%}
+            </div>
+          {% endif %}
+        {%- endcapture -%}
+
+        {%- if is_floating -%}
+          <div class="mega-menu__column-list" style="width: {{ 230 | times: mega_menu.links.size }}px">
+            {{- mega_menu_columns -}}
+          </div>
+        {%- else -%}
+          {{- mega_menu_columns -}}
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  {%- endcapture -%}
+
+  {%- if is_condensed -%}
+    {{- mega_menu_inner -}}
+  {%- else -%}
+    <div>
+      {{- mega_menu_inner -}}
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+    function openTab(event, tabId) {
+    var tabContents = document.getElementsByClassName('mega-menu-tab-content');
+    for (var i = 0; i < tabContents.length; i++) {
+      tabContents[i].style.display = 'none';
+    }
+
+    var tabButtons = document.getElementsByClassName('mega-menu-tab-title');
+    for (var i = 0; i < tabButtons.length; i++) {
+      tabButtons[i].classList.remove('active');
+    }
+
+    document.getElementById(tabId).style.display = 'block';
+    event.currentTarget.classList.add('active');
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var firstTab = document.querySelector('.mega-menu-tab-title');
+    if (firstTab) {
+      firstTab.click();
+    }
+  });
+</script>

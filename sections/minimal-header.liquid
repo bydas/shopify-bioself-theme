@@ -1,0 +1,147 @@
+{%- comment -%}
+This header is only used for the password and gift card templates, and contains much less code compared to the original header code
+{%- endcomment -%}
+
+<section data-section-id="{{ section.id }}" data-section-type="minimal-header">
+  <header class="header" role="banner">
+    <div class="container">
+      <div class="header__inner {% if request.page_type == 'gift_card' %}header__inner--centered{% endif %}">
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        LOGO COMPONENT
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        <h1 class="header__logo">
+          <a href="{{ routes.root_url }}" class="header__logo-link">
+            {%- if section.settings.logo != blank -%}
+              {%- capture image_size -%}{{ section.settings.logo_max_width }}x{%- endcapture -%}
+              <img class="header__logo-image"
+                   src="{{ section.settings.logo | img_url: image_size }}"
+                   srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                   alt="{{ section.settings.logo.alt | default: shop.name | escape }}">
+            {%- else -%}
+              <span class="header__logo-text">{{ shop.name }}</span>
+            {%- endif -%}
+          </a>
+        </h1>
+
+        {%- if request.page_type == 'password' -%}
+          {%- comment -%}
+          --------------------------------------------------------------------------------------
+          HEADER ACTIONS
+          --------------------------------------------------------------------------------------
+          {%- endcomment -%}
+
+          <div class="header__action-list">
+            <div class="header__action-item header__action-item--password">
+              <div class="header__action-item-content">
+                {%- assign form_has_errors = false -%}
+
+                {%- form 'storefront_password', name: 'password', class: 'form' -%}
+                  {%- if form.errors -%}
+                    {%- assign form_has_errors = true -%}
+                  {%- endif -%}
+                {%- endform -%}
+
+                <button class="header__action-item-link header__action-item-link--small" aria-controls="password-popover" aria-expanded="{% if form_has_errors %}true{% else %}false{% endif %}" data-action="toggle-popover">
+                  {% render 'icon', icon: 'lock-2' %} <span class="hidden-phone">{{ 'general.password.enter_password' | t }}</span>
+                </button>
+
+                <div id="password-popover" class="popover popover--large popover--password" aria-hidden="{% if form_has_errors %}false{% else %}true{% endif %}">
+                  {%- render 'icon', icon: 'nav-triangle-borderless' -%}
+
+                  <div class="popover__panel-list">
+                  <div id="header-login-panel" class="popover__panel popover__panel--default is-selected">
+                    <div class="popover__inner">
+                      {%- form 'storefront_password', name: 'password', class: 'form' -%}
+                        <header class="popover__header">
+                          <p class="popover__title heading">{{ 'general.password.enter_password' | t }}</p>
+                        </header>
+
+                        {%- if form.errors -%}
+                          <p class="alert alert--error">{{ form.errors.messages['form'] }}</p>
+                        {%- endif -%}
+
+                        <div class="form__input-wrapper form__input-wrapper--labelled">
+                          <input type="password" id="password" class="form__field form__field--text" name="password" required="required">
+                          <label for="password" class="form__floating-label">{{ 'general.password.password_input' | t }}</label>
+                        </div>
+
+                        <button type="submit" class="form__submit button button--primary button--full">{{ 'general.password.password_submit' | t }}</button>
+                      {%- endform -%}
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </header>
+</section>
+
+<style>
+  :root {
+    --header-is-sticky: 1;
+  }
+
+  #shopify-section-{{ section.id }} {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  {%- if section.settings.logo -%}
+    .header__logo-image {
+      max-width: {{ section.settings.mobile_logo_max_width }}px;
+    }
+
+    @media screen and (min-width: 641px) {
+      .header__logo-image {
+        max-width: {{ section.settings.logo_max_width }}px;
+      }
+    }
+  {%- endif -%}
+</style>
+
+<script>
+  document.documentElement.style.setProperty('--header-height', document.getElementById('shopify-section-minimal-header').clientHeight + 'px');
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "200 x 60px .png recommended"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo image width",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_max_width",
+      "min": 50,
+      "max": 170,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile logo image width",
+      "default": 100
+    }
+  ]
+}
+{% endschema %}

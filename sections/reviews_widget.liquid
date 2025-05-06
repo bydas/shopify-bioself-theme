@@ -1,0 +1,351 @@
+<div id="review-widget-div">
+  <h1>O QUE DIZEM SOBRE NÓS</h1>
+  
+  <div>
+      <section
+      class="section-pd section--text-centered reviews-section"
+      data-section-id="{{ section.id }}"
+      data-section-type="reviews_section"
+      {%- if section.settings.background_image != blank -%}style="background:url({{ section.settings.background_image | img_url: '1920x' }});background-size: cover;background-position: center;"{%- endif -%}>
+    
+      <div class="container container--narrow grid-container">
+        <div class="grid-container-column">
+          <div id="135cc2a3-1a02-4b7e-82cd-a9e80342539d"></div>
+          <script async charset="utf-8" src="https://widgets.rr.skeepers.io/generated/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/135cc2a3-1a02-4b7e-82cd-a9e80342539d.js"></script>
+        </div>
+    
+        <div class="grid-container-column">
+          {%- if section.settings.title != blank -%}
+            <h2 class="h2 reviews_section_title">{{ section.settings.title | escape }}</h2>
+          {%- endif -%}
+    
+          <div class="review_container">
+            <div class="text-with-icons__icon-wrapper">
+              <div class="star-icon-container" style="padding: 5px;">
+                {%- render 'icon', icon: section.settings.icon, stroke_width: 1.5 -%}
+                {%- render 'icon', icon: section.settings.icon, stroke_width: 1.5 -%}
+                {%- render 'icon', icon: section.settings.icon, stroke_width: 1.5 -%}
+                {%- render 'icon', icon: section.settings.icon, stroke_width: 1.5 -%}
+                {%- render 'icon', icon: section.settings.icon, stroke_width: 1.5 -%}
+              </div>
+            </div>
+          </div>
+    
+          {%- if section.settings.content != blank -%}
+            <div class="rte {{ section.settings.text_color }}">
+              {{ section.settings.content }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  
+    <div class="container centered">
+      <div class="html rte">
+        <iframe
+          id='AV_widget_iframe'
+          scrolling="no"
+          frameBorder="0"
+          width="100%"
+          height="200"
+          src="//cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/widget4/30b17f6b-db4c-0c24-0d69-c5635e2a1e35horizontal_index.html"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function applyMaxWidthToImage() {
+    const columns = document.querySelectorAll(".grid-container-column");
+    
+    if (window.innerWidth <= 1100) {
+      columns.forEach(column => {
+        const imgElement = column.querySelector("img");
+        
+        if (imgElement) {
+          imgElement.style.maxWidth = "80px";
+        }
+      });
+    } else {
+      removeMaxWidthFromImage();
+    }
+  }
+
+  function removeMaxWidthFromImage() {
+    const columns = document.querySelectorAll(".grid-container-column");
+    
+    columns.forEach(column => {
+      const imgElement = column.querySelector("img");
+      
+      if (imgElement) {
+        imgElement.style.maxWidth = "";
+      }
+    });
+  }
+
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.type === "childList" || mutation.type === "subtree") {
+        applyMaxWidthToImage();
+      }
+    });
+  });
+
+  const targetNode = document.body;
+  const config = { childList: true, subtree: true };
+
+  observer.observe(targetNode, config);
+
+  window.addEventListener("resize", applyMaxWidthToImage);
+
+  applyMaxWidthToImage();
+</script>
+
+<style>
+  #review-widget-div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    margin: 0 15px;
+  }
+
+  #review-widget-div > h1 {
+    font-size: 28px;
+    margin: 0;
+  }
+
+  #review-widget-div > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 1100px) {
+    #review-widget-div {
+      margin: 0 30px !important;
+    }
+    
+    #review-widget-div .section-pd {
+      padding: 0 1rem !important;
+    }
+
+    #review-widget-div .container {
+      gap: 2rem;
+      padding: 1rem 0 !important;
+    }
+
+    #review-widget-div .grid-container-column {
+      display: grid;
+      grid-template-rows: repeat(2, max-content);
+      align-content: center;
+      justify-items: left;
+    }
+  }
+
+  @media screen and (max-width: 1100px) {
+    .section-pd {
+      padding: 0 !important;
+    }
+
+    #135cc2a3-1a02-4b7e-82cd-a9e80342539d > a > img {
+      max-width: 80px !important;
+    }
+    
+    #review-widget-div > div {
+      display: grid;
+      grid-template-rows: repeat(2, max-content);
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #review-widget-div > h1 {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .star-icon-container {
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-items: left;
+    }
+
+    #review-widget-div .grid-container-column h2 {
+      font-size: 18px;
+      max-width: 15rem;
+      text-align: left;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Reviews",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Reviews"
+      },
+      {
+        "type": "html",
+        "id": "content",
+        "label": "Text",
+        "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background_image"
+      },
+      {
+        "type": "select",
+        "id": "icon",
+        "label": "Icon",
+        "options": [
+          {
+            "value": "bi-add-to-cart",
+            "label": "Add to cart",
+            "group": "Shop"
+          },
+          {
+            "value": "bi-gift-wrap",
+            "label": "Gift wrap",
+            "group": "Shop"
+          },
+          {
+            "value": "bi-gift-box",
+            "label": "Gift box",
+            "group": "Shop"
+          },
+          {
+            "value": "bi-heart",
+            "label": "Heart",
+            "group": "Shop"
+          }, {
+            "value": "bi-ecology",
+            "label": "Ecology",
+            "group": "Shop"
+          }, {
+            "value": "bi-plant",
+            "label": "Plant",
+            "group": "Shop"
+          }, {
+            "value": "bi-shop",
+            "label": "Shop",
+            "group": "Shop"
+          }, {
+            "value": "bi-shop-pin",
+            "label": "Shop with pin",
+            "group": "Shop"
+          }, {
+            "value": "bi-star",
+            "label": "Star",
+            "group": "Shop"
+          }, {
+            "value": "bi-alert",
+            "label": "Alert",
+            "group": "Communication"
+          }, {
+            "value": "bi-chat",
+            "label": "Chat",
+            "group": "Communication"
+          }, {
+            "value": "bi-comment",
+            "label": "Comment",
+            "group": "Communication"
+          }, {
+            "value": "bi-customer-support",
+            "label": "Customer support",
+            "group": "Communication"
+          }, {
+            "value": "bi-email",
+            "label": "Email",
+            "group": "Communication"
+          }, {
+            "value": "bi-network",
+            "label": "Network",
+            "group": "Communication"
+          }, {
+            "value": "bi-newsletter",
+            "label": "Newsletter",
+            "group": "Communication"
+          }, {
+            "value": "bi-love",
+            "label": "Love",
+            "group": "Communication"
+          }, {
+            "value": "bi-phone",
+            "label": "Phone",
+            "group": "Communication"
+          }, {
+            "value": "bi-share",
+            "label": "Share",
+            "group": "Communication"
+          }, {
+            "value": "bi-delivery",
+            "label": "Delivery",
+            "group": "Delivery"
+          }, {
+            "value": "bi-fast-delivery",
+            "label": "Fast delivery",
+            "group": "Delivery"
+          }, {
+            "value": "bi-returns",
+            "label": "Returns",
+            "group": "Delivery"
+          }, {
+            "value": "bi-time",
+            "label": "Time",
+            "group": "Delivery"
+          }, {
+            "value": "bi-secure-payment",
+            "label": "Secure payment",
+            "group": "Security"
+          }, {
+            "value": "bi-mobile-payment",
+            "label": "Mobile payment",
+            "group": "Security"
+          }, {
+            "value": "bi-computer-payment",
+            "label": "Computer payment",
+            "group": "Security"
+          }, {
+            "value": "bi-credit-card",
+            "label": "Credit card",
+            "group": "Security"
+          }, {
+            "value": "bi-shield",
+            "label": "Shield",
+            "group": "Security"
+          }
+        ],
+        "default": "bi-star"
+      }, {
+        "type": "select",
+        "id": "text_color",
+        "label": "Text Color",
+        "options": [
+          {
+            "value": "white",
+            "label": "White"
+          }, {
+            "value": "dark",
+            "label": "Dark"
+          }
+        ],
+        "default": "white"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Promotional",
+        "name": "Reviews",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}

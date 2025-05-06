@@ -1,0 +1,90 @@
+{%- case section.settings.text_width -%}
+  {%- when 'narrow' -%}
+    {%- assign container_classes = 'container container--narrow' -%}
+
+  {%- when 'regular' -%}
+    {%- assign container_classes = 'container container--medium' -%}
+
+  {%- when 'wide' -%}
+    {%- assign container_classes = 'container' -%}
+{%- endcase -%}
+
+{%- if section.settings.title != 'blank' or section.settings.content != 'blank' or section.settings.button_text != 'blank' -%}
+<section class="section section--text-centered" data-section-id="{{ section.id }}" data-section-type="rich-text">
+  <div class="{{ container_classes }}">
+    {%- if section.settings.title != blank and section.settings.show_title != blank -%}   
+      <h2 class="heading h1">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    <div class="rte">
+      {%- if section.settings.show_content != blank -%}
+        {{ section.settings.content }}
+      {%- endif -%}
+
+      {%- if section.settings.button_link != blank and section.settings.button_text != blank -%}
+        <a href="{{ section.settings.button_link }}" class="button button--primary">{{ section.settings.button_text | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "text_width",
+      "label": "Text width",
+      "options": [
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "regular",
+          "label": "Regular"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        }
+      ],
+      "default": "narrow"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Display title",
+        "default": false
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "H2 Heading"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_content",
+        "label": "Display content",
+        "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ]
+}
+{% endschema %}

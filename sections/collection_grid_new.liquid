@@ -1,0 +1,166 @@
+<section class="section mosaic-section {% if section.settings.show_only_mobile != blank %} hidden-lap-and-up {% endif %} {% if section.settings.show_only_desktop != blank %} hidden-pocket {% endif %}" data-section-id="{{ section.id }}" data-section-type="mosaic">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <header class="section__header">
+        <h2 class="section__title heading h3">{{ section.settings.title | escape }}</h2>
+      </header>
+    {%- endif -%}
+
+    <div class="collection_grid">
+      <div class="collection_grid_featured_container">
+          {%- assign featured_collection = collections[section.settings.collection] -%}
+          <a href="{{ featured_collection.url }}">
+            <div class="collection_grid_featured">
+              <h2>{{ featured_collection.title }}</h2>
+            </div>
+          </a>
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+      <div class="collection_grid_list">
+        {%- for block in section.blocks -%}
+          {%- assign collection = collections[block.settings.collection] -%}
+          <a href="{{ collection.url }}">
+          <div class="collection_grid_list_item">
+            <h2>{{ collection.title }}</h2>
+          </div>
+          </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+
+
+  </div>
+</section>
+
+
+<style>
+  #shopify-section-{{ section.id }} .collection_grid {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    column-gap: 8px;
+    font-size: 21px;
+  }
+
+  #shopify-section-{{ section.id }} .collection_grid_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 8px;
+    row-gap: 10px;
+    font-size: 21px;
+  }
+
+  #shopify-section-{{ section.id }} .collection_grid_featured_container {
+    background: #308a36;
+    color: #fff;
+    border-radius: 15px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .collection_grid_list_item {
+    border: 1px solid #308a36;
+    color: #308a36;
+    border-radius: 15px;
+    height: 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    font-family: 'RedHatDisplay';
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .collection_grid_featured_container {
+      height: 87px;
+      margin-bottom: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .collection_grid {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .collection_grid_list {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 4px;
+      row-gap: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .collection_grid_list_item {
+      height: 87px;
+    }
+
+    #shopify-section-{{ section.id }} .collection_grid_featured_container h2 {
+      font-size: 12px;
+      font-family: 'RedHatDisplay';
+    }
+
+    #shopify-section-{{ section.id }} .collection_grid_list_item h2 {
+      font-size: 12px;
+      font-family: 'RedHatDisplay';
+    }
+
+    #shopify-section-{{ section.id }} .collection_grid_featured_container {
+      margin-bottom: 4px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "New Collection Grid",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_only_desktop",
+      "label": "Show only desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_mobile",
+      "label": "Show only mobile",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our collections"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "New Collection Grid",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

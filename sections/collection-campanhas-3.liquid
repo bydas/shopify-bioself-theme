@@ -1,0 +1,221 @@
+{% schema %}
+{
+  "name": "Collection campanha 3",
+  "settings": [
+    {
+      "type": "text",
+      "id": "selected_title",
+      "label": "Título da campanha",
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_desktop",
+      "label": "Primeira Imagem Desktop",
+      "info": "780x500px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_mobile",
+      "label": "Primeira Imagem Mobile",
+      "info": "390x170px"
+    },
+    {
+      "type": "url",
+      "id": "image_1_url",
+      "label": "Link para primeira imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_desktop",
+      "label": "Segunda Imagem Desktop",
+      "info": "780x500px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_mobile",
+      "label": "Segunda Imagem Mobile",
+      "info": "390x170px"
+    },
+    {
+      "type": "url",
+      "id": "image_2_url",
+      "label": "Link para segunda imagem"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Collection campanha 3",
+      "category": "Custom",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #custom_collection_campanha_3 {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #custom_collection_campanha_3_mobile {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #custom_collection_campanha_3 > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #custom_collection_campanha_3 > div > h1 {
+      font-size: 24px;
+    }
+
+    #custom_collection_campanha_3 > div > a {
+      padding: 0.3rem 1.5rem !important;
+      font-size: 13px !important;
+    }
+
+    #custom_collection_campanha_3 > ul > a > li > img {
+      height: 400px !important;
+    }
+  }
+
+  @media screen and (max-width: 1599px) {
+    #custom_collection_campanha_3 > h1 {
+      font-size: 26px;
+    }
+  }
+
+  #custom_collection_campanha_3_mobile > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #custom_collection_campanha_3 > ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    list-style-type: none;
+  }
+
+  #custom_collection_campanha_3_mobile > ul {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #custom_collection_campanha_3 > ul > a > li,
+  #custom_collection_campanha_3_mobile > ul > a > li {
+    display: grid;
+  }
+
+  #custom_collection_campanha_3 > ul > a > li > img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 0.65rem;
+  }
+
+  #custom_collection_campanha_3_mobile > ul > a > li > img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_collection_campanha_3 {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom_collection_campanha_3 {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_collection_campanha_3 {
+      display: none;
+    }
+
+    #custom_collection_campanha_3_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="custom_collection_campanha_3">
+  {% if section.settings.selected_title %}
+    <h1>{{ section.settings.selected_title }}</h1>
+  {% endif %}
+
+  <ul>
+    {% if section.settings.image_1_desktop %}
+      <a href="{{ section.settings.image_1_url }}">
+        <li>
+          <img
+            loading="lazy"
+            alt="{% if section.settings.selected_title %}{{ section.settings.selected_title }}{% else %}Imagem da coleção{% endif %}"
+            src="{{ section.settings.image_1_desktop | img_url: 'master' }}"
+          >
+        </li>
+      </a>
+    {% endif %}
+
+    {% if section.settings.image_2_desktop %}
+      <a href="{{ section.settings.image_2_url }}">
+        <li>
+          <img
+            loading="lazy"
+            alt="{% if section.settings.selected_title %}{{ section.settings.selected_title }}{% else %}Imagem da coleção{% endif %}"
+            src="{{ section.settings.image_2_desktop | img_url: 'master' }}"
+          >
+        </li>
+      </a>
+    {% endif %}
+  </ul>
+</section>
+
+<section id="custom_collection_campanha_3_mobile">
+  {% if section.settings.selected_title %}
+    <h1>{{ section.settings.selected_title }}</h1>
+  {% endif %}
+
+  <ul>
+    {% if section.settings.image_1_mobile %}
+      <a href="{{ section.settings.image_1_url }}">
+        <li>
+          <img
+            loading="lazy"
+            alt="{% if section.settings.selected_title %}{{ section.settings.selected_title }}{% else %}Imagem da coleção{% endif %}"
+            src="{{ section.settings.image_1_mobile | img_url: 'master' }}"
+          >
+        </li>
+      </a>
+    {% endif %}
+
+    {% if section.settings.image_2_mobile %}
+      <a href="{{ section.settings.image_2_url }}">
+        <li>
+          <img
+            loading="lazy"
+            alt="{% if section.settings.selected_title %}{{ section.settings.selected_title }}{% else %}Imagem da coleção{% endif %}"
+            src="{{ section.settings.image_2_mobile | img_url: 'master' }}"
+          >
+        </li>
+      </a>
+    {% endif %}
+  </ul>
+</section>

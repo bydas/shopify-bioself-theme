@@ -1,0 +1,1713 @@
+{%- capture section_settings -%}
+  {
+  "showShippingEstimator":
+  {% if template == 'product.quick-view' or product.available == false %}false
+  {% else %}
+    {{ section.settings.show_shipping_estimator | json }}{% endif %},
+  "showQuantitySelector": {{ section.settings.show_quantity_selector | json }},
+  "showPaymentButton":
+  {% if product.template_suffix == 'pre-order' %}false
+  {% else %}
+    {{ section.settings.show_payment_button | json }}{% endif %},
+  "showInventoryQuantity":
+  {% if product.template_suffix != 'pre-order' %}
+    {{ section.settings.show_inventory_quantity | json }}{% else %}false{% endif %},
+  "lowInventoryThreshold": {{ section.settings.low_inventory_threshold | json }},
+  "galleryTransitionEffect": {{ section.settings.carousel_effect | json }},
+  "enableImageZoom":
+  {% if template == 'product.quick-view' %}false
+  {% else %}
+    {{ section.settings.enable_image_zoom | json }}{% endif %},
+  "zoomEffect": {{ section.settings.zoom_effect | json }},
+  "enableVideoLooping": {{ section.settings.enable_video_looping | json }},
+  "productOptions": {{ product.options | json | escape }},
+  "enableHistoryState":
+  {% if template == 'product.quick-view' %}false{% else %}true{% endif %},
+  "infoOverflowScroll":
+  {% if template == 'product.quick-view' %}false{% else %}true{% endif %},
+  "isQuickView":
+  {% if template == 'product.quick-view' %}true{% else %}false{% endif %}
+  }
+{%- endcapture -%}
+
+<section
+  data-section-id="{{ section.id }}"
+  data-section-type="product"
+  data-section-settings='{{ section_settings }}'>
+
+  {%- if template != 'product.quick-view' -%}
+    <div class="product-block-list product-block-list--{{ section.settings.image_size }}">
+      <div class="product-block-list__wrapper">
+										<div class="product-top--wrapper">
+                      <div class="container container-breadcrumbs">
+                      <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb breadcrumb-product-page">
+                        <ol class="breadcrumb__list" role="list">
+                          <li class="breadcrumb__item">
+                            <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a>
+                            {%- render 'icon', icon: 'arrow-right' -%}
+                          </li>
+                      
+                          <li class="breadcrumb__item">
+                            {%- if current_tags -%}
+                              <a class="breadcrumb__link link" href="{{ collection.url }}" {% unless current_tags %}aria-current="page"{% endunless %}>
+                                {%- if collection.handle == 'all' -%}
+                                  {{- 'collection.general.all_products' | t -}}
+                                {%- else -%}
+                                  {{- collection.title -}}
+                                {%- endif -%}
+                              </a>
+                      
+                              {%- render 'icon', icon: 'arrow-right' -%}
+                            {%- else -%}
+                              <span class="breadcrumb__link" aria-current="page">
+                                {%- if collection.handle == 'all' -%}
+                                  <a class="breadcrumb__link link" href="{{ collection.url }}">
+                                    {{- 'collection.general.all_products' | t -}}
+                                  </a>  
+                                {%- else -%}
+                                  <a class="breadcrumb__link link" href="{{ collection.url }}">
+                                    {{- collection.title -}}
+                                  </a>  
+                                {%- endif -%}
+
+                                {%- if collection.handle == blank -%}
+                                  {% for collection in product.collections limit: 1 %}
+                                    <a class="breadcrumb__link link"  href="{{ collection.url }}">
+                                    {{ collection.title  }}
+                                    </a>
+                                  {% endfor  %}  
+                                {%- endif -%}
+                                 
+                              </span>
+                            {%- endif -%}
+                          </li>
+                      
+                          {%- if current_tags -%}
+                            <li class="breadcrumb__item">
+                              {%- if section.settings.filter_type == 'tag' -%}
+                                {%- assign tag = current_tags.first -%}
+                              {%- elsif section.settings.filter_type == 'group' -%}
+                                {%- assign tag = current_tags.first | split: '_' | last -%}
+                              {%- endif -%}
+                      
+                              <span class="breadcrumb__link" aria-current="page">{{ tag | capitalize }}</span>
+                            </li>
+                          {%- endif -%}
+                      
+                          {%- if product -%}
+                            <li class="breadcrumb__item">
+                              {%- render 'icon', icon: 'arrow-right' -%}
+                              <a class="breadcrumb__link link" href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+                            </li>
+                          {%- endif -%}
+                        </ol>
+                      </nav>
+                    </div>
+												<div class="container pt-50">
+														{%- if product.media.size > 0 -%}
+														<div class="product-block-list__item product-block-list__item--gallery">
+																{% render 'product-gallery' %}
+														</div>
+														{%- endif -%}
+														<div class="product-block-list__item product-block-list__item--info">
+																{% render 'product-info' %}
+														</div>
+														<div class="product-block-list__item product-block-list__item--promos">
+																{% render 'product-promos' %}                                                                
+														</div>
+                           <div class="product-block-list__item product-block-list__item--info" style="grid-column: 1 / 3">
+																{% render 'product-description' %}
+														</div>
+												</div>
+										</div>
+          {%- if section.settings.display_product_values -%}
+          		<div class="product-bottom--wrapper hidden-phone">
+														<div class="container">
+																<div class="main-product-values">
+																		<div class="product-values-container">
+																				<div class="product-values-column">
+																								{% if section.settings.value_image_1 != blank %}
+																										<img src="{{ section.settings.value_image_1 | img_url: 'master' }}" class="product-values-icon">
+																								{% else %}
+																										{%- render 'icon', icon: section.settings.icon_1, stroke_width: 1.5 -%}
+																								{%- endif -%}
+																						<div class="product-values-heading" style="color: {{ section.settings.values_heading_color }};">
+																								{{ section.settings.value_title_1 }}
+																						</div>
+																						<div class="product-values-description">
+																								{{ section.settings.value_description_1 }}
+																						</div>
+																				</div>
+																				<div class="product-values-column">
+																								{% if section.settings.value_image_2 != blank %}
+																										<img src="{{ section.settings.value_image_2 | img_url: 'master' }}" class="product-values-icon">
+																								{% else %}
+																										{%- render 'icon', icon: section.settings.icon_2, stroke_width: 1.5 -%}
+																								{%- endif -%}
+																						<div class="product-values-heading" style="color: {{ section.settings.values_heading_color }};">
+																								{{ section.settings.value_title_2 }}
+																						</div>
+																						<div class="product-values-description">
+																								{{ section.settings.value_description_2 }}
+																						</div>
+																				</div>
+																				<div class="product-values-column">
+																								{% if section.settings.value_image_3 != blank %}
+																										<img src="{{ section.settings.value_image_3 | img_url: 'master' }}" class="product-values-icon">
+																								{% else %}
+																										{%- render 'icon', icon: section.settings.icon_3, stroke_width: 1.5 -%}
+																								{%- endif -%}
+																							<div class="product-values-heading" style="color: {{ section.settings.values_heading_color }};">
+																								{{ section.settings.value_title_3 }}
+																						</div>
+																						<div class="product-values-description">
+																								{{ section.settings.value_description_3 }}
+																						</div>
+																				</div>
+																				<div class="product-values-column">
+																								{% if section.settings.value_image_4 != blank %}
+																										<img src="{{ section.settings.value_image_4 | img_url: 'master' }}" class="product-values-icon">
+																								{% else %}
+																										{%- render 'icon', icon: section.settings.icon_4, stroke_width: 1.5 -%}
+																								{%- endif -%}
+																						<div class="product-values-heading" style="color: {{ section.settings.values_heading_color }};">
+																								{{ section.settings.value_title_4 }}
+																						</div>
+																						<div class="product-values-description">
+																								{{ section.settings.value_description_4 }}
+																						</div>
+																				</div>
+																		</div>
+																</div>
+														</div>
+          		</div>
+          {%- endif -%}
+
+          {%- if section.settings.display_product_banner -%}
+            <div class="container--full--banner">
+              <img class="hidden-phone" src="{{ section.settings.background_image | img_url: 'master' }}">
+              <img class="hidden-tablet-and-up" src="{{ section.settings.mobile_background_image | img_url: 'master' }}">
+            </div>
+          {%- endif -%}
+        </div>
+        {%- comment -%}
+        <div class="product-description--wrapper">         
+          <div class="product-description container container--flush">
+            {%- if product.description != blank -%}
+              <div class="description-heading">
+                <h2 class="heading h3">{{ 'product.general.description' | t }}</h2>
+              </div>
+              <div class="product-block-list__item product-block-list__item--description">
+                {%- if section.settings.content_display_mode == 'show_all_and_expand_description' -%}
+                  <div class="">
+                    <div class="rte text--pull">
+
+                      {% assign desc_ = product.description | split: '[' %}
+                      {{ desc_[0] }}
+
+                      {% if product.description contains '[Quem pode beneficiar]' %}
+                        {% assign desc_benef = product.description | split: '[Quem pode beneficiar]' %}
+                        <h3 class="heading h3">QUEM PODE BENEFICIAR?</h3>
+                        <p>{{ desc_benef[1] }}</p>
+
+                      {% endif %}
+
+                    </div>
+                  </div>
+                {%- else -%}
+                  <div class="expandable-content" aria-expanded="false">
+                    <div class="rte text--pull">
+                      {{ product.description | remove: 'data-section-type="product"' }}
+                    </div>
+
+                    <button class="expandable-content__toggle">
+                      <span class="expandable-content__toggle-icon"></span>
+                      <span
+                        class="expandable-content__toggle-text"
+                        data-view-more="{{ 'product.general.view_more' | t | escape }}"
+                        data-view-less="{{ 'product.general.view_less' | t | escape }}">{{- 'product.general.view_more' | t -}}</span>
+                    </button>
+                  </div>
+                {%- endif -%}
+              </div>
+              <div class="product-block-list__item product-block-list__item--details">
+                <div class="details-heading">
+                  <h3 class="heading h3">INFORMAÇÃO DO PRODUTO</h3>
+                </div>
+                <div class="details-content">
+                  {% render 'product-details' %}
+                </div>
+              </div>
+            {%- endif -%}
+
+          </div>          
+        </div>
+        {%- endcomment -%}
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        TABS
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- for i in (1..5) -%}
+          {%- assign unique_tab_title = '' -%}
+          {%- assign unique_tab_content = '' -%}
+
+          {%- comment -%}First check for metafields{%- endcomment -%}
+
+          {%- assign metafield_tab_title_option = 'tab_' | append: i | append: '_title' -%}
+          {%- assign metafield_tab_content_option = 'tab_' | append: i | append: '_content' -%}
+
+          {%- if product.metafields.sf_product_tabs[metafield_tab_title_option] != blank and product.metafields.sf_product_tabs[metafield_tab_content_option] != blank -%}
+            {%- assign unique_tab_title = product.metafields.sf_product_tabs[metafield_tab_title_option] -%}
+            {%- assign unique_tab_content = product.metafields.sf_product_tabs[metafield_tab_content_option] -%}
+          {%- else -%}
+            {%- assign tab_to_look = '__tab' | append: i | append: ':' -%}
+
+            {%- for tag in product.tags -%}
+              {%- if tag contains tab_to_look -%}
+                {%- assign unique_tab_handle = tag | split: tab_to_look | last -%}
+                {%- assign unique_tab_page = pages[unique_tab_handle] -%}
+
+                {%- unless unique_tab_page.empty? -%}
+                  {%- assign unique_tab_title = unique_tab_page.title -%}
+                  {%- assign unique_tab_content = unique_tab_page.content -%}
+                  {%- break -%}
+                {%- endunless -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if unique_tab_title != blank and unique_tab_content != blank -%}
+            <div class="product-block-list__item product-block-list__item--content">
+              <div class="">
+                {%- if section.settings.content_display_mode == 'collapse_all_except_description' or section.settings.content_display_mode == 'collapse_all' -%}
+                  <button
+                    class=""
+                    data-action="toggle-collapsible"
+                    aria-expanded="false"
+                    aria-controls="unique-tab-{{ i }}">
+                    <span class="heading h3">{{ unique_tab_title }}</span>
+                    <span class="plus-button plus-button--large"></span>
+                  </button>
+
+                  <div id="unique-tab-{{ i }}" class="">
+                    <div class="">
+                      <div class="rte text--pull">
+                        {{ unique_tab_content }}
+                      </div>
+                    </div>
+                  </div>
+                {%- else -%}
+                  <div class="">
+                    <h2 class="heading h3">{{ unique_tab_title }}</h2>
+                  </div>
+
+                  <div class="expandable-content" aria-expanded="false">
+                    <div class="rte text--pull">
+                      {{ unique_tab_content }}
+                    </div>
+
+                    <button class="expandable-content__toggle">
+                      <span class="expandable-content__toggle-icon"></span>
+                      <span
+                        class="expandable-content__toggle-text"
+                        data-view-more="{{ 'product.general.view_more' | t | escape }}"
+                        data-view-less="{{ 'product.general.view_less' | t | escape }}">{{- 'product.general.view_more' | t -}}</span>
+                    </button>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- for i in (1..3) -%}
+          {%- assign global_tab_option = 'tab_page_' | append: i | append: '_handle' -%}
+          {%- assign global_tab_page = pages[section.settings[global_tab_option]] -%}
+
+          {%- unless global_tab_page.empty? -%}
+            <div class="product-block-list__item product-block-list__item--content">
+              <div class="">
+                {%- if section.settings.content_display_mode == 'collapse_all_except_description' or section.settings.content_display_mode == 'collapse_all' -%}
+                  <button
+                    class=""
+                    data-action="toggle-collapsible"
+                    aria-expanded="false"
+                    aria-controls="global-tab-{{ i }}">
+                    <span class="heading h3">{{ global_tab_page.title }}</span>
+                    <span class="plus-button plus-button--large"></span>
+                  </button>
+
+                  <div id="global-tab-{{ i }}" class="">
+                    <div class="">
+                      <div class="rte text--pull">
+                        {{ global_tab_page.content }}
+                      </div>
+                    </div>
+                  </div>
+                {%- else -%}
+                  <div class="">
+                    <h2 class="heading h3">{{ global_tab_page.title }}</h2>
+                  </div>
+
+                  <div class="expandable-content" aria-expanded="false">
+                    <div class="rte text--pull">
+                      {{ global_tab_page.content }}
+                    </div>
+
+                    <button class="expandable-content__toggle">
+                      <span class="expandable-content__toggle-icon"></span>
+                      <span
+                        class="expandable-content__toggle-text"
+                        data-view-more="{{ 'product.general.view_more' | t | escape }}"
+                        data-view-less="{{ 'product.general.view_less' | t | escape }}">{{- 'product.general.view_more' | t -}}</span>
+                    </button>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endunless -%}
+        {%- endfor -%}
+
+        {%- comment -%}
+        <div class="product-block-list__item product-block-list__item--reviews container">
+          <div class="NETREVIEWS_PRODUCT_REVIEWS" data-product-id="{{ product.id }}"></div>
+        </div>
+        {%- endcomment -%}
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        REVIEWS
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- if section.settings.enable_reviews -%}
+          <div class="product-block-list__item product-block-list__item--reviews">
+            <span id="product-reviews" class="anchor"></span>
+
+            <div class="">
+              <div class="">
+                {%- assign reviews_count = product.metafields.spr.reviews | split: '<meta itemprop="reviewCount" content="' | last | split: '">' | first | times: 1 -%}
+                <div
+                  id="shopify-product-reviews"
+                  class="spr-reviews {% if reviews_count > 0 %}spr-reviews--has-reviews{% endif %}"
+                  data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        SECURITY BADGES
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+          {%- assign show_payment_icons = true -%}
+        {%- else -%}
+          {%- assign show_payment_icons = false -%}
+        {%- endif -%}
+
+        {%- if section.settings.custom_security_badge or show_payment_icons -%}
+          <div class="product-block-list__item product-block-list__item--trust">
+            <div class="">
+              <div class="">
+                <h2 class="heading h3">{{ section.settings.trust_title | escape }}</h2>
+
+                {%- render 'icon', icon: 'lock', width: 22, height: 24 -%}
+              </div>
+
+              <div class="">
+                {%- if show_payment_icons -%}
+                  {%- if section.settings.custom_security_badge -%}
+                    <p class="heading h6">{{ 'product.general.payment' | t }}</p>
+                  {%- endif -%}
+
+                  <div class="payment-list">
+                    {% for type in shop.enabled_payment_types %}
+                      {{ type | payment_type_svg_tag: class: 'payment-list__item' }}
+                    {% endfor %}
+                  </div>
+
+                  <p class="payment-list__notice">{{ 'product.general.payment_notice' | t }}</p>
+                {%- endif -%}
+
+                {%- if show_payment_icons and section.settings.custom_security_badge -%}
+                  <hr class="">
+                {%- endif -%}
+
+                {%- if section.settings.custom_security_badge -%}
+                  {%- if show_payment_icons -%}
+                    <p class="heading h6">{{ 'product.general.security' | t }}</p>
+                  {%- endif -%}
+
+                  {%- assign badge_width = section.settings.custom_security_badge.width | at_most: 450 | append: 'x' -%}
+                  <img
+                    class="product__trust-badge"
+                    style="width: {{ section.settings.custom_security_badge_width }}px"
+                    src="{{ section.settings.custom_security_badge | img_url: badge_width }}"
+                    srcset="{{ section.settings.custom_security_badge | img_url: badge_width }} 1x, {{ section.settings.custom_security_badge | img_url: badge_width, scale: 2 }} 2x"
+                    alt="{{ section.settings.custom_security_badge.alt | escape }}">
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        ESTIMATE SHIPPING
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- if section.settings.show_shipping_estimator and product.available -%}
+          <div class="product-block-list__item product-block-list__item--shipping">
+            <div class="">
+              <div class="">
+                <h2 class="heading h3">{{ 'product.general.estimate_shipping' | t }}</h2>
+              </div>
+
+              <div class="">
+                <div class="shipping-estimator form" role="form">
+                  <div class="form__input-row">
+                    <div class="form__input-wrapper">
+                      <label for="shipping-estimator-country" class="form__label">{{ 'cart.shipping_estimator.country' | t }}</label>
+
+                      <div class="select-wrapper select-wrapper--primary">
+                        {%- render 'icon', icon: 'arrow-bottom' -%}
+
+                        <select
+                          name="country"
+                          id="shipping-estimator-country"
+                          data-default="{{ customer.default_address.country | default: section.settings.shipping_estimator_default_country }}"
+                          required>
+                          {{- country_option_tags -}}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form__input-wrapper" style="display: none">
+                      <label for="shipping-estimator-province" class="form__label">{{ 'cart.shipping_estimator.province' | t }}</label>
+
+                      <div class="select-wrapper select-wrapper--primary">
+                        {%- render 'icon', icon: 'arrow-bottom' -%}
+
+                        <select
+                          name="province"
+                          id="shipping-estimator-province"
+                          data-default="{{ customer.default_address.province }}"></select>
+                      </div>
+                    </div>
+
+                    <div class="form__input-wrapper" style="max-width: 155px">
+                      <label for="shipping-estimator-zip" class="form__label">{{ 'cart.shipping_estimator.zip_code' | t }}</label>
+                      <input
+                        type="text"
+                        name="zip"
+                        id="shipping-estimator-zip"
+                        class="form__field form__field--text"
+                        value="{{ customer.default.address.zip }}"
+                        required>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="form__submit button button--primary"
+                    data-action="estimate-shipping">{{ 'cart.shipping_estimator.estimate' | t }}</button>
+
+                  <div class="shipping-estimator__results rte" style="display: none;"></div>
+                </div>
+              </div>
+
+              {%- if section.settings.show_refunds_policy and shop.refund_policy != blank -%}
+                <div class="">
+                  <button
+                    class="product__refund-policy-link link link--accented"
+                    data-action="open-modal"
+                    aria-controls="modal-refunds-policy">{{ 'product.general.refund_policy' | t }} {%- render 'icon', icon: 'arrow-right' -%}</button>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+    
+    {%- if section.settings.show_refunds_policy and shop.refund_policy != blank -%}
+      <div
+        id="modal-refunds-policy"
+        class="modal"
+        aria-hidden="true">
+        <div class="modal__dialog" role="dialog">
+          <header class="modal__header">
+            <h3 class="modal__title heading h2">{{ 'product.general.refund_policy' | t }}</h3>
+            <button class="modal__close link" data-action="close-modal">{%- render 'icon', icon: 'close' -%}</button>
+          </header>
+
+          <div class="modal__content">
+            <div class="rte">
+              {{ shop.refund_policy }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    {%- comment -%}We display the quick view within the product template so we can re-use the same settings{%- endcomment -%}
+    <div class="featured-product">
+      {%- render 'product-gallery' -%}
+      {%- render 'product-info' -%}
+    </div>
+  {%- endif -%}
+</section>
+
+
+{% schema %}
+  {
+    "name": "Product page",
+    "blocks": [
+     {
+       "name": "Direct promotions",
+       "type": "direct_promotion",
+       "settings": [
+        {
+           "type": "text",
+           "id": "title",
+           "label": "Name of promotion or campaign"
+         },
+         {
+           "type": "text",
+           "id": "control_tag",
+           "label": "Control tag",
+           "info": "To display the same block on multiple tagged products, please separate each tag followed by a ', ' (comma space), Example: 'tag1, tag2'. "
+         },
+         {
+          "type": "checkbox",
+          "id": "display_bold",
+          "label": "Display text as bold",
+          "default": false
+         },
+         {
+          "type": "text",
+          "id": "direct_promotion_heading",
+          "label": "Direct promotion heading",
+          "default": "Ofertas disponíveis"
+         },
+         {
+          "type": "textarea",
+          "id": "direct_promotion_description",
+          "label": "Direct promotion description",
+          "default": "DESCONTO ESPECIAL"
+         },
+         {
+          "type": "textarea",
+          "id": "direct_promotion_text",
+          "label": "Direct promotion text",
+          "default": "-15% em compras superiores a 100€"
+         },
+        {
+          "type": "text",
+          "id": "direct_promotion_modal_heading",
+          "label": "Direct promotion modal heading",
+          "default": "Direct promotion Oportunidades"
+         },
+         {
+          "type": "textarea",
+          "id": "direct_promotion_modal_text",
+          "label": "Direct promotion category text",
+          "default": "Direct promotion -15% em compras superiores a 100€"
+         },
+         {
+          "type": "text",
+          "id": "direct_promotion_modal_date",
+          "label": "Direct promotion date",
+          "default": "Direct promotion Validade"
+         }
+       ]
+     },
+     {
+       "name": "Vouchers promotions",
+       "type": "vouchers_promotion",
+       "settings": [
+        {
+           "type": "text",
+           "id": "title",
+           "label": "Name of promotion or campaign"
+         },
+         {
+           "type": "text",
+           "id": "control_tag",
+           "label": "Control tag",
+           "info": "To display the same block on multiple tagged products, please separate each tag followed by a ', ' (comma space), Example: 'tag1, tag2'. "
+         },
+         {
+          "type": "checkbox",
+          "id": "display_bold",
+          "label": "Display text as bold",
+          "default": false
+         },
+         {
+          "type": "text",
+          "id": "vouchers_promotion_heading",
+          "label": "Vouchers promotion heading",
+          "default": "SAVE-10"
+         },
+         {
+          "type": "textarea",
+          "id": "vouchers_promotion_description",
+          "label": "Vouchers promotion description",
+          "default": "10% de desconto"
+         },
+         {
+          "type": "text",
+          "id": "voucher_promotion_modal_heading",
+          "label": "Voucher promotion modal heading",
+          "default": "Voucher promotion Oportunidades"
+         },
+         {
+          "type": "textarea",
+          "id": "voucher_promotion_modal_text",
+          "label": "Voucher promotion category text",
+          "default": "Voucher promotion -15% em compras superiores a 100€"
+         },
+         {
+          "type": "text",
+          "id": "voucher_promotion_modal_date",
+          "label": "Voucher promotion date",
+          "default": "Voucher promotion Validade"
+         }
+       ]
+     }
+   ],
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_pvp_per_unit",
+        "label": "Show price per unit",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "Show SKU",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show share buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_taxes_included",
+        "label": "Show price taxes notice",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_promotional_badge",
+        "label": "Show promotional badge on product image",
+        "info": "Product must be tagged with LEVE3PAGUE4 tag",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_promotional_text",
+        "label": "Show promotional text below add to cart button",
+        "info": "Product must be tagged with LEVE3PAGUE4 tag",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "promotional_text_color",
+        "label": "Promotional text color",
+        "default": "#000000"
+      },
+      {
+        "type": "textarea",
+        "id": "delivery_text_content",
+        "label": "Delivery text content",
+        "default": "Disponível para entrega imediata."
+      },
+      {
+        "type": "textarea",
+        "id": "promotional_text_content",
+        "label": "Promotional text content",
+        "default": "Entrega aproximada <b>no próximo dia útil</b>.<br> Faz o teu pedido hoje antes das"
+      },
+      {
+        "type": "select",
+        "id": "promotional_text_hours",
+        "label": "Pick up time",
+        "options": [
+        {
+          "value": "",
+          "label": "none"
+        },
+        {
+          "value": "16:00h",
+          "label": "16:00h"
+        },
+        {
+          "value": "17:00h",
+          "label": "17:00h"
+        },
+        {
+          "value": "18:00h",
+          "label": "18:00h"
+        }
+        ],
+      "default": "17:00h"
+      },
+      {
+        "type": "select",
+        "id": "selector_mode",
+        "label": "Selector type",
+        "options": [
+          {
+            "value": "block",
+            "label": "Block"
+          }, {
+            "value": "dropdown",
+            "label": "Dropdown"
+          }
+        ],
+        "default": "block"
+      },
+      {
+        "type": "select",
+        "id": "color_mode",
+        "label": "Color selector type",
+        "info": "Variant image mode requires that all variant has an associated image. [Learn more](https://help.shopify.com/en/manual/products/product-variant-images#add-images-to-existing-variants)",
+        "options": [
+          {
+            "value": "block",
+            "label": "Block"
+          }, {
+            "value": "dropdown",
+            "label": "Dropdown"
+          }, {
+            "value": "color",
+            "label": "Color swatch"
+          }, {
+            "value": "variant_image",
+            "label": "Variant image"
+          }
+        ],
+        "default": "color"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity_selector",
+        "label": "Show quantity selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_button",
+        "label": "Show dynamic checkout button",
+        "info": "Each customer will see their preferred payment method from those available on your store, such as PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_pickup_availability",
+        "label": "Show local pickup availability",
+        "info": "Show customers where they can pick up the product. [Learn more](https://help.shopify.com/en/manual/shipping/setting-up-and-managing-your-shipping/local-methods/local-pickup#show-pickup-availability-to-your-customers)",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Media"
+      },
+      {
+        "type": "paragraph",
+        "content": "Learn more about [media types](https://help.shopify.com/en/manual/products/product-media)"
+      },
+      {
+        "type": "select",
+        "id": "image_size",
+        "label": "Size",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          }, {
+            "value": "medium",
+            "label": "Medium"
+          }, {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "small"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_image_zoom",
+        "label": "Enable image zoom",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "zoom_effect",
+        "label": "Desktop zoom effect",
+        "options": [
+          {
+            "value": "inside",
+            "label": "Inside"
+          }, {
+            "value": "outside",
+            "label": "Outside"
+          }
+        ],
+        "default": "outside"
+      },
+      {
+        "type": "select",
+        "id": "carousel_effect",
+        "label": "Transition effect",
+        "options": [
+          {
+            "value": "fade",
+            "label": "Fade"
+          }, {
+            "value": "slide",
+            "label": "Slide"
+          }
+        ],
+        "default": "fade"
+      },
+      {
+        "type": "header",
+        "content": "Inventory"
+      },
+      {
+        "type": "paragraph",
+        "content": "You can also add a stock countdown. [Learn more](https://support.maestrooo.com/article/177-product-show-an-stock-countdown-bar)."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_inventory_quantity",
+        "label": "Show inventory quantity",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "low_inventory_threshold",
+        "label": "Low inventory threshold",
+        "info": "Use low stock color when quantity is below the threshold. Choose 0 to always show in stock.",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "paragraph",
+        "content": "You can also add per-product tabs. [Learn more](http://support.maestrooo.com/article/83-product-adding-different-tabs-per-product)."
+      },
+      {
+        "type": "select",
+        "id": "content_display_mode",
+        "label": "Display mode",
+        "options": [
+          {
+            "value": "show_all",
+            "label": "Show all"
+          },
+          {
+            "value": "show_all_and_expand_description",
+            "label": "Show all and expand description"
+          }, 
+          {
+            "value": "collapse_all",
+            "label": "Collapse all"
+          },
+          {
+            "value": "collapse_all_except_description",
+            "label": "Collapse all except description"
+          }
+        ],
+        "default": "show_all_and_expand_description"
+      },
+      {
+        "type": "page",
+        "id": "tab_page_1_handle",
+        "label": "First page"
+      },
+      {
+        "type": "page",
+        "id": "tab_page_2_handle",
+        "label": "Second page"
+      },
+      {
+        "type": "page",
+        "id": "tab_page_3_handle",
+        "label": "Third page"
+      },
+      {
+        "type": "header",
+        "content": "Reviews"
+      },
+      {
+        "type": "paragraph",
+        "content": "You need to install [Shopify's free Product Reviews](https://apps.shopify.com/product-reviews) app before enabling those options."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_reviews",
+        "label": "Enable",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_reviews_badge",
+        "label": "Show badge",
+        "default": false
+      }, 
+      {
+        "type": "header",
+        "content": "Trust"
+      },
+      {
+        "type": "text",
+        "id": "trust_title",
+        "label": "Heading",
+        "default": "Payment & Security"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "custom_security_badge",
+        "label": "Security badge",
+        "info": "800 x 200px .jpg recommended"
+      },
+      {
+        "type": "range",
+        "id": "custom_security_badge_width",
+        "min": 100,
+        "max": 500,
+        "step": 10,
+        "unit": "px",
+        "label": "Security badge width",
+        "default": 200
+      },
+      {
+        "type": "header",
+        "content": "Shipping estimator"
+      }, 
+      {
+        "type": "checkbox",
+        "id": "show_shipping_estimator",
+        "label": "Show shipping estimator",
+        "info": "Only show if product is available.",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "shipping_estimator_default_country",
+        "label": "Default country",
+        "info": "If the customer is logged in, the country of their shipping address will be used.",
+        "default": "United States"
+      }, 
+      {
+        "type": "checkbox",
+        "id": "show_refunds_policy",
+        "label": "Show refunds policy",
+        "info": "Refund policy must be added into your store policies. [Learn more](https://help.shopify.com/manual/sell-online/checkout-settings/refund-privacy-tos).",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product values"
+      }, {
+        "type": "checkbox",
+        "id": "display_product_values",
+        "label": "Show product values",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "values_heading_color",
+        "label": "Values headings text color",
+        "default": "#308A36"
+      },
+      {
+        "type": "image_picker",
+        "id": "value_image_1",
+        "label": "Image value badge",
+        "info": "55x .jpg recommended"
+      },
+      {
+          "type": "select",
+          "id": "icon_1",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bi-add-to-cart",
+              "label": "Add to cart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-wrap",
+              "label": "Gift wrap",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-box",
+              "label": "Gift box",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-heart",
+              "label": "Heart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-ecology",
+              "label": "Ecology",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-plant",
+              "label": "Plant",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop",
+              "label": "Shop",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop-pin",
+              "label": "Shop with pin",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-alert",
+              "label": "Alert",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-chat",
+              "label": "Chat",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-comment",
+              "label": "Comment",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-customer-support",
+              "label": "Customer support",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-email",
+              "label": "Email",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-network",
+              "label": "Network",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-newsletter",
+              "label": "Newsletter",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-love",
+              "label": "Love",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-phone",
+              "label": "Phone",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-share",
+              "label": "Share",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-delivery",
+              "label": "Delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-fast-delivery",
+              "label": "Fast delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-returns",
+              "label": "Returns",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-time",
+              "label": "Time",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-secure-payment",
+              "label": "Secure payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-mobile-payment",
+              "label": "Mobile payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-computer-payment",
+              "label": "Computer payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-credit-card",
+              "label": "Credit card",
+              "group": "Security"
+            },
+            {
+              "value": "bi-shield",
+              "label": "Shield",
+              "group": "Security"
+            }
+          ],
+          "default": "bi-customer-support"
+      },
+      {
+        "type": "richtext",
+        "id": "value_title_1",
+        "label": "Heading value",
+        "default": "<p>ENVIO GRATUITO</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "value_description_1",
+        "label": "Heading description",
+        "default": "<p>A partir de 29,99€</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "value_image_2",
+        "label": "Image value badge",
+        "info": "55x .jpg recommended"
+      },
+      {
+          "type": "select",
+          "id": "icon_2",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bi-add-to-cart",
+              "label": "Add to cart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-wrap",
+              "label": "Gift wrap",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-box",
+              "label": "Gift box",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-heart",
+              "label": "Heart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-ecology",
+              "label": "Ecology",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-plant",
+              "label": "Plant",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop",
+              "label": "Shop",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop-pin",
+              "label": "Shop with pin",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-alert",
+              "label": "Alert",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-chat",
+              "label": "Chat",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-comment",
+              "label": "Comment",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-customer-support",
+              "label": "Customer support",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-email",
+              "label": "Email",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-network",
+              "label": "Network",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-newsletter",
+              "label": "Newsletter",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-love",
+              "label": "Love",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-phone",
+              "label": "Phone",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-share",
+              "label": "Share",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-delivery",
+              "label": "Delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-fast-delivery",
+              "label": "Fast delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-returns",
+              "label": "Returns",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-time",
+              "label": "Time",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-secure-payment",
+              "label": "Secure payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-mobile-payment",
+              "label": "Mobile payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-computer-payment",
+              "label": "Computer payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-credit-card",
+              "label": "Credit card",
+              "group": "Security"
+            },
+            {
+              "value": "bi-shield",
+              "label": "Shield",
+              "group": "Security"
+            }
+          ],
+          "default": "bi-customer-support"
+      },
+      {
+        "type": "richtext",
+        "id": "value_title_2",
+        "label": "Heading value",
+        "default": "<p>DEVOLUÇÕES</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "value_description_2",
+        "label": "Heading description",
+        "default": "<p>Até 14 dias</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "value_image_3",
+        "label": "Image value badge",
+        "info": "55x .jpg recommended"
+      },
+            {
+          "type": "select",
+          "id": "icon_3",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bi-add-to-cart",
+              "label": "Add to cart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-wrap",
+              "label": "Gift wrap",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-box",
+              "label": "Gift box",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-heart",
+              "label": "Heart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-ecology",
+              "label": "Ecology",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-plant",
+              "label": "Plant",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop",
+              "label": "Shop",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop-pin",
+              "label": "Shop with pin",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-alert",
+              "label": "Alert",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-chat",
+              "label": "Chat",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-comment",
+              "label": "Comment",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-customer-support",
+              "label": "Customer support",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-email",
+              "label": "Email",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-network",
+              "label": "Network",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-newsletter",
+              "label": "Newsletter",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-love",
+              "label": "Love",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-phone",
+              "label": "Phone",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-share",
+              "label": "Share",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-delivery",
+              "label": "Delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-fast-delivery",
+              "label": "Fast delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-returns",
+              "label": "Returns",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-time",
+              "label": "Time",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-secure-payment",
+              "label": "Secure payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-mobile-payment",
+              "label": "Mobile payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-computer-payment",
+              "label": "Computer payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-credit-card",
+              "label": "Credit card",
+              "group": "Security"
+            },
+            {
+              "value": "bi-shield",
+              "label": "Shield",
+              "group": "Security"
+            }
+          ],
+          "default": "bi-customer-support"
+      },
+      {
+        "type": "richtext",
+        "id": "value_title_3",
+        "label": "Heading value",
+        "default": "<p>QUALIDADE GARANTIDA</p<"
+      },
+      {
+        "type": "richtext",
+        "id": "value_description_3",
+        "label": "Heading description",
+        "default": "<p>Desde 1981</p>"
+      },
+            {
+        "type": "image_picker",
+        "id": "value_image_4",
+        "label": "Image value badge",
+        "info": "55x .jpg recommended"
+      },
+      {
+          "type": "select",
+          "id": "icon_4",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bi-add-to-cart",
+              "label": "Add to cart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-wrap",
+              "label": "Gift wrap",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-box",
+              "label": "Gift box",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-heart",
+              "label": "Heart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-ecology",
+              "label": "Ecology",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-plant",
+              "label": "Plant",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop",
+              "label": "Shop",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop-pin",
+              "label": "Shop with pin",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-alert",
+              "label": "Alert",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-chat",
+              "label": "Chat",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-comment",
+              "label": "Comment",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-customer-support",
+              "label": "Customer support",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-email",
+              "label": "Email",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-network",
+              "label": "Network",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-newsletter",
+              "label": "Newsletter",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-love",
+              "label": "Love",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-phone",
+              "label": "Phone",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-share",
+              "label": "Share",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-delivery",
+              "label": "Delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-fast-delivery",
+              "label": "Fast delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-returns",
+              "label": "Returns",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-time",
+              "label": "Time",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-secure-payment",
+              "label": "Secure payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-mobile-payment",
+              "label": "Mobile payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-computer-payment",
+              "label": "Computer payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-credit-card",
+              "label": "Credit card",
+              "group": "Security"
+            },
+            {
+              "value": "bi-shield",
+              "label": "Shield",
+              "group": "Security"
+            }
+          ],
+          "default": "bi-customer-support"
+      },
+      {
+        "type": "richtext",
+        "id": "value_title_4",
+        "label": "Heading value",
+        "default": "<p>PAGAMENTO SEGURO</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "value_description_4",
+        "label": "Heading description",
+        "default": "<p>100% Segurança</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "promotional_information",
+        "label": "Texto informativo",
+        "default": "<p>Mais informações sobre campanhas, aqui.</p>"
+      }
+    ]
+  }
+{% endschema %}

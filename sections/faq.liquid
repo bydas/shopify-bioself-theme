@@ -1,0 +1,253 @@
+<section
+  class="section section--text-centered container container--flush faq"
+  data-section-id="{{ section.id }}"
+  data-section-type="faq-section"
+>
+  {%- if section.settings.main_title != blank -%}
+    <header class="section__header">
+      <{{ section.settings.main_title_tag }} class="section__title heading heading__decoration h3">
+        {{- section.settings.main_title | escape -}}
+      </{{ section.settings.main_title_tag }}>
+    </header>
+  {%- endif -%}
+
+  <div class="faq__group-list">
+    {%- for block in section.blocks -%}
+      {%- if forloop.first or block.type == 'separator' -%}
+        <div class="faq__group">
+      {%- endif -%}
+
+      {%- case block.type -%}
+        {%- when 'separator' -%}
+          <h1 class="faq__group-title heading h2" {{ block.shopify_attributes }}>
+            <span class="anchor" id="block-{{ block.id }}"></span>
+            {{- block.settings.title | escape -}}
+          </h1>
+        {%- when 'question' -%}
+          <div class="faq__item_2" {{ block.shopify_attributes }}>
+            <div class="faq__item-wrapper">
+              <button
+                class="faq__question h4"
+                data-action="toggle-collapsible"
+                aria-expanded="false"
+                aria-controls="block-{{ block.id }}"
+              >
+                <h4 id="custom_h4">
+                  {{ block.settings.title | escape }}
+                </h4>
+
+                <span
+                  class="plus-button plus-button--large"
+                ></span>
+              </button>
+
+              <div id="block-{{ block.id }}" class="faq__answer-wrapper">
+                <div class="faq__answer_2 rte">
+                  {{ block.settings.answer }}
+                </div>
+              </div>
+            </div>
+          </div>
+      {%- endcase -%}
+
+      {%- if forloop.last or block.type == 'question' and section.blocks[forloop.index].type == 'separator' -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  #custom_h4 {
+    margin: 0;
+    margin-left: 1rem;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .section {
+      margin: 0 !important;
+    }
+  }
+
+  .section__header {
+    display: grid;
+  }
+
+  .section__header > h1 {
+    font-size: 28px;
+    text-transform: uppercase;
+    justify-self: left;
+    color: black;
+    font-family: 'Red Hat Display', sans-serif;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    .section__header > h1 {
+      font-size: 24px;
+    }
+
+    .faq__answer_2.rte p {
+      font-size: 14px !important;
+    }
+
+    #custom_h4 {
+      font-size: 18px !important;
+    }
+
+    .plus-button--large {
+      width: 18px !important;
+      height: 18px !important;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .section__header > h1 {
+      font-size: 16px;
+    }
+  }
+
+  .faq-section-heading:after {
+      content: "";
+      display: block;
+      position: relative;
+      height: 1px;
+      width: 30%;
+      margin: 5px auto 0;
+      background: #308A36;
+      min-width: 95px;
+  }
+
+  .faq__question {
+      font-size: 20px;
+      color: black;
+
+  }
+
+  .faq__answer_2.rte p {
+      color: black;
+      margin-left: 1rem;
+      padding-bottom: 30px;
+  }
+
+  .faq__item_2 {
+      font-size: 16px;
+      color: #000000;
+      border-bottom: 1px solid #308a36;
+      padding-top: 24px;
+      padding-bottom: 24px;
+  }
+
+  .faq__answer_2 {
+      text-align: left;
+  }
+
+  .plus-button {
+      color: #308a36;
+  }
+
+  @media screen and (max-width: 768px) {
+      .faq__question {
+          font-size: 15px;
+      }
+
+      .faq__item_2 {
+          padding-top: 16px;
+          padding-bottom: 16px;
+      }
+
+      .faq__group {
+        margin-bottom: 20px !important;
+      }
+  }
+</style>
+
+{% assign section_blocks = section.blocks | where: 'type', 'question' %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for block in section_blocks %}
+      {
+          "@type": "Question",
+          "name": "{{ block.settings.title | strip_html }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ block.settings.answer | strip_html }}"
+          }
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main heading",
+      "default": "Your title"
+    },
+    {
+      "type": "select",
+      "id": "main_title_tag",
+      "label": "Text width",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "separator",
+      "name": "Section separator",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Default"
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Text",
+      "name": "FAQ",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

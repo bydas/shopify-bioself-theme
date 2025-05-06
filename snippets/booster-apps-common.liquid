@@ -1,0 +1,96 @@
+<script type="text/javascript">
+  window.Rivo = window.Rivo || {};
+  window.Rivo.common = window.Rivo.common || {};
+  window.Rivo.common.shop = {
+    permanent_domain: '{{ shop.permanent_domain }}',
+    currency: {{ shop.currency | json }},
+    money_format: {{ shop.money_format | json }},
+    id: {{ shop.metafields.ba_global.config.shop.id | json }}
+  };
+  {% if customer %}
+  window.Rivo.common.customer = {
+    id: {{ customer.id | json }},
+    tags: {{ customer.with_tags | json }},
+    email: {{customer.email | json}},
+    accepts_marketing: {{ customer.accepts_marketing | json }},
+    first_name: {{ customer.first_name | json }},
+    last_name: {{ customer.last_name | json }},
+    orders_count: {{ customer.orders_count | json }},
+    tags: {{ customer.with_tags | json }},
+    total_spent: {{ customer.total_spent | json }}
+  };
+  {% endif %}
+
+  window.Rivo.common.template = '{{ template | split: "." | first }}';
+  window.Rivo.common.cart = {% if cart.item_count > 0 %}{{ cart | json }}{% else %}{}{% endif %};
+  window.Rivo.global_config = {{shop.metafields.ba_global.config | json}};
+
+  {% if product %}
+    if (window.Rivo.common.template == 'product'){
+      window.Rivo.common.product = {
+        id: {{product.id}}, price: {{product.price}}, handle: {{product.handle | json}}, tags: {{ product.with_tags | json}},
+        available: {{product.available}}, title: {{product.title | json}}, variants: {{product.variants | json}}
+      };
+    }
+  {% endif %}
+
+    window.Rivo.loy_config = {{shop.metafields.ba_loy.config | json}};
+    window.Rivo.loy_config.api_endpoint = {{shop.metafields.ba_global.config.proxy_paths["loy"] | json}};
+
+
+
+
+</script>
+
+
+<script type="text/javascript">
+  
+
+  (function() {
+    //Global snippet for Rivo
+    //this is updated automatically - do not edit manually.
+    document.addEventListener('DOMContentLoaded', function() {
+      function loadScript(src, defer, done) {
+        var js = document.createElement('script');
+        js.src = src;
+        js.defer = defer;
+        js.onload = function(){done();};
+        js.onerror = function(){
+          done(new Error('Failed to load script ' + src));
+        };
+        document.head.appendChild(js);
+      }
+
+      function browserSupportsAllFeatures() {
+        return window.Promise && window.fetch && window.Symbol;
+      }
+
+      if (browserSupportsAllFeatures()) {
+        main();
+      } else {
+        loadScript('https://polyfill.io/v3/polyfill.min.js?features=Promise,fetch', true, main);
+      }
+
+      function loadAppScripts(){
+        const revAppEmbedEnabled = document.getElementById("rev-app-embed-init");
+        const loyAppEmbedEnabled = document.getElementById("rivo-app-embed-init");
+
+        if (window.Rivo.global_config.aat.includes("loy") && !loyAppEmbedEnabled){
+          loadScript(window.Rivo.global_config.asset_urls.loy.init_js, true, function(){});
+        }
+
+        if (window.Rivo.global_config.aat.includes("rev") && !revAppEmbedEnabled){
+          loadScript(window.Rivo.global_config.asset_urls.rev.init_js, true, function(){});
+        }
+
+        if (window.Rivo.global_config.aat.includes("pop") || window.Rivo.global_config.aat.includes("pu")){
+          loadScript(window.Rivo.global_config.asset_urls.widgets.init_js, true, function(){});
+        }
+      }
+
+      function main(err) {
+        loadScript(window.Rivo.global_config.asset_urls.global.helper_js, false, loadAppScripts);
+      }
+    });
+  })();
+</script>

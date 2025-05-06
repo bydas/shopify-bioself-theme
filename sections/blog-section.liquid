@@ -1,0 +1,317 @@
+{%- capture section_settings -%}
+  {
+  "autoPlay": {{ section.settings.autoplay | json }},
+  "groupCells": {% if section.blocks.size >= 6 %} 3 {% else %} 1 {% endif %},
+  "prevNextButtons": true,
+  "pageDots":{% if section.blocks.size > 1 %}true{% else %}false{% endif %},
+  "transitionEffect": {{ section.settings.carousel_effect | json }},
+  "cycleSpeed": {{ section.settings.cycle_speed | times: 1000 | json }}
+  }
+{%- endcapture -%}
+
+<section
+  data-section-id="{{ section.id }}"
+  data-section-type="slideshow"
+  data-section-settings='{{ section_settings }}'
+  class="slideshow-section"
+  >
+
+  {%- if section.settings.title != blank -%}
+    <div class="container">
+      <div class="section__header-stack">
+        <header class="section__header">
+          <h2 class="section__title heading h3">{{ section.settings.title | escape }}</h2>
+        </header>
+
+        {%- if section.settings.title_button != blank -%}
+          <div class="section_title_button_container">
+            <a href="blogs/blog-page">
+            <button class="section_title_button">
+              {{ section.settings.title_button }}
+            </button>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+    
+  <div class="container container--flush" id="blog-section-container">
+    <div class="blog-list-section slideshow">
+      {% for block in section.blocks %}
+        {% assign article = block.settings.article %}
+    
+        <a href="{{ block.settings.link | default: article.url | default: '#' }}" class="collection-item section-article-card" data-collection-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          {%- unless article.empty? -%}
+            {%- assign article_image = block.settings.image | default: article.image -%}
+            <div class="collection-item__image-wrapper" style="background-image: url({{ article_image | img_url: '450x' }}); background-repeat: no-repeat; background-size: cover;" >
+              {% comment %}
+                {%- capture supported_sizes -%}
+                  {%- render 'image-size', sizes: '300,400,500,600,700,800', image: article_image -%}
+                {%- endcapture -%}
+              {% endcomment %}
+              {%- assign image_url = article_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <div class="aspect-ratio" style="background: rgba(0, 0, 0, 0.{{ block.settings.article_image_overlay }});">
+                <div class="blog-posts-section-meta">
+                  {% for tag in article.tags %}
+                    {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao'%}
+                      {% assign tags_without_author = tag %}
+                      <div class="section-article-card-tag">
+                        {{ tags_without_author }}
+                      </div>
+                    {% endunless %}
+                  {% endfor %}
+                  <div class="section-article-card-title">{{ article.title }}</div>
+                  
+                  {%- assign dateFormat = '%d %b %Y' -%}
+
+                  {%- assign monthsPortuguese = 'janeiro,fevereiro,março,abril,maio,junho,julho,agosto,setembro,outubro,novembro,dezembro' | split:',' -%}
+
+                  {%- assign formattedDate = article.published_at | date:dateFormat, 'pt_PT' -%}
+
+                  {%- assign monthIndex = article.published_at | date: '%m' | minus: 1 -%}
+                  {%- assign monthPortuguese = monthsPortuguese[monthIndex] | capitalize -%}
+
+                  {%- assign day = article.published_at | date: '%d' -%}
+                  {%- assign year = article.published_at | date: '%Y' -%}
+
+                  {%- for tag in article.tags -%}
+                    {% if tag contains 'author' %}
+                      {% assign author = tag | split: "_" %}
+                    {% endif %}
+                  {%- endfor -%}
+
+                  <div class="section-article-card-author">{{ author[1] }}, {{ day }} {{ monthPortuguese }} {{ year }}</div>
+                </div>
+              </div>
+            </div>
+          {%- endunless -%}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Configurações gerais dos blocos */
+  .section-article-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 34%;
+    height: 300px;
+    padding: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .blog-posts-section-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1));
+    z-index: 2;
+    position: relative;
+  }
+
+  /* Tags */
+  .section-article-card-tag {
+    background-color: #308a36;
+    color: #FFFFFF;
+    font-size: 15px;
+    border-radius: 12px;
+    padding: 5px 10px;
+    max-width: 150px;
+    margin-bottom: 10px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Títulos */
+  .section-article-card-title {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Autor e Data */
+  .section-article-card-author {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.5;
+    margin-top: 5px;
+  }
+
+  /* Imagem de fundo */
+  .collection-item__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    filter: brightness(0.8);
+  }
+
+  /* Ajustes de responsividade */
+  @media screen and (max-width: 1024px) {
+    .section-article-card {
+      width: 45%;
+      height: 260px;
+    }
+
+    .section-article-card-title {
+      font-size: 14px;
+    }
+
+    .section-article-card-author {
+      font-size: 12px;
+    }
+
+    .section-article-card-tag {
+      font-size: 12px;
+      max-width: 100px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .section-article-card {
+      width: 80%;
+      height: 240px;
+      margin: 0 auto;
+    }
+
+    .section-article-card-title {
+      font-size: 13px;
+    }
+
+    .section-article-card-author {
+      font-size: 11px;
+    }
+
+    .section-article-card-tag {
+      font-size: 10px;
+      max-width: 80px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .section-article-card {
+      width: 90%;
+      height: 220px;
+    }
+
+    .section-article-card-title {
+      font-size: 12px;
+    }
+
+    .section-article-card-author {
+      font-size: 10px;
+    }
+
+    .section-article-card-tag {
+      font-size: 9px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Blog posts section manual",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "NOTÍCIAS E NOVIDADES"
+    },
+    {
+      "type": "text",
+      "id": "title_button",
+      "label": "Heading button",
+      "default": "EXPLORA MAIS"
+    },
+    {
+      "type": "text",
+      "id": "link_title",
+      "label": "Link title"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto rotate between slides",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "carousel_effect",
+      "label": "Transition effect",
+      "options": [
+          {
+            "value": "fade",
+            "label": "Fade"
+          }, {
+            "value": "slide",
+            "label": "Slide"
+          }
+        ],
+        "default": "slide"
+    },
+    {
+        "type": "range",
+        "id": "cycle_speed",
+        "min": 3,
+        "max": 8,
+        "step": 1,
+        "unit": "sec",
+        "label": "Change slides every",
+        "default": 5
+      }
+  ],
+  "blocks": [
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        {
+          "type": "article",
+          "id": "article",
+          "label": "article"
+        },
+        {
+          "type": "range",
+          "id": "article_image_overlay",
+          "min": 1,
+          "max": 99,
+          "step": 1,
+          "label": "Overlay percentage",
+          "default": 35
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "article",
+      "name": "Blog posts section manual"
+    }
+  ]
+}
+{% endschema %}

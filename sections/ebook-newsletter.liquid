@@ -1,0 +1,198 @@
+{%- if section.settings.show_section -%}
+  <section id="ebooksubmitbutton" class="section section--isolated section--tight section--text-centered" data-section-id="{{ section.id }}" data-section-type="newsletter" {%- if section.settings.background_image != blank -%}style="background-image: url({{ section.settings.background_image | img_url: 'master' }});"{%- endif -%}>
+    <div class="container container--narrow">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heading h3">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.content != blank -%}
+        <div class="rte">
+          {{ section.settings.content }}
+        </div>
+      {%- endif -%}
+
+      {%- assign newsletter_id = 'newsletter-' | append: section.id -%}
+
+      <div class="newsletter">
+        {%- form 'customer', id: newsletter_id, class: 'form newsletter__form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="alert alert--success">{{ 'home_page.newsletter.success' | t }}</p>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="alert alert--error">{{ form.errors.messages['email'] }}</p>
+            {%- endif -%}
+
+            <input type="hidden" name="contact[tags]" value="newsletter">
+
+            <div>
+            <div class="form__input-row">
+              <div class="form__input-wrapper form__input-wrapper--labelled ebook-sign-up">
+                <div class="newsletter_fixer-box">
+                  <input type="name" id="newsletter[contact][first_name]" name="contact[first_name]" class="form__field form__field--text form__field--borderless" required>
+                  <label for="newsletter[contact][first_name]" class="form__floating-label">{{ 'home_page.newsletter.input_name' | t }}</label>
+                </div>  
+                <div class="newsletter_fixer-box">
+                  <input type="email" id="newsletter[contact][email]" name="contact[email]" class="form__field form__field--text form__field--borderless form_field_newsletter_email" required>
+                  <label for="newsletter[contact][email]" class="form__floating-label form_label_newsletter_email">{{ 'home_page.newsletter.input_email' | t }}</label>
+                </div>
+              </div>
+
+              <button id="ebooksubscribe" type="submit" class="button button--primary secondary--color">{%- if section.settings.button_text != blank -%}{{ section.settings.button_text }}{%- else -%}{{ 'home_page.newsletter.submit' | t }}{%- endif -%}</button>                
+                
+              <script type="text/javascript">
+                $('#ebooksubscribe').click(function() {
+                  fbq('track', 'Lead');
+                });
+              </script>
+
+            </div>
+
+              {%- if section.settings.text_gdpr != blank -%}
+                <div class="gdpr_container">
+                  <input
+                    type="checkbox"
+                    id="accept_gdpr"
+                    name="accept_gdpr"
+                    value="Accept GDPR">
+                  <label
+                    for="newsletter[contact][email]"
+                    class="rte newsletter_gdpr"
+                    required>{{ section.settings.text_gdpr }}</label>
+                </div>
+              {%- endif -%}
+
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.subtext != blank -%}
+          <p class="newsletter__text">{{ section.settings.subtext | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <style>
+    #shopify-section-newsletter {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} {
+      background: {{ section.settings.background }};
+      color: {{ section.settings.text }};
+    }
+
+    #shopify-section-{{ section.id }} button.button.button--primary.secondary--color {
+      width: 300px;
+    }
+
+    #shopify-section-{{ section.id }} .gdpr_container {
+      column-gap: 10px;
+      align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} label.rte.newsletter_gdpr {
+      color: #ffffff !important;
+      font-size: 13px !important;
+    }
+
+    #shopify-section-{{ section.id }} label.rte.newsletter_gdpr a {
+      color: #ffffff !important;
+      font-size: 13px !important;
+    }
+
+    #shopify-section-{{ section.id }} .form__input-wrapper--labelled .form__field {
+      border-radius: 10px;
+    }
+
+    button.button.button--primary.secondary--color:hover {
+      background-color: #FFCF00 !important;
+    }
+
+    @media only screen and (max-width:476px) {
+      #shopify-section-{{ section.id }} .form__input-wrapper.form__input-wrapper--labelled {
+        row-gap: 40px;
+        flex-direction: column;
+        padding-bottom: 40px;
+      }
+
+      #shopify-section-{{ section.id }} button.button.button--primary.secondary--color {
+        width: 100%;
+      }
+
+      #shopify-section-{{ section.id }} .container {
+        padding: 30px 30px;
+      }
+
+      #shopify-section-{{ section.id }} .gdpr_container {
+        align-items: flex-start !important;
+      }
+    }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "class": "shopify-section--isolated",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Customers who subscribe will have their email address added to the \"accepts marketing\" [customer list](/admin/customers?query=&accepts_marketing=1)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Subscribe to our newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Text",
+      "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Sub-text",
+      "default": "100% free, Unsubscribe any time!"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#1e2d7d"
+    },
+    {
+      "type": "color",
+      "id": "text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Quero o meu ebook"
+    },
+    {
+      "type": "richtext",
+      "id": "text_gdpr",
+      "label": "Text gdpr",
+      "default": "<p>Aceito a Política de Privacidade e os Termos e Condições</p>"
+    }
+  ]
+}
+{% endschema %}

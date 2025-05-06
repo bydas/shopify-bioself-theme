@@ -1,0 +1,262 @@
+{% schema %}
+{
+  "name": "Biopoints Discounts",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Título da secção"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição da secção"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "custom",
+      "name": "Ranking",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_icon",
+          "label": "Ícone para desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_icon",
+          "label": "Ícone para mobile"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Descrição"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Biopoints Discounts",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section id="biopoints_discounts">
+  {% unless section.settings.title == blank %}
+    {{ section.settings.title }}
+  {% endunless %}
+
+  {% unless section.settings.description == blank %}
+    {{ section.settings.description }}
+  {% endunless %}
+
+  {% if section.blocks.size > 0 %}
+    <ul>
+      {% for block in section.blocks %}
+        <li>
+          {% unless block.settings.desktop_icon == blank and block.settings.mobile_icon == blank %}
+            <picture>
+              <source
+                media="(max-width: 1000px)"
+                srcset="{{ block.settings.mobile_icon | img_url: 'master' }}"
+              >
+
+              <img src="{{ block.settings.desktop_icon | img_url: 'master' }}" alt="Biopoints icon">
+            </picture>
+          {% endunless %}
+
+          {% unless block.settings.title == blank %}
+            {{ block.settings.title }}
+          {% endunless %}
+
+          {% unless block.settings.description == blank %}
+            {{ block.settings.description }}
+          {% endunless %}
+
+          <img src="{{ 'Group.png' | asset_img_url }}" alt="Arrow icon">
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<style>
+  #biopoints_discounts {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    margin: 8rem var(--desktop-container-gutter);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #biopoints_discounts {
+      margin: 8rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #biopoints_discounts {
+      margin: 8rem 18vw;
+    }
+  }
+
+  #biopoints_discounts > * {
+    line-height: normal;
+  }
+
+  #biopoints_discounts > h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 42px;
+    font-weight: 900 !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: #258439;
+  }
+
+  #biopoints_discounts > h1:first-child {
+    color: black;
+  }
+
+  #biopoints_discounts > p {
+    padding: 0;
+    margin: 2rem 0 0 0;
+    font-weight: 400 !important;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  #biopoints_discounts > ul {
+    padding: 0;
+    margin: 6rem 0 0 0;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    row-gap: 2rem;
+    column-gap: 6rem;
+    place-content: center;
+  }
+
+  #biopoints_discounts > ul > li {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    place-items: center;
+    gap: 0.25rem;
+  }
+
+  #biopoints_discounts > ul > li > picture {
+    margin-bottom: 2rem;
+  }
+
+  #biopoints_discounts > ul > li > h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 21px;
+    font-weight: 900 !important;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #biopoints_discounts > ul > li > h2:first-of-type {
+    color: #258439;
+  }
+
+  #biopoints_discounts > ul > li > p {
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #biopoints_discounts > h1 {
+      font-size: 28px;
+    }
+
+    #biopoints_discounts > p {
+      font-size: 16px;
+    }
+
+    #biopoints_discounts > ul {
+      margin: 4rem 0 0 0;
+      grid-template-columns: repeat(auto-fit, 260px);
+    }
+
+    #biopoints_discounts > ul > li > h2 {
+      font-size: 18px;
+    }
+
+    #biopoints_discounts > ul > li > picture {
+      margin-bottom: 1rem;
+    }
+
+    #biopoints_discounts > ul > li > picture > img {
+      scale: 0.7;
+    }
+
+    #biopoints_discounts > ul > li > p {
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #biopoints_discounts {
+      margin: 4rem var(--mobile-container-gutter);
+    }
+
+    #biopoints_discounts > h1 {
+      font-size: 21px;
+    }
+
+    #biopoints_discounts > p {
+      margin: 1rem 0 0 0;
+      font-size: 16px;
+    }
+
+    #biopoints_discounts > ul {
+      margin: 3rem 0 0 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-auto-flow: row;
+      grid-auto-rows: max-content;
+    }
+
+    #biopoints_discounts > ul > li > picture {
+      margin-bottom: 0.25rem;
+    }
+
+    #biopoints_discounts > ul > li > h2 {
+      font-size: 16px;
+    }
+
+    #biopoints_discounts > ul > li > p {
+      margin: 1rem 0 0.5rem 0;
+      font-size: 16px;
+      justify-self: center;
+      max-width: 50dvw;
+    }
+
+    #biopoints_discounts > ul > li > img:last-child {
+      width: 20px;
+      height: 20px;
+    }
+
+    #biopoints_gain_rewards > p,
+    #biopoints_gain_rewards > h1{
+      justify-self: center;
+    }
+  }
+</style>

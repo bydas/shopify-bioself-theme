@@ -1,0 +1,99 @@
+{% assign article = blog.handle.articles.first %}
+  
+<section class="section section--text-centered top_banner_blog_section" data-section-id="{{ section.id }}" data-section-type="rich-text">
+  {%- if blog.articles_count > 0 -%}
+  {%- for article in blog.articles limit: 1 -%}
+  
+  <div class="top_banner_blog_item">
+    {%- if section.settings.blog_banner_image == blank -%}
+    <img class="top_banner_blog_img lazyload image--fade-in" src="{{ article.image | img_url: 'master' }}" data-src="{{ image_url }}" data-sizes="auto">
+    {%- else -%}  
+    <img class="top_banner_blog_img lazyload image--fade-in" src="{{ section.settings.blog_banner_image | img_url: 'master' }}" data-src="{{ image_url }}" data-sizes="auto">
+    {% endif %}  
+    <div class="overlay"></div>
+  </div>
+  <div class="container">
+    
+    {%- if section.settings.title == blank -%}
+      <h2 class="heading h1 top_banner_blog_title"><a href="{{ article.url }}" class="link">{{ article.title | truncate: 70, "" | capitalize }}</a></h2>
+    {%- else -%}  
+      <h2 class="heading h1 top_banner_blog_title"><a href="{{ article.url }}" class="link">{{ section.settings.title | escape | capitalize }}</a></h2>
+    {%- endif -%}
+
+
+    {%- if section.settings.subtitle == blank -%}
+    <div class="top_banner_blog_content">{{ article.content | truncate: 150, "" }}</div>
+    {%- else -%}
+    <div class="top_banner_blog_content">{{ section.settings.subtitle | escape }}</div>
+    {% endif %}  
+
+      {%- if section.settings.title == blank and section.settings.subtitle == blank -%}
+      <div class="top_banner_blog_info">
+        {%- for tag in article.tags -%}
+          {% if tag contains 'author' %}
+            {% assign author = tag | split: "_" %}
+            <a href="{{ blog.handle }}/tagged/{{ tag | handle }}">{{ author[1] }},
+            </a>
+          {% endif %}
+        {%- endfor -%}
+
+        <time>{{ article.published_at | time_tag: format: 'date' }}</time>        
+      </div>
+      {% endif %}
+
+    {%- if section.settings.button_link == blank and section.settings.button_text -%}
+      <a href="{{ article.url }}" class="top_banner_blog_btn button button--primary">{{ section.settings.button_text }}</a>
+    {%- else -%}
+      <a href="{{ section.settings.button_link }}" class="top_banner_blog_btn button button--primary">{{ section.settings.button_text }}</a>
+    {% endif %} 
+    </div>
+
+  {%- endfor -%}
+  {% endif %}
+
+</section>
+
+        
+{% schema %}
+  {
+    "name": "Blog Top Banner",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "blog_banner_image",
+        "label": "Blog banner image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Blog Bioself"
+      }, 
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Content text",
+        "default": "Content"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text",
+        "default": "Ler artigo"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Text",
+        "name": "Rich text",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+

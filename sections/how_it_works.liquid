@@ -1,0 +1,199 @@
+{% schema %}
+{
+  "name": "Biopoints How It Works",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da secção",
+      "default": "Como funciona"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom",
+      "name": "Etapa",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título da etapa"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Descrição da etapa"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Biopoints How It Works",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section id="biopoints_how_it_works">
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% if section.blocks.size > 0 %}
+    <ul>
+      {% for block in section.blocks %}
+        <li>
+          <div>
+            <span>{{ forloop.index }}</span>
+          </div>
+
+          {% unless block.settings.title == blank %}
+            <h2>{{ block.settings.title }}</h2>
+          {% endunless %}
+
+          {% unless block.settings.description == blank %}
+            {{ block.settings.description }}
+          {% endunless %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<style>
+  #biopoints_how_it_works {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 4rem;
+    margin: 8rem var(--desktop-container-gutter);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #biopoints_how_it_works {
+      margin: 8rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #biopoints_how_it_works {
+      margin: 8rem 18vw;
+    }
+  }
+
+  #biopoints_how_it_works > * {
+    line-height: normal;
+  }
+
+  #biopoints_how_it_works > h1 {
+    text-transform: uppercase;
+    font-weight: 900 !important;
+    font-size: 42px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  #biopoints_how_it_works > ul {
+    display: grid;
+    row-gap: 2rem;
+    column-gap: 4rem;
+    grid-template-columns: repeat(auto-fit, 240px);
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #biopoints_how_it_works > ul > li {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    justify-items: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  #biopoints_how_it_works > ul > li > div {
+    display: grid;
+    border-radius: 50%;
+    background-color: #D7FECD;
+    color: #258439;
+    width: 50px;
+    height: 50px;
+    place-items: center;
+    margin-bottom: 1rem;
+  }
+
+  #biopoints_how_it_works > ul > li > div > span {
+    font-weight: 900 !important;
+    font-size: 18px;
+  }
+
+  #biopoints_how_it_works > ul > li > h2 {
+    padding: 0;
+    margin: 0;
+    font-weight: 900 !important;
+    font-size: 21px;
+    margin-bottom: 0.25rem;
+  }
+
+  #biopoints_how_it_works > ul > li > p {
+    padding: 0;
+    margin: 0;
+    font-weight: 400 !important;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #biopoints_how_it_works > h1 {
+      font-size: 28px;
+    }
+
+    #biopoints_how_it_works > ul {
+      gap: 2rem !important;
+    }
+
+    #biopoints_how_it_works > ul > li > div > span {
+      font-size: 16px;
+    }
+
+    #biopoints_how_it_works > ul > li > h2 {
+      font-size: 18px;
+    }
+
+    #biopoints_how_it_works > ul > li > p {
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #biopoints_how_it_works {
+      gap: 2rem;
+      margin: 2rem var(--mobile-container-gutter);
+    }
+
+    #biopoints_how_it_works > h1 {
+      font-size: 21px;
+    }
+
+    #biopoints_how_it_works > ul {
+      gap: 2rem !important;
+    }
+
+    #biopoints_how_it_works > ul > li > div > span {
+      font-size: 16px;
+    }
+
+    #biopoints_how_it_works > ul > li > h2 {
+      font-size: 18px;
+    }
+
+    #biopoints_how_it_works > ul > li > p {
+      font-size: 16px;
+    }
+  }
+</style>

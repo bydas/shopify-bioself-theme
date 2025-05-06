@@ -1,0 +1,994 @@
+<style>
+  #footer_nav_mobile {
+    display: none;
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  #menu_mobile_modal {
+    display: none;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    grid-template-rows: max-content 1fr max-content max-content max-content;
+    gap: 1rem;
+    background-color: white;
+    padding: 1rem 1rem 2rem 1rem;
+    height: calc(100dvh - 162.5px);
+    width: 90%;
+    position: fixed;
+    bottom: 69.5px;
+    left: 0;
+    z-index: 4000;
+    overflow: auto;
+  }
+
+  #categorias_mobile_modal {
+    display: none;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    grid-template-rows: max-content 1fr max-content;
+    gap: 1rem;
+    background-color: white;
+    padding: 1rem 1rem 2rem 1rem;
+    height: calc(100dvh - 162.5px);
+    width: 90%;
+    position: fixed;
+    bottom: 69.5px;
+    left: 0;
+    z-index: 1000;
+    overflow: auto;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    color: black;
+    justify-items: center;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile > #contact_section_mobile {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.25rem;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile > #contact_section_mobile > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile > #contact_section_mobile > div > svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile > #contact_section_mobile > div > a {
+    font-size: 12px;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile > #need_help_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    align-content: center;
+    gap: 0.125rem;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile > #need_help_custom > h5 {
+    margin: 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  #categorias_mobile_modal > #contact_menu_mobile > #need_help_custom > span {
+    font-size: 12px;
+    line-height: normal;
+  }
+
+  #categorias_mobile_modal > ul {
+    display: grid;
+    padding: 2rem 0;
+    grid-template-rows: repeat(4, max-content);
+    gap: 0.35rem;
+    list-style-type: none;
+    border-top: 1px solid #308a36;
+  }
+
+  #categorias_mobile_modal > ul > li > a {
+    display: grid;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 0.65rem;
+    border: 1px solid #308a36;
+    color: #308a36;
+    transition: all 0.15s ease;
+    text-align: center;
+  }
+
+  #categorias_mobile_modal > ul > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.35rem;
+  }
+
+  #categorias_mobile_modal > ul > li,
+  #categorias_mobile_modal > ul > div > li,
+  #categorias_mobile_modal > ul > div > div > li {
+    display: grid;
+  }
+
+  #categorias_mobile_modal > ul > div > li > a,
+  #categorias_mobile_modal > ul > div > div > li > a {
+    display: grid;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #308a36;
+    color: #308a36;
+    transition: all 0.15s ease;
+    align-items: center;
+    text-align: center;
+  }
+
+  #categorias_mobile_modal > ul > li > .active,
+  #categorias_mobile_modal > ul > div > li > .active,
+  #categorias_mobile_modal > ul > div > div > li > .active {
+    background-color: #308a36;
+    color: white;
+  }
+
+  #categorias_mobile_modal > ul > div > div {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.35rem;
+  }
+
+  #menu_mobile_modal.active,
+  #categorias_mobile_modal.active_categoria {
+    transform: translateX(0);
+    box-shadow:
+      0px -5px 10px rgba(0, 0, 0, 0.1),
+      5px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  #menu_mobile_modal > #close_menu_mobile,
+  #categorias_mobile_modal > #close_categoria_mobile {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-self: end;
+    align-items: center;
+    gap: 0.5rem;
+    color: #308a36;
+    padding-bottom: 0.5rem;
+  }
+
+  #menu_mobile_modal > #hidden_close_menu_mobile {
+    display: none;
+    gap: 0.5rem;
+    grid-template-columns: repeat(2, max-content);
+    justify-self: end;
+    align-items: center;
+    color: #308a36;
+    padding-bottom: 0.5rem;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > li > svg,
+  #menu_mobile_modal > #close_menu_mobile > svg,
+  #menu_mobile_modal > #hidden_close_menu_mobile > svg,
+  #categorias_mobile_modal > #close_categoria_mobile > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #menu_mobile_modal > #close_menu_mobile > span,
+  #menu_mobile_modal > #hidden_close_menu_mobile > span,
+  #categorias_mobile_modal > #close_categoria_mobile > span {
+    font-size: 14px;
+    line-height: normal;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > ul {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    list-style-type: none;
+    padding: 2rem 2rem 2rem 0.5rem;
+    border-top: 1px solid #308a36;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile {
+    gap: 2rem;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > .hidden_nav_li {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    color: #308a36;
+    list-style-type: none;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > .hidden_nav_li > h4 {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > .hidden_nav_li > ul {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 0.5rem;
+    overflow: auto;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > .hidden_nav_li > ul > li {
+    display: grid;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > .hidden_nav_li > ul > li > a {
+    max-width: 15rem;
+    font-size: 12px;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #second_menu_mobile,
+  #menu_mobile_modal > #nav_links_modal_mobile > #third_menu_mobile {
+    gap: 1rem;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > li {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 1rem;
+    align-items: center;
+    color: #308a36;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #second_menu_mobile > li > a,
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > li > h1,
+  #menu_mobile_modal > #nav_links_modal_mobile > #first_menu_mobile > li > a {
+    margin: 0;
+    font-size: 16px;
+    line-height: normal;
+    color: #308a36;
+    font-weight: 700;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #second_menu_mobile > li,
+  #menu_mobile_modal > #nav_links_modal_mobile > #third_menu_mobile > li {
+    display: grid;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #second_menu_mobile > li > span,
+  #menu_mobile_modal > #nav_links_modal_mobile > #third_menu_mobile > li > a {
+    color: #838383;
+    font-size: 14px;
+    line-height: normal;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #second_menu_mobile > li > span {
+    text-transform: uppercase;
+  }
+
+  #menu_mobile_modal > #nav_links_modal_mobile > #second_menu_mobile > li > a {
+    text-decoration: none;
+    color: #308a36;
+    width: max-content;
+    font-weight: 500;
+  }
+
+  #menu_mobile_modal > #mobile_nav_icons {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    list-style-type: none;
+  }
+
+  #menu_mobile_modal > #mobile_nav_icons > li,
+  #menu_mobile_modal > #mobile_nav_icons > li > a {
+    display: grid;
+  }
+
+  #menu_mobile_modal > #mobile_nav_icons > li > a > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  #menu_mobile_modal > a {
+    width: 100%;
+    background-color: #308a36;
+    color: white;
+    padding: 0.65rem 1rem;
+    border-radius: 0.65rem;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #footer_nav_mobile {
+      display: grid;
+      background-color: white;
+      padding: 1rem var(--mobile-container-gutter);
+      position: fixed;
+      bottom: 0;
+      width: 100vw;
+      z-index: 999;
+      border-top: 1px solid #ffbb12;
+    }
+
+    #menu_mobile_modal,
+    #categorias_mobile_modal {
+      display: grid;
+    }
+
+    #footer_nav_mobile > ul {
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      justify-content: space-between;
+      gap: 1rem;
+      list-style-type: none;
+    }
+
+    #footer_nav_mobile > ul {
+      display: grid;
+      grid-template-columns: repeat(5, max-content);
+      gap: 0.5rem;
+      list-style-type: none;
+    }
+
+    #footer_nav_mobile > ul > a {
+      display: grid;
+      text-decoration: none;
+    }
+
+    #footer_nav_mobile > ul > a > li,
+    #footer_nav_mobile > ul > li {
+      display: grid;
+      grid-template-rows: repeat(2, max-content);
+      text-align: center;
+      justify-items: center;
+      gap: 0.25rem;
+      color: #308a36;
+    }
+
+    #footer_nav_mobile > ul > a > li > svg,
+    #footer_nav_mobile > ul > li > svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    #footer_nav_mobile > ul > a > li > span,
+    #footer_nav_mobile > ul > li > span {
+      font-size: 14px;
+      line-height: normal;
+    }
+  }
+
+  @media screen and (max-width: 370px) {
+    #footer_nav_mobile > ul {
+      grid-template-columns: repeat(4, max-content);
+    }
+
+    #footer_nav_mobile > ul > #categorias_nav_mobile {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const footerNav = document.querySelector("#footer_nav_mobile");
+    const menuModal = document.querySelector("#menu_mobile_modal");
+    const categoriasModal = document.querySelector("#categorias_mobile_modal");
+
+    let lastScrollTop = 0;
+
+    if (footerNav) {
+      window.addEventListener("scroll", function () {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop) {
+          footerNav.style.transform = "translateY(100%)";
+
+          if (menuModal && menuModal.classList.contains("active")) {
+            menuModal.classList.remove("active");
+          }
+
+          if (categoriasModal && categoriasModal.classList.contains("active_categoria")) {
+            categoriasModal.classList.remove("active_categoria");
+          }
+        } else {
+          footerNav.style.transform = "translateY(0)";
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.querySelector("#categorias_mobile_modal");
+    const escapeElement = document.querySelector("#close_categoria_mobile");
+    const openModal = document.querySelector("#categorias_nav_mobile");
+
+    if (modal && escapeElement && openModal) {
+      openModal.addEventListener("click", function() {
+        if (modal.classList.contains('active')) {
+          modal.classList.remove("active");
+        } else {
+          modal.classList.add("active");
+        }
+      });
+
+      escapeElement.addEventListener("click", function() {
+        modal.classList.remove("active");
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.querySelector("#menu_mobile_modal");
+    const otherModal = document.querySelector("#categorias_mobile_modal");
+    const escapeElement = document.querySelector("#close_menu_mobile");
+    const openModal = document.querySelector("#open_modal_menu_mobile");
+
+    if (modal && escapeElement && openModal) {
+      openModal.addEventListener("click", function() {
+        if (modal.classList.contains('active')) {
+          modal.classList.remove("active");
+        } else {
+          modal.classList.add("active");
+        }
+
+        if (otherModal.classList.contains('active_categoria')) {
+          otherModal.classList.remove("active_categoria");
+        }
+      });
+
+      escapeElement.addEventListener("click", function() {
+        modal.classList.remove("active");
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.querySelector("#categorias_mobile_modal");
+    const otherModal = document.querySelector("#menu_mobile_modal");
+    const escapeElement = document.querySelector("#close_categoria_mobile");
+    const openModal = document.querySelector("#categorias_nav_mobile");
+
+    if (modal && escapeElement && openModal) {
+      openModal.addEventListener("click", function() {
+        if (modal.classList.contains('active_categoria')) {
+          modal.classList.remove("active_categoria");
+        } else {
+          modal.classList.add("active_categoria");
+        }
+
+        if (otherModal.classList.contains('active')) {
+          otherModal.classList.remove("active");
+        }
+      });
+
+      escapeElement.addEventListener("click", function() {
+        modal.classList.remove("active_categoria");
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const firstMenuMobile = document.querySelector("#first_menu_mobile");
+    const secondMenuMobile = document.querySelector("#second_menu_mobile");
+    const closeMenuMobile = document.querySelector("#close_menu_mobile");
+    const hiddenCloseMenuMobile = document.querySelector("#hidden_close_menu_mobile");
+
+    if (firstMenuMobile) {
+      firstMenuMobile.addEventListener("click", function(event) {
+        const target = event.target.closest("li");
+        if (!target || !target.nextElementSibling?.classList.contains("hidden_nav_li")) return;
+
+        [...firstMenuMobile.children].forEach(child => {
+          child.style.display = "none";
+        });
+
+        target.nextElementSibling.style.display = "grid";
+
+        if (secondMenuMobile) secondMenuMobile.style.display = "none";
+
+        closeMenuMobile.style.display = "none";
+        hiddenCloseMenuMobile.style.display = "grid";
+      });
+    }
+
+    if (hiddenCloseMenuMobile) {
+      hiddenCloseMenuMobile.addEventListener("click", function() {
+        [...firstMenuMobile.children].forEach(child => {
+          child.style.display = "grid";
+        });
+
+        if (secondMenuMobile) secondMenuMobile.style.display = "grid";
+
+        document.querySelectorAll(".hidden_nav_li").forEach(navLi => {
+          navLi.style.display = "none";
+        });
+
+        closeMenuMobile.style.display = "grid";
+        hiddenCloseMenuMobile.style.display = "none";
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const customBtn = document.getElementById("add_to_cart_btn_container_mobile");
+
+    if (!window.location.pathname.includes("/products/") && customBtn) customBtn.remove();
+
+    const standardAddCart = document.querySelector("#product_page_custom_mobile #add-to-cart, #product_page_custom_mobile a.notify_button_collection");
+    const footerNav = document.getElementById("footer_nav_mobile");
+    const customFooter = document.getElementById("custom_footer_mobile");
+
+    if (!standardAddCart || !customBtn || !footerNav) return;
+
+    customBtn.style.position = "fixed";
+    customBtn.style.left = "0";
+    customBtn.style.right = "0";
+    customBtn.style.margin = "0 auto";
+    customBtn.style.opacity = "0";
+    customBtn.style.visibility = "hidden";
+    customBtn.style.transition = "opacity 0.3s ease, bottom 0.3s ease";
+
+    function updateWidthVisibility() {
+      if (window.innerWidth > 1000) {
+        customBtn.style.visibility = "hidden";
+        customBtn.style.opacity = "0";
+        customBtn.style.display = "none";
+      } else {
+        customBtn.style.display = "block";
+      }
+    }
+
+    updateWidthVisibility();
+
+    let hasScrolled = false;
+
+    function getViewportHeight() {
+      return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    }
+
+    function updateCustomBtnVisibility() {
+      if (!hasScrolled) {
+        customBtn.style.opacity = "0";
+        customBtn.style.visibility = "hidden";
+        return;
+      }
+
+      const viewportHeight = getViewportHeight();
+
+      if (customFooter) {
+        const cfRect = customFooter.getBoundingClientRect();
+
+        if (cfRect.top < viewportHeight && cfRect.bottom > 0) {
+          customBtn.style.opacity = "0";
+          customBtn.style.visibility = "hidden";
+          return;
+        }
+      }
+
+      const rect = standardAddCart.getBoundingClientRect();
+
+      if (rect.bottom < 0) {
+        customBtn.style.visibility = "visible";
+        customBtn.style.opacity = "1";
+      } else {
+        customBtn.style.opacity = "0";
+        customBtn.style.visibility = "hidden";
+      }
+    }
+
+    function updateCustomBtnPosition() {
+      const viewportHeight = getViewportHeight();
+      const footerRect = footerNav.getBoundingClientRect();
+      let bottomOffset = 0;
+
+      if (footerRect.top < viewportHeight) {
+        bottomOffset = viewportHeight - footerRect.top;
+      }
+
+      customBtn.style.bottom = bottomOffset + "px";
+    }
+
+    function updateAll() {
+      updateWidthVisibility();
+      updateCustomBtnVisibility();
+      updateCustomBtnPosition();
+    }
+
+    window.addEventListener("scroll", function() {
+      hasScrolled = true;
+      updateAll();
+    });
+
+    window.addEventListener("resize", updateAll);
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", updateAll);
+      window.visualViewport.addEventListener("scroll", updateAll);
+    }
+
+    updateAll();
+  });
+</script>
+
+<div id="add_to_cart_btn_container_mobile">
+  {% if product.variants.first.available == true %}
+    <button
+      id="add-to-cart"
+      data-product-id="{{ product.variants.first.id }}"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.52975 17.136C8.52975 17.3274 8.47298 17.5146 8.36661 17.6738C8.26025 17.8329 8.10907 17.957 7.93219 18.0303C7.75531 18.1036 7.56068 18.1227 7.3729 18.0854C7.18513 18.048 7.01265 17.9558 6.87727 17.8204C6.74189 17.6851 6.6497 17.5126 6.61235 17.3248C6.575 17.137 6.59417 16.9424 6.66744 16.7655C6.7407 16.5887 6.86477 16.4375 7.02396 16.3311C7.18315 16.2247 7.3703 16.168 7.56175 16.168C7.81848 16.168 8.06469 16.27 8.24623 16.4515C8.42777 16.633 8.52975 16.8792 8.52975 17.136Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16.9829 17.136C16.9829 17.3274 16.9261 17.5146 16.8197 17.6738C16.7134 17.8329 16.5622 17.957 16.3853 18.0303C16.2084 18.1036 16.0138 18.1227 15.826 18.0854C15.6383 18.048 15.4658 17.9558 15.3304 17.8204C15.195 17.6851 15.1028 17.5126 15.0655 17.3248C15.0281 17.137 15.0473 16.9424 15.1206 16.7655C15.1938 16.5887 15.3179 16.4375 15.4771 16.3311C15.6363 16.2247 15.8234 16.168 16.0149 16.168C16.2716 16.168 16.5178 16.27 16.6994 16.4515C16.8809 16.633 16.9829 16.8792 16.9829 17.136Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1 1H4.258L6.441 11.083C6.53024 11.4428 6.74125 11.7605 7.03819 11.9824C7.33513 12.2042 7.69971 12.3164 8.07 12.3H15.987C16.3566 12.3167 16.7207 12.2052 17.0175 11.9843C17.3144 11.7635 17.5258 11.4468 17.616 11.088L18.916 4.77H5.072" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      ADICIONAR
+    </button>
+  {% else %}
+    <a
+      href="#"
+      class="SI_trigger {{ quick_buy_classes }} notify_button_collection"
+      data-product-data="{{ product | json | escape }}"
+    >
+      <svg
+        stroke="currentColor"
+        fill="currentColor"
+        stroke-width="0"
+        viewBox="0 0 448 512"
+        height="18px"
+        width="18px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M439.39 362.29c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71zM67.53 368c21.22-27.97 44.42-74.33 44.53-159.42 0-.2-.06-.38-.06-.58 0-61.86 50.14-112 112-112s112 50.14 112 112c0 .2-.06.38-.06.58.11 85.1 23.31 131.46 44.53 159.42H67.53zM224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64z"></path>
+      </svg>
+
+      NOTIFICAR
+    </a>
+  {% endif %}
+</div>
+
+<nav id="footer_nav_mobile">
+  <ul>
+    <a href="/">
+      <li>
+        <svg
+          stroke="#308a36"
+          fill="currentColor"
+          stroke-width="0"
+          viewBox="0 0 576 512"
+          height="12px"
+          width="12px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>
+        </svg>
+
+        <span>Home</span>
+      </li>
+    </a>
+
+    <li id="categorias_nav_mobile">
+      <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.3641 0.461426H2.96406C1.96995 0.461426 1.16406 1.26731 1.16406 2.26143V4.96143C1.16406 5.95554 1.96995 6.76143 2.96406 6.76143H17.3641C18.3582 6.76143 19.1641 5.95554 19.1641 4.96143V2.26143C19.1641 1.26731 18.3582 0.461426 17.3641 0.461426Z" fill="#258439"/>
+        <path d="M7.20703 16.6615L7.20703 9.91145C7.20703 8.91734 6.40114 8.11145 5.40703 8.11145H2.70703C1.71292 8.11145 0.907031 8.91734 0.907031 9.91145L0.907031 16.6615C0.907031 17.6556 1.71292 18.4615 2.70703 18.4615H5.40703C6.40114 18.4615 7.20703 17.6556 7.20703 16.6615Z" fill="#258439"/>
+        <path d="M10.3562 12.6115L17.1062 12.6115C18.1004 12.6115 18.9062 11.8056 18.9062 10.8115V9.91145C18.9062 8.91734 18.1004 8.11145 17.1062 8.11145H10.3562C9.36214 8.11145 8.55625 8.91734 8.55625 9.91145V10.8115C8.55625 11.8056 9.36214 12.6115 10.3562 12.6115Z" fill="#258439"/>
+        <path d="M10.3562 18.4614H17.1062C18.1004 18.4614 18.9062 17.6555 18.9062 16.6614V15.7614C18.9062 14.7673 18.1004 13.9614 17.1062 13.9614H10.3562C9.36214 13.9614 8.55625 14.7673 8.55625 15.7614V16.6614C8.55625 17.6555 9.36214 18.4614 10.3562 18.4614Z" fill="#258439"/>
+      </svg>
+
+      <span>Categorias</span>
+    </li>
+
+    <a href="#ba-loyalty-home">
+      <li>
+        <svg
+          fill="#308a36"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="12px"
+          height="12px"
+          viewBox="0 0 29.894 29.895"
+          xml:space="preserve"
+        >
+          <g stroke-width="0"></g><g stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+            <g>
+              <g>
+                <g>
+                  <g>
+                    <path d="M14.308,13.048c0.355,0.35,0.924,0.35,1.28,0c1.22-1.203,3.813-3.803,4.451-4.792c0.908-1.406,1.812-2.566,1.812-4.591 S20.211,0,18.186,0c-1.416,0-2.63,0.812-3.24,1.987C14.336,0.812,13.123,0,11.707,0C9.682,0,8.042,1.64,8.042,3.665 S8.947,6.85,9.854,8.256C10.495,9.244,13.088,11.845,14.308,13.048z"></path> <path d="M15.587,16.848c-0.355-0.351-0.925-0.351-1.28,0c-1.22,1.202-3.813,3.804-4.452,4.791 c-0.907,1.406-1.813,2.566-1.813,4.593c0,2.023,1.64,3.663,3.665,3.663c1.416,0,2.63-0.812,3.24-1.985 c0.611,1.175,1.824,1.985,3.24,1.985c2.024,0,3.665-1.64,3.665-3.663c0-2.025-0.904-3.187-1.812-4.593 C19.402,20.65,16.807,18.049,15.587,16.848z"></path> <path d="M27.908,14.947c1.174-0.61,1.985-1.824,1.985-3.24c0-2.025-1.64-3.665-3.664-3.666c-2.024,0-3.186,0.906-4.592,1.813 c-0.987,0.639-3.59,3.232-4.792,4.452c-0.351,0.355-0.351,0.924,0,1.279c1.202,1.22,3.805,3.813,4.792,4.453 c1.406,0.907,2.566,1.812,4.592,1.812c2.023,0,3.664-1.642,3.664-3.666C29.896,16.771,29.083,15.557,27.908,14.947z"></path> <path d="M13.048,15.587c0.35-0.354,0.35-0.925,0-1.28c-1.203-1.22-3.804-3.813-4.792-4.452C6.851,8.948,5.69,8.042,3.667,8.042 c-2.025,0-3.665,1.641-3.665,3.666c0,1.416,0.813,2.63,1.987,3.24c-1.175,0.61-1.987,1.823-1.987,3.239 c0,2.023,1.64,3.663,3.665,3.665c2.024,0,3.185-0.905,4.59-1.812C9.245,19.4,11.845,16.807,13.048,15.587z">
+                    </path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        <span>Biopoints</span>
+      </li>
+    </a>
+
+    <a href="#swym-wishlist">
+      <li>
+        <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512">
+          <path fill="#308a36" d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8l0-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5l0 3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20-.1-.1s0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5l0 3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2l0-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/>
+        </svg>
+
+        <span>Favoritos</span>
+      </li>
+    </a>
+
+    <li id="open_modal_menu_mobile">
+      <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.5232 3.01733H1.69491C1.17373 3.01733 0.748047 2.44171 0.748047 1.73938C0.748047 1.03615 1.17373 0.461426 1.69491 0.461426H22.5232C23.0444 0.461426 23.4701 1.03704 23.4701 1.73938C23.471 2.44171 23.0453 3.01733 22.5232 3.01733Z" fill="#258439"/>
+        <path d="M22.5232 10.0352H1.69491C1.17373 10.0352 0.748047 9.45954 0.748047 8.7572C0.748047 8.05397 1.17373 7.47925 1.69491 7.47925H22.5232C23.0444 7.47925 23.4701 8.05486 23.4701 8.7572C23.471 9.45954 23.0453 10.0352 22.5232 10.0352Z" fill="#258439"/>
+        <path d="M22.5232 17.053H1.69491C1.17373 17.053 0.748047 16.4774 0.748047 15.775C0.748047 15.0718 1.17373 14.4971 1.69491 14.4971H22.5232C23.0444 14.4971 23.4701 15.0727 23.4701 15.775C23.471 16.4774 23.0453 17.053 22.5232 17.053Z" fill="#258439"/>
+      </svg>
+
+      <span>Menu</span>
+    </li>
+  </ul>
+</nav>
+
+<nav id="menu_mobile_modal">
+  <div id="close_menu_mobile">
+    <span>Fechar</span>
+
+    <svg
+      stroke="#308a36"
+      fill="currentColor"
+      stroke-width="0"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      height="20px"
+      width="20px"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+    </svg>
+  </div>
+
+  <div id="hidden_close_menu_mobile">
+    <svg xmlns="http://www.w3.org/2000/svg" height="12" width="10.5" viewBox="0 0 448 512">
+      <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#308a36" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+    </svg>
+
+    <span>Voltar ao menu</span>
+  </div>
+
+  <div id="nav_links_modal_mobile">
+    <ul id="first_menu_mobile">
+      {% for link in linklists['menu-mobile'].links %}
+        <li>
+          {% if link.links.size > 0 %}
+            <h1>{{ link.title }}</h1>
+
+            <svg
+              stroke="#308a36"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 320 512"
+              height="12px"
+              width="12px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path>
+            </svg>
+          {% else %}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {% endif %}
+        </li>
+
+        {% if link.links.size > 0 %}
+          <ul class="hidden_nav_li">
+            <h4>{{ link.title }}</h4>
+
+            {% for l in link.links %}
+              <li>
+                <a href="{{ l.url }}">{{ l.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <ul id="second_menu_mobile">
+      <li>
+        <span>Comprar por</span>
+      </li>
+
+      {% for link in linklists['menu-oportunidades'].links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <ul id="third_menu_mobile">
+      {% for link in linklists['menu-info'].links %}
+        <li>
+          <a href="{{ link.url }}{% if link.title contains 'newsletter' %}#newsletter_custom_mobile{% endif %}">
+            {{ link.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <ul id="mobile_nav_icons">
+    <li>
+      <a
+        href="https://www.facebook.com/bioselfnatura"
+        aria-label="Facebook"
+        target="_blank"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 16.532 26">
+          <path id="Icon_feather-facebook" data-name="Icon feather-facebook" d="M25.032,3H21.069c-3.648,0-6.605,2.686-6.605,6v3.6H10.5v4.8h3.963V27h5.284V17.4h3.963l1.321-4.8H19.748V9a1.265,1.265,0,0,1,1.321-1.2h3.963Z" transform="translate(-9.5 -2)" fill="none" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </a>
+    </li>
+
+    <li>
+      <a
+        href="https://www.instagram.com/bioselfnatura/"
+        aria-label="Instagram"
+        target="_blank"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 26 26">
+          <g id="Icon_feather-instagram" data-name="Icon feather-instagram" transform="translate(1 1)">
+            <path id="Path_734" data-name="Path 734" d="M9,3H21a6,6,0,0,1,6,6V21a6,6,0,0,1-6,6H9a6,6,0,0,1-6-6V9A6,6,0,0,1,9,3Z" transform="translate(-3 -3)" fill="none" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            <path id="Path_735" data-name="Path 735" d="M22.577,16.444a5.284,5.284,0,1,1-4.452-4.452,5.284,5.284,0,0,1,4.452,4.452Z" transform="translate(-5.301 -5.268)" fill="none" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            <path id="Path_736" data-name="Path 736" d="M26.25,9.75h0" transform="translate(-7.65 -4.35)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </g>
+        </svg>
+      </a>
+    </li>
+  </ul>
+
+  <a href="/pages/apoio-ao-cliente">Apoio ao Cliente</a>
+</nav>
+
+<nav id="categorias_mobile_modal">
+  <div id="close_categoria_mobile">
+    <span>Fechar</span>
+
+    <svg
+      stroke="#308a36"
+      fill="currentColor"
+      stroke-width="0"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      height="20px"
+      width="20px"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+    </svg>
+  </div>
+
+  <ul>
+    <li>
+      <a href="{{ linklists['categorias-mobile'].links.first.url }}">
+        {{- linklists['categorias-mobile'].links.first.title -}}
+      </a>
+    </li>
+
+    <div>
+      <li>
+        <a href="{{ linklists['categorias-mobile'].links[1].url }}">
+          {{- linklists['categorias-mobile'].links[1].title -}}
+        </a>
+      </li>
+
+      <div>
+        {% assign first_slice = linklists['categorias-mobile'].links | slice: 2, 2 %}
+        {% for link in first_slice %}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div>
+      <div>
+        {% assign second_slice = linklists['categorias-mobile'].links | slice: 4, 2 %}
+        {% for link in second_slice %}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </div>
+
+      <li>
+        <a href="{{ linklists['categorias-mobile'].links[6].url }}">
+          {{- linklists['categorias-mobile'].links[6].title -}}
+        </a>
+      </li>
+    </div>
+
+    <li>
+      <a href="{{ linklists['categorias-mobile'].links.last.url }}">
+        {{- linklists['categorias-mobile'].links.last.title -}}
+      </a>
+    </li>
+  </ul>
+
+  <div id="contact_menu_mobile">
+    <div id="need_help_custom">
+      <h5>Precisa de ajuda?</h5>
+
+      <span>Entre em contacto</span>
+    </div>
+
+    <div id="contact_section_mobile">
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512">
+          <path fill="#000000" d="M280 0C408.1 0 512 103.9 512 232c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-101.6-82.4-184-184-184c-13.3 0-24-10.7-24-24s10.7-24 24-24zm8 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm-32-72c0-13.3 10.7-24 24-24c75.1 0 136 60.9 136 136c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-48.6-39.4-88-88-88c-13.3 0-24-10.7-24-24zM117.5 1.4c19.4-5.3 39.7 4.6 47.4 23.2l40 96c6.8 16.3 2.1 35.2-11.6 46.3L144 207.3c33.3 70.4 90.3 127.4 160.7 160.7L345 318.7c11.2-13.7 30-18.4 46.3-11.6l96 40c18.6 7.7 28.5 28 23.2 47.4l-24 88C481.8 499.9 466 512 448 512C200.6 512 0 311.4 0 64C0 46 12.1 30.2 29.5 25.4l88-24z"/>
+        </svg>
+
+        <a href="tel:+351222004579">+351 22 200 4579</a>
+      </div>
+
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512">
+          <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#000000" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+        </svg>
+
+        <a href="mailto:info@bioself.pt">info@bioself.pt</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function adjustModalHeight() {
+    const announcementBar = document.querySelector('#shopify-section-announcement-bar');
+    const menuModal = document.querySelector('#menu_mobile_modal');
+    const categoriaModal = document.querySelector('#categorias_mobile_modal');
+  
+    if (menuModal || categoriaModal) {
+      const isAnnouncementBarVisible = announcementBar && announcementBar.getBoundingClientRect().bottom > 0;
+      const additionalHeight = isAnnouncementBarVisible ? 0 : 45;
+      
+      menuModal.style.height = `calc(100dvh - ${162.5 - additionalHeight}px)`;
+      categoriaModal.style.height = `calc(100dvh - ${162.5 - additionalHeight}px)`;
+    }
+  }
+  
+  window.addEventListener('load', adjustModalHeight);
+  window.addEventListener('resize', adjustModalHeight);
+  window.addEventListener('scroll', adjustModalHeight);
+</script>

@@ -1,0 +1,227 @@
+{% schema %}
+{
+  "name": "Custom collection list",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection_with_image",
+      "name": "Coleção com Imagem",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Selecione uma Coleção"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem do Bloco",
+          "info": "160x160px"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom collection list",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "collection_with_image"
+        },
+        {
+          "type": "collection_with_image"
+        },
+        {
+          "type": "collection_with_image"
+        },
+        {
+          "type": "collection_with_image"
+        },
+        {
+          "type": "collection_with_image"
+        },
+        {
+          "type": "collection_with_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #custom-collection-list {
+    display: grid;
+    grid-template-rows: 1fr;
+    margin: 2.5rem var(--desktop-container-gutter) 2rem var(--desktop-container-gutter);
+  }
+
+  #custom-collection-list_mobile {
+    display: none;
+    grid-template-rows: 1fr;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #custom-collection-list > ul {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    list-style-type: none;
+    gap: 5rem;
+  }
+
+  #custom-collection-list_mobile > ul {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    list-style-type: none;
+    gap: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #custom-collection-list_mobile > ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #custom-collection-list > ul > a > li > img {
+      transform: scale(0.9);
+    }
+
+    #custom-collection-list > ul > a > li > h2 {
+      font-size: 14px;
+    }
+  }
+
+  #custom-collection-list > ul > a > li {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    background: linear-gradient(to bottom, #88A54E 60%, white 0%);
+    border-radius: 2rem 2rem 0 0;
+    justify-content: center;
+    text-align: center;
+    padding-top: 1rem;
+    cursor: pointer;
+    gap: 0.5rem;
+  }
+
+  #custom-collection-list_mobile > ul > a > li {
+    scroll-snap-align: center;
+    flex: 0 0 auto;
+    min-width: 150px;
+    text-align: center;
+    background: #88A54E;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: white;
+  }
+
+  #custom-collection-list > ul > a > li > img {
+    transition: all 0.95s ease;
+  }
+
+  @media screen and (max-width: 1499px) {
+    #custom-collection-list > ul > a > li > img {
+      width: 130px !important;
+    }
+  }
+
+  #custom-collection-list > ul > a > li:hover > img {
+    transform: scale(1.08);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom-collection-list {
+      margin: 2.5rem 9vw 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom-collection-list {
+      margin: 2.5rem 18vw 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1499px) {
+    #custom-collection-list > ul {
+      gap: 3rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom-collection-list {
+      display: none;
+    }
+
+    #custom-collection-list_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="custom-collection-list">
+  <ul>
+    {% for block in section.blocks %}
+      {% assign collection = collections[block.settings.collection] %}
+
+      <a href="{{ collection.url }}">
+        <li>
+          {% if block.settings.image %}
+            <img loading="lazy" src="{{ block.settings.image | img_url: '160x' }}" alt="Bloco Imagem">
+          {% endif %}
+
+          {% if collection %}
+            <h2>{{ collection.title }}</h2>
+          {% endif %}
+        </li>
+      </a>
+    {% endfor %}
+  </ul>
+</section>
+
+<section id="custom-collection-list_mobile">
+  <ul>
+    {% for block in section.blocks %}
+      {% assign collection = collections[block.settings.collection] %}
+
+      <a href="{{ collection.url }}">
+        <li>
+          {% if collection %}
+            <h6>{{ collection.title }}</h6>
+          {% endif %}
+        </li>
+      </a>
+    {% endfor %}
+  </ul>
+</section>
+
+<script>
+  const mobileList = document.querySelector("#custom-collection-list_mobile > ul");
+
+  let isDragging = false;
+  let startX, scrollLeft;
+
+  mobileList.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.pageX - mobileList.offsetLeft;
+    scrollLeft = mobileList.scrollLeft;
+  });
+
+  mobileList.addEventListener("mouseleave", () => {
+    isDragging = false;
+  });
+
+  mobileList.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+
+  mobileList.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - mobileList.offsetLeft;
+    const walk = (x - startX) * 2;
+    mobileList.scrollLeft = scrollLeft - walk;
+  });
+</script>

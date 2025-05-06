@@ -1,0 +1,28 @@
+{%- capture content_for_query_string -%}{{ content_for_header }}{%- endcapture -%}
+{%- liquid
+  assign query_key = query_key | default: blank
+  assign query_value = blank
+  assign page_url = content_for_query_string | split: '"pageurl":"' | last | split: '"' | first | split: request.host | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&'
+
+  for i in (1..1)
+    unless page_url contains '?'
+      break
+    endunless
+
+    assign query_string = page_url | split: '?' | last
+    assign qry_parts = query_string | split: '&'
+
+    for part in qry_parts
+      assign key_and_value = part | split: '='
+      if key_and_value.size > 1
+        if key_and_value[0] == query_key
+          assign query_value = key_and_value[1]
+        endif
+      endif
+    endfor
+  endfor
+
+  if query_value != blank
+    echo query_value | strip | strip_newlines
+  endif
+-%}

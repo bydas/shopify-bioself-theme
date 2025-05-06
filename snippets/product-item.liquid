@@ -1,0 +1,535 @@
+{%- comment -%}Color labels used to detect what is a color swatch{%- endcomment -%}
+{%- assign color_label = 'color,colour,couleur,cor,colore,farbe,색,色,カラー,färg,farve' | split: ',' -%}
+
+<div class="product-item {% if horizontal %}product-item--horizontal{% elsif list %}product-item--list{% else %}product-item--vertical{% endif %} {% if section.id == 'blog-sidebar' %}product-item--compact{% endif %} {{ grid_classes }}">
+  {%- capture product_labels -%}
+    {%- for tag in product.tags -%}
+      {%- if tag contains '__label:' -%}
+        <span class="product-label product-label--custom1">{{ tag | split: '__label:' | last }}</span>
+      {%- endif -%}
+
+      {%- if tag contains '__label1:' -%}
+        <span class="product-label product-label--custom1">{{ tag | split: '__label1:' | last }}</span>
+      {%- endif -%}
+
+      {%- if tag contains '__label2:' -%}
+        <span class="product-label product-label--custom2">{{ tag | split: '__label2:' | last }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if settings.show_discount and product.price < product.compare_at_price -%}
+      {%- if settings.discount_mode == 'percentage' -%}
+        {%- assign savings = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round | append: '%' -%}
+      {%- else -%}
+        {%- capture savings -%}
+          <span>{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }}</span>
+        {%- endcapture -%}
+      {%- endif -%}
+
+      <span class="product-label product-label--on-sale">{{ 'collection.product.discount_html' | t: savings: savings }}</span>
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- if section.settings.show_promotional_badge -%}
+    {% for tag in product.tags %}
+      {%- if tag contains 'LEVE' and 'PAGUE' -%}
+        <div class="badge-circle_collection">{{ 'product.general.promotionaltext' | t | split: '6' }}</div>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if product_labels != blank -%}
+    <div class="product-item__label-list">
+      {{- product_labels -}}
+    </div>
+  {%- endif -%}
+
+  {%- if settings.show_secondary_image and product.media.size > 1 -%}
+    {%- assign show_secondary_media = true -%}
+  {%- else -%}
+    {%- assign show_secondary_media = false -%}
+  {%- endif -%}
+
+  {%- assign filtered_variant = '' -%}
+
+  {%- if product.media.size > 0 -%}
+    {%- comment -%}
+      Are you ready for some Liquid crazyness? Let's start!
+      The idea here is that when we are on a collection page that is filtered using a color swatch, instead of showing the featured
+      image, we'd like to show a variant image that is attached to the selected color. Unfortunately, because filtering is done using
+      tag, there is no direct relationship between tags and variants. We therefore have to do some crazy processing to match a filter
+      with a variant. Because this code is within a collection page, it is executed for each product, so it's pretty performance
+      sensitive. Disabling this piece of code may slightly improve the performance if you have lot of variants.
+    {%- endcomment -%}
+
+    {%- assign primary_media = product.featured_media -%}
+
+    {%- if request.page_type == 'collection'
+      and section.settings.show_filters
+      and section.settings.filter_type == 'group'
+    -%}
+      {%- assign matched_color_option = '' -%}
+
+      {%- for tag in current_tags -%}
+        {%- assign tag_parts = tag | split: '_' -%}
+        {%- assign tag_group_name = tag_parts | first | downcase -%}
+        {%- assign tag_group_value = tag_parts | last | downcase -%}
+
+        {%- if color_label contains tag_group_name -%}
+          {%- comment -%}We have found a matching color label, then we check if this product contains an option named the same{%- endcomment -%}
+
+          {%- for option in product.options -%}
+            {%- assign downcased_option = option | downcase -%}
+
+            {%- if downcased_option == tag_group_name -%}
+              {%- comment -%}We have found the index of the matching option, so we can iterate through the variants{%- endcomment -%}
+              {%- assign option_index = 'option' | append: forloop.index -%}
+
+              {%- for variant in product.variants -%}
+                {%- assign variant_option_value = variant[option_index] | downcase -%}
+
+                {%- if variant_option_value == tag_group_value and variant.featured_media -%}
+                  {%- assign primary_media = variant.featured_media -%}
+                  {%- assign filtered_variant = variant -%}
+                  {%- break -%}
+                {%- endif %}
+              {%- endfor -%}
+
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    <a
+      href="{{ filtered_variant.url | default: product.url | within: collection }}"
+      class="product-item__image-wrapper {% if show_secondary_media %}product-item__image-wrapper--with-secondary{% endif %}"
+    >
+      {%- capture supported_sizes -%}
+        {%- render 'image-size', sizes: '200,300,400,500,600,700,800', image: primary_media.preview_image -%}{%- endcapture -%}
+      {%- assign image_url = primary_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+      <div
+        class="aspect-ratio {% if settings.product_image_size != 'natural' %}aspect-ratio--{{ settings.product_image_size }}{% endif %}"
+        style="padding-bottom: {{ 100.0 | divided_by: primary_media.preview_image.aspect_ratio }}%"
+      >
+        <img
+          class="product-item__primary-image lazyload image--fade-in"
+          data-media-id="{{ primary_media.id }}"
+          data-src="{{ image_url }}"
+          data-sizes="auto"
+          data-widths="[{{ supported_sizes }}]"
+          alt="{{ primary_media.alt | escape }}"
+        >
+
+        {%- if show_secondary_media -%}
+          {%- capture supported_sizes -%}
+            {%- render 'image-size', sizes: '200,300,400,500,600,700,800', image: product.media[1].preview_image -%}{%- endcapture -%}
+          {%- assign image_url = product.media[1] | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+          <img
+            class="product-item__secondary-image lazyload image--fade-in"
+            data-src="{{ image_url }}"
+            data-sizes="auto"
+            data-widths="[{{ supported_sizes }}]"
+            alt="{{ product.media[1].alt | escape }}"
+          >
+        {%- endif -%}
+
+        <noscript>
+          <img src="{{ primary_image | img_url: '600x' }}" alt="{{ primary_media.alt | escape }}">
+        </noscript>
+
+        {% render 'swym-product-view', product: product -%}
+        <button
+          class="product-item__action-button button--primary swym-button swym-add-to-wishlist-view-product product_{{product.id}}"
+          data-swaction="addToWishlist"
+          data-product-id="{{product.id | json}}"
+        ></button>
+      </div>
+    </a>
+  {%- endif -%}
+
+  <div class="product-item__info">
+    <div class="product-item__info-inner">
+      {%- capture price_list -%}
+
+        <div class="product-item__price-list price-list">
+          {%- if product.price < product.compare_at_price -%}
+            {%- if product.price_varies -%}
+              {%- capture price_min -%}
+                <span>{{ product.price_min | money_without_trailing_zeros }}</span>
+              {%- endcapture -%}
+              {%- capture price_max -%}
+                <span>{{ product.price_max | money_without_trailing_zeros }}</span>
+              {%- endcapture -%}
+              <span class="price price--highlight">
+                <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+                {{- 'collection.product.from_price_html' | t: price_min: price_min, price_max: price_max -}}
+              </span>
+
+              <span class="price price--compare">
+                <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+                {{- product.compare_at_price_min | money_without_trailing_zeros -}}
+              </span>
+            {%- else -%}
+              <span class="price price--highlight">
+                <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+                {{- product.price | money_without_trailing_zeros -}}
+              </span>
+
+              <span class="price price--compare">
+                <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+                {{- product.compare_at_price | money_without_trailing_zeros -}}
+              </span>
+              
+            {%- endif -%}
+          {%- elsif product.price_varies -%}
+            {%- capture price_min -%}
+              <span>{{ product.price_min | money_without_trailing_zeros }}</span>
+            {%- endcapture -%}
+            {%- capture price_max -%}
+              <span>{{ product.price_max | money_without_trailing_zeros }}</span>
+            {%- endcapture -%}
+
+            <span class="price">
+              <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+              {{- 'collection.product.from_price_html' | t: price_min: price_min, price_max: price_max -}}
+            </span>
+          {%- else -%}
+            <span class="price">
+              <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+              {{- product.price | money_without_trailing_zeros -}}
+            </span>
+          {%- endif -%}
+        </div>
+
+        {% if settings.show_pvp_per_unit %}
+          {% if product.metafields.PHC.Valor-Unidade != 0 and product.metafields.PHC.Valor-Unidade >= 0 and product.metafields.PHC.Unidade-Plural and product.metafields.PHC.Unidade-Singular %}
+            
+            {%- assign units = product.metafields.PHC.Valor-Unidade | floor -%}
+            {%- assign pvp = product.price -%}
+            {%- assign pvp_per_unit = pvp | divided_by: units | money -%}
+               
+            <p class="pvp_per_unit_catalog"> 
+              {{ pvp_per_unit }} por {% if product.metafields.PHC.Unidade-Singular == "Capsula" %} Cápsula {% else %} {{ product.metafields.PHC.Unidade-Singular }} {% endif %}
+            </p>
+      
+          {% else  %}
+          <p class="pvp_per_unit_catalog"></p>
+          {% endif %}
+        {% endif %}
+
+        {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
+          <div class="product-item__price-info">
+            <div class="unit-price-measurement">
+              <span class="unit-price-measurement__price">{{ product.selected_or_first_available_variant.unit_price | money_without_trailing_zeros }}</span>
+              <span class="unit-price-measurement__separator">/
+              </span>
+
+              {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+                <span class="unit-price-measurement__reference-value">{{ product.selected_or_first_available_variant.unit_price_measurement.reference_value }}</span>
+              {%- endif -%}
+
+              <span class="unit-price-measurement__reference-unit">{{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endcapture -%}
+
+      {%- capture vendor -%}
+        {%- if settings.show_vendor -%}
+          {%- assign vendor_handle = product.vendor | handle -%}
+          {%- assign collection_for_vendor = collections[vendor_handle] -%}
+
+          {%- unless collection_for_vendor.empty? -%}
+            <a class="product-item__vendor link" href="{{ collection_for_vendor.url }}">{{ product.vendor }}</a>
+          {%- else -%}
+            <a class="product-item__vendor link" href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endcapture -%}
+
+      {%- if settings.product_price_position == 'before_title' -%}
+        {{ price_list }}
+      {%- endif -%}
+
+      {%- if settings.product_price_position == 'after_title' -%}
+        {{ vendor }}
+      {%- endif -%}
+
+      <a
+        href="{{ filtered_variant.url | default: product.url | within: collection }}"
+        class="product-item__title text--strong link"
+      >
+        <h3>{{ product.title }}</h3>
+      </a>
+
+      <script
+        charset="utf-8"
+        src="https://cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/AWS/PRODUCT_API/tag.min.js"
+      ></script>
+      <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
+      <div class="skeepers_product__stars" data-product-id="{{ product.id }}"></div>
+
+      <div id="no_reviews_stars">
+        <div>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="no_reviews_label"> 0/5 - 0 Opiniões </span>
+        </div>
+      </div>
+
+      {%- if settings.product_price_position == 'before_title' -%}
+        {{ vendor }}
+      {%- endif -%}
+
+      {%- if settings.show_color_swatch and template != 'blog' -%}
+        {%- capture color_swatch -%}
+          {%- capture color_name -%}
+            {{ section.id }}-{{ product.id }}{%- endcapture -%}
+
+          {%- for option in product.options_with_values -%}
+            {%- assign downcased_option = option.name | downcase -%}
+
+            {%- if color_label contains downcased_option -%}
+              {%- assign variant_option = 'option' | append: forloop.index -%}
+              {%- assign value_to_match = filtered_variant[variant_option] | default: option.selected_value -%}
+
+              {%- for value in option.values -%}
+                {%- assign downcased_value = value | downcase -%}
+                {%- capture color_id -%}
+                  {{ color_name }}-{{ forloop.index }}{%- endcapture -%}
+
+                {%- for variant in product.variants -%}
+                  {%- if variant[variant_option] == value -%}
+                    {%- assign variant_for_value = variant -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                <div class="color-swatch {% if downcased_value == 'white' or downcased_value == 'blanc' %}color-swatch--white{% endif %}">
+                  {%- if variant_for_value.featured_media -%}
+                    {%- capture supported_sizes -%}
+                      {%- render 'image-size', sizes: '200,300,400,500,600,700,800', image: variant_for_value.featured_media.preview_image -%}{%- endcapture -%}
+                    {%- assign image_url = variant_for_value.featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                  {%- endif -%}
+
+                  {%- assign color_swatch_name = value | handle | append: '.png' -%}
+                  {%- assign color_swatch_image = images[color_swatch_name] -%}
+
+                  <input
+                    class="color-swatch__radio"
+                    type="radio"
+                    name="{{ color_name }}"
+                    id="{{ color_id }}"
+                    value="{{ value | escape }}"
+                    {% if value_to_match == value %}checked="checked"{% endif %}
+                    data-variant-url="{{ variant_for_value.url }}"
+                    {% if variant_for_value.featured_media %}data-media-id="{{ variant_for_value.featured_media.id }}"data-image-url="{{ image_url }}"data-image-widths="[{{ supported_sizes }}]"data-image-aspect-ratio="{{ variant_for_value.featured_media.preview_image.aspect_ratio }}"{% endif %}
+                    aria-label="{{ value | escape }}">
+                  <label
+                    class="color-swatch__item lazyload"
+                    for="{{ color_id }}"
+                    {% if color_swatch_image != blank %}data-bg="{{ color_swatch_image | img_url: '64x64' }}"{% else %}style="background-color: {{ value | replace: ' ', '' | downcase }}"{% endif %}
+                    title="{{ value | escape }}"></label>
+                  <a href="{{ product.url }}" class="color-swatch__item-link">+{{ option.values.size | minus: forloop.index0 }}</a>
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- if color_swatch != blank -%}
+          <div class="product-item__swatch-list">
+            <div class="color-swatch-list">
+              {{ color_swatch }}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if settings.product_price_position == 'after_title' -%}
+        {{ price_list }}
+      {%- endif -%}
+
+      {%- if settings.show_reviews_badge -%}
+        <a class="product-item__reviews-badge link" href="{{ product.url | within: collection }}#product-reviews">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}">
+            {%- comment -%}Display a placeholder, to allocate space{%- endcomment -%}
+            <div class="spr-badge" style="opacity: 1">
+              <span class="spr-starrating spr-badge-starrating">
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+              </span>
+            </div>
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- if settings.show_inventory_quantity and product.template_suffix != 'pre-order' -%}
+        {%- if product.available -%}
+          {%- assign should_calculate_inventory = true -%}
+
+          {%- for variant in product.variants -%}
+            {%- comment -%}
+              If we have one variant that is set to "continue" or that do not have any inventory management, then we skip the calculation of inventory as this
+              means at least one of the variant is always purchasable
+            {%- endcomment -%}
+
+            {%- if variant.inventory_policy == 'continue' or variant.inventory_management == null -%}
+              {%- assign should_calculate_inventory = false -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if should_calculate_inventory and settings.low_inventory_threshold > 0 -%}
+            {%- assign all_inventory = 0 -%}
+
+            {%- for variant in product.variants -%}
+              {%- if variant.inventory_management -%}
+                {%- assign all_inventory = variant.inventory_quantity | at_least: 0 | plus: all_inventory -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if all_inventory <= settings.low_inventory_threshold -%}
+              <span class="product-item__inventory inventory inventory--low">
+                {{- 'collection.product.low_stock_with_quantity_count' | t: count: all_inventory -}}
+              </span>
+            {%- else -%}
+              <span class="product-item__inventory inventory inventory--high">
+                {{- 'collection.product.in_stock_with_quantity_count' | t: count: all_inventory -}}
+              </span>
+            {%- endif -%}
+          {%- else -%}
+            {%- if product.variants.first.inventory_policy == 'continue'
+              and product.variants.first.inventory_quantity <= 0
+              and product.variants.first.requires_shipping
+            -%}
+              <span class="product-item__inventory inventory inventory--high">
+                {{- 'collection.product.oversell_stock' | t -}}
+              </span>
+            {%- else -%}
+              <span class="product-item__inventory inventory inventory--high">
+                {{- 'collection.product.in_stock' | t -}}
+              </span>
+            {%- endif -%}
+          {%- endif -%}
+        {%- else -%}
+          <span class="product-item__inventory inventory">{{ 'collection.product.sold_out' | t }}</span>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if request.page_type == 'collection' or request.page_type == 'search' or show_add_to_cart -%}
+        {%- if section.settings.show_quick_view == 'list_grid'
+          or section.settings.show_quick_buy == 'list_grid'
+          or show_add_to_cart
+        -%}
+          {%- assign product_form_classes = 'product-item__action-list button-stack' -%}
+        {%- else -%}
+          {%- assign product_form_classes = 'product-item__action-list product-item__action-list--list-view-only button-stack' -%}
+        {%- endif -%}
+
+        {%- assign form_id = 'product_form_id_' | append: product.id | append: '_' | append: section.id -%}
+
+        {% capture buy_button %}
+        {%- if product.template_suffix == 'contact' -%}
+          <div class="{{ product_form_classes }}">
+            <a href="mailto:{{ shop.email }}" class="product-item__action-button button button--small button--primary">
+              {{- 'product.form.contact_us' | t -}}
+            </a>
+          </div>
+        {%- else -%}
+          {%- form 'product', product, id: form_id, class: product_form_classes -%}
+            <input
+              type="hidden"
+              name="quantity"
+              value="1">
+            <input
+              type="hidden"
+              name="id"
+              value="{{ product.selected_or_first_available_variant.id }}">
+  
+            {%- if section.settings.show_quick_buy == 'list_grid' or show_add_to_cart -%}
+              {%- assign quick_buy_classes = 'product-item__action-button button button--small button--primary' -%}
+            {%- else -%}
+              {%- assign quick_buy_classes = 'product-item__action-button product-item__action-button--list-view-only button button--small button--primary' -%}
+            {%- endif -%}
+            <div class="button__group-wrapper">
+                                  {%- if product.available -%}
+                                      {%- if product.variants.size == 1 -%}
+                                          <button
+                                              type="submit"
+                                              class="{{ quick_buy_classes }}"
+                                              data-action="add-to-cart">
+                                              {%- if product.template_suffix == 'pre-order' -%}
+                                                  {{- 'collection.product.pre_order' | t -}}
+                                              {%- else -%}
+                                                  <img src="{{ 'shopping-cart.png' | asset_img_url: 'master' }}" width="21" height="21" alt="icone carrinho de compras" />
+                                                  <span> Adicionar </span>
+                                              {%- endif -%}
+                                          </button>
+                                      {%- else -%}
+                                          <a href="{{ product.url | within: collection }}" class="{{ quick_buy_classes }}">
+                                            <img src="{{ 'shopping-cart.png' | asset_img_url: 'master' }}" width="21" height="21" alt="icone carrinho de compras" />
+                                                  <span> Adicionar </span>
+                                          </a>
+                                      {%- endif -%}
+                                  {%- else -%}
+                                      {% comment %}
+                                      <button class="{{ quick_buy_classes | replace: 'button--primary', 'button--disabled' }}" disabled>
+                                        <span> Indisponível </span>
+                                      </button>
+                                    {% endcomment %}
+
+                                    {% unless product.available %} 
+                                    <a href="#" class="SI_trigger {{ quick_buy_classes }} notify_button_collection" data-product-data='{{ product | json | escape }}'> 
+                                      Notificar Quando Disponível! </a> 
+                                    {% endunless %}
+                                  {%- endif -%}
+            </div>
+            
+  
+            {%- if section.settings.show_quick_view == 'list_grid' -%}
+              {%- assign quick_view_classes = 'product-item__action-button button button--small button--ternary hidden-phone' -%}
+            {%- else -%}
+              {%- assign quick_view_classes = 'product-item__action-button product-item__action-button--list-view-only button button--small button--ternary hidden-phone' -%}
+            {%- endif -%}
+            {% comment %}
+            <button type="button" class="{{ quick_view_classes }}" data-action="open-modal" data-secondary-action="open-quick-view" aria-controls="modal-quick-view-{{ section.id }}" data-product-url="{{ product.url }}">{{ 'collection.product.quick_view' | t }}</button>
+            {% endcomment %}
+          {%- endform -%}
+        {%- endif -%}
+      {% endcapture %}
+      {%- endif -%}
+    </div>
+  </div>
+  {{ buy_button }}
+</div>
+
+{%- if section.settings.show_quick_buy == 'list_grid' or show_add_to_cart -%}
+  <style>
+    @media screen and (max-width:460px) {
+    .product-item--list .product-item__action-button.button.button--small.button--primary {
+        min-width: 120px !important;
+        border-radius: 10px !important;
+        font-size: 12px !important;
+    }
+    .product-item--list .product-item__action-button.button.button--small.button--primary span {
+        display: contents;
+    }
+    .product-item--list .netreviews_reviews_rate,.product-item--list .no_reviews_label {
+        display: none
+    }
+    }
+  </style>
+{%- endif -%}

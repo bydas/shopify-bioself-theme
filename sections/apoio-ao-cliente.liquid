@@ -1,0 +1,147 @@
+{% schema %}
+{
+  "name": "Apoio ao Cliente",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "selected_image",
+      "label": "Selecione a imagem"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apoio ao Cliente",
+      "category": "contact"
+    }
+  ]
+}
+{% endschema %}
+
+<main id="apoio_ao_cliente_mobile">
+  {% if section.settings.selected_image %}
+    <a id="close-page-custom" href="/">
+      <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.0163 0.669922L7.98341 7.69399L0.983704 0.70192L0 1.68555L6.9997 8.66933L0 15.6614L0.983704 16.6367L7.98341 9.65415L15.0163 16.6699L16 15.6946L8.96711 8.66933L16 1.65355L15.0163 0.669922Z" fill="#258439"/>
+      </svg>
+    </a>
+
+    <img src="{{ section.settings.selected_image | img_url: 'x290' }}">
+  {% endif %}
+
+  <div>
+    <h1>Precisas de ajuda?</h1>
+
+    <div>
+      <svg width="25" height="19" viewBox="0 0 25 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.78594 1.39844H21.2179C21.7683 1.39844 22.296 1.61705 22.6852 2.00619C23.0743 2.39533 23.2929 2.92311 23.2929 3.47344V15.9244C23.2929 16.4748 23.0743 17.0025 22.6852 17.3917C22.296 17.7808 21.7683 17.9994 21.2179 17.9994H3.78594C3.23561 17.9994 2.70783 17.7808 2.31869 17.3917C1.92955 17.0025 1.71094 16.4748 1.71094 15.9244V3.47344C1.71094 2.92311 1.92955 2.39533 2.31869 2.00619C2.70783 1.61705 3.23561 1.39844 3.78594 1.39844Z" stroke="#258439" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.03125 4.71875L12.5022 10.5298L19.9732 4.71875" stroke="#258439" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <span>Envia-nos um e-mail para</span>
+
+      <a href="mailto:info@bioself.pt">info@bioself.pt</a>
+    </div>
+
+    <div>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.315 2.18221L19.282 2.16121L15.126 0.116211L10.648 6.09121L12.71 8.84221C12.648 9.87859 12.2084 10.8563 11.4742 11.5905C10.7401 12.3246 9.76237 12.7642 8.726 12.8262L5.975 10.7642L0 15.2422L2.026 19.3642L2.043 19.3992L2.064 19.4322C2.17202 19.6069 2.32308 19.751 2.50272 19.8506C2.68237 19.9503 2.88458 20.0021 3.09 20.0012H4.163C6.2276 20.0012 8.27197 19.5945 10.1794 18.8044C12.0868 18.0143 13.8199 16.8562 15.2798 15.3963C16.7396 13.9363 17.8976 12.2032 18.6876 10.2957C19.4776 8.38821 19.8841 6.34381 19.884 4.27921V3.20821C19.8849 3.00279 19.8331 2.80058 19.7334 2.62093C19.6338 2.44129 19.4897 2.29023 19.315 2.18221ZM18.349 4.28221C18.3448 8.04309 16.8487 11.6487 14.1892 14.3078C11.5297 16.967 7.92388 18.4625 4.163 18.4662H3.296L1.939 15.7102L5.976 12.6832L8.226 14.3682H8.482C10.0129 14.3666 11.4806 13.7578 12.5631 12.6753C13.6456 11.5928 14.2544 10.1251 14.256 8.59421V8.34221L12.567 6.09121L15.594 2.05521L18.35 3.41321L18.349 4.28221Z" fill="#258439"/>
+      </svg>
+
+      <span>Ou liga-nos para o</span>
+
+      <a href="tel:+351222004579">+351 222 004 579</a>
+
+      <span id="subdescription_text">(Chamada para a rede fixa nacional)</span>
+    </div>
+
+    <div>
+      <span
+        >Segunda a sexta-feira:<br>
+        das 9h às 12.30h e<br>
+        das 14.30h às 18h.</span
+      >
+    </div>
+  </div>
+</main>
+
+<style>
+  #apoio_ao_cliente_mobile {
+    display: none;
+    grid-template-rows: max-content 1fr;
+    min-height: 85vh;
+    position: relative;
+  }
+
+  #apoio_ao_cliente_mobile > #close-page-custom {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  #apoio_ao_cliente_mobile > img {
+    width: 100%;
+    object-fit: cover;
+    height: 290px;
+  }
+
+  #apoio_ao_cliente_mobile > div {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 2rem;
+    position: relative;
+    top: -2rem;
+    background-color: white;
+    border-radius: 2rem 2rem 0 0;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    justify-items: center;
+    align-content: center;
+    color: #258439;
+  }
+
+  #apoio_ao_cliente_mobile > div > h1 {
+    font-size: 20px;
+    margin: 0 0 1rem 0;
+    line-height: 26px;
+  }
+
+  #apoio_ao_cliente_mobile > div > div {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    justify-items: center;
+    font-size: 16px;
+    gap: 0.25rem;
+  }
+
+  #apoio_ao_cliente_mobile > div > div > #subdescription_text {
+    font-size: 12px;
+  }
+
+  #apoio_ao_cliente_mobile > div > div > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #apoio_ao_cliente_mobile > div > div > a {
+    font-weight: 500;
+  }
+
+  #apoio_ao_cliente_mobile > div > div:nth-child(4) {
+    font-size: 14px;
+    color: #818181;
+  }
+
+  #apoio_ao_cliente_mobile > div > div > span,
+  #apoio_ao_cliente_mobile > div > div > a {
+    line-height: 22px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #apoio_ao_cliente_mobile {
+      display: grid;
+    }
+  }
+</style>

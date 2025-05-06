@@ -1,0 +1,227 @@
+<section data-section-id="{{ section.id }}" data-section-type="list-collections">
+  <div class="container">
+    <div class="brands-template-content">
+    {%- if section.settings.brands_heading  != blank -%}
+      <header class="section__header">
+        <h2 class="section__title heading h3">{{ section.settings.brands_heading | escape }}</h2>
+      </header>
+    {%- endif -%}
+
+    {%- if section.settings.brands_content != blank -%}
+      <div class="about__line-content">
+        <p>{{ section.settings.brands_content }}</p>
+      </div>
+    {%- endif -%}
+    </div>
+
+    <div class="brands-container"> 
+      {% for link in linklists.marcas.links %}
+      {% for collection in collections %}      
+        {% if collection.template_suffix contains "brand" %}   
+          {% if collection.template_suffix contains "brand" %}      
+            {% if collection.title == link.title %}
+              <div class="brands-item">    
+                <a href="{{ collection.url }}">  
+                  {{ collection.image | image_url: height: '70px' | image_tag }}  
+                </a>    
+              </div> 
+            {% endif %} 
+          {% endif %}  
+        {% endif %}                          
+      {% endfor %} 
+      {% endfor %}                 
+    </div>
+
+    <div class="alphabeth_container">
+      <div class="letter_container">
+        <a href="/pages/marcas">0-9</a>
+      </div>
+
+      {% assign alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" | split: "" %}
+      {% for letter in alphabet %}
+      <div class="letter_container">
+          <a href="/pages/marcas#{{ letter }}">{{ letter }}</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="vendors-container"> 
+      {% assign numbers = "0,1,2,3,4,5,6,7,8,9" %}
+      {% assign numbers = numbers | split:',' %}
+      {% assign vendors_with_numbers = '' %}
+      {% for product_vendor in shop.vendors %}
+        {% assign first_letter = product_vendor | strip_html | upcase | truncate: 1, '' %}
+        {% for digit in numbers %}
+          {% if first_letter == digit %}
+            {% assign vendors_with_numbers = vendors_with_numbers | append: product_vendor %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+      {% if vendors_with_numbers != '' %}
+        <div class="vendor-row">
+          <div class="vendor-column-left">
+            <div class="vendor-letter" id="0-9">0-9</div>
+          </div>
+          <div class="vendor-column-right">
+            {% for product_vendor in shop.vendors %}
+              {% assign first_letter = product_vendor | strip_html | upcase | truncate: 1, '' %}
+              {% for digit in numbers %}
+                {% if first_letter == digit %}
+                  <div class="vendor-item">{{ product_vendor | link_to_vendor }}</div>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+
+          {% assign alphabet = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" %}
+          {% assign alphabet = alphabet | split:',' %}
+          {% for letter in alphabet %}
+            {% assign vendors_with_letter = '' %}
+            {% for product_vendor in shop.vendors %}
+              {% assign first_letter = product_vendor | strip_html | upcase | truncate: 1, '' %}
+              {% if first_letter == letter %}
+                {% assign vendors_with_letter = vendors_with_letter | append: product_vendor %}
+              {% endif %}
+            {% endfor %}
+            {% if vendors_with_letter != '' %}
+              <div class="vendor-row">
+                <div class="vendor-column-left">
+                  <div class="vendor-letter" id="{{ letter }}">{{ letter }}</div>
+                </div>
+                <div class="vendor-column-right">
+                  {% for product_vendor in shop.vendors %}
+                    {% assign first_letter = product_vendor | strip_html | upcase | truncate: 1, '' %}
+                    {% if first_letter == letter %}
+                      <div class="vendor-item">{{ product_vendor | link_to_vendor }}</div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}      
+    </div>
+
+  </div>  
+</section>
+
+<style>
+.vendors-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    padding: 0 160px;
+  }
+
+  .vendor-row {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .vendor-column-left {
+    font-weight: bold;
+  }
+
+  .vendor-column-right {
+    padding-top: 19px;
+    padding-bottom: 31px;
+    border-bottom: 1px solid #EAEAEA;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .vendor-letter {
+    padding: 5px;
+    background: transparent;
+    margin-top: 15px;
+    margin-right: 26px;
+    font-size: 27px;
+    color: #95c11E;
+    width: 60px;
+    font-family: 'RedHatDisplay';
+  }
+
+  .vendor-item {
+    padding: 5px;
+    background: transparent;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  
+  #shopify-section-{{ section.id }} .brands-template-content {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  #shopify-section-{{ section.id }} h2.section__title.heading.h3 {
+    font-size: 28px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    font-family: 'RedHatDisplay';
+  }
+
+  #shopify-section-{{ section.id }} .about__line-content p {
+    font-size: 21px;
+    font-family: 'RedHatDisplay';
+  }
+
+  #shopify-section-{{ section.id }} .brands-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    column-gap: 5px;
+    row-gap: 12px;
+    margin-bottom: 65px;
+  }
+
+  #shopify-section-{{ section.id }} .brands-item {
+    border: 1px solid #308A36;
+    border-radius: 15px;
+    height: 112px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .alphabeth_container {
+    display: flex;
+    justify-content: center;
+    column-gap: 5px;
+    padding: 30px 0;
+  }
+
+  .letter_container {
+      padding: 0 10px;
+  }
+
+  .letter_container a {
+    color: #4B8842;
+    font-size: 17px;
+    font-family: 'RedHatDisplay';
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Brands",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brands_heading",
+        "label": "Heading",
+        "default": "Marcas"
+      },
+      {
+        "type": "richtext",
+        "id": "brands_content",
+        "label": "Content",
+        "default": "<p>Desfruta dos melhores preços.<br>Nõ podes perder as nossas promoções.<br>Também podes ver todas as ofertas que temos para ti!</p>"
+      }
+    ]
+  }
+  {% endschema %}

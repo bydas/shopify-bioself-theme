@@ -1,0 +1,75 @@
+{% schema %}
+{
+  "name": "Slideshow Collection",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Slide para Mobile"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link do Slide"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow Collection",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section id="mobile_images_container">
+  {% for block in section.blocks %}
+    <a href="{{  block.settings.link }}">
+      <img
+        loading="lazy"
+        src="{{ block.settings.image_mobile | img_url: 'x150' }}"
+        width="100%"
+        height="150px"
+      >
+    </a>
+  {% endfor %}
+</section>
+
+<style>
+  #mobile_images_container {
+    display: none;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 0.65rem;
+    margin: 0 var(--mobile-container-gutter) 1rem var(--mobile-container-gutter);
+  }
+
+  @media screen and (max-width: 1000px) {
+    #mobile_images_container {
+      display: grid;
+    }
+
+    #mobile_images_container > a {
+      display: grid;
+      width: 100%;
+    }
+
+    #mobile_images_container > a > img {
+      max-height: 150px;
+      border-radius: 0.65rem;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+</style>

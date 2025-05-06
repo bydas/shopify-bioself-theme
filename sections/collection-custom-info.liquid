@@ -1,0 +1,73 @@
+{% schema %}
+{
+  "name": "Collection info",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collection info",
+      "category": "collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% if collection.metafields.richtextsection.h2_title or collection.metafields.richtextsection.customcontent %}
+  <section id="custom_collection_info">
+    <h1>
+      {{ collection.metafields.richtextsection.h2_title }}
+    </h1>
+
+    {{ collection.metafields.richtextsection.customcontent | metafield_tag }}
+  </section>
+{% endif %}
+
+<style>
+  #custom_collection_info {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    margin: 4rem var(--desktop-container-gutter) 1rem var(--desktop-container-gutter);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  #custom_collection_info > h1 {
+    font-size: 28px;
+    color: #308a36;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_collection_info {
+      margin: 2rem 9vw;
+    }
+
+    #custom_collection_info > h1 {
+      font-size: 26px;
+    }
+  }
+
+  @media screen and (min-width: 1399px) {
+    #custom_collection_info {
+      padding: 0 7vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom_collection_info {
+      padding: 0 14vw;
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_collection_info {
+      margin: 1rem var(--mobile-container-gutter);
+    }
+
+    #custom_collection_info > h1 {
+      font-size: 24px;
+    }
+  }
+</style>

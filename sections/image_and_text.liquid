@@ -1,0 +1,291 @@
+{% schema %}
+{
+  "name": "Biopoints Image and Text",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Imagem para desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Imagem para mobile"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Botão",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "btn_txt",
+          "label": "Texto do Botão",
+          "default": "Ver agora"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "Link do Botão"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Biopoints Image and Text",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section id="biopoints_custom_page">
+  <div id="left_side_biopoints">
+    <div id="top_title_header">
+      <img src="{{ 'biopoints.svg' | asset_url }}" alt="biopoints icon">
+
+      <h1>BIOPOINTS</h1>
+    </div>
+
+    {% unless section.settings.description == blank %}
+      {{ section.settings.description }}
+    {% endunless %}
+
+    {% if section.blocks.size > 0 %}
+      <div id="buttons_container_biopoints">
+        {% for block in section.blocks %}
+          <a
+            href="
+              {% if block.settings.btn_url == blank %}
+                #
+              {% else %}
+                {{ block.settings.btn_url }}
+              {% endif %}
+            "
+          >
+            {{ block.settings.btn_txt }}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <picture>
+    {% if section.settings.mobile_image != blank %}
+      <source
+        media="(max-width: 1000px)"
+        srcset="{{ section.settings.mobile_image | img_url: 'master' }}"
+      >
+    {% else %}
+      <source
+        media="(max-width: 1000px)"
+        srcset="https://fastly.picsum.photos/id/602/400/200.jpg?hmac=Zn7rxTm1TW6VlrH1AKuximcwlbXg2R6NCJTq9gRYIzs"
+      >
+    {% endif %}
+
+    <img
+      src="
+        {% if section.settings.desktop_image == blank %}
+          https://fastly.picsum.photos/id/693/1000/500.jpg?hmac=jWaMfkzNl_ZWz3Z3-ioYkFvO2nzCBuGEsoU48pfgMow
+        {% else %}
+          {{ section.settings.desktop_image | img_url: 'master' }}
+        {% endif %}
+      "
+      alt="biopoints image"
+    >
+  </picture>
+</section>
+
+<style>
+  #biopoints_custom_page {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  #biopoints_custom_page > * {
+    line-height: normal;
+  }
+
+  #left_side_biopoints {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 2rem;
+    align-content: center;
+    justify-content: left;
+    margin-left: var(--desktop-container-gutter);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #left_side_biopoints {
+      margin-left: 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #left_side_biopoints {
+      margin-left: 18vw;
+    }
+  }
+
+  #left_side_biopoints > #top_title_header {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  #left_side_biopoints > #top_title_header > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 48px;
+    font-weight: 900 !important;
+  }
+
+  #left_side_biopoints > p {
+    text-align: left;
+    font-size: 32px;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    line-height: 120%;
+  }
+
+  #buttons_container_biopoints {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  #buttons_container_biopoints > a {
+    padding: 0.8rem 3rem;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    margin: 0;
+    border-radius: 0.5rem;
+    border: 3px solid transparent;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.15s ease;
+  }
+
+  #biopoints_custom_page > picture > img {
+    width: 50dvw;
+  }
+
+  #buttons_container_biopoints > a:nth-child(odd) {
+    background-color: #FFBB12;
+  }
+
+  #buttons_container_biopoints > a:nth-child(odd):hover {
+    background-color: #308a36;
+    color: white;
+  }
+
+  #buttons_container_biopoints > a:nth-child(even) {
+    border-color: #FFBB12;
+  }
+
+  #buttons_container_biopoints > a:nth-child(even):hover {
+    border-color: #308a36;
+    color: #308a36;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #biopoints_custom_page {
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    #left_side_biopoints > #top_title_header {
+      gap: 1.5rem;
+    }
+
+    #left_side_biopoints > #top_title_header > img {
+      scale: 0.75;
+    }
+
+    #left_side_biopoints > #top_title_header > h1 {
+      font-size: 32px;
+    }
+
+    #left_side_biopoints > p {
+      font-size: 21px;
+      line-height: 120%;
+    }
+
+    #buttons_container_biopoints {
+      gap: 1.5rem;
+    }
+
+    #buttons_container_biopoints > a {
+      padding: 0.6rem 2rem;
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #biopoints_custom_page {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, max-content);
+      gap: 1rem;
+      margin: 0 0 1rem 0;
+    }
+
+    #left_side_biopoints {
+      gap: 1rem;
+      place-content: center !important;
+      margin: 1rem var(--mobile-container-gutter);
+      order: 1;
+    }
+
+    #left_side_biopoints > #top_title_header {
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    #left_side_biopoints > #top_title_header > h1 {
+      font-size: 26px;
+    }
+
+    #left_side_biopoints > #top_title_header > img {
+      width: 21px;
+      height: 21px;
+    }
+
+    #left_side_biopoints > p {
+      text-align: center;
+      font-size: 16px;
+    }
+
+    #buttons_container_biopoints {
+      grid-auto-flow: row;
+      grid-auto-columns: 1fr;
+      gap: 1rem;
+    }
+
+    #buttons_container_biopoints > a {
+      width: 100%;
+      padding: 0.8rem 1.6rem;
+      font-size: 14px;
+    }
+
+    #biopoints_custom_page > picture > img {
+      width: 100dvw;
+      order: 0;
+    }
+  }
+</style>

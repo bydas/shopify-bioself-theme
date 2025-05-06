@@ -1,0 +1,2085 @@
+{% schema %}
+{
+  "name": "Collection custom page",
+  "settings": [
+    {
+      "type": "link_list",
+      "label": "Selecione primeiro menu",
+      "id": "menu_nav_1"
+    },
+    {
+      "type": "link_list",
+      "label": "Selecione segundo menu",
+      "id": "menu_nav_2"
+    },
+    {
+      "type": "number",
+      "label": "Quantidade de produtos",
+      "id": "collection_products_quantity",
+      "default": 24,
+      "info": "Opções recomendadas: 12, 24 ou 48"
+    },
+    {
+      "type": "text",
+      "label": "Título",
+      "id": "newsletter_title"
+    },
+    {
+      "type": "image_picker",
+      "label": "ícone",
+      "id": "newsletter_icon"
+    },
+    {
+      "type": "text",
+      "label": "Texto do botão",
+      "id": "newsletter_btn"
+    },
+    {
+      "type": "page",
+      "label": "Página de termos",
+      "id": "newsletter_page"
+    },
+    {
+      "type": "text",
+      "label": "Texto de termos (newsletter)",
+      "id": "newsletter_terms"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "coupon",
+      "name": "Cupão da Coleção",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título do bloco",
+        },
+        {
+          "type": "text",
+          "id": "selected_tags",
+          "label": "Selecionar tags",
+          "info": "Separe as tags por vírgula e com o texto exatamente igual. E.g: 'SHOP,Soria Natural'"
+        },
+        {
+          "type": "text",
+          "label": "Selecione título para cupão",
+          "id": "collection_cupon_title"
+        },
+        {
+          "type": "checkbox",
+          "label": "Mostrar nome da coleção",
+          "id": "collection_cupon_boolean"
+        },
+        {
+          "type": "text",
+          "label": "Selecione descrição para cupão",
+          "id": "collection_cupon_description"
+        },
+        {
+          "type": "text",
+          "label": "Selecione texto para link cupão",
+          "id": "collection_cupon_text"
+        },
+        {
+          "type": "text",
+          "label": "Selecione texto do cupão",
+          "id": "collection_cupon_code"
+        },
+        {
+          "type": "text",
+          "label": "Detalhes da campanha",
+          "id": "campaign_details"
+        },
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection custom page",
+      "category": "collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign some_block_has_tag = false %}
+
+{%- capture query_value -%}
+  {%- render 'get-url-query', query_key: 'limit' -%}
+{%- endcapture -%}
+
+{%- assign query_value = query_value | strip_newlines | strip -%}
+{% assign current_limit = query_value | default: section.settings.collection_products_quantity %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const onResize = () => {
+      const getElements = document.querySelectorAll("#get_campaign_details");
+
+      if (getElements) {
+        getElements.forEach((element) => {
+          element.addEventListener("click", function() {
+            const elementIndex = element.getAttribute("index");
+            const modalElement = Array.from(document.querySelectorAll("#modal_campaign_details")).find((el) => el.getAttribute("index") === elementIndex);
+            const overlayElement = document.querySelector("#modal_overlay");
+
+            overlayElement.style.display = 'block'
+
+            if (window.innerWidth > 1000) {
+              modalElement.style.display = 'grid';
+            } else {
+              modalElement.style.transform = 'translateY(0)';
+            }
+          });
+        });
+      }
+
+      const escapeElements = document.querySelectorAll("#escape_modal");
+
+      if (escapeElements) {
+        escapeElements.forEach((element) => {
+          element.addEventListener("click", function() {
+            const elementIndex = element.getAttribute("index");
+            const modalElement = Array.from(document.querySelectorAll("#modal_campaign_details")).find((el) => el.getAttribute("index") === elementIndex);
+            const overlayElement = document.querySelector("#modal_overlay");
+
+            overlayElement.style.display = 'none'
+
+            if (window.innerWidth > 1000) {
+              modalElement.style.display = 'none'
+            } else {
+              modalElement.style.transform = 'translateY(100%)';
+            }
+          });
+        });
+      }
+    }
+
+    onResize();
+
+    window.addEventListener("resize", onResize);
+  });
+</script>
+
+<style>
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #brands_collections_custom_products > #breadcrumbs > li > a {
+      font-size: 12px !important;
+    }
+
+    #custom_brand_info > img {
+      width: 200px !important;
+    }
+
+    #custom_brand_info > div > h1 {
+      font-size: 18px !important;
+    }
+
+    #custom_collection_info > h1 {
+      font-size: 22px !important;
+    }
+
+    #brands_collections_custom_products > section > #brands_categorias_div > div > h1 {
+      font-size: 20px !important;
+    }
+
+    #brands_collections_custom_products > section > #brands_categorias_div > div > ul > li > a,
+    #brands_collections_custom_products > section > #brands_categorias_div > div > ul > ul > a > li,
+    #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > span,
+    #sort_by_selector_custom_2 > span,
+    #sort_by_selector_custom_2 > div,
+    #quantity_selector_custom_2 > span,
+    #quantity_selector_custom_2 > div,
+    #custom_brand_info > div > span,
+    .metafield-rich_text_field {
+      font-size: 14px !important;
+    }
+
+    #brands_collections_custom_products > section > #brands_categorias_div > div > ul > li > svg {
+      width: 16px !important;
+      height: 16px !important;
+    }
+  }
+
+  #custom_brand_info > div > span {
+    font-weight: 500 !important;
+  }
+
+  #quantity_selector_custom_2 {
+    position: relative;
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    border: 2px solid #258439;
+    border-radius: 0.65rem;
+    min-width: 130px;
+    max-width: max-content;
+    justify-self: right;
+  }
+
+  #sort_by_selector_custom_2 {
+    position: relative;
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    border: 2px solid #258439;
+    border-radius: 0.65rem;
+    min-width: 204px;
+  }
+
+  #sort_by_selector_custom_2 > span,
+  #quantity_selector_custom_2 > span {
+    line-height: normal;
+    padding: 0.5rem 0.75rem 0.125rem 0.75rem;
+  }
+
+  #sort_by_selector_custom_2 > span,
+  #sort_by_selector_custom_2 > div,
+  #quantity_selector_custom_2 > span,
+  #quantity_selector_custom_2 > div {
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  #sort_by_selector_custom_2 > div,
+  #quantity_selector_custom_2 > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0.75rem 0.5rem 0.75rem;
+    justify-content: space-between;
+  }
+
+  #sort_by_selector_custom_2 > div > #selected_option_sort_by,
+  #quantity_selector_custom_2 > div > span {
+    color: #258439;
+    line-height: normal;
+    font-weight: 700;
+  }
+
+  #sort_by_selector_custom_options_modal,
+  #quantity_options_custom_modal_2 {
+    position: absolute;
+    display: none;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    border: 2px solid #258439;
+    border-radius: 0.65rem;
+    list-style-type: none;
+    top: 100%;
+    margin-top: 1rem;
+    z-index: 990;
+  }
+
+  #sort_by_selector_custom_options_modal {
+    width: 101%;
+  }
+
+  #quantity_options_custom_modal_2 {
+    width: 102%;
+  }
+
+  #sort_by_selector_custom_options_modal > li,
+  #quantity_options_custom_modal_2 > li {
+    display: grid;
+  }
+
+  #sort_by_selector_custom_options_modal > li > a,
+  #quantity_options_custom_modal_2 > li > a {
+    padding: 0.5rem 2rem 0.5rem 1.5rem;
+    cursor: pointer;
+    background-color: white;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+
+  #sort_by_selector_custom_options_modal > li:nth-child(1) > a,
+  #quantity_options_custom_modal_2 > li:nth-child(1) > a {
+    border-radius: 0.45rem 0.45rem 0 0;
+  }
+
+  #sort_by_selector_custom_options_modal > li:nth-last-child(1) > a,
+  #quantity_options_custom_modal_2 > li:nth-last-child(1) > a {
+    border-radius: 0 0 0.45rem 0.45rem;
+  }
+
+  #sort_by_selector_custom_options_modal > li > .active,
+  #sort_by_selector_custom_options_modal > li > a:hover,
+  #quantity_options_custom_modal_2 > li > #selected_quantity,
+  #quantity_options_custom_modal_2 > li > a:hover {
+    background-color: #258439 !important;
+    color: white;
+  }
+
+  #sort_by_selector_custom_options_modal > li > .active,
+  #quantity_options_custom_modal_2 > li > #selected_quantity {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+
+  #sort_by_selector_custom_options_modal > li:nth-child(1) > .active,
+  #sort_by_selector_custom_options_modal > li:nth-child(1):hover > a,
+  #quantity_options_custom_modal_2 > li:nth-child(1) > #selected_quantity,
+  #quantity_options_custom_modal_2 > li:nth-child(1):hover > a {
+    border-radius: 0.4rem 0.4rem 0 0 !important;
+  }
+
+  #sort_by_selector_custom_options_modal > li:nth-last-child(1) > .active,
+  #sort_by_selector_custom_options_modal > li:nth-last-child(1):hover > a,
+  #quantity_options_custom_modal_2 > li:nth-last-child(1) > #selected_quantity,
+  #quantity_options_custom_modal_2 > li:nth-last-child(1):hover > a {
+    border-radius: 0 0 0.4rem 0.4rem !important;
+  }
+
+  #sort_by_selector_custom_2_mobile,
+  #quantity_selector_custom_2_mobile {
+    position: relative;
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    border: 2px solid #258439;
+    border-radius: 0.65rem;
+    width: max-content;
+  }
+
+  #sort_by_selector_custom_2_mobile {
+    min-width: 192px;
+  }
+
+  #quantity_selector_custom_2_mobile {
+    min-width: 170px;
+  }
+
+  #sort_by_selector_custom_2_mobile > span,
+  #quantity_selector_custom_2_mobile > span {
+    line-height: normal;
+    padding: 0.5rem 0.75rem 0.125rem 0.75rem;
+  }
+
+  #sort_by_selector_custom_2_mobile > span,
+  #sort_by_selector_custom_2_mobile > div,
+  #quantity_selector_custom_2_mobile > span,
+  #quantity_selector_custom_2_mobile > div {
+    cursor: pointer;
+  }
+
+  #sort_by_selector_custom_2_mobile > div,
+  #quantity_selector_custom_2_mobile > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0.75rem 0.5rem 0.75rem;
+    justify-content: space-between;
+  }
+
+  #sort_by_selector_custom_2_mobile > div > #selected_option_sort_by,
+  #quantity_selector_custom_2_mobile > div > span {
+    color: #258439;
+    line-height: normal;
+    font-weight: 600;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile,
+  #quantity_options_custom_modal_2_mobile {
+    position: absolute;
+    display: none;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    border: 2px solid #258439;
+    border-radius: 0.65rem;
+    list-style-type: none;
+    top: 100%;
+    margin-top: 1rem;
+    z-index: 990;
+    width: 102%;
+    margin-left: -2px;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li,
+  #quantity_options_custom_modal_2_mobile > li {
+    display: grid;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li > a,
+  #quantity_options_custom_modal_2_mobile > li > a {
+    padding: 0.5rem 2rem 0.5rem 1.5rem;
+    cursor: pointer;
+    background-color: white;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li:nth-child(1) > a,
+  #quantity_options_custom_modal_2_mobile > li:nth-child(1) > a {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li:nth-last-child(1) > a,
+  #quantity_options_custom_modal_2_mobile > li:nth-last-child(1) > a {
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li > .active,
+  #sort_by_selector_custom_options_modal_mobile > li > a:hover,
+  #quantity_options_custom_modal_2_mobile > li > #selected_quantity,
+  #quantity_options_custom_modal_2_mobile > li > a:hover {
+    background-color: #258439 !important;
+    color: white;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li > .active,
+  #quantity_options_custom_modal_2_mobile > li > #selected_quantity {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li:nth-child(1) > .active,
+  #sort_by_selector_custom_options_modal_mobile > li:nth-child(1):hover > a,
+  #quantity_options_custom_modal_2_mobile > li:nth-child(1) > #selected_quantity,
+  #quantity_options_custom_modal_2_mobile > li:nth-child(1):hover > a {
+    border-radius: 0.4rem 0.4rem 0 0 !important;
+  }
+
+  #sort_by_selector_custom_options_modal_mobile > li:nth-last-child(1) > .active,
+  #sort_by_selector_custom_options_modal_mobile > li:nth-last-child(1):hover > a,
+  #quantity_options_custom_modal_2_mobile > li:nth-last-child(1) > #selected_quantity,
+  #quantity_options_custom_modal_2_mobile > li:nth-last-child(1):hover > a {
+    border-radius: 0 0 0.4rem 0.4rem !important;
+  }
+
+  #modal_campaign_details {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    padding: 1rem;
+    background-color: white;
+    border-radius: 1rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    width: auto;
+    max-width: 90%;
+    overflow: auto;
+  }
+
+  #modal_campaign_details > svg {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    justify-self: right;
+  }
+
+  #modal_campaign_details > div {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem;
+  }
+
+  #modal_campaign_details > div > svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  #modal_campaign_details > div > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #modal_campaign_details > div > div > h1 {
+    margin: 0;
+    font-size: 17px;
+    line-height: normal;
+  }
+
+  #modal_campaign_details > div > div > span {
+    margin: 0;
+    font-size: 14px;
+    max-width: 30rem;
+  }
+
+  #brands_collections_custom_products {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    gap: 0.5rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #brands_collections_custom_products_mobile {
+    display: none;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #brands_collections_custom_products > #breadcrumbs {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 0.25rem;
+    list-style-type: none;
+    font-weight: 700;
+  }
+
+  #brands_collections_custom_products > #breadcrumbs > li {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.25rem;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    border-radius: 0.65rem;
+    border: 2px solid #ffbb12;
+    padding: 0.5rem 0.75rem;
+  }
+
+  #brands_collections_custom_products_mobile > #order_by_results {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #brands_collections_custom_products_mobile > #order_by_results > #sort-by-selector-custom,
+  #brands_collections_custom_products_mobile > #quantity-selector-custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    padding: 0.25rem 0.35rem;
+    border-radius: 0.5rem;
+    border: 2px solid #308a36;
+    width: max-content;
+  }
+
+  #brands_collections_custom_products_mobile > #quantity-selector-custom {
+    width: 170px;
+  }
+
+  #brands_collections_custom_products_mobile > #order_by_results > #sort-by-selector-custom > label,
+  #brands_collections_custom_products_mobile > #quantity-selector-custom > label {
+    margin-left: 3px;
+  }
+
+  #brands_collections_custom_products_mobile > #order_by_results > #sort-by-selector-custom > #sort-by,
+  #brands_collections_custom_products_mobile > #quantity-selector-custom > #quantity-selector_mobile {
+    border: none;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #first_row_cupon {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #first_row_cupon > svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #first_row_cupon > #cupon_custom_code {
+    display: grid;
+    padding: 0 1.5rem;
+    border-radius: 2rem;
+    background: #ffbb12;
+    color: black;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #first_row_cupon > #cupon_custom_code > h2 {
+    font-size: 13px;
+    margin: 0;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #cupon_title_description,
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #cupon_title_description > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.25rem;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #cupon_title_description > h1 {
+    font-size: 16px;
+    margin: 0;
+    max-width: 20rem;
+  }
+
+  #brands_collections_custom_products_mobile > #cupon_collection_custom > #cupon_title_description > div > a {
+    text-decoration: underline;
+    color: black;
+  }
+
+  #brands_collections_custom_products_mobile > #product_list_wrapper_first {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #brands_collections_custom_products_mobile > #product_list_wrapper_first > ul,
+  #brands_collections_custom_products_mobile > #product_list_wrapper_last > ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #brands_collections_custom_products_mobile > #product_list_wrapper_first > ul > li,
+  #brands_collections_custom_products_mobile > #product_list_wrapper_last > ul > li {
+    display: grid;
+  }
+
+  #brands_collections_custom_products_mobile > #product_list_wrapper_first > #newsletter_custom,
+  #brands_collections_custom_products_mobile > #product_list_wrapper_last > #newsletter_custom {
+    width: 100%;
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper > ul {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 1rem;
+    list-style-type: none;
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper > ul > li {
+    display: grid;
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper > ul > li > a {
+    padding: 0.125rem 0.65rem;
+    display: grid;
+    place-items: center;
+    color: black;
+    font-size: 12px;
+    min-width: 20px;
+    min-height: 20px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper > ul > li > #current_page {
+    border-radius: 0.25rem;
+    color: #308a36 !important;
+    background-color: #E7EDDC;
+    font-weight: 700;
+  }
+
+  #brands_collections_custom_products_mobile > #product_list_wrapper_last {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 0.5rem;
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper > #previous-page,
+  #brands_collections_custom_products_mobile > #pagination_wrapper > #next-page {
+    display: grid;
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper > #previous-page > svg {
+    transform: rotate(180deg);
+  }
+
+  #brands_collections_custom_products_mobile > #pagination_wrapper > #previous-page > svg,
+  #brands_collections_custom_products_mobile > #pagination_wrapper > #next-page > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #brands_collections_custom_products > #breadcrumbs > li > a,
+  #brands_collections_custom_products > #breadcrumbs > li > span {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+  }
+
+  #brands_collections_custom_products > #breadcrumbs > li:hover > a {
+    text-decoration: underline;
+  }
+
+  #brands_collections_custom_products > #breadcrumbs > #breadcrumb_not_last {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.25rem;
+  }
+
+  #brands_collections_custom_products > #breadcrumbs > #breadcrumb_not_last > #current_breadcrumb {
+    color: #308a36;
+  }
+
+  #brands_collections_custom_products > section {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    border: 2px solid #308a36;
+    border-radius: 0.65rem;
+    height: max-content;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > #line_break_div {
+    width: 100%;
+    height: 2px;
+    background-color: #308a36;
+    padding: 0 !important;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > h1 {
+    font-size: 24px;
+    margin: 0;
+    text-transform: capitalize;
+    color: #308a36;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    list-style-type: none;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > li {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > li > a {
+    text-decoration: none;
+    color: black;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > li > a > span {
+    font-weight: 700;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > li > svg {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > ul {
+    display: none;
+    grid-auto-rows: max-content;
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > ul > a {
+    display: grid;
+    width: max-content;
+    color: black;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > li > a:hover,
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > ul > a:hover {
+    text-decoration: underline;
+  }
+
+  #brands_collections_custom_products > section > #brands_categorias_div > div > ul > ul > a > li {
+    display: grid;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 0.5rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    gap: 1rem;
+    align-items: center;
+    border: 2px solid #ffbb12;
+    border-radius: 0.65rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.25rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description > h1 {
+    font-size: 21px;
+    margin: 0;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description > div > a {
+    text-decoration: underline;
+    color: black;
+    cursor: pointer;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_custom_code {
+    display: grid;
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    background: #ffbb12;
+    color: black;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_custom_code > h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #line_main_break_custom,
+  #brands_collections_custom_products_mobile > #line_main_break_custom {
+    width: 100%;
+    height: 1px;
+    background-color: #ededed;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > span {
+    font-weight: 600;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > #sort-by-selector-custom,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    padding: 0.4rem 0.5rem 0.3rem 0.5rem;
+    gap: 0.125rem;
+    border-radius: 0.65rem;
+    border: 2px solid #308a36;
+    height: max-content;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom {
+    width: 120px;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > #sort-by-selector-custom > label,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom > label {
+    margin-left: 3px;
+    line-height: 20px;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > #sort-by-selector-custom > #sort-by,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom > #quantity-selector {
+    border: none;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_first {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_first > section,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_last > section {
+    width: 100%;
+    height: 100%;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_first > ul,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_last > ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_first > ul > li,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_last > ul > li {
+    display: grid;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_last {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 0.5rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_wrapper {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #previous-page,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #next-page {
+    display: grid;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #previous-page  > svg {
+    transform: rotate(180deg);
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #previous-page  > svg,
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #next-page > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 1rem;
+    padding: 1rem 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    justify-content: center;
+    gap: 2rem;
+    list-style-type: none;
+    align-items: center;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination > li {
+    display: grid;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination > li > a {
+    padding: 0.125rem 0.65rem;
+    display: grid;
+    place-items: center;
+    color: black;
+    font-size: 12px;
+    min-width: 30px;
+    min-height: 30px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination > li > #current_page {
+    border-radius: 0.25rem;
+    color: #308a36 !important;
+    background-color: #E7EDDC;
+    font-weight: 700;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #brands_collections_custom_products {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #brands_collections_custom_products {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1399px) {
+    #brands_collections_custom_products {
+      grid-template-rows: 1fr;
+    }
+
+    #brands_collections_custom_products > #breadcrumbs {
+      display: none;
+    }
+
+    #brands_collections_custom_products > section {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    #brands_collections_custom_products > section > #brands_categorias_div {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #brands_collections_custom_products {
+      display: none;
+    }
+
+    #brands_collections_custom_products_mobile {
+      display: grid;
+    }
+
+    #modal_campaign_details {
+      display: grid;
+      top: unset;
+      bottom: 0;
+      border-radius: 1rem 1rem 0 0;
+      max-width: unset;
+      max-height: 90%;
+      left: unset;
+      transform: translateY(100%);
+      transition: all 0.3s ease;
+    }
+
+    #modal_campaign_details > div > div > span {
+      max-width: unset !important;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    #brands_collections_custom_products_mobile > #product_list_wrapper_first > ul,
+    #brands_collections_custom_products_mobile > #product_list_wrapper_last > ul {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, max-content);
+    }
+
+    #modal_campaign_details > div > svg,
+    #modal_campaign_details > svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    #modal_campaign_details > div > div > h1 {
+      font-size: 14px;
+    }
+
+    #modal_campaign_details > div > div > span {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const svgIcons = document.querySelectorAll("#brands_categorias_div ul li svg");
+    const subMenus = document.querySelectorAll("#brands_categorias_div ul ul");
+
+    svgIcons.forEach((svg, index) => {
+      svg.addEventListener("click", function() {
+        subMenus.forEach((submenu, submenuIndex) => {
+          if (submenuIndex !== index) {
+            submenu.style.display = "none";
+            svgIcons[submenuIndex].style.transform = "rotate(0deg)";
+          }
+        });
+
+        const currentSubMenu = svg.parentElement.nextElementSibling;
+
+        if (currentSubMenu.style.display === "grid") {
+          currentSubMenu.style.display = "none";
+          svg.style.transform = "rotate(0deg)";
+        } else {
+          currentSubMenu.style.display = "grid";
+          svg.style.transform = "rotate(180deg)";
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const sortByInputs = document.querySelectorAll("#sort-by");
+
+    sortByInputs.forEach((input) => {
+      input.addEventListener("click", function() {
+        const currentPath = new URL(window.location.href).pathname;
+        localStorage.setItem('sort-by-changed', currentPath);
+      });
+    });
+
+    const newsletterDesktops = document.querySelectorAll("#newsletter_custom");
+    const newsletterMobiles = document.querySelectorAll("#newsletter_custom_mobile");
+    const storageItem = localStorage.getItem('sort-by-changed');
+
+    if (storageItem) {
+      const currentPath = new URL(window.location.href).pathname;
+      const hasChanged = storageItem === currentPath;
+
+      if (hasChanged) {
+        newsletterDesktops?.forEach((el) => el.remove())
+        newsletterMobiles?.forEach((el) => el.remove())
+      } else {
+        localStorage.removeItem('sort-by-changed');
+      }
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const quantitySelector = document.getElementById("quantity-selector");
+    const quantitySelectorMobile = document.getElementById("quantity-selector_mobile");
+
+    const updateURLParameter = (url, key, value) => {
+      let updatedURL = new URL(url);
+
+      updatedURL.searchParams.set(key, value);
+
+      return updatedURL.toString();
+    };
+
+    if (quantitySelector || quantitySelectorMobile) {
+      [quantitySelector, quantitySelectorMobile].forEach((selector) => {
+        if (selector) {
+          selector.addEventListener("change", function() {
+            const selectedQuantity = selector.value;
+            const currentURL = window.location.href;
+
+            const newURL = updateURLParameter(currentURL, "limit", selectedQuantity);
+
+            window.location.href = newURL;
+          });
+        }
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const selectElement = document.querySelector("#sort_by_selector_custom_2");
+    const selectOptionsModal = document.querySelector("#sort_by_selector_custom_options_modal");
+
+    if (selectElement && selectOptionsModal) {
+      const openSvg = selectElement.querySelector("svg");
+
+      selectElement.addEventListener("click", function() {
+        const selectDisplay = selectOptionsModal.style.display;
+
+        if (selectDisplay === 'grid') {
+          selectOptionsModal.style.display = 'none';
+
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(0deg)';
+          }
+        } else {
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(180deg)';
+          }
+
+          selectOptionsModal.style.display = 'grid';
+        }
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const selectElement = document.querySelector("#sort_by_selector_custom_2_mobile");
+    const selectOptionsModal = document.querySelector("#sort_by_selector_custom_options_modal_mobile");
+
+    if (selectElement && selectOptionsModal) {
+      const openSvg = selectElement.querySelector("svg");
+
+      selectElement.addEventListener("click", function() {
+        const selectDisplay = selectOptionsModal.style.display;
+
+        if (selectDisplay === 'grid') {
+          selectOptionsModal.style.display = 'none';
+
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(0deg)';
+          }
+        } else {
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(180deg)';
+          }
+
+          selectOptionsModal.style.display = 'grid';
+        }
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const quantityElement = document.querySelector("#quantity_selector_custom_2");
+    const quantityOptionsModal = document.querySelector("#quantity_options_custom_modal_2");
+
+    if (quantityElement && quantityOptionsModal) {
+      const openSvg = quantityElement.querySelector("svg");
+
+      quantityElement.addEventListener("click", function() {
+        const selectDisplay = quantityOptionsModal.style.display;
+
+        if (selectDisplay === 'grid') {
+          quantityOptionsModal.style.display = 'none';
+
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(0deg)';
+          }
+        } else {
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(180deg)';
+          }
+
+          quantityOptionsModal.style.display = 'grid';
+        }
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const selectElement = document.querySelector("#quantity_selector_custom_2_mobile");
+    const selectOptionsModal = document.querySelector("#quantity_options_custom_modal_2_mobile");
+
+    if (selectElement && selectOptionsModal) {
+      const openSvg = selectElement.querySelector("svg");
+
+      selectElement.addEventListener("click", function() {
+        const selectDisplay = selectOptionsModal.style.display;
+
+        if (selectDisplay === 'grid') {
+          selectOptionsModal.style.display = 'none';
+
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(0deg)';
+          }
+        } else {
+          if (openSvg) {
+            openSvg.style.transform = 'rotate(180deg)';
+          }
+
+          selectOptionsModal.style.display = 'grid';
+        }
+      });
+    }
+  });
+</script>
+
+<main id="brands_collections_custom_products">
+  <ul id="breadcrumbs">
+    <li>
+      <a href="/">Página Inicial</a>
+      <span> &gt; </span>
+    </li>
+    {% assign path_parts = request.path | split: '/' %}
+    {% assign breadcrumb_url = routes.home_url %}
+    {% for part in path_parts %}
+      {% if part != blank %}
+        {% assign breadcrumb_url = breadcrumb_url | append: '/' | append: part %}
+        <li id="breadcrumb_not_last">
+          {% if forloop.last %}
+            <a id="current_breadcrumb" href="{{ breadcrumb_url }}">{{ part | replace: '-', ' ' | capitalize }}</a>
+          {% else %}
+            {% assign text_link = part | replace: '-', ' ' | capitalize %}
+            {% if text_link == 'Collections' %}
+              {% assign text_link = 'Coleções' %}
+            {% endif %}
+            <a href="{{ breadcrumb_url }}">{{ text_link }}</a>
+            <span> &gt; </span>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <section>
+    {% if section.settings.menu_nav_1 and section.settings.menu_nav_2 %}
+      <div id="brands_categorias_div">
+        <div>
+          <h1>{{ section.settings.menu_nav_1.title }}</h1>
+
+          <ul>
+            {% for link in section.settings.menu_nav_1.links %}
+              <li>
+                <a href="{{ link.url }}">
+                  <span>{{ link.title }}</span>
+                </a>
+
+                {% if link.links.size > 0 %}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20">
+                    <path fill="#308a36" d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/>
+                  </svg>
+                {% endif %}
+              </li>
+
+              {% if link.links.size > 0 %}
+                <ul>
+                  {% for li in link.links %}
+                    <a href="{{ li.url }}">
+                      <li>
+                        <span>{{ li.title }}</span>
+                      </li>
+                    </a>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div id="line_break_div"></div>
+
+        <div>
+          <h1>{{ section.settings.menu_nav_2.title }}</h1>
+
+          <ul>
+            {% for link in section.settings.menu_nav_2.links %}
+              <li>
+                <a href="{{ link.url }}">
+                  <span>{{ link.title }}</span>
+                </a>
+
+                {% if link.links.size > 0 %}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20">
+                    <path fill="#308a36" d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/>
+                  </svg>
+                {% endif %}
+              </li>
+
+              {% if link.links.size > 0 %}
+                <ul>
+                  {% for li in link.links %}
+                    <a href="{{ li.url }}">
+                      <li>
+                        <span>{{ li.title }}</span>
+                      </li>
+                    </a>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+
+    <div id="main_collection_products_custom">
+      {% for block in section.blocks %}
+        {% assign current_index = forloop.index %}
+        {% assign array_tags = block.settings.selected_tags | split: ',' %}
+
+        {% for tag in array_tags %}
+          {% if collection.tags contains tag %}
+            {% assign block_has_tag = true %}
+            {% assign some_block_has_tag = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% if block_has_tag == true %}
+          <div id="cupon_collection_custom">
+            <svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M26.2727 0.55475L36.0079 10.6563C37.9248 12.6443 39 15.3277 39 18.1241C39 20.9204 37.9248 23.6038 36.0079 25.5918L27.4791 34.4425C27.3106 34.6176 27.1101 34.757 26.8891 34.8526C26.6681 34.9483 26.4309 34.9983 26.1911 35C25.9512 35.0016 25.7134 34.9547 25.4912 34.862C25.2691 34.7694 25.0668 34.6327 24.8961 34.4599C24.5514 34.1108 24.3559 33.6355 24.3527 33.1386C24.3512 32.8925 24.3968 32.6486 24.4872 32.4206C24.5775 32.1927 24.7107 31.9852 24.8792 31.8101L33.4002 22.9595C34.6407 21.6732 35.3366 19.9368 35.3366 18.1274C35.3366 16.318 34.6407 14.5816 33.4002 13.2953L23.6755 3.19515C23.3352 2.84147 23.1458 2.36361 23.149 1.86669C23.1522 1.36977 23.3476 0.894493 23.6924 0.545415C24.0372 0.196338 24.503 0.00205499 24.9874 0.0053061C25.4718 0.00855722 25.9351 0.209076 26.2753 0.562751L26.2727 0.55475ZM1.11654e-05 15.429V3.7499C0.000355705 2.75547 0.385586 1.80188 1.07103 1.09871C1.75647 0.395544 2.68603 0.000353463 3.65539 1.45017e-08H15.0401C15.6809 -5.004e-05 16.3155 0.129478 16.9074 0.381178C17.4994 0.632878 18.0372 1.00181 18.4901 1.46689L31.2839 14.5915C32.1975 15.5288 32.7106 16.8 32.7106 18.1254C32.7106 19.4508 32.1975 20.722 31.2839 21.6593L21.1173 32.0848C20.2036 33.022 18.9645 33.5484 17.6725 33.5484C16.3804 33.5484 15.1413 33.022 14.2277 32.0848L1.42993 18.9602C0.975595 18.498 0.615247 17.9479 0.369786 17.3417C0.124324 16.7355 -0.00136413 16.0854 1.11654e-05 15.429ZM10.9662 8.74932C10.9662 8.25479 10.8232 7.77137 10.5554 7.36018C10.2876 6.949 9.90691 6.62852 9.46154 6.43927C9.01617 6.25002 8.5261 6.20051 8.0533 6.29698C7.5805 6.39346 7.1462 6.6316 6.80533 6.98128C6.46446 7.33097 6.23233 7.77649 6.13828 8.26152C6.04423 8.74654 6.0925 9.24928 6.27698 9.70617C6.46146 10.1631 6.77386 10.5536 7.17468 10.8283C7.5755 11.103 8.04674 11.2497 8.5288 11.2497C9.17523 11.2497 9.79518 10.9863 10.2523 10.5173C10.7094 10.0484 10.9662 9.41246 10.9662 8.74932Z" fill="#258439"/>
+            </svg>
+
+            <div id="cupon_title_description">
+              {% if block.settings.collection_cupon_title %}
+                {% if block.settings.collection_cupon_boolean %}
+                  <h1>
+                    {{ block.settings.collection_cupon_title }}
+                    {{ collections[collection.handle].title }}
+                  </h1>
+                {% else %}
+                  <h1>{{ block.settings.collection_cupon_title }}</h1>
+                {% endif %}
+              {% endif %}
+
+              {% if block.settings.collection_cupon_description %}
+                <div>
+                  {% if block.settings.collection_cupon_text %}
+                    <span>{{ block.settings.collection_cupon_description }}</span>
+
+                    <a id="get_campaign_details" index="{{ current_index }}">
+                      {{- block.settings.collection_cupon_text -}}
+                    </a>
+                  {% else %}
+                    <span>{{ block.settings.collection_cupon_description }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+
+            {% unless block.settings.collection_cupon_code == '' %}
+              <div id="cupon_custom_code">
+                <h2>{{ block.settings.collection_cupon_code }}</h2>
+              </div>
+            {% endunless %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {% if some_block_has_tag == true %}
+        <div id="line_main_break_custom"></div>
+      {% endif %}
+
+      <div id="order_by_results">
+        <span>
+          {{- collections[collection.handle].title }} ({{ collections[collection.handle].products_count }}
+          {% if collections[collection.handle].products_count <= 1 %}resultado{% else %}resultados{% endif %})</span
+        >
+
+        {% assign collection_sort_by = collection.sort_by | default: collection.default_sort_by %}
+
+        {% for option in collection.sort_options %}
+          {% if option.value == collection_sort_by %}
+            {% assign selected_option = option %}
+          {% endif %}
+        {% endfor %}
+
+        <div id="sort_by_selector_custom_2">
+          <span>Ordenar por:</span>
+
+          {% assign current_name = selected_option.name %}
+
+          {% if selected_option.name contains 'A-Z' %}
+            {% assign current_name = 'Nome (A-Z)' %}
+          {% endif %}
+
+          {% if selected_option.name contains 'Z-A' %}
+            {% assign current_name = 'Nome (Z-A)' %}
+          {% endif %}
+
+          {% if selected_option.name contains 'recentes' %}
+            {% assign current_name = 'Mais Recentes' %}
+          {% endif %}
+
+          {% if selected_option.name contains 'antigos' %}
+            {% assign current_name = 'Mais Antigos' %}
+          {% endif %}
+
+          {% if selected_option.name contains 'baratos' %}
+            {% assign current_name = 'Preço Ascendente' %}
+          {% endif %}
+
+          {% if selected_option.name contains 'caros' %}
+            {% assign current_name = 'Preço Descendente' %}
+          {% endif %}
+
+          <div>
+            <span id="selected_option_sort_by">
+              {{- current_name -}}
+            </span>
+
+            <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.49815 4.88902L11.417 0.256749C11.5031 0.175376 11.6054 0.110804 11.718 0.0667431C11.8307 0.0226821 11.9515 -4.58323e-08 12.0735 -4.04998e-08C12.1955 -3.51673e-08 12.3163 0.0226821 12.4289 0.0667431C12.5416 0.110804 12.6438 0.175376 12.7299 0.256749C12.903 0.421793 13 0.644335 13 0.876204C13 1.10807 12.903 1.33062 12.7299 1.49566L7.15644 6.74529C6.9872 6.90396 6.75947 6.99512 6.52063 6.99981C6.28179 7.0045 6.05021 6.92237 5.87409 6.77049L0.26195 1.49986C0.0923194 1.33507 -0.00174337 1.11418 2.38032e-05 0.884764C0.00179002 0.655347 0.099246 0.435761 0.271397 0.273305C0.443547 0.110849 0.67662 0.0185224 0.920411 0.016211C1.1642 0.0138996 1.3992 0.101789 1.5748 0.260948L6.49815 4.88902Z" fill="#258439"/>
+            </svg>
+          </div>
+
+          <ul id="sort_by_selector_custom_options_modal">
+            {% for option in collection.sort_options %}
+              {% assign current_name = option.name %}
+
+              {% if option.name contains 'A-Z' %}
+                {% assign current_name = 'Nome (A-Z)' %}
+              {% endif %}
+
+              {% if option.name contains 'Z-A' %}
+                {% assign current_name = 'Nome (Z-A)' %}
+              {% endif %}
+
+              {% if option.name contains 'recentes' %}
+                {% assign current_name = 'Mais Recentes' %}
+              {% endif %}
+
+              {% if option.name contains 'antigos' %}
+                {% assign current_name = 'Mais Antigos' %}
+              {% endif %}
+
+              {% if option.name contains 'baratos' %}
+                {% assign current_name = 'Preço Ascendente' %}
+              {% endif %}
+
+              {% if option.name contains 'caros' %}
+                {% assign current_name = 'Preço Descendente' %}
+              {% endif %}
+
+              <li>
+                <a
+                  {% if option.value == collection_sort_by %}
+                    class="active"
+                  {% endif %}
+                  id="sort-by"
+                  href="{{ request.path }}?sort_by={{ option.value }}"
+                >
+                  {{- current_name -}}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      {% paginate collections[collection.handle].products by current_limit %}
+        {% if paginate.items <= 8 %}
+          <div id="product_list_wrapper_first">
+            <ul>
+              {% for product in collection.products %}
+                <li>
+                  {%- render 'product-item-2', product: product -%}
+                </li>
+              {% endfor %}
+            </ul>
+
+            {% render 'newsletter-custom' %}
+          </div>
+        {% else %}
+          <div id="product_list_wrapper_last">
+            <ul>
+              {% for product in collection.products limit: 8 %}
+                <li>
+                  {%- render 'product-item-2', product: product -%}
+                </li>
+              {% endfor %}
+            </ul>
+
+            {% render 'newsletter-custom' %}
+
+            <ul>
+              {% for product in collection.products limit: current_limit %}
+                {% if forloop.index >= 9 %}
+                  <li>
+                    {%- render 'product-item-2', product: product -%}
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <div id="pagination_parent">
+          {% if paginate.pages > 1 %}
+            <div id="pagination_wrapper">
+              {% if paginate.current_page > 1 %}
+                <a href="?page={{ paginate.current_page | minus: 1 }}" id="previous-page">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512">
+                    <path fill="#308a36" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                  </svg>
+                </a>
+              {% endif %}
+
+              <ul id="pagination">
+                {% assign total_pages = paginate.pages %}
+                {% assign current_page = paginate.current_page %}
+
+                <li>
+                  <a
+                    href="?page=1"
+                    {% if current_page == 1 %}
+                      id="current_page"
+                    {% endif %}
+                    >1</a
+                  >
+                </li>
+
+                {% if current_page > 4 %}
+                  <li>...</li>
+                {% endif %}
+
+                {% assign start_page = current_page | minus: 1 %}
+                {% assign end_page = current_page | plus: 1 %}
+                {% assign total_pages_minus_3 = total_pages | minus: 3 %}
+
+                {% if current_page <= 4 %}
+                  {% assign start_page = 2 %}
+                  {% assign end_page = 5 %}
+                {% endif %}
+
+                {% if current_page >= total_pages_minus_3 %}
+                  {% assign start_page = total_pages | minus: 4 %}
+                  {% assign end_page = total_pages | minus: 1 %}
+                {% endif %}
+
+                {% for i in (start_page..end_page) %}
+                  {% if i > 1 and i < total_pages %}
+                    <li>
+                      <a
+                        href="?page={{ i }}"
+                        {% if current_page == i %}
+                          id="current_page"
+                        {% endif %}
+                      >
+                        {{- i -}}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+
+                {% if current_page < total_pages_minus_3 %}
+                  <li>...</li>
+                {% endif %}
+
+                {% if total_pages > 1 %}
+                  <li>
+                    <a
+                      href="?page={{ total_pages }}"
+                      {% if current_page == total_pages %}
+                        id="current_page"
+                      {% endif %}
+                    >
+                      {{- total_pages -}}
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+
+              {% if paginate.current_page < paginate.pages %}
+                <a href="?page={{ paginate.current_page | plus: 1 }}" id="next-page">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512">
+                    <path fill="#308a36" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                  </svg>
+                </a>
+              {% endif %}
+            </div>
+
+            {% assign quantity_options = '12,24,48' | split: ',' %}
+
+            {% for option in quantity_options %}
+              {% if option contains current_limit %}
+                {% assign selected_quantity = option %}
+              {% endif %}
+            {% endfor %}
+
+            <div id="quantity_selector_custom_2">
+              <span>Mostrar</span>
+
+              <div>
+                <span>{{- selected_quantity -}}</span>
+
+                <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.49815 4.88902L11.417 0.256749C11.5031 0.175376 11.6054 0.110804 11.718 0.0667431C11.8307 0.0226821 11.9515 -4.58323e-08 12.0735 -4.04998e-08C12.1955 -3.51673e-08 12.3163 0.0226821 12.4289 0.0667431C12.5416 0.110804 12.6438 0.175376 12.7299 0.256749C12.903 0.421793 13 0.644335 13 0.876204C13 1.10807 12.903 1.33062 12.7299 1.49566L7.15644 6.74529C6.9872 6.90396 6.75947 6.99512 6.52063 6.99981C6.28179 7.0045 6.05021 6.92237 5.87409 6.77049L0.26195 1.49986C0.0923194 1.33507 -0.00174337 1.11418 2.38032e-05 0.884764C0.00179002 0.655347 0.099246 0.435761 0.271397 0.273305C0.443547 0.110849 0.67662 0.0185224 0.920411 0.016211C1.1642 0.0138996 1.3992 0.101789 1.5748 0.260948L6.49815 4.88902Z" fill="#258439"/>
+                </svg>
+              </div>
+
+              <ul id="quantity_options_custom_modal_2">
+                {% for option in quantity_options %}
+                  <li>
+                    <a
+                      href="{{ request.path }}?limit={{ option }}"
+                      {% if option contains current_limit %}
+                        id="selected_quantity"
+                      {% endif %}
+                    >
+                      {{ option }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      {% endpaginate %}
+    </div>
+  </section>
+</main>
+
+<main id="brands_collections_custom_products_mobile">
+  {% for block in section.blocks %}
+    {% assign current_index = forloop.index %}
+    {% assign array_tags = block.settings.selected_tags | split: ',' %}
+
+    {% for tag in array_tags %}
+      {% if collection.tags contains tag %}
+        {% assign block_has_tag = true %}
+        {% assign some_block_has_tag = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if block_has_tag == true %}
+      <div id="cupon_collection_custom">
+        <div id="first_row_cupon">
+          <svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M26.2727 0.55475L36.0079 10.6563C37.9248 12.6443 39 15.3277 39 18.1241C39 20.9204 37.9248 23.6038 36.0079 25.5918L27.4791 34.4425C27.3106 34.6176 27.1101 34.757 26.8891 34.8526C26.6681 34.9483 26.4309 34.9983 26.1911 35C25.9512 35.0016 25.7134 34.9547 25.4912 34.862C25.2691 34.7694 25.0668 34.6327 24.8961 34.4599C24.5514 34.1108 24.3559 33.6355 24.3527 33.1386C24.3512 32.8925 24.3968 32.6486 24.4872 32.4206C24.5775 32.1927 24.7107 31.9852 24.8792 31.8101L33.4002 22.9595C34.6407 21.6732 35.3366 19.9368 35.3366 18.1274C35.3366 16.318 34.6407 14.5816 33.4002 13.2953L23.6755 3.19515C23.3352 2.84147 23.1458 2.36361 23.149 1.86669C23.1522 1.36977 23.3476 0.894493 23.6924 0.545415C24.0372 0.196338 24.503 0.00205499 24.9874 0.0053061C25.4718 0.00855722 25.9351 0.209076 26.2753 0.562751L26.2727 0.55475ZM1.11654e-05 15.429V3.7499C0.000355705 2.75547 0.385586 1.80188 1.07103 1.09871C1.75647 0.395544 2.68603 0.000353463 3.65539 1.45017e-08H15.0401C15.6809 -5.004e-05 16.3155 0.129478 16.9074 0.381178C17.4994 0.632878 18.0372 1.00181 18.4901 1.46689L31.2839 14.5915C32.1975 15.5288 32.7106 16.8 32.7106 18.1254C32.7106 19.4508 32.1975 20.722 31.2839 21.6593L21.1173 32.0848C20.2036 33.022 18.9645 33.5484 17.6725 33.5484C16.3804 33.5484 15.1413 33.022 14.2277 32.0848L1.42993 18.9602C0.975595 18.498 0.615247 17.9479 0.369786 17.3417C0.124324 16.7355 -0.00136413 16.0854 1.11654e-05 15.429ZM10.9662 8.74932C10.9662 8.25479 10.8232 7.77137 10.5554 7.36018C10.2876 6.949 9.90691 6.62852 9.46154 6.43927C9.01617 6.25002 8.5261 6.20051 8.0533 6.29698C7.5805 6.39346 7.1462 6.6316 6.80533 6.98128C6.46446 7.33097 6.23233 7.77649 6.13828 8.26152C6.04423 8.74654 6.0925 9.24928 6.27698 9.70617C6.46146 10.1631 6.77386 10.5536 7.17468 10.8283C7.5755 11.103 8.04674 11.2497 8.5288 11.2497C9.17523 11.2497 9.79518 10.9863 10.2523 10.5173C10.7094 10.0484 10.9662 9.41246 10.9662 8.74932Z" fill="#258439"/>
+          </svg>
+
+          {% unless block.settings.collection_cupon_code == '' %}
+            <div id="cupon_custom_code">
+              <h2>{{ block.settings.collection_cupon_code }}</h2>
+            </div>
+          {% endunless %}
+        </div>
+
+        <div id="cupon_title_description">
+          {% if block.settings.collection_cupon_title %}
+            {% if block.settings.collection_cupon_boolean %}
+              <h1>
+                {{ block.settings.collection_cupon_title }}
+                {{ collections[collection.handle].title }}
+              </h1>
+            {% else %}
+              <h1>{{ block.settings.collection_cupon_title }}</h1>
+            {% endif %}
+          {% endif %}
+
+          {% if block.settings.collection_cupon_description %}
+            <div>
+              {% if block.settings.collection_cupon_text %}
+                <span>{{ block.settings.collection_cupon_description }}</span>
+
+                <a id="get_campaign_details" index="{{ current_index }}">
+                  {{- block.settings.collection_cupon_text -}}
+                </a>
+              {% else %}
+                <span>{{ block.settings.collection_cupon_description }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% if some_block_has_tag == true %}
+    <div id="line_main_break_custom"></div>
+  {% endif %}
+
+  <div id="order_by_results">
+    <span>
+      {{- collections[collection.handle].title }} ({{ collections[collection.handle].products_count }}
+      {% if collections[collection.handle].products_count <= 1 %}resultado{% else %}resultados{% endif %})</span
+    >
+
+    {% assign collection_sort_by = collection.sort_by | default: collection.default_sort_by %}
+
+    {% for option in collection.sort_options %}
+      {% if option.value == collection_sort_by %}
+        {% assign selected_option = option %}
+      {% endif %}
+    {% endfor %}
+
+    <div id="sort_by_selector_custom_2_mobile">
+      <span>Ordenar por:</span>
+
+      {% assign current_name = selected_option.name %}
+
+      {% if selected_option.name contains 'A-Z' %}
+        {% assign current_name = 'Nome (A-Z)' %}
+      {% endif %}
+
+      {% if selected_option.name contains 'Z-A' %}
+        {% assign current_name = 'Nome (Z-A)' %}
+      {% endif %}
+
+      {% if selected_option.name contains 'recentes' %}
+        {% assign current_name = 'Mais Recentes' %}
+      {% endif %}
+
+      {% if selected_option.name contains 'antigos' %}
+        {% assign current_name = 'Mais Antigos' %}
+      {% endif %}
+
+      {% if selected_option.name contains 'baratos' %}
+        {% assign current_name = 'Preço Ascendente' %}
+      {% endif %}
+
+      {% if selected_option.name contains 'caros' %}
+        {% assign current_name = 'Preço Descendente' %}
+      {% endif %}
+
+      <div>
+        <span id="selected_option_sort_by" value="{{ request.path }}?sort_by={{ selected_option.value }}">
+          {{- current_name -}}
+        </span>
+
+        <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.49815 4.88902L11.417 0.256749C11.5031 0.175376 11.6054 0.110804 11.718 0.0667431C11.8307 0.0226821 11.9515 -4.58323e-08 12.0735 -4.04998e-08C12.1955 -3.51673e-08 12.3163 0.0226821 12.4289 0.0667431C12.5416 0.110804 12.6438 0.175376 12.7299 0.256749C12.903 0.421793 13 0.644335 13 0.876204C13 1.10807 12.903 1.33062 12.7299 1.49566L7.15644 6.74529C6.9872 6.90396 6.75947 6.99512 6.52063 6.99981C6.28179 7.0045 6.05021 6.92237 5.87409 6.77049L0.26195 1.49986C0.0923194 1.33507 -0.00174337 1.11418 2.38032e-05 0.884764C0.00179002 0.655347 0.099246 0.435761 0.271397 0.273305C0.443547 0.110849 0.67662 0.0185224 0.920411 0.016211C1.1642 0.0138996 1.3992 0.101789 1.5748 0.260948L6.49815 4.88902Z" fill="#258439"/>
+        </svg>
+      </div>
+
+      <ul id="sort_by_selector_custom_options_modal_mobile">
+        {% for option in collection.sort_options %}
+          {% assign current_name = option.name %}
+
+          {% if option.name contains 'A-Z' %}
+            {% assign current_name = 'Nome (A-Z)' %}
+          {% endif %}
+
+          {% if option.name contains 'Z-A' %}
+            {% assign current_name = 'Nome (Z-A)' %}
+          {% endif %}
+
+          {% if option.name contains 'recentes' %}
+            {% assign current_name = 'Mais Recentes' %}
+          {% endif %}
+
+          {% if option.name contains 'antigos' %}
+            {% assign current_name = 'Mais Antigos' %}
+          {% endif %}
+
+          {% if option.name contains 'baratos' %}
+            {% assign current_name = 'Preço Ascendente' %}
+          {% endif %}
+
+          {% if option.name contains 'caros' %}
+            {% assign current_name = 'Preço Descendente' %}
+          {% endif %}
+
+          <li>
+            <a
+              {% if option.value == collection_sort_by %}
+                class="active"
+              {% endif %}
+              id="sort-by"
+              href="{{ request.path }}?sort_by={{ option.value }}"
+            >
+              {{- current_name -}}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% paginate collections[collection.handle].products by current_limit %}
+    {% if paginate.items <= 8 %}
+      <div id="product_list_wrapper_first">
+        <ul>
+          {% for product in collection.products %}
+            <li>
+              {%- render 'product-item-2', product: product -%}
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if paginate.current_page == 1 %}
+          {% render 'newsletter-custom' %}
+        {% endif %}
+      </div>
+    {% else %}
+      <div id="product_list_wrapper_last">
+        <ul>
+          {% for product in collections[collection.handle].products limit: 8 %}
+            <li>
+              {%- render 'product-item-2', product: product -%}
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if paginate.current_page == 1 %}
+          {% render 'newsletter-custom' %}
+        {% endif %}
+
+        <ul>
+          {% for product in collections[collection.handle].products limit: current_limit %}
+            {% if forloop.index >= 9 %}
+              <li>
+                {%- render 'product-item-2', product: product -%}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% assign quantity_options = '12,24,48' | split: ',' %}
+
+    {% for option in quantity_options %}
+      {% if option contains current_limit %}
+        {% assign selected_quantity = option %}
+      {% endif %}
+    {% endfor %}
+
+    {% if paginate.pages > 1 %}
+      <div id="quantity_selector_custom_2_mobile">
+        <span>Mostrar</span>
+
+        <div>
+          <span>{{- selected_quantity -}}</span>
+
+          <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.49815 4.88902L11.417 0.256749C11.5031 0.175376 11.6054 0.110804 11.718 0.0667431C11.8307 0.0226821 11.9515 -4.58323e-08 12.0735 -4.04998e-08C12.1955 -3.51673e-08 12.3163 0.0226821 12.4289 0.0667431C12.5416 0.110804 12.6438 0.175376 12.7299 0.256749C12.903 0.421793 13 0.644335 13 0.876204C13 1.10807 12.903 1.33062 12.7299 1.49566L7.15644 6.74529C6.9872 6.90396 6.75947 6.99512 6.52063 6.99981C6.28179 7.0045 6.05021 6.92237 5.87409 6.77049L0.26195 1.49986C0.0923194 1.33507 -0.00174337 1.11418 2.38032e-05 0.884764C0.00179002 0.655347 0.099246 0.435761 0.271397 0.273305C0.443547 0.110849 0.67662 0.0185224 0.920411 0.016211C1.1642 0.0138996 1.3992 0.101789 1.5748 0.260948L6.49815 4.88902Z" fill="#258439"/>
+          </svg>
+        </div>
+
+        <ul id="quantity_options_custom_modal_2_mobile">
+          {% for option in quantity_options %}
+            <li>
+              <a
+                href="{{ request.path }}?limit={{ option }}"
+                {% if option contains current_limit %}
+                  id="selected_quantity"
+                {% endif %}
+              >
+                {{ option }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div id="pagination_wrapper">
+        {% if paginate.current_page > 1 %}
+          <a href="?page={{ paginate.current_page | minus: 1 }}" id="previous-page">
+            <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512">
+              <path fill="#308a36" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+            </svg>
+          </a>
+        {% endif %}
+
+        <ul id="pagination">
+          {% assign total_pages = paginate.pages %}
+          {% assign current_page = paginate.current_page %}
+
+          <li>
+            <a
+              href="?page=1"
+              {% if current_page == 1 %}
+                id="current_page"
+              {% endif %}
+              >1</a
+            >
+          </li>
+
+          {% if current_page > 4 %}
+            <li>...</li>
+          {% endif %}
+
+          {% assign start_page = current_page | minus: 1 %}
+          {% assign end_page = current_page | plus: 1 %}
+          {% assign total_pages_minus_3 = total_pages | minus: 3 %}
+
+          {% if current_page <= 4 %}
+            {% assign start_page = 2 %}
+            {% assign end_page = 5 %}
+          {% endif %}
+
+          {% if current_page >= total_pages_minus_3 %}
+            {% assign start_page = total_pages | minus: 4 %}
+            {% assign end_page = total_pages | minus: 1 %}
+          {% endif %}
+
+          {% for i in (start_page..end_page) %}
+            {% if i > 1 and i < total_pages %}
+              <li>
+                <a
+                  href="?page={{ i }}"
+                  {% if current_page == i %}
+                    id="current_page"
+                  {% endif %}
+                >
+                  {{- i -}}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if current_page < total_pages_minus_3 %}
+            <li>...</li>
+          {% endif %}
+
+          {% if total_pages > 1 %}
+            <li>
+              <a
+                href="?page={{ total_pages }}"
+                {% if current_page == total_pages %}
+                  id="current_page"
+                {% endif %}
+              >
+                {{- total_pages -}}
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+
+        {% if paginate.current_page < paginate.pages %}
+          <a href="?page={{ paginate.current_page | plus: 1 }}" id="next-page">
+            <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512">
+              <path fill="#308a36" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+            </svg>
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endpaginate %}
+</main>
+
+{% for block in section.blocks %}
+  {% assign current_index = forloop.index %}
+  {% assign array_tags = block.settings.selected_tags | split: ',' %}
+
+  {% for tag in array_tags %}
+    {% if collection.tags contains tag %}
+      {% assign block_has_tag = true %}
+      {% assign some_block_has_tag = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if block_has_tag == true %}
+    <section id="modal_campaign_details" index="{{ current_index }}">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="14"
+        width="10.5"
+        viewBox="0 0 384 512"
+        id="escape_modal"
+        index="{{ current_index }}"
+      >
+        <path fill="#308a36" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+      </svg>
+
+      <div>
+        <svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M26.2727 0.55475L36.0079 10.6563C37.9248 12.6443 39 15.3277 39 18.1241C39 20.9204 37.9248 23.6038 36.0079 25.5918L27.4791 34.4425C27.3106 34.6176 27.1101 34.757 26.8891 34.8526C26.6681 34.9483 26.4309 34.9983 26.1911 35C25.9512 35.0016 25.7134 34.9547 25.4912 34.862C25.2691 34.7694 25.0668 34.6327 24.8961 34.4599C24.5514 34.1108 24.3559 33.6355 24.3527 33.1386C24.3512 32.8925 24.3968 32.6486 24.4872 32.4206C24.5775 32.1927 24.7107 31.9852 24.8792 31.8101L33.4002 22.9595C34.6407 21.6732 35.3366 19.9368 35.3366 18.1274C35.3366 16.318 34.6407 14.5816 33.4002 13.2953L23.6755 3.19515C23.3352 2.84147 23.1458 2.36361 23.149 1.86669C23.1522 1.36977 23.3476 0.894493 23.6924 0.545415C24.0372 0.196338 24.503 0.00205499 24.9874 0.0053061C25.4718 0.00855722 25.9351 0.209076 26.2753 0.562751L26.2727 0.55475ZM1.11654e-05 15.429V3.7499C0.000355705 2.75547 0.385586 1.80188 1.07103 1.09871C1.75647 0.395544 2.68603 0.000353463 3.65539 1.45017e-08H15.0401C15.6809 -5.004e-05 16.3155 0.129478 16.9074 0.381178C17.4994 0.632878 18.0372 1.00181 18.4901 1.46689L31.2839 14.5915C32.1975 15.5288 32.7106 16.8 32.7106 18.1254C32.7106 19.4508 32.1975 20.722 31.2839 21.6593L21.1173 32.0848C20.2036 33.022 18.9645 33.5484 17.6725 33.5484C16.3804 33.5484 15.1413 33.022 14.2277 32.0848L1.42993 18.9602C0.975595 18.498 0.615247 17.9479 0.369786 17.3417C0.124324 16.7355 -0.00136413 16.0854 1.11654e-05 15.429ZM10.9662 8.74932C10.9662 8.25479 10.8232 7.77137 10.5554 7.36018C10.2876 6.949 9.90691 6.62852 9.46154 6.43927C9.01617 6.25002 8.5261 6.20051 8.0533 6.29698C7.5805 6.39346 7.1462 6.6316 6.80533 6.98128C6.46446 7.33097 6.23233 7.77649 6.13828 8.26152C6.04423 8.74654 6.0925 9.24928 6.27698 9.70617C6.46146 10.1631 6.77386 10.5536 7.17468 10.8283C7.5755 11.103 8.04674 11.2497 8.5288 11.2497C9.17523 11.2497 9.79518 10.9863 10.2523 10.5173C10.7094 10.0484 10.9662 9.41246 10.9662 8.74932Z" fill="#258439"/>
+        </svg>
+
+        <div>
+          <h1>Detalhes da campanha</h1>
+
+          {% if block.settings.campaign_details %}
+            <span>{{ block.settings.campaign_details }}</span>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+{% endfor %}

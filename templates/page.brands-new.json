@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-brands-template-new",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

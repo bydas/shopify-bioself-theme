@@ -1,0 +1,773 @@
+{% schema %}
+{
+  "name": "Footer Customizado",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "footer_image",
+      "label": "Selecionar imagem"
+    },
+    {
+      "type": "text",
+      "id": "footer_richtext",
+      "label": "Adicionar descrição"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Adicionar texto"
+    },
+    {
+      "type": "url",
+      "id": "footer_link_1",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "url",
+      "id": "footer_link_2",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_1",
+      "label": "Selecionar Menu 1"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_2",
+      "label": "Selecionar Menu 2"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_3",
+      "label": "Selecionar Menu 3"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_4",
+      "label": "Selecionar Menu 4"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_5",
+      "label": "Selecionar Menu 5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Customizado",
+      "category": "Footer"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const onResize = () => {
+      if (window.innerWidth < 1000) {
+        const mobileFooterDivs = document.querySelectorAll(".mobile_footer_additional_div");
+
+        mobileFooterDivs.forEach((div) => {
+          div.addEventListener("click", function () {
+            const currentSvg = div.querySelector("svg");
+            const currentMenu = div.nextElementSibling;
+
+            const previousMenu = document.getElementById("selected-menu");
+
+            if (previousMenu) {
+              const previousSvg = previousMenu.previousElementSibling.querySelector("svg");
+
+              previousMenu.removeAttribute("id");
+              previousMenu.style.display = 'none';
+              previousSvg.style.transform = 'rotate(0deg)';
+            }
+
+            if (!previousMenu || previousMenu !== currentMenu) {
+              currentMenu.style.display = 'grid';
+              currentMenu.setAttribute("id", "selected-menu");
+              currentSvg.style.transform = 'rotate(180deg)';
+            }
+          });
+        });
+      }
+    };
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.target.id === "selected-menu") {
+          console.log("Menu alterado")
+        }
+      });
+    });
+
+    document.querySelectorAll(".mobile_footer_additional_menu").forEach((menu) => {
+      observer.observe(menu, { attributes: true, attributeFilter: ["id"] });
+    });
+
+    onResize();
+
+    window.addEventListener("resize", function () {
+      onResize();
+    });
+  });
+</script>
+
+<style>
+  #custom_address  {
+    gap: 0.5rem;
+  }
+
+  #custom_address > div > p {
+    font-size: 13px;
+  }
+
+  #custom_footer_location_mobile > a:hover {
+    text-decoration: underline;
+  }
+
+  #custom_footer_mobile {
+    display: none;
+  }
+
+  #custom_footer {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 4rem;
+    background-color: #258439;
+    color: white;
+    padding: 4rem var(--desktop-container-gutter);
+    justify-content: center;
+  }
+
+  #custom_footer_links_mobile {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+  }
+
+  #custom_footer_links_mobile > a:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #custom_footer {
+      gap: 2rem;
+    }
+
+    #custom_footer_left > div > img {
+      width: 120px !important;
+    }
+
+    #custom_footer_richtext > span {
+      font-size: 14px !important;
+    }
+
+    #custom_footer > ul > li > h6 {
+      font-size: 12px !important;
+    }
+
+    #custom_address > div > a,
+    #custom_address > div > span,
+    .footer_additional_menu > li > a,
+    #custom_address > div > p {
+      font-size: 11px !important;
+    }
+
+    .footer-custom-link > svg {
+      width: 35px !important;
+      height: 35px !important;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_footer {
+      padding: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom_footer {
+      padding: 4rem 18vw;
+    }
+  }
+
+  #custom_footer_left {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  #custom_footer_left > div {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 0.65rem;
+  }
+
+  #custom_footer_left > div > img {
+    width: 156px;
+  }
+
+  #custom_footer_mobile > #custom_footer_top > img {
+    width: 106px;
+  }
+
+  #custom_footer_richtext,
+  #custom_footer_text {
+    max-width: 20rem;
+  }
+
+  #custom_footer_richtext > span {
+    font-size: 16px;
+    line-height: normal;
+  }
+
+  #custom_footer_text > span,
+  #mobile_custom_footer_text > span {
+    font-size: 13px;
+    line-height: normal;
+  }
+
+  #custom_footer_links {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    align-content: end;
+    list-style-type: none;
+  }
+
+  #custom_footer_links > li {
+    display: grid;
+    transition: all 0.15s ease;
+  }
+
+  #custom_footer_links > li:hover {
+    transform: scale(1.05);
+  }
+
+  #custom_footer_links > li > a {
+    display: grid;
+    align-items: center;
+  }
+
+  .footer-custom-link > svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  #custom_footer > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 2rem;
+    list-style-type: none;
+  }
+
+  @media screen and (max-width: 1100px) and (min-width: 1000px) {
+    #custom_footer > ul > li:nth-child(2) {
+      display: none;
+    }
+  }
+
+  #custom_footer > ul > li > #custom_address {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    margin-top: 2rem;
+  }
+
+  #custom_footer > #custom_address > div {
+    display: grid;
+  }
+
+  #custom_footer > ul > li {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.35rem;
+  }
+
+  #custom_footer > ul > li:nth-child(5) {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 0.5rem;
+  }
+
+  #custom_footer > ul > li > h6 {
+    font-size: 14px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  #custom_footer > ul > li > ul {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 0.65rem;
+    list-style-type: none;
+  }
+
+  #custom_footer > ul > li > ul > li {
+    display: grid;
+  }
+
+  #custom_address > div > a,
+  #custom_address > div > span,
+  .footer_additional_menu > li > a {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  #custom_address > div {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 0.5rem;
+  }
+
+  #custom_address > div > * {
+    line-height: normal;
+  }
+
+  #custom_address > div > a:hover,
+  .footer_additional_menu > li > a:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 1499px) {
+    #custom_footer {
+      padding: 2rem var(--desktop-container-gutter);
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_footer {
+      display: none;
+    }
+
+    #custom_footer_mobile {
+      display: grid;
+      background-color: #258439;
+      color: white;
+      grid-template-rows: repeat(6, max-content);
+      gap: 1rem;
+      padding: 2rem var(--mobile-container-gutter);
+    }
+  }
+
+  .mobile_footer-custom-link > svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  #custom_footer_top {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  #custom_footer_links {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+  }
+
+  #custom_footer_links > li,
+  #custom_footer_links > li > a {
+    display: grid;
+  }
+
+  #mobile_custom_footer_richtext,
+  #mobile_custom_footer_text {
+    display: grid;
+  }
+
+  #custom_footer_mobile > ul {
+    display: grid;
+    grid-template-rows: repeat(5, max-content);
+    gap: 1rem;
+  }
+
+  #custom_footer_mobile > ul > li {
+    display: grid;
+    grid-template-rows: max-content;
+    gap: 1rem;
+  }
+
+  #custom_footer_mobile > ul > li > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  #custom_footer_mobile > ul > li > div > h6 {
+    margin: 0;
+  }
+
+  #custom_footer_mobile > ul > li > div > svg {
+    fill: white;
+    width: 14px;
+    height: 14px;
+  }
+
+  #selected-menu {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    list-style-type: none;
+  }
+
+  .mobile_footer_additional_menu {
+    display: none;
+  }
+
+  .mobile_footer_additional_menu > li:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (min-width: 2400px) {
+    #custom_footer {
+      gap: 8rem;
+    }
+
+    #custom_footer > ul > li > h6 {
+      font-size: 16px;
+    }
+
+    #custom_address > div > span, #custom_address > div > a,
+    #custom_address > div > a, #custom_address > div > span,
+    .footer_additional_menu > li > a,
+    #custom_footer_text > span {
+      font-size: 15px;
+      line-height: normal;
+    }
+
+    #custom_footer_richtext > span {
+      font-size: 17px;
+      line-height: normal;
+    }
+
+    #custom_footer_left > div > img {
+      width: 200px;
+    }
+
+    #custom_footer_left > div {
+      gap: 0.8rem;
+    }
+
+    .footer-custom-link > svg {
+      width: 50px;
+      height: 50px;
+    }
+  }
+</style>
+
+<section id="custom_footer">
+  <div id="custom_footer_left">
+    <div>
+      {% if section.settings.footer_image %}
+        <img
+          src="{{ section.settings.footer_image | img_url: 'master' }}"
+          class="custom_footer_hero"
+          alt="Bioself"
+          width="100%"
+          height="100%"
+        >
+      {% endif %}
+
+      {% if section.settings.footer_richtext %}
+        <div id="custom_footer_richtext">
+          <span>{{ section.settings.footer_richtext }}</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.footer_text %}
+        <div id="custom_footer_text">
+          <span>{{ section.settings.footer_text }}</span>
+        </div>
+      {% endif %}
+    </div>
+
+    <ul id="custom_footer_links">
+      {% if section.settings.footer_link_1 %}
+        <li>
+          <a href="{{ section.settings.footer_link_1 }}" class="footer-custom-link" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16.532" height="26" viewBox="0 0 16.532 26">
+              <path id="Icon_feather-facebook" data-name="Icon feather-facebook" d="M25.032,3H21.069c-3.648,0-6.605,2.686-6.605,6v3.6H10.5v4.8h3.963V27h5.284V17.4h3.963l1.321-4.8H19.748V9a1.265,1.265,0,0,1,1.321-1.2h3.963Z" transform="translate(-9.5 -2)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+
+      {% if section.settings.footer_link_2 %}
+        <li>
+          <a href="{{ section.settings.footer_link_2 }}" class="footer-custom-link" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+              <g id="Icon_feather-instagram" data-name="Icon feather-instagram" transform="translate(1 1)">
+                <path id="Path_734" data-name="Path 734" d="M9,3H21a6,6,0,0,1,6,6V21a6,6,0,0,1-6,6H9a6,6,0,0,1-6-6V9A6,6,0,0,1,9,3Z" transform="translate(-3 -3)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                <path id="Path_735" data-name="Path 735" d="M22.577,16.444a5.284,5.284,0,1,1-4.452-4.452,5.284,5.284,0,0,1,4.452,4.452Z" transform="translate(-5.301 -5.268)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                <path id="Path_736" data-name="Path 736" d="M26.25,9.75h0" transform="translate(-7.65 -4.35)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </g>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <ul>
+    {% if section.settings.footer_menu_1 %}
+      <li>
+        <h6>{{ section.settings.footer_menu_1.title }}</h6>
+
+        <ul class="footer_additional_menu">
+          {% for link in section.settings.footer_menu_1.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_2 %}
+      <li>
+        <h6>{{ section.settings.footer_menu_2.title }}</h6>
+
+        <ul class="footer_additional_menu">
+          {% for link in section.settings.footer_menu_2.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_3 %}
+      <li>
+        <h6>{{ section.settings.footer_menu_3.title | upcase }}</h6>
+
+        <ul class="footer_additional_menu">
+          {% for link in section.settings.footer_menu_3.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_4 %}
+      <li>
+        <h6>{{ section.settings.footer_menu_4.title }}</h6>
+
+        <ul class="footer_additional_menu">
+          {% for link in section.settings.footer_menu_4.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_5 %}
+      <li>
+        <h6>{{ section.settings.footer_menu_5.title }}</h6>
+
+        <ul class="footer_additional_menu">
+          {% for link in section.settings.footer_menu_5.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <div id="custom_address">
+          <div>
+            <a href="https://maps.app.goo.gl/HcJ1gQZb3QjJyeSW7" target="_blank">
+              Rua da Alegria 183
+              <br>
+              4000-043 Porto
+            </a>
+          </div>
+
+          <div>
+            <a href="mailto:info@bioself.pt" target="_blank">Info@bioself.pt</a>
+            <a href="tel:+351222004579" target="_blank">+351 22 200 4579*</a>
+            <p>*Chamada para Rede Fixa Nacional</p>
+          </div>
+        </div>
+      </li>
+    {% endif %}
+  </ul>
+</section>
+
+<section id="custom_footer_mobile">
+  <div id="custom_footer_top">
+    {% if section.settings.footer_image %}
+      <img
+        src="{{ section.settings.footer_image | img_url: 'master' }}"
+        class="custom_footer_hero"
+        alt="Bioself"
+        width="100%"
+        height="100%"
+      >
+    {% endif %}
+
+    <ul id="custom_footer_links">
+      {% if section.settings.footer_link_1 %}
+        <li>
+          <a href="{{ section.settings.footer_link_1 }}" class="mobile_footer-custom-link" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16.532" height="26" viewBox="0 0 16.532 26">
+              <path id="Icon_feather-facebook" data-name="Icon feather-facebook" d="M25.032,3H21.069c-3.648,0-6.605,2.686-6.605,6v3.6H10.5v4.8h3.963V27h5.284V17.4h3.963l1.321-4.8H19.748V9a1.265,1.265,0,0,1,1.321-1.2h3.963Z" transform="translate(-9.5 -2)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+
+      {% if section.settings.footer_link_2 %}
+        <li>
+          <a href="{{ section.settings.footer_link_2 }}" class="mobile_footer-custom-link" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+              <g id="Icon_feather-instagram" data-name="Icon feather-instagram" transform="translate(1 1)">
+                <path id="Path_734" data-name="Path 734" d="M9,3H21a6,6,0,0,1,6,6V21a6,6,0,0,1-6,6H9a6,6,0,0,1-6-6V9A6,6,0,0,1,9,3Z" transform="translate(-3 -3)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                <path id="Path_735" data-name="Path 735" d="M22.577,16.444a5.284,5.284,0,1,1-4.452-4.452,5.284,5.284,0,0,1,4.452,4.452Z" transform="translate(-5.301 -5.268)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                <path id="Path_736" data-name="Path 736" d="M26.25,9.75h0" transform="translate(-7.65 -4.35)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+              </g>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  {% if section.settings.footer_richtext %}
+    <div id="mobile_custom_footer_richtext">
+      <span>{{ section.settings.footer_richtext }}</span>
+    </div>
+  {% endif %}
+
+  {% if section.settings.footer_text %}
+    <div id="mobile_custom_footer_text">
+      <span>{{ section.settings.footer_text }}</span>
+    </div>
+  {% endif %}
+
+  <div id="custom_footer_location_mobile">
+    <a href="https://maps.app.goo.gl/HcJ1gQZb3QjJyeSW7" target="_blank">
+      Rua da Alegria 183
+      <br>
+      4000-043 Porto
+    </a>
+  </div>
+
+  <div id="custom_footer_links_mobile">
+    <a href="mailto:info@bioself.pt" target="_blank">Info@bioself.pt</a>
+    <a href="tel:+351222004579" target="_blank">+351 22 200 4579*</a>
+    <p>*Chamada para Rede Fixa Nacional</p>
+  </div>
+
+  <ul>
+    {% if section.settings.footer_menu_1 %}
+      <li>
+        <div class="mobile_footer_additional_div">
+          <h6>{{ section.settings.footer_menu_1.title }}</h6>
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+          </svg>
+        </div>
+
+        <ul class="mobile_footer_additional_menu">
+          {% for link in section.settings.footer_menu_1.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_2 %}
+      <li>
+        <div class="mobile_footer_additional_div">
+          <h6>{{ section.settings.footer_menu_2.title }}</h6>
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+          </svg>
+        </div>
+
+        <ul class="mobile_footer_additional_menu">
+          {% for link in section.settings.footer_menu_2.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_3 %}
+      <li>
+        <div class="mobile_footer_additional_div">
+          <h6>{{ section.settings.footer_menu_3.title | upcase }}</h6>
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+          </svg>
+        </div>
+
+        <ul class="mobile_footer_additional_menu">
+          {% for link in section.settings.footer_menu_3.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_4 %}
+      <li>
+        <div class="mobile_footer_additional_div">
+          <h6>{{ section.settings.footer_menu_4.title }}</h6>
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+          </svg>
+        </div>
+
+        <ul class="mobile_footer_additional_menu">
+          {% for link in section.settings.footer_menu_4.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+
+    {% if section.settings.footer_menu_5 %}
+      <li>
+        <div class="mobile_footer_additional_div">
+          <h6>{{ section.settings.footer_menu_5.title }}</h6>
+
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+          </svg>
+        </div>
+
+        <ul class="mobile_footer_additional_menu">
+          {% for link in section.settings.footer_menu_5.links %}
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+  </ul>
+</section>

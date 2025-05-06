@@ -1,0 +1,431 @@
+{% schema %}
+{
+  "name": "Perguntas Frequentes",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da secção",
+      "default": "Perguntas frequentes"
+    },
+    {
+      "type": "radio",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "label": "Página inicial",
+          "value": "homepage"
+        },
+        {
+          "label": "Biopoints",
+          "value": "biopoints"
+        }
+      ],
+      "default": "homepage"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom",
+      "name": "Pergunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título da pergunta"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Respota da pergunta"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perguntas Frequentes",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #perguntas_frequentes_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    margin: 6rem var(--desktop-container-gutter);
+    gap: 2rem;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #perguntas_frequentes_custom {
+      margin: 8rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #perguntas_frequentes_custom {
+      margin: 8rem 18vw;
+    }
+  }
+
+  #perguntas_frequentes_custom > * {
+    line-height: normal;
+  }
+
+  #perguntas_frequentes_custom > h1 {
+    text-transform: uppercase;
+    font-weight:
+      {% if section.settings.layout == "biopoints" %}
+        900 !important;
+      {% else %}
+        700 !important;
+      {% endif %}
+    font-size:
+      {% if section.settings.layout == "biopoints" %}
+        42px;
+      {% else %}
+        28px;
+      {% endif %}
+    padding: 0;
+    margin: 0;
+  }
+
+  #perguntas_frequentes_custom > ul {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  #perguntas_frequentes_custom > ul > li {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #258439;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .question_custom_block {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    cursor: pointer;
+    margin: 0;
+    padding: 2rem 0;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .question_custom_block > span {
+    font-weight: 700 !important;
+    font-size: 21px;
+    padding: 0;
+    margin: 0;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .question_custom_block > img {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block {
+    grid-column: 1 / -1;
+    display: none;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > p,
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > ul > li,
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > ol > li {
+    width: 100% !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > p {
+    display: block !important;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > p > a,
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > ul > li > a,
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > ol > li > a{
+    color: #258439;
+    text-decoration: underline;
+  }
+
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > ul,
+  #perguntas_frequentes_custom > ul > li > .answer_custom_block > ol {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 0.25rem;
+    margin: 1rem;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #perguntas_frequentes_custom {
+      gap: 1.5rem;
+    }
+
+    #perguntas_frequentes_custom > h1 {
+      font-size:
+        {% if section.settings.layout == "biopoints" %}
+          26px;
+        {% else %}
+          24px;
+        {% endif %}
+    }
+
+    #perguntas_frequentes_custom > ul > li > .question_custom_block {
+      padding: 1.5rem 0;
+    }
+
+    #perguntas_frequentes_custom > ul > li > .question_custom_block > span {
+      font-size:
+        {% if section.settings.layout == "biopoints" %}
+          18px;
+        {% else %}
+          16px;
+        {% endif %}
+    }
+
+    #perguntas_frequentes_custom > ul > li > .question_custom_block > img {
+      width: 18px;
+      height: 18px;
+    }
+
+    #perguntas_frequentes_custom > ul > li > .answer_custom_block > p,
+    #perguntas_frequentes_custom > ul > li > .answer_custom_block > ul > li,
+    #perguntas_frequentes_custom > ul > li > .answer_custom_block > ol > li {
+      font-size:
+        {% if section.settings.layout == "biopoints" %}
+          16px;
+        {% else %}
+          14px;
+        {% endif %}
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #perguntas_frequentes_custom {
+      gap: 1rem;
+      margin: 2rem var(--mobile-container-gutter);
+    }
+
+    #perguntas_frequentes_custom > h1 {
+      font-size:
+        {% if section.settings.layout == "biopoints" %}
+          21px
+        {% else %}
+          16px
+        {% endif %};
+    }
+
+    #perguntas_frequentes_custom > ul > li > .question_custom_block {
+      padding: 1rem 0;
+    }
+
+    #perguntas_frequentes_custom > ul > li > .question_custom_block > span {
+      font-size:
+        {% if section.settings.layout == "biopoints" %}
+          16px;
+        {% else %}
+          14px;
+        {% endif %}
+    }
+
+    #perguntas_frequentes_custom > ul > li > .question_custom_block > img {
+      width: 16px;
+      height: 16px;
+    }
+
+    #perguntas_frequentes_custom > ul > li > .answer_custom_block > p,
+    #perguntas_frequentes_custom > ul > li > .answer_custom_block > ul > li,
+    #perguntas_frequentes_custom > ul > li > .answer_custom_block > ol > li {
+      font-size:
+        {% if section.settings.layout == "biopoints" %}
+          14px;
+        {% else %}
+          12px;
+        {% endif %}
+    }
+  }
+</style>
+
+{% if section.blocks.size > 0 %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for block in section.blocks %}
+          {
+            "@type": "Question",
+            "name": "{{ block.settings.title | escape }}",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "{{ block.settings.answer | strip_html | escape }}"
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  </script>
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const container = document.getElementById("perguntas_frequentes_custom");
+    const isDesktop = window.innerWidth > 1600;
+    const isTablet = window.innerWidth <= 1600 && window.innerWidth >= 1000;
+    const isMobile = window.innerWidth < 1000;
+
+    if (container) {
+      const lis = container.querySelectorAll("li");
+      const questionBlocks = container.querySelectorAll(".question_custom_block");
+
+      questionBlocks.forEach((questionBlock) => {
+        questionBlock.addEventListener("click", function() {
+          const li = questionBlock.parentElement;
+
+          const previousLi = Array.from(lis).find((l) => {
+            const previousAnswerBlock = l.querySelector(".answer_custom_block");
+            return previousAnswerBlock && previousAnswerBlock.style.display === "block" && l !== li;
+          });
+
+          const img = li.querySelector("img");
+          const answerBlock = li.querySelector(".answer_custom_block");
+
+          if (answerBlock) {
+            if (answerBlock.style.display === "block") {
+              img.src = "{{ 'plus_2.svg' | asset_url }}";
+              img.alt = "Ícone de mais";
+
+              li.style.padding = "0";
+              questionBlock.style.padding = isDesktop
+                ? "2rem 0"
+                : isTablet
+                ? "1.5rem 0"
+                : "1rem 0";
+
+              answerBlock.style.display = "none";
+            } else {
+              if (previousLi) {
+                const previousIcon = previousLi.querySelector("img");
+                previousIcon.src = "{{ 'plus_2.svg' | asset_url }}";
+                previousIcon.alt = "Ícone de mais";
+
+                const openedAnswerBlock = previousLi.querySelector(".answer_custom_block");
+                openedAnswerBlock.style.display = "none";
+              };
+
+              img.src = "{{ 'minus_2.svg' | asset_url }}";
+              img.alt = "Ícone de menos";
+
+              li.style.padding = isDesktop
+                ? "2rem 0"
+                : isTablet
+                ? "1.5rem 0"
+                : "1rem 0";
+
+              questionBlock.style.padding = "0";
+              answerBlock.style.display = "block";
+            }
+          }
+        });
+      });
+
+      const alterPaddingOnResize = () => {
+        const answerBlocks = container.querySelectorAll(".answer_custom_block");
+
+        answerBlocks.forEach((answerBlock) => {
+          const answerBlockFirstElement = answerBlock.firstElementChild;
+          const answerBlockLastElement = answerBlock.lastElementChild;
+
+          if (answerBlockLastElement && (answerBlockLastElement.tagName === "UL" || answerBlockLastElement.tagName === "OL")) {
+            answerBlockLastElement.style.marginBottom = "0";
+          }
+
+          if (answerBlockFirstElement && (answerBlockFirstElement.tagName === "UL" || answerBlockFirstElement.tagName === "OL")) {
+            answerBlockFirstElement.style.marginTop = "0";
+          }
+        });
+      }
+
+      alterPaddingOnResize();
+      window.addEventListener("resize", alterPaddingOnResize);
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const answers = document.querySelectorAll(".answer_custom_block");
+
+    if (answers.length > 0) {
+      answers.forEach((answer) => {
+        const ols = answer.querySelectorAll("ol");
+
+        if (ols) {
+          ols.forEach((ol, index) => {
+            if ((index + 1) % 2 === 0) {
+              const previousOl = ols[index - 1];
+              const liCount = previousOl.querySelectorAll("li").length;
+
+              ol.setAttribute("start", liCount + 1);
+            }
+          });
+        }
+      });
+    }
+  });
+</script>
+
+<section id="perguntas_frequentes_custom">
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% if section.blocks.size > 0 %}
+    <ul>
+      {% for block in section.blocks %}
+        <li>
+          {% unless block.settings.title == blank %}
+            <div class="question_custom_block">
+              <span>{{ block.settings.title }}</span>
+
+              <img src="{{ 'plus_2.svg' | asset_url }}" alt="Ícone de mais">
+            </div>
+          {% endunless %}
+
+          {% unless block.settings.answer == blank %}
+            <div class="answer_custom_block">
+              {{ block.settings.answer }}
+            </div>
+          {% endunless %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>

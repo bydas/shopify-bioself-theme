@@ -1,0 +1,241 @@
+{% schema %}
+{
+  "name": "Collection brands",
+  "settings": [
+    {
+      "type": "text",
+      "id": "selected_section_title",
+      "label": "Título da coleção"
+    },
+    {
+      "type": "page",
+      "id": "selected_page",
+      "label": "Selecione uma página"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Coleção",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "selected_collection",
+          "label": "Selecione uma coleção"
+        },
+        {
+          "type": "image_picker",
+          "id": "selected_image",
+          "label": "Selecione uma imagem",
+          "info": "380x350px"
+        }
+      ],
+      "limit": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection brands",
+      "category": "Custom",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #collection_custom_brands {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #collection_custom_brands_mobile {
+    display: none;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #collection_custom_brands > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #collection_custom_brands > div > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #collection_custom_brands > div > h1 {
+      font-size: 24px;
+    }
+
+    #collection_custom_brands > div > a {
+      padding: 0.3rem 1.5rem !important;
+      font-size: 13px !important;
+    }
+
+    #collection_custom_brands > ul > a > li > img {
+      height: 300px !important;
+    }
+  }
+
+  #collection_custom_brands_mobile > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #collection_custom_brands > div > a,
+  #collection_custom_brands_mobile > a {
+    background-color: #308a36;
+    border: none;
+    border-radius: 0.45rem;
+    text-align: center;
+    color: white;
+    padding: 0.35rem 2rem;
+    font-size: 14px;
+    transition: all 0.15s ease;
+    font-weight: 700;
+  }
+
+  #collection_custom_brands > div > a:hover,
+  #collection_custom_brands_mobile > a:hover {
+    background-color: #ffbb12;
+    color: black;
+  }
+
+  #collection_custom_brands_mobile > a {
+    width: 100%;
+  }
+
+  #collection_custom_brands > ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+    list-style-type: none;
+  }
+
+  @media screen and (max-width: 1399px) {
+    #collection_custom_brands > ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    #collection_custom_brands > ul > a:nth-child(4) {
+      display: none;
+    }
+  }
+
+  #collection_custom_brands_mobile > ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #collection_custom_brands > ul > a,
+  #collection_custom_brands > ul > a > li {
+    display: grid;
+  }
+
+  #collection_custom_brands_mobile > ul > a,
+  #collection_custom_brands_mobile > ul > a > li {
+    display: grid;
+  }
+
+  #collection_custom_brands > ul > a > li > img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 0.65rem;
+  }
+
+  #collection_custom_brands_mobile > ul > a > li > img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 0.65rem;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #collection_custom_brands {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #collection_custom_brands {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #collection_custom_brands {
+      display: none;
+    }
+
+    #collection_custom_brands_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="collection_custom_brands">
+  <div>
+    {% if section.settings.selected_section_title %}
+      <h1>{{ section.settings.selected_section_title }}</h1>
+    {% endif %}
+    <a href="{{ section.settings.selected_page.url }}">Saber mais</a>
+  </div>
+
+  {% if section.blocks.size > 0 %}
+    <ul>
+      {% for block in section.blocks %}
+        {% if block.settings.selected_collection and block.settings.selected_image %}
+          <a href="{{ collections[block.settings.selected_collection].url }}">
+            <li>
+              <img
+                loading="lazy"
+                src="{{ block.settings.selected_image | img_url: 'master' }}"
+                alt="{{ collections[block.settings.selected_collection].title }}"
+              >
+            </li>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<section id="collection_custom_brands_mobile">
+  {% if section.settings.selected_section_title %}
+    <h1>{{ section.settings.selected_section_title }}</h1>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <ul>
+      {% for block in section.blocks %}
+        {% if block.settings.selected_collection and block.settings.selected_image %}
+          <a href="{{ collections[block.settings.selected_collection].url }}">
+            <li>
+              <img
+                loading="lazy"
+                src="{{ block.settings.selected_image | img_url: 'master' }}"
+                alt="{{ collections[block.settings.selected_collection].title }}"
+              >
+            </li>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <a href="{{ section.settings.selected_page.url }}">Saber mais</a>
+</section>

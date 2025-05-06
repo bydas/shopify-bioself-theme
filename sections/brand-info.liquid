@@ -1,0 +1,166 @@
+{% schema %}
+{
+  "name": "Brand info",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Brand info",
+      "category": "collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% if collection.metafields.custom.brand_image %}
+  <section id="custom_brand_info">
+    <img
+      src="{{ collection.metafields.custom.brand_image | img_url: '250x' }}"
+      alt="{% if collection.metafields.custom.brand_title %}{{ collection.metafields.custom.brand_title | split: 'Sobre a ' | last }}{% else %}Logo da marca{% endif %}"
+    >
+
+    <div>
+      {% if collection.metafields.custom.brand_title %}
+        <h1>{{ collection.metafields.custom.brand_title }}</h1>
+      {% endif %}
+
+      {% if collection.metafields.custom.brand_description_2 %}
+        {{ collection.metafields.custom.brand_description_2 | metafield_tag }}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% if collection.metafields.custom.brand_image %}
+  <section id="custom_brand_info_mobile">
+    <img
+      src="{{ collection.metafields.custom.brand_image | img_url: '150x' }}"
+      alt="{% if collection.metafields.custom.brand_title %}{{ collection.metafields.custom.brand_title | split: 'Sobre a ' | last }}{% else %}Logo da marca{% endif %}"
+    >
+
+    <div>
+      {% if collection.metafields.custom.brand_title %}
+        <h1>{{ collection.metafields.custom.brand_title }}</h1>
+      {% endif %}
+
+      {% if collection.metafields.custom.brand_description_2 %}
+        {{ collection.metafields.custom.brand_description_2 | metafield_tag }}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+<style>
+  #custom_brand_info {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    padding: 4rem 2rem;
+    margin: 4rem var(--desktop-container-gutter) 1rem var(--desktop-container-gutter);
+    border: 1px solid #308a36;
+    border-radius: 0.65rem;
+    align-items: center;
+  }
+
+  #custom_brand_info_mobile {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    padding: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+    border: 1px solid #308a36;
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+  }
+
+  #custom_brand_info > img {
+    width: 250px;
+    height: auto;
+    margin: 0 4rem;
+    object-fit: cover;
+  }
+
+  #custom_brand_info_mobile > img {
+    width: 150px;
+    height: auto;
+    margin: 1rem;
+    object-fit: cover;
+  }
+
+  #custom_brand_info > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+  }
+
+  #custom_brand_info_mobile > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+  }
+
+  #custom_brand_info > div > h1 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 500;
+  }
+
+  .metafield-rich_text_field > p {
+    font-size: 16px;
+  }
+
+  #custom_brand_info_mobile > div > h1 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  #custom_brand_info > div > span {
+    font-size: 16px;
+  }
+
+  #custom_brand_info_mobile > div > span {
+    font-size: 14px;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_brand_info {
+      margin: 4rem 12rem 1rem 12rem;
+    }
+  }
+
+  @media screen and (max-width: 1499px) {
+    #custom_brand_info {
+      padding: 2rem;
+    }
+
+    #custom_brand_info > img {
+      margin: 0 2rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_brand_info {
+      display: none;
+    }
+
+    .metafield-rich_text_field > p {
+      font-size: 14px;
+    }
+
+    #custom_brand_info_mobile {
+      display: grid;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_brand_info {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom_brand_info {
+      margin: 2rem 18vw;
+    }
+  }
+</style>

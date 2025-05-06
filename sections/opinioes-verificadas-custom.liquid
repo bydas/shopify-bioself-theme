@@ -1,0 +1,949 @@
+{% schema %}
+{
+  "name": "Opiniões Verificadas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "selected_section_title",
+      "label": "Título da coleção"
+    },
+    {
+      "type": "image_picker",
+      "id": "selected_image",
+      "label": "Selecione a imagem de fundo",
+      "info": "616x250px"
+    },
+    {
+      "type": "image_picker",
+      "id": "opinioes_image",
+      "label": "Selecione a logo",
+      "info": "180x30px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Opiniões Verificadas",
+      "category": "reviews"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #opinioes_verificadas_custom {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #opinioes_verificadas_custom_mobile {
+    display: none;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #opinioes_verificadas_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .opinioes_verificadas_custom_display {
+      display: grid !important;
+    }
+
+    .opinioes_verificadas_custom_mobile_display {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .opinioes_verificadas_custom_display {
+      display: none !important;
+    }
+
+    .opinioes_verificadas_custom_mobile_display {
+      display: grid !important;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #opinioes_verificadas_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  #opinioes_verificadas_custom > #opinioes_title_wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_title_wrapper > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  #opinioes_verificadas_custom_mobile > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #opinioes_verificadas_custom > #opinioes_title_wrapper > h1,
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > h2 {
+      font-size: 24px !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > ul > li > svg,
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description > ul > li > svg,
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > ul > li > svg {
+      width: 18px !important;
+      height: 18px !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > a {
+      padding: 1rem !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #quotes_wrapper_custom > .quote_icon_custom {
+      width: 26px !important;
+      height: 26px !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description > h3 {
+      font-size: 20px !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > span {
+      font-size: 18px !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .main_description_review {
+      font-size: 16px !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .final_text_review {
+      font-size: 13px !important;
+    }
+
+    #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > img {
+      width: 160px !important;
+    }
+  }
+
+  #opinioes_verificadas_custom > #opinioes_title_wrapper > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_title_wrapper > div > svg {
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #opinioes_title_wrapper svg:hover:not(.disabled-arrow) {
+    transform: scale(1.1);
+  }
+
+  .disabled-arrow {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    pointer-events: none;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.65rem;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a,
+  #opinioes_verificadas_custom_mobile > a {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    border-radius: 0.65rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a {
+    padding: 1rem 3rem 1rem 1rem;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  #opinioes_verificadas_custom_mobile > a {
+    padding: 0.85rem;
+    gap: 1rem;
+  }
+
+  @media screen and (max-width: 429px) {
+    #opinioes_verificadas_custom_mobile > a {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, max-content);
+    }
+
+    #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom {
+      justify-items: center;
+      gap: 0.125rem;
+    }
+
+    #opinioes_verificadas_custom_mobile > a > #review_text_description {
+      justify-items: center;
+      text-align: center;
+    }
+
+    #opinioes_verificadas_custom_mobile > a > #review_text_description > h3 {
+      font-size: 16px !important;
+      max-width: 18rem !important;
+    }
+
+    #opinioes_verificadas_custom_mobile > a > #review_text_description > ul > li > svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom,
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    background-color: #D7D7D740;
+    color: white;
+    border-radius: 0.65rem;
+    height: 100%;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom {
+    gap: 0.25rem;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom {
+    padding: 1rem 1.5rem;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom {
+    padding: 0.5rem 1rem;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    line-height: normal;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    line-height: normal;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > ul,
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description > ul,
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > ul,
+  #opinioes_verificadas_custom_mobile > a > #review_text_description > ul {
+    list-style-type: none;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    align-items: center;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > ul,
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description > ul {
+    gap: 0.5rem;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > ul,
+  #opinioes_verificadas_custom_mobile > a > #review_text_description > ul {
+    gap: 0.125rem;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > ul > li,
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description > ul > li,
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > ul > li ,
+  #opinioes_verificadas_custom_mobile > a > #review_text_description > ul > li {
+    display: grid;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > span {
+    font-size: 22px;
+    max-width: 14rem;
+    line-height: 30px;
+    margin: 0.65rem 0;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > span {
+    font-size: 14px;
+    max-width: 12rem;
+    line-height: normal;
+    text-transform: uppercase;
+    margin: 0.5rem 0 0.25rem 0;
+    font-weight: 500;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > a,
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > a {
+    display: grid;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > img {
+    width: 180px;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > img {
+    width: 140px;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description,
+  #opinioes_verificadas_custom_mobile > a > #review_text_description {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    align-content: center;
+    color: white;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description {
+    gap: 0.65rem;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #review_text_description {
+    gap: 0.5rem;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #reviews_counting_wrapper_custom > ul > li > svg,
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description > ul > li > svg,
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > ul > li > svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #review_text_description > ul > li > svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > ul > li > svg,
+  #opinioes_verificadas_custom_mobile > a > #reviews_list_custom_opinioes > ul > li > svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > a > #review_text_description > h3 {
+    margin: 0;
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  #opinioes_verificadas_custom_mobile > a > #review_text_description > h3 {
+    margin: 0;
+    font-size: 15px;
+    max-width: 16rem;
+    line-height: 22px;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    gap: 0.65rem;
+    list-style-type: none;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    background-color: #88A44E33;
+    border-radius: 0.65rem;
+    overflow: hidden;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li {
+    height: 250px;
+  }
+
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes {
+    height: 200px;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #quotes_wrapper_custom,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #quotes_wrapper_custom {
+    display: grid;
+    padding: 8px 0.8rem 8px 8px;
+    border-radius: 0.65rem 20% 70% 20%;
+    background-color: #88A44E;
+    width: max-content;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #quotes_wrapper_custom > .quote_icon_custom {
+    width: 32px;
+    height: 32px;
+  }
+
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #quotes_wrapper_custom > .quote_icon_custom {
+    width: 18px;
+    height: 18px;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    overflow: hidden;
+  }
+
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom {
+    justify-content: center;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .main_description_review,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .main_description_review {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-weight: 600;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .main_description_review {
+    max-width: 26rem;
+    font-size: 20px;
+    line-height: 28px;
+    max-height: 84px;
+  }
+
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .main_description_review {
+    max-width: 20rem;
+    font-size: 16px;
+    line-height: 18px;
+    max-height: 56px;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > ul,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > ul {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.5rem;
+    list-style-type: none;
+    align-items: center;
+    margin: 0.4rem 0 0.65rem 0;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > ul > li,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > ul > li {
+    display: grid;
+    width: max-content !important;
+  }
+
+  #opinioes_verificadas_custom > #opinioes_content_wrapper > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .final_text_review,
+  #opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes > li > #reviews_content_wrapper_custom > .final_text_review {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    font-style: italic;
+  }
+</style>
+
+<section id="opinioes_verificadas_custom">
+  <div id="opinioes_title_wrapper">
+    {% if section.settings.selected_section_title %}
+      <h1>{{ section.settings.selected_section_title }}</h1>
+    {% endif %}
+
+    <div>
+      <svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.99957 8.73641L10.6176 15.3494C10.7338 15.4651 10.8261 15.6026 10.889 15.7541C10.952 15.9055 10.9844 16.0679 10.9844 16.2319C10.9844 16.3959 10.952 16.5583 10.889 16.7098C10.8261 16.8612 10.7338 16.9987 10.6176 17.1144C10.3818 17.3471 10.0638 17.4775 9.73257 17.4775C9.4013 17.4775 9.08336 17.3471 8.84757 17.1144L1.34757 9.62141C1.12088 9.39388 0.990642 9.08773 0.983937 8.76663C0.977232 8.44552 1.09458 8.13419 1.31157 7.89741L8.84157 0.352407C9.07699 0.124355 9.39258 -0.00210394 9.72034 0.000270733C10.0481 0.00264541 10.3618 0.133665 10.5939 0.365107C10.826 0.596548 10.9579 0.909891 10.9612 1.23765C10.9645 1.5654 10.839 1.88134 10.6116 2.11741L3.99957 8.73641Z" fill="#4B8842"/>
+      </svg>
+
+      <svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.96723 8.74113L1.34923 2.12813C1.23298 2.01244 1.14072 1.87493 1.07778 1.72348C1.01483 1.57203 0.982422 1.40964 0.982422 1.24563C0.982422 1.08162 1.01483 0.91923 1.07778 0.767783C1.14072 0.616336 1.23298 0.478818 1.34923 0.363131C1.58503 0.130456 1.90297 0 2.23423 0C2.5655 0 2.88344 0.130456 3.11923 0.363131L10.6192 7.85613C10.8459 8.08365 10.9762 8.38981 10.9829 8.71091C10.9896 9.03202 10.8722 9.34334 10.6552 9.58013L3.12523 17.1251C2.88981 17.3532 2.57422 17.4796 2.24646 17.4773C1.9187 17.4749 1.60498 17.3439 1.37289 17.1124C1.14079 16.881 1.00889 16.5676 1.00558 16.2399C1.00228 15.9121 1.12785 15.5962 1.35523 15.3601L7.96723 8.74113Z" fill="#4B8842"/>
+      </svg>
+    </div>
+  </div>
+
+  <div id="opinioes_content_wrapper">
+    <a
+      {% if section.settings.selected_image %}
+        class="lazy-bg"
+        data-bg="{{ section.settings.selected_image | img_url: '660x' }}"
+      {% endif %}
+      href="https://www.opinioes-verificadas.com/avis-clients/bioself.pt"
+      target="_blank"
+    >
+      <div id="reviews_counting_wrapper_custom">
+        <h2 id="review_rating_custom"></h2>
+
+        <ul>
+          {% for i in (1..5) %}
+            <li>
+              <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.1709 12.9889L13.1149 15.9729L11.8029 10.3489L16.1709 6.56495L10.4189 6.07295L8.1709 0.772949L5.9229 6.07295L0.170898 6.56495L4.5389 10.3489L3.2269 15.9729L8.1709 12.9889Z" fill="#EDD200"/>
+              </svg>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <span id="total_reviews_custom"></span>
+
+        {% if section.settings.opinioes_image %}
+          <img
+            loading="lazy"
+            src="{{ section.settings.opinioes_image | img_url: '176x' }}"
+            width="176px"
+            height="100%"
+          >
+        {% endif %}
+      </div>
+
+      <div id="review_text_description">
+        <h3>
+          A sua plena satisfação<br>
+          é a nossa motivação!
+        </h3>
+
+        <ul>
+          {% for i in (1..5) %}
+            <li>
+              <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.1709 12.9889L13.1149 15.9729L11.8029 10.3489L16.1709 6.56495L10.4189 6.07295L8.1709 0.772949L5.9229 6.07295L0.170898 6.56495L4.5389 10.3489L3.2269 15.9729L8.1709 12.9889Z" fill="#EDD200"/>
+              </svg>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </a>
+
+    <ul id="reviews_list_custom_opinioes"></ul>
+  </div>
+</section>
+
+<section id="opinioes_verificadas_custom_mobile">
+  {% if section.settings.selected_section_title %}
+    <h1>{{ section.settings.selected_section_title }}</h1>
+  {% endif %}
+
+  <a
+    {% if section.settings.selected_image %}
+      class="lazy-bg"
+      data-bg="{{ section.settings.selected_image | img_url: '660x' }}"
+    {% endif %}
+    href="https://www.opinioes-verificadas.com/avis-clients/bioself.pt"
+    target="_blank"
+  >
+    <div id="reviews_counting_wrapper_custom">
+      <h2 id="review_rating_custom"></h2>
+
+      <ul>
+        {% for i in (1..5) %}
+          <li>
+            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.1709 12.9889L13.1149 15.9729L11.8029 10.3489L16.1709 6.56495L10.4189 6.07295L8.1709 0.772949L5.9229 6.07295L0.170898 6.56495L4.5389 10.3489L3.2269 15.9729L8.1709 12.9889Z" fill="#EDD200"/>
+            </svg>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <span id="total_reviews_custom"></span>
+
+      {% if section.settings.opinioes_image %}
+        <img
+          loading="lazy"
+          src="{{ section.settings.opinioes_image | img_url: '176x' }}"
+          width="176px"
+          height="100%"
+        >
+      {% endif %}
+    </div>
+
+    <div id="review_text_description">
+      <h3>
+        A sua plena satisfação<br>
+        é a nossa motivação!
+      </h3>
+
+      <ul>
+        {% for i in (1..5) %}
+          <li>
+            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.1709 12.9889L13.1149 15.9729L11.8029 10.3489L16.1709 6.56495L10.4189 6.07295L8.1709 0.772949L5.9229 6.07295L0.170898 6.56495L4.5389 10.3489L3.2269 15.9729L8.1709 12.9889Z" fill="#EDD200"/>
+            </svg>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </a>
+
+  <ul id="reviews_list_custom_opinioes"></ul>
+</section>
+
+<script
+  defer
+>
+  document.addEventListener("DOMContentLoaded", async function() {
+    const reviews = [];
+    
+    let totalReviews = 0;
+    let average = '';
+
+    await fetch('https://bioself.apps.bydas.com/?action=opinioes_verificadas')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          reviews.push(...data.response);
+        }
+      })
+      .catch((error) => console.error(error));
+
+    await fetch('https://bioself.apps.bydas.com/?action=opinioes_verificadas_count')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          totalReviews = Number(data.response?.split(';')[0]);
+          average = `${Number(data.response?.split(';')[1]).toFixed(1)}/5`;
+        }
+      })
+      .catch((error) => console.error(error));
+
+    if (reviews.length > 0 && totalReviews && average) {
+      const desktopContainer = document.getElementById("opinioes_verificadas_custom");
+      const mobileContainer = document.getElementById("opinioes_verificadas_custom_mobile");
+      const averageElement = document.querySelectorAll("#review_rating_custom");
+      const totalReviewsElement = document.querySelectorAll("#total_reviews_custom");
+      const reviewsList = document.querySelectorAll("#reviews_list_custom_opinioes");
+
+      if (averageElement && averageElement.length > 0 && totalReviewsElement && totalReviewsElement.length > 0) {
+        totalReviewsElement.forEach((element) => element.innerText = `${totalReviews} opiniões clientes`);
+        averageElement.forEach((element) => element.innerText = average); 
+      }
+
+      reviews.slice(0, 14).map((review) => {
+        const reviewRating = Number(review.rate);
+        
+        if (!review.firstname.includes('anonymous') && reviewRating >= 3) {
+          const reviewItem = document.createElement("li");
+          const quotesIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          quotesIcon.setAttribute("width", "30");
+          quotesIcon.setAttribute("height", "19");
+          quotesIcon.setAttribute("viewBox", "0 0 30 19");
+          quotesIcon.setAttribute("fill", "none");
+          quotesIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+          quotesIcon.classList.add("quote_icon_custom")
+          
+          const quotesPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          quotesPath.setAttribute(
+            "d",
+            "M15.8549 0.249996L11.1099 18.71H0.254922L7.98992 0.249996H15.8549ZM29.7649 0.249996L25.0199 18.71H14.1649L21.8999 0.249996H29.7649Z"
+          );
+          quotesPath.setAttribute("fill", "white");
+          
+          quotesIcon.appendChild(quotesPath);
+  
+          const quotesIconWrapper = document.createElement("div");
+          quotesIconWrapper.setAttribute("id", "quotes_wrapper_custom");
+  
+          const reviewContentWrapper = document.createElement("div");
+          reviewContentWrapper.setAttribute("id", "reviews_content_wrapper_custom");
+          
+          const reviewDescription = document.createElement("span");
+          reviewDescription.classList.add("main_description_review");
+          reviewDescription.innerText = review.review;
+          
+          const starIconsWrapper = document.createElement("ul");        
+          const reviewAuthor = document.createElement("span");
+          reviewAuthor.innerText = `${review.firstname} ${review.lastname}.`
+          
+          const reviewDate = document.createElement("span");
+          reviewDate.classList.add("final_text_review");
+          reviewAuthor.classList.add("final_text_review");
+          reviewAuthor.style.marginBottom = '0.125rem';
+  
+          const orderDate = review.publish_date.split(' ')[0].split('-').reverse();
+          const dayAndMonth = orderDate.slice(0, 2).join('/');
+          const year = orderDate[2].split('').slice(2, 4).join('');
+          
+          reviewDate.innerText = `Experiência de compra no dia ${dayAndMonth}/${year}`;
+  
+          quotesIconWrapper.appendChild(quotesIcon);
+          reviewItem.appendChild(quotesIconWrapper);
+          reviewContentWrapper.appendChild(reviewDescription);
+  
+          for (let i = 0; i < reviewRating; i++) {
+            const startIconsItem = document.createElement("li");
+            const starIconClone = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            starIconClone.setAttribute("width", "17");
+            starIconClone.setAttribute("height", "16");
+            starIconClone.setAttribute("viewBox", "0 0 17 16");
+            starIconClone.setAttribute("fill", "none");
+            starIconClone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+          
+            const starPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            starPath.setAttribute(
+              "d",
+              "M8.49414 12.8439L13.4381 15.8279L12.1261 10.2039L16.4941 6.41993L10.7421 5.92793L8.49414 0.62793L6.24614 5.92793L0.494141 6.41993L4.86214 10.2039L3.55014 15.8279L8.49414 12.8439Z"
+            );
+            starPath.setAttribute("fill", "#EDD200");
+          
+            starIconClone.appendChild(starPath);
+            startIconsItem.appendChild(starIconClone);
+            starIconsWrapper.appendChild(startIconsItem);
+          }
+  
+          reviewContentWrapper.appendChild(starIconsWrapper);
+          reviewContentWrapper.appendChild(reviewAuthor);
+          reviewContentWrapper.appendChild(reviewDate);
+  
+          reviewItem.appendChild(reviewContentWrapper);
+
+          let displayContainers = false;
+          
+          reviewsList.forEach((list) => {
+            const listLis = list.querySelectorAll("li");
+            
+            if (!displayContainers && listLis.length > 0) {
+                displayContainers = true;
+            }
+            
+            const clonedItem = reviewItem.cloneNode(true);
+            list.appendChild(clonedItem);
+          });
+
+          if (displayContainers && desktopContainer && mobileContainer) {            
+            desktopContainer.classList.add("opinioes_verificadas_custom_display");
+            mobileContainer.classList.add("opinioes_verificadas_custom_mobile_display");
+          }
+        }
+      });
+    }
+  });
+</script>
+
+<script>
+  function ajustarLarguraFr() {
+    const containers = document.querySelectorAll(
+      "#opinioes_verificadas_custom > #opinioes_content_wrapper > a, #opinioes_verificadas_custom_mobile > a"
+    );
+    const wrappers = document.querySelectorAll(
+      "#opinioes_verificadas_custom > #opinioes_content_wrapper, #opinioes_verificadas_custom_mobile"
+    );
+    const reviewsLists = document.querySelectorAll("#reviews_list_custom_opinioes");
+  
+    if (!wrappers.length || !reviewsLists.length) {
+      return;
+    }
+  
+    const aplicarEstilos = () => {
+      wrappers.forEach((wrapper, index) => {
+        const container = containers[index];
+        const reviewsList = reviewsLists[index];
+  
+        if (!container || !reviewsList) return;
+  
+        const gapBetweenElements = 31.2;
+        const larguraWrapper = window.innerWidth <= 1000 ? wrapper.offsetWidth : wrapper.offsetWidth - container.offsetWidth - gapBetweenElements;
+  
+        const howManyToShow =
+          window.innerWidth <= 1000 ? 1 : larguraWrapper > 1100 ? 4 : larguraWrapper > 650 ? 3 : larguraWrapper > 400 ? 2 : 1;
+  
+        const larguraFr = (larguraWrapper / howManyToShow).toFixed(2);
+        reviewsList.style.gridAutoColumns = `${larguraFr}px`;
+  
+        const listaElementos = reviewsList.querySelectorAll("li");
+        listaElementos.forEach((li) => (li.style.width = `${larguraFr}px`));
+      })
+
+      reviewsLists.forEach((reviewsList) => {
+        const ulElement = document.querySelector("#opinioes_verificadas_custom_mobile > #reviews_list_custom_opinioes");
+        const ulElementWidth = (Number(ulElement?.style.gridAutoColumns.split('px')[0]) + 10.4).toFixed(2);
+        let startX = 0;
+        let scrollLeft = 0;
+        let isDragging = false;
+
+        const scrollRight = () => {
+          reviewsList.scrollBy({
+            left: ulElementWidth,
+            behavior: "smooth",
+          });
+        };
+  
+        const scrollLeftFn = () => {
+          reviewsList.scrollBy({
+            left: -ulElementWidth,
+            behavior: "smooth",
+          });
+        };
+    
+        if (window.innerWidth <= 1000) {
+          reviewsList.addEventListener("touchstart", (e) => {
+            isDragging = true;
+            startX = e.touches[0].pageX;
+          });
+  
+          reviewsList.addEventListener("touchend", (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+  
+            const endX = e.changedTouches[0].pageX;
+            const delta = endX - startX;
+  
+            if (delta > 50) {
+              scrollLeftFn();
+            } else if (delta < -50) {
+              scrollRight();
+            }
+          });
+  
+          reviewsList.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+          });
+        } else {
+          let scrollLeft = 0;
+  
+          reviewsList.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            startX = e.pageX - reviewsList.offsetLeft;
+            scrollLeft = reviewsList.scrollLeft;
+            reviewsList.style.cursor = "grabbing";
+          });
+  
+          reviewsList.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - reviewsList.offsetLeft;
+            const walk = x - startX;
+            reviewsList.scrollLeft = scrollLeft - walk;
+          });
+  
+          reviewsList.addEventListener("mouseup", () => {
+            isDragging = false;
+            reviewsList.style.cursor = "grab";
+          });
+  
+          reviewsList.addEventListener("mouseleave", () => {
+            isDragging = false;
+          });
+  
+          reviewsList.style.cursor = "grab";
+        }
+      });
+    };
+  
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length > 0) {
+          aplicarEstilos();
+        }
+      });
+    });
+  
+    reviewsLists.forEach((reviewsList) => {
+      observer.observe(reviewsList, {
+        childList: true,
+        subtree: false,
+      });
+    });
+  
+    aplicarEstilos();
+    window.addEventListener("resize", aplicarEstilos);
+  }
+  
+  document.addEventListener("DOMContentLoaded", ajustarLarguraFr);
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const reviewsList = document.getElementById("reviews_list_custom_opinioes");
+    const wrapper = document.getElementById("opinioes_content_wrapper");
+    const arrowLeft = document.querySelector("#opinioes_title_wrapper svg:first-child");
+    const arrowRight = document.querySelector("#opinioes_title_wrapper svg:last-child");
+
+    if (!wrapper || !reviewsList || !arrowLeft || !arrowRight) {
+      return;
+    }
+
+    let scrollAmount = reviewsList.offsetWidth;
+
+    function atualizarEstadoSetas() {
+      const maxScrollLeft = reviewsList.scrollWidth - reviewsList.clientWidth;
+      const currentScrollLeft = reviewsList.scrollLeft;
+
+      if (currentScrollLeft <= 0) {
+        arrowLeft.classList.add("disabled-arrow");
+      } else {
+        arrowLeft.classList.remove("disabled-arrow");
+      }
+
+      if (currentScrollLeft >= maxScrollLeft) {
+        arrowRight.classList.add("disabled-arrow");
+      } else {
+        arrowRight.classList.remove("disabled-arrow");
+      }
+    }
+
+    function scrollSmooth(container, amount) {
+      container.scrollBy({
+        left: amount,
+        behavior: "smooth",
+      });
+    }
+
+    function configurarSetas() {
+      arrowLeft.addEventListener("click", () => {
+        if (!arrowLeft.classList.contains("disabled-arrow")) {
+          scrollSmooth(reviewsList, -scrollAmount);
+        }
+      });
+
+      arrowRight.addEventListener("click", () => {
+        if (!arrowRight.classList.contains("disabled-arrow")) {
+          scrollSmooth(reviewsList, scrollAmount);
+        }
+      });
+    }
+
+    const observer = new MutationObserver(() => {
+      scrollAmount = reviewsList.offsetWidth;
+      atualizarEstadoSetas();
+    });
+
+    observer.observe(reviewsList, {
+      childList: true,
+      subtree: false,
+    });
+
+    window.addEventListener("resize", () => {
+      scrollAmount = reviewsList.offsetWidth;
+      atualizarEstadoSetas();
+    });
+
+    reviewsList.addEventListener("scroll", atualizarEstadoSetas);
+
+    configurarSetas();
+    atualizarEstadoSetas();
+  });
+</script>

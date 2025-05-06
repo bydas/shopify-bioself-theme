@@ -1,0 +1,131 @@
+<style>
+  #search_custom {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #search_custom > #search_breadcrumbs {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 0.25rem;
+    list-style-type: none;
+  }
+
+  #search_custom > #search_breadcrumbs > li {
+    display: grid;
+  }
+
+  #search_custom > #search_breadcrumbs > li > a {
+    text-decoration: none;
+  }
+
+  #search_custom > #search_breadcrumbs > #current_page > a {
+    color: #308a36;
+  }
+
+  #search_custom > #search_breadcrumbs > li > a:hover {
+    text-decoration: underline;
+  }
+
+  #search_custom > h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #308a36;
+  }
+
+  #search_custom > #search_results_products {
+    display: grid;
+    list-style-type: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  #search_custom > h2 {
+    margin: 0;
+    font-size: 32px;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #search_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #search_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #search_custom {
+      gap: 0.5rem;
+      grid-template-rows: repeat(2, max-content);
+      margin: 1rem var(--mobile-container-gutter);
+    }
+
+    #search_custom > #search_results_products  {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.25rem;
+    }
+
+    #search_custom > #search_breadcrumbs {
+      display: none;
+    }
+
+    #search_custom > h1 {
+      font-size: 16px;
+      max-width: 20rem;
+    }
+
+    #search_custom > h2 {
+      font-size: 18px;
+      max-width: 20rem;
+    }
+  }
+</style>
+
+{%- paginate search.results by 16 -%}
+  <section id="search_custom">
+    <ul id="search_breadcrumbs">
+      <li>
+        <a href="/">Página inicial</a>
+      </li>
+
+      <span>></span>
+
+      <li id="current_page">
+        <a href="">Resultados de pesquisa com "{{ search.terms }}"</a>
+      </li>
+    </ul>
+
+    <h1>Produtos com "{{ search.terms }}"</h1>
+
+    {% if search.results.size == 0 %}
+      <h2>Nenhum produto encontrado</h2>
+    {% else %}
+      <ul id="search_results_products">
+        {%- for product in search.results -%}
+          {%- render 'product-item-2', product: product -%}
+        {%- endfor -%}
+      </ul>
+    {% endif %}
+
+    {%- render 'pagination', paginate: paginate -%}
+  </section>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Search custom",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Search custom",
+      "category": "search"
+    }
+  ]
+}
+{% endschema %}

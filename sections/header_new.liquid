@@ -1,0 +1,1484 @@
+{%- capture section_settings -%}
+  {
+  "navigationLayout": {{ section.settings.desktop_navigation_layout | json }},
+  "desktopOpenTrigger": {{ section.settings.desktop_navigation_open_trigger | json }},
+  "useStickyHeader": {{ section.settings.enable_sticky_header | json }}
+  }
+{%- endcapture -%}
+
+{%- assign navigation_menu_handle = section.settings.navigation_menu | default: 'main-menu' -%}
+{%- assign navigation_menu = linklists[navigation_menu_handle] -%}
+{%- assign menu_scroll_handle = section.settings.menu_scroll | default: 'main-menu' -%}
+{%- assign menu_scroll = linklists[menu_scroll_handle] -%}
+
+
+<style>
+  #shopify-section-{{ section.id }} header.header.header--inline.header--search-expanded {
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .search-bar__input-wrapper {
+    height: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .search-bar__top {
+    background: transparent;
+    border: 2px solid #4B8842;
+    height: 35px;
+    box-shadow: 0px 4px 0px rgba(255, 165, 0, 0.6);
+  }
+
+  #shopify-section-{{ section.id }} .search-bar__submit .icon--search {
+    width: 16px;
+    height: 16px;
+  }
+
+  #shopify-section-{{ section.id }} input.search-bar__input {
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    bottom: 5px;
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .search-bar {
+        margin-top: 0;
+        padding-bottom: 0;
+        min-width: 80%;
+  }
+</style>
+
+
+  <section
+  data-section-id="{{ section.id }}"
+  data-section-type="header"
+  data-section-settings='{{ section_settings }}'>
+  <header class="header header--{{ section.settings.desktop_navigation_layout }} {% if section.settings.show_condensed_search == false %}header--search-expanded{% endif %}" role="banner">
+    <div class="container">
+      <div class="header__inner">
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        MOBILE NAV
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- if navigation_menu.links.size > 0 -%}
+          <nav class="header__mobile-nav hidden-lap-and-up">
+            {%- render 'mobile-menu-new', menu: navigation_menu -%}
+          </nav>
+        {%- endif -%}
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        DESKTOP NAV
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- if section.settings.desktop_navigation_layout == 'condensed' and navigation_menu.links.size > 0 -%}
+          <nav class="header__desktop-nav hidden-pocket">
+            <button
+              class="header__desktop-nav-toggle"
+              data-action="toggle-menu"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="{{ 'header.navigation.open_menu' | t }}">
+              <span>{%- render 'icon', icon: 'hamburger' -%}
+                <span class="header__desktop-nav-text">{{- 'header.navigation.menu' | t -}}</span>
+              </span>
+            </button>
+
+            {%- render 'desktop-menu', menu: navigation_menu, index: 'desktop-menu-0' -%}
+          </nav>
+        {%- endif -%}
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        LOGO COMPONENT
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- capture header_logo -%}
+          <a href="{{ routes.root_url }}" class="header__logo-link">
+            {%- if section.settings.logo != blank -%}
+              {%- capture image_size -%}
+                {{ section.settings.logo_max_width }}x{%- endcapture -%}
+              <img
+                class="header__logo-image"
+                style="max-width: {{ section.settings.logo_max_width }}px"
+                width="{{ section.settings.logo.width }}"
+                height="{{ section.settings.logo.height }}"
+                src="{{ section.settings.logo | img_url: image_size, scale: 2 }}"
+                alt="{{ section.settings.logo.alt | default: shop.name | escape }}">
+            {%- else -%}
+              <span class="header__logo-text">{{ shop.name }}</span>
+            {%- endif -%}
+          </a>
+        {%- endcapture -%}
+
+        {%- if request.page_type == 'index' -%}
+          <h1 class="header__logo">{{ header_logo }}</h1>
+        {%- else -%}
+          <div class="header__logo">{{ header_logo }}</div>
+        {%- endif -%}
+
+        {%- comment -%} new menu {%- endcomment -%}
+        <nav class="nav-bar">
+          <div class="nav-bar__inner">
+            <div>
+              <ul
+                class="nav-bar__linklist list--unstyled"
+                data-type="menu"
+                role="list">
+                {%- for link in navigation_menu.links -%}
+                  <li class="nav-bar__item">
+                    {%- if link.links.size == 0 -%}
+                      <a
+                        href="{{ link.url }}"
+                        class="nav-bar__link"
+                        data-type="menuitem">{{ link.title }}</a>
+                    {%- else -%}
+                      {%- capture index -%}desktop-menu-0-{{ forloop.index }}{%- endcapture -%}
+    
+                      <a
+                        href="{{ link.url }}"
+                        class="nav-bar__link"
+                        data-type="menuitem"
+                        aria-expanded="false"
+                        aria-controls="{{ index }}"
+                        aria-haspopup="true">
+                        {{- link.title -}}
+                      </a>
+    
+                      {%- render 'desktop-menu', menu: link, index: index -%}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        SEARCH COMPONENT
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+        <div class="header__search-bar-wrapper">
+          <form
+            action="{{ routes.search_url }}"
+            method="get"
+            role="search"
+            class="search-bar">
+            {%- assign search_menu = linklists[section.settings.search_menu] -%}
+
+            <div class="search-bar__top-wrapper">
+              <div class="search-bar__top">
+                <input
+                  type="hidden"
+                  name="type"
+                  value="product">
+                <input
+                  type="hidden"
+                  name="options[prefix]"
+                  value="last">
+
+                <div class="search-bar__input-wrapper">
+                  <input
+                    class="search-bar__input"
+                    type="text"
+                    name="q"
+                    autocomplete="off"
+                    autocorrect="off"
+                    aria-label="Pesquisar e... Bioself!"
+                    placeholder="Pesquisar e... Bioself!">
+                  <button
+                    type="button"
+                    class="search-bar__input-clear hidden-lap-and-up"
+                    data-action="clear-input">{% render 'icon', icon: 'close' %}</button>
+                </div>
+
+                {%- comment -%}The type detection is sometimes a bit inaccurate as it returns empty type, so we do an additional logic{%- endcomment -%}
+
+                {%- assign has_at_least_one_type = false -%}
+                {%- for product_type in shop.types -%}
+                  {%- if product_type != blank -%}
+                    {%- assign has_at_least_one_type = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if section.settings.show_search_filter and has_at_least_one_type -%}
+                  <div class="search-bar__filter">
+                    <label for="search-product-type" class="search-bar__filter-label">
+                      <span class="search-bar__filter-active">{{ 'header.search.all_categories' | t }}</span>
+                      {%- render 'icon', icon: 'arrow-bottom' -%}
+                    </label>
+
+                    <select id="search-product-type">
+                      <option value="" selected="selected">{{ 'header.search.all_categories' | t }}</option>
+
+                      {%- for product_type in shop.types -%}
+                        {%- if product_type != blank -%}
+                          <option value="{{ product_type | escape }}">{{ product_type | escape }}</option>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {%- endif -%}
+
+                <button
+                  type="submit"
+                  class="search-bar__submit hidden-phone"
+                  aria-label="{{ 'header.search.submit' | t }}">
+                  {%- render 'icon', icon: 'search' -%}
+                  {%- render 'icon', icon: 'search-loader' -%}
+                </button>
+              </div>
+
+              <button
+                type="button"
+                class="search-bar__close-button hidden-lap-and-up"
+                data-action="unfix-search">
+                <span class="search-bar__close-text">{%- render 'icon', icon: 'close' -%}</span>
+              </button>
+            </div>
+
+            <div class="search-bar__inner">
+              <div class="search-bar__inner-animation">
+                <div class="search-bar__results" aria-hidden="true">
+                  <div class="skeleton-container">
+                    {%- for i in (1..3) -%}
+                      <div class="search-bar__result-item search-bar__result-item--skeleton">
+                        <div class="search-bar__image-container">
+                          <div class="aspect-ratio aspect-ratio--square">
+                            <div class="skeleton-image"></div>
+                          </div>
+                        </div>
+
+                        <div class="search-bar__item-info">
+                          <div class="skeleton-paragraph">
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                          </div>
+                        </div>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <div class="search-bar__results-inner">{%- comment -%}Placeholder div for real results{%- endcomment -%}
+                  </div>
+                </div>
+
+                {%- if search_menu.links.size > 0 -%}
+                  <div class="search-bar__menu-wrapper" aria-hidden="true">
+                    {%- if section.settings.show_search_menu_title -%}
+                      <p class="search-bar__menu-title heading">{{ search_menu.title }}</p>
+                    {%- endif -%}
+
+                    <ul class="search-bar__menu-linklist list--unstyled" role="list">
+                      {%- for link in search_menu.links -%}
+                        <li>
+                          <a href="{{ link.url }}" class="search-bar__menu-link">{{ link.title }}</a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {%- comment -%}
+        --------------------------------------------------------------------------------------
+        HEADER ACTIONS
+        --------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- if section.settings.show_currency_selector and shop.enabled_currencies.size > 1 -%}
+          {%- assign currency_selector = true -%}
+        {%- endif -%}
+
+        {%- if section.settings.show_locale_selector and shop.published_locales.size > 1 -%}
+          {%- assign locale_selector = true -%}
+        {%- endif -%}
+
+        <div class="header__action-list">
+          <div class="header__action-item hidden-tablet-and-up header__action-item--search">
+            <a
+              class="header__action-item-link"
+              href="{{ routes.search_url }}"
+              data-action="toggle-search"
+              aria-expanded="false"
+              aria-label="{{ 'header.search.open_search' | t }}">{% render 'icon', icon: 'search' %}</a>
+          </div>
+          {%- if locale_selector -%}
+            <div class="header__action-item header__action-item--locale hidden-pocket">
+              {%- form 'localization', id: 'localization_form_header_locale' -%}
+                <span class="header__action-item-title">{{ 'header.general.language' | t }}</span>
+                <input
+                  type="hidden"
+                  name="locale_code"
+                  value="{{ form.current_locale.iso_code }}">
+
+                <div class="header__action-item-content">
+                  <button
+                    class="header__action-item-link"
+                    data-action="toggle-popover"
+                    aria-controls="desktop-locale-selector"
+                    aria-expanded="false">
+                    <span class="locale-selector__value">{{ form.current_locale.endonym_name | capitalize }}</span>
+                    {% render 'icon', icon: 'arrow-bottom' %}
+                  </button>
+
+                  <div
+                    id="desktop-locale-selector"
+                    class="popover popover--locale"
+                    aria-hidden="true">
+                    {%- render 'icon', icon: 'nav-triangle-borderless' -%}
+
+                    <div class="popover__inner popover__inner--no-padding">
+                      <ul class="popover__linklist" role="list">
+                        {%- for locale in form.available_locales -%}
+                          <li class="popover__linklist-item">
+                            <button
+                              type="submit"
+                              name="locale_code"
+                              class="popover__link-item"
+                              value="{{ locale.iso_code }}"
+                              {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %}>
+                              {{- locale.endonym_name | capitalize -}}
+                            </button>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if currency_selector -%}
+            <div class="header__action-item header__action-item--currency hidden-pocket">
+              {%- form 'localization', id: 'localization_form_header_currency' -%}
+                <span class="header__action-item-title">{{ 'header.general.currency' | t }}</span>
+                <input
+                  type="hidden"
+                  name="currency_code"
+                  value="{{ form.current_currency.iso_code }}">
+
+                <div class="header__action-item-content">
+                  <button
+                    class="header__action-item-link"
+                    data-action="toggle-popover"
+                    aria-controls="desktop-currency-selector"
+                    aria-expanded="false">
+                    <span class="currency-selector__value">{{ form.current_currency.iso_code }}
+                      {% if form.current_currency.symbol %}
+                        {{ form.current_currency.symbol }}{% endif %}
+                    </span>
+                    {% render 'icon', icon: 'arrow-bottom' %}
+                  </button>
+
+                  <div
+                    id="desktop-currency-selector"
+                    class="popover popover--currency"
+                    aria-hidden="true">
+                    {%- render 'icon', icon: 'nav-triangle-borderless' -%}
+
+                    <div class="popover__inner popover__inner--no-padding">
+                      <ul class="popover__linklist" role="list">
+                        {%- for currency in form.available_currencies -%}
+                          <li class="popover__linklist-item">
+                            <button
+                              type="submit"
+                              name="currency_code"
+                              class="popover__link-item"
+                              value="{{ currency.iso_code }}"
+                              {% if currency.iso_code == form.current_currency.iso_code %}aria-current="true"{% endif %}>
+                              {{ currency.iso_code }}
+                              {% if currency.symbol %}
+                                {{ currency.symbol }}{% endif %}
+                            </button>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if shop.customer_accounts_enabled -%}
+            <a href="#ba-loyalty-home" class="header_button_biopoints hidden-phone">
+              <svg fill="#308a36" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17px" height="17px" viewBox="0 0 29.894 29.895" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g id="Icons_7_"> <g> <path d="M14.308,13.048c0.355,0.35,0.924,0.35,1.28,0c1.22-1.203,3.813-3.803,4.451-4.792c0.908-1.406,1.812-2.566,1.812-4.591 S20.211,0,18.186,0c-1.416,0-2.63,0.812-3.24,1.987C14.336,0.812,13.123,0,11.707,0C9.682,0,8.042,1.64,8.042,3.665 S8.947,6.85,9.854,8.256C10.495,9.244,13.088,11.845,14.308,13.048z"></path> <path d="M15.587,16.848c-0.355-0.351-0.925-0.351-1.28,0c-1.22,1.202-3.813,3.804-4.452,4.791 c-0.907,1.406-1.813,2.566-1.813,4.593c0,2.023,1.64,3.663,3.665,3.663c1.416,0,2.63-0.812,3.24-1.985 c0.611,1.175,1.824,1.985,3.24,1.985c2.024,0,3.665-1.64,3.665-3.663c0-2.025-0.904-3.187-1.812-4.593 C19.402,20.65,16.807,18.049,15.587,16.848z"></path> <path d="M27.908,14.947c1.174-0.61,1.985-1.824,1.985-3.24c0-2.025-1.64-3.665-3.664-3.666c-2.024,0-3.186,0.906-4.592,1.813 c-0.987,0.639-3.59,3.232-4.792,4.452c-0.351,0.355-0.351,0.924,0,1.279c1.202,1.22,3.805,3.813,4.792,4.453 c1.406,0.907,2.566,1.812,4.592,1.812c2.023,0,3.664-1.642,3.664-3.666C29.896,16.771,29.083,15.557,27.908,14.947z"></path> <path d="M13.048,15.587c0.35-0.354,0.35-0.925,0-1.28c-1.203-1.22-3.804-3.813-4.792-4.452C6.851,8.948,5.69,8.042,3.667,8.042 c-2.025,0-3.665,1.641-3.665,3.666c0,1.416,0.813,2.63,1.987,3.24c-1.175,0.61-1.987,1.823-1.987,3.239 c0,2.023,1.64,3.663,3.665,3.665c2.024,0,3.185-0.905,4.59-1.812C9.245,19.4,11.845,16.807,13.048,15.587z"></path> </g> </g> </g> </g> </g></svg>
+            Biopoints
+            </a>
+            
+            <a href="#swym-wishlist" class="swym-wishlist site-nav__link site-nav__link--icon header__action-item header__action-item--wishlist hidden-phone">
+              <svg fill="#308a36" height="17px" width="17px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 471.701 471.701" xml:space="preserve" stroke="#308a36" stroke-width="5.71701"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1 c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3 l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4 C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3 s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4 c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3 C444.801,187.101,434.001,213.101,414.401,232.701z"></path> </g> </g></svg>
+              Favoritos
+            </a>
+            
+            <div class="header__action-item header__action-item--account">
+
+              <div class="header__action-item-content">
+                <a
+                  href="{% if customer %}/account{% else %}/account/login{% endif %}"
+                  class="header__action-item-link header__account-icon icon-state"
+                  aria-label="{{ 'header.general.account' | t }}"
+                  aria-controls="account-popover"
+                  aria-expanded="false"
+                  data-action="toggle-popover"
+                  {% if customer %}data-follow-link="phone"{% endif %}>
+                  <span class="icon-state__primary">
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#308a36"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="user"> <g> <path d="M20,21V19a4,4,0,0,0-4-4H8a4,4,0,0,0-4,4v2" fill="none" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <circle cx="12" cy="7" fill="none" r="4" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle> </g> </g> </g> </g></svg>                  </span>
+                  <span class="icon-state__secondary">{%- render 'icon', icon: 'close' -%}</span>
+                  <span class="hidden-phone">Conta</span>
+                </a>
+                <div
+                  id="account-popover"
+                  class="popover {% if customer %}popover--logged{% else %}popover--large popover--unlogged{% endif %}"
+                  aria-hidden="true">
+                  {%- render 'icon', icon: 'nav-triangle-borderless' -%}
+
+                  {%- if customer -%}
+                    <div class="popover__inner popover__inner--no-padding">
+                      <div class="popover__linklist">
+                        <a class="popover__link-item" href="{{ routes.account_url }}">{{ 'customer.general.orders' | t }}</a>
+                        <a class="popover__link-item" href="{{ routes.account_addresses_url }}">{{ 'customer.general.addresses' | t }}</a>
+                        <a
+                          class="popover__link-item"
+                          href="{{ routes.account_logout_url }}"
+                          data-no-instant>{{ 'customer.general.logout' | t }}</a>
+                      </div>
+                    </div>
+                  {%- else -%}
+                    <div class="popover__panel-list">
+                      {%- comment -%}LOGIN{%- endcomment -%}
+                      <div id="header-login-panel" class="popover__panel popover__panel--default is-selected">
+                        <div class="popover__inner">
+                          {%- form 'customer_login', name: 'login', class: 'form', id: 'header_customer_login' -%}
+                            <header class="popover__header">
+                              <p class="popover__title heading">{{ 'customer.login.login' | t }}</p>
+                              <p class="popover__legend">{{ 'customer.login.description' | t }}</p>
+                            </header>
+
+                            <div class="form__input-wrapper form__input-wrapper--labelled">
+                              <input
+                                type="email"
+                                id="login-customer[email]"
+                                class="form__field form__field--text"
+                                name="customer[email]"
+                                required="required">
+                              <label for="login-customer[email]" class="form__floating-label">{{ 'customer.login.email' | t }}</label>
+                            </div>
+
+                            <div class="form__input-wrapper form__input-wrapper--labelled">
+                              <input
+                                type="password"
+                                id="login-customer[password]"
+                                class="form__field form__field--text"
+                                name="customer[password]"
+                                required="required"
+                                autocomplete="current-password">
+                              <label for="login-customer[password]" class="form__floating-label">{{ 'customer.login.password' | t }}</label>
+                            </div>
+
+                            <button type="submit" class="form__submit button button--primary button--full">{{ 'customer.login.submit' | t }}</button>
+                          {%- endform -%}
+
+                          <div class="popover__secondary-action">
+                            <p>{{ 'customer.login.new_customer' | t }}
+                              <button
+                                data-action="show-popover-panel"
+                                aria-controls="header-register-panel"
+                                class="link link--accented">{{ 'customer.login.create_your_account' | t }}</button>
+                            </p>
+                            <p>{{ 'customer.login.lost_password' | t }}
+                              <a
+                                href="{{ routes.account_url }}#recover-password"
+                                aria-controls="header-recover-panel"
+                                class="link link--accented">{{ 'customer.login.recover_password' | t }}</a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {%- comment -%}RECOVER{%- endcomment -%}
+                      <div id="header-recover-panel" class="popover__panel popover__panel--sliding">
+                        <div class="popover__inner">
+                          {%- form 'recover_customer_password', name: 'recover', class: 'form' -%}
+                            <header class="popover__header">
+                              <p class="popover__title heading">{{ 'customer.recover_password.recover_password' | t }}</p>
+                              <p class="popover__legend">{{ 'customer.recover_password.description' | t }}</p>
+                            </header>
+
+                            <div class="form__input-wrapper form__input-wrapper--labelled">
+                              <input
+                                type="email"
+                                id="recover-customer[recover_email]"
+                                class="form__field form__field--text"
+                                name="email"
+                                required="required">
+                              <label for="recover-customer[recover_email]" class="form__floating-label">{{ 'customer.recover_password.email' | t }}</label>
+                            </div>
+
+                            <button type="submit" class="form__submit button button--primary button--full">{{ 'customer.recover_password.submit' | t }}</button>
+                          {%- endform -%}
+
+                          <div class="popover__secondary-action">
+                            <p>{{ 'customer.recover_password.remembered_your_password' | t }}
+                              <button
+                                data-action="show-popover-panel"
+                                aria-controls="header-login-panel"
+                                class="link link--accented">{{ 'customer.recover_password.back_to_login' | t }}</button>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {%- comment -%}REGISTER{%- endcomment -%}
+                      <div id="header-register-panel" class="popover__panel popover__panel--sliding">
+                        <div class="popover__inner">
+                          {%- form 'create_customer', name: 'create', class: 'form' -%}
+                            <header class="popover__header">
+                              <p class="popover__title heading">{{ 'customer.register.create_account' | t }}</p>
+                              <p class="popover__legend">{{ 'customer.register.description' | t }}</p>
+                            </header>
+
+                            {%- if request.locale.iso_code == 'ja' -%}
+                              <div class="form__input-wrapper form__input-wrapper--labelled">
+                                <input
+                                  type="text"
+                                  id="customer[last_name]"
+                                  class="form__field form__field--text"
+                                  name="customer[last_name]"
+                                  autocomplete="family-name"
+                                  required="required">
+                                <label for="customer[last_name]" class="form__floating-label">{{ 'customer.register.last_name' | t }}</label>
+                              </div>
+
+                              <div class="form__input-wrapper form__input-wrapper--labelled">
+                                <input
+                                  type="text"
+                                  id="customer[first_name]"
+                                  class="form__field form__field--text"
+                                  name="customer[first_name]"
+                                  autocomplete="given-name"
+                                  required="required">
+                                <label for="customer[first_name]" class="form__floating-label">{{ 'customer.register.first_name' | t }}</label>
+                              </div>
+                            {%- else -%}
+                              <div class="form__input-wrapper form__input-wrapper--labelled">
+                                <input
+                                  type="text"
+                                  id="customer[first_name]"
+                                  class="form__field form__field--text"
+                                  name="customer[first_name]"
+                                  autocomplete="given-name"
+                                  required="required">
+                                <label for="customer[first_name]" class="form__floating-label">{{ 'customer.register.first_name' | t }}</label>
+                              </div>
+
+                              <div class="form__input-wrapper form__input-wrapper--labelled">
+                                <input
+                                  type="text"
+                                  id="customer[last_name]"
+                                  class="form__field form__field--text"
+                                  name="customer[last_name]"
+                                  autocomplete="family-name"
+                                  required="required">
+                                <label for="customer[last_name]" class="form__floating-label">{{ 'customer.register.last_name' | t }}</label>
+                              </div>
+                            {%- endif -%}
+
+                            <div class="form__input-wrapper form__input-wrapper--labelled">
+                              <input
+                                type="email"
+                                id="register-customer[email]"
+                                class="form__field form__field--text"
+                                name="customer[email]"
+                                required="required">
+                              <label for="register-customer[email]" class="form__floating-label">{{ 'customer.register.email' | t }}</label>
+                            </div>
+
+                            <div class="form__input-wrapper form__input-wrapper--labelled">
+                              <input
+                                type="password"
+                                id="register-customer[password]"
+                                class="form__field form__field--text"
+                                name="customer[password]"
+                                required="required"
+                                autocomplete="new-password">
+                              <label for="register-customer[password]" class="form__floating-label">{{ 'customer.register.password' | t }}</label>
+                            </div>
+
+                            <div class="form__input-wrapper--checkbox form__input-wrapper--labelled checkbox-wrapper accepts-marketing">
+                              <input
+                                type="hidden"
+                                name="customer[accepts_marketing]"
+                                value="false" />
+
+                              <input
+                                type="checkbox"
+                                name="customer[accepts_marketing]"
+                                class="checkbox"
+                                id="accepts-marketing" />
+                              <label for="accepts-marketing" class="form__floating-label account-label_checkbox">{{ 'customer.register.accept_marketing' | t }}</label>
+                            </div>
+                            <br> <br>
+
+                            <div class="form__input-wrapper--checkbox form__input-wrapper--labelled checkbox-wrapper">
+                              <input
+                                type="checkbox"
+                                id="register-customer[terms]"
+                                class="checkbox"
+                                name="customer[terms]"
+                                required="required"
+                                value="terms_check">
+                              <label for="register-customer[terms]" class="form__floating-label account-label_checkbox">{{ 'customer.register.terms_html' | t }}</label>
+                            </div>
+
+                            <button type="submit" class="form__submit button button--primary button--full">{{ 'customer.register.submit' | t }}</button>
+                          {%- endform -%}
+
+                          <div class="popover__secondary-action">
+                            <p>{{ 'customer.register.already_have_account' | t }}
+                              <button
+                                data-action="show-popover-panel"
+                                aria-controls="header-login-panel"
+                                class="link link--accented">{{ 'customer.register.login' | t }}</button>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+          <div class="header__action-item header__action-item--cart">
+            <a
+              class="header__action-item-link header__cart-toggle"
+              href="{{ routes.cart_url }}"
+              {% if settings.cart_type != 'page' and template != 'cart' %}aria-controls="mini-cart"aria-expanded="false"data-action="toggle-mini-cart"{% endif %}
+              data-no-instant>
+              <div class="header__action-item-content">
+                <div class="header__cart-icon icon-state" aria-expanded="false">
+                  <span class="icon-state__primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19.194" height="18.412" viewBox="0 0 19.194 18.412">
+                      <g id="Icon_feather-shopping-cart" data-name="Icon feather-shopping-cart" transform="translate(1 1)">
+                        <path id="Path_221" data-name="Path 221" d="M13.858,30.929A.929.929,0,1,1,12.929,30,.929.929,0,0,1,13.858,30.929Z" transform="translate(-6.633 -15.446)" fill="none" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                        <path id="Path_222" data-name="Path 222" d="M30.358,30.929A.929.929,0,1,1,29.429,30,.929.929,0,0,1,30.358,30.929Z" transform="translate(-15.023 -15.446)" fill="none" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                        <path id="Path_223" data-name="Path 223" d="M1.5,1.5H4.626l2.095,9.675a1.54,1.54,0,0,0,1.563,1.163h7.6a1.54,1.54,0,0,0,1.563-1.163l1.25-6.062H5.408" transform="translate(-1.5 -1.5)" fill="none" stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                      </g>
+                    </svg>
+                      
+                      <span class="header__cart-count">{{ cart.item_count }}</span>
+                  </span>
+
+                  <span class="icon-state__secondary">{%- render 'icon', icon: 'close' -%}</span>
+                </div>
+                {% comment %}
+                <span class="hidden-pocket hidden-lap">{{ 'header.general.cart' | t }}</span>
+                {% endcomment %}
+              </div>
+            </a>
+
+            {%- if settings.cart_type != 'page' and template != 'cart' -%}
+              {%- render 'mini-cart' -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% comment %} menu scroll bar - used in mobile (<1299px){% endcomment %}
+  {%- if menu_scroll.links.size > 0 and section.settings.show_condensed_search == false -%}
+    <nav class="nav-bar-scroll {% if section.settings.hide_category_list == true %}is-hidden-mobile{% endif %}">
+      <div class="nav-bar__inner">
+        <div class="container">
+          <ul
+            class="nav-bar__linklist-scroll list--unstyled"
+            data-type="menu"
+            role="list">
+            {%- for link in menu_scroll.links -%}
+              <li class="nav-bar__item">
+                <a
+                  href="{{ link.url }}"
+                  class="nav-bar__link"
+                  data-type="menuitem">{{ link.title }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  {%- endif -%}
+
+  <div id="widget" aria-hidden="true" style="display: none; overflow-y: auto;" class="hidden-lap-up">
+    <div class="mobile-menu__inner">
+    <div class="mobile-category-list-menu">
+      {% assign block_styles = "1 / 1 / 2 / 5, 2 / 1 / 4 / 2, 2 / 2 / 3 / 5, 3 / 2 / 4 / 5, 4 / 3 / 6 / 5, 4 / 1 / 5 / 3, 5 / 1 / 6 / 3, 6 / 1 / 7 / 5" | split: ", " %}
+      {% assign index = 0 %}
+      {% assign max_items = 8 %} <!-- Set maximum items -->
+      
+      {% for link in linklists.marcas.links limit: 8 %}
+        {% for collection in collections %}
+          {% if collection.template_suffix contains "brand" %}
+            {% if collection.title == link.title %}
+              <div id="category-mobile-menu-item" class="block-{{ collection.handle }}" style="grid-area: {{ block_styles[index] }}">
+                <a href="{{ collection.url }}">
+                  {{ collection.title }}
+                </a>
+              </div>
+              {% assign index = index | plus: 1 %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+      <div id="category-mobile-menu-item" class="block-{{ collection.handle }}" style="grid-area: 4 / 3 / 6 / 5;">
+        <a href="/pages/biopoints">
+          Biopoints
+        </a>
+      </div>
+      <div id="category-mobile-menu-item" class="block-{{ collection.handle }}" style="grid-area: 6 / 1 / 7 / 5;">
+        <a href="/blogs/blog-page">
+          Blog
+        </a>
+      </div>
+    </div>
+
+    <div class="category_list_menu-support">
+      <div class="category_list_menu-support-text">
+        {{ section.settings.support-text }}
+      </div>
+      <div class="category_list_menu-support-links">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3.59 1.322l2.844-1.322 4.041 7.89-2.725 1.341c-.538 1.259 2.159 6.289 3.297 6.372.09-.058 2.671-1.328 2.671-1.328l4.11 7.932s-2.764 1.354-2.854 1.396c-7.861 3.591-19.101-18.258-11.384-22.281zm1.93 1.274l-1.023.504c-5.294 2.762 4.177 21.185 9.648 18.686l.971-.474-2.271-4.383-1.026.5c-3.163 1.547-8.262-8.219-5.055-9.938l1.007-.497-2.251-4.398zm7.832 7.649l2.917.87c.223-.747.16-1.579-.24-2.317-.399-.739-1.062-1.247-1.808-1.469l-.869 2.916zm1.804-6.059c1.551.462 2.926 1.516 3.756 3.051.831 1.536.96 3.263.498 4.813l-1.795-.535c.325-1.091.233-2.306-.352-3.387-.583-1.081-1.551-1.822-2.643-2.146l.536-1.796zm.95-3.186c2.365.705 4.463 2.312 5.729 4.656 1.269 2.343 1.466 4.978.761 7.344l-1.84-.548c.564-1.895.406-4.006-.608-5.882-1.016-1.877-2.696-3.165-4.591-3.729l.549-1.841z"/></svg>
+        <a href="tel:{{ shop.phone }}">{{ shop.phone }}</a>
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 21h-24v-18h24v18zm-23-16.477v15.477h22v-15.477l-10.999 10-11.001-10zm21.089-.523h-20.176l10.088 9.171 10.088-9.171z"/></svg>
+        <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="bottom_header">
+    <a href="/" class="bottom_header_item">
+      <img src="https://cdn.shopify.com/s/files/1/0451/2327/2853/files/Screenshot_2024-10-07_at_14.12.18.png?v=1728306988" height="32px" width="32px" id="home-button">
+      <button id="close-both">Home</button> 
+    </a>
+
+    <button id="toggle-widget">
+    <div class="bottom_header_item">
+      <img src="https://cdn.shopify.com/s/files/1/0451/2327/2853/files/Screenshot_2024-10-07_at_14.12.24.png?v=1728306987" height="22px" width="22px">
+      <span class="header_bottom_label">Categorias</span>
+    </div>
+    </button>
+
+    <a href="#ba-loyalty-home" class="header_button_biopoints hidden-lap-and-up">  
+    <div class="bottom_header_item">
+        <svg fill="#90b788" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19px" height="19px" viewBox="0 0 29.894 29.895" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g id="Icons_7_"> <g> <path d="M14.308,13.048c0.355,0.35,0.924,0.35,1.28,0c1.22-1.203,3.813-3.803,4.451-4.792c0.908-1.406,1.812-2.566,1.812-4.591 S20.211,0,18.186,0c-1.416,0-2.63,0.812-3.24,1.987C14.336,0.812,13.123,0,11.707,0C9.682,0,8.042,1.64,8.042,3.665 S8.947,6.85,9.854,8.256C10.495,9.244,13.088,11.845,14.308,13.048z"></path> <path d="M15.587,16.848c-0.355-0.351-0.925-0.351-1.28,0c-1.22,1.202-3.813,3.804-4.452,4.791 c-0.907,1.406-1.813,2.566-1.813,4.593c0,2.023,1.64,3.663,3.665,3.663c1.416,0,2.63-0.812,3.24-1.985 c0.611,1.175,1.824,1.985,3.24,1.985c2.024,0,3.665-1.64,3.665-3.663c0-2.025-0.904-3.187-1.812-4.593 C19.402,20.65,16.807,18.049,15.587,16.848z"></path> <path d="M27.908,14.947c1.174-0.61,1.985-1.824,1.985-3.24c0-2.025-1.64-3.665-3.664-3.666c-2.024,0-3.186,0.906-4.592,1.813 c-0.987,0.639-3.59,3.232-4.792,4.452c-0.351,0.355-0.351,0.924,0,1.279c1.202,1.22,3.805,3.813,4.792,4.453 c1.406,0.907,2.566,1.812,4.592,1.812c2.023,0,3.664-1.642,3.664-3.666C29.896,16.771,29.083,15.557,27.908,14.947z"></path> <path d="M13.048,15.587c0.35-0.354,0.35-0.925,0-1.28c-1.203-1.22-3.804-3.813-4.792-4.452C6.851,8.948,5.69,8.042,3.667,8.042 c-2.025,0-3.665,1.641-3.665,3.666c0,1.416,0.813,2.63,1.987,3.24c-1.175,0.61-1.987,1.823-1.987,3.239 c0,2.023,1.64,3.663,3.665,3.665c2.024,0,3.185-0.905,4.59-1.812C9.245,19.4,11.845,16.807,13.048,15.587z"></path> </g> </g> </g> </g> </g></svg>
+        Biopoints
+    </div>
+    </a>
+
+
+    <a href="#swym-wishlist" class="swym-wishlist site-nav__link site-nav__link--icon header__action-item header__action-item--wishlist hidden-lap-and-up">
+    <div class="bottom_header_item">
+        <svg width="19px" height="19px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path width="19px" height="19px" d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z" fill="#90b788"></path> </g></svg>
+        Favoritos
+    </div>
+    </a>
+
+    <button id="toggle-menu">
+    <div class="bottom_header_item">
+      <svg width="20px" height="22px" focusable="false" class="icon icon--hamburger-mobile" viewBox="0 0 20 16" role="presentation">
+        <path d="M0 14h20v2H0v-2zM0 0h20v2H0V0zm0 7h20v2H0V7z" fill="#90b788" fill-rule="evenodd"></path>
+      </svg>
+      <span class="header_bottom_label">Menu</span>
+    </div>
+    </button>
+
+  </div>
+</section>
+
+<style > :root
+{
+  --header-is-sticky: {% if section.settings.enable_sticky_header %}
+    1{% else %}
+    0{% endif %};
+  --header-inline-navigation: {% if section.settings.desktop_navigation_layout == 'inline' %}
+    1{% else %}
+    0{% endif %};
+}
+
+#shopify-section-{{ section.id }}{
+  position: relative;
+  z-index: 5;
+
+  {%- if section.settings.enable_sticky_header -%}
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  {%- endif -%}
+}
+
+{%- if section.settings.logo -%}
+  .header__logo-image {
+    max-width: {{ section.settings.mobile_logo_max_width }}
+    px !important;
+  }
+
+  @media screen and (min-width: 641px) {
+    .header__logo-image {
+      max-width: {{ section.settings.logo_max_width }}
+      px !important;
+    }
+  }
+{%- endif -%}
+
+{%- if settings.header_background == settings.secondary_background -%}
+  .search-bar__top {
+    box-shadow: 1px 1px var(--header-border-color) inset, -1px -1px var(--header-border-color) inset;
+  }
+
+  @media screen and (min-width: 1000px) {
+    /* This allows to reduce the padding if header background is the same as secondary background to avoid space that is too big */
+    .header:not(.header--condensed) {
+      padding-bottom: 0;
+    }
+  }
+{%- else -%}
+  @media screen and (min-width: 1000px) {
+    .search-bar.is-expanded .search-bar__top {
+      box-shadow: 0 -1px var(--border-color) inset;
+    }
+  }
+{%- endif -%}
+
+@media screen and (min-width: 1499px) {
+  .container {
+    padding: 0 12rem !important;
+  } 
+}
+
+#shopify-section-{{ section.id }} .header_button_biopoints,
+#shopify-section-{{ section.id }} .header__action-item--wishlist {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    align-items: center;
+    padding-right: 10px;
+}
+
+#shopify-section-{{ section.id }} a.header__action-item-link.header__account-icon.icon-state {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    column-gap: 4px;
+    font-weight: 100;
+    align-items: center;
+}
+
+#shopify-section-{{ section.id }} a.header__action-item-link.header__cart-toggle {
+    padding-top: 6px;
+    padding-left: 10px;
+}
+
+#shopify-section-{{ section.id }} .nav-bar__item a {
+  color: #308A36;
+}
+
+#shopify-section-{{ section.id }} .nav-bar__item a:hover {
+  color: #95C11F;
+  background: transparent;
+}
+
+#shopify-section-{{ section.id }} .nav-bar {
+    background: transparent !important;
+}
+
+#shopify-section-{{ section.id }} span.icon-state__primary {
+    color: #308A36;
+}
+
+#shopify-section-{{ section.id }} .header__action-list {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    color: #308A36;
+    stroke: #308A36;
+    fill: #308A36;
+} 
+
+#shopify-section-{{ section.id }} .header__action-item--wishlist .icon path {
+    fill: #308A36;
+}
+
+#shopify-section-{{ section.id }} .nav-bar__linklist.list--unstyled {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#shopify-section-{{ section.id }} li.nav-bar__item.nav-bar__item--static:hover {
+    background: #fff;
+}
+
+#shopify-section-{{ section.id }} li.nav-bar__item:hover {
+    background: #fff;
+}
+
+#shopify-section-{{ section.id }} .nav-bar {
+    width: 25%;
+}
+  
+#shopify-section-{{ section.id }} a.nav-bar__link {
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+}
+
+#shopify-section-{{ section.id }} .header__search-bar-wrapper {
+  display: block;
+}
+
+@media screen and (max-width: 1000px) and (min-width: 770px) {
+  #shopify-section-{{ section.id }} .header__logo {
+    right: 5px !important;
+  }
+}
+
+@media screen and (max-width: 460px) and (min-width: 399px) {
+  #shopify-section-{{ section.id }} .header__logo {
+    margin-left: 5px !important;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  #shopify-section-{{ section.id }} .header__logo {
+    margin-left: 15px !important;
+  }
+}
+
+#shopify-section-{{ section.id }} .header__logo {
+  margin-left: 0;
+}
+
+#shopify-section-{{ section.id }} .header__inner {
+  justify-content: flex-start;
+}
+
+#shopify-section-{{ section.id }} .bottom_header {
+  display: none;
+}
+
+#shopify-section-{{ section.id }} .nav-bar__inner {
+    display: block;
+}
+
+@media screen and (min-width: 1000px) {
+    .header__action-item {
+        position: relative;
+        display: flex;
+        padding-right: 10px;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+  #shopify-section-{{ section.id }} .header_button_biopoints {
+    display: flex;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .nav-bar__inner {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} form.search-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+
+  #shopify-section-{{ section.id }} .header__inner {
+    flex-wrap: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .bottom_header {
+      position: fixed;
+      bottom: 0;
+      background: #fff;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      z-index: 999;
+  }
+
+  #shopify-section-{{ section.id }} .bottom_header_item {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    color: #4C8740;
+  }
+
+  #shopify-section-{{ section.id }} .bottom_header_item a {
+    color: #4C8740;
+    font-size: 12px;
+  }
+
+  a.swym-wishlist.site-nav__link.site-nav__link--icon.header__action-item.header__action-item--wishlist.hidden-lap-and-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  #shopify-section-{{ section.id }} span.header_bottom_label {
+      font-size: 12px;
+      color: #4C8740;
+  }
+
+  #shopify-section-{{ section.id }} .header__action-item-link {
+      color: #4C8740;
+  }
+
+  #shopify-section-{{ section.id }} .mobile-category-list-menu {
+        width: 100%;
+        background: #f7f7f7;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(6, 7fr);
+        grid-column-gap: 8px;
+        grid-row-gap: 8px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 20px;
+      }
+
+      #shopify-section-{{ section.id }}  #category-mobile-menu-item {
+          background: #7A982C;
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-weight: 700;
+          font-size: 14px;
+          text-transform: uppercase;
+      }
+
+      #shopify-section-{{ section.id }} #category-mobile-menu-item:first-child {
+        background: #2B6F2E;
+        height: 50px;
+      }
+
+      #shopify-section-{{ section.id }} #category-mobile-menu-item:last-child {
+        height: 50px;
+      }
+
+      #shopify-section-{{ section.id }} .category_list_menu-support {
+          display: flex;
+          background: #f7f7f7;
+          justify-content: center;
+          align-content: center;
+          align-items: flex-start;
+          column-gap: 10px;
+          position: relative;
+          margin-left: 10px;
+          height: 30vh;
+      }
+
+      #shopify-section-{{ section.id }} .category_list_menu-support-text, .category_list_menu-support.links {
+          width: 50%;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          align-content: center;
+          font-size: 12px;
+      }
+
+      #shopify-section-{{ section.id }} .category_list_menu-support-links {
+          display: grid;
+          grid-template-columns: 35px 200px;
+      }
+
+      #shopify-section-{{ section.id }} #category-mobile-menu-item a {
+          padding: 0 10px;
+      }
+
+      #shopify-section-{{ section.id }} button#close-both {
+          color: #4C8740;
+          font-size: 12px;
+      }
+
+      #shopify-section-{{ section.id }} button.header__mobile-nav-toggle.icon-state.touch-area {
+          visibility: hidden;
+      }
+
+      #shopify-section-{{ section.id }} img.header__logo-image {
+          position: relative;
+      }
+
+      #shopify-section-{{ section.id }} .mobile-menu__inner {
+          position: absolute;
+          width: 100%;
+          height: calc(100vh - 80px);
+          overflow-y: scroll;
+          background: #f7f7f7;
+      }
+
+      #shopify-section-{{ section.id }} button#toggle-menu {
+          position: relative;
+      }
+  }
+
+  #shopify-section-{{ section.id }} .header__account-icon .icon-state__primary {
+      padding-top: 5px;
+  }
+</style>
+<script>
+document.documentElement.style.setProperty('--header-height', document.getElementById('shopify-section-{{ section.id }}').clientHeight + 'px');
+
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleWidgetButton = document.getElementById('toggle-widget');
+    const widget = document.getElementById('widget');
+    const toggleMenuButton = document.getElementById('toggle-menu');
+    const closeMenuButton = document.getElementById('close-menu');
+    const closeMenuButtonAndNavigate = document.getElementById('close-menu-anchor');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeBothButton = document.getElementById('close-both');
+
+    function updateBodyScroll() {
+        const isWidgetVisible = widget.getAttribute('aria-hidden') === 'false';
+        const isMenuVisible = mobileMenu.getAttribute('aria-hidden') === 'false';
+        
+        // Add or remove the class and set height based on visibility
+        if (isWidgetVisible || isMenuVisible) {
+            document.body.classList.add('bioself--v1');
+            document.body.style.height = '100vh';
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.classList.remove('bioself--v1');
+            document.body.style.height = 'auto';
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Function to close the widget
+    function closeWidget() {
+        widget.setAttribute('aria-hidden', 'true');
+        widget.style.display = 'none';
+    }
+
+    // Function to close the mobile menu
+    function closeMobileMenu() {
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        mobileMenu.style.maxHeight = '0';
+    }
+
+    // Toggle widget functionality
+    toggleWidgetButton.addEventListener('click', function() {
+        const isHidden = widget.getAttribute('aria-hidden') === 'true';
+        if (!isHidden) closeMobileMenu(); // Close menu if widget is opened
+        widget.setAttribute('aria-hidden', !isHidden);
+        widget.style.display = isHidden ? 'block' : 'none';
+        updateBodyScroll();
+    });
+
+    // Toggle mobile menu functionality
+    function toggleMenu() {
+        const isHidden = mobileMenu.getAttribute('aria-hidden') === 'true';
+        if (!isHidden) closeWidget(); // Close widget if menu is opened
+        mobileMenu.setAttribute('aria-hidden', !isHidden);
+        mobileMenu.style.maxHeight = isHidden ? '90vh' : '0';
+        updateBodyScroll();
+    }
+
+    toggleMenuButton.addEventListener('click', toggleMenu);
+    closeMenuButton.addEventListener('click', toggleMenu);
+    closeMenuButtonAndNavigate.addEventListener('click', toggleMenu);
+
+    // Close both modals functionality
+    closeBothButton.addEventListener('click', function() {
+        closeWidget();
+        closeMobileMenu();
+        updateBodyScroll();
+        // Redirect to a new link after closing both
+        window.location.href = 'https://www.bioself.pt'; // Change this to your desired URL
+    });
+});
+
+</script>
+{% schema %}
+{
+  "name": "Header",
+  "class": "shopify-section__header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "label": "Enable sticky header",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "support-text",
+      "label": "Text on category menu mobile",
+      "default": "<p><strong>PRECISA DE AJUDA</strong> <br> Entre em contacto</p>"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Image",
+      "info": "400 x 120px .png recommended"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Image width",
+      "default": 140
+    }, 
+    {
+      "type": "range",
+      "id": "mobile_logo_max_width",
+      "min": 50,
+      "max": 170,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile image width",
+      "default": 100
+    }, 
+    {
+      "type": "header",
+      "content": "Language selector",
+      "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "Show language selector",
+      "default": true
+    }, 
+    {
+      "type": "header",
+      "content": "Currency selector",
+      "info": "To add a currency, go to your [payment settings.](/admin/settings/payments)"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "label": "Show currency selector",
+      "default": true
+    }, 
+    {
+      "type": "header",
+      "content": "Navigation"
+    }, 
+    {
+      "type": "link_list",
+      "id": "navigation_menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }, 
+    {
+      "type": "select",
+      "id": "desktop_navigation_layout",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "condensed",
+          "label": "Condensed"
+        }, 
+        {
+          "value": "inline",
+          "label": "Inline"
+        }
+      ],
+      "default": "inline"
+    }, 
+    {
+      "type": "select",
+      "id": "desktop_navigation_open_trigger",
+      "label": "Open dropdown on...",
+      "options": [
+        {
+          "value": "hover",
+          "label": "Hover"
+        }, 
+        {
+          "value": "click",
+          "label": "Click"
+        }
+      ],
+      "default": "hover"
+    }, 
+    {
+      "type": "header",
+      "content": "Mobile navigation"
+    }, 
+    {
+      "type": "link_list",
+      "id": "menu_scroll",
+      "label": "Menu Mobile",
+      "default": "main-menu"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "show_navigation_social_media",
+      "label": "Show social media",
+      "default": true
+    }, 
+    {
+      "type": "text",
+      "id": "navigation_phone_number",
+      "label": "Phone number text"
+    }, 
+    {
+      "type": "text",
+      "id": "navigation_email",
+      "label": "Email"
+    }, 
+    {
+      "type": "header",
+      "content": "Search"
+    }, 
+    {
+      "type": "checkbox",
+      "id": "show_condensed_search",
+      "label": "Minimise search on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_category_list",
+      "label": "Hide category list on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search_filter",
+      "label": "Show search filter",
+      "default": false,
+      "info": "Refine by product type. [Learn more](https://support.maestrooo.com/article/184-navigation-filtering-search-results-by-product-type)"
+    }, 
+    {
+      "type": "link_list",
+      "id": "search_menu",
+      "label": "Quick links menu",
+      "info": "Show quick links when the user hasn't type anything. This menu won't show dropdown items."
+    }, 
+    {
+      "type": "checkbox",
+      "id": "show_search_menu_title",
+      "label": "Show quick links title",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Support window information"
+    }, 
+    {
+      "type": "link_list",
+      "id": "menu_oprtunidades",
+      "label": "Menu Oportunidades"
+    }, 
+    {
+      "type": "link_list",
+      "id": "menu_info",
+      "label": "Menu Info"
+    }, 
+    {
+      "type": "text",
+      "id": "support-window-title",
+      "label": "Support window title",
+      "default": "Precisas de ajuda?"
+    }, 
+    {
+      "type": "richtext",
+      "id": "support-window-email",
+      "label": "Support window email",
+      "default": "<p>Envia-nos um email para<br> <b>info@bioself.pt</b></p>"
+    }, 
+    {
+      "type": "richtext",
+      "id": "support-window-phone",
+      "label": "Support window phone",
+      "default": "<p>Ou liga-nos para o<br> <b>+351 222 004 579</b><br> (Chamada para a rede fixa nacional)</p>"
+    }, 
+    {
+      "type": "richtext",
+      "id": "support-window-schedule",
+      "label": "Support window schedule",
+      "default": "<p>Segunda a sexta-feira:<br> das 9h às 12h30h<br> e das 14h30 às 18h.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_menu",
+      "name": "Mega menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item",
+          "label": "Menu item",
+          "info": "Enter menu item to apply a mega menu dropdown. [Learn more](https://support.maestrooo.com/article/180-navigation-enabling-and-configuring-mega-navigation)."
+        },
+        {
+          "type": "header",
+          "content": "Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image",
+          "info": "600 x 400px .jpg recommended"
+        },
+        {
+          "type": "text",
+          "id": "title_collection",
+          "label": "Escolher título categorias"
+        },
+        {
+          "type": "text",
+          "id": "image_1_heading",
+          "label": "Heading",
+          "default": "Your image"
+        }, 
+        {
+          "type": "text",
+          "id": "image_1_text",
+          "label": "Text",
+          "default": "Tell your story"
+        }, 
+        {
+          "type": "url",
+          "id": "image_1_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

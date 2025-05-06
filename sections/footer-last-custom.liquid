@@ -1,0 +1,200 @@
+{% schema %}
+{
+  "name": "Custom last footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Selecione uma imagem"
+    },
+    {
+      "type": "url",
+      "id": "image_url",
+      "label": "Selecione um link"
+    },
+    {
+      "type": "textarea",
+      "id": "multiline_text",
+      "label": "Descrição"
+    },
+    {
+      "type": "text",
+      "id": "single_line_text",
+      "label": "Título"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom last footer",
+      "category": "Footer",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #custom_last_footer {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+    align-items: center;
+  }
+
+  #custom_last_footer_mobile {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+    margin: 2rem var(--mobile-container-gutter) 6.5rem var(--mobile-container-gutter);
+    align-items: center;
+  }
+
+  #custom_last_footer > a {
+    display: grid;
+    text-decoration: none;
+  }
+
+  #custom_last_footer_mobile > a {
+    display: grid;
+    text-decoration: none;
+  }
+
+  #custom_last_footer > a > img {
+    width: 150px;
+    height: auto;
+  }
+
+  #custom_last_footer_mobile > a > img {
+    width: 100px;
+    height: auto;
+  }
+
+  #custom_last_footer > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #custom_last_footer_mobile > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #custom_last_footer > div > span {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  #custom_last_footer_mobile > div > span {
+    font-size: 10px;
+    max-width: 14rem;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #custom_last_footer > a > img {
+      width: 120px !important;
+    }
+
+    #custom_last_footer > div > span {
+      font-size: 10px !important;
+    }
+
+    #custom_last_footer > div > #custom_title {
+      font-size: 13px !important;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    #custom_last_footer_mobile > div > span {
+      max-width: 12rem;
+    }
+  }
+
+  #custom_last_footer > div > #custom_title {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  #custom_last_footer_mobile > #custom_title {
+    font-size: 12px;
+    margin: 0;
+    text-align: center;
+    justify-self: center;
+    max-width: 20rem;
+    font-weight: 600;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_last_footer {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom_last_footer {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_last_footer {
+      display: none;
+    }
+
+    #custom_last_footer_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="custom_last_footer">
+  {% if section.settings.image and section.settings.image_url %}
+    <a href="{{ section.settings.image_url }}">
+      <img
+        src="{{ section.settings.image | img_url: 'master' }}"
+        width="100px"
+        height="100%"
+        alt="bioself natura logotipo MNSRM"
+      >
+    </a>
+  {% endif %}
+
+  <div>
+    {% if section.settings.multiline_text %}
+      <span>{{ section.settings.multiline_text }}</span>
+    {% endif %}
+
+    {% if section.settings.single_line_text %}
+      <span id="custom_title">{{ section.settings.single_line_text }}</span>
+    {% endif %}
+  </div>
+</section>
+
+<section id="custom_last_footer_mobile">
+  <div>
+    {% if section.settings.image and section.settings.image_url %}
+      <a href="{{ section.settings.image_url }}">
+        <img
+          src="{{ section.settings.image | img_url: 'master' }}"
+          width="100px"
+          height="100%"
+          alt="bioself natura logotipo MNSRM"
+        >
+      </a>
+    {% endif %}
+
+    {% if section.settings.multiline_text %}
+      <span>{{ section.settings.multiline_text }}</span>
+    {% endif %}
+  </div>
+
+  {% if section.settings.single_line_text %}
+    <span id="custom_title">{{ section.settings.single_line_text }}</span>
+  {% endif %}
+</section>

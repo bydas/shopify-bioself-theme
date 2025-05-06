@@ -1,0 +1,362 @@
+{%- if section.settings.show_section -%}
+  <section class="section {% if section.settings.show_only_mobile != blank %} hidden-lap-and-up {% endif %} {% if section.settings.show_only_desktop != blank %} hidden-pocket {% endif %}" data-section-id="{{ section.id }}" data-section-type="text-with-icons" style="background: {{ section.settings.background_color }}; {% if section.settings.show_margin_top %} margin-top:{{ section.settings.margin_top }}px !important; {% endif %} {% if section.settings.show_margin_bottom %} margin-bottom: {{ section.settings.margin_bottom }}px !important; {% endif %}">
+    <div class="container container--flush">
+      <div class="text-with-icons {% if section.settings.stack_mobile %}text-with-icons--stacked{% endif %}" style="">
+        {%- for block in section.blocks -%}
+          <div class="text-with-icons__item" data-block-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <div class="text-with-icons__icon-wrapper">
+              {%- if block.settings.custom_icon != blank -%}
+                <img src="{{ block.settings.custom_icon | img_url: '80x' }}" alt="{{ block.settings.custom_icon.alt | escape }}">
+              {%- else -%}
+                {%- render 'icon', icon: block.settings.icon, stroke_width: 1.5 -%}
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.title != blank or block.settings.content != blank -%}
+              <div class="text-with-icons__content-wrapper">
+                {%- if block.settings.title != blank -%}
+                  <p class="text-with-icons__title text--strong">{{ block.settings.title | escape }}</p>
+                {%- endif -%}
+
+                {%- if block.settings.content != blank -%}
+                  <div class="text-with-icons__content rte">
+                    {{ block.settings.content  }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<style>
+  #shopify-section-{{ section.id }} p.text-with-icons__title.text--strong {
+    color: {{ section.settings.text_color }};
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 35px;
+    font-family: 'RedHatDisplayBold';
+    padding: 0 35px;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__content.rte p {
+    color: {{ section.settings.text_color }};
+    font-size: 21px;
+    line-height: 29px;
+    font-family: 'RedHatDisplay';
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__icon-wrapper svg {
+    width: 43px;
+    height: auto;
+  }
+
+  #shopify-section-{{ section.id }} text-with-icons__icon-wrapper svg circle, .text-with-icons__icon-wrapper svg path {
+    stroke: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__item {
+    width: 180px;
+    margin: 0;
+    row-gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons {
+    justify-content: center;
+    column-gap: 55px;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__item:nth-of-type(even) p.text-with-icons__title.text--strong {
+    border-left: 1px solid #308A36;
+    border-right: 1px solid #308A36;
+
+  }
+
+  @media screen and (max-width: 768px) {
+  #shopify-section-{{ section.id }} .text-with-icons.text-with-icons--stacked {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__item {
+    width: 25px;
+  }
+
+  #shopify-section-{{ section.id }} p.text-with-icons__title.text--strong {
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__content.rte p {
+    font-size: 9px;
+    line-height: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons {
+    justify-items: center;
+    column-gap: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__item {
+    row-gap: 0;
+  }
+
+  #shopify-section-{{ section.id }} .text-with-icons__content-wrapper {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "New Icons With Text",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_only_desktop",
+      "label": "Show only desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_mobile",
+      "label": "Show only mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_section",
+      "label": "Show section",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_mobile",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_margin_top",
+      "label": "Display margin top",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "show_margin_bottom",
+      "label": "Display margin bottom",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Margin bottom",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bi-add-to-cart",
+              "label": "Add to cart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-wrap",
+              "label": "Gift wrap",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-box",
+              "label": "Gift box",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-heart",
+              "label": "Heart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-ecology",
+              "label": "Ecology",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-plant",
+              "label": "Plant",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop",
+              "label": "Shop",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop-pin",
+              "label": "Shop with pin",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-alert",
+              "label": "Alert",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-chat",
+              "label": "Chat",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-comment",
+              "label": "Comment",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-customer-support",
+              "label": "Customer support",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-email",
+              "label": "Email",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-network",
+              "label": "Network",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-newsletter",
+              "label": "Newsletter",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-love",
+              "label": "Love",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-phone",
+              "label": "Phone",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-share",
+              "label": "Share",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-delivery",
+              "label": "Delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-fast-delivery",
+              "label": "Fast delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-returns",
+              "label": "Returns",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-time",
+              "label": "Time",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-secure-payment",
+              "label": "Secure payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-mobile-payment",
+              "label": "Mobile payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-computer-payment",
+              "label": "Computer payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-credit-card",
+              "label": "Credit card",
+              "group": "Security"
+            },
+            {
+              "value": "bi-shield",
+              "label": "Shield",
+              "group": "Security"
+            }
+          ],
+          "default": "bi-customer-support"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon",
+          "info": "60 x 60px .png with transparency recommended"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Short content about your store</p>"
+        }
+      ]
+    }
+  ],
+"presets" : [
+            {
+              "category":"image",
+              "name": "New Icons With Text"
+            }
+            ]
+}
+{% endschema %}

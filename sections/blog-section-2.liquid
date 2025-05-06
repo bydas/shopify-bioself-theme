@@ -1,0 +1,140 @@
+{%- capture section_settings -%}
+    {
+    "autoPlay": {{ section.settings.autoplay | json }},
+    "groupCells": {% if blog.articles_count >= 6 %} 3 {% else %} 1 {% endif %},
+    "prevNextButtons": true,
+    "pageDots":{% if section.blocks.size > 1 %}true{% else %}false{% endif %},
+    "transitionEffect": {{ section.settings.carousel_effect | json }},
+    "cycleSpeed": {{ section.settings.cycle_speed | times: 1000 | json }}
+    }
+{%- endcapture -%}
+
+
+<section
+        data-section-id="{{ section.id }}"
+        data-section-type="slideshow"
+        data-section-settings='{{ section_settings }}'
+        class="slideshow-section"
+>
+
+    {%- if section.settings.title != blank -%}
+      <div class="container">
+        <header class="section__header">
+            <h2 class="section__title heading h3">{{ section.settings.title | escape }}</h2>
+        </header>
+        </div>
+    {%- endif -%}
+
+
+    {%- assign blog = blogs[section.settings.blog] -%}
+
+    {%- if blog.articles_count > 0 -%}
+
+        <div class="container container--flush" id="blog-section-container">
+            <div class="blog-list-section slideshow">
+                {%- for article in blog.articles limit: section.settings.post_limit -%}
+
+                    <a href="{{ block.settings.link | default: article.url | default: '#' }}"
+                       class="collection-item section-article-card"
+                       data-collection-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                        {%- unless article.empty? -%}
+                            {%- assign article_image = block.settings.image | default: article.image -%}
+                            <div class="collection-item__image-wrapper"
+                                 style="
+                                         background-image: url({{ article_image | img_url: '450x' }});
+                                         background-repeat: no-repeat;
+                                         background-size: cover;
+                                         ">
+                                {%- capture supported_sizes -%}{%- render 'image-size', sizes: '300,400,500,600,700,800', image: article_image -%}{%- endcapture -%}
+                                {%- assign image_url = article_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                                <div class="aspect-ratio"
+                                     style="background: rgba(0, 0, 0, 0.{{ block.settings.article_image_overlay }});">
+
+                                    <div class="blog-posts-section-meta">
+                                        {% for tag in article.tags %}
+                                            {% unless tag contains 'author' %}
+                                                {% assign tags_without_author = tag %}
+                                                <div class="section-article-card-tag">{{ tags_without_author }}</div>
+                                            {% endunless %}
+                                        {% endfor %}
+                                        <div class="section-article-card-title">{{ article.title }}</div>
+                                        <div class="section-article-card-author">{{ article.author }}, {{ article.published_at | date: "%d %b %Y" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endunless -%}
+                    </a>
+
+                {%- endfor -%}
+            </div>
+        </div>
+
+    {%- endif -%}
+</section>
+
+
+{% schema %}
+{
+  "name": "Blog posts automatic",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "NOTÍCIAS E NOVIDADES"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Posts",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto rotate between slides",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "carousel_effect",
+      "label": "Transition effect",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "range",
+      "id": "cycle_speed",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": "sec",
+      "label": "Change slides every",
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts automatic",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}

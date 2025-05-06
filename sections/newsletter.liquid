@@ -1,0 +1,128 @@
+<section class="section-pd newsletter_section" data-section-id="{{ section.id }}" data-section-type="newsletter">
+  <div class="container container--narrow" id="newsletter_section_homepage">
+    {%- if section.settings.title != blank -%}
+      <h2 class="heading h3">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.content != blank -%}
+      <div class="rte {{ section.settings.text_color }}">
+        {{ section.settings.content }}
+      </div>
+    {%- endif -%}
+
+    {%- assign newsletter_id = 'newsletter-' | append: section.id -%}
+
+    <div class="newsletter newsletter--compact">
+      {%- form 'customer', id: newsletter_id, class: 'form newsletter__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="alert alert--success alert--center">Foi registado com sucesso na nossa newsletter!</p>
+        {%- else -%}
+          {%- if form.errors -%}
+            <p class="alert alert--error alert--center">{{ form.errors.messages.email }}</p>
+          {%- endif -%}
+
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          <div class="form__input-row">
+            <div class="form__input-wrapper form__input-wrapper--labelled">
+              <input
+                type="text"
+                id="newsletter[contact][name]"
+                name="contact[first_name]"
+                class="form__field form__field--text"
+                required
+              >
+              <label for="first_name" class="form__floating-label">{{ 'home_page.newsletter.input_name' | t }}</label>
+            </div>
+
+            <div class="form__input-wrapper form__input-wrapper--labelled">
+              <input
+                type="email"
+                id="newsletter[contact][email]"
+                name="contact[email]"
+                class="form__field form__field--text"
+                required
+              >
+              <label for="newsletter[contact][email]" class="form__floating-label">
+                {{- 'home_page.newsletter.input_email' | t -}}
+              </label>
+
+              <button type="submit" class="form__submit button button--primary">
+                {{ 'home_page.newsletter.submit' | t }}
+              </button>
+            </div>
+            {% if section.settings.post_message != blank %}
+              <p class="newsletter_post_message">{{ section.settings.post_message }}</p>
+            {% endif %}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+<style></style>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Customers who subscribe will have their email address added to the \"accepts marketing\" [customer list](/admin/customers?query=&accepts_marketing=1)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_footer_newsletter",
+      "label": "Show footer newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Newsletter"
+    },
+    {
+      "type": "html",
+      "id": "content",
+      "label": "Text",
+      "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
+    },
+    {
+      "type": "text",
+      "id": "post_message",
+      "label": "Post message",
+      "default": "Prometemos não fazer spam!"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background_image"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text Color",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "white"
+    }
+  ],
+  "presets": [
+    {
+      "category": "Promotional",
+      "name": "Newsletter",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

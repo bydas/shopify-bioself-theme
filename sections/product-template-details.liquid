@@ -1,0 +1,63 @@
+{% comment %}
+        <div class="product-description--wrapper">
+          <div class="product-description container container--flush">
+            {%- if product.description != blank -%}
+              <div class="description-heading">
+                <h2 class="heading h3">{{ 'product.general.description' | t }}</h2>
+              </div>
+              <div class="product-block-list__item product-block-list__item--description">
+                {%- if section.settings.content_display_mode == 'show_all_and_expand_description' -%}
+                  <div class="">
+                    <div class="rte text--pull">
+
+                      {% assign desc_ = product.description | split: '[' %}
+                      {{ desc_[0] }}
+
+                      {% if product.description contains '[Quem pode beneficiar]' %}
+                        {% assign desc_benef = product.description | split: '[Quem pode beneficiar]' %}
+                        <h3 class="heading h3">QUEM PODE BENEFICIAR?</h3>
+                        <p>{{ desc_benef[1] }}</p>
+
+                      {% endif %}
+
+                    </div>
+                  </div>
+                {%- else -%}
+                  <div class="full-description">
+                    <div class="rte text--pull">
+                      {{ product.description | split: '[' | first | remove: 'data-section-type="product"' }}
+                    </div>
+
+                    {% comment %}
+                    <button class="expandable-content__toggle">
+                      <span class="expandable-content__toggle-icon"></span>
+                      <span
+                        class="expandable-content__toggle-text"
+                        data-view-more="{{ 'product.general.view_more' | t | escape }}"
+                        data-view-less="{{ 'product.general.view_less' | t | escape }}">{{- 'product.general.view_more' | t -}}</span>
+                    </button>
+                    {% endcomment %}
+
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="product-block-list__item product-block-list__item--details">
+                  {% comment %}
+                  <div class="details-heading">
+                    <h3 class="heading h3">INFORMAÇÃO DO PRODUTO</h3>
+                  </div>
+                  {% endcomment %}
+                  <div class="details-content">
+                    {% render 'product-details' %}
+                  </div>
+                </div>
+              {%- endif -%}
+  
+            </div>
+          </div>
+  {% endcomment %}
+  
+  <div class="product-block-list__item product-block-list__item--reviews container">
+      <div class="NETREVIEWS_PRODUCT_REVIEWS" data-product-id="{{ product.id }}"></div>
+  </div>
+    

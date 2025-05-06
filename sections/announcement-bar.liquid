@@ -1,0 +1,97 @@
+<style>
+  #announcement-bar-top .announcement-bar {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: 0.5rem 0;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.documentElement.style.removeProperty('--announcement-bar-button-width');
+    document.documentElement.style.setProperty('--announcement-bar-height', document.getElementById('shopify-section-{{ section.id }}').clientHeight + 'px');
+  });
+</script>
+
+{%- if section.settings.show_announcement -%}
+  {%- capture section_settings -%}
+  {
+    "showNewsletter": {{ section.settings.show_newsletter | json }}
+  }
+  {%- endcapture -%}
+
+  <section
+    id="announcement-bar-top"
+    data-section-id="{{ section.id }}"
+    data-section-type="announcement-bar"
+    data-section-settings="{{ section_settings }}"
+  >
+    <div class="announcement-bar">
+      <div class="container">
+        <div class="announcement-bar__inner {% if section.settings.display_carousel %} announcement-bar__carousel {% endif %}">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="announcement-bar__content announcement-bar__content--center">
+                {{- block.settings.text | escape -}}
+              </a>
+            {%- else -%}
+              <div class="announcement-bar__content announcement-bar__content--center">{{ block.settings.text }}</div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "display_carousel",
+      "label": "Carousel?",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#1e2d7d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Announce something here</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

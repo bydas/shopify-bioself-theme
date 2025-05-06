@@ -1,0 +1,618 @@
+{% assign linkedin_share_link = "https://www.linkedin.com/shareArticle?mini=true&url=" | append: shop.url | append: article.url %}
+{%- assign share_url = shop.url | append: article.url -%}
+{%- assign twitter_text = article.title | url_param_escape -%}
+
+{%- capture recipe_article_icons -%}
+  {%- for tag in article.tags -%}
+    {%- if tag contains 'duracao_' -%}
+      <div class="recipe_duration">
+        <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+        <path fill="#308A36" d="M12 0C5.377 0 0 5.377 0 12s5.377 12 12 12 12-5.377 12-12S18.623 0 12 0zm0 1c6.071 0 11 4.929 11 11s-4.929 11-11 11S1 18.071 1 12 5.929 1 12 1zm0 11h6v1h-7v-9h1v8z"/>
+        </svg>        
+        {% assign duration_tag = tag | split: "_" %}
+        <h3>{{ duration_tag[1] | append: ' min' }}</h3>
+      </div>
+    {%- endif -%}
+
+    {%- if tag contains 'dificuldade_' -%}
+      <div class="recipe_dificulty">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+        <path fill="#308A36" d="M20.043 11.76c-.141-.427-.314-.844-.516-1.242l-2.454 1.106c.217.393.39.81.517 1.242l2.453-1.106zm-12.572-.904c.271-.354.579-.674.918-.957l-1.89-1.968c-.328.293-.637.614-.919.957l1.891 1.968zm1.714-1.514c.38-.221.781-.396 1.198-.523l-1.033-2.569c-.412.142-.813.317-1.2.524l1.035 2.568zm-2.759 3.615c.121-.435.287-.854.498-1.25l-2.47-1.066c-.196.403-.364.823-.498 1.25l2.47 1.066zm9.434-6.2c-.387-.205-.79-.379-1.2-.519l-1.023 2.573c.418.125.82.299 1.2.519l1.023-2.573zm2.601 2.131c-.281-.342-.59-.664-.918-.957l-1.891 1.968c.34.283.648.604.919.957l1.89-1.968zm-5.791-3.06c-.219-.017-.437-.026-.648-.026-.213 0-.432.009-.65.026v2.784c.216-.025.434-.038.65-.038.215 0 .434.013.648.038v-2.784zm11.33 8.172c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 2.583.816 5.042 2.205 7h19.59c1.389-1.958 2.205-4.417 2.205-7zm-9.08 5c-.007-1.086-.606-2.031-1.496-2.522l-1.402-6.571-1.402 6.571c-.889.491-1.489 1.436-1.496 2.522h-5.821c-.845-1.5-1.303-3.242-1.303-5 0-5.514 4.486-10 10-10s10 4.486 10 10c0 1.758-.458 3.5-1.303 5h-5.777z"/>
+        </svg>        
+        {% assign dificulty_tag = tag | split: "_" %}
+        <h3>{{ dificulty_tag[1] }}</h3>
+      </div>
+    {%- endif -%}  
+
+    {%- if tag contains 'doses_' -%}
+      <div class="recipe_portion">
+        <svg width="15" height="15" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+        <path fill="#308A36" d="M12 0C5.377 0 0 5.377 0 12s5.377 12 12 12 12-5.377 12-12S18.623 0 12 0zm6.997 20.486c2.444-2.019 4.003-5.072 4.003-8.486 0-6.071-4.929-11-11-11s-11 4.929-11 11c0 4.27 2.439 7.975 5.998 9.798v-3.228c0-.691-.441-.917-1.384-1.673-.698-.56-1.177-1.433-1.089-2.322.252-2.537.862-7.575.862-7.575l.909.003-.597 5.997h1.291l.005-6h1l-.002 6h1.003l-.001-6h1l.004 6 1.34.002-.675-6.002h.887c.002.011.675 5.008.951 7.55.098.902-.409 1.792-1.121 2.356-.95.751-1.382.967-1.382 1.669v4.243c.649.12 1.318.182 2.001.182 1.409 0 2.756-.265 3.994-.749l.001-3.251h-2.467c.802-6.996 3.103-12 4.66-12 .447 0 .804.357.807.851.008 1.164.004 6.814.002 12.635zm-7.563-6.486h-5.845c-.067.642-.26 1.387.651 2.117.938.754 1.758 1.231 1.758 2.453v3.678c.326.128.66.24 1.001.337v-4.01c0-1.237.811-1.7 1.761-2.453.944-.747.75-1.464.674-2.122zm6.561 7.222l.002-13.029c-1.14 1.352-2.563 4.206-3.31 9.809h2.308l-.001 3.8c.345-.176.679-.37 1.001-.58z"/>
+        </svg> 
+        {% assign portion_tag = tag | split: "_" %}
+        <h3>{{ portion_tag[1] | append: '  doses' }}</h3>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}   
+{%- endcapture -%}
+
+{%- capture recipe_article_details -%}
+  {%- if article.tags contains 'Receitas' -%}
+    <div class="recipe_details">
+      {{ recipe_article_icons }}
+    </div>
+  {%- endif -%} 
+{%- endcapture -%}
+
+
+{%- capture share_buttons_mobile -%}
+  <ul class="social-media__item-list list--unstyled" role="list">
+    <li class="social-media__item social-media__item--facebook">
+      <a
+        href="https://www.facebook.com/sharer.php?u={{ share_url }}"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{ 'general.social.facebook_share' | t }}">{%- render 'icon', icon: 'facebook' -%}</a>
+    </li>
+
+    <li class="social-media__item">
+      <a href="{{ linkedin_share_link }}">{% render 'icon', icon: 'linkedin' %}</a>
+    </li>
+
+    <li class="social-media__item social-media__item--twitter">
+      <a
+        href="https://twitter.com/share?{% if twitter_text != blank %}text={{twitter_text}}&{% endif %}url={{ share_url }}"
+        target="_blank"
+        rel="noopener"
+        aria-label="{{ 'general.social.twitter_tweet' | t }}">{%- render 'icon', icon: 'twitter' -%}</a>
+    </li>
+
+    <li class="social-media__item">
+      <button
+        id="copyButtonUp"
+        class="copy-to-clipboard-article-link"
+        onclick="copyToClipboardUp('{{ canonical_url }}')"><img src="{{ 'link.png'| asset_url}}" alt="Copy to Clipboad!"></button>
+      <script>
+        function copyToClipboardUp(url) {
+          const el = document.createElement('textarea');
+          el.value = url;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+
+          const button = document.getElementById('copyButtonUp');
+          button.disabled = true;
+        }
+      </script>
+
+    </li>
+  </ul>
+{%- endcapture -%}
+  
+<article data-section-id="{{ section.id }}" data-section-type="blog-post">
+  {%- comment -%}
+  {%- if section.settings.show_share_buttons -%}
+
+  {%- endif -%}
+  {%- endcomment -%}{%- if section.settings.show_share_buttons or article.comments_enabled? -%}
+
+    <div class="card hidden-phone">
+      <div class="card__section card__section--tight">
+        <div class="article__toolbar">
+          {%- if section.settings.show_share_buttons -%}
+            <div class="article__toolbar-item">
+              <span class="article__share-label">{{ 'blog.article.share' | t }}</span>
+              {{- share_buttons -}}
+            </div>
+          {%- endif -%}
+
+          {%- if article.comments_enabled? -%}
+            <div class="article__toolbar-item">
+              {% render 'icon', icon: 'bi-comment' %}
+              <a href="#comments" class="article__comments-count link">{{ 'blog.article.comments_count' | t: count: article.comments_count }}</a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="article__inner">
+          <nav class="breadcrumb_articles">
+          <a href="/">Bioself</a>
+          <span>&gt;</span>
+          <a href="{{ blog.url }}">Blog</a>
+          <span>&gt;</span>
+          {% for tag in article.tags %}
+            {% unless tag contains 'author' or tag contains 'receitas' or tag contains 'dificuldade_' or tag contains 'duracao_' or tag contains 'doses_' %}
+              {{ tag | link_to_tag: tag }}
+              {% break %}
+            {% endunless %}
+          {% endfor %}
+          <span>&gt;</span>
+          <span>{{ article.title | truncate: 50, "..."  }}</span>
+          </nav>
+    <a class="backto-blog-button" href="/blogs/blog-page"> &#60;  {{ 'blog.general.back_to_blog_btn' | t }} </a>
+
+    <div class="article_main_content">
+
+        <h2>{{ article.title }}</h2>
+
+        {{ recipe_article_details }}
+
+        <div class="article__content rte">
+          {{ article.content  }}
+
+            <div class="article_main_content_share_mobile">
+              {{ share_buttons_mobile }}
+            </div>
+        </div>
+
+        {% if article.metafields.custom.referencias != blank %}
+          <a id="article_references" class="accordion">{{ 'blog.general.references' | t }} </a>
+          <div class="panel article_references-content">
+            {{ article.metafields.custom.referencias | metafield_tag }}
+          </div>
+        {% endif %}
+
+      </div>
+
+    <div class="article-page-notice-container">
+      {% if section.settings.notice_icon %}
+        <div class="article-page-notice-icon"><img src="{{ section.settings.notice_icon | img_url: '25x' }}"></div>
+      {% endif %}
+      <div class="article-page-notice-text" style="font-size: {{ section.settings.font_size }}px !important;">
+        <div class="notice_heading">{{ section.settings.notice_heading }}</div>
+          <div>
+            <div class="notice_text" id="noticeText">
+              {{ section.settings.notice_text }}
+            </div>
+            <div class="notice_text_button">
+              <button id="toggleButton">Leia mais</button>
+            </div>
+        </div>
+      </div>
+
+    {%- if section.settings.show_share_buttons or section.settings.show_tags and article.tags.size > 0 -%}
+      {% assign recommended_products = article.metafields.article.products.value %}
+      {% if recommended_products %}
+        <div class="article-product-list">
+          <div class="dynamic_products">
+            <p class="article-sub-title heading h2">Sugestões Bioself</p>
+            {% for product in recommended_products %}
+              <div class="article-page-product product-item--list">
+                <div class="article-page-product-content">
+                  <div class="article-page-product-image">
+                    <a href="{{ product.url }}">
+                      {% unless product.compare_at_price_min < product.price %}
+                        <span class="product-label product-label--on-sale article-page-sale-sticker">
+                          {{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round}}%
+                        </span>
+                      {% endunless %}
+                      {% for image in product.images %}
+                        <img src="{{ image.src | product_img_url: 'medium' }}" alt="{{ product.title }}">
+                        {% render 'swym-product-view', product: product %}
+                        <button
+                          class="product-item__action-button button--primary swym-button swym-add-to-wishlist-view-product product_{{product.id}}"
+                          data-swaction="addToWishlist"
+                          data-product-id="{{product.id | json}}"></button>
+                      {% endfor %}
+                    </a>
+
+                    <div class="swym-button-bar swym-wishlist-button-bar swym-inject"></div>
+                    
+                  </div>
+                  <div class="article-page-product-details">
+                    <a href="{{ product.url }}">
+                      <div class="article-page-product-title">
+                        {{ product.title }}
+                      </div>
+
+                      <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
+                      
+                      <div class="article-page-product-price">
+                        <span class="price price--highlight">{{ product.price | money_without_trailing_zeros }}</span>
+                        {% unless product.compare_at_price_min < product.price %}
+                          <span class="price price--compare">{{ product.compare_at_price_min | money_without_trailing_zeros }}</span>
+                        {% endunless %}
+                      </div>
+                    </a>
+                    <div class="button__group-wrapper article__group-wrapper">
+                      {%- assign form_id = 'product_form_id_' | append: product.id | append: '_' | append: section.id -%}
+                      {%- assign quick_buy_classes = 'product-item__action-button product-item__action-button--list-view-only button button--small button--primary' -%}
+                      {%- form 'product', product, id: form_id -%}
+                        <input
+                          type="hidden"
+                          name="quantity"
+                          value="1">
+                        <input
+                          type="hidden"
+                          name="id"
+                          value="{{ product.selected_or_first_available_variant.id }}">
+                        {%- if product.available -%}
+                          {%- if product.variants.size == 1 -%}
+                            <button
+                              type="submit"
+                              class="{{ quick_buy_classes }}"
+                              data-action="add-to-cart">
+                              {%- if product.template_suffix == 'pre-order' -%}
+                                {{- 'collection.product.pre_order' | t -}}
+                              {%- else -%}
+                              <a href="{{ product.url | within: collection }}" class="{{ quick_buy_classes }}">
+                                <img src="{{ 'shopping-cart.png' | asset_img_url: 'master' }}" width="21" height="21" alt="icone carrinho de compras"/>
+                                      <span> Adicionar </span>
+                              </a>
+                              {%- endif -%}
+                            </button>
+                          {%- else -%}
+                          <a href="{{ product.url | within: collection }}" class="{{ quick_buy_classes }}">
+                            <img src="{{ 'shopping-cart.png' | asset_img_url: 'master' }}" width="21" height="21" alt="icone carrinho de compras" />
+                                  <span> Adicionar </span>
+                          </a>                          
+                        {%- endif -%}
+                        {%- else -%}
+                          <button class="{{ quick_buy_classes | replace: 'button--primary', 'button--disabled' }}" disabled>
+                            <span class="unavaiable_mobile"> Indisponível </span>
+                          </button>                        
+                      {%- endif -%}
+                      {%- endform -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      <div class="article-share">
+        <p class="article-sub-title heading h2">Partilhe este artigo</p>
+        <div class="article-share-buttons">
+          <button class="social_button twitter">
+            <a
+              href="https://twitter.com/share?{% if twitter_text != blank %}text={{twitter_text}}&{% endif %}url={{ share_url }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.twitter_tweet' | t }}">Twitter</a>
+          </button>
+          <button class="social_button facebook">
+            <a
+              href="https://www.facebook.com/sharer.php?u={{ share_url }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.facebook_share' | t }}">Facebook</a>
+          </button>
+          
+          <button class="social_button linkedin">
+            <a href="{{ linkedin_share_link }}">Linkedin</a>
+          </button>
+          <button
+            id="copyButton"
+            class="social_button copy_link_button"
+            onclick="copyToClipboard('{{ canonical_url }}')">Copiar link</button>
+          <script>
+            function copyToClipboard(url) {
+              const el = document.createElement('textarea');
+              el.value = url;
+              document.body.appendChild(el);
+              el.select();
+              document.execCommand('copy');
+              document.body.removeChild(el);
+
+              const button = document.getElementById('copyButton');
+              button.textContent = 'Link Copiado!';
+              button.disabled = true;
+              button.style.backgroundColor = 'transparent';
+              button.style.color = '#95C11F';
+            }
+          </script>
+
+        </div>
+
+      </div>
+    {%- endif -%}
+
+    {%- if article.comments_enabled? -%}
+      <span id="comments" class="anchor"></span>
+
+      {%- if article.comments_count > 0 -%}
+        <div class="article__comment-list">
+          <p class="article__comment-list-heading heading h2">{{ 'blog.article.comments_count' | t: count: article.comments_count }}</p>
+
+          {%- paginate article.comments by 50 -%}
+            {%- for comm in article.comments -%}
+              <div class="article-comment">
+                {%- if section.settings.show_gravatar -%}
+                  <img
+                    class="article-comment__gravatar"
+                    src="//www.gravatar.com/avatar/{{ comm.email | md5 }}?s=100"
+                    alt="{{ comm.author }}">
+                {%- endif -%}
+
+                <div class="article-comment__inner">
+                  <p class="article-comment__author text--strong">{{ comm.author }}</p>
+                  <time class="article-comment__date">{%- include 'date-translate' -%} </time>
+
+                  <div class="article-comment__content rte">
+                    {{- comm.content -}}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+
+            {%- render 'pagination', paginate: paginate -%}
+          {%- endpaginate -%}
+        </div>
+      {%- endif -%}
+
+      {%- form 'new_comment', article, class: 'article__comment-form form' -%}
+        <p class="article__comment-form-title heading h2 article-sub-title">{{ 'blog.comments.leave_comment' | t }}</p>
+
+        {%- if blog.moderated? -%}
+          <p class="article__moderated-note">{{ 'blog.comments.approval_notice' | t }}</p>
+        {%- endif -%}
+
+        <div class="article__comment-form-wrapper">
+          {%- if form.posted_successfully? -%}
+            <p class="alert alert--success">
+              {%- if blog.moderated? -%}
+                {{- 'blog.comments.success_moderated' | t -}}
+              {%- else -%}
+                {{- 'blog.comments.success' | t -}}
+              {%- endif -%}
+            </p>
+          {%- else -%}
+            {%- if form.errors -%}
+              <div class="alert alert--error">
+                <ul class="alert__error-list" role="list">
+                  {%- for field in form.errors -%}
+                    {%- if field == 'form' -%}
+                      <li class="alert__error-item">{{ form.errors.messages[field] }}</li>
+                    {%- else -%}
+                      <li class="alert__error-item">{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+
+          <div class="form__input-row">
+            <div class="form__input-wrapper form__input-wrapper--labelled">
+              {%- assign form_author = form.author | default: customer.name -%}
+              <label for="comment-form-name" class="form-label">{{ 'blog.comments.name' | t }}</label>
+              <input
+                id="comment-form-name"
+                type="text"
+                class="form__field form__field--text {% if form_author != blank %}is-filled{% endif %}"
+                name="comment[author]"
+                value="{{ form_author | escape }}"
+                required="required">
+
+            </div>
+
+            <div class="form__input-wrapper form__input-wrapper--labelled">
+              {%- assign form_email = form.email | default: customer.email -%}
+              <label for="comment-form-name" class="form-label">{{ 'blog.comments.email' | t }}</label>
+              <input
+                id="comment-form-email"
+                type="email"
+                class="form__field form__field--text {% if form_email != blank %}is-filled{% endif %}"
+                name="comment[email]"
+                value="{{ form_email | escape }}"
+                required="required">
+            </div>
+          </div>
+
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <label for="comment-form-name" class="form-label">{{ 'blog.comments.content' | t }}</label>
+            <textarea
+              id="comment-form-body"
+              name="comment[body]"
+              rows="5"
+              class="form__field form__field--textarea {% if form.body != blank %}is-filled{% endif %}"
+              required="required">{{ form.body }}</textarea>
+          </div>
+
+          <button type="submit" class="form__submit button button--primary button--min-width">{{ 'blog.comments.submit' | t }}</button>
+        </div>
+      {%- endform -%}
+    {%- endif -%}
+  </div>
+
+
+  <div class='relatedArticles'>
+    <p class="article-sub-title heading h2">Artigos relacionados</p>
+    <div class="related-articles">
+      {% assign skip_articles = article.handle | split: '.....' %}
+      {% for tag in article.tags %}
+        {% assign counter = 0 %}
+        {% for related_article in blog.articles %}
+          {% if related_article.tags contains tag and counter < 1 %}
+            {% unless skip_articles contains related_article.handle %}
+              {% assign counter = counter | plus: 1 %}
+              {% assign temp = related_article.handle | split: '.....' %}
+              {% assign skip_articles = skip_articles | concat: temp %}
+
+              <div class="article-item {% if featured %}article-item--featured{% endif %}">
+                {%- if related_article.image -%}
+                  <a href="{{ related_article.url }}" class="article-item__image-container">
+                    {%- capture supported_sizes -%}
+                      {%- render 'image-size', sizes: '200,300,400,500,600,700,800,900,1000,1200,1400', image: related_article.image -%}{%- endcapture -%}
+                    {%- assign image_url = related_article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+                    <div class="aspect-ratio" style="padding-bottom: 54%">
+                      <img
+                        class="article-item__image lazyload image--fade-in"
+                        data-src="{{ image_url }}"
+                        data-widths="[{{ supported_sizes }}]"
+                        data-sizes="auto"
+                        alt="{{ related_article.image.alt | escape }}">
+
+                      <noscript>
+                        <img
+                          class="article-item__image"
+                          src="{{ related_article.image | img_url: '600x' }}"
+                          alt="{{ related_article.image.alt | escape }}">
+                      </noscript>
+
+                      {{ article_first_tag }}
+                    </div>
+                  </a>
+                {%- endif -%}
+
+                {%- capture article_title -%}
+                  {%- if request.page_type == 'index' -%}
+                    <h3 class="article-item__title heading h4">
+                      <a href="{{ related_article.url }}" class="link">{{ related_article.title | truncate: 100, "..." }}</a>
+                    </h3>
+                  {%- else -%}
+                    <h2 class="article-item__title heading {% if featured %}h1{% else %}h3{% endif %}">
+                      <a href="{{ related_article.url }}" class="link">{{ related_article.title | truncate: 100, "..." }}</a>
+                    </h2>
+                    <div class="article-item-content">
+                      {% if featured %}
+                        {{ related_article.content | truncate: 300, "..." }}
+                      {% endif %}
+                    </div>
+                  {%- endif -%}
+                {%- endcapture -%}
+
+                {%- capture article_meta -%}
+                  <div class="article_details">
+                    {%- if section.settings.show_author -%}
+                      {%- for tag in article.tags -%}
+                        {% if tag contains 'author' %}
+                          {% assign author = tag | split: "_" %}
+                          <a class="article-author" href="/blogs/{{ blog.handle }}/tagged/{{ tag | handle }}">{{ author[1] }},
+                          </a>
+                        {% endif %}
+                      {%- endfor -%}
+                    {%- endif -%}
+
+                    {%- if section.settings.show_date -%}
+                      <time class="article-item__meta-item article-date">{%- include 'date-translate' -%} </time>
+                    {%- endif -%}
+                  </div>
+                {%- endcapture -%}
+
+                {%- if article_meta != blank -%}
+                  <div class="article-item__meta">
+                    {{ article_meta }}
+                    {{ article_title }}
+                  </div>
+                {%- endif -%}
+
+                {%- if section.settings.show_excerpt -%}
+                  <div class="article-item__excerpt rte">
+                    {%- if article.excerpt != blank -%}
+                      {{- article.excerpt -}}
+                    {%- else -%}
+                      {{- article.content | strip_html | truncate: 150 -}}
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</article>
+
+<script>
+  // Due to the presence of the possible sidebar, we have to move the header outside the section
+
+  {% comment %}
+  document.querySelector('.blog-container').insertAdjacentElement('beforebegin', document.querySelector('#shopify-section-' + {{ section.id | json }} + ' .page__header'));
+  {% endcomment %}
+</script>
+
+{% schema %}
+  {
+    "name": "Blog post page",
+    "class": "shopify-section__article",
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product-handle",
+            "label": "Product-Handle"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_category",
+        "label": "Show category",
+        "info": "The first article's tag will be shown as category.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show share buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_tags",
+        "label": "Show tags",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_gravatar",
+        "label": "Show comment avatar",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "notice_icon",
+        "label": "Show notice icon"
+      },
+      {
+        "type": "range",
+        "id": "font_size",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Notice font size",
+        "default": 14
+      },
+      {
+        "type": "text",
+        "id": "notice_heading",
+        "label": "Show notice heading",
+        "default": "Aviso legal:"
+      },
+      {
+        "type": "text",
+        "id": "notice_text",
+        "label": "Show notice text",
+        "default": "A informação que consta no artigo não é vinculativa e não invalida a leitura integral de documentos que suportem a matéria em causa."
+      }
+    ]
+  }
+{% endschema %}
+

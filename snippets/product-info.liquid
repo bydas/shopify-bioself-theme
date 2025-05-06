@@ -1,0 +1,380 @@
+{%- assign selected_variant = product.selected_or_first_available_variant -%}
+
+  <div class="">
+  {%- if section.settings.enable_image_zoom -%}
+    <div id="product-zoom-{{ section.id }}" class="product__zoom-wrapper"></div>
+  {%- endif -%}
+
+  <div class="card__section card__section--no-padding">
+    {% comment %}
+    ------------------------------------------------------------------------------
+    PRODUCT META
+    ------------------------------------------------------------------------------
+    {% endcomment %}
+
+    
+
+    {%- if section.settings.show_share_buttons -%}
+      {%- capture share_buttons -%}
+        {%- assign share_url = shop.url | append: product.url -%}
+        {%- assign twitter_text = product.title | url_param_escape -%}
+        {%- assign pinterest_description = product.description | strip_html | truncatewords: 15 | url_param_escape -%}
+        {%- assign pinterest_image = product.featured_media | img_url: '1024x' | prepend: 'https:' -%}
+
+        <ul class="social-media__item-list list--unstyled" role="list">
+          <li class="social-media__item social-media__item--facebook">
+            <a
+              href="https://www.facebook.com/sharer.php?u={{ share_url }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.facebook_share' | t }}">{%- render 'icon', icon: 'facebook' -%}</a>
+          </li>
+
+          <li class="social-media__item social-media__item--pinterest">
+            <a
+              href="https://pinterest.com/pin/create/button/?url={{ share_url }}{% if pinterest_image != blank %}&media={{ pinterest_image }}{% endif %}&description={{ pinterest_description }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.pinterest_pin' | t }}">{%- render 'icon', icon: 'pinterest' -%}</a>
+          </li>
+
+          <li class="social-media__item social-media__item--twitter">
+            <a
+              href="https://twitter.com/share?{% if twitter_text != blank %}text={{twitter_text}}&{% endif %}url={{ share_url }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.twitter_tweet' | t }}">{%- render 'icon', icon: 'twitter' -%}</a>
+          </li>
+
+          <li class="social-media__item">
+            <a href="mailto:?&subject={{ product.title | escape }}&body={{ share_url }}" aria-label="{{ 'general.social.email_share' | t }}">{% render 'icon', icon: 'email' %}</a>
+          </li>
+        </ul>
+      {%- endcapture -%}
+    {%- endif -%}
+
+    <div class="product-meta">
+      <div class="product_title_reviews_container">
+        <div class="product_title_container">
+        {%- if template.name == 'product' and template != 'product.quick-view' -%}
+          <h1 class="product-meta__title heading h1">{{ product.title }}</h1>
+        {%- else -%}
+          <h3 class="product-meta__title heading h2">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h3>
+        {%- endif -%}
+        </div>
+      </div>
+      
+      {%- capture product_labels -%}
+        {%- for tag in product.tags -%}
+          {%- if tag contains '__label:' -%}
+            <span class="product-label product-label--custom1">{{ tag | split: '__label:' | last }}</span>
+          {%- endif -%}
+
+          {%- if tag contains '__label1:' -%}
+            <span class="product-label product-label--custom1">{{ tag | split: '__label1:' | last }}</span>
+          {%- endif -%}
+
+          {%- if tag contains '__label2:' -%}
+            <span class="product-label product-label--custom2">{{ tag | split: '__label2:' | last }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if settings.show_discount -%}
+          {%- assign savings = 0 -%}
+
+          {%- if settings.discount_mode == 'percentage' -%}
+            {%- assign savings = selected_variant.compare_at_price | minus: selected_variant.price | times: 100.0 | divided_by: selected_variant.compare_at_price | round | append: '%' -%}
+          {%- else -%}
+            {%- capture savings -%}
+              <span>{{ selected_variant.compare_at_price | minus: selected_variant.price | money_without_trailing_zeros }}</span>
+            {%- endcapture -%}
+          {%- endif -%}
+
+          <span class="product-label product-label--on-sale" {% unless selected_variant.price < selected_variant.compare_at_price %}style="display: none"{% endunless %}>{{ 'collection.product.discount_html' | t: savings: savings }}</span>
+        {%- endif -%}
+      {%- endcapture -%}
+      {% comment %}
+      {%- if product_labels != blank -%}
+      <div class="product-meta__label-list">
+      {{- product_labels -}}
+      </div>
+      {%- endif -%}
+      {% endcomment %}
+
+      {%- if section.settings.show_vendor or section.settings.show_sku -%}
+        <div class="product-meta__reference">
+          {% if request.path contains '/collections/' %}
+            <div class="product-meta__reference-collection">
+
+              {% assign product_collection = request.path | split: '/collections' %}
+              {% assign product_collection = product_collection | split: '/' %}
+              <a href="{{ collections[product_collection[1]].url   }}">{{ collections[product_collection[1]].title | upcase }}</a>
+
+            </div>
+          {% endif %}
+          <div class="product-meta__reference-vendor">
+            {%- if section.settings.show_vendor -%}
+              {%- assign vendor_handle = product.vendor | handle -%}
+              {%- assign collection_for_vendor = collections[vendor_handle] -%}
+              {%- unless collection_for_vendor.empty? -%}
+                <a class="product-meta__vendor link link--accented-secondary" href="{{ collection_for_vendor.url }}">{{ product.vendor | capitalize }}</a>
+              {%- else -%}
+                <a class="product-meta__vendor link link--accented-secondary" href="{{ product.vendor | url_for_vendor }}">{{ product.vendor  | capitalize }}</a>
+              {%- endunless -%}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="hidden-phone">
+      <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
+      </div>
+      <div class="skeepers_product__stars" data-product-id="{{ product.id }}"></div>
+
+      {%- if section.settings.show_reviews_badge -%}
+        <a
+          href="{% if template.name != 'product' or template == 'product.quick-view' %}{{ product.url | within: collection }}{% endif %}#product-reviews"
+          class="product-meta__reviews-badge link"
+          data-offset="30">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}">
+            {%- comment -%}Display a placeholder, to allocate space{%- endcomment -%}
+            <div class="spr-badge" style="opacity: 0">
+              <span class="spr-starrating spr-badge-starrating">
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+                <i class="spr-icon spr-icon-star-empty"></i>
+              </span>
+
+              <span class="spr-badge-caption">filler</span>
+            </div>
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_share_buttons -%}
+        <div class="product-meta__share-buttons hidden-phone">
+          {{ share_buttons }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if request.page_type == 'index' and section.settings.show_description and product.description != blank and section.settings.description_below_add_to_cart == false -%}
+      <div class="product-meta__description rte">
+        {{ product.description | remove: 'data-section-type="product"' }}
+      </div>
+    {%- endif -%}
+
+    {% comment %}
+    ------------------------------------------------------------------------------
+    PRODUCT FORM
+    ------------------------------------------------------------------------------
+    {% endcomment %}
+
+    {%- assign color_label = 'color,colour,couleur,cor,colore,farbe,색,色,カラー,färg,farve' | split: ',' -%}
+
+      <div class="product-form__info-list">
+        <div class="product-form__info-item">
+          {% comment %}
+          <span class="product-form__info-title text--strong">{{ 'product.form.price' | t }}:</span>
+          {% endcomment %}
+
+          <div
+            class="product-form__info-content price-group"
+            role="region"
+            aria-live="polite">
+            
+            <div class="price-list hidden-tablet-and-up">
+              {%- if selected_variant.compare_at_price > selected_variant.price -%}
+                <span class="price price--highlight">
+                  <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+                  {{- selected_variant.price | money_without_trailing_zeros -}}
+                </span>
+
+                <span class="price price--compare">
+                  <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+                  {{- selected_variant.compare_at_price | money_without_trailing_zeros -}}
+                </span>
+              {%- else -%}
+                <span class="price">
+                  <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+                  {{- selected_variant.price | money_without_trailing_zeros -}}
+                </span>
+              {%- endif -%}
+
+              {% if settings.show_pvp_per_unit %}
+                {% if product.metafields.PHC.Valor-Unidade != 0 and product.metafields.PHC.Valor-Unidade >= 0 and product.metafields.PHC.Unidade-Plural and product.metafields.PHC.Unidade-Singular %}
+                  
+                  {%- assign units = product.metafields.PHC.Valor-Unidade | floor -%}
+                  {%- assign pvp = product.price -%}
+                  {%- assign pvp_per_unit = pvp | divided_by: units | money -%}
+            
+                  <p class="pvp_per_unit">{{ pvp_per_unit }} por {% if product.metafields.PHC.Unidade-Singular == "Capsula" %} Cápsula {% else %} {{ product.metafields.PHC.Unidade-Singular }} {% endif %} </p>
+            
+                {% endif %}
+              {% endif %}
+
+              {% if product.compare_at_price > product.price %}
+                <div class="promotiondiscountprice-top">
+                  <div class="promotiondiscountprice-tag">
+                    <span>-{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%</span>
+                  </div>
+                  <div class="promotiondiscountprice-text">
+                      Desconto exclusivo na loja online.
+                  </div>
+                </div>
+              {% endif %}
+
+              {% render 'dla-dm-timer' %}
+            </div>
+            
+            <div class="review_container_mobile hidden-tablet-and-up">
+            <div class="NETREVIEWS_PRODUCT_STARS reviews_button" data-product-id="{{ product.id }}"></div>
+            </div>
+
+            <div class="product-form__price-info" style="display: {% if selected_variant.unit_price_measurement %}block{% else %}none{% endif %}">
+              <div class="unit-price-measurement">
+                <span class="unit-price-measurement__price">{{ selected_variant.unit_price | money_without_trailing_zeros }}</span>
+                <span class="unit-price-measurement__separator">/
+                </span>
+
+                <span class="unit-price-measurement__reference-value" {%- if selected_variant.unit_price_measurement.reference_value == 1 -%}style="display: none"{% endif %}>
+                  {{- selected_variant.unit_price_measurement.reference_value -}}
+                </span>
+
+                <span class="unit-price-measurement__reference-unit">{{ selected_variant.unit_price_measurement.reference_unit }}</span>
+              </div>
+            </div>
+
+            {%- if section.settings.show_taxes_included -%}
+              {%- if shop.taxes_included or shop.shipping_policy.body != blank -%}
+                <p class="product-form__price-info product-form__price-taxes">
+                  {%- if shop.taxes_included -%}
+                    {{ 'product.general.include_taxes' | t }}
+                  {%- endif -%}
+
+                  {%- if shop.shipping_policy.body != blank -%}
+                    {{ 'product.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+
+          {% assign indic = product.metafields.airf.indic %}
+          {% if product.description contains '[Indicações]' %}
+
+            <div class="short-description hidden-phone">
+              {% assign desc_indic = product.description | split: '[Indicações]' %}
+              <p>{{ desc_indic[1] }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+    {%- comment -%}The availability container will be added automatically if there is store pickup available{%- endcomment -%}
+    {%- if section.settings.show_pickup_availability -%}
+      <div class="product-meta__store-availability-container"></div>
+    {%- endif -%}
+
+    {%- if request.page_type == 'index' and section.settings.show_description and product.description != blank and section.settings.description_below_add_to_cart -%}
+      <div class="product-meta__description rte">
+        {{ product.description }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_share_buttons -%}
+      <div class="product-meta__share-buttons hidden-tablet-and-up">
+        <span class="text--strong">{{ 'product.general.share' | t }}</span>
+        {{ share_buttons }}
+      </div>
+    {%- endif -%}
+
+    {% comment %}
+    {%- if section.settings.show_promotional_text -%}
+      <div class="promotional-text" style="color: {{ section.settings.promotional_text_color }}">
+        {% if product.available %}
+          {% if section.settings.delivery_text_content %}
+            <span class="shipping-product-text">
+              {{ section.settings.delivery_text_content }} <br>
+            </span>
+          {% endif %}
+
+        {% endif %}
+        <span>
+          {% if product.available %}
+          {{ section.settings.promotional_text_content }} <br>{{ section.settings.promotional_text_hours }}</span>
+          {% endif %}
+      </div>
+    {%- endif -%}
+    {% endcomment %}
+
+  </div>
+        
+  {%- if section.settings.show_payment_button and product.selected_or_first_available_variant.available == false -%}
+    <style>
+      #shopify-section-{{ section.id }}.shopify-payment-button {
+        display: none;
+      }
+    </style>
+  {%- endif -%}
+
+  {% comment %}
+  ------------------------------------------------------------------------------
+  Product Data. This must be outputted for all products (including home page).
+
+  IMPORTANT: THIS CODE IS VITAL. DO NOT EDIT IT NOT REMOVE IT. MAKE SURE TO KEEP¸
+  THE EXACT SAME ATTRIBUTES.
+  ------------------------------------------------------------------------------
+  {% endcomment %}
+
+  <script type="application/json" data-product-json>
+    {
+    "product": {{ product | json }},
+    "options_with_values": {{ product.options_with_values | json }},
+    "selected_variant_id": {{ selected_variant.id }}
+    {%- if section.settings.show_inventory_quantity -%},
+      "inventories" : {
+      {%- for variant in product.variants -%}
+        {%- if variant.available -%}
+          {%- if variant.inventory_management and variant.inventory_policy == 'deny' and section.settings.low_inventory_threshold > 0 -%}
+            {%- if variant.inventory_quantity <= section.settings.low_inventory_threshold -%}
+              {%- capture inventory_message -%}
+                {{ 'product.form.low_stock_with_quantity_count' | t: count: variant.inventory_quantity }}
+              {%- endcapture -%}
+            {%- else -%}
+              {%- capture inventory_message -%}
+                {{ 'product.form.in_stock_with_quantity_count' | t: count: variant.inventory_quantity }}
+              {%- endcapture -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- if variant.inventory_policy == 'continue' and variant.inventory_quantity <= 0 and selected_variant.requires_shipping -%}
+              {%- capture inventory_message -%}
+                {{ 'product.form.oversell_stock' | t }}
+              {%- endcapture -%}
+            {%- else %}
+              {%- capture inventory_message -%}
+                {{ 'product.form.in_stock' | t }}
+              {%- endcapture -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- capture inventory_message -%}
+            {{ 'product.form.sold_out' | t }}
+          {%- endcapture -%}
+        {%- endif -%}"{{ variant.id }}" : {
+        "inventory_management": {{ variant.inventory_management | json }},
+        "inventory_policy": {{ variant.inventory_policy | json }},
+        "inventory_quantity": {{ variant.inventory_quantity | json }},
+        "inventory_message": {{ inventory_message | json }}
+        }
+        {% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+      }
+    {%- endif -%}
+    }
+  </script>
+</div>

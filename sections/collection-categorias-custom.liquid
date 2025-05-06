@@ -1,0 +1,319 @@
+{% schema %}
+{
+  "name": "Collection categorias",
+  "settings": [
+    {
+      "type": "text",
+      "id": "selected_section_title",
+      "label": "Título da coleção"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Coleção",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "selected_collection",
+          "label": "Selecione uma coleção"
+        }
+      ],
+      "limit": 7
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection categorias",
+      "category": "Custom",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #custom_categorias {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #custom_categorias_mobile {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #custom_categorias > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #custom_categorias > h1 {
+      font-size: 24px;
+    }
+
+    #custom_categorias > ul > a > li > h2 {
+      font-size: 16px !important;
+    }
+
+    #custom_categorias > ul > div > a > li > h2 {
+      font-size: 14px !important;
+    }
+
+    #custom_categorias > ul > a > li {
+      height: 200px !important;
+    }
+  }
+
+  #custom_categorias_mobile > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #custom_categorias > ul {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #custom_categorias_mobile > ul {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    list-style-type: none;
+  }
+
+  #custom_categorias > ul > a > li {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    color: white;
+    background-color: #308a36;
+    padding: 2rem;
+    width: 550px;
+    border-radius: 0.65rem;
+    height: 250px;
+    min-height: 100%;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+  }
+
+  #custom_categorias_mobile > ul > a > li {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    color: white;
+    background-color: #308a36;
+    padding: 2rem 1rem;
+    width: 100%;
+    border-radius: 0.65rem;
+    height: 100px;
+  }
+
+  #custom_categorias > ul > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 0.65rem;
+    column-gap: 0.5rem;
+  }
+
+  #custom_categorias_mobile > ul > div {
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  @media screen and (max-width: 360px) {
+    #custom_categorias_mobile > ul > div  {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  #custom_categorias > ul > div > a > li {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border: 1px solid #308a36;
+    padding: 2rem;
+    border-radius: 0.65rem;
+    height: 100%;
+    color: #308a36;
+    align-items: center;
+    transition: all 0.15s ease;
+  }
+
+  #custom_categorias > ul > a > li:hover {
+    background-color: white;
+    border: 1px solid #308a36;
+    color: #308a36;
+  }
+
+  #custom_categorias > ul > div > a > li:hover {
+    background-color: #308a36;
+    color: white;
+  }
+
+  #custom_categorias_mobile > ul > div > a > li {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border: 1px solid #308a36;
+    padding: 2rem 1rem;
+    border-radius: 0.65rem;
+    height: 100%;
+    width: 100%;
+    color: #308a36;
+    align-items: center;
+  }
+
+  #custom_categorias > ul > a > li > h2,
+  #custom_categorias > ul > div > a > li > h2 {
+    font-size: 20px;
+    margin: 0;
+    max-width: 16rem;
+    line-height: normal;
+  }
+
+  #custom_categorias_mobile > ul > a > li > h2,
+  #custom_categorias_mobile > ul > div > a > li > h2 {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 2199px) {
+    #custom_categorias > ul > a > li {
+      width: 750px !important;
+    }
+  }
+
+  @media screen and (min-width: 1999px) {
+    #custom_categorias > ul > a > li {
+      width: 650px;
+    }
+  }
+
+  @media screen and (max-width: 1699px) {
+    #custom_categorias > ul > a > li {
+      width: 450px;
+    }
+
+    #custom_categorias > ul > a > li > h2,
+    #custom_categorias > ul > div > a > li > h2 {
+      font-size: 18px;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_categorias {
+      margin: 2rem 9vw;
+    }
+
+    #custom_categorias > ul > a > li,
+    #custom_categorias > ul > div > a > li {
+      padding: 1rem;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom_categorias {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1499px) {
+    #custom_categorias > ul > a > li,
+    #custom_categorias > ul > div > a > li {
+      padding: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    #custom_categorias > ul > a > li {
+      width: 350px;
+    }
+
+    #custom_categorias > ul > a > li,
+    #custom_categorias > ul > div > a > li {
+      padding: 0.5rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_categorias {
+      display: none;
+    }
+
+    #custom_categorias_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="custom_categorias">
+  {% if section.settings.selected_section_title %}
+    <h1>{{ section.settings.selected_section_title }}</h1>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <ul>
+      <a href="/collections/{{ section.blocks[0].settings.selected_collection }}">
+        <li>
+          <h2>{{ section.blocks[0].settings.selected_collection.title }}</h2>
+        </li>
+      </a>
+
+      <div>
+        {% for block in section.blocks %}
+          {% unless block == section.blocks[0] %}
+            <a href="/collections/{{ block.settings.selected_collection }}">
+              <li>
+                <h2>{{ block.settings.selected_collection.title }}</h2>
+              </li>
+            </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </ul>
+  {% endif %}
+</section>
+
+<section id="custom_categorias_mobile">
+  {% if section.settings.selected_section_title %}
+    <h1>{{ section.settings.selected_section_title }}</h1>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <ul>
+      <a href="/collections/{{ section.blocks[0].settings.selected_collection }}">
+        <li>
+          <h2>{{ section.blocks[0].settings.selected_collection.title }}</h2>
+        </li>
+      </a>
+
+      <div>
+        {% for block in section.blocks %}
+          {% unless block == section.blocks[0] %}
+            <a href="/collections/{{ block.settings.selected_collection }}">
+              <li>
+                <h2>{{ block.settings.selected_collection.title }}</h2>
+              </li>
+            </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </ul>
+  {% endif %}
+</section>

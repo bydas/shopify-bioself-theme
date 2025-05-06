@@ -1,0 +1,112 @@
+<div class="container container--narrow">
+  <header class="page__header page__header--stack page__header--centered">
+      <h2 class="page__title heading heading__decoration h1">{{ section.settings.page_heading | escape }}</h2>
+  </header>
+</div>
+<div class="container container--medium contact__contact-form">
+  <div class="layout">
+    <div class="layout__section">
+      {%- form 'contact', class: 'form' -%}
+        <div class="form__header">
+          <h2 class="heading h3 text--center">{{ section.settings.form_heading | escape }}</h2>
+        </div>
+        {%- if form.posted_successfully? -%}
+          <p class="alert alert--success">{{ 'contact.form.successfully_sent' | t }}</p>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="alert alert--error" id="contact-form-error">
+            <ul class="alert__error-list" role="list">
+              {%- for field in form.errors -%}
+                {%- if field == 'form' -%}
+                  <li class="alert__error-item">{{ form.errors.messages[field] }}</li>
+                {%- else -%}
+                  <li class="alert__error-item">{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+        <div class="form__input-row">
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <input id="contact-form-first_name" type="text" class="form__field form__field--text {% if customer.first_name != blank %}is-filled{% endif %}" name="contact[first_name]" aria-label="{{ 'contact.form.first_name' | t }}" required {% if customer %}value="{{ customer.name }}"{% endif %}>
+            <label for="contact-form-first_name" class="form__floating-label">{{ 'contact.form.name' | t }}</label>
+          </div>
+        </div>
+        <div class="form__input-row">
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <input id="contact-form-email" type="email" class="form__field form__field--text {% if customer.email != blank %}is-filled{% endif %}" name="contact[email]" aria-label="{{ 'contact.form.email' | t }}" required {% if customer %}value="{{ customer.email }}"{% endif %} {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="contact-form-error"{% endif %}>
+            <label for="contact-form-email" class="form__floating-label">{{ 'contact.form.email' | t }}</label>
+          </div>
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <input id="contact-form-phone" type="text" class="form__field form__field--text {% if customer.phone != blank %}is-filled{% endif %}" name="contact[phone]" aria-label="{{ 'contact.form.phone' | t }}" required {% if customer %}value="{{ customer.phone }}"{% endif %}>
+            <label for="contact-form-phone" class="form__floating-label">{{ 'contact.form.phone' | t }}</label>
+          </div>
+        </div>
+        <div class="form__input-wrapper form__input-wrapper--labelled">
+          <input id="contact-form-subject" type="text" class="form__field form__field--text" name="contact[subject]" aria-label="{{ 'contact.form.subject' | t }}" required>
+          <label for="contact-form-message" class="form__floating-label">{{ 'contact.form.subject' | t }}</label>
+        </div>
+        <div class="form__input-wrapper form__input-wrapper--labelled">
+          <textarea id="contact-form-message" name="contact[body]" rows="8" class="form__field form__field--textarea" aria-label="{{ 'contact.form.message' | t }}" required></textarea>
+          <label for="contact-form-message" class="form__floating-label">{{ 'contact.form.message' | t }}</label>
+        </div>
+
+        <div class="form__input-wrapper form__input-wrapper--legal form__input-wrapper--labelled">
+          <input type="checkbox" required><label>Concordo com a <strong>Política de Privacidade</strong> e os <strong>Termos e Condições</strong></label>
+        </div>
+
+        <div class="form__input-wrapper form__input-wrapper--legal form__input-wrapper--labelled">
+          <input type="checkbox" required><label><small>Os dados recolhidos são tratados automaticamente com a finalidade de gerir as mensagens recepcionadas. O titular dos dados tem direito de acesso e retificação, devendo para tal contactar o responsável pelo tratamento, ao BIOSELF NATURA. Porque os seus dados circulam em rede aberta correm o risco de serem vistos e utilizados por terceiros não autorizados.</small></label>
+        </div>
+        <button type="submit" class="form__submit {% unless section.settings.show_store_info %}form__submit--centered{% endunless %} button button--primary button--min-width">{{ 'contact.form.submit' | t }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "page_heading",
+      "label": "Heading",
+      "default": "Find us"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Column",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Titulo"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitulo"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Conteúdo"
+        },
+        {
+          "type": "range",
+          "id": "col_size",
+          "min": 25,
+          "max": 100,
+          "step": 25,
+          "label": "Column size",
+          "default": 100
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

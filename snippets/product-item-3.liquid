@@ -1,0 +1,384 @@
+{% comment %} Product Display Snippet {% endcomment %}
+
+<section id="product_item_custom-3">
+  <a href="{{ product.url }}" id="custom_link_product-3">
+    {%- if product.price < product.compare_at_price -%}
+      <span id="label_custom">
+        {{-
+          product.compare_at_price
+          | minus: product.price
+          | times: 100.0
+          | divided_by: product.compare_at_price
+          | round
+        -}}
+        %</span
+      >
+    {%- endif -%}
+
+    <div id="container_product_custom_mobile-3">
+      <img src="{{ product.featured_image | img_url: '200x' }}">
+
+      <div id="name_product_custom_mobile-3">
+        <h1>{{ product.title }}</h1>
+
+        <script
+          charset="utf-8"
+          src="https://cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/AWS/PRODUCT_API/tag.min.js"
+        ></script>
+        <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
+        <div class="skeepers_product__stars" data-product-id="{{ product.id }}"></div>
+
+        <div id="no_reviews_stars">
+          <div>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="no_reviews_label"> 0/5 - 0 Opiniões </span>
+          </div>
+        </div>
+
+        <div id="prices_custom">
+          <h2>{{ product.price | money_without_trailing_zeros }}</h2>
+
+          {%- if product.price < product.compare_at_price -%}
+            <h3>{{ product.compare_at_price | money_without_trailing_zeros }}</h3>
+          {%- endif -%}
+        </div>
+
+        {%- assign units = product.metafields.PHC['Valor-Unidade'] | floor -%}
+        {%- assign pvp = product.price -%}
+        {%- assign pvp_per_unit = pvp | divided_by: units | money -%}
+
+        <span id="pvp_custom">{{ pvp_per_unit | split: '€' }}€/{{ product.metafields.PHC['Unidade-Singular'] }}</span>
+      </div>
+    </div>
+  </a>
+
+  {%- if product.available -%}
+    <form method="post" action="/cart/add" id="form_custom_mobile-3">
+      {%- if product.variants.size == 1 -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        <button
+          type="submit"
+          class="{{ quick_buy_classes }}"
+          data-action="add-to-cart"
+        >
+          {%- if product.template_suffix == 'pre-order' -%}
+            {{- 'collection.product.pre_order' | t -}}
+          {%- else -%}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.52975 17.136C8.52975 17.3274 8.47298 17.5146 8.36661 17.6738C8.26025 17.8329 8.10907 17.957 7.93219 18.0303C7.75531 18.1036 7.56068 18.1227 7.3729 18.0854C7.18513 18.048 7.01265 17.9558 6.87727 17.8204C6.74189 17.6851 6.6497 17.5126 6.61235 17.3248C6.575 17.137 6.59417 16.9424 6.66744 16.7655C6.7407 16.5887 6.86477 16.4375 7.02396 16.3311C7.18315 16.2247 7.3703 16.168 7.56175 16.168C7.81848 16.168 8.06469 16.27 8.24623 16.4515C8.42777 16.633 8.52975 16.8792 8.52975 17.136Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16.9829 17.136C16.9829 17.3274 16.9261 17.5146 16.8197 17.6738C16.7134 17.8329 16.5622 17.957 16.3853 18.0303C16.2084 18.1036 16.0138 18.1227 15.826 18.0854C15.6383 18.048 15.4658 17.9558 15.3304 17.8204C15.195 17.6851 15.1028 17.5126 15.0655 17.3248C15.0281 17.137 15.0473 16.9424 15.1206 16.7655C15.1938 16.5887 15.3179 16.4375 15.4771 16.3311C15.6363 16.2247 15.8234 16.168 16.0149 16.168C16.2716 16.168 16.5178 16.27 16.6994 16.4515C16.8809 16.633 16.9829 16.8792 16.9829 17.136Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M1 1H4.258L6.441 11.083C6.53024 11.4428 6.74125 11.7605 7.03819 11.9824C7.33513 12.2042 7.69971 12.3164 8.07 12.3H15.987C16.3566 12.3167 16.7207 12.2052 17.0175 11.9843C17.3144 11.7635 17.5258 11.4468 17.616 11.088L18.916 4.77H5.072" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <span>Adicionar</span>
+          {%- endif -%}
+        </button>
+      {%- else -%}
+        <a
+          href="{{ product.url | within: collection }}"
+          class="{{ quick_buy_classes }}"
+          id="custom_specific_product"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.52975 17.136C8.52975 17.3274 8.47298 17.5146 8.36661 17.6738C8.26025 17.8329 8.10907 17.957 7.93219 18.0303C7.75531 18.1036 7.56068 18.1227 7.3729 18.0854C7.18513 18.048 7.01265 17.9558 6.87727 17.8204C6.74189 17.6851 6.6497 17.5126 6.61235 17.3248C6.575 17.137 6.59417 16.9424 6.66744 16.7655C6.7407 16.5887 6.86477 16.4375 7.02396 16.3311C7.18315 16.2247 7.3703 16.168 7.56175 16.168C7.81848 16.168 8.06469 16.27 8.24623 16.4515C8.42777 16.633 8.52975 16.8792 8.52975 17.136Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16.9829 17.136C16.9829 17.3274 16.9261 17.5146 16.8197 17.6738C16.7134 17.8329 16.5622 17.957 16.3853 18.0303C16.2084 18.1036 16.0138 18.1227 15.826 18.0854C15.6383 18.048 15.4658 17.9558 15.3304 17.8204C15.195 17.6851 15.1028 17.5126 15.0655 17.3248C15.0281 17.137 15.0473 16.9424 15.1206 16.7655C15.1938 16.5887 15.3179 16.4375 15.4771 16.3311C15.6363 16.2247 15.8234 16.168 16.0149 16.168C16.2716 16.168 16.5178 16.27 16.6994 16.4515C16.8809 16.633 16.9829 16.8792 16.9829 17.136Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 1H4.258L6.441 11.083C6.53024 11.4428 6.74125 11.7605 7.03819 11.9824C7.33513 12.2042 7.69971 12.3164 8.07 12.3H15.987C16.3566 12.3167 16.7207 12.2052 17.0175 11.9843C17.3144 11.7635 17.5258 11.4468 17.616 11.088L18.916 4.77H5.072" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <span>Adicionar</span>
+        </a>
+      {%- endif -%}
+    </form>
+  {%- else -%}
+    {% unless product.available %}
+      <a
+        href="#"
+        class="SI_trigger {{ quick_buy_classes }} notify_button_collection"
+        data-product-data="{{ product | json | escape }}"
+        id="notify_button_custom"
+      >
+        NOTIFICAR
+      </a>
+    {% endunless %}
+  {%- endif -%}
+</section>
+
+<section id="product_item_custom_mobile_small">
+  {% render 'product-item-2', product: product %}
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const productSections = document.querySelectorAll("#product_item_custom-3");
+
+    function checkReviews() {
+      productSections.forEach((section) => {
+        const starsContainer = section.querySelector(".NETREVIEWS_PRODUCT_STARS");
+        const skeepersContainer = section.querySelector(".skeepers_product__stars");
+        const noReviewsFallback = section.querySelector("#no_reviews_stars");
+
+        if (starsContainer) {
+          const observer = new MutationObserver(() => {
+            if (starsContainer.innerHTML.trim() === "") {
+              noReviewsFallback.style.display = "block";
+
+              starsContainer.style.display = "none";
+              if (skeepersContainer) {
+                skeepersContainer.style.display = "none";
+              }
+            } else {
+              // Oculta o fallback e exibe as estrelas
+              noReviewsFallback.style.display = "none";
+              starsContainer.style.display = "block";
+              if (skeepersContainer) {
+                skeepersContainer.style.display = "block";
+              }
+            }
+          });
+
+          observer.observe(starsContainer, { childList: true, subtree: true });
+
+          setTimeout(() => {
+            if (starsContainer.innerHTML.trim() === "") {
+              noReviewsFallback.style.display = "block";
+              starsContainer.style.display = "none";
+              if (skeepersContainer) {
+                skeepersContainer.style.display = "none";
+              }
+            }
+          }, 2000);
+        }
+      });
+    }
+
+    checkReviews();
+  });
+</script>
+
+<style>
+  #product_item_custom_mobile_small {
+    display: none;
+  }
+
+  form {
+    display: grid;
+  }
+
+  .no_reviews_stars {
+    display: none;
+  }
+
+  #product_item_custom-3 {
+    display: grid;
+    grid-template-rows: 1fr max-content;
+    border: 1px solid #308a36;
+    border-radius: 0.65rem;
+  }
+
+  @media screen and (max-width: 370px) {
+    #product_item_custom_mobile_small {
+      display: grid;
+    }
+
+    #product_item_custom-3 {
+      display: none;
+    }
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    gap: 0.125rem;
+    padding: 1rem 1rem 0 1rem;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #label_custom {
+    font-weight: 500;
+    padding: 0.35rem 2rem;
+    background-color: #ffbb12;
+    border-radius: 2rem;
+    width: max-content;
+    font-size: 14px;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > div {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > div > img {
+    width: 140px;
+    height: auto;
+    object-fit: cover;
+    justify-self: center;
+  }
+
+  @media screen and (max-width: 450px) {
+    #product_item_custom-3 > #custom_link_product-3 > div > img {
+      height: 120px;
+    }
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    max-width: 12rem;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > h1 {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #ratings_custom {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #ratings_custom > ul {
+    display: grid;
+    grid-template-columns: repeat(5, max-content);
+    gap: 0.125rem;
+    list-style-type: none;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #ratings_custom > span {
+    font-size: 14px;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #prices_custom {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.65rem;
+    align-items: center;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #prices_custom > h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #308a36;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #prices_custom > h3 {
+    margin: 0;
+    font-size: 14px;
+    text-decoration: line-through;
+  }
+
+  #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #pvp_custom {
+    font-size: 14px;
+  }
+
+  #product_item_custom-3 > #form_custom_mobile-3 > button,
+  #product_item_custom-3 > #custom_specific_product {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 0.65rem;
+    border: none;
+    background-color: #308a36;
+    gap: 1rem;
+    width: max-content;
+    justify-self: center;
+    height: max-content;
+    margin: 0.5rem 1rem 1rem 1rem;
+    transition: all 0.15s ease;
+  }
+
+  #product_item_custom-3 > #custom_specific_product {
+    padding: 0.75rem 2.5rem;
+  }
+
+  #product_item_custom-3 > #form_custom_mobile-3 > button {
+    padding: 0.5rem 2.5rem;
+  }
+
+  #product_item_custom-3 > #form_custom_mobile-3 > button:hover,
+  #product_item_custom-3 > #custom_specific_product:hover {
+    background-color: #ffbb12;
+  }
+
+  #notify_button_custom {
+    display: grid;
+    margin: 1rem;
+    height: max-content;
+    text-align: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.75rem 1rem;
+  }
+
+  #product_item_custom-3 > #form_custom_mobile-3 > button > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #product_item_custom-3 > #form_custom_mobile-3 > button > span {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 420px) {
+    #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > h1,
+    #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #prices_custom > h3 {
+      font-size: 14px;
+    }
+
+    #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #prices_custom > h2 {
+      font-size: 18px;
+    }
+
+    #product_item_custom-3 > #form_custom_mobile-3 > button > span {
+      font-size: 13px;
+    }
+
+    #product_item_custom-3 > #form_custom_mobile-3 > button > svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #pvp_custom,
+    .netreviews_bg_stars div,
+    .netreviews_review_rate_and_stars div,
+    #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #label_custom {
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .netreviews_review_rate_and_stars {
+      margin-top: 1rem;
+    }
+
+    #product_item_custom-3 > #custom_link_product-3 > #container_product_custom_mobile-3 > #name_product_custom_mobile-3 > #label_custom {
+      padding: 0.25rem 1.5rem;
+    }
+
+    #product_item_custom-3 > #form_custom_mobile-3 > button,
+    #product_item_custom-3 > #custom_specific_product {
+      margin: 1rem 0.5rem;
+    }
+
+    #product_item_custom-3 > #custom_link_product-3, {
+      padding: 0.5rem;
+    }
+
+    #product_item_custom-3 > button,
+    #product_item_custom-3 > #custom_specific_product,
+    #notify_button_custom {
+      margin: 0.5rem;
+    }
+  }
+</style>

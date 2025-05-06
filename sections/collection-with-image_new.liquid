@@ -1,0 +1,523 @@
+{%- capture section_settings -%}
+{
+  "pageDots": false,
+  "prevNextButtons": false,
+  "stackable": false,
+  "layout": "vertical"
+}
+{%- endcapture -%}
+
+<section
+  class="section {% if section.settings.show_only_mobile != blank %} hidden-lap-and-up {% endif %} {% if section.settings.show_only_desktop != blank %} hidden-pocket {% endif %}"
+  data-section-id="{{ section.id }}"
+  data-section-type="featured-collection"
+  data-section-settings="{{ section_settings }}"
+>
+  <div class="container container--flush">
+    {%- if section.settings.main_title != blank -%}
+      <div class="section__header-stack">
+        <h2 class="section__title heading h3">
+          {{ section.settings.main_title | default: collection.title | escape }}
+        </h2>
+
+        {%- if section.settings.title_button != blank -%}
+          <div class="section_title_button_container">
+            <a href="{{ section.settings.link_url | default: collection.url | default: '#' }}">
+              <button class="section_title_button">
+                {{ section.settings.title_button }}
+              </button>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- assign collection = collections[section.settings.collection] -%}
+
+    <div class="featured-collection lazyload">
+      <div class="featured-collection__content">
+        {% if section.settings.image %}
+          <div class="featured-collection_image">
+            <img
+              src="{{ section.settings.image | img_url: '500x' }}"
+              width="500px"
+              height="100%"
+            >
+          </div>
+        {% endif %}
+
+        <div class="scroller scroller--flush">
+          <div class="scroller__inner">
+            <div class="product-list product-list--scrollable">
+              {%- assign grid_classes = '1/2--lap 1/3--desk 1/4--wide' -%}
+
+              {%- unless collection.empty? -%}
+                {%- for product in collection.products limit: section.settings.products_count -%}
+                  {%- render 'product-item', product: product, grid_classes: '1/3', show_add_to_cart: true -%}
+                {%- endfor -%}
+              {%- else -%}
+                {%- for i in (1..section.settings.products_count) -%}
+                  {%- render 'product-item-placeholder', grid_classes: grid_classes -%}
+                {%- endfor -%}
+              {%- endunless -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.mobile_button_text != blank -%}
+      <div class="section_title_button_container_mobile">
+        <button class="section_title_button_mobile">
+          {{ section.settings.mobile_button_text }}
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .featured-collection__content {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* A imagem ocupa 1 parte, o slider ocupa 2 partes */
+    column-gap: 20px;
+    align-items: center; /* Alinha verticalmente a imagem e o slider */
+  }
+
+  #shopify-section-{{ section.id }} .featured-collection_image {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #shopify-section-{{ section.id }} .scroller {
+    width: 100%; /* Garante que o slider ocupe a largura disponível */
+    overflow: hidden;
+    display: grid;
+  }
+
+  #shopify-section-{{ section.id }} .scroller__inner {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  #shopify-section-{{ section.id }} .product-list--scrollable .product-item {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    width: calc(33.333% - 10px); /* Ajusta o tamanho do produto para caber no slider */
+  }
+
+  @media screen and (min-width: 640px) {
+    #shopify-section-{{ section.id }} .product-list {
+      margin-bottom: 0 !important;
+    }
+
+      #shopify-section-{{ section.id }} .featured-collection .product-list {
+        margin-left: 20px;
+    }
+  }
+
+  @media screen and (max-width: 1100px) and (min-width: 769px) {
+    #shopify-section-{{ section.id }} .featured-collection__content {
+      margin: 0 30px;
+    }
+  }
+
+  /* Responsividade */
+  @media screen and (max-width: 1100px) {
+    #shopify-section-{{ section.id }} .featured-collection__content {
+      grid-template-columns: 1fr; /* Alinha verticalmente em telas menores */
+    }
+
+    #shopify-section-{{ section.id }} .scroller__inner {
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .product-list--scrollable .product-item {
+      width: 50%; /* Exibe 2 produtos no slider em telas médias */
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .featured-collection__content {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .scroller__inner {
+      gap: 5px;
+    }
+
+    #shopify-section-{{ section.id }} .product-list--scrollable .product-item {
+      width: 100%; /* Exibe 1 produto por vez em telas pequenas */
+    }
+  }
+
+  #shopify-section-{{ section.id }} .featured-collection__content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .featured-collection_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .featured-collection_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .scroller {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .scroller__inner {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+  }
+
+  #shopify-section-{{ section.id }} .product-list--scrollable .product-item {
+    flex: 0 0 auto;
+    width: calc(33.333% - 10px);
+  }
+
+    @media screen and (max-width: 1100px) {
+      #shopify-section-{{ section.id }} .featured-collection__content {
+        display: grid;
+        grid-template-columns: 0.5fr 1fr;
+      }
+
+      .featured-collection_image {
+        background-size: cover;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }} .featured-collection__content {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+      }
+    }
+
+    #shopify-section-{{ section.id }} .section__header-stack {
+      margin-bottom: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .featured-collection {
+      background-color: {{ section.settings.background }};
+    }
+
+    #shopify-section-{{ section.id }} .featured-collection__header {
+      color: {{ section.settings.text_color }};
+    }
+
+    #shopify-section-{{ section.id }} .button {
+      color: {{ section.settings.button_text_color }};
+      background-color: {{ section.settings.button_background }};
+    }
+
+    #shopify-section-{{ section.id }} .featured-collection {
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .product-list {
+      padding-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .featured-collection .product-item {
+        border: 1px solid var(--border-color);
+    }
+
+    #shopify-section-{{ section.id }} .flickity-page-dots, #shopify-section-{{ section.id }} .flickity-prev-next-button.previous, #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .image_container_mobile {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .featured-collection_image > img {
+      height: 100%;
+      border-radius: 15px;
+      background-size: contain;
+    }
+
+
+    @media screen and (min-width: 1000px) {
+        #shopify-section-{{ section.id }} .product-list--scrollable .product-item {
+            width: 31%;
+        }
+
+        #shopify-section-{{ section.id }} .product-item__price-list.price-list {
+          margin-bottom: 10px !important;
+        }
+
+        #shopify-section-{{ section.id }} .product-list--scrollable .product-item {
+          margin-right: 20px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }} .image_container_mobile {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      #shopify-section-{{ section.id }} .featured-collection__header {
+          padding: 0;
+      }
+
+      #shopify-section-{{ section.id }} .product-list.product-list--scrollable {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          column-gap: 10px;
+          row-gap: 10px;
+      }
+
+      #shopify-section-{{ section.id }} .product-item.product-item--vertical {
+          width: 100%;
+      }
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile {
+      display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }}  button.section_title_button {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .section__header-stack {
+        margin-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile {
+      background: #F7D147;
+      border-radius: 15px;
+      font-weight: 500;
+      font-size: 15px;
+      text-transform: uppercase;
+      width: 100%;
+      margin-top: 12px;
+      font-family: 'RedHatDisplay';
+    }
+
+    #shopify-section-{{ section.id }} button.section_title_button_mobile p {
+        padding: 7px 0;
+        line-height: 18px;
+        font-size: 12px;
+        font-family: 'RedHatDisplay';
+        text-transform: none;
+    }
+  }
+
+    @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .product-item:nth-of-type(1) {
+      grid-column: 1 / 2;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(2) {
+      grid-column: 2 / 3;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(3) {
+      grid-column: 1 / 3;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(3) a.product-item__title.text--strong.link {
+      margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(3) .button__group-wrapper {
+      width: 200%;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(4) {
+      display: none;
+  }
+
+  #shopify-section-{{ section.id }} .product-item:nth-of-type(5) {
+      display: none;
+
+  }
+
+  #shopify-section-{{ section.id }} .scroller__inner {
+    padding-bottom: 0px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-collection_image {
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    background-size: cover;
+    background: round;
+  }
+
+  @media screen and (min-width: 641px) and (max-width: 999px) {
+    #shopify-section-{{ section.id }} .featured-collection__header {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const onResize = () => {
+    const img = document.querySelector("#shopify-section-{{ section.id }} .featured-collection_image img");
+
+    if (img) {
+      if (window.innerWidth < 769) {
+        img.src = "{{ section.settings.image_mobile | img_url: '200x' }}";
+      } else {
+        img.src = "{{ section.settings.image | img_url: '500x' }}";
+      }
+    }
+  }
+
+  onResize()
+
+  window.addEventListener("resize", onResize);
+</script>
+
+{% schema %}
+{
+  "name": "New Collection with image",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_only_desktop",
+      "label": "Show only desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_mobile",
+      "label": "Show only mobile",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Heading",
+      "default": "PRODUTOS EM DESTAQUE"
+    },
+    {
+      "type": "text",
+      "id": "title_button",
+      "label": "Heading button",
+      "default": "EXPLORA MAIS"
+    },
+    {
+      "type": "richtext",
+      "id": "mobile_button_text",
+      "label": "Button text",
+      "default": "<p><strong>EXPLORA MAIS</strong></p>"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Products to show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1000 x 400px .png with transparency recommended (hidden on mobile)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured collection"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "Text",
+      "default": "Tell more about your product, collection..."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#95C11F"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link",
+      "info": "If left empty, collection URL is used."
+    }
+  ],
+  "presets": [
+    {
+      "category": "Collection",
+      "name": "New Collection with image",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

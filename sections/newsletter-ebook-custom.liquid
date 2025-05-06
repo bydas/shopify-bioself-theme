@@ -1,0 +1,369 @@
+{% schema %}
+{
+  "name": "Newsletter Ebook custom",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Título",
+      "id": "newsletter_title"
+    },
+    {
+      "type": "richtext",
+      "label": "Descrição",
+      "id": "newsletter_subtitle"
+    },
+    {
+      "type": "text",
+      "label": "Texto do botão",
+      "id": "newsletter_btn"
+    },
+    {
+      "type": "page",
+      "label": "Página de termos",
+      "id": "newsletter_page"
+    },
+    {
+      "type": "text",
+      "label": "Texto de termos",
+      "id": "newsletter_terms"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Ebook custom",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #newsletter_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    margin: 2rem var(--desktop-container-gutter);
+    padding: 2rem;
+    border-radius: 0.65rem;
+    border: 1px solid #308a36;
+  }
+
+  #newsletter_custom_mobile_1 {
+    display: none;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 0.5rem;
+    margin: 1rem var(--mobile-container-gutter);
+    padding: 1rem;
+    border-radius: 0.65rem;
+    border: 1px solid #308a36;
+  }
+
+  #newsletter_custom > h1 {
+    font-size: 21px;
+    text-transform: uppercase;
+    color: #308a36;
+    text-align: center;
+    margin: 0 2rem;
+  }
+
+  #newsletter_custom > p {
+    font-size: 16px;
+    margin: 0;
+    text-align: center;
+    margin: 0 6rem;
+  }
+
+  #newsletter_custom_mobile_1 > h1 {
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    color: #308a36;
+    text-align: center;
+    margin: 0 1rem;
+  }
+
+  #newsletter_custom_mobile_1 > p {
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+    margin: 0 1rem;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #newsletter_custom > h1 {
+      font-size: 18px !important;
+    }
+
+    #newsletter_inputs > button,
+    #newsletter_inputs > input {
+      padding: 0.5rem 1.6rem !important;
+    }
+
+    #newsletter_inputs > button,
+    #newsletter_inputs > input,
+    #newsletter_custom > form > #newsletter_checkbox > label,
+    #newsletter_checkbox > label > a {
+      font-size: 12px !important;
+    }
+
+    #selected_terms {
+      width: 12px !important;
+      height: 12px !important;
+    }
+  }
+
+  #newsletter_custom > form {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  #newsletter_custom_mobile_1 > form {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 0.5rem;
+    margin: 0 1rem;
+  }
+
+  #newsletter_inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr max-content;
+    gap: 0.5rem;
+    margin: 0 6rem;
+    margin-top: 2rem !important;
+  }
+
+  #newsletter_inputs > input,
+  #newsletter_custom_mobile_1 > form > input {
+    background-color: #FFFEF8;
+    border-radius: 0.65rem;
+    border: 1px solid #308a36;
+    padding: 0.5rem 1.5rem;
+    color: black;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width: 360px) {
+    #newsletter_inputs > input,
+    #newsletter_custom_mobile_1 > form > input {
+      padding: 0.5rem;
+    }
+  }
+
+  #newsletter_inputs > input::placeholder,
+  #newsletter_custom_mobile_1 > form > input::placeholder {
+    color: #B9B8B3;
+  }
+
+  #newsletter_inputs > button {
+    background-color: #308a36;
+    border-radius: 0.65rem;
+    border: none;
+    color: white;
+    text-align: center;
+    padding: 0.65rem 2rem;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    font-weight: 700;
+  }
+
+  #newsletter_custom_mobile_1 > form > button {
+    background-color: #308a36;
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    text-align: center;
+    padding: 0.35rem 2rem;
+    text-transform: uppercase;
+    max-width: max-content;
+    font-weight: 700;
+    justify-self: center;
+  }
+
+  #newsletter_inputs > button:hover {
+    background-color: white;
+    border: 1px solid #308a36;
+    background-color: #FFFEF8;
+    color: #308a36;
+  }
+
+  #newsletter_custom > form > #newsletter_checkbox {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.65rem;
+    align-items: center;
+    margin: 0 6rem;
+  }
+
+  #newsletter_custom > form > #newsletter_checkbox > label {
+    font-weight: 500;
+  }
+
+  #newsletter_custom_mobile_1 > form > #newsletter_checkbox {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  #newsletter_checkbox > label > a {
+    text-decoration: underline;
+    font-size: 14px;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #newsletter_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #newsletter_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    #newsletter_custom > form > #newsletter_checkbox,
+    #newsletter_custom > form > #newsletter_inputs,
+    #newsletter_custom > h1 {
+      margin: 0 10vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #newsletter_custom {
+      display: none;
+    }
+
+    #newsletter_custom_mobile_1 {
+      display: grid;
+    }
+  }
+
+  @media screen and (max-width: 359px) {
+    #newsletter_custom_mobile_1 > form > #newsletter_checkbox > label {
+      max-width: 10rem;
+    }
+  }
+</style>
+
+{%- assign newsletter_id = 'newsletter-' | append: section.id -%}
+
+<section id="newsletter_custom">
+  {% if section.settings.newsletter_title %}
+    <h1>{{ section.settings.newsletter_title }}</h1>
+  {% endif %}
+
+  {% if section.settings.newsletter_subtitle %}
+    {{ section.settings.newsletter_subtitle }}
+  {% endif %}
+
+  {% form 'customer', id: newsletter_id %}
+    <div id="newsletter_inputs">
+      <input type="hidden" name="contact[tags]" value="newsletter">
+
+      <input
+        type="text"
+        id="newsletter[contact][first_name]"
+        name="contact[first_name]"
+        placeholder="Nome"
+        required
+      >
+
+      <input
+        type="email"
+        id="newsletter[contact][email]"
+        name="contact[email]"
+        placeholder="E-mail"
+        required
+      >
+
+      {% if section.settings.newsletter_btn %}
+        <button type="submit">{{ section.settings.newsletter_btn }}</button>
+      {% endif %}
+    </div>
+
+    {% if section.settings.newsletter_page %}
+      <div id="newsletter_checkbox">
+        <input
+          type="checkbox"
+          id="selected_terms"
+          name="selected_terms"
+          required
+        >
+
+        <label for="selected_terms">
+          {{ section.settings.newsletter_terms }}
+          <a href="{{ section.settings.newsletter_page.url }}" target="_blank">
+            {{- section.settings.newsletter_page.title -}}
+          </a>
+        </label>
+      </div>
+    {% endif %}
+  {% endform %}
+</section>
+
+<section id="newsletter_custom_mobile_1">
+  {% if section.settings.newsletter_title %}
+    <h1>{{ section.settings.newsletter_title }}</h1>
+  {% endif %}
+
+  {% form 'customer', id: newsletter_id %}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+
+    <input
+      type="text"
+      id="newsletter[contact][first_name]"
+      name="contact[first_name]"
+      placeholder="Nome"
+      required
+    >
+
+    <input
+      type="email"
+      id="newsletter[contact][email]"
+      name="contact[email]"
+      placeholder="E-mail"
+      required
+    >
+
+    {% if section.settings.newsletter_page %}
+      <div id="newsletter_checkbox">
+        <input
+          type="checkbox"
+          id="selected_terms"
+          name="selected_terms"
+          required
+        >
+
+        <label for="selected_terms">
+          {{ section.settings.newsletter_terms }}
+
+          <a href="{{ section.settings.newsletter_page.url }}" target="_blank">
+            {{- section.settings.newsletter_page.title -}}
+          </a>
+        </label>
+      </div>
+    {% endif %}
+
+    {% if section.settings.newsletter_btn %}
+      <button id="newsletter_submit" type="submit">
+        {{ section.settings.newsletter_btn }}
+      </button>
+    {% endif %}
+
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        const submitButton = document.getElementById('newsletter_submit');
+
+        if (submitButton) {
+          submitButton.addEventListener('click', function() {
+            fbq('track', 'Lead');
+          });
+        }
+      });
+    </script>
+  {% endform %}
+</section>

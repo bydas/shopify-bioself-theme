@@ -1,0 +1,184 @@
+<section data-section-id="{{ section.id }}" data-section-type="blog">
+  {%- if section.settings.show_blog_heading -%}
+    <header class="page__header">
+      <h1 class="page__title heading h1">{{ blog.title }}</h1>
+      {%- if section.settings.show_tags and blog.all_tags.size > 0 -%}
+        {% unless current_tags.first contains 'author_' %}
+          <ul class="page__tag-list hidden-pocket" role="list">
+            <li class="page__tag-item link {% if current_tags == blank %}is-selected{% endif %}">
+              <a href="{{ blog.url }}">{{ 'blog.general.all_tag' | t }}</a>
+            </li>
+
+            {%- for tag in blog.all_tags -%}
+              <li class="page__tag-item link {% if current_tags contains tag %}is-selected{% endif %}">
+                {{ tag | link_to_tag: tag }}
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          <div class="page__action-list hidden-lap-and-up">
+            <div class="value-picker-wrapper">
+              <button
+                class="value-picker-button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="blog-tag-selector"
+                data-action="open-value-picker"
+              >
+                {%- if current_tags == blank -%}
+                  {{- 'blog.general.all_tag' | t -}}
+                {%- else -%}
+                  {{- current_tags.first -}}
+                {%- endif -%}
+
+                {%- render 'icon', icon: 'arrow-bottom' -%}
+              </button>
+
+              <div
+                id="blog-tag-selector"
+                class="value-picker"
+                aria-hidden="true"
+              >
+                {% render 'icon', icon: 'nav-triangle-borderless' %}
+
+                <div class="value-picker__inner">
+                  <header class="value-picker__header">
+                    <span class="value-picker__title text--strong">{{ 'blog.general.categories' | t }}</span>
+                    <button
+                      class="value-picker__close"
+                      data-action="close-value-picker"
+                      aria-controls="blog-tag-selector"
+                      aria-label="{{ 'general.accessibility.close' | t }}"
+                    >
+                      {% render 'icon', icon: 'close' %}
+                    </button>
+                  </header>
+
+                  <div class="value-picker__choice-list">
+                    <a
+                      href="/blogs/{{ blog.handle }}"
+                      class="value-picker__choice-item {% if current_tags == blank %}is-selected{% endif %}"
+                    >
+                      {{- 'blog.general.all_tag' | t }}
+                      {% render 'icon', icon: 'check-2' -%}
+                    </a>
+
+                    {%- for tag in blog.all_tags -%}
+                      <a
+                        href="/blogs/{{ blog.handle }}/tagged/{{ tag | handle }}"
+                        class="value-picker__choice-item {% if current_tags contains tag %}is-selected{% endif %}"
+                      >
+                        {{- tag }}
+                        {% render 'icon', icon: 'check-2' -%}
+                      </a>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endunless %}
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  {%- if blog.articles_count == 0 -%}
+    <div class="empty-state">
+      <p class="empty-state__heading heading h1">{{ blog.title }}</p>
+      <p class="empty-state__description">{{ 'blog.general.empty' | t }}</p>
+
+      <div class="empty-state__button-container">
+        <a href="{{ routes.root_url }}" class="empty-state__button button button--primary">
+          {{- 'blog.general.empty_button' | t -}}
+        </a>
+      </div>
+    </div>
+  {%- else -%}
+    {%- assign articles_per_page = section.settings.articles_per_page -%}
+    {%- assign modulo = articles_per_page | modulo: 2 -%}
+
+    {%- if section.settings.highlight_first_article and modulo == 0 and current_tags == blank -%}
+      {%- assign articles_per_page = articles_per_page | plus: 1 -%}
+    {%- endif -%}
+
+    <div class="block-list-featured-blog">
+      {%- for article in blog.articles limit: 2 -%}
+        {% if forloop.index == 2 %}
+          {%- render 'article-item', article: article, featured: true -%}
+        {% endif %}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div class="blog_template_article_layout">
+    {%- paginate blog.articles by articles_per_page -%}
+      <div class="blog_template_article_layout_columns">
+        <div class="article-block-list block-list--loose block-list--no-flush">
+          {%- for article in blog.articles -%}
+            {%- render 'article-item', article: article, featured: false -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="blog_template_pagination">
+        {%- render 'pagination', paginate: paginate -%}
+      </div>
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog page",
+  "class": "shopify-section__blog-featured-posts",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_blog_heading",
+      "label": "Show blog heading",
+      "info": "Display blog Category and title",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "label": "Posts per page",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category",
+      "label": "Show category",
+      "info": "The first article's tag will be shown as category.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,358 @@
+<style>
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #newsletter_custom > h1 {
+      font-size: 18px !important;
+    }
+
+    #newsletter_inputs > button,
+    #newsletter_inputs > input {
+      padding: 0.5rem 1.6rem !important;
+    }
+
+    #newsletter_inputs > button,
+    #newsletter_inputs > input,
+    #newsletter_custom > form > #newsletter_checkbox > label,
+    #newsletter_checkbox > label > a {
+      font-size: 12px !important;
+    }
+
+    #selected_terms {
+      width: 12px !important;
+      height: 12px !important;
+    }
+
+    #newsletter_custom > svg {
+      width: 24px !important;
+      height: 24px !important;
+    }
+  }
+
+  #newsletter_custom {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    padding: 0.5rem 0 2rem 0;
+    border-radius: 0.65rem;
+    border: 1px solid #308a36;
+  }
+
+  #newsletter_custom_mobile {
+    display: none;
+    grid-template-rows: repeat(3, max-content);
+    gap: 0.5rem;
+    padding: 0.25rem 0 1rem 0;
+    border-radius: 0.65rem;
+    border: 1px solid #308a36;
+    user-select: none;
+  }
+
+  #newsletter_custom > svg {
+    width: 30px;
+    height: 30px;
+    justify-self: right;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  #newsletter_custom_mobile > svg {
+    width: 25px;
+    height: 25px;
+    justify-self: right;
+    margin-right: 0.25rem;
+    cursor: pointer;
+  }
+
+  #newsletter_custom > h1 {
+    font-size: 21px;
+    margin: 0;
+    text-transform: uppercase;
+    color: #308a36;
+    text-align: center;
+    margin: 0 6rem;
+  }
+
+  #newsletter_custom_mobile > h1 {
+    font-size: 16px;
+    margin: 0;
+    text-transform: uppercase;
+    color: #308a36;
+    text-align: center;
+    margin: 0 1rem;
+  }
+
+  #newsletter_custom > form {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  #newsletter_custom_mobile > form {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 0.5rem;
+    margin: 0 1rem;
+  }
+
+  #newsletter_inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr max-content;
+    gap: 0.5rem;
+    margin: 0 6rem;
+    margin-top: 2rem !important;
+  }
+
+  #newsletter_inputs > input,
+  #newsletter_custom_mobile > form > input {
+    background-color: #FFFEF8;
+    border-radius: 0.65rem;
+    border: 1px solid #308a36;
+    padding: 0.5rem 1.5rem;
+    color: black;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width: 360px) {
+    #newsletter_inputs > input,
+    #newsletter_custom_mobile > form > input {
+      padding: 0.5rem;
+    }
+  }
+
+  #newsletter_inputs > input::placeholder,
+  #newsletter_custom_mobile > form > input::placeholder {
+    color: #B9B8B3;
+  }
+
+  #newsletter_custom > form > #newsletter_checkbox > label {
+    font-weight: 500;
+  }
+
+  #newsletter_inputs > button {
+    background-color: #308a36;
+    border-radius: 0.65rem;
+    border: none;
+    color: white;
+    text-align: center;
+    padding: 0.65rem 2rem;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    font-weight: 700;
+  }
+
+  #newsletter_custom_mobile > form > button {
+    background-color: #308a36;
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    text-align: center;
+    padding: 0.35rem 2rem;
+    text-transform: uppercase;
+    max-width: max-content;
+    justify-self: center;
+    font-weight: 700;
+  }
+
+  #newsletter_inputs > button:hover {
+    background-color: white;
+    border: 1px solid #308a36;
+    background-color: #FFFEF8;
+    color: #308a36;
+  }
+
+  #newsletter_custom > form > #newsletter_checkbox {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.65rem;
+    align-items: center;
+    margin: 0 6rem;
+  }
+
+  #newsletter_custom_mobile > form > #newsletter_checkbox {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  #newsletter_checkbox > label > a {
+    text-decoration: underline;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #newsletter_custom {
+      display: none;
+    }
+
+    #newsletter_custom_mobile {
+      display: grid;
+    }
+  }
+
+  @media screen and (max-width: 359px) {
+    #newsletter_custom_mobile > form > #newsletter_checkbox > label {
+      max-width: 10rem;
+    }
+  }
+</style>
+
+<section id="newsletter_custom">
+  <svg width="30px" height="30px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 23.5l15-15M23.5 23.5l-15-15"></path> </g>
+  </svg>
+
+  {% if section.settings.newsletter_title %}
+    <h1>{{ section.settings.newsletter_title }}</h1>
+  {% endif %}
+
+  {% form 'customer' %}
+    <div id="newsletter_inputs">
+      <input
+        type="text"
+        id="newsletter[contact][name]"
+        name="contact[first_name]"
+        placeholder="Nome"
+        required
+      >
+
+      <input
+        type="email"
+        id="newsletter[contact][email]"
+        name="contact[email]"
+        placeholder="E-mail"
+        required
+      >
+
+      <input type="hidden" name="form_type" value="customer">
+      <input type="hidden" name="contact_tags" value="newsletter">
+
+      {% if section.settings.newsletter_btn %}
+        <button type="submit">{{ section.settings.newsletter_btn }}</button>
+      {% endif %}
+    </div>
+
+    {% if section.settings.newsletter_page %}
+      <div id="newsletter_checkbox">
+        <input
+          type="checkbox"
+          required
+        >
+
+        <label>
+          {{ section.settings.newsletter_terms }}
+          <a href="{{ section.settings.newsletter_page.url }}" target="_blank">
+            {{- section.settings.newsletter_page.title -}}
+          </a>
+        </label>
+      </div>
+    {% endif %}
+  {% endform %}
+</section>
+
+<section id="newsletter_custom_mobile">
+  <svg width="30px" height="30px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 23.5l15-15M23.5 23.5l-15-15"></path> </g>
+  </svg>
+
+  {% if section.settings.newsletter_title %}
+    <h1>{{ section.settings.newsletter_title }}</h1>
+  {% endif %}
+
+  {% form 'customer' %}
+    <input
+      type="text"
+      id="newsletter[contact][name]"
+      name="contact[first_name]"
+      placeholder="Nome"
+      required
+    >
+
+    <input
+      type="email"
+      id="newsletter[contact][email]"
+      name="contact[email]"
+      placeholder="E-mail"
+      required
+    >
+
+    <input type="hidden" name="form_type" value="customer">
+    <input type="hidden" name="contact_tags" value="newsletter">
+
+    {% if section.settings.newsletter_page %}
+      <div id="newsletter_checkbox">
+        <input
+          type="checkbox"
+          required
+        >
+
+        <label>
+          {{ section.settings.newsletter_terms }}
+          <a href="{{ section.settings.newsletter_page.url }}" target="_blank">
+            {{- section.settings.newsletter_page.title -}}
+          </a>
+        </label>
+      </div>
+    {% endif %}
+
+    {% if section.settings.newsletter_btn %}
+      <button type="submit">{{ section.settings.newsletter_btn }}</button>
+    {% endif %}
+  {% endform %}
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const desktopSections = document.querySelectorAll("#newsletter_custom");
+
+    if (desktopSections.length > 0) {
+      desktopSections.forEach((desktopSection) => {
+        // Verifica se o newsletter já foi submetido
+        if (localStorage.getItem("newsletterSubmitted") === "true") {
+          desktopSection.remove();
+          return;
+        }
+
+        // Adiciona evento ao SVG de cada seção desktop
+        const desktopImg = desktopSection.querySelector("svg");
+        desktopImg?.addEventListener("click", function () {
+          desktopSection.remove();
+        });
+
+        // Adiciona evento ao formulário de cada seção desktop
+        const desktopForm = desktopSection.querySelector("form");
+
+        desktopForm?.addEventListener("submit", function () {
+          localStorage.setItem("newsletterSubmitted", "true");
+        });
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const mobileSections = document.querySelectorAll("#newsletter_custom_mobile");
+
+    if (mobileSections.length > 0) {
+      mobileSections.forEach((mobileSection) => {
+        // Verifica se o newsletter já foi submetido
+        if (localStorage.getItem("newsletterSubmitted") === "true") {
+          mobileSection.remove();
+          return;
+        }
+
+        // Adiciona evento ao SVG de cada seção móvel
+        const mobileImg = mobileSection.querySelector("svg");
+        mobileImg?.addEventListener("click", () => {
+          mobileSection.remove();
+        });
+
+        // Adiciona evento ao formulário de cada seção móvel
+        const mobileForm = mobileSection.querySelector("form");
+
+        mobileForm?.addEventListener("submit", function () {
+          localStorage.setItem("newsletterSubmitted", "true");
+        });
+      });
+    }
+  });
+</script>

@@ -1,0 +1,128 @@
+<div class="container container--narrow">
+  <header class="page__header page__header--stack page__header--centered">
+    {% unless section.settings.hide_title %}
+      <h1 class="page__title heading h1">{{ page.title }}</h1>
+    {% endunless %}
+
+    {%- if page.content != blank -%}
+      <div class="page__description rte">
+        {{ page.content }}
+      </div>
+    {%- endif -%}
+  </header>
+</div>
+ 
+<div class="container container--flush container--narrow">
+  <div class="about-us">
+    <div class="about__group-list">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'title' -%}
+            <div class="about__heading">
+              <h2 class="heading h2 text--center" {{ block.shopify_attributes }}>
+                {{ block.settings.title }}
+              </h2>
+              {% if block.settings.description %}
+              <div class="text--{{ block.settings.text_align }}">
+                {{ block.settings.description }}
+              </div>
+              {% endif %}
+            </div>
+          {%- when 'line' -%}
+            <div class="about__line">
+              <div class="about__line-letter" style="background: {{ block.settings.letter_background_color }} !important;">
+                {{ block.settings.letter }}
+              </div>
+              <div class="about__line-content">
+                <h3 class="heading h3" style="color: {{ block.settings.title_color }};">{{ block.settings.title }}</h3>
+                <p>{{ block.settings.description }}</p>
+              </div>
+            </div>
+          {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Us",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_title",
+      "label": "Hide Title",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Title",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text Align",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        }
+      ]
+    },
+    {
+      "type": "line",
+      "name": "Line",
+      "settings": [
+        {
+          "type": "text",
+          "id": "letter",
+          "label": "Letter"
+        },
+        {
+          "type": "color",
+          "id": "letter_background_color",
+          "label": "Background Color"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

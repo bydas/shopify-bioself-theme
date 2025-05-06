@@ -1,0 +1,558 @@
+{% assign months_pt = 'January:Janeiro,February:Fevereiro,March:Março,April:Abril,May:Maio,June:Junho,July:Julho,August:Agosto,September:Setembro,October:Outubro,November:Novembro,December:Dezembro' %}
+
+{% assign date = article.created_at | date: '%d %B %Y' %}
+{% assign english_month = article.created_at | date: '%B' %}
+{% assign months_pt_split = months_pt | split: ',' %}
+
+{% for pair in months_pt_split %}
+  {% assign parts = pair | split: ':' %}
+  {% if parts[0] == english_month %}
+    {% assign portuguese_month = parts[1] %}
+  {% endif %}
+{% endfor %}
+
+{% assign translated_date = date | replace: english_month, portuguese_month %}
+
+{% schema %}
+{
+  "name": "Blog custom",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "selected_blog",
+      "label": "Selecione um blog"
+    },
+    {
+      "type": "text",
+      "id": "title_blog",
+      "label": "Selecione um título"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_blog",
+      "label": "Selecione uma imagem",
+      "info": "372x250px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog custom",
+      "category": "Collection",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #bioself_blog > div > h1 {
+      font-size: 24px !important;
+    }
+
+    #bioself_blog > ul > a > li {
+      min-height: 225px !important;
+    }
+
+    #bioself_blog > div > a > button {
+      padding: 0.3rem 1.5rem !important;
+      font-size: 13px !important;
+    }
+
+    #bioself_blog > ul > a > li > h2 {
+      font-size: 14px !important;
+    }
+
+    #bioself_blog > ul > a > li > button,
+    #bioself_blog > ul > a > li > span {
+      font-size: 11px !important;
+    }
+  }
+
+  #bioself_blog {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter) 4rem var(--desktop-container-gutter);
+  }
+
+  #bioself_blog_mobile {
+    display: none;
+    grid-template-rows: repeat(3, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #bioself_blog_mobile > h1 {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #bioself_blog_articles_mobile {
+    display: grid;
+    grid-template-rows: repeat(4, max-content);
+    gap: 0.5rem;
+  }
+
+  #bioself_blog_articles_mobile_dobule {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  #bioself_blog > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #bioself_blog > div > h1 {
+    font-size: 28px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1499px) {
+    #bioself_blog > ul {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    #bioself_blog > ul > a:nth-child(4) {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1599px) {
+    #bioself_blog > div > h1 {
+      font-size: 26px;
+    }
+  }
+
+  #bioself_blog_mobile > h1 {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #bioself_blog_mobile > ul > a,
+  #bioself_blog_mobile > ul > div > a {
+    display: grid;
+  }
+
+  #bioself_blog > div > a > button,
+  #bioself_blog_mobile > a > button {
+    background-color: #308a36;
+    border: none;
+    border-radius: 0.65rem;
+    text-align: center;
+    color: white;
+    padding: 0.25rem 2rem;
+    font-weight: 700;
+    transition: all 0.15s ease;
+  }
+
+  #bioself_blog > div > a > button:hover,
+  #bioself_blog_mobile > a > button:hover {
+    background-color: #ffbb12;
+    color: black;
+  }
+
+  #bioself_blog_mobile > a > button {
+    width: 100%;
+  }
+
+  #bioself_blog > ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  #bioself_blog_mobile > ul {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #bioself_blog_mobile > ul > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  #bioself_blog > ul > a {
+    display: grid;
+  }
+
+  #bioself_blog > ul > a > li {
+    justify-content: left;
+    align-items: end;
+  }
+
+  #bioself_blog > ul > a > li {
+    display: grid;
+    position: relative;
+    grid-template-rows: repeat(3, max-content);
+    gap: 0.25rem;
+    text-decoration: none;
+    color: white;
+    justify-items: left;
+    border-radius: 0.65rem;
+    padding: 1rem;
+    align-content: end;
+    min-height: 250px;
+    overflow: hidden;
+  }
+
+  #bioself_blog > ul > a > li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  #bioself_blog > ul > a > li > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  #bioself_blog_mobile > ul > div > a > li,
+  #bioself_blog_mobile > ul > a > li {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    position: relative;
+    gap: 0.25rem;
+    text-decoration: none;
+    color: white;
+    justify-items: left;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    align-content: end;
+    min-height: 175px;
+    overflow: hidden;
+  }
+
+  #bioself_blog_mobile > ul > div > a > li > *,
+  #bioself_blog_mobile > ul > a > li > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  #bioself_blog_mobile > ul > div > a > li::after,
+  #bioself_blog_mobile > ul > a > li::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  #bioself_blog > ul > a > li > button,
+  #bioself_blog_mobile > ul > a > li > button,
+  #bioself_blog_mobile > ul > div > a > li > button {
+    border-radius: 2rem;
+    color: black;
+    background-color: white;
+    padding: 0.125rem 1rem;
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+  }
+
+  #bioself_blog > ul > a > li > h2 {
+    max-width: 20rem;
+    font-size: 16px;
+    margin: 0 !important;
+    line-height: normal;
+  }
+
+  #bioself_blog_mobile > ul > a > li > h2,
+  #bioself_blog_mobile > ul > div > a > li > h2 {
+    max-width: 20rem;
+    font-size: 14px;
+    margin: 0 !important;
+    line-height: normal;
+  }
+
+  #bioself_blog > ul > a > li > span {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  #bioself_blog_mobile > ul > a > li > span,
+  #bioself_blog_mobile > ul > div > a > li > span {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #bioself_blog {
+      margin: 2rem 9vw 4rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #bioself_blog {
+      margin: 2rem 18vw 4rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #bioself_blog {
+      display: none;
+    }
+
+    #bioself_blog_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="bioself_blog">
+  {% assign blog = blogs[section.settings.selected_blog] %}
+
+  <div>
+    <h1>{{ section.settings.title_blog }}</h1>
+
+    <a href="{{ blog.url }}">
+      <button>Explorar mais</button>
+    </a>
+  </div>
+
+  {% if blog and blog.articles.size > 0 %}
+    <ul>
+      {% for article in blog.articles limit: 4 %}
+        {%- for tag in article.tags -%}
+          {% if tag contains 'author' %}
+            {% assign author = tag | split: '_' %}
+          {% endif %}
+        {%- endfor -%}
+
+        <a href="{{ article.url }}">
+          <li
+            class="lazy-bg"
+            data-bg="{{ article.image | img_url: 'master' }}"
+            style="background-size: cover; background-position: center;"
+          >
+            {% for tag in article.tags %}
+              {% unless tag contains '_' %}
+                <button>{{ tag }}</button>
+              {% endunless %}
+            {% endfor %}
+
+            {% if article.title %}
+              <h2>{{ article.title }}</h2>
+            {% endif %}
+
+            {% if article.author %}
+              {% assign date = article.created_at | date: '%d %B %Y' %}
+              {% assign english_month = article.created_at | date: '%B' %}
+              {% assign months_pt_split = months_pt | split: ',' %}
+
+              {% for pair in months_pt_split %}
+                {% assign parts = pair | split: ':' %}
+                {% if parts[0] == english_month %}
+                  {% assign portuguese_month = parts[1] %}
+                {% endif %}
+              {% endfor %}
+
+              {% assign translated_date = date | replace: english_month, portuguese_month %}
+
+              <span>{{ author[1] }}, {{ translated_date }}</span>
+            {% endif %}
+          </li>
+        </a>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<section id="bioself_blog_mobile">
+  {% assign blog = blogs[section.settings.selected_blog] %}
+  <h1>{{ section.settings.title_blog }}</h1>
+
+  <ul id="bioself_blog_articles_mobile">
+    <a href="{{ blog.articles[0].url }}">
+      <li
+        class="lazy-bg"
+        data-bg="{{ blog.articles[0].image | img_url: 'master' }}"
+        style="background-size: cover; background-position: center;"
+      >
+        {% for tag in blog.articles[0].tags %}
+          {% unless tag contains '_' %}
+            <button>{{ tag }}</button>
+          {% endunless %}
+        {% endfor %}
+
+        {% if blog.articles[0].title %}
+          <h2>{{ blog.articles[0].title }}</h2>
+        {% endif %}
+
+        {%- for tag in blog.articles[0].tags -%}
+          {% if tag contains 'author' %}
+            {% assign author = tag | split: '_' %}
+          {% endif %}
+        {%- endfor -%}
+
+        {% if author and blog.articles[0].created_at %}
+          {% assign date = blog.articles[0].created_at | date: '%d %B %Y' %}
+          {% assign english_month = blog.articles[0].created_at | date: '%B' %}
+          {% assign months_pt_split = months_pt | split: ',' %}
+
+          {% for pair in months_pt_split %}
+            {% assign parts = pair | split: ':' %}
+            {% if parts[0] == english_month %}
+              {% assign portuguese_month = parts[1] %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign translated_date = date | replace: english_month, portuguese_month %}
+
+          <span>{{ author[1] }}, {{ translated_date }}</span>
+        {% endif %}
+      </li>
+    </a>
+
+    <a href="{{ blog.articles[1].url }}">
+      <li
+        class="lazy-bg"
+        data-bg="{{ blog.articles[1].image | img_url: 'master' }}"
+        style="background-size: cover; background-position: center;"
+      >
+        {% for tag in blog.articles[1].tags %}
+          {% unless tag contains '_' %}
+            <button>{{ tag }}</button>
+          {% endunless %}
+        {% endfor %}
+
+        {% if blog.articles[1].title %}
+          <h2>{{ blog.articles[1].title }}</h2>
+        {% endif %}
+
+        {%- for tag in blog.articles[0].tags -%}
+          {% if tag contains 'author' %}
+            {% assign author = tag | split: '_' %}
+          {% endif %}
+        {%- endfor -%}
+
+        {% if author and blog.articles[1].created_at %}
+          {% assign date = blog.articles[1].created_at | date: '%d %B %Y' %}
+          {% assign english_month = blog.articles[1].created_at | date: '%B' %}
+          {% assign months_pt_split = months_pt | split: ',' %}
+
+          {% for pair in months_pt_split %}
+            {% assign parts = pair | split: ':' %}
+            {% if parts[0] == english_month %}
+              {% assign portuguese_month = parts[1] %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign translated_date = date | replace: english_month, portuguese_month %}
+
+          <span>{{ author[1] }}, {{ translated_date }}</span>
+        {% endif %}
+      </li>
+    </a>
+
+    <div id="bioself_blog_articles_mobile_dobule">
+      <a href="{{ blog.articles[2].url }}">
+        <li
+          class="lazy-bg"
+          data-bg="{{ blog.articles[2].image | img_url: 'master' }}"
+          style="background-size: cover; background-position: center;"
+        >
+          {% for tag in blog.articles[2].tags %}
+            {% unless tag contains '_' %}
+              <button>{{ tag }}</button>
+            {% endunless %}
+          {% endfor %}
+
+          {% if blog.articles[2].title %}
+            <h2>{{ blog.articles[2].title }}</h2>
+          {% endif %}
+
+          {%- for tag in blog.articles[0].tags -%}
+            {% if tag contains 'author' %}
+              {% assign author = tag | split: '_' %}
+            {% endif %}
+          {%- endfor -%}
+
+          {% if author and blog.articles[2].created_at %}
+            {% assign date = blog.articles[2].created_at | date: '%d %B %Y' %}
+            {% assign english_month = blog.articles[2].created_at | date: '%B' %}
+            {% assign months_pt_split = months_pt | split: ',' %}
+
+            {% for pair in months_pt_split %}
+              {% assign parts = pair | split: ':' %}
+              {% if parts[0] == english_month %}
+                {% assign portuguese_month = parts[1] %}
+              {% endif %}
+            {% endfor %}
+
+            {% assign translated_date = date | replace: english_month, portuguese_month %}
+
+            <span>{{ author[1] }}, {{ translated_date }}</span>
+          {% endif %}
+        </li>
+      </a>
+
+      <a href="{{ blog.articles[3].url }}">
+        <li
+          class="lazy-bg"
+          data-bg="{{ blog.articles[3].image | img_url: 'master' }}"
+          style="background-size: cover; background-position: center;"
+        >
+          {% for tag in blog.articles[3].tags %}
+            {% unless tag contains '_' %}
+              <button>{{ tag }}</button>
+            {% endunless %}
+          {% endfor %}
+
+          {% if blog.articles[3].title %}
+            <h2>{{ blog.articles[3].title }}</h2>
+          {% endif %}
+
+          {%- for tag in blog.articles[0].tags -%}
+            {% if tag contains 'author' %}
+              {% assign author = tag | split: '_' %}
+            {% endif %}
+          {%- endfor -%}
+
+          {% if author and blog.articles[3].created_at %}
+            {% assign date = blog.articles[3].created_at | date: '%d %B %Y' %}
+            {% assign english_month = blog.articles[3].created_at | date: '%B' %}
+            {% assign months_pt_split = months_pt | split: ',' %}
+
+            {% for pair in months_pt_split %}
+              {% assign parts = pair | split: ':' %}
+              {% if parts[0] == english_month %}
+                {% assign portuguese_month = parts[1] %}
+              {% endif %}
+            {% endfor %}
+
+            {% assign translated_date = date | replace: english_month, portuguese_month %}
+
+            <span>{{ author[1] }}, {{ translated_date }}</span>
+          {% endif %}
+        </li>
+      </a>
+    </div>
+  </ul>
+
+  <a href="{{ blog.url }}">
+    <button>Explorar mais</button>
+  </a>
+</section>

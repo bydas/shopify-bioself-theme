@@ -1,0 +1,310 @@
+{% schema %}
+{
+  "name": "Collection campanha 1",
+  "settings": [
+    {
+      "type": "text",
+      "id": "selected_title",
+      "label": "Título da campanha",
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_desktop",
+      "label": "Primeira Imagem Desktop",
+      "info": "750x500px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_mobile",
+      "label": "Primeira Imagem Mobile",
+      "info": "390x155px"
+    },
+    {
+      "type": "url",
+      "id": "image_1_url",
+      "label": "Link para primeira imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_desktop",
+      "label": "Segunda Imagem Desktop",
+      "info": "390x500px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_mobile",
+      "label": "Segunda Imagem Mobile",
+      "info": "390x155px"
+    },
+    {
+      "type": "url",
+      "id": "image_2_url",
+      "label": "Link para segunda imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3_desktop",
+      "label": "Terceira Imagem Desktop",
+      "info": "390x258px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3_mobile",
+      "label": "Terceira Imagem Mobile",
+      "info": "192x155px"
+    },
+    {
+      "type": "url",
+      "id": "image_3_url",
+      "label": "Link para terceira imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4_desktop",
+      "label": "Quarta Imagem Desktop",
+      "info": "390x258px"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4_mobile",
+      "label": "Quarta Imagem Mobile",
+      "info": "192x155px"
+    },
+    {
+      "type": "url",
+      "id": "image_4_url",
+      "label": "Link para quarta imagem"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Collection campanha 1",
+      "category": "Custom",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  #custom_collection_campanha_1 {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #custom_collection_campanha_1_mobile {
+    display: none;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    margin: 1rem var(--mobile-container-gutter);
+  }
+
+  #custom_collection_campanha_1 > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    margin: 0;
+  }
+
+  #custom_collection_campanha_1 > #collection_images > a,
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > a,
+  #custom_collection_campanha_1 > #collection_images > div > a,
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > div > a,
+  #custom_collection_campanha_1 > #collection_images > div > div > a,
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > div > div > a {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 0.65rem;
+  }
+
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > a,
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > div > a,
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > div > div > a
+  {
+    height: 155px;
+  }
+
+  @media screen and (max-width: 1599px) {
+    #custom_collection_campanha_1 > h1 {
+      font-size: 26px;
+    }
+  }
+
+  #custom_collection_campanha_1_mobile > h1 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #custom_collection_campanha_1 > #collection_images {
+    display: grid;
+    grid-template-columns: 0.95fr 1fr;
+    gap: 0.65rem;
+    height: 525px;
+  }
+
+  #custom_collection_campanha_1_mobile > #collection_images_mobile {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #custom_collection_campanha_1 > #collection_images > #collection_images_right {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > #collection_images_right_mobile {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  #custom_collection_campanha_1 > #collection_images > #collection_images_right > #collection_images_right_double {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  #custom_collection_campanha_1_mobile > #collection_images_mobile > #collection_images_right_mobile > #collection_images_right_double_mobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #custom_collection_campanha_1 > div > h1 {
+      font-size: 24px;
+    }
+
+    #custom_collection_campanha_1 > div > a {
+      padding: 0.3rem 1.5rem !important;
+      font-size: 13px !important;
+    }
+
+    #custom_collection_campanha_1 > #collection_images {
+      height: 475px !important;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #custom_collection_campanha_1 {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #custom_collection_campanha_1 {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_collection_campanha_1 {
+      display: none;
+    }
+
+    #custom_collection_campanha_1_mobile {
+      display: grid;
+    }
+  }
+</style>
+
+<section id="custom_collection_campanha_1">
+  {% if section.settings.selected_title %}
+    <h1>{{ section.settings.selected_title }}</h1>
+  {% endif %}
+
+  <div id="collection_images">
+    {% if section.settings.image_1_desktop %}
+      <a
+        class="lazy-bg"
+        href="{{ section.settings.image_1_url }}"
+        data-bg="{{ section.settings.image_1_desktop | img_url: 'master' }}"
+      >
+      </a>
+    {% endif %}
+
+    <div id="collection_images_right">
+      {% if section.settings.image_2_desktop %}
+        <a
+          class="lazy-bg"
+          href="{{ section.settings.image_2_url }}"
+          data-bg="{{ section.settings.image_2_desktop | img_url: 'master' }}"
+        >
+        </a>
+      {% endif %}
+
+      <div id="collection_images_right_double">
+        {% if section.settings.image_3_desktop %}
+          <a
+            class="lazy-bg"
+            href="{{ section.settings.image_3_url }}"
+            data-bg="{{ section.settings.image_3_desktop | img_url: 'master' }}"
+          >
+          </a>
+        {% endif %}
+
+        {% if section.settings.image_4_desktop %}
+          <a
+            class="lazy-bg"
+            href="{{ section.settings.image_4_url }}"
+            data-bg="{{ section.settings.image_4_desktop | img_url: 'master' }}"
+          >
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="custom_collection_campanha_1_mobile">
+  {% if section.settings.selected_title %}
+    <h1>{{ section.settings.selected_title }}</h1>
+  {% endif %}
+
+  <div id="collection_images_mobile">
+    {% if section.settings.image_1_mobile %}
+      <a
+        class="lazy-bg"
+        href="{{ section.settings.image_1_url }}"
+        data-bg="{{ section.settings.image_1_mobile | img_url: 'master' }}"
+      >
+      </a>
+    {% endif %}
+
+    <div id="collection_images_right_mobile">
+      {% if section.settings.image_2_mobile %}
+        <a
+          class="lazy-bg"
+          href="{{ section.settings.image_2_url }}"
+          data-bg="{{ section.settings.image_2_mobile | img_url: 'master' }}"
+        >
+        </a>
+      {% endif %}
+
+      <div id="collection_images_right_double_mobile">
+        {% if section.settings.image_3_mobile %}
+          <a
+            class="lazy-bg"
+            href="{{ section.settings.image_3_url }}"
+            data-bg="{{ section.settings.image_3_mobile | img_url: 'master' }}"
+          >
+          </a>
+        {% endif %}
+
+        {% if section.settings.image_4_mobile %}
+          <a
+            class="lazy-bg"
+            href="{{ section.settings.image_4_url }}"
+            data-bg="{{ section.settings.image_4_mobile | img_url: 'master' }}"
+          >
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

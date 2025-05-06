@@ -1,0 +1,944 @@
+<section class="banner-mosaic-section" data-section-id="{{ section.id }}" data-section-type="banner-mosaic">
+  <div class="banner-mosaic-main-container mosaic--{{ section.settings.section_size }}" {% if section.settings.number_of_banners == 'none' %}style="display: block;"{% endif %}>
+  <div class="banner-mosaic-container">
+
+      <div class="banner-mosaic-main-image-container promo-block promo-block--{{ section.settings.main_image_content_position | replace: '_', '-' }}" {{ section.shopify_attributes }}>
+      <div class="promo-block__inner">
+        {%- if section.settings.main_image_title != blank -%}
+          <{{ section.settings.main_image_title_tag }} class="promo-block__heading heading h1" style="color: {{ section.settings.main_image_button_text_color }}">{{ section.settings.main_image_title | escape }}</{{ section.settings.main_image_title_tag }}>
+        {%- endif -%}
+
+        {%- if section.settings.main_image_title != blank -%}
+          <p class="promo-block__content" style="color: {{ section.settings.main_image_button_text_color }}">{{ section.settings.main_image_content | escape | newline_to_br }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.main_image_link != blank and section.settings.main_image_button_text != blank -%}
+          <span class="promo-block__cta button button--extra-small button--floating">{{ section.settings.main_image_button_text | escape }}</span>
+        {%- endif -%}
+      </div>
+      </div>
+  </div>
+
+  <div class="banner-mosaic-container">
+    {%- for block in section.blocks -%}
+      {%- capture block_capture -%}
+        <div class="mosaic__item banner_mosaic__item">
+          <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} id="block-{{ block.id }}" class="promo-block promo-block--{{ block.settings.content_position | replace: '_', '-' }} {% if block.settings.show_overlay %}promo-block--overlay{% endif %}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image -%}
+              {%- capture bgset -%}{{ block.settings.image | img_url: '400x' }} 400w, {{ block.settings.image | img_url: '600x' }} 600w, {{ block.settings.image | img_url: '800x' }} 800w, {{ block.settings.image | img_url: '1000x' }} 1000w, {{ block.settings.image | img_url: '1200x' }} 1200w{%- endcapture -%}
+            {%- endif -%}
+
+            <div class="promo-block__image-clip">
+              <div class="lazyload promo-block__image-wrapper promo-block__image-wrapper--cover lazyload image--fade-in" {% if block.settings.image %}data-bgset="{{ bgset }}" data-sizes="auto"{% endif %}>
+                {%- unless block.settings.image -%}
+                  <div class="placeholder-background">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endunless -%}
+              </div>
+            </div>
+
+            <div class="promo-block__inner">
+                <{{ block.settings.block_title_tag }} class="promo-block__heading heading h1">{{ block.settings.title | escape }}</{{ block.settings.block_title_tag }}>
+
+                <p class="promo-block__content">{{ block.settings.content | escape | newline_to_br }}</p>
+
+                <span class="promo-block__cta button button--extra-small button--floating">{{ block.settings.button_text | escape }}</span>
+            </div>
+
+            <style>
+              #block-{{ block.id }} {
+                background-color: {{ block.settings.background }};
+                color: {{ block.settings.text_color }}
+              }
+
+              #block-{{ block.id }} .button {
+                background: {{ block.settings.button_background }};
+                color: {{ block.settings.button_text_color }};
+              }
+
+              {%- if block.settings.show_overlay -%}
+                #block-{{ block.id }}.promo-block--overlay::before {
+                  {%- assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0 -%}
+                  background: linear-gradient(rgba(0, 0, 0, 0) 15%, {{ '#000000' | color_modify: 'alpha', overlay_opacity }});
+                }
+              {%- endif -%}
+              {%- if block.settings.mobile_image -%}
+                @media screen and (max-width: 640px) {
+                  #block-{{ block.id }} .promo-block__image-wrapper {
+                    background-image: url({{ block.settings.mobile_image | img_url: '640x' }}) !important;
+                  }
+                }
+              {%- endif -%}
+            </style>
+
+            {%- if block.settings.image -%}
+              <noscript>
+                <style>
+                  #block-{{ block.id }} .promo-block__image-wrapper {
+                    background-image: url({{ block.settings.image | img_url: '800x' }});
+                  }
+                </style>
+              </noscript>
+            {%- endif -%}
+          </a>
+        </div>
+      {%- endcapture -%}
+
+      {%- if forloop.index == 1 -%}
+        {%- capture block_1 -%}{{ block_capture }}{%- endcapture -%}
+      {%- elsif forloop.index == 2 -%}
+        {%- capture block_2 -%}{{ block_capture }}{%- endcapture -%}
+      {%- elsif forloop.index == 3 -%}
+        {%- capture block_3 -%}{{ block_capture }}{%- endcapture -%}
+      {%- elsif forloop.index == 4 -%}
+        {%- capture block_4 -%}{{ block_capture }}{%- endcapture -%}
+      {%- elsif forloop.index == 5 -%}
+        {%- capture block_5 -%}{{ block_capture }}{%- endcapture -%}
+      {%- elsif forloop.index == 6 -%}
+        {%- capture block_6 -%}{{ block_capture }}{%- endcapture -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%}We have accumulated all the different blocks, so now we simply create the columns based on the number of blocks{%- endcomment -%}
+
+    <div class="mosaic mosaic--{{ section.settings.section_size }} mosaic--{% if section.blocks.size >= 1 %}one-column{% elsif section.blocks.size >= 3 %}two-columns{% endif %}"      
+      {% if section.blocks.size == 3 %}style="display: flex; flex-direction: column;"{% endif %}
+      >   
+        {%- if section.settings.number_of_banners == 'none' -%}
+        {% endif %}  
+
+        {%- if section.settings.number_of_banners == 'one' -%}
+          <div class="mosaic__item mobile-hidden">
+            <span class="block_promotional_banner">{{ block_1 }}</span>
+            <span class="block_promotional_banner">{{ block_2 }}</span>
+            <span class="block_promotional_banner">{{ block_3 }}</span>
+            <span class="block_promotional_banner">{{ block_4 }}</span>
+            <span class="block_promotional_banner">{{ block_5 }}</span>
+            <span class="block_promotional_banner">{{ block_6 }}</span>
+
+                <style>
+                  .block_promotional_banner {
+                    display: none;
+                  }
+
+                  @media screen and (max-width: 999px) {
+                    .mosaic__item>:first-child {
+                      min-height: 452px;
+                    }
+                  }   
+                  
+                  @media screen and (min-width: 1000px) {
+                    .mosaic--small .mosaic__item>:first-child {
+                      min-height: 460px;
+                    }
+                  }  
+                </style>
+            
+            <script>
+              {%- if section.settings.number_of_banners == 'one' -%}
+                    document.addEventListener("DOMContentLoaded", function() {
+                    var banners = document.querySelectorAll('.block_promotional_banner');
+
+                    banners.forEach(function(banner) {
+                    banner.style.display = 'none';
+                    });
+
+                    var randomIndex = Math.floor(Math.random() * banners.length);
+                    banners[randomIndex].style.display = 'block';
+                    });
+              {% endif %}  
+            </script>
+          </div>
+        {% endif %}
+      
+        {%- if section.settings.number_of_banners == 'two' -%}
+          <div class="mosaic__column mobile-hidden">
+            <span class="block_promotional_banner">{{ block_1 }}</span>
+            <span class="block_promotional_banner">{{ block_2 }}</span>
+            <span class="block_promotional_banner">{{ block_3 }}</span>
+            <span class="block_promotional_banner">{{ block_4 }}</span>
+            <span class="block_promotional_banner">{{ block_5 }}</span>
+            <span class="block_promotional_banner">{{ block_6 }}</span>
+
+            
+                <style>
+                  .block_promotional_banner {
+                    display: none;
+                  }
+
+                  @media screen and (max-width: 999px) {
+                    .mosaic__item>:first-child {
+                      min-height: 228px;
+                      margin-top: 5px;
+                    }
+                  }   
+                </style>
+            
+            <script>
+              {%- if section.settings.number_of_banners == 'two' -%}
+                  document.addEventListener("DOMContentLoaded", function() {
+                  var banners = document.querySelectorAll('.block_promotional_banner');
+
+                  banners.forEach(function(banner) {
+                    banner.style.display = 'none';
+                  });
+
+                  var randomIndexes = getRandomIndexes(banners.length, 2);
+                    randomIndexes.forEach(function(index) {
+                      banners[index].style.display = 'block';
+                  });
+
+                  function getRandomIndexes(max, count) {
+                    var indexes = [];
+                    while (indexes.length < count) {
+                      var randomIndex = Math.floor(Math.random() * max);
+                        if (!indexes.includes(randomIndex)) {
+                          indexes.push(randomIndex);
+                        }
+                      }
+                      return indexes;
+                  }
+                });
+              {% endif %}  
+            </script>
+          </div>
+        {% endif %}  
+
+        {%- if section.settings.number_of_banners == 'three' -%}
+          <div class="mosaic__column mobile-hidden" id="bannerContainer">
+            <span class="block_promotional_banner_1">{{ block_1 }}</span>
+            <span class="block_promotional_banner_1">{{ block_2 }}</span>
+            <span class="block_promotional_banner_1">{{ block_3 }}</span>
+            <span class="block_promotional_banner_1">{{ block_4 }}</span>
+            <span class="block_promotional_banner_1">{{ block_5 }}</span>
+            <span class="block_promotional_banner_1">{{ block_6 }}</span>
+          </div>
+
+      <script>
+        var banners = document.getElementsByClassName("block_promotional_banner_1");
+
+        var randomIndex = Math.floor(Math.random() * banners.length);
+
+        for (var i = 0; i < banners.length; i++) {
+            banners[i].style.display = "none";
+        }
+
+        banners[randomIndex].style.display = "block";
+    </script>
+        
+          <div class="mosaic__column mobile-hidden" style="display: flex; flex-direction: row;" id="bannerContainer2">
+            <span class="block_promotional_banner_2">{{ block_1 }}</span>
+            <span class="block_promotional_banner_2">{{ block_2 }}</span>
+            <span class="block_promotional_banner_2">{{ block_3 }}</span>
+            <span class="block_promotional_banner_2">{{ block_4 }}</span>
+            <span class="block_promotional_banner_2">{{ block_5 }}</span>
+            <span class="block_promotional_banner_2">{{ block_6 }}</span>
+          </div>  
+
+                <style>
+                  @media screen and (min-width: 1000px) {
+                    .block_promotional_banner_2 {
+                      width: 50%;
+                    }
+                  }  
+
+                  @media screen and (max-width: 999px) {
+                    .block_promotional_banner_2 {
+                      width: 50%;
+                    }
+
+                   .mosaic__item>:first-child {
+                      min-height: 225px !important;
+                    }
+                  }  
+                </style>
+
+       <script>
+        var banners = document.getElementsByClassName("block_promotional_banner_2");
+
+        var randomIndices = [];
+        while (randomIndices.length < 2) {
+            var randomIndex = Math.floor(Math.random() * banners.length);
+            if (!randomIndices.includes(randomIndex)) {
+                randomIndices.push(randomIndex);
+            }
+        }
+
+        for (var i = 0; i < banners.length; i++) {
+            banners[i].style.display = "none";
+        }
+
+        for (var j = 0; j < randomIndices.length; j++) {
+            banners[randomIndices[j]].style.display = "block";
+        }
+    </script>
+        {% endif %}
+
+        {%- if section.settings.number_of_banners == 'four' -%}
+          <div class="mosaic__column mobile-hidden" style="display: flex; flex-direction: row;">
+            <span class="block_promotional_banner_1">{{ block_1 }}</span>
+            <span class="block_promotional_banner_1">{{ block_2 }}</span>
+            <span class="block_promotional_banner_1">{{ block_3 }}</span>
+            <span class="block_promotional_banner_1">{{ block_4 }}</span>
+            <span class="block_promotional_banner_1">{{ block_5 }}</span>
+            <span class="block_promotional_banner_1">{{ block_6 }}</span>
+          </div>
+            
+          <div class="mosaic__column mobile-hidden" style="display: flex; flex-direction: row;">
+            <span class="block_promotional_banner_2">{{ block_1 }}</span>
+            <span class="block_promotional_banner_2">{{ block_2 }}</span>
+            <span class="block_promotional_banner_2">{{ block_3 }}</span>
+            <span class="block_promotional_banner_2">{{ block_4 }}</span>
+            <span class="block_promotional_banner_2">{{ block_5 }}</span>
+            <span class="block_promotional_banner_2">{{ block_6 }}</span>
+          </div>
+
+                <style>
+                  @media screen and (min-width: 1000px) {
+                    .block_promotional_banner_1, .block_promotional_banner_2 {
+                      width: 50%;
+                    }
+                  }  
+
+                  @media screen and (max-width: 999px) {
+                    .block_promotional_banner_1, .block_promotional_banner_2 {
+                      width: 50%;
+                    }
+
+                   .mosaic__item>:first-child {
+                      min-height: 225px !important;
+                    }
+                  }  
+                </style>
+      
+<script>
+    function getRandomIndices(max, count, exclude) {
+        var randomIndices = [];
+        while (randomIndices.length < count) {
+            var randomIndex = Math.floor(Math.random() * max);
+            if (!randomIndices.includes(randomIndex) && !exclude.includes(randomIndex)) {
+                randomIndices.push(randomIndex);
+            }
+        }
+        return randomIndices;
+    }
+
+    var banners1 = document.getElementsByClassName("block_promotional_banner_1");
+
+    var randomIndices1 = getRandomIndices(banners1.length, 2, []);
+
+    for (var i = 0; i < banners1.length; i++) {
+        banners1[i].style.display = "none";
+    }
+
+    for (var j = 0; j < randomIndices1.length; j++) {
+        banners1[randomIndices1[j]].style.display = "block";
+    }
+
+    var banners2 = document.getElementsByClassName("block_promotional_banner_2");
+
+    var randomIndices2 = getRandomIndices(banners2.length, 2, randomIndices1);
+
+    for (var k = 0; k < banners2.length; k++) {
+        banners2[k].style.display = "none";
+    }
+
+    for (var l = 0; l < randomIndices2.length; l++) {
+        banners2[randomIndices2[l]].style.display = "block";
+    }
+</script>
+        {% endif %}
+
+  <section class="desktop-hidden section section--isolated" data-section-id="{{ section.id }}" data-section-type="text-with-icons" style="background: {{ section.settings.background_color }}; {% if section.settings.show_margin_top %} margin-top:{{ section.settings.margin_top }}px !important; {% endif %} {% if section.settings.show_margin_bottom %} margin-bottom: {{ section.settings.margin_bottom }}px !important; {% endif %}">
+    <div class="container container--flush">
+      <div class="text-with-icons {% if section.settings.stack_mobile %}text-with-icons--stacked{% endif %}" style="">
+        {%- for block in section.blocks -%}
+          <div class="text-with-icons__item" data-block-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+
+         <div class="text-with-icons__content-wrapper">
+          <div class="mosaic__item banner_mosaic__item">
+          <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} id="block-{{ block.id }}" class="promo-block promo-block--{{ block.settings.content_position | replace: '_', '-' }} {% if block.settings.show_overlay %}promo-block--overlay{% endif %}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image -%}
+              {%- capture bgset -%}{{ block.settings.image | img_url: '400x' }} 400w, {{ block.settings.image | img_url: '600x' }} 600w, {{ block.settings.image | img_url: '800x' }} 800w, {{ block.settings.image | img_url: '1000x' }} 1000w, {{ block.settings.image | img_url: '1200x' }} 1200w{%- endcapture -%}
+            {%- endif -%}
+
+            <div class="promo-block__image-clip">
+              <div class="lazyload promo-block__image-wrapper promo-block__image-wrapper--cover lazyload image--fade-in" {% if block.settings.image %}data-bgset="{{ bgset }}" data-sizes="auto"{% endif %}>
+                {%- unless block.settings.image -%}
+                  <div class="placeholder-background">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endunless -%}
+              </div>
+            </div>
+
+            <div class="promo-block__inner">
+              {%- if block.settings.title != blank -%}
+                <{{ block.settings.block_title_tag }} class="promo-block__heading heading h1">{{ block.settings.title | escape }}</{{ block.settings.block_title_tag }}>
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <p class="promo-block__content">{{ block.settings.content | escape | newline_to_br }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.link != blank and block.settings.button_text != blank -%}
+                <span class="promo-block__cta button button--extra-small button--floating">{{ block.settings.button_text | escape }}</span>
+              {%- endif -%}
+            </div>
+
+            <style>
+              #block-{{ block.id }} {
+                background-color: {{ block.settings.background }};
+                color: {{ block.settings.text_color }}
+              }
+
+              #block-{{ block.id }} .button {
+                background: {{ block.settings.button_background }};
+                color: {{ block.settings.button_text_color }};
+              }
+
+              {%- if block.settings.show_overlay -%}
+                #block-{{ block.id }}.promo-block--overlay::before {
+                  {%- assign overlay_opacity = block.settings.overlay_opacity | divided_by: 100.0 -%}
+                  background: linear-gradient(rgba(0, 0, 0, 0) 15%, {{ '#000000' | color_modify: 'alpha', overlay_opacity }});
+                }
+              {%- endif -%}
+              {%- if block.settings.mobile_image -%}
+                @media screen and (max-width: 640px) {
+                  #block-{{ block.id }} .promo-block__image-wrapper {
+                    background-image: url({{ block.settings.mobile_image | img_url: '640x' }}) !important;
+                  }
+                }
+              {%- endif -%}
+            </style>
+
+            {%- if block.settings.image -%}
+              <noscript>
+                <style>
+                  #block-{{ block.id }} .promo-block__image-wrapper {
+                    background-image: url({{ block.settings.image | img_url: '800x' }});
+                  }
+                </style>
+              </noscript>
+            {%- endif -%}
+          </a>
+        </div>
+
+
+              </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    </section>
+
+
+                  
+
+    </div>
+  </div>
+  </div>
+</section>
+
+                    
+<style>
+  .desktop-hidden {
+    display: none;
+    padding: 0 !important;
+  }
+
+  .mosaic__item.mobile-hidden {
+    padding: 0;
+  }
+
+  .text-with-icons__content-wrapper {
+     margin-top: 0;
+     width: 100%;
+  }
+  
+  .banner-mosaic-main-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .banner-mosaic-container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .banner-mosaic-main-image-container {
+    background-image: url({{ section.settings.main_image | img_url: 'master' }}) !important;
+    height: 460px;
+    background-size: cover;
+    background-position: center; 
+    margin-top: 5px;
+  } 
+
+  .mosaic__item {
+    border-radius: 15px;
+    padding-left: 5px;
+    padding-right: 8px;
+  }
+
+  .mosaic__item.banner_mosaic__item, .promo-block__image-wrapper.promo-block__image-wrapper--cover.image--fade-in.lazyloaded {
+    max-height: 540px;
+    transform: none;
+    padding-top: 5px;
+  }
+  
+  @media screen and (max-width: 1000px) {
+    #shopify-section-{{ section.id }} .container {
+      padding: 0;
+    }  
+    
+    #shopify-section-{{ section.id }} .mosaic .mosaic__column .mosaic__item {
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .mosaic .mosaic__column .mosaic__item a {
+      border-radius: 0;
+    }
+  }
+
+  @media screen and (max-width: 670px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .desktop-hidden {
+    display: block;
+    padding: 0 !important;
+  }
+
+  mosaic__item.banner_mosaic__item, .promo-block__image-wrapper.promo-block__image-wrapper--cover.image--fade-in.lazyloaded {
+    margin: 0 5px;
+  }
+
+  .banner-mosaic-container {
+    padding: 5px;
+    padding-right: 10px;
+  }
+
+  .banner-mosaic-main-container {
+    display: flex;
+    flex-direction: column;
+    padding-right: 0;
+  }
+
+  .banner-mosaic-main-image-container {
+    background-image: url({{ section.settings.main_image_mobile | img_url: '240x' }}) !important;
+    height: 300px;
+    background-size: cover;
+    background-position: center; 
+    margin-top: 5px;
+  } 
+
+  .mosaic__item {
+    border-radius: 15px;
+    padding: 5px 0px;
+  }    
+
+  mosaic__item.banner_mosaic__item, .promo-block__image-wrapper.promo-block__image-wrapper--cover.image--fade-in.lazyloaded {
+    margin: 0 !important; 
+  }
+}
+ 
+@media screen and (min-width: 1000px) {
+  .banner-mosaic-main-container .mosaic--small {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 641px) {
+.mosaic__item {
+    padding: 0 15px 5px 10px;
+}
+}
+
+</style>
+
+
+<script>
+function randomizeBannerItems() {
+  const columns = document.querySelectorAll('.banner_mosaic__column');
+  const availableItems = [];
+
+  columns.forEach(column => {
+    // Select all .banner_mosaic__item elements in this column
+    const items = Array.from(column.querySelectorAll('.banner_mosaic__item'));
+
+    if (items.length < 2) return;
+      const randomIndex1 = Math.floor(Math.random() * items.length);
+      const item1 = items[randomIndex1];
+    
+    items.splice(randomIndex1, 1);
+
+    const randomIndex2 = Math.floor(Math.random() * items.length);
+    const item2 = items[randomIndex2];
+
+    // Hide all items
+    items.forEach(item => {
+      item.style.display = 'none';
+    });
+
+    // Display the selected items
+    item1.style.display = 'block';
+    item2.style.display = 'block';
+  });
+}
+
+  window.onload = function() {
+    randomizeBannerItems();
+  }
+</script>
+
+
+{% schema %}
+{
+  "name": "Banner mosaic 2",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "number_of_banners",
+      "label": "Number of banners",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "one",
+          "label": "One"
+        },
+        {
+          "value": "two",
+          "label": "Two"
+        },
+        {
+          "value": "three",
+          "label": "Three"
+        },
+        {
+          "value": "four",
+          "label": "Four"
+        }
+      ],
+      "default": "two"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_mobile_grid",
+      "label": "Display Mobile Scroll",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "main image",
+      "info": "800 x 520px .jpg recommended for standard images. 1100 x 1100px .jpg recommended for center images."
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image_mobile",
+      "label": "main image",
+      "info": "800 x 520px .jpg recommended for standard images. 1100 x 1100px .jpg recommended for center images."
+    },
+    {
+      "type": "text",
+      "id": "main_image_title",
+      "label": "Heading",
+      "default": "Your heading"
+    },
+    {
+       "type": "select",
+      "id": "main_image_title_tag",
+      "label": "Title tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+         },
+         {         
+          "value": "h3",
+          "label": "H3"
+          }
+      ],
+        "default": "h3"
+    },
+    {
+          "type": "textarea",
+          "id": "main_image_content",
+          "label": "Text",
+          "default": "Tell more about your product, collection..."
+        },
+        {
+          "type": "select",
+          "id": "main_image_content_position",
+          "label": "Content position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "middle_left",
+              "label": "Middle left"
+            },
+            {
+              "value": "middle_center",
+              "label": "Middle center"
+            },
+            {
+              "value": "middle_right",
+              "label": "Middle right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "top_left"
+        },
+    {
+          "type": "color",
+          "id": "main_image_button_background",
+          "label": "Background",
+          "default": "#4f5558"
+        },
+        {
+          "type": "color",
+          "id": "main_image_button_text_color",
+          "label": "Text color",
+          "default": "#f3f4f4"
+        },
+        {
+          "type": "text",
+          "id": "main_image_button_text",
+          "label": "Text",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "main_image_link",
+          "label": "Link"
+        },
+    {
+      "type": "select",
+      "id": "section_size",
+      "label": "Section height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "small"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "800 x 520px .jpg recommended for standard images. 1100 x 1100px .jpg recommended for center images."
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "375 x 266px .jpg recommended. If none is set, desktop image will be used."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_overlay",
+          "label": "Show overlay",
+          "info": "Increase text readability on busy images.",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#f3f4f4"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#4f5558"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "block_title_tag",
+          "label": "Title tag",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+             },
+             {         
+              "value": "h3",
+              "label": "H3"
+              }
+          ],
+            "default": "h3"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "middle_left",
+              "label": "Middle left"
+            },
+            {
+              "value": "middle_center",
+              "label": "Middle center"
+            },
+            {
+              "value": "middle_right",
+              "label": "Middle right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "top_left"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Background",
+          "default": "#4f5558"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Text",
+          "default": "#f3f4f4"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Image",
+      "name": "Banner mosaic 2",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

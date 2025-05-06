@@ -1,0 +1,78 @@
+{% assign mod_util = product.metafields.airf.mod_util %}
+{% assign ingre = product.metafields.airf.ingre %}
+{% assign compos = product.metafields.airf.compos %}
+{% assign advert = product.metafields.airf.advert %}
+
+
+
+{% if product.description contains '[Modo de Utilização]' %}
+    <div class="details-row">
+        <div class="description-heading">
+            <h2 class="heading h3">
+                Modo de utilização
+            </h2>
+        </div>
+        <div class="details-description">
+            {% assign desc_util= product.description | split: '[Modo de Utilização]'%}
+            <p>{{ desc_util[1] }}</p>
+        </div>
+    </div>
+    
+{% endif %}
+
+{% if product.description contains '[Ingredientes]' %}
+    <div class="details-row">
+        <div class="description-heading">
+            <h2 class="heading h3">
+                Ingredientes
+            </h2>
+        </div>
+        <div class="details-description">
+            {% assign desc_ing= product.description | split: '[Ingredientes]'%}
+            <p>{{ desc_ing[1] }}</p>
+        </div>
+    </div>
+
+{% endif %}
+
+{% if product.description contains '[Composição Nutricional]' %}
+    <div class="details-row">
+        <div class="description-heading">
+            <h2 class="heading h3">
+                Composição Nutricional
+            </h2>
+        </div>
+        <div class="details-description">
+            {% assign desc_comp = product.description | split: '[Composição Nutricional]'%}
+            <p>{{ desc_comp[1] }}</p>
+        </div>
+    </div>
+    
+{% endif %}
+
+{% if product.description contains '[Advertências]' %}
+    <div class="details-row">
+        <div class="description-heading">
+            <h2 class="heading h3">
+                Advertências
+            </h2>
+        </div>
+        <div class="details-description">
+            {% assign desc_adv= product.description | split: '[Advertências]'%}
+            <p>{{ desc_adv[1] }}</p>
+        </div>
+    </div>
+    
+{% endif %}
+
+{% comment %} Campo Disclaimer {% endcomment %}
+<div class="details-row">
+    <div class="description-heading">
+        <h2 class="heading h3">
+            Disclaimer
+        </h2>
+    </div>
+    <div class="details-description">
+        <p>{{ 'product.general.disclaimer' | t | escape }}</p>
+    </div>
+</div>

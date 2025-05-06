@@ -1,0 +1,321 @@
+{% schema %}
+{
+  "name": "Marcas page custom",
+  "settings": [
+    {
+      "type": "text",
+      "id": "collection_description",
+      "label": "Descrição da coleção"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marcas page custom",
+      "category": "collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign sorted_brands = linklists['pagina-marcas'].links | sort: 'title' %}
+
+<style>
+   #marcas_custom {
+     display: grid;
+     grid-template-rows: repeat(5, max-content);
+     gap: 2rem;
+     align-items: center;
+     text-align: center;
+     margin: 2rem var(--desktop-container-gutter);
+   }
+
+   #marcas_custom > h1 {
+     margin: 0;
+     font-size: 28px;
+     text-transform: uppercase;
+   }
+
+   #marcas_custom > span {
+     font-size: 18px;
+     max-width: 30rem;
+     justify-self: center;
+   }
+
+   #marcas_custom > #marcas_images_custom {
+     display: grid;
+     grid-template-columns: repeat(5, max-content);
+     justify-content: center;
+     row-gap: 0.65rem;
+     column-gap: 1.5rem;
+     list-style-type: none;
+   }
+
+   @media screen and (max-width: 1799px) {
+     #marcas_custom > #marcas_images_custom {
+       grid-template-columns: repeat(4, max-content);
+     }
+   }
+
+   #marcas_custom > #marcas_images_custom > a {
+     display: grid;
+     text-decoration: none;
+     border: 1px solid #308a36;
+     padding: 1rem;
+     border-radius: 0.25rem;
+   }
+
+   #marcas_custom > #marcas_images_custom > a > li {
+     display: grid;
+   }
+
+   #marcas_custom > #marcas_images_custom > a > li > img {
+     width: 225px;
+     height: 100px;
+     object-fit: contain;
+   }
+
+   #marcas_custom > #marcas_pagination_custom {
+     display: grid;
+     gap: 2rem;
+     grid-template-columns: repeat(auto-fit, minmax(25px, max-content));
+     justify-content: center;
+     align-items: center;
+     list-style-type: none;
+     margin-top: 2rem;
+     margin-bottom: 1rem;
+   }
+
+   #marcas_custom > #marcas_pagination_custom > li {
+     display: grid;
+   }
+
+   #marcas_custom > #marcas_pagination_custom > li > a {
+     text-transform: uppercase;
+     color: #308a36;
+     text-decoration: none;
+     font-size: 16px;
+     font-weight: 700;
+   }
+
+   #marcas_custom > #marcas_pagination_custom > li > a:hover {
+     text-decoration: underline;
+   }
+
+   #marcas_custom > #brands_div_custom {
+     display: grid;
+     margin: 0px 9vw;
+   }
+
+  @media screen and (min-width: 2559px) {
+     #marcas_custom > #brands_div_custom {
+       margin: 0px 18vw;
+     }
+
+      #marcas_custom {
+       margin: 2rem 18vw;
+     }
+   }
+
+   #marcas_custom > #brands_div_custom > div {
+     display: grid;
+     grid-template-columns: max-content 1fr;
+     gap: 4rem;
+     padding: 2rem 0;
+     border-top: 1px solid #efefef;
+   }
+
+   #marcas_custom > #brands_div_custom > div:nth-child(1) {
+     border-top: none !important;
+   }
+
+   #marcas_custom > #brands_div_custom > div > h1 {
+     text-transform: uppercase;
+     color: #308a36;
+     text-decoration: none;
+     font-size: 26px;
+     margin: 0;
+   }
+
+   #marcas_custom > #brands_div_custom > div > ul {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
+     list-style-type: none;
+     text-align: left;
+     gap: 1rem;
+   }
+
+   #marcas_custom > #brands_div_custom > div > ul > li {
+     display: grid;
+   }
+
+   #marcas_custom > #brands_div_custom > div > ul > li > a {
+     text-decoration: none;
+   }
+
+   #marcas_custom > #brands_div_custom > div > ul > li > a:hover {
+     text-decoration: underline;
+   }
+
+   @media screen and (min-width: 1499px) {
+     #marcas_custom {
+       margin: 2rem 9vw;
+     }
+   }
+
+   @media screen and (max-width: 1499px) and (min-width: 1000px) {
+     #marcas_custom > #marcas_images_custom > a > li > img {
+       width: 200px;
+     }
+
+     #marcas_custom > #marcas_images_custom > a {
+       padding: 0.5rem;
+     }
+   }
+
+   @media screen and (max-width: 1000px) {
+     #marcas_custom {
+       margin: 1rem var(--mobile-container-gutter);
+     }
+
+     #marcas_custom > h1 {
+       font-size: 16px;
+     }
+
+     #marcas_custom > span {
+       font-size: 14px;
+       max-width: 20rem;
+     }
+
+     #marcas_custom > #marcas_images_custom {
+       grid-template-columns: 1fr;
+       grid-template-rows: repeat(5, max-content);
+       row-gap: 0.5rem;
+       column-gap: 0;
+     }
+
+     #marcas_custom > #marcas_images_custom > a {
+       justify-content: center;
+     }
+
+     #marcas_custom > #marcas_images_custom > a > li > img {
+       width: 150px;
+     }
+
+     #marcas_custom > #marcas_pagination_custom {
+       gap: 1rem;
+       grid-template-columns: repeat(auto-fit, minmax(25px, max-content));
+     }
+
+     #marcas_custom > #marcas_pagination_custom > li > a {
+       font-size: 14px;
+     }
+
+     #marcas_custom > #brands_div_custom {
+       margin: 0;
+     }
+
+     #marcas_custom > #brands_div_custom > div {
+       grid-template-columns: max-content 1fr;
+       gap: 1rem;
+       padding: 1rem 0;
+     }
+
+     #marcas_custom > #brands_div_custom > div > h1 {
+       font-size: 16px;
+     }
+   }
+</style>
+
+<section id="marcas_custom">
+  <h1>Marcas</h1>
+
+  {% if section.settings.collection_description %}
+    <span>{{ section.settings.collection_description }}</span>
+  {% endif %}
+
+  {%- assign used_letters = '' -%}
+
+  <ul id="marcas_images_custom">
+    {%- assign image_count = 0 -%}
+
+    {% for marca in sorted_brands %}
+      {% assign image_url = collections[marca.handle].image.src | downcase %}
+
+      {% if image_url contains '.gif' %}
+        {% assign wrong_format = true %}
+      {% else %}
+        {% assign wrong_format = false %}
+      {% endif %}
+
+      {% unless image_url == empty or wrong_format %}
+        <a href="{{ collections[marca.handle].url }}">
+          <li>
+            <img loading="lazy" src="{{ collections[marca.handle].image | img_url: 'master' }}" alt="{{ marca.title }}">
+          </li>
+        </a>
+        {%- assign image_count = image_count | plus: 1 -%}
+
+        {% if image_count == 10 %}
+          {% break %}
+        {% endif %}
+      {% endunless %}
+    {% endfor %}
+  </ul>
+
+  <ul id="marcas_pagination_custom">
+    {% for marca in sorted_brands %}
+      {% assign first_char = marca.title | slice: 0, 1 | upcase %}
+
+      {% if first_char >= '0' and first_char <= '9' %}
+        {% assign anchor = '0-9' %}
+      {% else %}
+        {% assign anchor = first_char %}
+      {% endif %}
+
+      {% unless used_letters contains anchor %}
+        <li>
+          <a href="/pages/marcas#{{ anchor }}">{{ anchor }}</a>
+        </li>
+        {% assign used_letters = used_letters | append: anchor | append: ',' %}
+      {% endunless %}
+    {% endfor %}
+  </ul>
+
+  <div id="brands_div_custom">
+    {% assign grouped_links = '' %}
+    {% for marca in sorted_brands %}
+      {% assign first_char = marca.title | slice: 0, 1 | upcase %}
+
+      {% if first_char >= '0' and first_char <= '9' %}
+        {% assign anchor = '0-9' %}
+      {% else %}
+        {% assign anchor = first_char %}
+      {% endif %}
+
+      {% unless grouped_links contains anchor %}
+        <div id="{{ anchor }}">
+          <h1>{{ anchor }}</h1>
+
+          <ul>
+            {% for link in sorted_brands %}
+              {% assign link_first_char = link.title | slice: 0, 1 | upcase %}
+
+              {% if link_first_char >= '0' and link_first_char <= '9' %}
+                {% assign link_anchor = '0-9' %}
+              {% else %}
+                {% assign link_anchor = link_first_char %}
+              {% endif %}
+
+              {% if link_anchor == anchor %}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        {% assign grouped_links = grouped_links | append: anchor | append: ',' %}
+      {% endunless %}
+    {% endfor %}
+  </div>
+</section>
