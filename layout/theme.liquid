@@ -588,7 +588,7 @@
             if (!storedDiscount && !!cartDataDiscount) {
               for (const observed of [OBSERVED_CONTAINER_SELECTOR, OBSERVED_CONTAINER_SELECTOR_2]) {
                 if (observed) {
-                  node.querySelectorAll?.(observed).forEach(removeDiscountBadge);
+                  document.querySelectorAll?.(observed).forEach(removeDiscountBadge);
                 }
               }
             }
