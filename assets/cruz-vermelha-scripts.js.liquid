@@ -1,132 +1,132 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const cruz_modal = document.querySelector("#modal_cruz_vermelha");
-  const overlay_modal = document.querySelector("#modal_overlay");
+  const cruz_modal = document.querySelector("#modal_cruz_vermelha")
+  const overlay_modal = document.querySelector("#modal_overlay")
 
   if (cruz_modal && overlay_modal) {
-    const escape_cruz_modal = cruz_modal.querySelector("#escape_cruz_modal");
-    const cruz_form = cruz_modal.querySelector("form");
-    const modal_form_cruz = cruz_modal.querySelector("#modal_form_cruz");
+    const escape_cruz_modal = cruz_modal.querySelector("#escape_cruz_modal")
+    const cruz_form = cruz_modal.querySelector("form")
+    const modal_form_cruz = cruz_modal.querySelector("#modal_form_cruz")
     const modal_successful_cruz = cruz_modal.querySelector(
       "#modal_successful_cruz"
-    );
-    const cruz_nif_message = cruz_modal.querySelector("#cruz_nif_message");
+    )
+    const cruz_nif_message = cruz_modal.querySelector("#cruz_nif_message")
 
     cruz_form?.addEventListener("submit", async function (e) {
-      e.preventDefault();
+      e.preventDefault()
 
-      const cruz_btn = cruz_form.querySelector("button");
-      cruz_btn.innerText = "Validando";
-      cruz_btn.disabled = true;
-      cruz_btn.style.opacity = 0.7;
-      cruz_btn.pointerEvents = "none";
+      const cruz_btn = cruz_form.querySelector("button")
+      cruz_btn.innerText = "Validando"
+      cruz_btn.disabled = true
+      cruz_btn.style.opacity = 0.7
+      cruz_btn.pointerEvents = "none"
 
-      const cruz_nif = cruz_form.querySelector("input");
+      const cruz_nif = cruz_form.querySelector("input")
 
-      let token;
+      let token
 
       await fetch("/cart.js")
         .then((res) => {
           if (!res.ok) {
-            console.error(res.statusText);
-            return;
+            console.error(res.statusText)
+            return
           }
 
-          return res.json();
+          return res.json()
         })
         .then((data) => {
           if (data) {
-            token = data?.token?.split("?")[0];
+            token = data?.token?.split("?")[0]
           }
-        });
+        })
 
       fetch(
         `https://bioself.apps.bydas.com/?action=verify_nif_cvp&nif=${cruz_nif.value}&token=${token}`
       )
         .then((res) => {
           if (!res.ok) {
-            cruz_nif_message.innerText = "NIF Inválido";
-            cruz_nif_message.style.color = "red";
-            return;
+            cruz_nif_message.innerText = "NIF Inválido"
+            cruz_nif_message.style.color = "red"
+            return
           }
 
-          return res.json();
+          return res.json()
         })
         .then((data) => {
           if (data && data.status && data.coupon) {
-            modal_form_cruz.style.opacity = "0";
-            modal_form_cruz.style.visibility = "hidden";
-            modal_form_cruz.style.display = "none";
-            modal_successful_cruz.style.display = "grid";
+            modal_form_cruz.style.opacity = "0"
+            modal_form_cruz.style.visibility = "hidden"
+            modal_form_cruz.style.display = "none"
+            modal_successful_cruz.style.display = "grid"
 
             setTimeout(function () {
-              localStorage.setItem("CV_Discount", data.coupon);
-              window.location.href = `/discount/${data.coupon}`;
-            }, 2000);
+              localStorage.setItem("CV_Discount", data.coupon)
+              window.location.href = `/discount/${data.coupon}`
+            }, 2000)
           } else {
-            cruz_nif_message.innerText = "NIF Inválido";
-            cruz_nif_message.style.color = "red";
+            cruz_nif_message.innerText = "NIF Inválido"
+            cruz_nif_message.style.color = "red"
           }
         })
         .catch((error) => {
-          console.error(error);
-          cruz_nif_message.innerText = "NIF Inválido";
-          cruz_nif_message.style.color = "red";
+          console.error(error)
+          cruz_nif_message.innerText = "NIF Inválido"
+          cruz_nif_message.style.color = "red"
         })
         .finally(() => {
-          cruz_btn.innerText = "Validar";
-          cruz_btn.disabled = false;
-          cruz_btn.style.opacity = 1;
-          cruz_btn.pointerEvents = "all";
-        });
-    });
+          cruz_btn.innerText = "Validar"
+          cruz_btn.disabled = false
+          cruz_btn.style.opacity = 1
+          cruz_btn.pointerEvents = "all"
+        })
+    })
 
     escape_cruz_modal?.addEventListener("click", function () {
-      cruz_modal.style.opacity = "0";
-      cruz_modal.style.visibility = "hidden";
-      overlay_modal.style.display = "none";
-    });
+      cruz_modal.style.opacity = "0"
+      cruz_modal.style.visibility = "hidden"
+      overlay_modal.style.display = "none"
+    })
   }
-});
+})
 
-(function () {
-  const CV_TITLE = "Cruz Vermelha Portuguesa";
-  const CV_DISCOUNT_KEY = "CV_Discount";
+;(function () {
+  const CV_TITLE = "Cruz Vermelha Portuguesa"
+  const CV_DISCOUNT_KEY = "CV_Discount"
   const OBSERVED_CONTAINER_SELECTOR =
-    ".mini-cart__button-container .button-group";
+    ".mini-cart__button-container .button-group"
   const OBSERVED_CONTAINER_SELECTOR_2 =
-    ".cart-recap .cart-recap__scroller .card__section";
-  const CV_ELEMENT_CLASS = "cruz_vermelha_element";
+    ".cart-recap .cart-recap__scroller .card__section"
+  const CV_ELEMENT_CLASS = "cruz_vermelha_element"
 
-  let isDiscountActive = false;
+  let isDiscountActive = false
 
   async function checkCartDiscount() {
     try {
-      let cartData;
+      let cartData
 
       try {
-        const response = await fetch("/cart.js");
+        const response = await fetch("/cart.js")
 
         if (!response.ok) {
-          console.error("Erro ao carregar o carrinho:", response.statusText);
-          return;
+          console.error("Erro ao carregar o carrinho:", response.statusText)
+          return
         }
 
-        cartData = await response.json();
+        cartData = await response.json()
       } catch (fetchError) {
-        console.error("Erro na requisição do carrinho:", fetchError);
-        return;
+        console.error("Erro na requisição do carrinho:", fetchError)
+        return
       }
 
-      const storedDiscount = localStorage.getItem(CV_DISCOUNT_KEY);
+      const storedDiscount = localStorage.getItem(CV_DISCOUNT_KEY)
       const cartDataDiscount = cartData?.cart_level_discount_applications?.find(
         (discount) => discount.title.includes(storedDiscount ?? "CVP")
-      );
+      )
 
-      isDiscountActive = !!cartDataDiscount;
+      isDiscountActive = !!cartDataDiscount
 
       if (storedDiscount && !cartDataDiscount) {
-        localStorage.removeItem(CV_DISCOUNT_KEY);
-        processExistingContainers();
+        localStorage.removeItem(CV_DISCOUNT_KEY)
+        processExistingContainers()
       }
 
       if (!storedDiscount && !!cartDataDiscount) {
@@ -135,153 +135,153 @@ document.addEventListener("DOMContentLoaded", function () {
           OBSERVED_CONTAINER_SELECTOR_2,
         ]) {
           if (observed) {
-            const containers = document.querySelectorAll(observed);
+            const containers = document.querySelectorAll(observed)
 
             if (containers && containers.length > 0) {
-              containers.forEach(removeDiscountBadge);
+              containers.forEach(removeDiscountBadge)
             }
           }
         }
       }
     } catch (error) {
-      console.error("Erro ao verificar desconto do carrinho:", error);
+      console.error("Erro ao verificar desconto do carrinho:", error)
     }
   }
 
   function applyDiscountBadge(container) {
-    if (!container) return;
+    if (!container) return
 
-    if (isDiscountActive || localStorage.getItem(CV_DISCOUNT_KEY)) return;
-    if (container.querySelector(`.${CV_ELEMENT_CLASS}`)) return;
+    if (isDiscountActive || localStorage.getItem(CV_DISCOUNT_KEY)) return
+    if (container.querySelector(`.${CV_ELEMENT_CLASS}`)) return
 
-    const div = document.createElement("div");
-    div.classList.add(CV_ELEMENT_CLASS);
+    const div = document.createElement("div")
+    div.classList.add(CV_ELEMENT_CLASS)
 
-    const img = document.createElement("img");
-    img.src = "{{ 'cruz_vermelha_portuguesa.png' | asset_img_url }}";
-    img.alt = CV_TITLE;
-    img.title = CV_TITLE;
+    const img = document.createElement("img")
+    img.src = "{{ 'cruz_vermelha_portuguesa.png' | asset_img_url }}"
+    img.alt = CV_TITLE
+    img.title = CV_TITLE
 
-    const span = document.createElement("span");
-    span.textContent = "Ativar Desconto com Cartão de Saúde";
+    const span = document.createElement("span")
+    span.textContent = "Ativar Desconto com Cartão de Saúde"
 
-    div.appendChild(img);
-    div.appendChild(span);
-    container.appendChild(div);
+    div.appendChild(img)
+    div.appendChild(span)
+    container.appendChild(div)
 
     span.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
 
-      const overlay = document.querySelector("#modal_overlay");
-      const modal = document.querySelector("#modal_cruz_vermelha");
+      const overlay = document.querySelector("#modal_overlay")
+      const modal = document.querySelector("#modal_cruz_vermelha")
 
       if (overlay && modal) {
-        overlay.style.display = "block";
-        modal.style.opacity = "1";
-        modal.style.visibility = "visible";
+        overlay.style.display = "block"
+        modal.style.opacity = "1"
+        modal.style.visibility = "visible"
       }
-    });
+    })
   }
 
   function removeDiscountBadge(container) {
-    if (!container) return;
+    if (!container) return
 
-    const badge = container.querySelector(`.${CV_ELEMENT_CLASS}`);
-    if (badge) container.removeChild(badge);
+    const badge = container.querySelector(`.${CV_ELEMENT_CLASS}`)
+    if (badge) container.removeChild(badge)
   }
 
   function processExistingContainers() {
-    if (isDiscountActive || localStorage.getItem(CV_DISCOUNT_KEY)) return;
+    if (isDiscountActive || localStorage.getItem(CV_DISCOUNT_KEY)) return
 
     for (const observed of [
       OBSERVED_CONTAINER_SELECTOR,
       OBSERVED_CONTAINER_SELECTOR_2,
     ]) {
       if (observed) {
-        const containers = document.querySelectorAll(observed);
+        const containers = document.querySelectorAll(observed)
 
         if (containers && containers.length > 0) {
-          containers.forEach(applyDiscountBadge);
+          containers.forEach(applyDiscountBadge)
         }
       }
     }
   }
 
   function onMutations(mutationsList) {
-    if (isDiscountActive || localStorage.getItem(CV_DISCOUNT_KEY)) return;
+    if (isDiscountActive || localStorage.getItem(CV_DISCOUNT_KEY)) return
 
     for (const mutation of mutationsList) {
       if (mutation.type === "childList") {
         mutation.addedNodes.forEach((node) => {
-          if (!(node instanceof HTMLElement)) return;
+          if (!(node instanceof HTMLElement)) return
 
           if (
             node.matches &&
             (node.matches(OBSERVED_CONTAINER_SELECTOR) ||
               node.matches(OBSERVED_CONTAINER_SELECTOR_2))
           ) {
-            applyDiscountBadge(node);
+            applyDiscountBadge(node)
           } else {
             for (const observed of [
               OBSERVED_CONTAINER_SELECTOR,
               OBSERVED_CONTAINER_SELECTOR_2,
             ]) {
               if (observed) {
-                const containers = node.querySelectorAll?.(observed);
+                const containers = node.querySelectorAll?.(observed)
 
                 if (containers && containers.length > 0) {
-                  containers.forEach(applyDiscountBadge);
+                  containers.forEach(applyDiscountBadge)
                 }
               }
             }
           }
-        });
+        })
       }
     }
   }
 
   function debounce(func, wait) {
-    let timeout;
+    let timeout
 
     return function executedFunction(...args) {
       const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
+        clearTimeout(timeout)
+        func(...args)
+      }
 
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait)
+    }
   }
 
-  const debouncedCheckCartDiscount = debounce(checkCartDiscount, 300);
+  const debouncedCheckCartDiscount = debounce(checkCartDiscount, 300)
 
   function safeInit() {
     try {
       checkCartDiscount().then(() => {
-        processExistingContainers();
+        processExistingContainers()
 
-        const observer = new MutationObserver(onMutations);
-        observer.observe(document.body, { childList: true, subtree: true });
-      });
+        const observer = new MutationObserver(onMutations)
+        observer.observe(document.body, { childList: true, subtree: true })
+      })
     } catch (error) {
-      console.error("Erro na inicialização do script Cruz Vermelha:", error);
+      console.error("Erro na inicialização do script Cruz Vermelha:", error)
     }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", safeInit);
+    document.addEventListener("DOMContentLoaded", safeInit)
   } else {
-    safeInit();
+    safeInit()
   }
 
-  document.addEventListener("cart:updated", debouncedCheckCartDiscount);
-  document.addEventListener("cart:refresh", debouncedCheckCartDiscount);
+  document.addEventListener("cart:updated", debouncedCheckCartDiscount)
+  document.addEventListener("cart:refresh", debouncedCheckCartDiscount)
 
   window.addEventListener("error", function (event) {
     if (event.message && event.message.includes("cart/change")) {
-      setTimeout(checkCartDiscount, 500);
+      setTimeout(checkCartDiscount, 500)
     }
-  });
-})();
+  })
+})()
