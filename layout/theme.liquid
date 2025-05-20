@@ -585,9 +585,7 @@
               processExistingContainers();
             }
 
-            if (!storedDiscount && !!cartDataDiscount) {
-              console.log("IU");
-              
+            if (!storedDiscount && !!cartDataDiscount) {              
               for (const observed of [OBSERVED_CONTAINER_SELECTOR, OBSERVED_CONTAINER_SELECTOR_2]) {
                 if (observed) {
                   document.querySelectorAll?.(observed).forEach(removeDiscountBadge);
@@ -693,6 +691,8 @@
           observer.observe(document.body, { childList: true, subtree: true });
         });
 
+        checkCartDiscount();
+        
         document.addEventListener('cart:updated', checkCartDiscount);
         document.addEventListener('cart:refresh', checkCartDiscount);
       })();
