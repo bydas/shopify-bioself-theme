@@ -633,7 +633,6 @@
 
         function removeDiscountBadge(container) {
           const badge = container.querySelector(`.${CV_ELEMENT_CLASS}`);
-          console.log(container, badge);
           if (badge) container.removeChild(badge);
         }
 
@@ -687,12 +686,11 @@
 
         document.addEventListener('DOMContentLoaded', function () {
           processExistingContainers();
+          checkCartDiscount();
 
           const observer = new MutationObserver(onMutations);
           observer.observe(document.body, { childList: true, subtree: true });
         });
-
-        checkCartDiscount();
         
         document.addEventListener('cart:updated', checkCartDiscount);
         document.addEventListener('cart:refresh', checkCartDiscount);
