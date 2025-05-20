@@ -589,8 +589,6 @@
             ) {
               localStorage.removeItem(CV_DISCOUNT_KEY);
               processExistingContainers();
-            } else {
-              console.log(cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP"))));
             }
           } catch (error) {
             console.error('Erro ao verificar desconto do carrinho:', error);
