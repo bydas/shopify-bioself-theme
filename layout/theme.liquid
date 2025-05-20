@@ -576,23 +576,10 @@
 
             const cartData = await response.json();
             const storedDiscount = localStorage.getItem(CV_DISCOUNT_KEY);
-            console.log(Object.entries(cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVPI"))));
-            console.log(Object.entries(cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVPI")))?.length > 0);
+            const cartDataDiscount = cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes(storedDiscount ?? "CVP"));
+            console.log(cartDataDiscount);
 
-            if (
-              (
-                storedDiscount &&
-                (!cartData?.cart_level_discount_applications ||
-                  !cartData?.cart_level_discount_applications?.find(
-                    (discount) => discount.title === storedDiscount
-                  ))
-              ) ||
-              (
-                !storedDiscount &&
-                cartData?.cart_level_discount_applications &&
-                cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP"))?.length > 0
-              )
-            ) {
+            if ((storedDiscount && !cartDataDiscount) || (!storedDiscount && cartDataDiscount)) {
               localStorage.removeItem(CV_DISCOUNT_KEY);
               processExistingContainers();
             }
