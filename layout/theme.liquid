@@ -148,6 +148,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, maximum-scale=1.0">
     <meta name="theme-color" content="{{ settings.accent_color }}">
 
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png">
+    {%- endif -%}
+
     <style>
       #modal_overlay {
         position: fixed;
@@ -773,10 +777,6 @@
         document.head.appendChild(canonicalTag);
       });
     </script>
-
-    {%- if settings.favicon -%}
-      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png">
-    {%- endif -%}
 
     {%- comment -%}Few prefech to increase performance on commonly used third-parties{%- endcomment -%}
     <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
