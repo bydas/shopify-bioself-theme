@@ -585,7 +585,7 @@
                   ))) ||
               (!storedDiscount &&
                 cartData?.cart_level_discount_applications &&
-                cartData?.cart_level_discount_applications?.find((discount) => discount.title === storedDiscount))
+                cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP")))
             ) {
               localStorage.removeItem(CV_DISCOUNT_KEY);
               processExistingContainers();
