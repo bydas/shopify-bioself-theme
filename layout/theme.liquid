@@ -576,7 +576,7 @@
 
             const cartData = await response.json();
             const storedDiscount = localStorage.getItem(CV_DISCOUNT_KEY);
-            console.log(cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP")))
+            console.log(cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP"))?.length > 0);
 
             if (
               (storedDiscount &&
@@ -586,7 +586,7 @@
                   ))) ||
               (!storedDiscount &&
                 cartData?.cart_level_discount_applications &&
-                cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP")))
+                cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP")))?.length > 0;
             ) {
               localStorage.removeItem(CV_DISCOUNT_KEY);
               processExistingContainers();
