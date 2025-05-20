@@ -896,93 +896,90 @@
 {% endschema %}
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const fullCartContainer = document.querySelector(".table-wrapper");
-    const priceContainer = document.querySelector(".card__section");
-    const miniCartContainers = document.querySelectorAll("#mini-cart");
-    const headerCartCounters = document.querySelectorAll(".header__cart-count");
-    const loader = document.getElementById("loader");
-    const fullContainer = document.getElementById("full-cart-container");
-  
+  document.addEventListener('DOMContentLoaded', function () {
+    const fullCartContainer = document.querySelector('.table-wrapper');
+    const priceContainer = document.querySelector('.card__section');
+    const miniCartContainers = document.querySelectorAll('#mini-cart');
+    const headerCartCounters = document.querySelectorAll('.header__cart-count');
+    const loader = document.getElementById('loader');
+    const fullContainer = document.getElementById('full-cart-container');
+
     function showLoader() {
-      loader.style.display = "block";
-      loader.style.width = "0%";
+      loader.style.display = 'block';
+      loader.style.width = '0%';
       setTimeout(() => {
-        loader.style.width = "30%";
+        loader.style.width = '30%';
       }, 100);
     }
-  
+
     function hideLoader() {
-      loader.style.width = "100%";
+      loader.style.width = '100%';
       setTimeout(() => {
-        loader.style.display = "none";
-        loader.style.width = "0%";
+        loader.style.display = 'none';
+        loader.style.width = '0%';
       }, 400);
     }
-    
-    document.addEventListener("click", function(e) {
-      const target = e.target.closest("a[data-line-id]");
-      
+
+    document.addEventListener('click', function (e) {
+      const target = e.target.closest('a[data-line-id]');
+
       if (target && priceContainer && fullCartContainer && fullCartContainer.contains(target)) {
         e.preventDefault();
         showLoader();
-    
+
         fetch(target.href)
-          .then(res => {
+          .then((res) => {
             if (!res.ok) {
-              throw new Error("Erro ao atualizar o carrinho no servidor");
+              throw new Error('Erro ao atualizar o carrinho no servidor');
             }
             return Promise.all([
-              fetch(`/cart?timestamp=${Date.now()}`)
-                .then(res => {
-                  if (!res.ok) {
-                    throw new Error("Erro ao obter a página do carrinho");
-                  }
-                  return res.text();
-                }),
-              fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`)
-                .then(res => {
-                  if (!res.ok) {
-                    throw new Error("Erro ao obter o mini-cart");
-                  }
-                  return res.text();
-                }),
-              fetch(`/cart.js?timestamp=${Date.now()}`)
-                .then(res => {
-                  if (!res.ok) {
-                    throw new Error("Erro ao obter dados do carrinho");
-                  }
-                  return res.json();
-                })
+              fetch(`/cart?timestamp=${Date.now()}`).then((res) => {
+                if (!res.ok) {
+                  throw new Error('Erro ao obter a página do carrinho');
+                }
+                return res.text();
+              }),
+              fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`).then((res) => {
+                if (!res.ok) {
+                  throw new Error('Erro ao obter o mini-cart');
+                }
+                return res.text();
+              }),
+              fetch(`/cart.js?timestamp=${Date.now()}`).then((res) => {
+                if (!res.ok) {
+                  throw new Error('Erro ao obter dados do carrinho');
+                }
+                return res.json();
+              }),
             ]);
           })
           .then(([fullCartHtml, miniCartHtml, cartData]) => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(fullCartHtml, 'text/html');
             const newCartContent = doc.querySelector('.table-wrapper');
-            const newContainer = doc.querySelector("#full-cart-container");
-            const newPriceContainer = doc.querySelector(".card__section");
-            
+            const newContainer = doc.querySelector('#full-cart-container');
+            const newPriceContainer = doc.querySelector('.card__section');
+
             if (newCartContent) {
               fullCartContainer.innerHTML = newCartContent.innerHTML;
               priceContainer.innerHTML = newPriceContainer.innerHTML;
             } else {
               fullContainer.innerHTML = newContainer.innerHTML;
             }
-    
+
             if (miniCartContainers) {
               miniCartContainers.forEach((miniCartContainer) => {
                 miniCartContainer.innerHTML = miniCartHtml;
               });
             }
-    
-            headerCartCounters.forEach(counter => {
+
+            headerCartCounters.forEach((counter) => {
               counter.innerText = cartData.item_count;
             });
           })
-          .catch(error => {
-            console.error("Erro ao atualizar o carrinho:", error);
-            alert(error.message || "Erro ao atualizar o carrinho.");
+          .catch((error) => {
+            console.error('Erro ao atualizar o carrinho:', error);
+            alert(error.message || 'Erro ao atualizar o carrinho.');
           })
           .finally(() => hideLoader());
       }

@@ -13,8 +13,9 @@
 
     const checkBanner = () => {
       const banner = document.getElementById("shopify-pc__banner");
+      const cruz_modal = document.getElementById("modal_cruz_vermelha");
 
-      if (banner && banner.style.display === "block") {
+      if ((banner && banner.style.display === "block") || (cruz_modal && cruz_modal.style.visibility === "visible")) {
         clearInterval(bannerCheckInterval);
         return true;
       }
@@ -38,7 +39,7 @@
     }, delay);
 
     if (newsletterPopup) {
-      document.querySelector("svg")?.addEventListener("click", function() {
+      newsletterPopup.querySelector("svg")?.addEventListener("click", function() {
         sessionStorage.setItem("newsletterPopupClosed", "true");
         newsletterPopup.remove();
         overlayElement.style.display = "none";
@@ -67,7 +68,7 @@
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    z-index: 1001;
+    z-index: 1003;
     width: auto;
     max-width: 90%;
     max-height: 90%;
@@ -239,17 +240,17 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Título",
+      "label": "Título"
     },
     {
       "type": "richtext",
       "id": "subtitle",
-      "label": "Descrição",
+      "label": "Descrição"
     },
     {
       "type": "richtext",
       "id": "termos",
-      "label": "Texto de aceitação dos termos",
+      "label": "Texto de aceitação dos termos"
     },
     {
       "type": "color",

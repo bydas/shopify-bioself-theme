@@ -329,13 +329,13 @@
 </form>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener('DOMContentLoaded', function () {
     let isInputChecked = false;
 
     function attachCartListeners(cart) {
-      if (cart.dataset.listenerAttached === "true") return;
+      if (cart.dataset.listenerAttached === 'true') return;
 
-      cart.addEventListener("submit", function(e) {
+      cart.addEventListener('submit', function (e) {
         if (!isInputChecked) {
           e.preventDefault();
           e.stopPropagation();
@@ -344,78 +344,78 @@
 
           if (button) {
             button.disabled = true;
-            button.pointerEvents = "none";
+            button.pointerEvents = 'none';
             button.style.opacity = 0.5;
           }
 
-          const errorContainer = document.createElement("div");
-          errorContainer.id = "error-message-container";
-          errorContainer.style.backgroundColor = "green";
-          errorContainer.style.color = "white";
-          errorContainer.style.padding = "10px";
-          errorContainer.style.textAlign = "center";
-          errorContainer.style.position = "fixed";
-          errorContainer.style.top = "0";
-          errorContainer.style.left = "0";
-          errorContainer.style.right = "0";
-          errorContainer.style.zIndex = "1000";
-          errorContainer.textContent = "É necessário aceitar os Termos e Condições antes de prosseguir.";
+          const errorContainer = document.createElement('div');
+          errorContainer.id = 'error-message-container';
+          errorContainer.style.backgroundColor = 'green';
+          errorContainer.style.color = 'white';
+          errorContainer.style.padding = '10px';
+          errorContainer.style.textAlign = 'center';
+          errorContainer.style.position = 'fixed';
+          errorContainer.style.top = '0';
+          errorContainer.style.left = '0';
+          errorContainer.style.right = '0';
+          errorContainer.style.zIndex = '1000';
+          errorContainer.textContent = 'É necessário aceitar os Termos e Condições antes de prosseguir.';
 
           document.body.appendChild(errorContainer);
 
-          setTimeout(function(){
+          setTimeout(function () {
             errorContainer.remove();
 
             if (button) {
               button.disabled = false;
-              button.pointerEvents = "auto";
+              button.pointerEvents = 'auto';
               button.style.opacity = 1;
             }
           }, 5000);
         }
       });
 
-      cart.dataset.listenerAttached = "true";
+      cart.dataset.listenerAttached = 'true';
     }
 
     function attachInputListeners(input) {
-      if (input.dataset.listenerAttached === "true") return;
+      if (input.dataset.listenerAttached === 'true') return;
 
-      input.addEventListener("input", function(e) {
+      input.addEventListener('input', function (e) {
         isInputChecked = e.target.checked;
       });
 
-      input.dataset.listenerAttached = "true";
+      input.dataset.listenerAttached = 'true';
     }
 
     function attachListeners() {
-      const carts = document.querySelectorAll("#mini-cart");
-      const inputs = document.querySelectorAll("#effectiveAppsAgreeCB");
+      const carts = document.querySelectorAll('#mini-cart');
+      const inputs = document.querySelectorAll('#effectiveAppsAgreeCB');
 
-      carts.forEach(cart => attachCartListeners(cart));
-      inputs.forEach(input => attachInputListeners(input));
+      carts.forEach((cart) => attachCartListeners(cart));
+      inputs.forEach((input) => attachInputListeners(input));
     }
 
     attachListeners();
 
-    const observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        mutation.addedNodes.forEach(function(node) {
+    const observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
           if (node.nodeType === Node.ELEMENT_NODE) {
-            if (node.matches && node.matches("#mini-cart")) {
+            if (node.matches && node.matches('#mini-cart')) {
               attachCartListeners(node);
             }
 
             if (node.querySelectorAll) {
-              node.querySelectorAll("#mini-cart").forEach(cart => attachCartListeners(cart));
+              node.querySelectorAll('#mini-cart').forEach((cart) => attachCartListeners(cart));
             }
 
-            if (node.matches && node.matches("#effectiveAppsAgreeCB")) {
+            if (node.matches && node.matches('#effectiveAppsAgreeCB')) {
               attachInputListeners(node);
             }
 
             if (node.querySelectorAll) {
-              node.querySelectorAll("#effectiveAppsAgreeCB").forEach(input => attachInputListeners(input));
+              node.querySelectorAll('#effectiveAppsAgreeCB').forEach((input) => attachInputListeners(input));
             }
           }
         });
@@ -427,74 +427,74 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const carts = document.querySelectorAll("#mini-cart");
-    const loader = document.getElementById("loader");
+  document.addEventListener('DOMContentLoaded', function () {
+    const carts = document.querySelectorAll('#mini-cart');
+    const loader = document.getElementById('loader');
 
     function showLoader() {
-      loader.style.display = "block";
-      loader.style.width = "0%";
+      loader.style.display = 'block';
+      loader.style.width = '0%';
 
       setTimeout(() => {
-        loader.style.width = "30%";
+        loader.style.width = '30%';
       }, 100);
     }
 
     function hideLoader() {
-      loader.style.width = "100%";
-      
+      loader.style.width = '100%';
+
       setTimeout(() => {
-        loader.style.display = "none";
-        loader.style.width = "0%";
+        loader.style.display = 'none';
+        loader.style.width = '0%';
       }, 400);
     }
 
     function fetchCart(data) {
-      carts.forEach((cart) => cart.innerHTML = data);
-                    
+      carts.forEach((cart) => (cart.innerHTML = data));
+
       if (innerWidth >= 2559) {
-        carts.forEach((cart) => cart.style.marginRight = "17vw");
+        carts.forEach((cart) => (cart.style.marginRight = '17vw'));
       }
 
       if (innerWidth < 2559 && innerWidth >= 1499) {
-        carts.forEach((cart) => cart.style.marginRight = "8vw");
+        carts.forEach((cart) => (cart.style.marginRight = '8vw'));
       }
 
       if (innerWidth < 1499 && innerWidth >= 1000) {
-        carts.forEach((cart) => cart.style.marginRight = "2vw");
+        carts.forEach((cart) => (cart.style.marginRight = '2vw'));
       }
 
       if (innerWidth >= 1000) {
-        carts.forEach((cart) => cart.style.top = "4.85rem");
+        carts.forEach((cart) => (cart.style.top = '4.85rem'));
       }
 
       if (innerWidth < 1000) {
         carts.forEach((cart) => {
-          cart.style.transform = "scale(1)";
-          cart.style.maxHeight = "calc(100vh - 40px)";
-          cart.style.padding = "1rem 1rem 2rem 1rem";
+          cart.style.transform = 'scale(1)';
+          cart.style.maxHeight = 'calc(100vh - 40px)';
+          cart.style.padding = '1rem 1rem 2rem 1rem';
         });
 
-        const as = carts.forEach((cart) => cart.querySelector("a"));
+        const as = carts.forEach((cart) => cart.querySelector('a'));
 
         if (as) {
-          as.forEach((a) => a.style.padding = "0 1rem");
+          as.forEach((a) => (a.style.padding = '0 1rem'));
         }
       } else {
         carts.forEach((cart) => {
-          cart.style.visibility = "visible";
-          cart.style.opacity = 1
+          cart.style.visibility = 'visible';
+          cart.style.opacity = 1;
         });
       }
     }
 
     if (carts) {
-      document.addEventListener("click", function(e) {
+      document.addEventListener('click', function (e) {
         carts.forEach((cart) => {
-          const items = cart.querySelectorAll(".mini-cart__line-item");
-  
+          const items = cart.querySelectorAll('.mini-cart__line-item');
+
           items.forEach((item) => {
-            const target = e.target.closest("a[data-line-id]");
+            const target = e.target.closest('a[data-line-id]');
 
             if (target && cart.contains(target)) {
               e.preventDefault();
@@ -503,43 +503,42 @@
               fetch(target.href)
                 .then((res) => {
                   if (!res.ok) {
-                    throw new Error("Error when fetching data");
+                    throw new Error('Error when fetching data');
                   }
 
-                  return fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`)
-                    .then((res) => {
-                      if (!res.ok) {
-                        throw new Error("Error getting cart");
-                      }
+                  return fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`).then((res) => {
+                    if (!res.ok) {
+                      throw new Error('Error getting cart');
+                    }
 
-                      return res.text();
-                    })
+                    return res.text();
+                  });
                 })
                 .then((data) => {
                   if (data) {
                     fetchCart(data);
 
-                    return fetch("/cart.js")
+                    return fetch('/cart.js');
                   }
                 })
                 .then((res) => {
                   if (!res.ok) {
-                    throw new Error("Error when fetching cart data")
+                    throw new Error('Error when fetching cart data');
                   }
 
                   return res.json();
                 })
                 .then((data) => {
                   if (data) {
-                    const cartCounters = document.querySelectorAll(".header__cart-count");
-  
+                    const cartCounters = document.querySelectorAll('.header__cart-count');
+
                     if (cartCounters) {
-                      cartCounters.forEach((cart) => cart.innerText = data.item_count );
-                    } 
+                      cartCounters.forEach((cart) => (cart.innerText = data.item_count));
+                    }
                   }
                 })
                 .catch((error) => {
-                  console.error("Error when getting cart");
+                  console.error('Error when getting cart');
                 })
                 .finally(() => hideLoader());
             }

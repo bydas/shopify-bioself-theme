@@ -10,6 +10,23 @@
   }
 }
 
+.cruz_vermelha_element {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, max-content));
+    justify-content: space-between;
+    gap: 1rem;
+    transition: display 0.15s ease;
+    margin-top: 24px;
+    align-items: center;
+}
+
+.cruz_vermelha_element span {
+    color: #258439;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
 .shopify-pc__banner__dialog button.shopify-pc__banner__btn-accept {
   background-color: #88A54E !important;
   color: white !important;
@@ -3252,9 +3269,7 @@ article-block-list.block-list--loose.block-list--no-flush {
 }
 
 .button-group {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    display: grid;
     margin: -5px
 }
 
