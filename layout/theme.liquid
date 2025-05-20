@@ -586,6 +586,8 @@
             }
 
             if (!storedDiscount && !!cartDataDiscount) {
+              console.log("IU");
+              
               for (const observed of [OBSERVED_CONTAINER_SELECTOR, OBSERVED_CONTAINER_SELECTOR_2]) {
                 if (observed) {
                   document.querySelectorAll?.(observed).forEach(removeDiscountBadge);
