@@ -579,14 +579,18 @@
             console.log(cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP"))?.length > 0);
 
             if (
-              (storedDiscount &&
+              (
+                storedDiscount &&
                 (!cartData?.cart_level_discount_applications ||
                   !cartData?.cart_level_discount_applications?.find(
                     (discount) => discount.title === storedDiscount
-                  ))) ||
-              (!storedDiscount &&
+                  ))
+              ) ||
+              (
+                !storedDiscount &&
                 cartData?.cart_level_discount_applications &&
-                cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP")))?.length > 0;
+                cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes("CVP"))?.length > 0
+              )
             ) {
               localStorage.removeItem(CV_DISCOUNT_KEY);
               processExistingContainers();
