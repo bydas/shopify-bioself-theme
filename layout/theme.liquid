@@ -576,7 +576,9 @@
 
             const cartData = await response.json();
             const storedDiscount = localStorage.getItem(CV_DISCOUNT_KEY);
-            const cartDataDiscount = cartData?.cart_level_discount_applications?.find((discount) => discount.title.includes(storedDiscount ?? "CVP"));
+            const cartDataDiscount = cartData?.cart_level_discount_applications?.find(
+              (discount) => discount.title.includes(storedDiscount ?? "CVPI")
+            );
             console.log(cartDataDiscount);
 
             if ((storedDiscount && !cartDataDiscount) || (!storedDiscount && cartDataDiscount)) {
