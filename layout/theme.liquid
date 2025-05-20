@@ -633,6 +633,7 @@
 
         function removeDiscountBadge(container) {
           const badge = container.querySelector(`.${CV_ELEMENT_CLASS}`);
+          console.log(container, badge);
           if (badge) container.removeChild(badge);
         }
 
