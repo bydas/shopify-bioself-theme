@@ -53,13 +53,14 @@
   gap: 1rem;
   grid-auto-flow: row;
   width: 100%;
-  max-width: 500px;
+  max-width: min-content;
 }
 
 #modal_cruz_vermelha > #modal_form_cruz > div > span {
   color: #258439;
   font-size: 1rem;
   font-weight: 500;
+  line-height: normal;
 }
 
 .cruz_title {
@@ -68,15 +69,10 @@
   color: black !important;
   font-size: 1.1rem !important;
   font-weight: 600 !important;
-  text-align: justify;
   white-space: normal !important;
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
   word-break: break-word !important;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  line-height: normal;
 }
 
 #modal_cruz_vermelha > #modal_form_cruz > div > form {
@@ -101,11 +97,11 @@
 }
 
 #modal_cruz_vermelha > #modal_form_cruz > div > form > div > input {
-  border: 1px solid #258439;
+  border: 2px solid #258439;
   border-radius: 0.5rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1rem;
   background-color: #fffade33;
-  width: max-content;
+  width: 16rem;
 }
 
 #modal_cruz_vermelha > #modal_form_cruz > div > form > div > button {
@@ -114,7 +110,7 @@
   color: white;
   height: 100%;
   background-color: #258439;
-  padding: 0.6rem 2.4rem;
+  padding: 0.6rem 2.7rem;
   border: none;
   border-radius: 0.5rem;
   width: max-content;
@@ -185,10 +181,6 @@
     font-size: 1rem;
   }
 
-  #modal_cruz_vermelha > #modal_form_cruz > div > form > div > input {
-    padding: 0.6rem 1.6rem;
-  }
-
   #modal_cruz_vermelha > #modal_form_cruz > div > form > div > button {
     font-size: 0.9rem;
     padding: 0.6rem 2rem;
@@ -224,7 +216,7 @@
   }
 
   #modal_cruz_vermelha > #modal_form_cruz {
-    padding: 2.5rem 2.5rem 1.5rem 1.5rem;
+    padding: 2.5rem 5rem 1.5rem 1.5rem;
   }
 
   #modal_cruz_vermelha > #modal_form_cruz > div > span {
@@ -240,14 +232,13 @@
   }
 
   #modal_cruz_vermelha > #modal_form_cruz > div > form > div > input {
-    padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
     width: 100%;
   }
 
   #modal_cruz_vermelha > #modal_form_cruz > div > form > div > button {
     font-size: 0.9rem;
-    padding: 0.6rem 2rem;
+    padding: 0.6rem 1.6rem;
     width: 100%;
   }
 
