@@ -215,7 +215,8 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .article-comment:last-child,.block-list--no-flush.block-list--no-flush,.card__title,.collection-drawer__title,h1:last-child,h2:last-child,h3:last-child,h4:last-child,h5:last-child,h6:last-child,p:last-child {
-    margin-bottom: 0
+    margin-bottom: 0;
+    line-height: normal;
 }
 
 .pd-0 {
@@ -15405,7 +15406,7 @@ a.SI_trigger.product-item__action-button.button.button--small.button--primary {
 }
 
 .notify_button_collection, notify_button_collection:hover  {
-    background: #8A9297 !important;
+    background: #74797F !important;
     color: #fff  !important;
 }
 

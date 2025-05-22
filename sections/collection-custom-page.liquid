@@ -53,7 +53,7 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Título do bloco",
+          "label": "Título do bloco"
         },
         {
           "type": "text",
@@ -90,7 +90,7 @@
           "type": "text",
           "label": "Detalhes da campanha",
           "id": "campaign_details"
-        },
+        }
       ]
     }
   ],
@@ -113,18 +113,20 @@
 {% assign current_limit = query_value | default: section.settings.collection_products_quantity %}
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const onResize = () => {
-      const getElements = document.querySelectorAll("#get_campaign_details");
+      const getElements = document.querySelectorAll('#get_campaign_details');
 
       if (getElements) {
         getElements.forEach((element) => {
-          element.addEventListener("click", function() {
-            const elementIndex = element.getAttribute("index");
-            const modalElement = Array.from(document.querySelectorAll("#modal_campaign_details")).find((el) => el.getAttribute("index") === elementIndex);
-            const overlayElement = document.querySelector("#modal_overlay");
+          element.addEventListener('click', function () {
+            const elementIndex = element.getAttribute('index');
+            const modalElement = Array.from(document.querySelectorAll('#modal_campaign_details')).find(
+              (el) => el.getAttribute('index') === elementIndex
+            );
+            const overlayElement = document.querySelector('#modal_overlay');
 
-            overlayElement.style.display = 'block'
+            overlayElement.style.display = 'block';
 
             if (window.innerWidth > 1000) {
               modalElement.style.display = 'grid';
@@ -135,30 +137,32 @@
         });
       }
 
-      const escapeElements = document.querySelectorAll("#escape_modal");
+      const escapeElements = document.querySelectorAll('#escape_modal');
 
       if (escapeElements) {
         escapeElements.forEach((element) => {
-          element.addEventListener("click", function() {
-            const elementIndex = element.getAttribute("index");
-            const modalElement = Array.from(document.querySelectorAll("#modal_campaign_details")).find((el) => el.getAttribute("index") === elementIndex);
-            const overlayElement = document.querySelector("#modal_overlay");
+          element.addEventListener('click', function () {
+            const elementIndex = element.getAttribute('index');
+            const modalElement = Array.from(document.querySelectorAll('#modal_campaign_details')).find(
+              (el) => el.getAttribute('index') === elementIndex
+            );
+            const overlayElement = document.querySelector('#modal_overlay');
 
-            overlayElement.style.display = 'none'
+            overlayElement.style.display = 'none';
 
             if (window.innerWidth > 1000) {
-              modalElement.style.display = 'none'
+              modalElement.style.display = 'none';
             } else {
               modalElement.style.transform = 'translateY(100%)';
             }
           });
         });
       }
-    }
+    };
 
     onResize();
 
-    window.addEventListener("resize", onResize);
+    window.addEventListener('resize', onResize);
   });
 </script>
 
@@ -457,7 +461,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1001;
+    z-index: 1003;
     width: auto;
     max-width: 90%;
     overflow: auto;
@@ -673,7 +677,7 @@
   #brands_collections_custom_products_mobile > #pagination_wrapper > ul > li > #current_page {
     border-radius: 0.25rem;
     color: #308a36 !important;
-    background-color: #E7EDDC;
+    background-color: #e7eddc;
     font-weight: 700;
   }
 
@@ -831,30 +835,54 @@
     height: 40px;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #cupon_collection_custom
+    > #cupon_title_description {
     display: grid;
     grid-template-rows: repeat(2, max-content);
     gap: 0.25rem;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description > h1 {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #cupon_collection_custom
+    > #cupon_title_description
+    > h1 {
     font-size: 21px;
     margin: 0;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description > div {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #cupon_collection_custom
+    > #cupon_title_description
+    > div {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     gap: 1rem;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_title_description > div > a {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #cupon_collection_custom
+    > #cupon_title_description
+    > div
+    > a {
     text-decoration: underline;
     color: black;
     cursor: pointer;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_custom_code {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #cupon_collection_custom
+    > #cupon_custom_code {
     display: grid;
     padding: 0.5rem 2rem;
     border-radius: 2rem;
@@ -864,7 +892,12 @@
     text-align: center;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #cupon_collection_custom > #cupon_custom_code > h2 {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #cupon_collection_custom
+    > #cupon_custom_code
+    > h2 {
     font-size: 18px;
     margin: 0;
   }
@@ -896,8 +929,16 @@
     align-items: center;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > #sort-by-selector-custom,
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #order_by_results
+    > #sort-by-selector-custom,
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #quantity-selector-custom {
     display: grid;
     grid-template-rows: repeat(2, max-content);
     padding: 0.4rem 0.5rem 0.3rem 0.5rem;
@@ -907,18 +948,42 @@
     height: max-content;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #quantity-selector-custom {
     width: 120px;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > #sort-by-selector-custom > label,
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom > label {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #order_by_results
+    > #sort-by-selector-custom
+    > label,
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #quantity-selector-custom
+    > label {
     margin-left: 3px;
     line-height: 20px;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #order_by_results > #sort-by-selector-custom > #sort-by,
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #quantity-selector-custom > #quantity-selector {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #order_by_results
+    > #sort-by-selector-custom
+    > #sort-by,
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #quantity-selector-custom
+    > #quantity-selector {
     border: none;
   }
 
@@ -928,8 +993,16 @@
     gap: 0.5rem;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_first > section,
-  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_last > section {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #product_list_wrapper_first
+    > section,
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #product_list_wrapper_last
+    > section {
     width: 100%;
     height: 100%;
   }
@@ -942,8 +1015,18 @@
     list-style-type: none;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_first > ul > li,
-  #brands_collections_custom_products > section > #main_collection_products_custom > #product_list_wrapper_last > ul > li {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #product_list_wrapper_first
+    > ul
+    > li,
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #product_list_wrapper_last
+    > ul
+    > li {
     display: grid;
   }
 
@@ -963,22 +1046,54 @@
     margin-top: 1rem;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #previous-page,
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #next-page {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #previous-page,
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #next-page {
     display: grid;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #previous-page  > svg {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #previous-page
+    > svg {
     transform: rotate(180deg);
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #previous-page  > svg,
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #next-page > svg {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #previous-page
+    > svg,
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #next-page
+    > svg {
     width: 24px;
     height: 24px;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: max-content;
@@ -988,7 +1103,12 @@
     align-items: center;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #pagination {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: max-content;
@@ -998,11 +1118,24 @@
     align-items: center;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination > li {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #pagination
+    > li {
     display: grid;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination > li > a {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #pagination
+    > li
+    > a {
     padding: 0.125rem 0.65rem;
     display: grid;
     place-items: center;
@@ -1014,10 +1147,17 @@
     font-weight: 700;
   }
 
-  #brands_collections_custom_products > section > #main_collection_products_custom > #pagination_parent > #pagination_wrapper > #pagination > li > #current_page {
+  #brands_collections_custom_products
+    > section
+    > #main_collection_products_custom
+    > #pagination_parent
+    > #pagination_wrapper
+    > #pagination
+    > li
+    > #current_page {
     border-radius: 0.25rem;
     color: #308a36 !important;
-    background-color: #E7EDDC;
+    background-color: #e7eddc;
     font-weight: 700;
   }
 
@@ -1102,27 +1242,27 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const svgIcons = document.querySelectorAll("#brands_categorias_div ul li svg");
-    const subMenus = document.querySelectorAll("#brands_categorias_div ul ul");
+  document.addEventListener('DOMContentLoaded', function () {
+    const svgIcons = document.querySelectorAll('#brands_categorias_div ul li svg');
+    const subMenus = document.querySelectorAll('#brands_categorias_div ul ul');
 
     svgIcons.forEach((svg, index) => {
-      svg.addEventListener("click", function() {
+      svg.addEventListener('click', function () {
         subMenus.forEach((submenu, submenuIndex) => {
           if (submenuIndex !== index) {
-            submenu.style.display = "none";
-            svgIcons[submenuIndex].style.transform = "rotate(0deg)";
+            submenu.style.display = 'none';
+            svgIcons[submenuIndex].style.transform = 'rotate(0deg)';
           }
         });
 
         const currentSubMenu = svg.parentElement.nextElementSibling;
 
-        if (currentSubMenu.style.display === "grid") {
-          currentSubMenu.style.display = "none";
-          svg.style.transform = "rotate(0deg)";
+        if (currentSubMenu.style.display === 'grid') {
+          currentSubMenu.style.display = 'none';
+          svg.style.transform = 'rotate(0deg)';
         } else {
-          currentSubMenu.style.display = "grid";
-          svg.style.transform = "rotate(180deg)";
+          currentSubMenu.style.display = 'grid';
+          svg.style.transform = 'rotate(180deg)';
         }
       });
     });
@@ -1130,18 +1270,18 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const sortByInputs = document.querySelectorAll("#sort-by");
+  document.addEventListener('DOMContentLoaded', function () {
+    const sortByInputs = document.querySelectorAll('#sort-by');
 
     sortByInputs.forEach((input) => {
-      input.addEventListener("click", function() {
+      input.addEventListener('click', function () {
         const currentPath = new URL(window.location.href).pathname;
         localStorage.setItem('sort-by-changed', currentPath);
       });
     });
 
-    const newsletterDesktops = document.querySelectorAll("#newsletter_custom");
-    const newsletterMobiles = document.querySelectorAll("#newsletter_custom_mobile");
+    const newsletterDesktops = document.querySelectorAll('#newsletter_custom');
+    const newsletterMobiles = document.querySelectorAll('#newsletter_custom_mobile');
     const storageItem = localStorage.getItem('sort-by-changed');
 
     if (storageItem) {
@@ -1149,8 +1289,8 @@
       const hasChanged = storageItem === currentPath;
 
       if (hasChanged) {
-        newsletterDesktops?.forEach((el) => el.remove())
-        newsletterMobiles?.forEach((el) => el.remove())
+        newsletterDesktops?.forEach((el) => el.remove());
+        newsletterMobiles?.forEach((el) => el.remove());
       } else {
         localStorage.removeItem('sort-by-changed');
       }
@@ -1159,9 +1299,9 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const quantitySelector = document.getElementById("quantity-selector");
-    const quantitySelectorMobile = document.getElementById("quantity-selector_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const quantitySelector = document.getElementById('quantity-selector');
+    const quantitySelectorMobile = document.getElementById('quantity-selector_mobile');
 
     const updateURLParameter = (url, key, value) => {
       let updatedURL = new URL(url);
@@ -1174,11 +1314,11 @@
     if (quantitySelector || quantitySelectorMobile) {
       [quantitySelector, quantitySelectorMobile].forEach((selector) => {
         if (selector) {
-          selector.addEventListener("change", function() {
+          selector.addEventListener('change', function () {
             const selectedQuantity = selector.value;
             const currentURL = window.location.href;
 
-            const newURL = updateURLParameter(currentURL, "limit", selectedQuantity);
+            const newURL = updateURLParameter(currentURL, 'limit', selectedQuantity);
 
             window.location.href = newURL;
           });
@@ -1189,14 +1329,14 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const selectElement = document.querySelector("#sort_by_selector_custom_2");
-    const selectOptionsModal = document.querySelector("#sort_by_selector_custom_options_modal");
+  document.addEventListener('DOMContentLoaded', function () {
+    const selectElement = document.querySelector('#sort_by_selector_custom_2');
+    const selectOptionsModal = document.querySelector('#sort_by_selector_custom_options_modal');
 
     if (selectElement && selectOptionsModal) {
-      const openSvg = selectElement.querySelector("svg");
+      const openSvg = selectElement.querySelector('svg');
 
-      selectElement.addEventListener("click", function() {
+      selectElement.addEventListener('click', function () {
         const selectDisplay = selectOptionsModal.style.display;
 
         if (selectDisplay === 'grid') {
@@ -1218,14 +1358,14 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const selectElement = document.querySelector("#sort_by_selector_custom_2_mobile");
-    const selectOptionsModal = document.querySelector("#sort_by_selector_custom_options_modal_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const selectElement = document.querySelector('#sort_by_selector_custom_2_mobile');
+    const selectOptionsModal = document.querySelector('#sort_by_selector_custom_options_modal_mobile');
 
     if (selectElement && selectOptionsModal) {
-      const openSvg = selectElement.querySelector("svg");
+      const openSvg = selectElement.querySelector('svg');
 
-      selectElement.addEventListener("click", function() {
+      selectElement.addEventListener('click', function () {
         const selectDisplay = selectOptionsModal.style.display;
 
         if (selectDisplay === 'grid') {
@@ -1247,14 +1387,14 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const quantityElement = document.querySelector("#quantity_selector_custom_2");
-    const quantityOptionsModal = document.querySelector("#quantity_options_custom_modal_2");
+  document.addEventListener('DOMContentLoaded', function () {
+    const quantityElement = document.querySelector('#quantity_selector_custom_2');
+    const quantityOptionsModal = document.querySelector('#quantity_options_custom_modal_2');
 
     if (quantityElement && quantityOptionsModal) {
-      const openSvg = quantityElement.querySelector("svg");
+      const openSvg = quantityElement.querySelector('svg');
 
-      quantityElement.addEventListener("click", function() {
+      quantityElement.addEventListener('click', function () {
         const selectDisplay = quantityOptionsModal.style.display;
 
         if (selectDisplay === 'grid') {
@@ -1276,14 +1416,14 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const selectElement = document.querySelector("#quantity_selector_custom_2_mobile");
-    const selectOptionsModal = document.querySelector("#quantity_options_custom_modal_2_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const selectElement = document.querySelector('#quantity_selector_custom_2_mobile');
+    const selectOptionsModal = document.querySelector('#quantity_options_custom_modal_2_mobile');
 
     if (selectElement && selectOptionsModal) {
-      const openSvg = selectElement.querySelector("svg");
+      const openSvg = selectElement.querySelector('svg');
 
-      selectElement.addEventListener("click", function() {
+      selectElement.addEventListener('click', function () {
         const selectDisplay = selectOptionsModal.style.display;
 
         if (selectDisplay === 'grid') {

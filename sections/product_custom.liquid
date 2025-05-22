@@ -3,17 +3,6 @@
   "name": "Product custom",
   "settings": [
     {
-      "type": "text",
-      "id": "main_title",
-      "label": "Título das ofertas",
-      "default": "Ofertas disponíveis:"
-    },
-    {
-      "type": "richtext",
-      "id": "delivery_text",
-      "label": "Descrição do tempo de entrega"
-    },
-    {
       "type": "richtext",
       "id": "disclamer_text",
       "label": "Descrição do disclamer"
@@ -28,6 +17,11 @@
           "type": "text",
           "id": "title",
           "label": "Título do bloco"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Cor de fundo do bloco"
         },
         {
           "type": "text",
@@ -62,6 +56,38 @@
 }
 {% endschema %}
 
+<script>
+  const fullfillDeliveryText = (dateEls, timeEls) => {
+    const now = new Date();
+    const deliveryDate = new Date(now);
+    if (now.getHours() >= 16) {
+      deliveryDate.setDate(deliveryDate.getDate() + 1);
+    }
+
+    const weekdayRaw = deliveryDate.toLocaleDateString('pt-PT', { weekday: 'long' });
+    const weekday = weekdayRaw[0].toUpperCase() + weekdayRaw.slice(1);
+
+    dateEls.forEach((el) => {
+      el.textContent = weekday;
+    });
+
+    const target = new Date(deliveryDate);
+    target.setHours(16, 0, 0, 0);
+    let diffMs = Math.max(0, target - now);
+    const hours = Math.floor(diffMs / 3_600_000);
+    const minutes = Math.floor((diffMs % 3_600_000) / 60_000);
+
+    const parts = [];
+    if (hours > 0) parts.push(`${hours} h`);
+    if (minutes > 0) parts.push(`${minutes} min`);
+    const diffText = parts.join(' ') || '0 min';
+
+    timeEls.forEach((el) => {
+      el.textContent = diffText;
+    });
+  };
+</script>
+
 <style>
   #modal_campaign_details {
     display: none;
@@ -73,7 +99,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1001;
+    z-index: 1003;
     width: auto;
     max-width: 90%;
     overflow: auto;
@@ -143,37 +169,32 @@
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
     #product_page_custom > section > div > div > div > div > h1,
-    #product_page_custom > section > aside > #price_custom_modal > h1,
+    #price_custom_modal > h1,
     #product_page_custom > section > div > ul > li > h2 {
       font-size: 20px !important;
     }
 
-    #product_page_custom > section > aside > span,
-    #product_page_custom > section > aside > #price_percentage_modal > #percentage_custom,
-    #product_page_custom > section > aside > #price_percentage_modal > span,
-    #product_page_custom > section > aside > #oferta_product_custom > div > span,
+    span,
+    #price_percentage_modal > #percentage_custom,
+    #price_percentage_modal > span,
+    #oferta_product_custom > li > span,
     .delivery_wrapper_custom > span {
-      font-size: 12px !important;
+      font-size: 0.75rem !important;
     }
 
     #indicacoes_list_custom > ul > li,
-    #product_page_custom > section > aside > #oferta_product_custom > div > h1,
-    #product_page_custom > section > aside > #price_custom_modal > span,
+    #oferta_product_custom > li > h1,
+    #price_custom_modal > span,
     .modal_info_custom > h3 {
       font-size: 14px !important;
     }
 
     #product_page_custom > section > div > ul > li > span,
     #product_page_custom > section > div > ul > li > p,
-    #product_page_custom > section > aside > #price_quantity_modal > button,
-    #product_page_custom > section > aside > #price_quantity_modal > a,
+    #price_quantity_modal > button,
+    #price_quantity_modal > a,
     .modal_info_custom > span {
-      font-size: 13px !important;
-    }
-
-    #product_page_custom > #product_page_breadcrumbs > li > a,
-    #product_page_custom > #product_page_breadcrumbs > li > #current_page_custom {
-      font-size: 14px !important;
+      font-size: 0.813rem !important;
     }
   }
 
@@ -214,7 +235,7 @@
   }
 
   .modal_info_custom > h3 {
-    font-size: 18px;
+    font-size: 1.125rem;
     margin: 0;
   }
 
@@ -223,26 +244,40 @@
     width: 100%;
     background-color: white;
   }
+  #indicacoes_list_custom > h3 {
+    font-size: 1rem;
+    color: #258439;
+    margin: 0;
+    padding: 0;
+  }
 
   #indicacoes_list_custom > ul {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
     list-style: none;
     padding: 0;
   }
 
   #indicacoes_list_custom > ul > li {
     position: relative;
-    padding-left: 2rem;
+    padding-left: 1.75rem;
     font-weight: 600;
+    color: black;
+    font-size: 1rem;
+    line-height: normal;
   }
 
   #indicacoes_list_custom > ul > li::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 0.8rem;
+    height: 0.8rem;
     background-image: url('{{ "check-icon.svg" | asset_url }}');
     background-size: cover;
     background-repeat: no-repeat;
@@ -271,9 +306,9 @@
   }
 
   #related_products_custom > h1 {
-    font-size: 21px;
+    font-size: 1.75rem;
+    font-weight: 700;
     margin: 0;
-    color: #308a36;
   }
 
   #related_products_custom > ul {
@@ -296,7 +331,7 @@
   #related_products_custom > ul > li > svg {
     position: absolute;
     padding: 0.5rem;
-    background-color: #308a36;
+    background-color: #258439;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -339,12 +374,14 @@
 
   #product_page_custom > #product_page_breadcrumbs > li {
     display: grid;
+    font-weight: bold !important;
   }
 
   #product_page_custom > #product_page_breadcrumbs > li > a {
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     cursor: pointer;
+    font-weight: bold !important;
   }
 
   #product_page_custom > #product_page_breadcrumbs > li > a:hover {
@@ -352,8 +389,8 @@
   }
 
   #product_page_custom > #product_page_breadcrumbs > li > #current_page_custom {
-    color: #308a36;
-    font-size: 16px;
+    color: #258439;
+    font-size: 14px;
   }
 
   #product_page_custom > section {
@@ -369,8 +406,13 @@
   }
 
   #product_page_custom_mobile > section {
+    display: grid;
+    justify-content: center;
     position: relative;
     height: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #258439;
   }
 
   #product_page_custom_mobile > #product_name_custom {
@@ -378,17 +420,26 @@
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     gap: 0.25rem;
-    color: #308a36;
+    color: #258439;
+  }
+
+  #product_name_custom > .link_collection {
+    width: max-content;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    font-size: 0.813rem;
   }
 
   #product_page_custom_mobile > #product_name_custom > h1 {
     margin: 0;
-    font-size: 16px;
+    font-size: 1.125rem;
   }
 
-  .link_collection {
-    font-size: 14px;
+  #product_page_custom > section > div > div > div > div > .link_collection {
+    font-size: 1rem;
     width: max-content;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
   }
 
   #product_page_custom > section > div {
@@ -399,14 +450,14 @@
 
   #product_page_custom > section > div > div {
     display: grid;
-    grid-template-columns: 400px 1fr;
+    grid-template-columns: 500px 1fr;
     gap: 2rem;
   }
 
   #product_page_custom > section > div > div > section {
     position: relative;
     padding: 1rem;
-    border: 1px solid #308a36;
+    border: 1px solid #258439;
     border-radius: 0.65rem;
     height: 100%;
   }
@@ -414,7 +465,8 @@
   #product_page_custom > section > div > div > div {
     display: grid;
     grid-template-rows: repeat(2, max-content);
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   #product_page_custom > section > div > div > div > div {
@@ -422,13 +474,17 @@
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     gap: 0.5rem;
-    color: #308a36;
+    color: #258439;
+    min-width: 0;
   }
 
   #product_page_custom > section > div > div > div > div > h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: normal;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    white-space: normal;
   }
 
   #product_page_custom > section > div > div > div > div > .link_custom {
@@ -436,10 +492,6 @@
     color: currentColor;
     line-height: normal;
     width: max-content;
-  }
-
-  #product_page_custom > section > div > div > div > div > a:hover {
-    text-decoration: underline;
   }
 
   #product_page_custom > section > div > ul,
@@ -460,19 +512,19 @@
   }
 
   #product_page_custom > section > div > ul > li > h2 {
-    border-bottom: 2px solid #308a36;
+    border-bottom: 2px solid #258439;
     margin: 0;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: normal;
-    color: #308a36;
+    color: #258439;
   }
 
   #product_page_custom_mobile > #product_description_custom > li > h2 {
-    border-bottom: 2px solid #308a36;
+    border-bottom: 2px solid #258439;
     margin: 0;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: normal;
-    color: #308a36;
+    color: #258439;
   }
 
   #product_page_custom > section > aside {
@@ -480,7 +532,7 @@
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     padding: 1rem 1.5rem;
-    gap: 0.5rem;
+    gap: 0.8rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 0.65rem;
     position: sticky;
@@ -489,57 +541,66 @@
     max-height: calc(100vh - 20px);
     overflow-y: auto;
     font-weight: 600;
+    min-width: 26rem;
   }
 
-  #product_page_custom > section > aside > #price_custom_modal,
-  #product_page_custom > section > aside > #price_percentage_modal,
-  #product_page_custom_mobile > #custom_wrapper_content > #price_custom_modal,
-  #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal {
+  #price_custom_modal,
+  #price_percentage_modal,
+  #product_page_custom_mobile > aside > #custom_wrapper_content > #price_custom_modal,
+  #product_page_custom_mobile > #custom_wrapper_content > aside > #price_percentage_modal {
     display: grid;
     grid-template-columns: repeat(2, max-content);
-    gap: 0.5rem;
-    align-items: center;
+    gap: 1rem;
+    align-items: baseline;
   }
 
-  #product_page_custom > section > aside > #price_custom_modal > h1 {
+  #price_percentage_modal {
+    justify-content: space-between;
+  }
+
+  #price_custom_modal > h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 1.75rem;
     line-height: normal;
-    color: #308a36;
+    color: #258439;
+    font-weight: bolder !important;
   }
 
-  #product_page_custom_mobile > #custom_wrapper_content > #price_custom_modal > h1 {
-    font-size: 21px;
+  #product_page_custom_mobile > aside > #custom_wrapper_content > #price_custom_modal > h1 {
+    font-size: 1.313rem;
     line-height: normal;
-    color: #308a36;
+    color: #258439;
     margin: 0;
   }
 
-  #product_page_custom > section > aside > #price_custom_modal > span {
+  #price_custom_modal > span {
     text-decoration: line-through;
     line-height: normal;
-    font-size: 16px;
+    font-size: 1.125rem;
+    font-weight: bold !important;
   }
 
-  #product_page_custom_mobile > #custom_wrapper_content > #price_custom_modal > span {
+  #product_page_custom_mobile > aside > #custom_wrapper_content > #price_custom_modal > span {
     text-decoration: line-through;
     line-height: normal;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
-  #product_page_custom > section > aside > #price_percentage_modal > #percentage_custom,
+  #price_percentage_modal > #percentage_custom,
   #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > #percentage_custom {
     background-color: #ffbb12;
     color: black;
-    padding: 0 1rem;
-    border-radius: 0.35rem;
+    padding: 0 0.75rem;
+    border-radius: 2.5rem;
+    font-size: 1rem !important;
+    font-weight: bold;
   }
 
-  #product_page_custom > section > aside > #price_percentage_modal > #percentage_custom,
-  #product_page_custom > section > aside > #price_percentage_modal > span,
+  #price_percentage_modal > #percentage_custom,
+  #price_percentage_modal > span,
   #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > #percentage_custom,
   #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > span {
-    font-size: 14px;
+    font-size: 0.813rem;
   }
 
   #product_page_custom_mobile > aside {
@@ -547,56 +608,57 @@
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     padding: 1rem;
-    gap: 0.5rem;
+    gap: 1rem;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 0.5rem;
     overflow-y: auto;
   }
 
-  #product_page_custom > section > aside > #oferta_product_custom,
+  #oferta_product_custom,
   #product_page_custom_mobile > aside > #oferta_product_custom {
     display: grid;
-    grid-template-rows: repeat(2, max-content);
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
     gap: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    background-color: #ffbb12;
-    border: 1px solid #308a36;
-    font-weight: 500;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
   }
 
   #add_to_cart_btn_container_mobile > a {
     display: grid;
   }
 
-  #product_page_custom > section > aside > #oferta_product_custom > div,
-  #product_page_custom_mobile > aside > #oferta_product_custom > div {
+  #oferta_product_custom > li,
+  #product_page_custom_mobile > aside > #oferta_product_custom > li {
+    padding: 0.8rem 1.5rem;
+    border-radius: 1.25rem;
     position: relative;
     display: grid;
     grid-template-rows: repeat(2, max-content);
-    gap: 0.125rem;
+    gap: 0.25rem;
+    max-width: 26rem;
   }
 
-  #product_page_custom > section > aside > #oferta_product_custom > div {
-    width: 22rem;
-  }
-
-  #product_page_custom > section > aside > #oferta_product_custom > div > h1,
-  #product_page_custom_mobile > aside > #oferta_product_custom > div > h1 {
+  #oferta_product_custom > li > h1,
+  #product_page_custom_mobile > aside > #oferta_product_custom > li > h1 {
     margin: 0;
     font-weight: 900;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
-  #product_page_custom > section > aside > #oferta_product_custom > div > span,
-  #product_page_custom_mobile > aside > #oferta_product_custom > div > span {
+  #oferta_product_custom > li > p,
+  #product_page_custom_mobile > aside > #oferta_product_custom > li > p {
     font-size: 14px;
+    line-height: normal;
+    white-space: normal;
+    word-break: break-all;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > a,
-  #product_page_custom_mobile > aside > #price_quantity_modal > a,
-  #product_page_custom > section > aside > #price_quantity_modal > button,
-  #product_page_custom_mobile > aside > #price_quantity_modal > button,
+  #price_quantity_modal > a,
+  #price_quantity_modal > a,
+  #price_quantity_modal > button,
+  #price_quantity_modal > button,
   #add_to_cart_btn_container_mobile > button,
   #add_to_cart_btn_container_mobile > a {
     display: grid;
@@ -606,58 +668,67 @@
     gap: 0.5rem;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal,
-  #product_page_custom_mobile > aside > #price_quantity_modal {
+  #price_quantity_modal,
+  #price_quantity_modal {
     display: grid;
-    grid-template-columns: max-content 1fr;
-    gap: 1rem;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > div,
-  #product_page_custom_mobile > aside > #price_quantity_modal > div {
+  #quantity-controls,
+  #price_quantity_modal > div {
     display: grid;
     grid-template-columns: repeat(3, max-content);
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 0.5rem 0.75rem;
-    border-radius: 0.65rem;
-    border: 1px solid #308a36;
+    border-radius: 0.55rem;
     align-items: center;
     font-weight: 700;
+    width: max-content;
+    min-width: 120px;
+    justify-content: space-between;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > div > *,
-  #product_page_custom_mobile > aside > #price_quantity_modal > div > * {
+  #quantity-controls > *,
+  #price_quantity_modal > div > * {
     border: none;
     background-color: transparent;
-    color: #308a36;
-    padding: 0;
     text-align: center;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > div > input:focus,
-  #product_page_custom_mobile > aside > #price_quantity_modal > div > input:focus {
+  #quantity-controls > svg {
+    border-radius: 50%;
+    padding: 0.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  #quantity-controls > input {
+    font-size: 1rem;
+  }
+
+  #quantity-controls > input:focus,
+  #price_quantity_modal > div > input:focus {
     outline: none;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > div > input::-webkit-outer-spin-button,
-  #product_page_custom_mobile > aside > #price_quantity_modal > div > input::-webkit-outer-spin-button,
+  #quantity-controls > input::-webkit-outer-spin-button,
+  #price_quantity_modal > div > input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > div > input[type=number],
-  #product_page_custom_mobile > aside > #price_quantity_modal > div > input[type=number] {
+  #quantity-controls > input[type='number'],
+  #price_quantity_modal > div > input[type='number'] {
     -moz-appearance: textfield;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > button,
-  #product_page_custom_mobile > aside > #price_quantity_modal > button,
-  #product_page_custom > section > aside > #price_quantity_modal > a,
-  #product_page_custom_mobile > aside > #price_quantity_modal > a,
+  #add-to-cart,
+  #price_quantity_modal > button,
+  #price_quantity_modal > a,
+  #price_quantity_modal > a,
   #add_to_cart_btn_container_mobile > button,
   #add_to_cart_btn_container_mobile > a {
-    padding: 0.5rem 1rem;
+    padding: 0.675rem 1rem;
     border: none;
     border-radius: 0.65rem;
     color: white;
@@ -666,11 +737,11 @@
     transition: all 0.15s ease;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > button,
-  #product_page_custom_mobile > aside > #price_quantity_modal > button,
+  #add-to-cart,
+  #price_quantity_modal > button,
   #add_to_cart_btn_container_mobile > button,
   #add_to_cart_btn_container_mobile > a {
-    background-color: #308a36;
+    background-color: #258439;
   }
 
   #add_to_cart_btn_container_mobile > button,
@@ -678,8 +749,8 @@
     width: 100%;
   }
 
-  #product_page_custom > section > aside > #price_quantity_modal > button:hover,
-  #product_page_custom_mobile > aside > #price_quantity_modal > button:hover,
+  #add-to-cart:hover,
+  #price_quantity_modal > button:hover,
   #add_to_cart_btn_container_mobile > button:hover,
   #add_to_cart_btn_container_mobile > a:hover {
     background-color: #ffbb12;
@@ -715,8 +786,19 @@
     }
   }
 
+  @media screen and (max-width: 1599px) {
+    #product_page_custom > section > div > div {
+      grid-template-columns: 400px 1fr;
+    }
+
+    #product_page_custom > section > aside,
+    #oferta_product_custom > li {
+      min-width: 20rem;
+    }
+  }
+
   @media screen and (max-width: 1499px) {
-     #related_products_custom > ul > li > section {
+    #related_products_custom > ul > li > section {
       width: 300px;
     }
   }
@@ -726,12 +808,12 @@
       padding: 1rem;
     }
 
-    #product_page_custom > section > aside > img {
+    img {
       width: 250px;
       justify-self: center;
     }
 
-    #product_page_custom > section > aside > #oferta_product_custom > div {
+    #oferta_product_custom > li {
       width: 20rem;
     }
   }
@@ -743,15 +825,15 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
+    z-index: 1001;
     display: none;
   }
 
   @media screen and (max-width: 360px) {
     #modal_campaign_details > div > svg,
     #modal_campaign_details > svg {
-      width: 18px;
-      height: 18px;
+      width: 1.125rem;
+      height: 1.125rem;
     }
 
     #modal_campaign_details > div > div > h1 {
@@ -759,7 +841,7 @@
     }
 
     #modal_campaign_details > div > div > span {
-      font-size: 12px;
+      font-size: 0.75rem;
     }
   }
 
@@ -793,7 +875,7 @@
     }
 
     #related_products_custom > h1 {
-      font-size: 16px;
+      font-size: 1rem;
     }
 
     #related_products_custom,
@@ -810,12 +892,12 @@
     }
 
     .modal_info_custom > h3 {
-      font-size: 16px;
+      font-size: 1rem;
     }
 
     .delivery_wrapper_custom > img {
-      width: 18px;
-      height: 18px;
+      width: 1.125rem;
+      height: 1.125rem;
     }
   }
 
@@ -824,15 +906,116 @@
       width: 14rem;
     }
 
-    #product_page_custom > section > aside > #price_percentage_modal > #percentage_custom,
-    #product_page_custom > section > aside > #price_percentage_modal > span,
+    #price_percentage_modal > #percentage_custom,
+    #price_percentage_modal > span {
+      width: max-content;
+    }
+
+    #price_percentage_modal > #percentage_custom,
+    #price_percentage_modal > span,
     #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > #percentage_custom,
     #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > span,
-    #product_page_custom_mobile > aside > #price_quantity_modal > a,
+    #price_quantity_modal > a,
     #add_to_cart_btn_container_mobile > a,
-    #product_page_custom_mobile > aside > #price_quantity_modal > button,
+    #price_quantity_modal > button,
     #add_to_cart_btn_container_mobile > button {
-      font-size: 12px;
+      font-size: 0.75rem;
+    }
+
+    #price_percentage_modal,
+    .quantity_stock_container,
+    .product_delivery_time {
+      grid-template-rows: repeat(2, max-content);
+      grid-template-columns: max-content !important;
+    }
+  }
+
+  .discount_badge {
+    display: grid;
+    border-radius: 2.5rem;
+    border: 1px solid #ffbb12;
+    padding: 0.65rem;
+    width: 100%;
+  }
+
+  .discount_badge > span {
+    text-align: center;
+    color: #258439;
+    font-size: 0.813rem;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .title_block_container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .title_block_container > h1 {
+    margin: 0;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .quantity_stock_container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .quantity_stock_container > .stock_container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .quantity_stock_container > .stock_container > span {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .product_delivery_time {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+  }
+
+  .product_delivery_time > div {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-autow-flow: row;
+  }
+
+  .product_delivery_time > div > span {
+    line-height: normal;
+  }
+
+  .product_delivery_time > div > span > b {
+    color: #258439;
+    font-weight: bold;
+  }
+
+  .spinner_date {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    vertical-align: text-bottom;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
   }
 </style>
@@ -933,7 +1116,11 @@
             ></a>
           </div>
 
-          <span id="indicacoes_list_custom">{{ indicacoes }}</span>
+          <div id="indicacoes_list_custom">
+            <h3>Indicações</h3>
+
+            {{ indicacoes }}
+          </div>
         </div>
       </div>
 
@@ -999,17 +1186,6 @@
       {%- assign pvp = product.price -%}
       {%- assign pvp_per_unit = pvp | divided_by: units | money -%}
 
-      {% unless units == blank
-        or product.metafields.PHC['Unidade-Plural'] == blank
-        or product.metafields.PHC['Unidade-Singular'] == blank
-      %}
-        <span>
-          {{- units }}
-          {{ product.metafields.PHC['Unidade-Plural'] }} - €{{ pvp_per_unit | split: '€' }} por
-          {{ product.metafields.PHC['Unidade-Singular'] -}}
-        </span>
-      {% endunless %}
-
       {% if product.compare_at_price > product.price and product.compare_at_price > 0 %}
         <div id="price_percentage_modal">
           <span id="percentage_custom">
@@ -1023,53 +1199,127 @@
             -}}
             %</span
           >
-          <span>Desconto exclusivo na loja online.</span>
+
+          {% unless units == blank
+            or product.metafields.PHC['Unidade-Plural'] == blank
+            or product.metafields.PHC['Unidade-Singular'] == blank
+          %}
+            <span>
+              {{- units }}
+              {{ product.metafields.PHC['Unidade-Plural'] }} / €{{ pvp_per_unit | split: '€' }} por
+              {{ product.metafields.PHC['Unidade-Singular'] -}}
+            </span>
+          {% endunless %}
         </div>
       {% endif %}
 
       {% if has_tag == true %}
-        <div id="oferta_product_custom">
-          <span>{{ section.settings.main_title }}</span>
+        <div class="discount_badge">
+          <span>Preços e campanhas exclusivas da loja online</span>
+        </div>
+
+        <ul id="oferta_product_custom">
           {% for block in section.blocks %}
             {% assign current_index = forloop.index %}
             {% assign array_tags = block.settings.selected_tags | split: ',' %}
+            {% assign bg_color = block.settings.background_color %}
+
+            {% if bg_color == blank %}
+              {% assign idx_mod = current_index | modulo: 2 %}
+
+              {% if idx_mod == 1 %}
+                {% assign bg_color = '#ffbb12' %}
+              {% else %}
+                {% assign bg_color = '#c8e0cd' %}
+              {% endif %}
+            {% endif %}
 
             {% for tag in array_tags %}
               {% if product.tags contains tag %}
-                <div>
-                  <h1>{{ block.settings.selected_title }}</h1>
+                <li style="background-color: {{ bg_color }};">
+                  <div class="title_block_container">
+                    <h1>{{ block.settings.selected_title }}</h1>
 
-                  <span>
-                    {{- block.settings.selected_description -}}
-                  </span>
+                    <svg
+                      id="get_campaign_details"
+                      index="{{ current_index }}"
+                      width="21"
+                      height="20"
+                      viewBox="0 0 21 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M9.23096 15H11.231V9H9.23096V15ZM10.231 7C10.5143 7 10.7518 6.90417 10.9435 6.7125C11.1351 6.52083 11.231 6.28333 11.231 6C11.231 5.71667 11.1351 5.47917 10.9435 5.2875C10.7518 5.09583 10.5143 5 10.231 5C9.94762 5 9.71012 5.09583 9.51846 5.2875C9.32679 5.47917 9.23096 5.71667 9.23096 6C9.23096 6.28333 9.32679 6.52083 9.51846 6.7125C9.71012 6.90417 9.94762 7 10.231 7ZM10.231 20C8.84762 20 7.54762 19.7375 6.33096 19.2125C5.11429 18.6875 4.05596 17.975 3.15596 17.075C2.25596 16.175 1.54346 15.1167 1.01846 13.9C0.493457 12.6833 0.230957 11.3833 0.230957 10C0.230957 8.61667 0.493457 7.31667 1.01846 6.1C1.54346 4.88333 2.25596 3.825 3.15596 2.925C4.05596 2.025 5.11429 1.3125 6.33096 0.7875C7.54762 0.2625 8.84762 0 10.231 0C11.6143 0 12.9143 0.2625 14.131 0.7875C15.3476 1.3125 16.406 2.025 17.306 2.925C18.206 3.825 18.9185 4.88333 19.4435 6.1C19.9685 7.31667 20.231 8.61667 20.231 10C20.231 11.3833 19.9685 12.6833 19.4435 13.9C18.9185 15.1167 18.206 16.175 17.306 17.075C16.406 17.975 15.3476 18.6875 14.131 19.2125C12.9143 19.7375 11.6143 20 10.231 20ZM10.231 18C12.4643 18 14.356 17.225 15.906 15.675C17.456 14.125 18.231 12.2333 18.231 10C18.231 7.76667 17.456 5.875 15.906 4.325C14.356 2.775 12.4643 2 10.231 2C7.99762 2 6.10596 2.775 4.55596 4.325C3.00596 5.875 2.23096 7.76667 2.23096 10C2.23096 12.2333 3.00596 14.125 4.55596 15.675C6.10596 17.225 7.99762 18 10.231 18Z" fill="#1C1B1F"/>
+                    </svg>
+                  </div>
 
-                  <a id="get_campaign_details" index="{{ current_index }}">Mais info</a>
-                </div>
+                  {{- block.settings.selected_description -}}
+                </li>
               {% endif %}
             {% endfor %}
           {% endfor %}
-        </div>
+        </ul>
       {% endif %}
 
-      <span>Quantidade:</span>
+      <div class="quantity_stock_container">
+        <div
+          id="quantity-controls"
+          style="border: 1px solid {% if product.variants.first.available == true %}#258439{% else %}#C0C5CA{% endif %};"
+        >
+          <svg
+            id="decrease-quantity"
+            width="12"
+            height="2"
+            viewBox="0 0 12 2"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style="background-color: {% if product.variants.first.available == true %}#b7ffc1{% else %}#C0C5CA{% endif %}; {% if product.variants.first.available == true %}cursor: pointer{% else %}pointer-events: none{% endif %};"
+          >
+            <path d="M0.657471 1.97195V0.36084H11.9352V1.97195H0.657471Z" fill="{% if product.variants.first.available == true %}black{% else %}white{% endif %}"/>
+          </svg>
 
-      <div id="price_quantity_modal">
-        <div id="quantity-controls">
-          <button id="decrease-quantity" type="button">
-            <svg focusable="false" class="icon icon--minus" viewBox="0 0 10 2" role="presentation">
-              <path d="M10 0v2H0V0z" fill="currentColor"></path>
-            </svg>
-          </button>
+          {% if product.variants.first.available == true %}
+            <input
+              type="number"
+              id="product-quantity"
+              value="1"
+              min="1"
+              max="16"
+            >
+          {% else %}
+            <span style="color: #C0C5CA;">-</span>
+          {% endif %}
 
-          <input type="number" id="product-quantity" value="1" min="1" max="16">
-
-          <button id="increase-quantity" type="button">
-            <svg focusable="false" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
-              <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
-            </svg>
-          </button>
+          <svg
+            id="increase-quantity"
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style="background-color: {% if product.variants.first.available == true %}#b7ffc1{% else %}#C0C5CA{% endif %}; {% if product.variants.first.available == true %}cursor: pointer{% else %}pointer-events: none{% endif %};"
+          >
+            <path d="M5.34847 6.97179H0.515137V5.36068H5.34847V0.527344H6.95958V5.36068H11.7929V6.97179H6.95958V11.8051H5.34847V6.97179Z" fill="{% if product.variants.first.available == true %}black{% else %}white{% endif %}"/>
+          </svg>
         </div>
 
+        <div class="stock_container">
+          <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.41602 17.925V11.075L2.41602 7.6V14.45L8.41602 17.925ZM10.416 17.925L16.416 14.45V7.6L10.416 11.075V17.925ZM8.41602 20.225L1.41602 16.2C1.09935 16.0167 0.853516 15.775 0.678516 15.475C0.503516 15.175 0.416016 14.8417 0.416016 14.475V6.525C0.416016 6.15833 0.503516 5.825 0.678516 5.525C0.853516 5.225 1.09935 4.98333 1.41602 4.8L8.41602 0.775C8.73268 0.591667 9.06602 0.5 9.41602 0.5C9.76602 0.5 10.0993 0.591667 10.416 0.775L17.416 4.8C17.7327 4.98333 17.9785 5.225 18.1535 5.525C18.3285 5.825 18.416 6.15833 18.416 6.525V14.475C18.416 14.8417 18.3285 15.175 18.1535 15.475C17.9785 15.775 17.7327 16.0167 17.416 16.2L10.416 20.225C10.0993 20.4083 9.76602 20.5 9.41602 20.5C9.06602 20.5 8.73268 20.4083 8.41602 20.225ZM13.416 7.025L15.341 5.925L9.41602 2.5L7.46602 3.625L13.416 7.025ZM9.41602 9.35L11.366 8.225L5.44102 4.8L3.49102 5.925L9.41602 9.35Z" fill="{% if product.variants.first.available == true %}#258439{% else %}#74797F{% endif %}"/>
+          </svg>
+
+          <span style="color: {% if product.variants.first.available == true %}#258439{% else %}#74797F{% endif %};">
+            Stock
+            {% if product.variants.first.available == true %}
+              disponível
+            {% else %}
+              indisponível
+            {% endif %}
+          </span>
+        </div>
+      </div>
+
+      <div id="price_quantity_modal">
         {% if product.variants.first.available == true %}
           <button
             id="add-to-cart"
@@ -1087,6 +1337,7 @@
           <a
             href="#"
             class="SI_trigger {{ quick_buy_classes }} notify_button_collection"
+            style="background-color: #74797F !important;"
             data-product-data="{{ product | json | escape }}"
           >
             <svg
@@ -1094,8 +1345,8 @@
               fill="currentColor"
               stroke-width="0"
               viewBox="0 0 448 512"
-              height="18px"
-              width="18px"
+              height="1.125rem"
+              width="1.125rem"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M439.39 362.29c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71zM67.53 368c21.22-27.97 44.42-74.33 44.53-159.42 0-.2-.06-.38-.06-.58 0-61.86 50.14-112 112-112s112 50.14 112 112c0 .2-.06.38-.06.58.11 85.1 23.31 131.46 44.53 159.42H67.53zM224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64z"></path>
@@ -1106,16 +1357,44 @@
         {% endif %}
       </div>
 
-      <div class="delivery_wrapper_custom">
-        <img src="{{ "check-icon.svg" | asset_url }}" alt="icon">
+      {% if product.variants.first.available == true %}
+        <div class="product_delivery_time">
+          <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.93677 16.5C6.10343 16.5 5.3951 16.2083 4.81177 15.625C4.22843 15.0417 3.93677 14.3333 3.93677 13.5H1.43677L1.88677 11.5H4.71177C4.9951 11.1833 5.32843 10.9375 5.71177 10.7625C6.0951 10.5875 6.50343 10.5 6.93677 10.5C7.3701 10.5 7.77843 10.5875 8.16177 10.7625C8.5451 10.9375 8.87843 11.1833 9.16177 11.5H13.3368L15.4368 2.5H6.48677L6.91177 0.5H17.9368L17.0118 4.5H19.9368L22.9368 8.5L21.9368 13.5H19.9368C19.9368 14.3333 19.6451 15.0417 19.0618 15.625C18.4784 16.2083 17.7701 16.5 16.9368 16.5C16.1034 16.5 15.3951 16.2083 14.8118 15.625C14.2284 15.0417 13.9368 14.3333 13.9368 13.5H9.93677C9.93677 14.3333 9.6451 15.0417 9.06177 15.625C8.47843 16.2083 7.7701 16.5 6.93677 16.5ZM15.8618 9.5H20.6868L20.7868 8.975L18.9368 6.5H16.5618L15.8618 9.5ZM15.4368 2.5L13.3368 11.5L13.3868 11.325L15.4368 2.5ZM3.43677 9.5V6.5H0.936768L4.43677 1.5V4.5H6.93677L3.43677 9.5ZM6.93677 14.5C7.2201 14.5 7.4576 14.4042 7.64927 14.2125C7.84093 14.0208 7.93677 13.7833 7.93677 13.5C7.93677 13.2167 7.84093 12.9792 7.64927 12.7875C7.4576 12.5958 7.2201 12.5 6.93677 12.5C6.65343 12.5 6.41593 12.5958 6.22427 12.7875C6.0326 12.9792 5.93677 13.2167 5.93677 13.5C5.93677 13.7833 6.0326 14.0208 6.22427 14.2125C6.41593 14.4042 6.65343 14.5 6.93677 14.5ZM16.9368 14.5C17.2201 14.5 17.4576 14.4042 17.6493 14.2125C17.8409 14.0208 17.9368 13.7833 17.9368 13.5C17.9368 13.2167 17.8409 12.9792 17.6493 12.7875C17.4576 12.5958 17.2201 12.5 16.9368 12.5C16.6534 12.5 16.4159 12.5958 16.2243 12.7875C16.0326 12.9792 15.9368 13.2167 15.9368 13.5C15.9368 13.7833 16.0326 14.0208 16.2243 14.2125C16.4159 14.4042 16.6534 14.5 16.9368 14.5Z" fill="#258439"/>
+          </svg>
 
-        <span>{{ section.settings.delivery_text }}</span>
-      </div>
+          <div>
+            <span style="font-weight: bold;">
+              Próximo envio:
+              <b class="next_delivery_date"><span class="spinner_date"></span></b>
+            </span>
 
-      <img src="{{ "metodos_pag_new.svg" | asset_url }}" alt="icon">
+            <span>
+              Faça o seu pedido dentro de
+              <b class="next_delivery_time"><span class="spinner_date"></span></b>
+            </span>
+          </div>
+        </div>
+      {% endif %}
     </aside>
   </section>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dateEls = document.querySelectorAll('.next_delivery_date');
+    const timeEls = document.querySelectorAll('.next_delivery_time');
+
+    const schedule = () => {
+      fullfillDeliveryText(dateEls, timeEls);
+      const now = new Date();
+      const msToNextMin = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+      setTimeout(schedule, msToNextMin);
+    };
+
+    schedule();
+  });
+</script>
 
 <main id="product_page_custom_mobile">
   <section class="img_favorite_custom">
@@ -1140,7 +1419,7 @@
     <a href="#custom_reviews_list" class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></a>
   </div>
 
-  <div id="custom_wrapper_content">
+  <aside>
     <div id="price_custom_modal">
       <h1>{{ product.price | money }}</h1>
 
@@ -1152,17 +1431,6 @@
     {%- assign units = product.metafields.PHC['Valor-Unidade'] | floor -%}
     {%- assign pvp = product.price -%}
     {%- assign pvp_per_unit = pvp | divided_by: units | money -%}
-
-    {% unless units == blank
-      or product.metafields.PHC['Unidade-Plural'] == blank
-      or product.metafields.PHC['Unidade-Singular'] == blank
-    %}
-      <span>
-        {{- units }}
-        {{ product.metafields.PHC['Unidade-Plural'] }} - €{{ pvp_per_unit | split: '€' }} por
-        {{ product.metafields.PHC['Unidade-Singular'] -}}
-      </span>
-    {% endunless %}
 
     {% if product.compare_at_price > product.price and product.compare_at_price > 0 %}
       <div id="price_percentage_modal">
@@ -1177,53 +1445,127 @@
           -}}
           %</span
         >
-        <span>Desconto exclusivo na loja online.</span>
+
+        {% unless units == blank
+          or product.metafields.PHC['Unidade-Plural'] == blank
+          or product.metafields.PHC['Unidade-Singular'] == blank
+        %}
+          <span>
+            {{- units }}
+            {{ product.metafields.PHC['Unidade-Plural'] }} / €{{ pvp_per_unit | split: '€' }} por
+            {{ product.metafields.PHC['Unidade-Singular'] -}}
+          </span>
+        {% endunless %}
       </div>
     {% endif %}
-  </div>
 
-  <aside>
     {% if has_tag == true %}
-      <div id="oferta_product_custom">
-        <span>{{ section.settings.main_title }}</span>
+      <div class="discount_badge">
+        <span>Preços e campanhas exclusivas da loja online</span>
+      </div>
+
+      <ul id="oferta_product_custom">
         {% for block in section.blocks %}
           {% assign current_index = forloop.index %}
           {% assign array_tags = block.settings.selected_tags | split: ',' %}
+          {% assign bg_color = block.settings.background_color %}
+
+          {% if bg_color == blank %}
+            {% assign idx_mod = current_index | modulo: 2 %}
+
+            {% if idx_mod == 1 %}
+              {% assign bg_color = '#ffbb12' %}
+            {% else %}
+              {% assign bg_color = '#c8e0cd' %}
+            {% endif %}
+          {% endif %}
 
           {% for tag in array_tags %}
             {% if product.tags contains tag %}
-              <div>
-                <h1>{{ block.settings.selected_title }}</h1>
+              <li style="background-color: {{ bg_color }};">
+                <div class="title_block_container">
+                  <h1>{{ block.settings.selected_title }}</h1>
 
-                <span>{{ block.settings.selected_description }}</span>
+                  <svg
+                    id="get_campaign_details"
+                    index="{{ current_index }}"
+                    width="21"
+                    height="20"
+                    viewBox="0 0 21 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9.23096 15H11.231V9H9.23096V15ZM10.231 7C10.5143 7 10.7518 6.90417 10.9435 6.7125C11.1351 6.52083 11.231 6.28333 11.231 6C11.231 5.71667 11.1351 5.47917 10.9435 5.2875C10.7518 5.09583 10.5143 5 10.231 5C9.94762 5 9.71012 5.09583 9.51846 5.2875C9.32679 5.47917 9.23096 5.71667 9.23096 6C9.23096 6.28333 9.32679 6.52083 9.51846 6.7125C9.71012 6.90417 9.94762 7 10.231 7ZM10.231 20C8.84762 20 7.54762 19.7375 6.33096 19.2125C5.11429 18.6875 4.05596 17.975 3.15596 17.075C2.25596 16.175 1.54346 15.1167 1.01846 13.9C0.493457 12.6833 0.230957 11.3833 0.230957 10C0.230957 8.61667 0.493457 7.31667 1.01846 6.1C1.54346 4.88333 2.25596 3.825 3.15596 2.925C4.05596 2.025 5.11429 1.3125 6.33096 0.7875C7.54762 0.2625 8.84762 0 10.231 0C11.6143 0 12.9143 0.2625 14.131 0.7875C15.3476 1.3125 16.406 2.025 17.306 2.925C18.206 3.825 18.9185 4.88333 19.4435 6.1C19.9685 7.31667 20.231 8.61667 20.231 10C20.231 11.3833 19.9685 12.6833 19.4435 13.9C18.9185 15.1167 18.206 16.175 17.306 17.075C16.406 17.975 15.3476 18.6875 14.131 19.2125C12.9143 19.7375 11.6143 20 10.231 20ZM10.231 18C12.4643 18 14.356 17.225 15.906 15.675C17.456 14.125 18.231 12.2333 18.231 10C18.231 7.76667 17.456 5.875 15.906 4.325C14.356 2.775 12.4643 2 10.231 2C7.99762 2 6.10596 2.775 4.55596 4.325C3.00596 5.875 2.23096 7.76667 2.23096 10C2.23096 12.2333 3.00596 14.125 4.55596 15.675C6.10596 17.225 7.99762 18 10.231 18Z" fill="#1C1B1F"/>
+                  </svg>
+                </div>
 
-                <a id="get_campaign_details" index="{{ current_index }}">Mais info</a>
-              </div>
+                {{- block.settings.selected_description -}}
+              </li>
             {% endif %}
           {% endfor %}
         {% endfor %}
-      </div>
+      </ul>
     {% endif %}
 
-    <span>Quantidade:</span>
+    <div class="quantity_stock_container">
+      <div
+        id="quantity-controls"
+        style="border: 1px solid {% if product.variants.first.available == true %}#258439{% else %}#C0C5CA{% endif %};"
+      >
+        <svg
+          id="decrease-quantity"
+          width="12"
+          height="2"
+          viewBox="0 0 12 2"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style="background-color: {% if product.variants.first.available == true %}#b7ffc1{% else %}#C0C5CA{% endif %}; {% if product.variants.first.available == true %}cursor: pointer{% else %}pointer-events: none{% endif %};"
+        >
+          <path d="M0.657471 1.97195V0.36084H11.9352V1.97195H0.657471Z" fill="{% if product.variants.first.available == true %}black{% else %}white{% endif %}"/>
+        </svg>
 
-    <div id="price_quantity_modal">
-      <div id="quantity-controls">
-        <button id="decrease-quantity" type="button">
-          <svg focusable="false" class="icon icon--minus" viewBox="0 0 10 2" role="presentation">
-            <path d="M10 0v2H0V0z" fill="currentColor"></path>
-          </svg>
-        </button>
+        {% if product.variants.first.available == true %}
+          <input
+            type="number"
+            id="product-quantity"
+            value="1"
+            min="1"
+            max="16"
+          >
+        {% else %}
+          <span style="color: #C0C5CA;">-</span>
+        {% endif %}
 
-        <input type="number" id="product-quantity" value="1" min="1" max="16">
-
-        <button id="increase-quantity" type="button">
-          <svg focusable="false" class="icon icon--plus" viewBox="0 0 10 10" role="presentation">
-            <path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z" fill="currentColor" fill-rule="evenodd"></path>
-          </svg>
-        </button>
+        <svg
+          id="increase-quantity"
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style="background-color: {% if product.variants.first.available == true %}#b7ffc1{% else %}#C0C5CA{% endif %}; {% if product.variants.first.available == true %}cursor: pointer{% else %}pointer-events: none{% endif %};"
+        >
+          <path d="M5.34847 6.97179H0.515137V5.36068H5.34847V0.527344H6.95958V5.36068H11.7929V6.97179H6.95958V11.8051H5.34847V6.97179Z" fill="{% if product.variants.first.available == true %}black{% else %}white{% endif %}"/>
+        </svg>
       </div>
 
+      <div class="stock_container">
+        <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.41602 17.925V11.075L2.41602 7.6V14.45L8.41602 17.925ZM10.416 17.925L16.416 14.45V7.6L10.416 11.075V17.925ZM8.41602 20.225L1.41602 16.2C1.09935 16.0167 0.853516 15.775 0.678516 15.475C0.503516 15.175 0.416016 14.8417 0.416016 14.475V6.525C0.416016 6.15833 0.503516 5.825 0.678516 5.525C0.853516 5.225 1.09935 4.98333 1.41602 4.8L8.41602 0.775C8.73268 0.591667 9.06602 0.5 9.41602 0.5C9.76602 0.5 10.0993 0.591667 10.416 0.775L17.416 4.8C17.7327 4.98333 17.9785 5.225 18.1535 5.525C18.3285 5.825 18.416 6.15833 18.416 6.525V14.475C18.416 14.8417 18.3285 15.175 18.1535 15.475C17.9785 15.775 17.7327 16.0167 17.416 16.2L10.416 20.225C10.0993 20.4083 9.76602 20.5 9.41602 20.5C9.06602 20.5 8.73268 20.4083 8.41602 20.225ZM13.416 7.025L15.341 5.925L9.41602 2.5L7.46602 3.625L13.416 7.025ZM9.41602 9.35L11.366 8.225L5.44102 4.8L3.49102 5.925L9.41602 9.35Z" fill="{% if product.variants.first.available == true %}#258439{% else %}#74797F{% endif %}"/>
+        </svg>
+
+        <span style="color: {% if product.variants.first.available == true %}#258439{% else %}#74797F{% endif %};">
+          Stock
+          {% if product.variants.first.available == true %}
+            disponível
+          {% else %}
+            indisponível
+          {% endif %}
+        </span>
+      </div>
+    </div>
+
+    <div id="price_quantity_modal">
       {% if product.variants.first.available == true %}
         <button
           id="add-to-cart"
@@ -1241,6 +1583,7 @@
         <a
           href="#"
           class="SI_trigger {{ quick_buy_classes }} notify_button_collection"
+          style="background-color: #74797F !important;"
           data-product-data="{{ product | json | escape }}"
         >
           <svg
@@ -1248,8 +1591,8 @@
             fill="currentColor"
             stroke-width="0"
             viewBox="0 0 448 512"
-            height="18px"
-            width="18px"
+            height="1.125rem"
+            width="1.125rem"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path d="M439.39 362.29c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71zM67.53 368c21.22-27.97 44.42-74.33 44.53-159.42 0-.2-.06-.38-.06-.58 0-61.86 50.14-112 112-112s112 50.14 112 112c0 .2-.06.38-.06.58.11 85.1 23.31 131.46 44.53 159.42H67.53zM224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64z"></path>
@@ -1260,13 +1603,25 @@
       {% endif %}
     </div>
 
-    <div class="delivery_wrapper_custom">
-      <img src="{{ "check-icon.svg" | asset_url }}" alt="icon">
+    {% if product.variants.first.available == true %}
+      <div class="product_delivery_time">
+        <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.93677 16.5C6.10343 16.5 5.3951 16.2083 4.81177 15.625C4.22843 15.0417 3.93677 14.3333 3.93677 13.5H1.43677L1.88677 11.5H4.71177C4.9951 11.1833 5.32843 10.9375 5.71177 10.7625C6.0951 10.5875 6.50343 10.5 6.93677 10.5C7.3701 10.5 7.77843 10.5875 8.16177 10.7625C8.5451 10.9375 8.87843 11.1833 9.16177 11.5H13.3368L15.4368 2.5H6.48677L6.91177 0.5H17.9368L17.0118 4.5H19.9368L22.9368 8.5L21.9368 13.5H19.9368C19.9368 14.3333 19.6451 15.0417 19.0618 15.625C18.4784 16.2083 17.7701 16.5 16.9368 16.5C16.1034 16.5 15.3951 16.2083 14.8118 15.625C14.2284 15.0417 13.9368 14.3333 13.9368 13.5H9.93677C9.93677 14.3333 9.6451 15.0417 9.06177 15.625C8.47843 16.2083 7.7701 16.5 6.93677 16.5ZM15.8618 9.5H20.6868L20.7868 8.975L18.9368 6.5H16.5618L15.8618 9.5ZM15.4368 2.5L13.3368 11.5L13.3868 11.325L15.4368 2.5ZM3.43677 9.5V6.5H0.936768L4.43677 1.5V4.5H6.93677L3.43677 9.5ZM6.93677 14.5C7.2201 14.5 7.4576 14.4042 7.64927 14.2125C7.84093 14.0208 7.93677 13.7833 7.93677 13.5C7.93677 13.2167 7.84093 12.9792 7.64927 12.7875C7.4576 12.5958 7.2201 12.5 6.93677 12.5C6.65343 12.5 6.41593 12.5958 6.22427 12.7875C6.0326 12.9792 5.93677 13.2167 5.93677 13.5C5.93677 13.7833 6.0326 14.0208 6.22427 14.2125C6.41593 14.4042 6.65343 14.5 6.93677 14.5ZM16.9368 14.5C17.2201 14.5 17.4576 14.4042 17.6493 14.2125C17.8409 14.0208 17.9368 13.7833 17.9368 13.5C17.9368 13.2167 17.8409 12.9792 17.6493 12.7875C17.4576 12.5958 17.2201 12.5 16.9368 12.5C16.6534 12.5 16.4159 12.5958 16.2243 12.7875C16.0326 12.9792 15.9368 13.2167 15.9368 13.5C15.9368 13.7833 16.0326 14.0208 16.2243 14.2125C16.4159 14.4042 16.6534 14.5 16.9368 14.5Z" fill="#258439"/>
+        </svg>
 
-      <span>{{ section.settings.delivery_text }}</span>
-    </div>
+        <div>
+          <span style="font-weight: bold;">
+            Próximo envio:
+            <b class="next_delivery_date"><span class="spinner_date"></span></b>
+          </span>
 
-    <img src="{{ "metodos_pag_new.svg" | asset_url }}" alt="icon">
+          <span>
+            Faça o seu pedido dentro de
+            <b class="next_delivery_time"><span class="spinner_date"></span></b>
+          </span>
+        </div>
+      </div>
+    {% endif %}
   </aside>
 
   <ul id="product_description_custom">
@@ -1382,7 +1737,7 @@
         id="escape_modal"
         index="{{ current_index }}"
       >
-        <path fill="#308a36" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+        <path fill="#258439" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
       </svg>
 
       <div>
@@ -1402,21 +1757,21 @@
   {% endif %}
 {% endfor %}
 
-<div id="modal_overlay"></div>
-
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const onResize = () => {
-      const getElements = document.querySelectorAll("#get_campaign_details");
+      const getElements = document.querySelectorAll('#get_campaign_details');
 
       if (getElements) {
         getElements.forEach((element) => {
-          element.addEventListener("click", function() {
-            const elementIndex = element.getAttribute("index");
-            const modalElement = Array.from(document.querySelectorAll("#modal_campaign_details")).find((el) => el.getAttribute("index") === elementIndex);
-            const overlayElement = document.querySelector("#modal_overlay");
+          element.addEventListener('click', function () {
+            const elementIndex = element.getAttribute('index');
+            const modalElement = Array.from(document.querySelectorAll('#modal_campaign_details')).find(
+              (el) => el.getAttribute('index') === elementIndex
+            );
+            const overlayElement = document.querySelector('#modal_overlay');
 
-            overlayElement.style.display = 'block'
+            overlayElement.style.display = 'block';
 
             if (window.innerWidth > 1000) {
               modalElement.style.display = 'grid';
@@ -1427,173 +1782,171 @@
         });
       }
 
-      const escapeElements = document.querySelectorAll("#escape_modal");
+      const escapeElements = document.querySelectorAll('#escape_modal');
 
       if (escapeElements) {
         escapeElements.forEach((element) => {
-          element.addEventListener("click", function() {
-            const elementIndex = element.getAttribute("index");
-            const modalElement = Array.from(document.querySelectorAll("#modal_campaign_details")).find((el) => el.getAttribute("index") === elementIndex);
-            const overlayElement = document.querySelector("#modal_overlay");
+          element.addEventListener('click', function () {
+            const elementIndex = element.getAttribute('index');
+            const modalElement = Array.from(document.querySelectorAll('#modal_campaign_details')).find(
+              (el) => el.getAttribute('index') === elementIndex
+            );
+            const overlayElement = document.querySelector('#modal_overlay');
 
-            overlayElement.style.display = 'none'
+            overlayElement.style.display = 'none';
 
             if (window.innerWidth > 1000) {
-              modalElement.style.display = 'none'
+              modalElement.style.display = 'none';
             } else {
               modalElement.style.transform = 'translateY(100%)';
             }
           });
         });
       }
-    }
+    };
 
     onResize();
 
-    window.addEventListener("resize", onResize);
+    window.addEventListener('resize', onResize);
   });
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const quantityInput = document.querySelectorAll("#product-quantity");
-    const decreaseButton = document.querySelectorAll("#decrease-quantity");
-    const increaseButton = document.querySelectorAll("#increase-quantity");
-    const addToCartButton = document.querySelectorAll("#add-to-cart");
-  
+  document.addEventListener('DOMContentLoaded', function () {
+    const quantityInput = document.querySelectorAll('#product-quantity');
+    const decreaseButton = document.querySelectorAll('#decrease-quantity');
+    const increaseButton = document.querySelectorAll('#increase-quantity');
+    const addToCartButton = document.querySelectorAll('#add-to-cart');
+
     const updateQuantity = (delta) => {
       const currentValue = parseInt(quantityInput[0].value, 10) || 1;
       const newValue = Math.max(1, currentValue + delta);
       quantityInput.forEach((input) => (input.value = newValue));
     };
-  
-    decreaseButton.forEach((input) =>
-      input.addEventListener("click", () => updateQuantity(-1))
-    );
-    increaseButton.forEach((input) =>
-      input.addEventListener("click", () => updateQuantity(1))
-    );
 
-    const loader = document.getElementById("loader");
+    decreaseButton.forEach((input) => input.addEventListener('click', () => updateQuantity(-1)));
+    increaseButton.forEach((input) => input.addEventListener('click', () => updateQuantity(1)));
+
+    const loader = document.getElementById('loader');
 
     function showLoader() {
-      loader.style.display = "block";
-      loader.style.width = "0%";
+      loader.style.display = 'block';
+      loader.style.width = '0%';
 
       setTimeout(() => {
-        loader.style.width = "30%";
+        loader.style.width = '30%';
       }, 100);
     }
 
     function hideLoader() {
-      loader.style.width = "100%";
-      
+      loader.style.width = '100%';
+
       setTimeout(() => {
-        loader.style.display = "none";
-        loader.style.width = "0%";
+        loader.style.display = 'none';
+        loader.style.width = '0%';
       }, 400);
     }
-  
+
     addToCartButton.forEach((cart) => {
-      cart.addEventListener("click", () => {
-        const productId = cart.getAttribute("data-product-id");
+      cart.addEventListener('click', () => {
+        const productId = cart.getAttribute('data-product-id');
         const quantity = parseInt(quantityInput[0].value, 10) || 1;
-  
+
         if (!productId) {
           return;
         }
 
         showLoader();
-  
+
         fetch(`/cart/add.js`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: productId, quantity: quantity }),
         })
           .then((response) => {
             if (!response.ok) {
               return response.json().then((data) => {
-                throw new Error(data.message || "Erro ao adicionar ao carrinho.");
+                throw new Error(data.message || 'Erro ao adicionar ao carrinho.');
               });
             }
 
             fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`)
               .then((res) => {
                 if (!res.ok) {
-                  throw new Error("Erro ao obter carrinho");
+                  throw new Error('Erro ao obter carrinho');
                 }
 
                 return res.text();
               })
               .then((data) => {
                 if (data) {
-                  const carts = document.querySelectorAll("#mini-cart");
+                  const carts = document.querySelectorAll('#mini-cart');
 
                   if (carts) {
-                    carts.forEach((cart) => cart.innerHTML = data);
-                    
+                    carts.forEach((cart) => (cart.innerHTML = data));
+
                     if (innerWidth >= 2559) {
-                      carts.forEach((cart) => cart.style.marginRight = "17vw");
+                      carts.forEach((cart) => (cart.style.marginRight = '17vw'));
                     }
-            
+
                     if (innerWidth < 2559 && innerWidth >= 1499) {
-                      carts.forEach((cart) => cart.style.marginRight = "8vw");
+                      carts.forEach((cart) => (cart.style.marginRight = '8vw'));
                     }
-            
+
                     if (innerWidth < 1499 && innerWidth >= 1000) {
-                      carts.forEach((cart) => cart.style.marginRight = "2vw");
+                      carts.forEach((cart) => (cart.style.marginRight = '2vw'));
                     }
-            
+
                     if (innerWidth >= 1000) {
-                      carts.forEach((cart) => cart.style.top = "4.85rem");
+                      carts.forEach((cart) => (cart.style.top = '4.85rem'));
                     }
-            
+
                     if (innerWidth < 1000) {
                       carts.forEach((cart) => {
-                        cart.style.transform = "scale(1)";
-                        cart.style.maxHeight = "calc(100vh - 40px)";
-                        cart.style.padding = "1rem 1rem 2rem 1rem";
+                        cart.style.transform = 'scale(1)';
+                        cart.style.maxHeight = 'calc(100vh - 40px)';
+                        cart.style.padding = '1rem 1rem 2rem 1rem';
                       });
-            
-                      const as = carts.forEach((cart) => cart.querySelector("a"));
-            
+
+                      const as = carts.forEach((cart) => cart.querySelector('a'));
+
                       if (as) {
-                        as.forEach((a) => a.style.padding = "0 1rem");
+                        as.forEach((a) => (a.style.padding = '0 1rem'));
                       }
                     } else {
                       carts.forEach((cart) => {
-                        cart.style.visibility = "visible";
-                        cart.style.opacity = 1
+                        cart.style.visibility = 'visible';
+                        cart.style.opacity = 1;
                       });
                     }
                   }
 
-                  return fetch("/cart.js")
+                  return fetch('/cart.js');
                 }
               })
               .then((res) => {
                 if (!res.ok) {
-                  throw new Error("Error while fetching cart")
+                  throw new Error('Error while fetching cart');
                 }
 
                 return res.json();
               })
               .then((data) => {
                 if (data) {
-                  const cartCounters = document.querySelectorAll(".header__cart-count");
+                  const cartCounters = document.querySelectorAll('.header__cart-count');
 
                   if (cartCounters) {
-                    cartCounters.forEach((cart) => cart.innerText = data.item_count );
-                  } 
+                    cartCounters.forEach((cart) => (cart.innerText = data.item_count));
+                  }
                 }
               })
               .catch((error) => {
-                console.error("Error when getting cart");
-              })
+                console.error('Error when getting cart');
+              });
           })
           .catch((error) => {
-            console.error("Erro ao adicionar ao carrinho:", error);
-            alert(error.message || "Erro ao adicionar ao carrinho.");
+            console.error('Erro ao adicionar ao carrinho:', error);
+            alert(error.message || 'Erro ao adicionar ao carrinho.');
           })
           .finally(() => hideLoader());
       });
@@ -1602,21 +1955,21 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const productsContainer = document.querySelector("#related_products_custom ul");
-    const leftButton = document.querySelector("#related_products_custom ul li:first-child svg");
-    const rightButton = document.querySelector("#related_products_custom ul li:last-child svg");
+  document.addEventListener('DOMContentLoaded', function () {
+    const productsContainer = document.querySelector('#related_products_custom ul');
+    const leftButton = document.querySelector('#related_products_custom ul li:first-child svg');
+    const rightButton = document.querySelector('#related_products_custom ul li:last-child svg');
 
     if (!productsContainer || !leftButton || !rightButton) return;
 
     const updateLayout = () => {
       if (window.innerWidth > 1000) {
-        leftButton.style.display = "block";
-        rightButton.style.display = "block";
+        leftButton.style.display = 'block';
+        rightButton.style.display = 'block';
 
         const productWidth = productsContainer.offsetWidth / 4;
         const itemsPerPage = 4;
-        productsContainer.style.scrollBehavior = "smooth";
+        productsContainer.style.scrollBehavior = 'smooth';
 
         leftButton.onclick = () => {
           productsContainer.scrollLeft -= productWidth * itemsPerPage;
@@ -1626,31 +1979,31 @@
           productsContainer.scrollLeft += productWidth * itemsPerPage;
         };
       } else {
-        leftButton.style.display = "none";
-        rightButton.style.display = "none";
+        leftButton.style.display = 'none';
+        rightButton.style.display = 'none';
       }
     };
 
     updateLayout();
 
-    window.addEventListener("resize", updateLayout);
+    window.addEventListener('resize', updateLayout);
   });
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const onResize = () => {
-     const wrappers = document.querySelectorAll(".img_favorite_custom");
+      const wrappers = document.querySelectorAll('.img_favorite_custom');
 
-      wrappers.forEach(wrapper => {
-        const existingButton = wrapper.querySelector(".swym-button-bar");
+      wrappers.forEach((wrapper) => {
+        const existingButton = wrapper.querySelector('.swym-button-bar');
         if (existingButton) {
           existingButton.remove();
         }
       });
 
       const addHtml = (element) => {
-        if (element && !element.querySelector(".swym-button-bar")) {
+        if (element && !element.querySelector('.swym-button-bar')) {
           element.innerHTML += `
             <div class="swym-button-bar swym-wishlist-button-bar swym-inject">
               <div class="swym-btn-container swym-inject" data-position="default" id="favorite_btn_custom">
@@ -1660,18 +2013,18 @@
                 ></button>
               </div>
             </div>
-          `
+          `;
         }
-      }
+      };
 
       if (wrappers.length > 1) {
         window.innerWidth > 1000 ? addHtml(wrappers[0]) : addHtml(wrappers[1]);
-      } 
-    }
+      }
+    };
 
     onResize();
 
-    window.addEventListener("resize", onResize);
+    window.addEventListener('resize', onResize);
   });
 </script>
 
