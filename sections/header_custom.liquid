@@ -364,7 +364,7 @@
       height: 16px;
     }
 
-    .mega-manu-brands-item > a > img {
+    .mega-menu-brands-item > a > img {
       width: 175px;
       height: 80px;
     }
@@ -458,7 +458,7 @@
       height: 14px !important;
     }
 
-    .mega-manu-brands-item > a > img {
+    .mega-menu-brands-item > a > img {
       width: 155px !important;
       height: 55px !important;
     }
@@ -538,7 +538,7 @@
   async function searchCollections(query) {
     const endpoint = '/api/2023-04/graphql.json';
     const storefrontAccessToken = 'bfe1eb076dd1eeff39af26ba722acebf';
-  
+
     const graphqlQuery = {
       query: `
         query($query: String!) {
@@ -560,37 +560,39 @@
         }
       `,
       variables: {
-        query: `title:*${query}*`
-      }
+        query: `title:*${query}*`,
+      },
     };
-  
+
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
       },
-      body: JSON.stringify(graphqlQuery)
+      body: JSON.stringify(graphqlQuery),
     });
-  
+
     const data = await response.json();
-    const filteredData = data.data.collections.edges.filter(edge => edge.node && !!edge.node.custom_brand_description_2);
-    return filteredData.map(edge => edge.node);
+    const filteredData = data.data.collections.edges.filter(
+      (edge) => edge.node && !!edge.node.custom_brand_description_2
+    );
+    return filteredData.map((edge) => edge.node);
   }
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {  
-    const form = document.querySelector("#search_form");
-    const formMobile = document.querySelector("#search_form_mobile");
-    const cartIcons = document.querySelectorAll(".cart_link_custom");
-    const liMobile = document.querySelector("#open-search-bar-mobile");
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#search_form');
+    const formMobile = document.querySelector('#search_form_mobile');
+    const cartIcons = document.querySelectorAll('.cart_link_custom');
+    const liMobile = document.querySelector('#open-search-bar-mobile');
     let collectionLink = null;
 
-    liMobile.addEventListener("click", function (e) {
+    liMobile.addEventListener('click', function (e) {
       if (formMobile) {
         if (formMobile.style.display === 'grid') {
-          formMobile.style.display = 'none';   
+          formMobile.style.display = 'none';
         } else {
           formMobile.style.display = 'grid';
         }
@@ -599,25 +601,25 @@
 
     const onResize = () => {
       cartIcons.forEach((cartIcon) => {
-        cartIcon.addEventListener("click", function (e) {
+        cartIcon.addEventListener('click', function (e) {
           e.preventDefault();
-    
+
           const cart = cartIcon.nextSibling;
-  
+
           if (innerWidth >= 2559) {
-            cart.style.marginRight = "17vw";
+            cart.style.marginRight = '17vw';
           }
-          
+
           if (innerWidth < 2559 && innerWidth >= 1499) {
-            cart.style.marginRight = "8vw";
+            cart.style.marginRight = '8vw';
           }
-    
+
           if (innerWidth < 1499 && innerWidth >= 1000) {
-            cart.style.marginRight = "2vw";
+            cart.style.marginRight = '2vw';
           }
-    
+
           if (innerWidth >= 1000) {
-            cart.style.top = "4.85rem";
+            cart.style.top = '4.85rem';
           }
 
           if (innerWidth < 1000) {
@@ -625,100 +627,100 @@
             cart.style.maxHeight = 'calc(100vh - 40px)';
             cart.style.padding = '1rem 1rem 2rem 1rem';
 
-            const a = cart.querySelector("a");
+            const a = cart.querySelector('a');
 
             a.style.padding = '0 1rem';
           }
-    
+
           if (cart.style.visibility === 'visible') {
             cart.style.visibility = 'hidden';
             cart.style.opacity = 0;
           } else {
             cart.style.visibility = 'visible';
-            cart.style.opacity = 1; 
+            cart.style.opacity = 1;
           }
-        }); 
+        });
       });
-    }
+    };
 
     onResize();
 
-    window.addEventListener("resize", onResize);
-  
+    window.addEventListener('resize', onResize);
+
     if (form) {
-      const div = form.querySelector("#search_results_modal");
-      const input = form.querySelector("input");
+      const div = form.querySelector('#search_results_modal');
+      const input = form.querySelector('input');
 
       let currentController = null;
-      
-      input.addEventListener("input", async function (e) {
+
+      input.addEventListener('input', async function (e) {
         if (input.value) {
-          div.style.display = "grid";
-          form.style.boxShadow = "unset";
+          div.style.display = 'grid';
+          form.style.boxShadow = 'unset';
 
           // Abortar requisição anterior
           if (currentController) {
             currentController.abort();
           }
-          
+
           currentController = new AbortController();
           const { signal } = currentController;
-      
+
           // Limpar completamente o div antes de adicionar novos resultados
-          div.innerHTML = "";
+          div.innerHTML = '';
 
           const showCollectionsResult = async () => {
             try {
               const collections = await searchCollections(e.target.value);
-              
+
               if (collections.length > 0) {
                 collectionLink = `/collections/${collections[0].handle}`;
-                
+
                 // Verificar se já existe e remover se necessário
-                const existingResultsDiv = div.querySelector(".search-bar__result-products");
+                const existingResultsDiv = div.querySelector('.search-bar__result-products');
                 if (existingResultsDiv) {
                   existingResultsDiv.remove();
                 }
-                
-                const firstDiv = document.createElement("div");
-                firstDiv.classList.add("search-bar__result-products");
-                
+
+                const firstDiv = document.createElement('div');
+                firstDiv.classList.add('search-bar__result-products');
+
                 div.appendChild(firstDiv);
-                
+
                 collections.forEach((collection) => {
-                  const a = document.createElement("a");
+                  const a = document.createElement('a');
                   a.href = `/collections/${collection.handle}`;
-                  a.classList.add("search-bar__result-item");
-                  
+                  a.classList.add('search-bar__result-item');
+
                   firstDiv.appendChild(a);
-                  
-                  const secondDiv = document.createElement("div");
-                  secondDiv.classList.add("search-bar__item-info");
-                  secondDiv.style.display = "grid";
-                  secondDiv.style.gridTemplateColumns = "repeat(2, max-content)";
-                  secondDiv.style.gap = "0.5rem";
-                  secondDiv.style.alignItems = "center";
-                  
+
+                  const secondDiv = document.createElement('div');
+                  secondDiv.classList.add('search-bar__item-info');
+                  secondDiv.style.display = 'grid';
+                  secondDiv.style.gridTemplateColumns = 'repeat(2, max-content)';
+                  secondDiv.style.gap = '0.5rem';
+                  secondDiv.style.alignItems = 'center';
+
                   a.appendChild(secondDiv);
-                  
-                  const p = document.createElement("p");
-                  p.classList.add("search-bar__item-title");
+
+                  const p = document.createElement('p');
+                  p.classList.add('search-bar__item-title');
                   p.innerText = collection.title;
-                  
-                  const span = document.createElement("span");
-                  span.classList.add("search-bar__item-title");
-                  span.style.color = "#308a36";
-                  span.style.fontSize = "14px";
-                  span.style.lineHeight = "normal";
-                  span.innerText = "Marca";
-                  
+
+                  const span = document.createElement('span');
+                  span.classList.add('search-bar__item-title');
+                  span.style.color = '#308a36';
+                  span.style.fontSize = '14px';
+                  span.style.lineHeight = 'normal';
+                  span.innerText = 'Marca';
+
                   secondDiv.appendChild(p);
                   secondDiv.appendChild(span);
                 });
               }
             } catch (error) {
-              if (error.name !== "AbortError") {
-                console.error("Error fetching collections:", error);
+              if (error.name !== 'AbortError') {
+                console.error('Error fetching collections:', error);
               }
             }
           };
@@ -726,120 +728,119 @@
           try {
             // Executar busca de coleções e produtos em paralelo
             const [productsResponse] = await Promise.all([
-              fetch(
-                `https://bioself.pt/search?view=ajax&q=${e.target.value}&options[prefix]=last&type=product`,
-                { signal }
-              ),
-              showCollectionsResult() // Esta função já está usando e.target.value
+              fetch(`https://bioself.pt/search?view=ajax&q=${e.target.value}&options[prefix]=last&type=product`, {
+                signal,
+              }),
+              showCollectionsResult(), // Esta função já está usando e.target.value
             ]);
-            
+
             const data = await productsResponse.text();
-            
+
             if (data) {
               const parser = new DOMParser();
-              const parsedHTML = parser.parseFromString(data, "text/html");
+              const parsedHTML = parser.parseFromString(data, 'text/html');
               const elements = parsedHTML.body.children;
-              
+
               Array.from(elements).forEach((element) => {
                 div.appendChild(element);
               });
             }
           } catch (error) {
-            if (error.name !== "AbortError") {
-              console.error("Error when fetching data", error);
+            if (error.name !== 'AbortError') {
+              console.error('Error when fetching data', error);
             }
           }
         } else {
-          div.style.display = "none";
-          form.style.boxShadow = "0px 4px 0px rgba(255, 165, 0, 0.6)";
+          div.style.display = 'none';
+          form.style.boxShadow = '0px 4px 0px rgba(255, 165, 0, 0.6)';
         }
       });
-  
-      form.addEventListener("submit", function (e) {
+
+      form.addEventListener('submit', function (e) {
         e.preventDefault();
-  
-        if (input.value) {          
+
+        if (input.value) {
           window.location.href = `/search?type=product&options%5Bprefix%5D=last&q=${input.value}` ?? collectionLink;
-  
-          input.value = "";
+
+          input.value = '';
         }
       });
     }
 
     if (formMobile) {
-      const div = formMobile.querySelector("#search_results_modal");
-      const input = formMobile.querySelector("input");
+      const div = formMobile.querySelector('#search_results_modal');
+      const input = formMobile.querySelector('input');
 
       let currentController = null;
-      
-      input.addEventListener("input", async function (e) {
+
+      input.addEventListener('input', async function (e) {
         if (input.value) {
-          div.style.display = "grid";
-          formMobile.style.boxShadow = "unset";
+          div.style.display = 'grid';
+          formMobile.style.boxShadow = 'unset';
 
           // Abortar requisição anterior
           if (currentController) {
             currentController.abort();
           }
-          
+
           currentController = new AbortController();
           const { signal } = currentController;
-      
+
           // Limpar completamente o div antes de adicionar novos resultados
-          div.innerHTML = "";
+          div.innerHTML = '';
 
           const showCollectionsResult = async () => {
             try {
               const collections = await searchCollections(e.target.value);
-              
+
               if (collections.length > 0) {
                 collectionLink = `/collections/${collections[0].handle}`;
-                
+
                 // Verificar se já existe e remover se necessário
-                const existingResultsDiv = div.querySelector(".search-bar__result-products");
+                const existingResultsDiv = div.querySelector('.search-bar__result-products');
                 if (existingResultsDiv) {
                   existingResultsDiv.remove();
                 }
-                
-                const firstDiv = document.createElement("div");
-                firstDiv.classList.add("search-bar__result-products");
-                
+
+                const firstDiv = document.createElement('div');
+                firstDiv.classList.add('search-bar__result-products');
+
                 div.appendChild(firstDiv);
-                
+
                 collections.forEach((collection) => {
-                  const a = document.createElement("a");
+                  const a = document.createElement('a');
                   a.href = `/collections/${collection.handle}`;
-                  a.classList.add("search-bar__result-item");
-                  
+                  a.classList.add('search-bar__result-item');
+
                   firstDiv.appendChild(a);
-                  
-                  const secondDiv = document.createElement("div");
-                  secondDiv.classList.add("search-bar__item-info");
-                  secondDiv.style.display = "grid";
-                  secondDiv.style.gridTemplateColumns = "repeat(2, max-content)";
-                  secondDiv.style.gap = "0.5rem";
-                  secondDiv.style.alignItems = "center";
-                  
+
+                  const secondDiv = document.createElement('div');
+                  secondDiv.classList.add('search-bar__item-info');
+                  secondDiv.style.display = 'grid';
+                  secondDiv.style.gridTemplateColumns = 'repeat(2, max-content)';
+                  secondDiv.style.gap = '0.5rem';
+                  secondDiv.style.alignItems = 'center';
+
                   a.appendChild(secondDiv);
-                  
-                  const p = document.createElement("p");
-                  p.classList.add("search-bar__item-title");
+
+                  const p = document.createElement('p');
+                  p.classList.add('search-bar__item-title');
                   p.innerText = collection.title;
-                  
-                  const span = document.createElement("span");
-                  span.classList.add("search-bar__item-title");
-                  span.style.color = "#308a36";
-                  span.style.fontSize = "14px";
-                  span.style.lineHeight = "normal";
-                  span.innerText = "Marca";
-                  
+
+                  const span = document.createElement('span');
+                  span.classList.add('search-bar__item-title');
+                  span.style.color = '#308a36';
+                  span.style.fontSize = '14px';
+                  span.style.lineHeight = 'normal';
+                  span.innerText = 'Marca';
+
                   secondDiv.appendChild(p);
                   secondDiv.appendChild(span);
                 });
               }
             } catch (error) {
-              if (error.name !== "AbortError") {
-                console.error("Error fetching collections:", error);
+              if (error.name !== 'AbortError') {
+                console.error('Error fetching collections:', error);
               }
             }
           };
@@ -847,42 +848,41 @@
           try {
             // Executar busca de coleções e produtos em paralelo
             const [productsResponse] = await Promise.all([
-              fetch(
-                `https://bioself.pt/search?view=ajax&q=${e.target.value}&options[prefix]=last&type=product`,
-                { signal }
-              ),
-              showCollectionsResult() // Esta função já está usando e.target.value
+              fetch(`https://bioself.pt/search?view=ajax&q=${e.target.value}&options[prefix]=last&type=product`, {
+                signal,
+              }),
+              showCollectionsResult(), // Esta função já está usando e.target.value
             ]);
-            
+
             const data = await productsResponse.text();
-            
+
             if (data) {
               const parser = new DOMParser();
-              const parsedHTML = parser.parseFromString(data, "text/html");
+              const parsedHTML = parser.parseFromString(data, 'text/html');
               const elements = parsedHTML.body.children;
-              
+
               Array.from(elements).forEach((element) => {
                 div.appendChild(element);
               });
             }
           } catch (error) {
-            if (error.name !== "AbortError") {
-              console.error("Error when fetching data", error);
+            if (error.name !== 'AbortError') {
+              console.error('Error when fetching data', error);
             }
           }
         } else {
-          div.style.display = "none";
-          formMobile.style.boxShadow = "0px 4px 0px rgba(255, 165, 0, 0.6)";
+          div.style.display = 'none';
+          formMobile.style.boxShadow = '0px 4px 0px rgba(255, 165, 0, 0.6)';
         }
       });
-    
-      formMobile.addEventListener("submit", function (e) {
+
+      formMobile.addEventListener('submit', function (e) {
         e.preventDefault();
-  
-        if (input.value) {          
+
+        if (input.value) {
           window.location.href = `/search?type=product&options%5Bprefix%5D=last&q=${input.value}` ?? collectionLink;
-  
-          input.value = "";
+
+          input.value = '';
         }
       });
     }
@@ -890,7 +890,7 @@
 </script>
 
 <script>
-  window.addEventListener('unhandledrejection', function(event) {
+  window.addEventListener('unhandledrejection', function (event) {
     if (event.reason && event.reason.name === 'AbortError') {
       event.preventDefault();
     }

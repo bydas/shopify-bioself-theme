@@ -1,5 +1,5 @@
-{% assign sorted_brands = linklists['pagina-marcas'].links | sort: 'title' %}
-{% assign marcas_links = linklists.marcas.links | sort: 'title' %}
+{% assign sorted_brands = mega_menu.links | sort: 'title' %}
+{% assign marcas_links = linklists['pagina-marcas'].links | sort: 'title' %}
 
 {%- if section.settings.desktop_navigation_layout == 'condensed' -%}
   {%- assign is_condensed = true -%}
@@ -72,7 +72,7 @@
     display: grid;
   }
 
-  .mega-manu-brands-container {
+  .mega-menu-brands-container {
     display: grid;
     grid-template-columns: repeat(5, max-content);
     justify-content: center;
@@ -82,26 +82,26 @@
   }
 
   @media screen and (max-width: 1399px) {
-    .mega-manu-brands-item {
+    .mega-menu-brands-item {
       padding: 0.5rem !important;
     }
 
-    .mega-manu-brands-item > a > img {
+    .mega-menu-brands-item > a > img {
       width: 200px;
     }
   }
 
-  .mega-manu-brands-item {
+  .mega-menu-brands-item {
       border: 1px solid #308a36;
       padding: 1rem;
       border-radius: 0.35rem;
   }
 
-  .mega-manu-brands-item > a {
+  .mega-menu-brands-item > a {
       display: grid;
   }
 
-  .mega-manu-brands-item > a > img {
+  .mega-menu-brands-item > a > img {
       width: 225px;
       height: 100px;
       object-fit: contain;
@@ -286,7 +286,7 @@
                 {%- assign initials = "" -%}
                 {%- assign has_number = false -%}
               
-                {% for link in sorted_brands %}
+                {% for link in marcas_links %}
                   {%- assign first_letter = link.title | slice: 0, 1 | downcase -%}
               
                   {%- if first_letter >= "0" and first_letter <= "9" -%}
@@ -300,7 +300,7 @@
                   </div>
                 {%- endif -%}
               
-                {% for link in sorted_brands %}
+                {% for link in marcas_links %}
                   {%- assign first_letter = link.title | slice: 0, 1 | downcase -%}
               
                   {%- if initials contains first_letter -%}
@@ -311,6 +311,7 @@
                     <div class="letter_container">
                       <a href="/pages/marcas#{{ first_letter | upcase }}">{{ first_letter | upcase }}</a>
                     </div>
+                    
                     {%- assign initials = initials | append: first_letter -%}
                   {%- endif -%}
                 {% endfor %}
@@ -320,21 +321,10 @@
                 </div>
               </div>
   
-              <div class="mega-manu-brands-container">
-                {% for link in marcas_links limit: 10 %}
-                  <div class="mega-manu-brands-item"> 
-                    {% for collection in collections %}
-                    <!-- {% assign image_url = collections[marca.handle].image.src | downcase %}
-  
-                        {% if image_url contains '.gif' %}
-                        {% assign wrong_format = true %}
-                      {% else %}
-                        {% assign wrong_format = false %}
-                      {% endif %}
-                
-                      {% unless image_url == empty or wrong_format %}
-                      {% endunless %} -->
-                      
+              <div class="mega-menu-brands-container">
+                {% for link in sorted_brands limit: 8 %}
+                  <div class="mega-menu-brands-item"> 
+                    {% for collection in collections %}                      
                       {% if collection.template_suffix contains "brand" %}      
                         {% if collection.title == link.title and link.url != blank %}
                           <a href="{{ link.url }}">  
@@ -384,7 +374,7 @@
                     <h1>{{ section.settings.title_collection }}</h1>
                   {% endif %}
                   
-                  <img loading="lazy" src="{{ section.settings.image_1 | img_url: 'master' }}">
+                  <img loading="lazy" src="{{ section.settings.image_1 | img_url: 'master' }}" alt="{{ section.settings.title_collection }}">
 
                   <span>Compra já</span>
                 </a>
@@ -414,14 +404,16 @@
 </div>
 
 <script>
-    function openTab(event, tabId) {
-    var tabContents = document.getElementsByClassName('mega-menu-tab-content');
-    for (var i = 0; i < tabContents.length; i++) {
+  function openTab(event, tabId) {
+    const tabContents = document.getElementsByClassName('mega-menu-tab-content');
+
+    for (let i = 0; i < tabContents.length; i++) {
       tabContents[i].style.display = 'none';
     }
 
-    var tabButtons = document.getElementsByClassName('mega-menu-tab-title');
-    for (var i = 0; i < tabButtons.length; i++) {
+    const tabButtons = document.getElementsByClassName('mega-menu-tab-title');
+
+    for (let i = 0; i < tabButtons.length; i++) {
       tabButtons[i].classList.remove('active');
     }
 
@@ -429,10 +421,8 @@
     event.currentTarget.classList.add('active');
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var firstTab = document.querySelector('.mega-menu-tab-title');
-    if (firstTab) {
-      firstTab.click();
-    }
+  document.addEventListener('DOMContentLoaded', function () {
+    const firstTab = document.querySelector('.mega-menu-tab-title');
+    firstTab?.click();
   });
 </script>
