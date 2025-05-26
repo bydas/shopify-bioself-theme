@@ -52,16 +52,38 @@ document.addEventListener("DOMContentLoaded", function () {
           return res.json()
         })
         .then((data) => {
-          if (data && data.status && data.coupon) {
-            modal_form_cruz.style.opacity = "0"
-            modal_form_cruz.style.visibility = "hidden"
-            modal_form_cruz.style.display = "none"
-            modal_successful_cruz.style.display = "grid"
+          if (data && data.status) {
+            if (data.customer_id && customer_id !== data.customer_id) {
+              cruz_nif_message.innerText =
+                "NIF já associado a uma conta, por favor, faça login para o aplicar"
+              cruz_nif_message.style.color = "red"
+              return
+            }
 
-            setTimeout(function () {
-              localStorage.setItem("CV_Discount", data.coupon)
-              window.location.href = `/discount/${data.coupon}`
-            }, 2000)
+            if (data.coupon) {
+              modal_form_cruz.style.opacity = "0"
+              modal_form_cruz.style.visibility = "hidden"
+              modal_form_cruz.style.display = "none"
+              modal_successful_cruz.style.display = "grid"
+
+              setTimeout(function () {
+                localStorage.setItem("CV_Discount", data.coupon)
+
+                fetch(`/discount/${data.coupon}`)
+                  .then(() => {
+                    return fetch("/cart/update.js", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ updates: {} }),
+                    })
+                  })
+                  .then((response) => response.json())
+                  .then(() => {
+                    window.location.reload()
+                  })
+                  .catch((err) => console.error(err))
+              }, 2000)
+            }
           } else {
             cruz_nif_message.innerText = "NIF Inválido"
             cruz_nif_message.style.color = "red"
@@ -87,7 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
   }
 })
-
 ;(function () {
   const CV_TITLE = "Cruz Vermelha Portuguesa"
   const CV_DISCOUNT_KEY = "CV_Discount"

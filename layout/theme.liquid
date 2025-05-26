@@ -203,6 +203,10 @@
       </div>
     </div>
 
+    <script>
+      var customer_id = {{ customer.id | default: 0 }};
+    </script>
+
     <!-- JavaScript Cruz Vermelha -->
     <script defer src="{{ 'cruz-vermelha-scripts.js' | asset_url }}"></script>
 
