@@ -454,14 +454,6 @@
     gap: 2rem;
   }
 
-  #product_page_custom > section > div > div > section {
-    position: relative;
-    padding: 1rem;
-    border: 1px solid #258439;
-    border-radius: 0.65rem;
-    height: 100%;
-  }
-
   #product_page_custom > section > div > div > div {
     display: grid;
     grid-template-rows: repeat(2, max-content);
@@ -845,7 +837,74 @@
     }
   }
 
+  .img_favorite_custom {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid #258439;
+    border-radius: 0.65rem;
+    overflow: hidden;
+  }
+
+  .img_favorite_custom .carousel {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+  }
+
+  .img_favorite_custom .carousel-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .img_favorite_custom .carousel-item img {
+    width: 100%;
+    display: block;
+  }
+
+  .img_favorite_custom .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .img_favorite_custom .carousel-arrow.prev {
+    left: 0.5rem;
+  }
+
+  .img_favorite_custom .carousel-arrow.next {
+    right: 0.5rem;
+  }
+
   @media screen and (max-width: 1000px) {
+    .img_favorite_custom .carousel {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .img_favorite_custom .carousel-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: 100%;
+    }
+
+    .img_favorite_custom .carousel-arrow {
+      display: none;
+    }
+
     #product_page_custom {
       display: none;
     }
@@ -1090,7 +1149,33 @@
     <div>
       <div>
         <section class="img_favorite_custom">
-          <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+          {% if product.images.size > 1 %}
+            <button class="carousel-arrow prev" aria-label="Imagem anterior">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
+                <path fill="#258439" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+              </svg>
+            </button>
+          {% endif %}
+
+          <div class="carousel">
+            {% for image in product.images %}
+              <div class="carousel-item">
+                <img
+                  src="{{ image | img_url: 'master' }}"
+                  alt="{{ product.title }} – imagem {{ forloop.index }}"
+                  loading="eager"
+                >
+              </div>
+            {% endfor %}
+          </div>
+
+          {% if product.images.size > 1 %}
+            <button class="carousel-arrow next" aria-label="Próxima imagem">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
+                <path fill="#258439" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+              </svg>
+            </button>
+          {% endif %}
         </section>
 
         <div>
@@ -1398,7 +1483,33 @@
 
 <main id="product_page_custom_mobile">
   <section class="img_favorite_custom">
-    <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+    {% if product.images.size > 1 %}
+      <button class="carousel-arrow prev" aria-label="Imagem anterior">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
+          <path fill="#258439" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+        </svg>
+      </button>
+    {% endif %}
+
+    <div class="carousel">
+      {% for image in product.images %}
+        <div class="carousel-item">
+          <img
+            src="{{ image | img_url: 'master' }}"
+            alt="{{ product.title }} – imagem {{ forloop.index }}"
+            loading="eager"
+          >
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if product.images.size > 1 %}
+      <button class="carousel-arrow next" aria-label="Próxima imagem">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
+          <path fill="#258439" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+        </svg>
+      </button>
+    {% endif %}
   </section>
 
   <div id="product_name_custom">
@@ -1992,43 +2103,30 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const onResize = () => {
-      const wrappers = document.querySelectorAll('.img_favorite_custom');
+    const wrappers = document.querySelectorAll('.img_favorite_custom');
 
-      wrappers.forEach((wrapper) => {
-        const existingButton = wrapper.querySelector('.swym-button-bar');
-        if (existingButton) {
-          existingButton.remove();
-        }
-      });
+    wrappers.forEach((wrapper) => {
+      const carousel = wrapper.querySelector('.carousel');
+      const items = carousel.querySelectorAll('.carousel-item');
+      const prevBtn = wrapper.querySelector('.prev');
+      const nextBtn = wrapper.querySelector('.next');
+      let currentIndex = 0;
 
-      const addHtml = (element) => {
-        if (element && !element.querySelector('.swym-button-bar')) {
-          element.innerHTML += `
-            <div class="swym-button-bar swym-wishlist-button-bar swym-inject">
-              <div class="swym-btn-container swym-inject" data-position="default" id="favorite_btn_custom">
-                <button
-                  class="swym-button swym-add-to-wishlist swym-inject swym-icon swym-heart swym-loaded"
-                  onclick="event.preventDefault();"
-                ></button>
-              </div>
-            </div>
-          `;
-        }
-      };
-
-      if (wrappers.length > 1) {
-        window.innerWidth > 1000 ? addHtml(wrappers[0]) : addHtml(wrappers[1]);
+      function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
       }
-    };
 
-    onResize();
-
-    window.addEventListener('resize', onResize);
+      // Só adiciona eventos se houver setas visíveis (desktop)
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + items.length) % items.length;
+          updateCarousel();
+        });
+        nextBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % items.length;
+          updateCarousel();
+        });
+      }
+    });
   });
 </script>
-
-<script
-  charset="utf-8"
-  src="https://cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/AWS/PRODUCT_API/tag.min.js"
-></script>
