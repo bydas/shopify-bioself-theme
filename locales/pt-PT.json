@@ -276,7 +276,7 @@
     },
     "activate_account": {
       "activate_account": "Ativar conta",
-      "description": "Insira uma senha para criar sua conta:",
+      "description": "Introduz uma palavra-passe para criar sua conta:",
       "password": "Palavra-passe",
       "password_confirmation": "Confirmar palavra-passe",
       "submit": "Ativar",
