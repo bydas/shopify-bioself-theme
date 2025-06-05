@@ -1,1 +1,553 @@
-{"general":{"meta":{"tags":"Tags \"{{ tags }}\"","page":"Página {{ page }}"},"accessibility":{"skip_to_content":"Pular para o conteúdo","close":"Fechar","next":"Próxima","previous":"Anterior","new_window":"Abrirá numa nova janela."},"password":{"enter_password":"Entre usando senha","password_input":"Senha","password_submit":"Entrar","newsletter_input":"Seu endereço de email","newsletter_submit":"Notifique-me","newsletter_success":"Obrigado por se registar!","powered_by_html":"Essa lojá utilizará {{shopify_link}}","login_title":"Você é o dono da loja?","login_link":"Entre aqui","follow_us":"Siga-nos"},"pagination":{"previous_page":"Anterior","next_page":"Próxima","go_to_page":"Ir para a página {{page}}","page_count":"Página {{current_page}} \/ {{pages}}"},"breadcrumb":{"title":"Caminho","home":"Página inicial","account":"Minha conta"},"social":{"follow_label":"Siga-nos em {{social_media}}","facebook_share":"Compartilhar no Facebook","pinterest_pin":"Adicionar ao Pinterest","twitter_tweet":"Postar no Twitter","email_share":"Compartilhar por e-mail"},"popup":{"success":"ESTÁ FEITO! OBRIGADO!","success_heading":"Irás receber a nossa newsletter brevemente.","success_subheading":"Verifica o teu email de forma a visualizares o teu código de desconto.","email_placeholder":"O teu endereço de email","subscribe":"SUBSCREVER"}},"header":{"general":{"currency":"Moeda","language":"Idioma","account":"Minha conta","login":"Entrar \/ Criar conta","welcome":"Olá {{first_name}}","cart":"Carrinho"},"navigation":{"menu":"Menu","open_menu":"Abrir menu","back":"Voltar ao menu","need_help":"Precisa de ajuda?","follow_us":"Siga-nos"},"search":{"open_search":"Abrir a pesquisa","close_search":"Fechar","input_placeholder":"Pesquisar e… BIOSELF!","all_categories":"Todas as categorias","no_results":"Nenhum resultado encontrado","submit":"Pesquisar","view_products":"Ver todos os produtos","view_results":"Ver todos os resultados","products":"Produtos","blog_posts":"Publicações","pages":"Páginas","blog_posts_and_pages":"Páginas & Publicações"}},"footer":{"general":{"currency":"Moeda","language":"Idioma","follow_us":"Siga-nos","we_accept":"Nós aceitamos"},"newsletter":{"success":"Você se inscreveu na nossa newsletter!","input":"E-mail","input_name":"Nome","submit":"Subscrever"}},"search":{"general":{"title":"Pesquisar","title_with_terms":"Resultados de pesquisa com \"{{terms}}\"","products_with_terms":"Produtos com \"{{terms}}\"","articles_with_terms":"Publicações com \"{{terms}}\"","pages_with_terms":"Páginas com \"{{terms}}\"","pages_and_articles_with_terms":"Páginas e publicações com \"{{terms}}\"","content":"Use a barra de pesquisa para encontrar produtos:","input_placeholder":"Pesquisar e… Just Bioself!","no_results_with_terms":"Nenhum resultado com \"{{terms}}\" encontrado","go_back_home":"ou clique aqui para voltar à página inicial","results_count":{"zero":"0 resultados","one":"1 resultado","other":"{{count}} resultados"},"showing_count":{"zero":"Nenhum resultado","one":"Mostrando {{offset}} - {{page_size}} de {{count}} resultado","other":"Mostrando {{offset}} - {{page_size}} de {{count}} resultados"}}},"404":{"general":{"title":"Página não encontrada","content":"A página que está à procura não foi encontrada.","search":"Pesquisar na loja...","continue_shopping":"Clique aqui para continuar a comprar"}},"home_page":{"onboarding":{"vendor_title":"Nome da marca","product_title":"Nome do produto","product_sku":"SKU-1234","product_description":"Uma descrição de produto pode ser utilizada como mostruário das funções e vantagens do seu produto. Você pode dar uma olhada no blog de ecommerce do Shopify para encontrar inspiração e dicas sobre como divulgar seus produtos.","collection_title":"Nome da coleção","article_title":"Nome da pubkicação","article_author":"Escrito por você","article_category":"Categoria","article_excerpt":"Sua loja ainda não tem artigo publicado. Um blog pode ser utilizado para falar sobre novos produtos, dar dicas ou ou outras notícias que você queira compartilhar com seus clientes. Você pode dar uma olhada no blog de ecommerce do Shopify para encontrar inspiração e dicas sobre como manter um ecommerce e um blog.","instagram_likes":"28 likes","instagram_caption":"Esse é um exemplo de legenda."},"newsletter":{"success":"Você se inscreveu na nossa newsletter!","input_name":"Nome","input_email":"E-mail","submit":"Subscrever","input":"Seu email"}},"collection":{"general":{"all_collections":"Todas as coleções","all_products":"Todos os produtos","all_brands":"Todas as marcas","view_more":"Ver mais","view_less":"Ver menos","brands":"Marcas","empty":"Esta coleção está vazia","empty_button":"Ir para a página inicial","no_results":"Seus critérios não incluem nenhum produto.","view_products":"Ver produtos","display":"Mostrar","products_count":{"zero":"{{count}} produtos","one":"{{count}} produto","other":"{{count}} produtos"},"results_count":{"zero":"{{count}} resultados","one":"{{count}} resultado","other":"{{count}} resultados"},"showing_count":{"zero":"Sem produtos","one":"Mostrando {{offset}} - {{page_size}} de {{count}} produto","other":"Mostrando {{offset}} - {{page_size}} de {{count}} produtos"},"page_size":"{{page_size}} por página"},"filter":{"title":"Filtrar","show_filter":"Mostrar filtros","select_category":"Selecionar categoria","all":"Filtros","clear_all":"Limpar tudo","clear":"Limpar","view_results":"Ver resultados"},"sorting":{"title":"Ordenar por"},"layout":{"title":"Visualização","grid":"Mostrar produtos em uma grade","list":"Mostrar produtos em uma lista"},"product":{"from_price_html":"De {{price_min}}","add_to_cart":"Adicionar","pre_order":"Pré-compra","quick_view":"Ver mais","choose_options":"Escolha entre as opções","sold_out":"Esgotado","in_stock":"Em stock","oversell_stock":"Em reabastecimento","discount_html":"{{savings}}","low_stock_with_quantity_count":{"one":"Apenas {{count}} unidade restante","other":"Apenas {{count}} unidades restantes"},"in_stock_with_quantity_count":{"one":"Em stock, {{count}} unidade","other":"Em stock, {{count}} unidades"}}},"customer":{"general":{"my_account":"Minha conta","orders":"Minhas compras","addresses":"Meus endereços","logout":"Sair","no_orders":"Nenhuma compra feita","no_orders_button":"Faça sua primeira compra"},"login":{"login":"Entrar em minha conta","description":"Insira seu e-mail e senha:","email":"E-mail","password":"Senha","submit":"Entrar","new_customer":"Novo cliente?","create_your_account":"Criar sua conta","lost_password":"Esqueceu sua senha?","recover_password":"Recuperar senha"},"order":{"order":"Compra","order_number":"Compra {{order_number}}","back_to_orders":"Voltar a compras","date":"Data","payment_status":"Status do pagamento","fulfillment_status":"Status de envio","back_to_account":"Voltar a conta","cancelled_at":"Compra cancelada {{date}}. Motivo: {{reason}}.","fulfillment_with_url_and_number_html":"Todos os produtos foram enviados. Rastreie sua encomenda com o código {{tracking_number}} ou <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui<\/a>.","fulfillment_with_url_html":"Todos os produtos foram enviados. Rastreie sua encomenda <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui<\/a>.","fulfillment_with_number_html":"Todos os produtos foram enviados. Rastreie a encomenda com o código {{tracking_number}}.","fulfillment_html":"Todos os produtos foram enviados.","line_fulfillment_with_url_and_number_html":"Esse produto foi enviado. Rastreie a encomenda com o código {{tracking_number}} ou <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui<\/a>.","line_fulfillment_with_url_html":"Esse produto foi enviado. Rastreie a encomenda <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui<\/a>.","line_fulfillment_with_number_html":"Esse produto foi enviado. Rastreie a encomenda com o código {{tracking_number}}.","line_fulfillment_html":"Esse produto foi enviado.","product":"Produto","quantity":"Quantidade","total":"Total","subtotal":"Subtotal","discount":"Desconto","shipping":"Custos de Envio","tax_included":"Imposto incluído","tax_excluded":"Imposto excluído","shipping_address":"Endereço de entrega","billing_address":"Endereço de cobrança","no_billing_address":"Nenhum endereço de cobrança foi utilizado nessa compra.","no_shipping_address":"Nenhum endereço de entrega foi utilizado nessa compra."},"activate_account":{"activate_account":"Ativar conta","description":"Insira uma senha para criar sua conta:","password":"Senha","password_confirmation":"Confirmar senha","submit":"Ativar","decline":"Recusar"},"recover_password":{"recover_password":"Recuperar senha","description":"Insira seu e-mail:","email":"E-mail","submit":"Recuperar","success":"Nós te enviamos um email com instruções para a redefinição de senha.","remembered_your_password":"Lembrar sua senha?","back_to_login":"Voltar para o login"},"reset_password":{"reset_password":"Redefinir senha","description":"Insira uma nova senha:","password":"Senha","password_confirmation":"Confirmar senha","submit":"Redefinir senha"},"addresses":{"no_addresses":"Nenhum endereço","no_addresses_button":"Adicione seu primeiro endereço","default_address":"Endereço principal","address_number":"Endereço {{number}}","edit":"Editar","delete":"Apagar","add_address":"Adicionar novo endereço","edit_address":"Editar endereço","form_subtitle":"Por favor, preencha os dados abaixo:","first_name":"Primeiro nome","last_name":"Sobrenome","company":"NIF","address1":"Endereço","address2":"Complemento","city":"Cidade","country":"País","province":"Distrito","zip":"Código-Postal","phone":"Telefone","set_default":"Tornar meu endereço principal"},"register":{"create_account":"Criar minha conta","description":"Preencha os campos abaixo:","first_name":"Primeiro nome","last_name":"Sobrenome","email":"E-mail","password":"Senha","submit":"Criar minha conta","already_have_account":"Já tem uma conta?","login":"Entre aqui","terms_html":"Ao aceitar criar a conta, aceito os <a href='\/policies\/terms-of-service' class='create_account-label-link'>T&C<\/a> e o <a href='\/policies\/privacy-policy' class='create_account-label-link'>Política de Privacidade<\/a>","accept_marketing":"Receba conteúdos e promoções exclusivas no seu email 😍"}},"cart":{"general":{"title":"Meu carrinho","empty":"Seu carrinho está vazio","empty_button":"Vê os nossos produtos","search":"Pesquisar e… BIOSELF!","view_cart":"Ver carrinho","note_title":"Instruções de envio","edit_note":"Editar","save_note":"Salvar","secure_payments":"Pagamentos 100% seguros","free_shipping":"Você recebe frete grátis!","free_shipping_remaining_html":"Gaste mais {{remaining_amount}} e receba frete grátis!","amount_saved_html":"Poupou {{amount_saved}}!","free":"Grátis!","taxes_and_shipping_at_checkout":"Impostos e frete calculados no checkout","taxes_and_shipping_policy_at_checkout_html":"Impostos e <a href=\"{{ link }}\">frete<\/a> calculados no checkout","taxes_included_but_shipping_at_checkout":"Impostos incluídos. Custos de envio calculado no checkout","taxes_included_and_shipping_policy_html":"Impostos incluídos. <a href=\"{{ link }}\">Custos de Envio<\/a> calculado no checkout","total":"Total","checkout":"Checkout"},"items":{"decrease_quantity":"Diminuir quantidade em 1","increase_quantity":"Aumentar quantidade em 1","no_more_stock":"Sem stock","remove":"Remover"},"gift_wrap":{"price_html":"Apenas {{price}}"},"shipping_estimator":{"title":"Estimar frete","country":"País","province":"Estado","zip_code":"CEP","estimate":"Estimativa","no_results_title":"Nenhum método de envio encontrado para o seu endereço.","one_result_title":"Existe um método de envio para o seu endereço:","multiple_results_title":"Existem {{count}} métodos de envio para o seu endereço:","errors":"Encontramos alguns erros:"}},"product":{"general":{"previous_product":"Anterior","next_product":"Próximo","description":"Descrição","sku":"SKU: ","share":"Compartilhe esse produto","promotionaltext":"Leve 4 Pague 3","regular_price":"Preço normal","sale_price":"Preço promocional","zoom":"Passe o cursor sob a imagem para fazer zoom","zoom_mobile":"Clique na imagem para fazer zoom","view_in_space":"Ver no seu espaço","view_more":"Ver mais","view_less":"Ver menos","payment":"Métodos de pagamento","security":"Segurança","payment_notice":"Suas informações de pagamento são processadas com segurança. Nós não armazenamos dados do cartão de crédito nem temos acesso aos números do seu cartão.","estimate_shipping":"Estimar frete","refund_policy":"Política de reembolso","include_taxes":"IVA INCL.","shipping_policy_html":"<a href=\"{{ link }}\" class=\"link link--accented\">Custos de Envio calculado<\/a> no checkout","disclaimer":"A Bioself Natura Lda não é responsável por eventuais divergências e\/ou modificações relacionadas com a informação sobre os produtos presentes no site, facultada pelo fornecedor\/fabricante, que figura nos rótulos dos mesmos. Recomendamos, por isso, que leia sempre a informação obrigatória e\/ou voluntária constante nos rótulos dos produtos antes de os utilizar ou consumir."},"labels":{"sold_out":"Esgotado"},"form":{"variant":"Variante","price":"Preço","inventory":"Stock","quantity":"Quantidade","in_stock":"Em stock","oversell_stock":"Em reabastecimento","low_stock_with_quantity_count":{"one":"Apenas {{count}} unidade restantes","other":"Apenas {{count}} unidades restantes"},"in_stock_with_quantity_count":{"one":"Em stock ({{count}} unidade), pronto para ser enviado","other":"Em stock ({{count}} unidades), pronto para ser enviado"},"add_to_cart":"Adicionar","sold_out":"Esgotado","pre_order":"Pré-compra","unavailable":"Indisponível","contact_us":"Contate-nos","added":"Produtos foram adicionados ao seu carrinho","added_short":"Adicionado !"}},"store_availability":{"general":{"view_store_info":"Ver as informações da loja","check_other_stores":"Verificar a disponibilidade em outras lojas","pick_up_available":"Levantamento disponível","pick_up_currently_unavailable":"Levantamento indisponível no momento","pick_up_available_at":"Levantamento disponível em {{ location_name }}","pick_up_unavailable_at":"Levantamento em {{ location_name }} indisponível no momento"}},"gift_card":{"issued":{"subtext":"Aqui está o seu cartão de presentes!","disabled":"Seu cartão de presentes está desabilitado.","expired":"Seu cartão de presentes expira {{expiry}}.","expires_on":"Expira: {{expiry}}","redeem":"Use este código no checkout para resgatar seu cartão de presentes:","remaining_amount":"{{amount}} restante","shop_link":"Comece a comprar","print":"Imprimir","add_to_apple_wallet":"Adicionar ao Apple Wallet"}},"blog":{"general":{"empty":"Esse blog não tem artigos","empty_button":"Ir a página inicial","back_to_blog_btn":"Voltar ao blog","categories":"Categorias","all_tag":"Todas","references":"Referências:"},"article":{"tags":"Tags:","written_by":"{{author}}","share":"Compartilhar","previous_article":"Artigo anterior","next_article":"Próximo artigo","comments_count":{"zero":"{{count}} comentários","one":"{{count}} comentário","other":"{{count}} comentários"}},"comments":{"leave_comment":"Deixe um comentário","name":"Nome","email":"E-mail","content":"Conteúdo","approval_notice":"Todos os comentários são moderados antes de serem publicados.","submit":"Enviar comentário","success":"O seu comentário foi publicado.","success_moderated":"O teu comentário foi enviado. Ficará visível após moderação."}},"contact":{"form":{"name":"Nome","email":"Email","phone":"Telefone","subject":"Assunto","message":"A sua mensagem","submit":"Enviar mensagem","successfully_sent":"A sua mensagem foi enviada com sucesso."}},"date_formats":{"month_day_year":"%B %d, %Y","short_month_day_year":"%b %d, %Y","month_day_year_time":"%B %d, %Y at %H:%M%P"},"discount_ninja":{"from":"A partir de","here":"aqui","free":"GRÁTIS","sold_out":"Esgotado"},"shopify":{"checkout":{"contact":{"company_label":"NIF","optional_company_label":"NIF (opcional) ","zip_code_placeholder":"Código postal"},"field_errors":{"address_company_blank":"Introduza o seu NIF"},"delivery_options":{"pick_up_in_four_hours":"Normalmente pronto em 6 horas","ship":"Transportadora – CTT Expresso","pick_up":"Recolha em Loja (Porto, Portugal)"},"order_summary":{"vat_label_html":"Inclui {{ amount }} em imposto"},"general":{"dates":{"months":{"january":"Janeiro"}}},"stock":{"empty_cart_label":"O teu carrinho está vazio"}},"notices":{"cart":{"too_many_items_in_cart":"Não é possível adicionar mais unidades ao carrinho pois atingiu o limite de stock disponível."}},"collections":{"sorting":{"best_selling":"Mais Vendidos"}}},"customer_accounts":{"ui_components":{"january":"Janeiro"}}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "meta": {
+      "tags": "Tags \"{{ tags }}\"",
+      "page": "Página {{ page }}"
+    },
+    "accessibility": {
+      "skip_to_content": "Pular para o conteúdo",
+      "close": "Fechar",
+      "next": "Próxima",
+      "previous": "Anterior",
+      "new_window": "Abrirá numa nova janela."
+    },
+    "password": {
+      "enter_password": "Aceda com a palavra-passe",
+      "password_input": "Palavra-passe",
+      "password_submit": "Entrar",
+      "newsletter_input": "Seu endereço de email",
+      "newsletter_submit": "Notifique-me",
+      "newsletter_success": "Obrigado por se registar!",
+      "powered_by_html": "Essa lojá utilizará {{shopify_link}}",
+      "login_title": "Você é o dono da loja?",
+      "login_link": "Entre aqui",
+      "follow_us": "Siga-nos"
+    },
+    "pagination": {
+      "previous_page": "Anterior",
+      "next_page": "Próxima",
+      "go_to_page": "Ir para a página {{page}}",
+      "page_count": "Página {{current_page}} / {{pages}}"
+    },
+    "breadcrumb": {
+      "title": "Caminho",
+      "home": "Página inicial",
+      "account": "Minha conta"
+    },
+    "social": {
+      "follow_label": "Siga-nos em {{social_media}}",
+      "facebook_share": "Compartilhar no Facebook",
+      "pinterest_pin": "Adicionar ao Pinterest",
+      "twitter_tweet": "Postar no Twitter",
+      "email_share": "Compartilhar por e-mail"
+    },
+    "popup": {
+      "success": "ESTÁ FEITO! OBRIGADO!",
+      "success_heading": "Irás receber a nossa newsletter brevemente.",
+      "success_subheading": "Verifica o teu email de forma a visualizares o teu código de desconto.",
+      "email_placeholder": "O teu endereço de email",
+      "subscribe": "SUBSCREVER"
+    }
+  },
+  "header": {
+    "general": {
+      "currency": "Moeda",
+      "language": "Idioma",
+      "account": "Minha conta",
+      "login": "Entrar / Criar conta",
+      "welcome": "Olá {{first_name}}",
+      "cart": "Carrinho"
+    },
+    "navigation": {
+      "menu": "Menu",
+      "open_menu": "Abrir menu",
+      "back": "Voltar ao menu",
+      "need_help": "Precisa de ajuda?",
+      "follow_us": "Siga-nos"
+    },
+    "search": {
+      "open_search": "Abrir a pesquisa",
+      "close_search": "Fechar",
+      "input_placeholder": "Pesquisar e… BIOSELF!",
+      "all_categories": "Todas as categorias",
+      "no_results": "Nenhum resultado encontrado",
+      "submit": "Pesquisar",
+      "view_products": "Ver todos os produtos",
+      "view_results": "Ver todos os resultados",
+      "products": "Produtos",
+      "blog_posts": "Publicações",
+      "pages": "Páginas",
+      "blog_posts_and_pages": "Páginas & Publicações"
+    }
+  },
+  "footer": {
+    "general": {
+      "currency": "Moeda",
+      "language": "Idioma",
+      "follow_us": "Siga-nos",
+      "we_accept": "Nós aceitamos"
+    },
+    "newsletter": {
+      "success": "Você se inscreveu na nossa newsletter!",
+      "input": "E-mail",
+      "input_name": "Nome",
+      "submit": "Subscrever"
+    }
+  },
+  "search": {
+    "general": {
+      "title": "Pesquisar",
+      "title_with_terms": "Resultados de pesquisa com \"{{terms}}\"",
+      "products_with_terms": "Produtos com \"{{terms}}\"",
+      "articles_with_terms": "Publicações com \"{{terms}}\"",
+      "pages_with_terms": "Páginas com \"{{terms}}\"",
+      "pages_and_articles_with_terms": "Páginas e publicações com \"{{terms}}\"",
+      "content": "Use a barra de pesquisa para encontrar produtos:",
+      "input_placeholder": "Pesquisar e… Just Bioself!",
+      "no_results_with_terms": "Nenhum resultado com \"{{terms}}\" encontrado",
+      "go_back_home": "ou clique aqui para voltar à página inicial",
+      "results_count": {
+        "zero": "0 resultados",
+        "one": "1 resultado",
+        "other": "{{count}} resultados"
+      },
+      "showing_count": {
+        "zero": "Nenhum resultado",
+        "one": "Mostrando {{offset}} - {{page_size}} de {{count}} resultado",
+        "other": "Mostrando {{offset}} - {{page_size}} de {{count}} resultados"
+      }
+    }
+  },
+  "404": {
+    "general": {
+      "title": "Página não encontrada",
+      "content": "A página que está à procura não foi encontrada.",
+      "search": "Pesquisar na loja...",
+      "continue_shopping": "Clique aqui para continuar a comprar"
+    }
+  },
+  "home_page": {
+    "onboarding": {
+      "vendor_title": "Nome da marca",
+      "product_title": "Nome do produto",
+      "product_sku": "SKU-1234",
+      "product_description": "Uma descrição de produto pode ser utilizada como mostruário das funções e vantagens do seu produto. Você pode dar uma olhada no blog de ecommerce do Shopify para encontrar inspiração e dicas sobre como divulgar seus produtos.",
+      "collection_title": "Nome da coleção",
+      "article_title": "Nome da pubkicação",
+      "article_author": "Escrito por você",
+      "article_category": "Categoria",
+      "article_excerpt": "Sua loja ainda não tem artigo publicado. Um blog pode ser utilizado para falar sobre novos produtos, dar dicas ou ou outras notícias que você queira compartilhar com seus clientes. Você pode dar uma olhada no blog de ecommerce do Shopify para encontrar inspiração e dicas sobre como manter um ecommerce e um blog.",
+      "instagram_likes": "28 likes",
+      "instagram_caption": "Esse é um exemplo de legenda."
+    },
+    "newsletter": {
+      "success": "Você se inscreveu na nossa newsletter!",
+      "input_name": "Nome",
+      "input_email": "E-mail",
+      "submit": "Subscrever",
+      "input": "Seu email"
+    }
+  },
+  "collection": {
+    "general": {
+      "all_collections": "Todas as coleções",
+      "all_products": "Todos os produtos",
+      "all_brands": "Todas as marcas",
+      "view_more": "Ver mais",
+      "view_less": "Ver menos",
+      "brands": "Marcas",
+      "empty": "Esta coleção está vazia",
+      "empty_button": "Ir para a página inicial",
+      "no_results": "Seus critérios não incluem nenhum produto.",
+      "view_products": "Ver produtos",
+      "display": "Mostrar",
+      "products_count": {
+        "zero": "{{count}} produtos",
+        "one": "{{count}} produto",
+        "other": "{{count}} produtos"
+      },
+      "results_count": {
+        "zero": "{{count}} resultados",
+        "one": "{{count}} resultado",
+        "other": "{{count}} resultados"
+      },
+      "showing_count": {
+        "zero": "Sem produtos",
+        "one": "Mostrando {{offset}} - {{page_size}} de {{count}} produto",
+        "other": "Mostrando {{offset}} - {{page_size}} de {{count}} produtos"
+      },
+      "page_size": "{{page_size}} por página"
+    },
+    "filter": {
+      "title": "Filtrar",
+      "show_filter": "Mostrar filtros",
+      "select_category": "Selecionar categoria",
+      "all": "Filtros",
+      "clear_all": "Limpar tudo",
+      "clear": "Limpar",
+      "view_results": "Ver resultados"
+    },
+    "sorting": {
+      "title": "Ordenar por"
+    },
+    "layout": {
+      "title": "Visualização",
+      "grid": "Mostrar produtos em uma grade",
+      "list": "Mostrar produtos em uma lista"
+    },
+    "product": {
+      "from_price_html": "De {{price_min}}",
+      "add_to_cart": "Adicionar",
+      "pre_order": "Pré-compra",
+      "quick_view": "Ver mais",
+      "choose_options": "Escolha entre as opções",
+      "sold_out": "Esgotado",
+      "in_stock": "Em stock",
+      "oversell_stock": "Em reabastecimento",
+      "discount_html": "{{savings}}",
+      "low_stock_with_quantity_count": {
+        "one": "Apenas {{count}} unidade restante",
+        "other": "Apenas {{count}} unidades restantes"
+      },
+      "in_stock_with_quantity_count": {
+        "one": "Em stock, {{count}} unidade",
+        "other": "Em stock, {{count}} unidades"
+      }
+    }
+  },
+  "customer": {
+    "general": {
+      "my_account": "Minha conta",
+      "orders": "Minhas compras",
+      "addresses": "Meus endereços",
+      "logout": "Sair",
+      "no_orders": "Nenhuma compra feita",
+      "no_orders_button": "Faça sua primeira compra"
+    },
+    "login": {
+      "login": "Entrar em minha conta",
+      "description": "Introduz o teu e-mail e palavra-passe:",
+      "email": "E-mail",
+      "password": "Palavra-passe",
+      "submit": "Entrar",
+      "new_customer": "Novo cliente?",
+      "create_your_account": "Criar sua conta",
+      "lost_password": "Esqueceu sua palavra-passe?",
+      "recover_password": "Recuperar palavra-passe"
+    },
+    "order": {
+      "order": "Compra",
+      "order_number": "Compra {{order_number}}",
+      "back_to_orders": "Voltar a compras",
+      "date": "Data",
+      "payment_status": "Status do pagamento",
+      "fulfillment_status": "Status de envio",
+      "back_to_account": "Voltar a conta",
+      "cancelled_at": "Compra cancelada {{date}}. Motivo: {{reason}}.",
+      "fulfillment_with_url_and_number_html": "Todos os produtos foram enviados. Rastreie sua encomenda com o código {{tracking_number}} ou <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui</a>.",
+      "fulfillment_with_url_html": "Todos os produtos foram enviados. Rastreie sua encomenda <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui</a>.",
+      "fulfillment_with_number_html": "Todos os produtos foram enviados. Rastreie a encomenda com o código {{tracking_number}}.",
+      "fulfillment_html": "Todos os produtos foram enviados.",
+      "line_fulfillment_with_url_and_number_html": "Esse produto foi enviado. Rastreie a encomenda com o código {{tracking_number}} ou <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui</a>.",
+      "line_fulfillment_with_url_html": "Esse produto foi enviado. Rastreie a encomenda <a href=\"{{tracking_url}}\" target=\"_blank\">clicando aqui</a>.",
+      "line_fulfillment_with_number_html": "Esse produto foi enviado. Rastreie a encomenda com o código {{tracking_number}}.",
+      "line_fulfillment_html": "Esse produto foi enviado.",
+      "product": "Produto",
+      "quantity": "Quantidade",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "discount": "Desconto",
+      "shipping": "Custos de Envio",
+      "tax_included": "Imposto incluído",
+      "tax_excluded": "Imposto excluído",
+      "shipping_address": "Endereço de entrega",
+      "billing_address": "Endereço de cobrança",
+      "no_billing_address": "Nenhum endereço de cobrança foi utilizado nessa compra.",
+      "no_shipping_address": "Nenhum endereço de entrega foi utilizado nessa compra."
+    },
+    "activate_account": {
+      "activate_account": "Ativar conta",
+      "description": "Insira uma senha para criar sua conta:",
+      "password": "Palavra-passe",
+      "password_confirmation": "Confirmar palavra-passe",
+      "submit": "Ativar",
+      "decline": "Recusar"
+    },
+    "recover_password": {
+      "recover_password": "Recuperar palavra-passe",
+      "description": "Insira seu e-mail:",
+      "email": "E-mail",
+      "submit": "Recuperar",
+      "success": "Enviámos-te um e-mail com instruções para definires uma nova palavra-passe.",
+      "remembered_your_password": "Lembraste-te da tua palavra-passe?",
+      "back_to_login": "Voltar para o login"
+    },
+    "reset_password": {
+      "reset_password": "Redefinir palavra-passe",
+      "description": "Introduz uma nova palavra-passe:",
+      "password": "Palavra-passe",
+      "password_confirmation": "Confirmar palavra-passe",
+      "submit": "Redefinir palavra-passe"
+    },
+    "addresses": {
+      "no_addresses": "Nenhum endereço",
+      "no_addresses_button": "Adicione seu primeiro endereço",
+      "default_address": "Endereço principal",
+      "address_number": "Endereço {{number}}",
+      "edit": "Editar",
+      "delete": "Apagar",
+      "add_address": "Adicionar novo endereço",
+      "edit_address": "Editar endereço",
+      "form_subtitle": "Por favor, preencha os dados abaixo:",
+      "first_name": "Primeiro nome",
+      "last_name": "Sobrenome",
+      "company": "NIF",
+      "address1": "Endereço",
+      "address2": "Complemento",
+      "city": "Cidade",
+      "country": "País",
+      "province": "Distrito",
+      "zip": "Código-Postal",
+      "phone": "Telefone",
+      "set_default": "Tornar meu endereço principal"
+    },
+    "register": {
+      "create_account": "Criar minha conta",
+      "description": "Preencha os campos abaixo:",
+      "first_name": "Primeiro nome",
+      "last_name": "Sobrenome",
+      "email": "E-mail",
+      "password": "Palavra-passe",
+      "submit": "Criar minha conta",
+      "already_have_account": "Já tem uma conta?",
+      "login": "Entre aqui",
+      "terms_html": "Ao aceitar criar a conta, aceito os <a href='/policies/terms-of-service' class='create_account-label-link'>T&C</a> e o <a href='/policies/privacy-policy' class='create_account-label-link'>Política de Privacidade</a>",
+      "accept_marketing": "Receba conteúdos e promoções exclusivas no seu email 😍"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Meu carrinho",
+      "empty": "Seu carrinho está vazio",
+      "empty_button": "Vê os nossos produtos",
+      "search": "Pesquisar e… BIOSELF!",
+      "view_cart": "Ver carrinho",
+      "note_title": "Instruções de envio",
+      "edit_note": "Editar",
+      "save_note": "Salvar",
+      "secure_payments": "Pagamentos 100% seguros",
+      "free_shipping": "Você recebe frete grátis!",
+      "free_shipping_remaining_html": "Gaste mais {{remaining_amount}} e receba frete grátis!",
+      "amount_saved_html": "Poupou {{amount_saved}}!",
+      "free": "Grátis!",
+      "taxes_and_shipping_at_checkout": "Impostos e frete calculados no checkout",
+      "taxes_and_shipping_policy_at_checkout_html": "Impostos e <a href=\"{{ link }}\">frete</a> calculados no checkout",
+      "taxes_included_but_shipping_at_checkout": "Impostos incluídos. Custos de envio calculado no checkout",
+      "taxes_included_and_shipping_policy_html": "Impostos incluídos. <a href=\"{{ link }}\">Custos de Envio</a> calculado no checkout",
+      "total": "Total",
+      "checkout": "Checkout"
+    },
+    "items": {
+      "decrease_quantity": "Diminuir quantidade em 1",
+      "increase_quantity": "Aumentar quantidade em 1",
+      "no_more_stock": "Sem stock",
+      "remove": "Remover"
+    },
+    "gift_wrap": {
+      "price_html": "Apenas {{price}}"
+    },
+    "shipping_estimator": {
+      "title": "Estimar frete",
+      "country": "País",
+      "province": "Estado",
+      "zip_code": "CEP",
+      "estimate": "Estimativa",
+      "no_results_title": "Nenhum método de envio encontrado para o seu endereço.",
+      "one_result_title": "Existe um método de envio para o seu endereço:",
+      "multiple_results_title": "Existem {{count}} métodos de envio para o seu endereço:",
+      "errors": "Encontramos alguns erros:"
+    }
+  },
+  "product": {
+    "general": {
+      "previous_product": "Anterior",
+      "next_product": "Próximo",
+      "description": "Descrição",
+      "sku": "SKU: ",
+      "share": "Compartilhe esse produto",
+      "promotionaltext": "Leve 4 Pague 3",
+      "regular_price": "Preço normal",
+      "sale_price": "Preço promocional",
+      "zoom": "Passe o cursor sob a imagem para fazer zoom",
+      "zoom_mobile": "Clique na imagem para fazer zoom",
+      "view_in_space": "Ver no seu espaço",
+      "view_more": "Ver mais",
+      "view_less": "Ver menos",
+      "payment": "Métodos de pagamento",
+      "security": "Segurança",
+      "payment_notice": "Suas informações de pagamento são processadas com segurança. Nós não armazenamos dados do cartão de crédito nem temos acesso aos números do seu cartão.",
+      "estimate_shipping": "Estimar frete",
+      "refund_policy": "Política de reembolso",
+      "include_taxes": "IVA INCL.",
+      "shipping_policy_html": "<a href=\"{{ link }}\" class=\"link link--accented\">Custos de Envio calculado</a> no checkout",
+      "disclaimer": "A Bioself Natura Lda não é responsável por eventuais divergências e/ou modificações relacionadas com a informação sobre os produtos presentes no site, facultada pelo fornecedor/fabricante, que figura nos rótulos dos mesmos. Recomendamos, por isso, que leia sempre a informação obrigatória e/ou voluntária constante nos rótulos dos produtos antes de os utilizar ou consumir."
+    },
+    "labels": {
+      "sold_out": "Esgotado"
+    },
+    "form": {
+      "variant": "Variante",
+      "price": "Preço",
+      "inventory": "Stock",
+      "quantity": "Quantidade",
+      "in_stock": "Em stock",
+      "oversell_stock": "Em reabastecimento",
+      "low_stock_with_quantity_count": {
+        "one": "Apenas {{count}} unidade restantes",
+        "other": "Apenas {{count}} unidades restantes"
+      },
+      "in_stock_with_quantity_count": {
+        "one": "Em stock ({{count}} unidade), pronto para ser enviado",
+        "other": "Em stock ({{count}} unidades), pronto para ser enviado"
+      },
+      "add_to_cart": "Adicionar",
+      "sold_out": "Esgotado",
+      "pre_order": "Pré-compra",
+      "unavailable": "Indisponível",
+      "contact_us": "Contate-nos",
+      "added": "Produtos foram adicionados ao seu carrinho",
+      "added_short": "Adicionado !"
+    }
+  },
+  "store_availability": {
+    "general": {
+      "view_store_info": "Ver as informações da loja",
+      "check_other_stores": "Verificar a disponibilidade em outras lojas",
+      "pick_up_available": "Levantamento disponível",
+      "pick_up_currently_unavailable": "Levantamento indisponível no momento",
+      "pick_up_available_at": "Levantamento disponível em {{ location_name }}",
+      "pick_up_unavailable_at": "Levantamento em {{ location_name }} indisponível no momento"
+    }
+  },
+  "gift_card": {
+    "issued": {
+      "subtext": "Aqui está o seu cartão de presentes!",
+      "disabled": "Seu cartão de presentes está desabilitado.",
+      "expired": "Seu cartão de presentes expira {{expiry}}.",
+      "expires_on": "Expira: {{expiry}}",
+      "redeem": "Use este código no checkout para resgatar seu cartão de presentes:",
+      "remaining_amount": "{{amount}} restante",
+      "shop_link": "Comece a comprar",
+      "print": "Imprimir",
+      "add_to_apple_wallet": "Adicionar ao Apple Wallet"
+    }
+  },
+  "blog": {
+    "general": {
+      "empty": "Esse blog não tem artigos",
+      "empty_button": "Ir a página inicial",
+      "back_to_blog_btn": "Voltar ao blog",
+      "categories": "Categorias",
+      "all_tag": "Todas",
+      "references": "Referências:"
+    },
+    "article": {
+      "tags": "Tags:",
+      "written_by": "{{author}}",
+      "share": "Compartilhar",
+      "previous_article": "Artigo anterior",
+      "next_article": "Próximo artigo",
+      "comments_count": {
+        "zero": "{{count}} comentários",
+        "one": "{{count}} comentário",
+        "other": "{{count}} comentários"
+      }
+    },
+    "comments": {
+      "leave_comment": "Deixe um comentário",
+      "name": "Nome",
+      "email": "E-mail",
+      "content": "Conteúdo",
+      "approval_notice": "Todos os comentários são moderados antes de serem publicados.",
+      "submit": "Enviar comentário",
+      "success": "O seu comentário foi publicado.",
+      "success_moderated": "O teu comentário foi enviado. Ficará visível após moderação."
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefone",
+      "subject": "Assunto",
+      "message": "A sua mensagem",
+      "submit": "Enviar mensagem",
+      "successfully_sent": "A sua mensagem foi enviada com sucesso."
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y",
+    "short_month_day_year": "%b %d, %Y",
+    "month_day_year_time": "%B %d, %Y at %H:%M%P"
+  },
+  "discount_ninja": {
+    "from": "A partir de",
+    "here": "aqui",
+    "free": "GRÁTIS",
+    "sold_out": "Esgotado"
+  },
+  "shopify": {
+    "checkout": {
+      "contact": {
+        "company_label": "NIF",
+        "optional_company_label": "NIF (opcional) ",
+        "zip_code_placeholder": "Código postal"
+      },
+      "field_errors": {
+        "address_company_blank": "Introduza o seu NIF"
+      },
+      "delivery_options": {
+        "pick_up_in_four_hours": "Normalmente pronto em 6 horas",
+        "ship": "Transportadora – CTT Expresso",
+        "pick_up": "Recolha em Loja (Porto, Portugal)"
+      },
+      "order_summary": {
+        "vat_label_html": "Inclui {{ amount }} em imposto"
+      },
+      "general": {
+        "dates": {
+          "months": {
+            "january": "Janeiro"
+          }
+        }
+      },
+      "stock": {
+        "empty_cart_label": "O teu carrinho está vazio"
+      }
+    },
+    "notices": {
+      "cart": {
+        "too_many_items_in_cart": "Não é possível adicionar mais unidades ao carrinho pois atingiu o limite de stock disponível."
+      }
+    },
+    "collections": {
+      "sorting": {
+        "best_selling": "Mais Vendidos"
+      }
+    }
+  },
+  "customer_accounts": {
+    "ui_components": {
+      "january": "Janeiro"
+    }
+  }
+}
