@@ -1139,18 +1139,20 @@
     <div>
       <div>
         <section class="img_favorite_custom">
-          <div>
-            {% for image in product_images %}
-              <img
-                src="{{ image | img_url: 'master' }}"
-                alt="{{ product.title }} - imagem {{ forloop.index }}"
-                loading="eager"
-                width="auto"
-                height="auto"
-                class="thumbnail-product"
-              >
-            {% endfor %}
-          </div>
+          {% unless product_images.size < 2 %}
+            <div>
+              {% for image in product_images %}
+                <img
+                  src="{{ image | img_url: 'master' }}"
+                  alt="{{ product.title }} - imagem {{ forloop.index }}"
+                  loading="eager"
+                  width="auto"
+                  height="auto"
+                  class="thumbnail-product"
+                >
+              {% endfor %}
+            </div>
+          {% endunless %}
 
           <img
             src="{{ current_image | img_url: 'master' }}"
@@ -1496,18 +1498,20 @@
       id="main-image-product-mobile"
     >
 
-    <div>
-      {% for image in product_images %}
-        <img
-          src="{{ image | img_url: 'master' }}"
-          alt="{{ product.title }} - imagem {{ forloop.index }}"
-          loading="eager"
-          width="auto"
-          height="auto"
-          class="thumbnail-product-mobile"
-        >
-      {% endfor %}
-    </div>
+    {% unless product_images.size < 2 %}
+      <div>
+        {% for image in product_images %}
+          <img
+            src="{{ image | img_url: 'master' }}"
+            alt="{{ product.title }} - imagem {{ forloop.index }}"
+            loading="eager"
+            width="auto"
+            height="auto"
+            class="thumbnail-product-mobile"
+          >
+        {% endfor %}
+      </div>
+    {% endunless %}
   </section>
 
   <script>
