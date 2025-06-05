@@ -36,10 +36,10 @@
 <style>
   #custom_last_footer {
     display: grid;
-    grid-template-columns: repeat(2, max-content);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin: 2rem var(--desktop-container-gutter);
-    align-items: center;
+    justify-content: space-between;
   }
 
   #custom_last_footer_mobile {
@@ -50,7 +50,40 @@
     align-items: center;
   }
 
-  #custom_last_footer > a {
+  #custom_last_footer > ul,
+  #custom_last_footer_mobile > ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, max-content));
+    height: max-content;
+    row-gap: 1rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  #custom_last_footer > ul {
+    justify-content: right;
+  }
+
+  #custom_last_footer_mobile > ul {
+    justify-content: center;
+  }
+
+  #custom_last_footer_mobile > ul > li,
+  #custom_last_footer > ul > li {
+    display: grid;
+    padding: 0;
+    margin: 0;
+  }
+
+  #custom_last_footer > #footer_top_block {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  #custom_last_footer > #footer_top_block > a {
     display: grid;
     text-decoration: none;
   }
@@ -60,7 +93,7 @@
     text-decoration: none;
   }
 
-  #custom_last_footer > a > img {
+  #custom_last_footer > #footer_top_block > a > img {
     width: 150px;
     height: auto;
   }
@@ -70,7 +103,7 @@
     height: auto;
   }
 
-  #custom_last_footer > div {
+  #custom_last_footer > #footer_top_block > #footer_custom_text {
     display: grid;
     grid-template-rows: repeat(2, max-content);
     gap: 0.5rem;
@@ -84,7 +117,7 @@
     align-items: center;
   }
 
-  #custom_last_footer > div > span {
+  #custom_last_footer > #footer_top_block > #footer_custom_text > span {
     font-size: 12px;
     font-weight: 600;
   }
@@ -96,15 +129,15 @@
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
-    #custom_last_footer > a > img {
+    #custom_last_footer > #footer_top_block > a > img {
       width: 120px !important;
     }
 
-    #custom_last_footer > div > span {
+    #custom_last_footer > #footer_top_block > #footer_custom_text > span {
       font-size: 10px !important;
     }
 
-    #custom_last_footer > div > #custom_title {
+    #custom_last_footer > #footer_top_block > #footer_custom_text > #custom_title {
       font-size: 13px !important;
     }
   }
@@ -115,7 +148,7 @@
     }
   }
 
-  #custom_last_footer > div > #custom_title {
+  #custom_last_footer > #footer_top_block > #footer_custom_text > #custom_title {
     font-size: 15px;
     margin: 0;
     font-weight: 600;
@@ -161,29 +194,51 @@
 </style>
 
 <section id="custom_last_footer">
-  {% if section.settings.image and section.settings.image_url %}
-    <a href="{{ section.settings.image_url }}">
-      <img
-        src="{{ section.settings.image | img_url: 'master' }}"
-        width="100px"
-        height="100%"
-        alt="bioself natura logotipo MNSRM"
-      >
-    </a>
-  {% endif %}
-
-  <div>
-    {% if section.settings.multiline_text %}
-      <span>{{ section.settings.multiline_text }}</span>
+  <div id="footer_top_block">
+    {% if section.settings.image and section.settings.image_url %}
+      <a href="{{ section.settings.image_url }}">
+        <img
+          src="{{ section.settings.image | img_url: 'master' }}"
+          width="100px"
+          height="100%"
+          alt="bioself natura logotipo MNSRM"
+        >
+      </a>
     {% endif %}
 
-    {% if section.settings.single_line_text %}
-      <span id="custom_title">{{ section.settings.single_line_text }}</span>
-    {% endif %}
+    <div id="footer_custom_text">
+      {% if section.settings.multiline_text %}
+        <span>{{ section.settings.multiline_text }}</span>
+      {% endif %}
+
+      {% if section.settings.single_line_text %}
+        <span id="custom_title">{{ section.settings.single_line_text }}</span>
+      {% endif %}
+    </div>
   </div>
+
+  {% unless shop.enabled_payment_types.size == 0 %}
+    <ul>
+      {% for payment in shop.enabled_payment_types %}
+        <li>
+          {{ payment | payment_type_svg_tag }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endunless %}
 </section>
 
 <section id="custom_last_footer_mobile">
+  {% unless shop.enabled_payment_types.size == 0 %}
+    <ul>
+      {% for payment in shop.enabled_payment_types %}
+        <li>
+          {{ payment | payment_type_svg_tag }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endunless %}
+
   <div>
     {% if section.settings.image and section.settings.image_url %}
       <a href="{{ section.settings.image_url }}">

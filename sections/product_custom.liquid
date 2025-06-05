@@ -56,6 +56,9 @@
 }
 {% endschema %}
 
+{% assign product_images = product.images %}
+{% assign current_image = product_images.first %}
+
 <script>
   const fullfillDeliveryText = (dateEls, timeEls) => {
     const now = new Date();
@@ -92,7 +95,7 @@
   #modal_campaign_details {
     display: none;
     grid-template-rows: repeat(2, max-content);
-    padding: 1rem;
+    padding: 2rem 3rem 2rem 2rem;
     background-color: white;
     border-radius: 1rem;
     position: fixed;
@@ -106,6 +109,9 @@
   }
 
   #modal_campaign_details > svg {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -139,6 +145,7 @@
     margin: 0;
     font-size: 14px;
     max-width: 30rem;
+    line-height: normal;
   }
 
   #add_to_cart_btn_container_mobile {
@@ -168,6 +175,18 @@
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #product_page_custom > #product_page_breadcrumbs > li > a {
+      font-size: 0.75rem !important;
+    }
+
+    .img_favorite_custom > img {
+      max-width: 300px !important;
+    }
+
+    .img_favorite_custom > div {
+      height: 300px !important;
+    }
+
     #product_page_custom > section > div > div > div > div > h1,
     #price_custom_modal > h1,
     #product_page_custom > section > div > ul > li > h2 {
@@ -399,22 +418,6 @@
     gap: 2rem;
   }
 
-  #product_page_custom_mobile > section > img {
-    width: 100%;
-    height: auto;
-    max-width: 400px;
-  }
-
-  #product_page_custom_mobile > section {
-    display: grid;
-    justify-content: center;
-    position: relative;
-    height: 100%;
-    padding: 1rem;
-    border-radius: 1rem;
-    border: 1px solid #258439;
-  }
-
   #product_page_custom_mobile > #product_name_custom {
     display: grid;
     grid-auto-rows: max-content;
@@ -427,7 +430,7 @@
     width: max-content;
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    font-size: 0.813rem;
+    font-size: 13px;
   }
 
   #product_page_custom_mobile > #product_name_custom > h1 {
@@ -450,7 +453,7 @@
 
   #product_page_custom > section > div > div {
     display: grid;
-    grid-template-columns: 500px 1fr;
+    grid-template-columns: max-content 1fr;
     gap: 2rem;
   }
 
@@ -475,7 +478,6 @@
     font-size: 1.5rem;
     line-height: normal;
     overflow-wrap: break-word;
-    hyphens: auto;
     white-space: normal;
   }
 
@@ -514,9 +516,13 @@
   #product_page_custom_mobile > #product_description_custom > li > h2 {
     border-bottom: 2px solid #258439;
     margin: 0;
-    font-size: 1rem;
+    font-size: 16px;
     line-height: normal;
     color: #258439;
+  }
+
+  #product_page_custom_mobile > #product_description_custom > li > span {
+    line-height: 21px;
   }
 
   #product_page_custom > section > aside {
@@ -592,7 +598,7 @@
   #price_percentage_modal > span,
   #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > #percentage_custom,
   #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > span {
-    font-size: 0.813rem;
+    font-size: 13px;
   }
 
   #product_page_custom_mobile > aside {
@@ -641,10 +647,9 @@
 
   #oferta_product_custom > li > p,
   #product_page_custom_mobile > aside > #oferta_product_custom > li > p {
-    font-size: 14px;
+    font-size: 13px;
     line-height: normal;
     white-space: normal;
-    word-break: break-all;
   }
 
   #price_quantity_modal > a,
@@ -779,10 +784,6 @@
   }
 
   @media screen and (max-width: 1599px) {
-    #product_page_custom > section > div > div {
-      grid-template-columns: 400px 1fr;
-    }
-
     #product_page_custom > section > aside,
     #oferta_product_custom > li {
       min-width: 20rem;
@@ -790,6 +791,10 @@
   }
 
   @media screen and (max-width: 1499px) {
+    #product_page_custom > section > div > div {
+      gap: 1rem;
+    }
+
     #related_products_custom > ul > li > section {
       width: 300px;
     }
@@ -838,71 +843,55 @@
   }
 
   .img_favorite_custom {
-    position: relative;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem;
+  }
+
+  .img_favorite_custom > div {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    overflow: auto;
+    gap: 0.5rem;
+    height: 500px;
+  }
+
+  .img_favorite_custom > div > img {
+    width: 4rem;
+    height: 4rem;
+    padding: 0.5rem !important;
+    cursor: pointer;
+  }
+
+  .img_favorite_custom > img,
+  .img_favorite_custom > div > img {
+    max-width: 500px;
     padding: 1rem;
     border: 1px solid #258439;
     border-radius: 0.65rem;
-    overflow: hidden;
-  }
-
-  .img_favorite_custom .carousel {
-    display: flex;
-    width: 100%;
-    transition: transform 0.5s ease-in-out;
-    will-change: transform;
-  }
-
-  .img_favorite_custom .carousel-item {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  .img_favorite_custom .carousel-item img {
-    width: 100%;
-    display: block;
-  }
-
-  .img_favorite_custom .carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .img_favorite_custom .carousel-arrow.prev {
-    left: 0.5rem;
-  }
-
-  .img_favorite_custom .carousel-arrow.next {
-    right: 0.5rem;
   }
 
   @media screen and (max-width: 1000px) {
-    .img_favorite_custom .carousel {
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+    .img_favorite_custom > img,
+    .img_favorite_custom > div > img {
+      max-width: 100% !important;
     }
 
-    .img_favorite_custom .carousel-item {
-      flex: 0 0 auto;
-      scroll-snap-align: start;
-      width: 100%;
+    .img_favorite_custom > div {
+      height: 100% !important;
+      width: calc(100dvw - var(--mobile-container-gutter) * 2);
     }
 
-    .img_favorite_custom .carousel-arrow {
-      display: none;
+    .img_favorite_custom {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, max-content);
+      justify-items: center;
+    }
+
+    .img_favorite_custom > div {
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
     }
 
     #product_page_custom {
@@ -913,6 +902,7 @@
       display: grid;
       top: unset;
       bottom: 0;
+      padding: 2rem 2rem 1rem 1rem;
       border-radius: 1rem 1rem 0 0;
       max-width: unset;
       max-height: 90%;
@@ -1000,7 +990,7 @@
   .discount_badge > span {
     text-align: center;
     color: #258439;
-    font-size: 0.813rem;
+    font-size: 13px;
     font-weight: 700;
     line-height: normal;
   }
@@ -1149,34 +1139,48 @@
     <div>
       <div>
         <section class="img_favorite_custom">
-          {% if product.images.size > 1 %}
-            <button class="carousel-arrow prev" aria-label="Imagem anterior">
-              <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
-                <path fill="#258439" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
-              </svg>
-            </button>
-          {% endif %}
-
-          <div class="carousel">
-            {% for image in product.images %}
-              <div class="carousel-item">
-                <img
-                  src="{{ image | img_url: 'master' }}"
-                  alt="{{ product.title }} – imagem {{ forloop.index }}"
-                  loading="eager"
-                >
-              </div>
+          <div>
+            {% for image in product_images %}
+              <img
+                src="{{ image | img_url: 'master' }}"
+                alt="{{ product.title }} - imagem {{ forloop.index }}"
+                loading="eager"
+                width="auto"
+                height="auto"
+                class="thumbnail-product"
+              >
             {% endfor %}
           </div>
 
-          {% if product.images.size > 1 %}
-            <button class="carousel-arrow next" aria-label="Próxima imagem">
-              <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
-                <path fill="#258439" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-              </svg>
-            </button>
-          {% endif %}
+          <img
+            src="{{ current_image | img_url: 'master' }}"
+            alt="{{ product.title }} - imagem principal"
+            loading="eager"
+            width="auto"
+            height="auto"
+            id="main-image-product"
+          >
         </section>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const thumbnails = document.querySelectorAll('.img_favorite_custom .thumbnail-product');
+            const mainImage = document.getElementById('main-image-product');
+
+            function setAsMain(event) {
+              const novaSrc = event.currentTarget.getAttribute('src');
+              mainImage.setAttribute('src', novaSrc);
+
+              const novoAlt = event.currentTarget.getAttribute('alt');
+              mainImage.setAttribute('alt', novoAlt);
+            }
+
+            thumbnails.forEach(function (thumb) {
+              thumb.addEventListener('click', setAsMain);
+              thumb.addEventListener('mouseenter', setAsMain);
+            });
+          });
+        </script>
 
         <div>
           <div>
@@ -1483,34 +1487,48 @@
 
 <main id="product_page_custom_mobile">
   <section class="img_favorite_custom">
-    {% if product.images.size > 1 %}
-      <button class="carousel-arrow prev" aria-label="Imagem anterior">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
-          <path fill="#258439" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
-        </svg>
-      </button>
-    {% endif %}
+    <img
+      src="{{ current_image | img_url: 'master' }}"
+      alt="{{ product.title }} - imagem principal"
+      loading="eager"
+      width="auto"
+      height="auto"
+      id="main-image-product-mobile"
+    >
 
-    <div class="carousel">
-      {% for image in product.images %}
-        <div class="carousel-item">
-          <img
-            src="{{ image | img_url: 'master' }}"
-            alt="{{ product.title }} – imagem {{ forloop.index }}"
-            loading="eager"
-          >
-        </div>
+    <div>
+      {% for image in product_images %}
+        <img
+          src="{{ image | img_url: 'master' }}"
+          alt="{{ product.title }} - imagem {{ forloop.index }}"
+          loading="eager"
+          width="auto"
+          height="auto"
+          class="thumbnail-product-mobile"
+        >
       {% endfor %}
     </div>
-
-    {% if product.images.size > 1 %}
-      <button class="carousel-arrow next" aria-label="Próxima imagem">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="12" viewBox="0 0 320 512">
-          <path fill="#258439" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-        </svg>
-      </button>
-    {% endif %}
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const thumbnails = document.querySelectorAll('.img_favorite_custom .thumbnail-product-mobile');
+      const mainImage = document.getElementById('main-image-product-mobile');
+
+      function setAsMain(event) {
+        const novaSrc = event.currentTarget.getAttribute('src');
+        mainImage.setAttribute('src', novaSrc);
+
+        const novoAlt = event.currentTarget.getAttribute('alt');
+        mainImage.setAttribute('alt', novoAlt);
+      }
+
+      thumbnails.forEach(function (thumb) {
+        thumb.addEventListener('click', setAsMain);
+        thumb.addEventListener('mouseenter', setAsMain);
+      });
+    });
+  </script>
 
   <div id="product_name_custom">
     <h1>{{ product.title }}</h1>
@@ -1889,6 +1907,16 @@
             } else {
               modalElement.style.transform = 'translateY(0)';
             }
+
+            overlayElement.addEventListener('click', function () {
+              overlayElement.style.display = 'none';
+
+              if (window.innerWidth > 1000) {
+                modalElement.style.display = 'none';
+              } else {
+                modalElement.style.transform = 'translateY(100%)';
+              }
+            });
           });
         });
       }
@@ -2098,35 +2126,5 @@
     updateLayout();
 
     window.addEventListener('resize', updateLayout);
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const wrappers = document.querySelectorAll('.img_favorite_custom');
-
-    wrappers.forEach((wrapper) => {
-      const carousel = wrapper.querySelector('.carousel');
-      const items = carousel.querySelectorAll('.carousel-item');
-      const prevBtn = wrapper.querySelector('.prev');
-      const nextBtn = wrapper.querySelector('.next');
-      let currentIndex = 0;
-
-      function updateCarousel() {
-        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-      }
-
-      // Só adiciona eventos se houver setas visíveis (desktop)
-      if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => {
-          currentIndex = (currentIndex - 1 + items.length) % items.length;
-          updateCarousel();
-        });
-        nextBtn.addEventListener('click', () => {
-          currentIndex = (currentIndex + 1) % items.length;
-          updateCarousel();
-        });
-      }
-    });
   });
 </script>
