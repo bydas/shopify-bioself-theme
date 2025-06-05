@@ -131,6 +131,7 @@
     },
     "collection_campanhas_2_tndV7M": {
       "type": "collection-campanhas-2",
+      "disabled": true,
       "settings": {
         "selected_title": "Marcas que inspiram!",
         "image_1_desktop": "shopify://shop_images/NOW500500.png",
@@ -166,8 +167,20 @@
     "product_collection_list_custom_yfhcVR": {
       "type": "product-collection-list-custom",
       "settings": {
-        "selected_collection": "bioceutica",
-        "title_collection": "Mais Vida, mais Biocêutica!"
+        "selected_collection": "florais-bach",
+        "title_collection": "Florais de Bach: Equilíbrio Emocional!"
+      }
+    },
+    "collection_campanhas_3_t96Pgd": {
+      "type": "collection-campanhas-3",
+      "settings": {
+        "selected_title": "Mais Vitalidade, Mais Poupança!",
+        "image_1_desktop": "shopify://shop_images/Nutridil_780500.png",
+        "image_1_mobile": "shopify://shop_images/campanha_mobile_nutridil_390170.jpg",
+        "image_1_url": "shopify://collections/nutridil",
+        "image_2_desktop": "shopify://shop_images/vitalize_780500.png",
+        "image_2_mobile": "shopify://shop_images/campanha_mobile_vitalize_390170.jpg",
+        "image_2_url": "shopify://collections/vitalize"
       }
     },
     "product_collection_list_custom_Tb94AX": {
@@ -258,19 +271,6 @@
         "newsletter_btn": "Subscrever",
         "newsletter_page": "termos-de-utilizacao-do-site",
         "newsletter_terms": "Li e aceito os"
-      }
-    },
-    "collection_campanhas_3_t96Pgd": {
-      "type": "collection-campanhas-3",
-      "disabled": true,
-      "settings": {
-        "selected_title": "Campanhas",
-        "image_1_desktop": "shopify://shop_images/Rectangle_3.webp",
-        "image_1_mobile": "shopify://shop_images/image_24_2_5b74457e-f7f9-4974-a032-249f3e797b32.webp",
-        "image_1_url": "",
-        "image_2_desktop": "shopify://shop_images/Rectangle_4_4eefb08d-3e4a-4bfd-8543-e83076b3ab0b.webp",
-        "image_2_mobile": "shopify://shop_images/image_25_1.webp",
-        "image_2_url": ""
       }
     },
     "collection_brands_custom_HCBAUq": {
@@ -449,12 +449,12 @@
     "collection_campanhas_2_tndV7M",
     "collection_campanhas_1_iQwbFn",
     "product_collection_list_custom_yfhcVR",
+    "collection_campanhas_3_t96Pgd",
     "product_collection_list_custom_Tb94AX",
     "bioself_blog_tnVbj3",
     "collection_categorias_custom_mUaHG8",
     "opinioes_verificadas_custom_gqWRmC",
     "newsletter_custom_U9NWnB",
-    "collection_campanhas_3_t96Pgd",
     "collection_brands_custom_HCBAUq",
     "image_text_custom_dtgXxx",
     "faq_2_izQty3",
