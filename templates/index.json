@@ -1,1 +1,464 @@
-{"sections":{"slideshow_custom_AiKNbT":{"type":"slideshow-custom","blocks":{"slide_QxyQWn":{"type":"slide","settings":{"image_desktop":"shopify:\/\/shop_images\/campanha-bioself-maio-2025-desktop.jpg","image_mobile":"shopify:\/\/shop_images\/banner-bioself-maio-mobile.jpg","link":"shopify:\/\/collections\/shop"}},"slide_dQTCBz":{"type":"slide","settings":{"image_desktop":"shopify:\/\/shop_images\/Biopoints_1920500_baa731c7-46be-4672-ac3c-9c524c39c10f.png","image_mobile":"shopify:\/\/shop_images\/Bioself-BioPoints-500x400.jpg","link":"shopify:\/\/pages\/biopoints"}}},"block_order":["slide_QxyQWn","slide_dQTCBz"],"settings":{"slide_time":5}},"collection_images_slideshow_custom_KbWJmY":{"type":"collection-images-slideshow-custom","blocks":{"slide_djbnhW":{"type":"slide","settings":{"image_mobile":"shopify:\/\/shop_images\/Captura_de_ecra_2025-01-07_160054_1ad2501d-2dc3-42b3-b24e-0c60f6808559.png","link":""}},"slide_a4AWGm":{"type":"slide","settings":{"image_mobile":"shopify:\/\/shop_images\/Captura_de_ecra_2025-01-07_160054_1ad2501d-2dc3-42b3-b24e-0c60f6808559.png","link":""}}},"block_order":["slide_djbnhW","slide_a4AWGm"],"disabled":true,"settings":{}},"collection_list_2_BYnyXr":{"type":"collection-list-2","blocks":{"collection_with_image_GTHi8q":{"type":"collection_with_image","settings":{"collection":"vitamina-c","image":"shopify:\/\/shop_images\/vitaminac-sembg.webp"}},"collection_with_image_3qcVmn":{"type":"collection_with_image","settings":{"collection":"vitamina-d","image":"shopify:\/\/shop_images\/juventus-vitamina-d-capsulas.png"}},"collection_with_image_XHY9Lr":{"type":"collection_with_image","settings":{"collection":"probioticos","image":"shopify:\/\/shop_images\/probioticos-sembg.webp"}},"collection_with_image_eGGbKY":{"type":"collection_with_image","settings":{"collection":"magnesio","image":"shopify:\/\/shop_images\/magnesio-sembg.webp"}},"collection_with_image_McQVLj":{"type":"collection_with_image","settings":{"collection":"colagenio","image":"shopify:\/\/shop_images\/colagenio-sembg.webp"}},"collection_with_image_VWCCNd":{"type":"collection_with_image","settings":{"collection":"omega-3","image":"shopify:\/\/shop_images\/physalis-omega-3-forte-capsulas.png"}}},"block_order":["collection_with_image_GTHi8q","collection_with_image_3qcVmn","collection_with_image_XHY9Lr","collection_with_image_eGGbKY","collection_with_image_McQVLj","collection_with_image_VWCCNd"],"settings":{}},"products_collection_with_image_AhgAw9":{"type":"products-collection-with-image","settings":{"selected_section_title":"Lucidus: ativa a tua mente!","selected_product":"farmodietica-lucidus-extra-forte-30-ampolas","selected_product_image":"shopify:\/\/shop_images\/Lucidus-Extra-Forte-sem-fundo.png","desktop_image":"shopify:\/\/shop_images\/Memoria_Destaque_Desktop.jpg","mobile_image":"shopify:\/\/shop_images\/Memoria_Destaque_Mobile.jpg","collection":"lucidus"}},"collection_campanhas_2_tndV7M":{"type":"collection-campanhas-2","settings":{"selected_title":"Marcas que inspiram!","image_1_desktop":"shopify:\/\/shop_images\/NOW500500.png","image_1_mobile":"shopify:\/\/shop_images\/campanha-now-mobile.png","image_1_url":"shopify:\/\/collections\/now","image_2_desktop":"shopify:\/\/shop_images\/nutergia500500.png","image_2_mobile":"shopify:\/\/shop_images\/campanha-nutergia-mobile.png","image_2_url":"shopify:\/\/collections\/nutergia","image_3_desktop":"shopify:\/\/shop_images\/solgar500500.png","image_3_mobile":"shopify:\/\/shop_images\/campanha-solgar-mobile.png","image_3_url":"shopify:\/\/collections\/solgar"}},"collection_campanhas_1_iQwbFn":{"type":"collection-campanhas-1","disabled":true,"settings":{"selected_title":"Campanhas","image_1_desktop":"shopify:\/\/shop_images\/Rectangle_27e68cde-43ca-4634-8eff-8243a7bb8a8d.webp","image_1_mobile":"shopify:\/\/shop_images\/image_24.webp","image_1_url":"","image_2_desktop":"shopify:\/\/shop_images\/Rectangle_4.webp","image_2_mobile":"shopify:\/\/shop_images\/image_25.webp","image_2_url":"","image_3_desktop":"shopify:\/\/shop_images\/Rectangle_1.webp","image_3_mobile":"shopify:\/\/shop_images\/image.webp","image_3_url":"","image_4_desktop":"shopify:\/\/shop_images\/Rectangle_1_a5cf56d1-86b4-42d2-a3dc-d84d9e6c6e91.webp","image_4_mobile":"shopify:\/\/shop_images\/image_ba16ccf5-c2d3-4c7c-93e1-9d69d0a6ac98.webp","image_4_url":""}},"product_collection_list_custom_yfhcVR":{"type":"product-collection-list-custom","settings":{"selected_collection":"bioceutica","title_collection":"Mais Vida, mais Biocêutica!"}},"product_collection_list_custom_Tb94AX":{"type":"product-collection-list-custom","settings":{"selected_collection":"arkopharma","title_collection":"Arkopharma: Bem-estar natural!"}},"bioself_blog_tnVbj3":{"type":"bioself-blog","settings":{"selected_blog":"blog-page","title_blog":"Bioself blog"}},"collection_categorias_custom_mUaHG8":{"type":"collection-categorias-custom","blocks":{"collection_qE6i7V":{"type":"collection","settings":{"selected_collection":"suplementacao-alimentar"}},"collection_8YkDpC":{"type":"collection","settings":{"selected_collection":"nutricao-desportiva"}},"collection_PthCjK":{"type":"collection","settings":{"selected_collection":"cosmetica"}},"collection_T3NAFx":{"type":"collection","settings":{"selected_collection":"emagrecimento"}},"collection_Y4mx8x":{"type":"collection","settings":{"selected_collection":"homeopatia"}},"collection_yPMcWU":{"type":"collection","settings":{"selected_collection":"aromoterapia"}},"collection_tHdMHC":{"type":"collection","settings":{"selected_collection":"florais-bach"}}},"block_order":["collection_qE6i7V","collection_8YkDpC","collection_PthCjK","collection_T3NAFx","collection_Y4mx8x","collection_yPMcWU","collection_tHdMHC"],"settings":{"selected_section_title":"Categorias"}},"opinioes_verificadas_custom_gqWRmC":{"type":"opinioes-verificadas-custom","settings":{"selected_section_title":"O que dizem de nós","selected_image":"shopify:\/\/shop_images\/Rectangle_1_8b94206a-1985-49cc-9bce-ca07dee99b34.webp","opinioes_image":"shopify:\/\/shop_images\/Rectangle_2_7e01d83e-d3b8-477d-a9b6-83ec9fc46915.svg"}},"newsletter_custom_U9NWnB":{"type":"newsletter-custom","settings":{"newsletter_title":"Subscreve a newsletter e recebe promoções e ofertas","newsletter_btn":"Subscrever","newsletter_page":"termos-de-utilizacao-do-site","newsletter_terms":"Li e aceito os"}},"collection_campanhas_3_t96Pgd":{"type":"collection-campanhas-3","disabled":true,"settings":{"selected_title":"Campanhas","image_1_desktop":"shopify:\/\/shop_images\/Rectangle_3.webp","image_1_mobile":"shopify:\/\/shop_images\/image_24_2_5b74457e-f7f9-4974-a032-249f3e797b32.webp","image_1_url":"","image_2_desktop":"shopify:\/\/shop_images\/Rectangle_4_4eefb08d-3e4a-4bfd-8543-e83076b3ab0b.webp","image_2_mobile":"shopify:\/\/shop_images\/image_25_1.webp","image_2_url":""}},"collection_brands_custom_HCBAUq":{"type":"collection-brands-custom","blocks":{"collection_jf9PCd":{"type":"collection","settings":{"selected_collection":"solgar","selected_image":"shopify:\/\/shop_images\/SOLGAR_380x350_8f91d91a-eac6-4ce2-9ce2-356634b6b706.jpg"}},"collection_6AgFwD":{"type":"collection","settings":{"selected_collection":"nutergia","selected_image":"shopify:\/\/shop_images\/NUTERGIA_380x350_d53c90c1-03e4-491e-846e-4b65e755ac98.jpg"}},"collection_Wp3xHV":{"type":"collection","settings":{"selected_collection":"now","selected_image":"shopify:\/\/shop_images\/NOW_380x350_88eab7b4-b6a4-45fb-b793-af5f3b4c228c.jpg"}},"collection_Rffzkp":{"type":"collection","settings":{"selected_collection":"naturmil","selected_image":"shopify:\/\/shop_images\/NATURMIL_380x350_512ce520-8134-4819-90ab-79a42d45a82c.jpg"}}},"block_order":["collection_jf9PCd","collection_6AgFwD","collection_Wp3xHV","collection_Rffzkp"],"settings":{"selected_section_title":"As tuas marcas favoritas","selected_page":"marcas"}},"image_text_custom_dtgXxx":{"type":"image-text-custom","settings":{"background_image":"shopify:\/\/shop_images\/Rectangle.webp","background_image_mobile":"shopify:\/\/shop_images\/Rectangle_7.webp","background_icon":"shopify:\/\/shop_images\/folha-logo-bioself.webp","title":"Manifesto","description":"<p>Vemos a vida como uma jornada entusiasmante em busca do bem-estar. Cuidar do corpo e da mente é mais do que um objetivo – é um compromisso com a nossa melhor versão.<br\/><br\/>Acreditamos que o verdadeiro equilíbrio começa no interior, refletindo-se na forma como vivemos, sentimos e nos conectamos com o mundo. Seguimos este caminho para criar conexões genuínas e impactar vidas, dando mais significado à nossa história.<br\/><br\/>Cuidar de nós mesmos é o primeiro passo para viver plenamente e desfrutar o que a vida tem de melhor. Na Bioself Natura, promovemos o bem-estar de forma natural, porque cada escolha consciente de hoje molda o equilíbrio de amanhã.<br\/><br\/>O bem-estar está ao teu alcance – porque o natural é sentires-te bem!<\/p>","description_2":"<p>Vemos a vida como uma jornada entusiasmante em busca do bem-estar. Cuidar do corpo e da mente é mais do que um objetivo – é um compromisso com a nossa melhor versão.<\/p>","link_url":"shopify:\/\/pages\/sobre-a-bioself-natura","link_text":"Mais sobre nós"}},"faq_2_izQty3":{"type":"faq-2","blocks":{"custom_NMwcNR":{"type":"custom","settings":{"title":"O que é a Bioself?","answer":"<p>Somos um ervanário com mais de 40 anos de experiência situado na rua da Alegria 183 do Porto. Respiramos, bebemos e alimentamo-nos de um profundo compromisso em prestar um serviço de excelência e disponibilizar os melhores suplementos alimentares.<\/p>"}},"custom_yzhTeW":{"type":"custom","settings":{"title":"Como contactar a Bioself?","answer":"<p>Poderá contactar-nos através do seguinte e-mail <a href=\"mailto:info@bioself.pt\" target=\"_blank\" title=\"mailto:info@bioself.pt\"><span style=\"text-decoration:underline\"><strong>info@bioself.pt<\/strong><\/span><\/a><strong> <\/strong>ou através do contacto telefónico <a href=\"tel:+351222004579\" target=\"_blank\" title=\"tel:+351222004579\"><strong>222004579<\/strong><\/a> (chamada para rede fixa nacional).<\/p>"}},"custom_Y9UBE9":{"type":"custom","settings":{"title":"Quais são as áreas e prazos de entrega da Bioself?","answer":"<p>Efetuamos envios para todo o território português através da empresa CTT Expresso com entrega aproximada no dia útil seguinte, caso o pagamento da encomenda seja efetuado até às 16h. Para as regiões Autónomas Açores e Madeira os prazos de entrega poderão ser de até 7 dias úteis e são efetuados via ponte aérea.<\/p>"}},"custom_f8DnrQ":{"type":"custom","settings":{"title":"Qual o custo de entrega?","answer":"<ul><li><strong>Portugal Continental<\/strong>: O preço dos portes de envio é de 3,90€. Grátis acima de 29.99€.<\/li><li><strong>Regiões Autónomas Açores e Madeira:<\/strong> O preço dos portes de envio é de 14,90€.<\/li><\/ul>"}},"custom_mhyXEd":{"type":"custom","settings":{"title":"Como posso trocar ou devolver um produto?","answer":"<p>Pode devolver o seu pedido ou qualquer artigo nele incluído num período de 14 dias. O período de devolução começa a contar a partir do dia da entrega.  <\/p><p>Por favor, siga os seguintes procedimentos para devolver os seus artigos à Bioself Natura:<\/p><ol><li>Coloque o(s) artigo(s) que deseja devolver na caixa em que a sua encomenda chegou; <\/li><li>Pode devolver os produtos por sua conta e expensas, e será responsável pelo custo e seguimento da encomenda. O endereço de entrega deverá ser:<\/li><\/ol><ul><li><strong>Bioself Natura Lda<\/strong><\/li><li><strong>Rua da Alegria 183, 4000-043 Porto<\/strong><\/li><li><strong>Tel: 222004579<\/strong><\/li><li><strong>Email: info@bioself.pt<\/strong><\/li><\/ul><ol><li>Se desejar agendar uma recolha, poderá contactar-nos através do seguinte email <a href=\"mailto:info@bioself.pt\" title=\"Email\">info@bioself.pt<\/a> ou através do contacto telefónico <a href=\"tel:+351222004579\" title=\"Número de telefone\">222004579<\/a> (Chamada para rede fixa nacional). As nossas devoluções estão isentas de despesas para Membros <strong>Biopoints<\/strong>. As devoluções de compras realizadas como convidado têm um custo de 4,95€. Este montante será deduzido ao reembolso a receber.<\/li><\/ol><p><span style=\"text-decoration:underline\">Alertamos para o facto de que no processo de devolução<\/span>:<\/p><ul><li>A Bioself Natura não é responsável pelo estado do produto\/encomenda se estes não viajarem em condições ótimas de embalagem.<\/li><li>Não serão concedidos reembolsos para produtos danificados\/abertos ou adulterados.<\/li><li>Os produtos frescos não serão reembolsados.<\/li><\/ul>"}},"custom_br4r8k":{"type":"custom","settings":{"title":"Como recebo o reembolso do meu produto?","answer":"<p>O reembolso será efetuado pelo mesmo método de pagamento utilizado na compra. No caso de pagamentos por PayPal, o reembolso poderá demorar até 30 dias úteis a ser processado. Já para pagamentos efetuados por Referência Multibanco ou MBWAY, o reembolso poderá demorar até 3 dias úteis a ser processado.<\/p>"}},"custom_tAayhD":{"type":"custom","settings":{"title":"Quais são os métodos de pagamento existentes e como funcionam?","answer":"<ul><li><strong>Cartões de débito e crédito<\/strong>: aceitamos Visa e Mastercard. Os pagamentos são gerenciados por meio da plataforma de pagamento 100% segura.<\/li><li><strong>PayPal<\/strong>: poderá efetuar o seu pagamento com uma conta Paypal. <\/li><li><strong>Multibanco<\/strong>: É um meio de pagamento com a segurança da rede Multibanco. O código de referência de pagamento pode ser encontrado no final da compra e no e-mail de confirmação que lhe enviamos logo após a efetuar a encomenda. Para efetuar o pagamento, basta ter um cartão bancário válido na rede Multibanco, selecionar a transação e inserir a entidade, referência e montante.<\/li><li><strong>Mbway<\/strong>:<strong> <\/strong>Será enviada uma notificação para a sua aplicação MBWAY ou parceiro bancário de forma a aceitar a finalização do pagamento. Dispõe de apenas 5 minutos para aceitar o pagamento.<\/li><\/ul>"}}},"block_order":["custom_NMwcNR","custom_yzhTeW","custom_Y9UBE9","custom_f8DnrQ","custom_mhyXEd","custom_br4r8k","custom_tAayhD"],"settings":{"title":"Perguntas frequentes","layout":"homepage"}},"icons_custom_tMbhUK":{"type":"icons-custom","blocks":{"collection_UJnggQ":{"type":"collection","settings":{"image":"shopify:\/\/shop_images\/Vector_3.webp","title":"Entregas no dia seguinte","subtitle":"Pedidos até às 16h"}},"collection_XrBGQT":{"type":"collection","settings":{"image":"shopify:\/\/shop_images\/Vector_1.webp","title":"Qualidade Garantida","subtitle":"Desde 1981"}},"collection_FQmRWp":{"type":"collection","settings":{"image":"shopify:\/\/shop_images\/Vector_2.webp","title":"Preços competitivos","subtitle":"Sempre!"}}},"block_order":["collection_UJnggQ","collection_XrBGQT","collection_FQmRWp"],"settings":{}},"new_mosaic_2_K8DnV6":{"type":"new-mosaic-2","disabled":true,"settings":{"show_only_desktop":false,"show_only_mobile":false,"title":""}}},"order":["slideshow_custom_AiKNbT","collection_images_slideshow_custom_KbWJmY","collection_list_2_BYnyXr","products_collection_with_image_AhgAw9","collection_campanhas_2_tndV7M","collection_campanhas_1_iQwbFn","product_collection_list_custom_yfhcVR","product_collection_list_custom_Tb94AX","bioself_blog_tnVbj3","collection_categorias_custom_mUaHG8","opinioes_verificadas_custom_gqWRmC","newsletter_custom_U9NWnB","collection_campanhas_3_t96Pgd","collection_brands_custom_HCBAUq","image_text_custom_dtgXxx","faq_2_izQty3","icons_custom_tMbhUK","new_mosaic_2_K8DnV6"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_custom_AiKNbT": {
+      "type": "slideshow-custom",
+      "blocks": {
+        "slide_QxyQWn": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner-bioself-junho-2025.png",
+            "image_mobile": "shopify://shop_images/banner-bioself-mobile-junho-2025.png",
+            "link": "shopify://collections/shop"
+          }
+        },
+        "slide_dQTCBz": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/Biopoints_1920500_baa731c7-46be-4672-ac3c-9c524c39c10f.png",
+            "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
+            "link": "shopify://pages/biopoints"
+          }
+        }
+      },
+      "block_order": [
+        "slide_QxyQWn",
+        "slide_dQTCBz"
+      ],
+      "settings": {
+        "slide_time": 5
+      }
+    },
+    "collection_images_slideshow_custom_KbWJmY": {
+      "type": "collection-images-slideshow-custom",
+      "blocks": {
+        "slide_djbnhW": {
+          "type": "slide",
+          "settings": {
+            "image_mobile": "shopify://shop_images/Captura_de_ecra_2025-01-07_160054_1ad2501d-2dc3-42b3-b24e-0c60f6808559.png",
+            "link": ""
+          }
+        },
+        "slide_a4AWGm": {
+          "type": "slide",
+          "settings": {
+            "image_mobile": "shopify://shop_images/Captura_de_ecra_2025-01-07_160054_1ad2501d-2dc3-42b3-b24e-0c60f6808559.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_djbnhW",
+        "slide_a4AWGm"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "collection_list_2_BYnyXr": {
+      "type": "collection-list-2",
+      "blocks": {
+        "collection_with_image_GTHi8q": {
+          "type": "collection_with_image",
+          "settings": {
+            "collection": "vitamina-c",
+            "image": "shopify://shop_images/vitaminac-sembg.webp"
+          }
+        },
+        "collection_with_image_3qcVmn": {
+          "type": "collection_with_image",
+          "settings": {
+            "collection": "vitamina-d",
+            "image": "shopify://shop_images/juventus-vitamina-d-capsulas.png"
+          }
+        },
+        "collection_with_image_XHY9Lr": {
+          "type": "collection_with_image",
+          "settings": {
+            "collection": "probioticos",
+            "image": "shopify://shop_images/probioticos-sembg.webp"
+          }
+        },
+        "collection_with_image_eGGbKY": {
+          "type": "collection_with_image",
+          "settings": {
+            "collection": "magnesio",
+            "image": "shopify://shop_images/magnesio-sembg.webp"
+          }
+        },
+        "collection_with_image_McQVLj": {
+          "type": "collection_with_image",
+          "settings": {
+            "collection": "colagenio",
+            "image": "shopify://shop_images/colagenio-sembg.webp"
+          }
+        },
+        "collection_with_image_VWCCNd": {
+          "type": "collection_with_image",
+          "settings": {
+            "collection": "omega-3",
+            "image": "shopify://shop_images/physalis-omega-3-forte-capsulas.png"
+          }
+        }
+      },
+      "block_order": [
+        "collection_with_image_GTHi8q",
+        "collection_with_image_3qcVmn",
+        "collection_with_image_XHY9Lr",
+        "collection_with_image_eGGbKY",
+        "collection_with_image_McQVLj",
+        "collection_with_image_VWCCNd"
+      ],
+      "settings": {}
+    },
+    "products_collection_with_image_AhgAw9": {
+      "type": "products-collection-with-image",
+      "settings": {
+        "selected_section_title": "Lucidus: ativa a tua mente!",
+        "selected_product": "farmodietica-lucidus-extra-forte-30-ampolas",
+        "selected_product_image": "shopify://shop_images/Lucidus-Extra-Forte-sem-fundo.png",
+        "desktop_image": "shopify://shop_images/Memoria_Destaque_Desktop.jpg",
+        "mobile_image": "shopify://shop_images/Memoria_Destaque_Mobile.jpg",
+        "collection": "lucidus"
+      }
+    },
+    "collection_campanhas_2_tndV7M": {
+      "type": "collection-campanhas-2",
+      "settings": {
+        "selected_title": "Marcas que inspiram!",
+        "image_1_desktop": "shopify://shop_images/NOW500500.png",
+        "image_1_mobile": "shopify://shop_images/campanha-now-mobile.png",
+        "image_1_url": "shopify://collections/now",
+        "image_2_desktop": "shopify://shop_images/nutergia500500.png",
+        "image_2_mobile": "shopify://shop_images/campanha-nutergia-mobile.png",
+        "image_2_url": "shopify://collections/nutergia",
+        "image_3_desktop": "shopify://shop_images/solgar500500.png",
+        "image_3_mobile": "shopify://shop_images/campanha-solgar-mobile.png",
+        "image_3_url": "shopify://collections/solgar"
+      }
+    },
+    "collection_campanhas_1_iQwbFn": {
+      "type": "collection-campanhas-1",
+      "disabled": true,
+      "settings": {
+        "selected_title": "Campanhas",
+        "image_1_desktop": "shopify://shop_images/Rectangle_27e68cde-43ca-4634-8eff-8243a7bb8a8d.webp",
+        "image_1_mobile": "shopify://shop_images/image_24.webp",
+        "image_1_url": "",
+        "image_2_desktop": "shopify://shop_images/Rectangle_4.webp",
+        "image_2_mobile": "shopify://shop_images/image_25.webp",
+        "image_2_url": "",
+        "image_3_desktop": "shopify://shop_images/Rectangle_1.webp",
+        "image_3_mobile": "shopify://shop_images/image.webp",
+        "image_3_url": "",
+        "image_4_desktop": "shopify://shop_images/Rectangle_1_a5cf56d1-86b4-42d2-a3dc-d84d9e6c6e91.webp",
+        "image_4_mobile": "shopify://shop_images/image_ba16ccf5-c2d3-4c7c-93e1-9d69d0a6ac98.webp",
+        "image_4_url": ""
+      }
+    },
+    "product_collection_list_custom_yfhcVR": {
+      "type": "product-collection-list-custom",
+      "settings": {
+        "selected_collection": "bioceutica",
+        "title_collection": "Mais Vida, mais Biocêutica!"
+      }
+    },
+    "product_collection_list_custom_Tb94AX": {
+      "type": "product-collection-list-custom",
+      "settings": {
+        "selected_collection": "arkopharma",
+        "title_collection": "Arkopharma: Bem-estar natural!"
+      }
+    },
+    "bioself_blog_tnVbj3": {
+      "type": "bioself-blog",
+      "settings": {
+        "selected_blog": "blog-page",
+        "title_blog": "Bioself blog"
+      }
+    },
+    "collection_categorias_custom_mUaHG8": {
+      "type": "collection-categorias-custom",
+      "blocks": {
+        "collection_qE6i7V": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "suplementacao-alimentar"
+          }
+        },
+        "collection_8YkDpC": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "nutricao-desportiva"
+          }
+        },
+        "collection_PthCjK": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "cosmetica"
+          }
+        },
+        "collection_T3NAFx": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "emagrecimento"
+          }
+        },
+        "collection_Y4mx8x": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "homeopatia"
+          }
+        },
+        "collection_yPMcWU": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "aromoterapia"
+          }
+        },
+        "collection_tHdMHC": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "florais-bach"
+          }
+        }
+      },
+      "block_order": [
+        "collection_qE6i7V",
+        "collection_8YkDpC",
+        "collection_PthCjK",
+        "collection_T3NAFx",
+        "collection_Y4mx8x",
+        "collection_yPMcWU",
+        "collection_tHdMHC"
+      ],
+      "settings": {
+        "selected_section_title": "Categorias"
+      }
+    },
+    "opinioes_verificadas_custom_gqWRmC": {
+      "type": "opinioes-verificadas-custom",
+      "settings": {
+        "selected_section_title": "O que dizem de nós",
+        "selected_image": "shopify://shop_images/Rectangle_1_8b94206a-1985-49cc-9bce-ca07dee99b34.webp",
+        "opinioes_image": "shopify://shop_images/Rectangle_2_7e01d83e-d3b8-477d-a9b6-83ec9fc46915.svg"
+      }
+    },
+    "newsletter_custom_U9NWnB": {
+      "type": "newsletter-custom",
+      "settings": {
+        "newsletter_title": "Subscreve a newsletter e recebe promoções e ofertas",
+        "newsletter_btn": "Subscrever",
+        "newsletter_page": "termos-de-utilizacao-do-site",
+        "newsletter_terms": "Li e aceito os"
+      }
+    },
+    "collection_campanhas_3_t96Pgd": {
+      "type": "collection-campanhas-3",
+      "disabled": true,
+      "settings": {
+        "selected_title": "Campanhas",
+        "image_1_desktop": "shopify://shop_images/Rectangle_3.webp",
+        "image_1_mobile": "shopify://shop_images/image_24_2_5b74457e-f7f9-4974-a032-249f3e797b32.webp",
+        "image_1_url": "",
+        "image_2_desktop": "shopify://shop_images/Rectangle_4_4eefb08d-3e4a-4bfd-8543-e83076b3ab0b.webp",
+        "image_2_mobile": "shopify://shop_images/image_25_1.webp",
+        "image_2_url": ""
+      }
+    },
+    "collection_brands_custom_HCBAUq": {
+      "type": "collection-brands-custom",
+      "blocks": {
+        "collection_jf9PCd": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "solgar",
+            "selected_image": "shopify://shop_images/SOLGAR_380x350_8f91d91a-eac6-4ce2-9ce2-356634b6b706.jpg"
+          }
+        },
+        "collection_6AgFwD": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "nutergia",
+            "selected_image": "shopify://shop_images/NUTERGIA_380x350_d53c90c1-03e4-491e-846e-4b65e755ac98.jpg"
+          }
+        },
+        "collection_Wp3xHV": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "now",
+            "selected_image": "shopify://shop_images/NOW_380x350_88eab7b4-b6a4-45fb-b793-af5f3b4c228c.jpg"
+          }
+        },
+        "collection_Rffzkp": {
+          "type": "collection",
+          "settings": {
+            "selected_collection": "naturmil",
+            "selected_image": "shopify://shop_images/NATURMIL_380x350_512ce520-8134-4819-90ab-79a42d45a82c.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "collection_jf9PCd",
+        "collection_6AgFwD",
+        "collection_Wp3xHV",
+        "collection_Rffzkp"
+      ],
+      "settings": {
+        "selected_section_title": "As tuas marcas favoritas",
+        "selected_page": "marcas"
+      }
+    },
+    "image_text_custom_dtgXxx": {
+      "type": "image-text-custom",
+      "settings": {
+        "background_image": "shopify://shop_images/Rectangle.webp",
+        "background_image_mobile": "shopify://shop_images/Rectangle_7.webp",
+        "background_icon": "shopify://shop_images/folha-logo-bioself.webp",
+        "title": "Manifesto",
+        "description": "<p>Vemos a vida como uma jornada entusiasmante em busca do bem-estar. Cuidar do corpo e da mente é mais do que um objetivo – é um compromisso com a nossa melhor versão.<br/><br/>Acreditamos que o verdadeiro equilíbrio começa no interior, refletindo-se na forma como vivemos, sentimos e nos conectamos com o mundo. Seguimos este caminho para criar conexões genuínas e impactar vidas, dando mais significado à nossa história.<br/><br/>Cuidar de nós mesmos é o primeiro passo para viver plenamente e desfrutar o que a vida tem de melhor. Na Bioself Natura, promovemos o bem-estar de forma natural, porque cada escolha consciente de hoje molda o equilíbrio de amanhã.<br/><br/>O bem-estar está ao teu alcance – porque o natural é sentires-te bem!</p>",
+        "description_2": "<p>Vemos a vida como uma jornada entusiasmante em busca do bem-estar. Cuidar do corpo e da mente é mais do que um objetivo – é um compromisso com a nossa melhor versão.</p>",
+        "link_url": "shopify://pages/sobre-a-bioself-natura",
+        "link_text": "Mais sobre nós"
+      }
+    },
+    "faq_2_izQty3": {
+      "type": "faq-2",
+      "blocks": {
+        "custom_NMwcNR": {
+          "type": "custom",
+          "settings": {
+            "title": "O que é a Bioself?",
+            "answer": "<p>Somos um ervanário com mais de 40 anos de experiência situado na rua da Alegria 183 do Porto. Respiramos, bebemos e alimentamo-nos de um profundo compromisso em prestar um serviço de excelência e disponibilizar os melhores suplementos alimentares.</p>"
+          }
+        },
+        "custom_yzhTeW": {
+          "type": "custom",
+          "settings": {
+            "title": "Como contactar a Bioself?",
+            "answer": "<p>Poderá contactar-nos através do seguinte e-mail <a href=\"mailto:info@bioself.pt\" target=\"_blank\" title=\"mailto:info@bioself.pt\"><span style=\"text-decoration:underline\"><strong>info@bioself.pt</strong></span></a><strong> </strong>ou através do contacto telefónico <a href=\"tel:+351222004579\" target=\"_blank\" title=\"tel:+351222004579\"><strong>222004579</strong></a> (chamada para rede fixa nacional).</p>"
+          }
+        },
+        "custom_Y9UBE9": {
+          "type": "custom",
+          "settings": {
+            "title": "Quais são as áreas e prazos de entrega da Bioself?",
+            "answer": "<p>Efetuamos envios para todo o território português através da empresa CTT Expresso com entrega aproximada no dia útil seguinte, caso o pagamento da encomenda seja efetuado até às 16h. Para as regiões Autónomas Açores e Madeira os prazos de entrega poderão ser de até 7 dias úteis e são efetuados via ponte aérea.</p>"
+          }
+        },
+        "custom_f8DnrQ": {
+          "type": "custom",
+          "settings": {
+            "title": "Qual o custo de entrega?",
+            "answer": "<ul><li><strong>Portugal Continental</strong>: O preço dos portes de envio é de 3,90€. Grátis acima de 29.99€.</li><li><strong>Regiões Autónomas Açores e Madeira:</strong> O preço dos portes de envio é de 14,90€.</li></ul>"
+          }
+        },
+        "custom_mhyXEd": {
+          "type": "custom",
+          "settings": {
+            "title": "Como posso trocar ou devolver um produto?",
+            "answer": "<p>Pode devolver o seu pedido ou qualquer artigo nele incluído num período de 14 dias. O período de devolução começa a contar a partir do dia da entrega.  </p><p>Por favor, siga os seguintes procedimentos para devolver os seus artigos à Bioself Natura:</p><ol><li>Coloque o(s) artigo(s) que deseja devolver na caixa em que a sua encomenda chegou; </li><li>Pode devolver os produtos por sua conta e expensas, e será responsável pelo custo e seguimento da encomenda. O endereço de entrega deverá ser:</li></ol><ul><li><strong>Bioself Natura Lda</strong></li><li><strong>Rua da Alegria 183, 4000-043 Porto</strong></li><li><strong>Tel: 222004579</strong></li><li><strong>Email: info@bioself.pt</strong></li></ul><ol><li>Se desejar agendar uma recolha, poderá contactar-nos através do seguinte email <a href=\"mailto:info@bioself.pt\" title=\"Email\">info@bioself.pt</a> ou através do contacto telefónico <a href=\"tel:+351222004579\" title=\"Número de telefone\">222004579</a> (Chamada para rede fixa nacional). As nossas devoluções estão isentas de despesas para Membros <strong>Biopoints</strong>. As devoluções de compras realizadas como convidado têm um custo de 4,95€. Este montante será deduzido ao reembolso a receber.</li></ol><p><span style=\"text-decoration:underline\">Alertamos para o facto de que no processo de devolução</span>:</p><ul><li>A Bioself Natura não é responsável pelo estado do produto/encomenda se estes não viajarem em condições ótimas de embalagem.</li><li>Não serão concedidos reembolsos para produtos danificados/abertos ou adulterados.</li><li>Os produtos frescos não serão reembolsados.</li></ul>"
+          }
+        },
+        "custom_br4r8k": {
+          "type": "custom",
+          "settings": {
+            "title": "Como recebo o reembolso do meu produto?",
+            "answer": "<p>O reembolso será efetuado pelo mesmo método de pagamento utilizado na compra. No caso de pagamentos por PayPal, o reembolso poderá demorar até 30 dias úteis a ser processado. Já para pagamentos efetuados por Referência Multibanco ou MBWAY, o reembolso poderá demorar até 3 dias úteis a ser processado.</p>"
+          }
+        },
+        "custom_tAayhD": {
+          "type": "custom",
+          "settings": {
+            "title": "Quais são os métodos de pagamento existentes e como funcionam?",
+            "answer": "<ul><li><strong>Cartões de débito e crédito</strong>: aceitamos Visa e Mastercard. Os pagamentos são gerenciados por meio da plataforma de pagamento 100% segura.</li><li><strong>PayPal</strong>: poderá efetuar o seu pagamento com uma conta Paypal. </li><li><strong>Multibanco</strong>: É um meio de pagamento com a segurança da rede Multibanco. O código de referência de pagamento pode ser encontrado no final da compra e no e-mail de confirmação que lhe enviamos logo após a efetuar a encomenda. Para efetuar o pagamento, basta ter um cartão bancário válido na rede Multibanco, selecionar a transação e inserir a entidade, referência e montante.</li><li><strong>Mbway</strong>:<strong> </strong>Será enviada uma notificação para a sua aplicação MBWAY ou parceiro bancário de forma a aceitar a finalização do pagamento. Dispõe de apenas 5 minutos para aceitar o pagamento.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "custom_NMwcNR",
+        "custom_yzhTeW",
+        "custom_Y9UBE9",
+        "custom_f8DnrQ",
+        "custom_mhyXEd",
+        "custom_br4r8k",
+        "custom_tAayhD"
+      ],
+      "settings": {
+        "title": "Perguntas frequentes",
+        "layout": "homepage"
+      }
+    },
+    "icons_custom_tMbhUK": {
+      "type": "icons-custom",
+      "blocks": {
+        "collection_UJnggQ": {
+          "type": "collection",
+          "settings": {
+            "image": "shopify://shop_images/Vector_3.webp",
+            "title": "Entregas no dia seguinte",
+            "subtitle": "Pedidos até às 16h"
+          }
+        },
+        "collection_XrBGQT": {
+          "type": "collection",
+          "settings": {
+            "image": "shopify://shop_images/Vector_1.webp",
+            "title": "Qualidade Garantida",
+            "subtitle": "Desde 1981"
+          }
+        },
+        "collection_FQmRWp": {
+          "type": "collection",
+          "settings": {
+            "image": "shopify://shop_images/Vector_2.webp",
+            "title": "Preços competitivos",
+            "subtitle": "Sempre!"
+          }
+        }
+      },
+      "block_order": [
+        "collection_UJnggQ",
+        "collection_XrBGQT",
+        "collection_FQmRWp"
+      ],
+      "settings": {}
+    },
+    "new_mosaic_2_K8DnV6": {
+      "type": "new-mosaic-2",
+      "disabled": true,
+      "settings": {
+        "show_only_desktop": false,
+        "show_only_mobile": false,
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "slideshow_custom_AiKNbT",
+    "collection_images_slideshow_custom_KbWJmY",
+    "collection_list_2_BYnyXr",
+    "products_collection_with_image_AhgAw9",
+    "collection_campanhas_2_tndV7M",
+    "collection_campanhas_1_iQwbFn",
+    "product_collection_list_custom_yfhcVR",
+    "product_collection_list_custom_Tb94AX",
+    "bioself_blog_tnVbj3",
+    "collection_categorias_custom_mUaHG8",
+    "opinioes_verificadas_custom_gqWRmC",
+    "newsletter_custom_U9NWnB",
+    "collection_campanhas_3_t96Pgd",
+    "collection_brands_custom_HCBAUq",
+    "image_text_custom_dtgXxx",
+    "faq_2_izQty3",
+    "icons_custom_tMbhUK",
+    "new_mosaic_2_K8DnV6"
+  ]
+}
