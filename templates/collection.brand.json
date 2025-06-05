@@ -108,11 +108,26 @@
             "collection_cupon_code": "",
             "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Junho, limitada ao stock existente."
           }
+        },
+        "coupon_JGgDtc": {
+          "type": "coupon",
+          "disabled": true,
+          "settings": {
+            "title": "Sovex",
+            "selected_tags": "Sovex",
+            "collection_cupon_title": "Poupa 15% EXTRA ao comprar 2 ou mais produtos da marca Sovex 🥳",
+            "collection_cupon_boolean": false,
+            "collection_cupon_description": "Campanha válida de 1 a 30 de Junho de 2025",
+            "collection_cupon_text": "Ver detalhes",
+            "collection_cupon_code": "",
+            "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Junho, limitada ao stock existente."
+          }
         }
       },
       "block_order": [
         "coupon_bcxBan",
-        "coupon_WwbydV"
+        "coupon_WwbydV",
+        "coupon_JGgDtc"
       ],
       "settings": {
         "menu_nav_1": "categorias",
