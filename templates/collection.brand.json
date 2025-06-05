@@ -1,1 +1,199 @@
-{"sections":{"banner_collections_custom_MTeDyT":{"type":"banner_collections_custom","blocks":{"custom_qh6DAD":{"type":"custom","name":"Banner Brand","disabled":true,"settings":{"title":"Dietmed","banner":"shopify:\/\/shop_images\/Rectangle_a6d2848c-d712-45d5-801b-084d8b79ed53.svg","tags":"Dietmed,Naturmil"}},"custom_aDbCqg":{"type":"custom","name":"Banner Brand","settings":{"title":"Bioscalin","banner":"shopify:\/\/shop_images\/banner-bioscalin-1920x500.jpg","tags":"Bioscalin"}},"custom_9UT4cN":{"type":"custom","name":"Banner Brand","settings":{"title":"Solgar","banner":"shopify:\/\/shop_images\/banner-solgar-1920x500.jpg","tags":"Solgar,Marcas_Solgar"}},"custom_jX8RL3":{"type":"custom","name":"Banner Brand","settings":{"title":"Now Foods","banner":"shopify:\/\/shop_images\/banner-now-foods-1920x500.jpg","tags":"Marcas_Now"}},"custom_QbWjQD":{"type":"custom","name":"Banner Brand","settings":{"title":"Nutergia","banner":"shopify:\/\/shop_images\/banner-nutergia-1920x500.jpg","tags":"Marcas_Nutergia"}},"custom_XfGcUU":{"type":"custom","name":"Banner Brand","settings":{"title":"Florais de Bach","banner":"shopify:\/\/shop_images\/banner-florais-bach-1920x500.jpg","tags":"Marcas_Florais de Bach"}}},"block_order":["custom_qh6DAD","custom_aDbCqg","custom_9UT4cN","custom_jX8RL3","custom_QbWjQD","custom_XfGcUU"],"name":"Banner Custom","settings":{}},"collection_custom_page_YJnKbe":{"type":"collection-custom-page","blocks":{"coupon_bcxBan":{"type":"coupon","settings":{"title":"Naturmil e Dietmed","selected_tags":"Naturmil,Dietmed","collection_cupon_title":"Poupa 20% EXTRA ao comprar 3 ou mais produtos Naturmil e Dietmed 🥳","collection_cupon_boolean":false,"collection_cupon_description":"Campanha válida de 1 a 31 de Maio de 2025","collection_cupon_text":"Ver detalhes","collection_cupon_code":"","campaign_details":"Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 31 de Maio, limitada ao stock disponível. Packs não estão incluídos na promoção."}},"coupon_WwbydV":{"type":"coupon","disabled":true,"settings":{"title":"Soria Natural","selected_tags":"Soria Natural","collection_cupon_title":"Poupa 10% EXTRA ao comprar 2 ou mais produtos Soria Natural","collection_cupon_boolean":false,"collection_cupon_description":"Campanha válida de 1 a 28 de Fevereiro de 2025","collection_cupon_text":"Ver detalhes","collection_cupon_code":"","campaign_details":"Adiciona 2 ou mais artigos das marcas indicadas e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Promoção válida de 1 a 28 de Fevereiro, limitada ao stock existente e não acumulável com outras ofertas."}}},"block_order":["coupon_bcxBan","coupon_WwbydV"],"settings":{"menu_nav_1":"categorias","menu_nav_2":"marcas","collection_products_quantity":24,"newsletter_title":"Subscreve a newsletter e recebe promoções e ofertas","newsletter_icon":"shopify:\/\/shop_images\/xmark-solid.svg","newsletter_btn":"Subscrever","newsletter_page":"termos-de-utilizacao-do-site","newsletter_terms":"Li e aceito os"}},"brand_info_dLbW46":{"type":"brand-info","settings":{}},"biopoints_CEMpjq":{"type":"biopoints","settings":{"biopoints_text":"Troca os teus Pontos por Cupões de Desconto. Aproveita!","biopoints_url":"shopify:\/\/pages\/biopoints"}},"blog_collection_custom_bERcnz":{"type":"blog-collection-custom","settings":{"selected_blog":"blog-page","title_blog":"Visita o nosso blog","image_blog":"shopify:\/\/shop_images\/Rectangle_8.svg"}},"collection-template":{"type":"collection-template","disabled":true,"settings":{"show_collection_image":false,"collapse_collection_description":true,"show_promotional_badge":true,"collection_image_size":"preserve_ratio","products_per_row":"4","products_per_row_mobile":"48%","default_products_per_page":24,"default_view_layout":"grid","show_quick_buy":"list_grid","show_quick_view":"list","quick_links":"categorias","quick_links_show_products_count":false,"show_filters":true,"show_filter_color_swatch":false,"filter_type":"group","open_group_filters_mode":"all_closed","filter_group_order":""}},"static-promotion-list":{"type":"static-promotion-list","disabled":true,"settings":{"expand_items":false,"section_size":"medium","stack_mobile":false}},"recently-viewed-products":{"type":"static-recently-viewed-products","disabled":true,"settings":{"show_section":true,"title":"Recently viewed","show_quick_buy":false}}},"order":["banner_collections_custom_MTeDyT","collection_custom_page_YJnKbe","brand_info_dLbW46","biopoints_CEMpjq","blog_collection_custom_bERcnz","collection-template","static-promotion-list","recently-viewed-products"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner_collections_custom_MTeDyT": {
+      "type": "banner_collections_custom",
+      "blocks": {
+        "custom_qh6DAD": {
+          "type": "custom",
+          "name": "Banner Brand",
+          "disabled": true,
+          "settings": {
+            "title": "Dietmed",
+            "banner": "shopify://shop_images/Rectangle_a6d2848c-d712-45d5-801b-084d8b79ed53.svg",
+            "tags": "Dietmed,Naturmil"
+          }
+        },
+        "custom_aDbCqg": {
+          "type": "custom",
+          "name": "Banner Brand",
+          "settings": {
+            "title": "Bioscalin",
+            "banner": "shopify://shop_images/banner-bioscalin-1920x500.jpg",
+            "tags": "Bioscalin"
+          }
+        },
+        "custom_9UT4cN": {
+          "type": "custom",
+          "name": "Banner Brand",
+          "settings": {
+            "title": "Solgar",
+            "banner": "shopify://shop_images/banner-solgar-1920x500.jpg",
+            "tags": "Solgar,Marcas_Solgar"
+          }
+        },
+        "custom_jX8RL3": {
+          "type": "custom",
+          "name": "Banner Brand",
+          "settings": {
+            "title": "Now Foods",
+            "banner": "shopify://shop_images/banner-now-foods-1920x500.jpg",
+            "tags": "Marcas_Now"
+          }
+        },
+        "custom_QbWjQD": {
+          "type": "custom",
+          "name": "Banner Brand",
+          "settings": {
+            "title": "Nutergia",
+            "banner": "shopify://shop_images/banner-nutergia-1920x500.jpg",
+            "tags": "Marcas_Nutergia"
+          }
+        },
+        "custom_XfGcUU": {
+          "type": "custom",
+          "name": "Banner Brand",
+          "settings": {
+            "title": "Florais de Bach",
+            "banner": "shopify://shop_images/banner-florais-bach-1920x500.jpg",
+            "tags": "Marcas_Florais de Bach"
+          }
+        }
+      },
+      "block_order": [
+        "custom_qh6DAD",
+        "custom_aDbCqg",
+        "custom_9UT4cN",
+        "custom_jX8RL3",
+        "custom_QbWjQD",
+        "custom_XfGcUU"
+      ],
+      "name": "Banner Custom",
+      "settings": {}
+    },
+    "collection_custom_page_YJnKbe": {
+      "type": "collection-custom-page",
+      "blocks": {
+        "coupon_bcxBan": {
+          "type": "coupon",
+          "settings": {
+            "title": "Naturmil e Dietmed",
+            "selected_tags": "Naturmil,Dietmed",
+            "collection_cupon_title": "Poupa 20% EXTRA ao comprar 3 ou mais produtos Naturmil e Dietmed 🥳",
+            "collection_cupon_boolean": false,
+            "collection_cupon_description": "Campanha válida de 1 a 30 de Junho de 2025",
+            "collection_cupon_text": "Ver detalhes",
+            "collection_cupon_code": "",
+            "campaign_details": "Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 30 de Junho, limitada ao stock disponível. Packs não estão incluídos na promoção."
+          }
+        },
+        "coupon_WwbydV": {
+          "type": "coupon",
+          "disabled": true,
+          "settings": {
+            "title": "Soria Natural",
+            "selected_tags": "Soria Natural",
+            "collection_cupon_title": "Poupa 10% EXTRA ao comprar 2 ou mais produtos Soria Natural",
+            "collection_cupon_boolean": false,
+            "collection_cupon_description": "Campanha válida de 1 a 28 de Fevereiro de 2025",
+            "collection_cupon_text": "Ver detalhes",
+            "collection_cupon_code": "",
+            "campaign_details": "Adiciona 2 ou mais artigos das marcas indicadas e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Promoção válida de 1 a 28 de Fevereiro, limitada ao stock existente e não acumulável com outras ofertas."
+          }
+        }
+      },
+      "block_order": [
+        "coupon_bcxBan",
+        "coupon_WwbydV"
+      ],
+      "settings": {
+        "menu_nav_1": "categorias",
+        "menu_nav_2": "marcas",
+        "collection_products_quantity": 24,
+        "newsletter_title": "Subscreve a newsletter e recebe promoções e ofertas",
+        "newsletter_icon": "shopify://shop_images/xmark-solid.svg",
+        "newsletter_btn": "Subscrever",
+        "newsletter_page": "termos-de-utilizacao-do-site",
+        "newsletter_terms": "Li e aceito os"
+      }
+    },
+    "brand_info_dLbW46": {
+      "type": "brand-info",
+      "settings": {}
+    },
+    "biopoints_CEMpjq": {
+      "type": "biopoints",
+      "settings": {
+        "biopoints_text": "Troca os teus Pontos por Cupões de Desconto. Aproveita!",
+        "biopoints_url": "shopify://pages/biopoints"
+      }
+    },
+    "blog_collection_custom_bERcnz": {
+      "type": "blog-collection-custom",
+      "settings": {
+        "selected_blog": "blog-page",
+        "title_blog": "Visita o nosso blog",
+        "image_blog": "shopify://shop_images/Rectangle_8.svg"
+      }
+    },
+    "collection-template": {
+      "type": "collection-template",
+      "disabled": true,
+      "settings": {
+        "show_collection_image": false,
+        "collapse_collection_description": true,
+        "show_promotional_badge": true,
+        "collection_image_size": "preserve_ratio",
+        "products_per_row": "4",
+        "products_per_row_mobile": "48%",
+        "default_products_per_page": 24,
+        "default_view_layout": "grid",
+        "show_quick_buy": "list_grid",
+        "show_quick_view": "list",
+        "quick_links": "categorias",
+        "quick_links_show_products_count": false,
+        "show_filters": true,
+        "show_filter_color_swatch": false,
+        "filter_type": "group",
+        "open_group_filters_mode": "all_closed",
+        "filter_group_order": ""
+      }
+    },
+    "static-promotion-list": {
+      "type": "static-promotion-list",
+      "disabled": true,
+      "settings": {
+        "expand_items": false,
+        "section_size": "medium",
+        "stack_mobile": false
+      }
+    },
+    "recently-viewed-products": {
+      "type": "static-recently-viewed-products",
+      "disabled": true,
+      "settings": {
+        "show_section": true,
+        "title": "Recently viewed",
+        "show_quick_buy": false
+      }
+    }
+  },
+  "order": [
+    "banner_collections_custom_MTeDyT",
+    "collection_custom_page_YJnKbe",
+    "brand_info_dLbW46",
+    "biopoints_CEMpjq",
+    "blog_collection_custom_bERcnz",
+    "collection-template",
+    "static-promotion-list",
+    "recently-viewed-products"
+  ]
+}
