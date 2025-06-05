@@ -289,7 +289,7 @@
       "submit": "Recuperar",
       "success": "Enviámos-te um e-mail com instruções para definires uma nova palavra-passe.",
       "remembered_your_password": "Lembraste-te da tua palavra-passe?",
-      "back_to_login": "Voltar para o login"
+      "back_to_login": "Voltar ao login"
     },
     "reset_password": {
       "reset_password": "Redefinir palavra-passe",
