@@ -1969,6 +1969,13 @@
               overlayElement.style.display = 'none';
 
               if (window.innerWidth > 1000) {
+                const modalCruz = document.querySelectorAll('#modal_form_cruz');
+
+                if (modalCruz && modalCruz.style.visibility === 'visible') {
+                  modalCruz.style.opacity = 0;
+                  modalCruz.style.visibility = 'hidden';
+                }
+
                 modalElement.style.display = 'none';
               } else {
                 modalElement.style.transform = 'translateY(100%)';
