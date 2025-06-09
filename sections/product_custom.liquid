@@ -1969,12 +1969,14 @@
               overlayElement.style.display = 'none';
 
               if (window.innerWidth > 1000) {
-                const modalCruz = document.querySelectorAll('#modal_form_cruz');
+                const modalCruzes = document.querySelectorAll('#modal_form_cruz');
 
-                if (modalCruz && modalCruz.style.visibility === 'visible') {
-                  modalCruz.style.opacity = 0;
-                  modalCruz.style.visibility = 'hidden';
-                }
+                modalCruzes.forEach((modal) => {
+                  if (modal.style.visibility === 'visible') {
+                    modal.style.opacity = 0;
+                    modal.style.visibility = 'hidden';
+                  }
+                });
 
                 modalElement.style.display = 'none';
               } else {
