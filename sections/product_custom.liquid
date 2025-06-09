@@ -1966,18 +1966,15 @@
             }
 
             overlayElement.addEventListener('click', function () {
+              const modalCruz = document.getElementById('modal_cruz_vermelha');
+
+              if (modalCruz && modalCruz.style.visibility === 'visible') {
+                return;
+              }
+
               overlayElement.style.display = 'none';
 
               if (window.innerWidth > 1000) {
-                const modalCruzes = document.querySelectorAll('#modal_form_cruz');
-
-                modalCruzes.forEach((modal) => {
-                  if (modal.style.visibility === 'visible') {
-                    modal.style.opacity = 0;
-                    modal.style.visibility = 'hidden';
-                  }
-                });
-
                 modalElement.style.display = 'none';
               } else {
                 modalElement.style.transform = 'translateY(100%)';
