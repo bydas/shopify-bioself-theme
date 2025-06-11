@@ -183,7 +183,7 @@
       max-width: 300px !important;
     }
 
-    .img_favorite_custom > div {
+    .img_favorite_custom > .images_wrapper {
       height: 300px !important;
     }
 
@@ -827,10 +827,10 @@
       padding: 1rem;
     }
 
-    img {
+    {% comment %} img {
       width: 250px;
       justify-self: center;
-    }
+    } {% endcomment %}
 
     #oferta_product_custom > li {
       width: 20rem;
@@ -870,7 +870,16 @@
     gap: 1rem;
   }
 
-  .img_favorite_custom > div {
+  .favorite_icon_wrapper {
+    display: grid;
+    position: relative;
+  }
+
+  .favorite_icon_wrapper > .swym-button-bar {
+    padding-right: 16px;
+  }
+
+  .img_favorite_custom > .images_wrapper {
     display: grid;
     grid-auto-flow: row;
     grid-auto-rows: max-content;
@@ -879,7 +888,7 @@
     height: 500px;
   }
 
-  .img_favorite_custom > div > img {
+  .img_favorite_custom > .images_wrapper > img {
     width: 4rem;
     height: 4rem;
     padding: 0.5rem !important;
@@ -887,7 +896,7 @@
   }
 
   .img_favorite_custom > img,
-  .img_favorite_custom > div > img {
+  .img_favorite_custom > .images_wrapper > img {
     max-width: 500px;
     padding: 1rem;
     border: 1px solid #258439;
@@ -895,17 +904,26 @@
   }
 
   @media screen and (max-width: 1000px) {
+    .favorite_icon_wrapper {
+      justify-self: right;
+    }
+
+    .favorite_icon_wrapper > .swym-button-bar {
+      padding-right: 0;
+      padding-bottom: 14px;
+    }
+
     #product_page_custom > section > aside,
     #oferta_product_custom > li {
       min-width: auto;
     }
 
     .img_favorite_custom > img,
-    .img_favorite_custom > div > img {
+    .img_favorite_custom > .images_wrapper > img {
       max-width: 100% !important;
     }
 
-    .img_favorite_custom > div {
+    .img_favorite_custom > .images_wrapper {
       height: 100% !important;
       width: calc(100dvw - var(--mobile-container-gutter) * 2);
     }
@@ -916,7 +934,7 @@
       justify-items: center;
     }
 
-    .img_favorite_custom > div {
+    .img_favorite_custom > .images_wrapper {
       grid-auto-flow: column;
       grid-auto-columns: max-content;
     }
@@ -1167,7 +1185,7 @@
       <div>
         <section class="img_favorite_custom">
           {% unless product_images.size < 2 %}
-            <div>
+            <div class="images_wrapper">
               {% for image in product_images %}
                 <img
                   src="{{ image | img_url: 'master' }}"
@@ -1189,6 +1207,8 @@
             height="auto"
             id="main-image-product"
           >
+
+          <div class="favorite_icon_wrapper"></div>
         </section>
 
         <script>
@@ -1539,7 +1559,7 @@
     >
 
     {% unless product_images.size < 2 %}
-      <div>
+      <div class="images_wrapper">
         {% for image in product_images %}
           <img
             src="{{ image | img_url: 'master' }}"
@@ -1552,6 +1572,8 @@
         {% endfor %}
       </div>
     {% endunless %}
+
+    <div class="favorite_icon_wrapper"></div>
   </section>
 
   <script>
@@ -2191,3 +2213,46 @@
     window.addEventListener('resize', updateLayout);
   });
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const onResize = () => {
+      const wrappers = document.querySelectorAll('.favorite_icon_wrapper');
+
+      wrappers.forEach((wrapper) => {
+        const existingButton = wrapper.querySelector('.swym-button-bar');
+        if (existingButton) {
+          existingButton.remove();
+        }
+      });
+
+      const addHtml = (element) => {
+        if (element && !element.querySelector('.swym-button-bar')) {
+          element.innerHTML += `
+            <div class="swym-button-bar swym-wishlist-button-bar swym-inject">
+              <div class="swym-btn-container swym-inject" data-position="default" id="favorite_btn_custom">
+                <button
+                  class="swym-button swym-add-to-wishlist swym-inject swym-icon swym-heart swym-loaded"
+                  onclick="event.preventDefault();"
+                ></button>
+              </div>
+            </div>
+          `;
+        }
+      };
+
+      if (wrappers.length > 1) {
+        window.innerWidth > 1000 ? addHtml(wrappers[0]) : addHtml(wrappers[1]);
+      }
+    };
+
+    onResize();
+
+    window.addEventListener('resize', onResize);
+  });
+</script>
+
+<script
+  charset="utf-8"
+  src="https://cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/AWS/PRODUCT_API/tag.min.js"
+></script>
