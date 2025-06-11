@@ -179,7 +179,8 @@
       font-size: 0.75rem !important;
     }
 
-    .img_favorite_custom > img {
+    .img_favorite_custom > img,
+    .img_favorite_custom > .mobile_img_icon_wrapper > img {
       max-width: 300px !important;
     }
 
@@ -812,6 +813,20 @@
     }
   }
 
+  @media screen and (max-width: 1599px) and (min-width: 1200px) {
+    #indicacoes_list_custom > ul {
+      overflow: auto;
+      max-height: 100px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) and (min-width: 1000px) {
+    #indicacoes_list_custom > ul {
+      overflow: auto;
+      max-height: 70px;
+    }
+  }
+
   @media screen and (max-width: 1499px) {
     #product_page_custom > section > div > div {
       gap: 1rem;
@@ -826,11 +841,6 @@
     #product_page_custom > section > aside {
       padding: 1rem;
     }
-
-    {% comment %} img {
-      width: 250px;
-      justify-self: center;
-    } {% endcomment %}
 
     #oferta_product_custom > li {
       width: 20rem;
@@ -866,17 +876,14 @@
 
   .img_favorite_custom {
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
     gap: 1rem;
   }
 
   .favorite_icon_wrapper {
     display: grid;
     position: relative;
-  }
-
-  .favorite_icon_wrapper > .swym-button-bar {
-    padding-right: 16px;
   }
 
   .img_favorite_custom > .images_wrapper {
@@ -896,6 +903,7 @@
   }
 
   .img_favorite_custom > img,
+  .img_favorite_custom > .mobile_img_icon_wrapper > img,
   .img_favorite_custom > .images_wrapper > img {
     max-width: 500px;
     padding: 1rem;
@@ -903,14 +911,26 @@
     border-radius: 0.65rem;
   }
 
+  .img_favorite_custom > .mobile_img_icon_wrapper {
+    display: grid;
+  }
+
   @media screen and (max-width: 1000px) {
+    #product_page_custom_mobile > aside > #oferta_product_custom > li {
+      max-width: unset;
+    }
+
+    .img_favorite_custom {
+      grid-auto-columns: unset;
+      grid-auto-flow: unset;
+    }
+
     .favorite_icon_wrapper {
       justify-self: right;
     }
 
     .favorite_icon_wrapper > .swym-button-bar {
-      padding-right: 0;
-      padding-bottom: 14px;
+      padding: 10px;
     }
 
     #product_page_custom > section > aside,
@@ -919,6 +939,7 @@
     }
 
     .img_favorite_custom > img,
+    .img_favorite_custom > .mobile_img_icon_wrapper > img,
     .img_favorite_custom > .images_wrapper > img {
       max-width: 100% !important;
     }
@@ -1199,16 +1220,18 @@
             </div>
           {% endunless %}
 
-          <img
-            src="{{ current_image | img_url: 'master' }}"
-            alt="{{ product.title }} - imagem principal"
-            loading="eager"
-            width="auto"
-            height="auto"
-            id="main-image-product"
-          >
+          <div class="mobile_img_icon_wrapper">
+            <img
+              src="{{ current_image | img_url: 'master' }}"
+              alt="{{ product.title }} - imagem principal"
+              loading="eager"
+              width="auto"
+              height="auto"
+              id="main-image-product"
+            >
 
-          <div class="favorite_icon_wrapper"></div>
+            <div class="favorite_icon_wrapper"></div>
+          </div>
         </section>
 
         <script>
@@ -1549,14 +1572,18 @@
 
 <main id="product_page_custom_mobile">
   <section class="img_favorite_custom">
-    <img
-      src="{{ current_image | img_url: 'master' }}"
-      alt="{{ product.title }} - imagem principal"
-      loading="eager"
-      width="auto"
-      height="auto"
-      id="main-image-product-mobile"
-    >
+    <div class="mobile_img_icon_wrapper">
+      <img
+        src="{{ current_image | img_url: 'master' }}"
+        alt="{{ product.title }} - imagem principal"
+        loading="eager"
+        width="auto"
+        height="auto"
+        id="main-image-product-mobile"
+      >
+
+      <div class="favorite_icon_wrapper"></div>
+    </div>
 
     {% unless product_images.size < 2 %}
       <div class="images_wrapper">
@@ -1572,8 +1599,6 @@
         {% endfor %}
       </div>
     {% endunless %}
-
-    <div class="favorite_icon_wrapper"></div>
   </section>
 
   <script>
