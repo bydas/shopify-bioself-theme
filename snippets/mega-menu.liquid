@@ -347,7 +347,7 @@
               </div>
   
               <div class="mega-menu-brands-container">
-                {% for link in sorted_brands limit: 8 %}
+                {% for link in sorted_brands limit: 10 %}
                   <div class="mega-menu-brands-item"> 
                     {% for collection in collections %}                      
                       {% if collection.template_suffix contains "brand" %}      
