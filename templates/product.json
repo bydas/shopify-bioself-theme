@@ -38,7 +38,7 @@
           "type": "coupon",
           "settings": {
             "title": "V-C 15 Forte Neo 24 Ampolas",
-            "background_color": "",
+            "background_color": "#c9cdcd",
             "selected_tags": "V-C 15",
             "selected_title": "<p><strong>Campanha Extra: Sem Cupão</strong></p>",
             "selected_description": "<p>Compra 2 ou mais unidades <strong>VC-15 Forte Neo 24 Ampolas</strong> e conquista <strong>10% EXTRA</strong>.</p>",
