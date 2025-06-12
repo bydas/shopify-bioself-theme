@@ -1,1 +1,191 @@
-{"sections":{"product_custom_Aibztd":{"type":"product_custom","blocks":{"coupon_NqxtrQ":{"type":"coupon","settings":{"title":"Maio2025","selected_tags":"SHOP","selected_title":"<p><strong>Cupão: MAIO2025<\/strong><\/p>","selected_description":"<p>Conquista 10€ de desconto adicionais em compras superiores a 99.99€.<\/p>","selected_modal_description":"Aplica o código de cupão MAIO2025 no checkout e conquista 10€ de desconto adicionais em compras superiores a 99.99€. Campanha exclusiva da loja online e válida de 1 a 31 de Maio de 2025. Acumulável com outras campanhas em vigor e limitado ao stock existente."}},"coupon_iWDRdN":{"type":"coupon","settings":{"title":"Naturmil e Dietmed","selected_tags":"Naturmil,Dietmed","selected_title":"<p><strong>Campanha Extra: Sem Cupão<\/strong><\/p>","selected_description":"<p>Compra 3 ou mais artigos <strong>Dietmed<\/strong> e <strong>Naturmil<\/strong> e conquista <strong>20% EXTRA<\/strong>.<\/p>","selected_modal_description":"Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 31 de Maio, limitada ao stock disponível. Packs não estão incluídos na promoção."}},"coupon_WRTneq":{"type":"coupon","settings":{"title":"V-C 15 Forte Neo 24 Ampolas","selected_tags":"V-C 15","selected_title":"<p><strong>Campanha Extra: Sem Cupão<\/strong><\/p>","selected_description":"<p>Compra 2 ou mais unidades <strong>VC-15 Forte Neo 24 Ampolas<\/strong> e conquista <strong>10% EXTRA<\/strong>.<\/p>","selected_modal_description":"Adiciona 2 ou mais unidades ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. A campanha é válida de 1 a 31 de Maio, limitada ao stock disponível."}},"coupon_C38Njb":{"type":"coupon","settings":{"title":"Sovex","selected_tags":"Sovex","selected_title":"<p><strong>Campanha Extra: Sem Cupão<\/strong><\/p>","selected_description":"<p>Compra 2 ou mais unidades de produtos da marca <strong>Sovex<\/strong> e conquista <strong>15% EXTRA<\/strong>.<\/p>","selected_modal_description":"Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 5 a 31 de maio, limitada ao stock existente."}}},"block_order":["coupon_NqxtrQ","coupon_iWDRdN","coupon_WRTneq","coupon_C38Njb"],"settings":{"main_title":"Ofertas disponíveis:","delivery_text":"<p>Entrega aproximada no próximo dia útil. Faz o teu pedido hoje antes das 16:00h.<\/p>","disclamer_text":"<p>A Bioself Natura Lda não é responsável por eventuais divergências e\/ou modificações relacionadas com a informação sobre os produtos presentes no site, facultada pelo fornecedor\/fabricante, que figura nos rótulos dos mesmos. Recomendamos, por isso, que leia sempre a informação obrigatória e\/ou voluntária constante nos rótulos dos produtos antes de os utilizar ou consumir.<\/p>"}},"main":{"type":"product","blocks":{"direct_promotion_Fj6zpN":{"type":"direct_promotion","disabled":true,"settings":{"title":"Fevereiro 2025","control_tag":"SHOP","display_bold":false,"direct_promotion_heading":"Ofertas disponíveis:","direct_promotion_description":"<b>Cupão: FEVEREIRO2025<\/b>","direct_promotion_text":"Aplica o código de cupão <b>FEVEREIRO2025<\/b> no checkout e conquista <b>10€ de desconto<\/b> adicionais em compras superiores a 99.99€. Campanha exclusiva online. Promoções válidas de 1 a 28 de Fevereiro de 2025.","direct_promotion_modal_heading":"Mais info","direct_promotion_modal_text":"Limitada ao stock existente.","direct_promotion_modal_date":""}}},"block_order":["direct_promotion_Fj6zpN"],"disabled":true,"settings":{"show_vendor":true,"show_pvp_per_unit":true,"show_sku":false,"show_share_buttons":false,"show_taxes_included":false,"show_promotional_badge":true,"show_promotional_text":true,"promotional_text_color":"#000000","delivery_text_content":"","promotional_text_content":"Entrega aproximada <b>no próximo dia útil<\/b>.<br> Faz o teu pedido hoje antes das <b>16:00h<\/b>.","promotional_text_hours":"","selector_mode":"dropdown","color_mode":"dropdown","show_quantity_selector":true,"show_payment_button":false,"show_pickup_availability":false,"image_size":"small","enable_video_looping":false,"enable_image_zoom":false,"zoom_effect":"outside","main_carousel_effect":"fade","show_inventory_quantity":false,"low_inventory_threshold":0,"content_display_mode":"show_all_and_expand_description","tab_page_1_handle":"","tab_page_2_handle":"","tab_page_3_handle":"","enable_reviews":false,"show_reviews_badge":false,"trust_title":"Payment & Security","show_payment_icons":false,"custom_security_badge_width":200,"show_shipping_estimator":false,"shipping_estimator_default_country":"United States","show_refunds_policy":false,"display_product_values":false,"values_heading_color":"#95c120","value_image_1":"shopify:\/\/shop_images\/Group_382.svg","icon_1":"bi-customer-support","value_title_1":"<p>ENVIO GRATUITO<\/p>","value_description_1":"<p>A partir de 29,99€<\/p>","value_image_2":"shopify:\/\/shop_images\/Group_383.svg","icon_2":"bi-customer-support","value_title_2":"<p>DEVOLUÇÕES<\/p>","value_description_2":"<p>Até 14 dias<\/p>","value_image_3":"shopify:\/\/shop_images\/Group_384.svg","icon_3":"bi-customer-support","value_title_3":"<p>QUALIDADE GARANTIDA<\/p>","value_description_3":"<p>Desde 1981<\/p>","value_image_4":"shopify:\/\/shop_images\/Group_385.svg","icon_4":"bi-customer-support","value_title_4":"<p>PAGAMENTO SEGURO<\/p>","value_description_4":"<p>100% Segurança<\/p>","promotional_information":"<p>Mais informações sobre campanhas, aqui.<\/p>","show_slideshow":false,"edge_to_edge":false,"section_size":"preserve_ratio","carousel_effect":"slide","autoplay":true,"cycle_speed":5}},"product-recommendations":{"type":"product-recommendations","disabled":true,"settings":{"show_product_recommendations":true,"heading":"Também poderá gostar","show_quick_buy":true}},"promotion-list":{"type":"static-promotion-list","disabled":true,"settings":{"expand_items":false,"section_size":"medium","stack_mobile":false}},"recently-viewed-products":{"type":"static-recently-viewed-products","disabled":true,"settings":{"show_section":false,"title":"Recently viewed","show_quick_buy":false}}},"order":["product_custom_Aibztd","main","product-recommendations","promotion-list","recently-viewed-products"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_custom_Aibztd": {
+      "type": "product_custom",
+      "blocks": {
+        "coupon_NqxtrQ": {
+          "type": "coupon",
+          "settings": {
+            "title": "Junho2025",
+            "background_color": "",
+            "selected_tags": "SHOP",
+            "selected_title": "<p><strong>Cupão: JUNHO2025</strong></p>",
+            "selected_description": "<p>Conquista 10€ de desconto adicionais em compras superiores a 99.99€.</p>",
+            "selected_modal_description": "Aplica o código de cupão JUNHO2025 no checkout e conquista 10€ de desconto adicionais em compras superiores a 99.99€. Campanha exclusiva da loja online e válida de 1 a 31 de Junho de 2025. Acumulável com outras campanhas em vigor e limitado ao stock existente."
+          }
+        },
+        "coupon_iWDRdN": {
+          "type": "coupon",
+          "settings": {
+            "title": "Naturmil e Dietmed",
+            "background_color": "",
+            "selected_tags": "Naturmil,Dietmed",
+            "selected_title": "<p><strong>Campanha Extra: Sem Cupão</strong></p>",
+            "selected_description": "<p>Compra 3 ou mais artigos <strong>Dietmed</strong> e <strong>Naturmil</strong> e conquista <strong>20% EXTRA</strong>.</p>",
+            "selected_modal_description": "Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 31 de Maio, limitada ao stock disponível. Packs não estão incluídos na promoção."
+          }
+        },
+        "coupon_WRTneq": {
+          "type": "coupon",
+          "settings": {
+            "title": "V-C 15 Forte Neo 24 Ampolas",
+            "background_color": "",
+            "selected_tags": "V-C 15",
+            "selected_title": "<p><strong>Campanha Extra: Sem Cupão</strong></p>",
+            "selected_description": "<p>Compra 2 ou mais unidades <strong>VC-15 Forte Neo 24 Ampolas</strong> e conquista <strong>10% EXTRA</strong>.</p>",
+            "selected_modal_description": "Adiciona 2 ou mais unidades ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. A campanha é válida de 1 a 31 de Maio, limitada ao stock disponível."
+          }
+        },
+        "coupon_C38Njb": {
+          "type": "coupon",
+          "settings": {
+            "title": "Sovex",
+            "background_color": "",
+            "selected_tags": "Sovex",
+            "selected_title": "<p><strong>Campanha Extra: Sem Cupão</strong></p>",
+            "selected_description": "<p>Compra 2 ou mais unidades de produtos da marca <strong>Sovex</strong> e conquista <strong>15% EXTRA</strong>.</p>",
+            "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 5 a 31 de maio, limitada ao stock existente."
+          }
+        }
+      },
+      "block_order": [
+        "coupon_NqxtrQ",
+        "coupon_iWDRdN",
+        "coupon_WRTneq",
+        "coupon_C38Njb"
+      ],
+      "settings": {
+        "disclamer_text": "<p>A Bioself Natura Lda não é responsável por eventuais divergências e/ou modificações relacionadas com a informação sobre os produtos presentes no site, facultada pelo fornecedor/fabricante, que figura nos rótulos dos mesmos. Recomendamos, por isso, que leia sempre a informação obrigatória e/ou voluntária constante nos rótulos dos produtos antes de os utilizar ou consumir.</p>"
+      }
+    },
+    "main": {
+      "type": "product",
+      "blocks": {
+        "direct_promotion_Fj6zpN": {
+          "type": "direct_promotion",
+          "disabled": true,
+          "settings": {
+            "title": "Fevereiro 2025",
+            "control_tag": "SHOP",
+            "display_bold": false,
+            "direct_promotion_heading": "Ofertas disponíveis:",
+            "direct_promotion_description": "<b>Cupão: FEVEREIRO2025</b>",
+            "direct_promotion_text": "Aplica o código de cupão <b>FEVEREIRO2025</b> no checkout e conquista <b>10€ de desconto</b> adicionais em compras superiores a 99.99€. Campanha exclusiva online. Promoções válidas de 1 a 28 de Fevereiro de 2025.",
+            "direct_promotion_modal_heading": "Mais info",
+            "direct_promotion_modal_text": "Limitada ao stock existente.",
+            "direct_promotion_modal_date": ""
+          }
+        }
+      },
+      "block_order": [
+        "direct_promotion_Fj6zpN"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_vendor": true,
+        "show_pvp_per_unit": true,
+        "show_sku": false,
+        "show_share_buttons": false,
+        "show_taxes_included": false,
+        "show_promotional_badge": true,
+        "show_promotional_text": true,
+        "promotional_text_color": "#000000",
+        "delivery_text_content": "",
+        "promotional_text_content": "Entrega aproximada <b>no próximo dia útil</b>.<br> Faz o teu pedido hoje antes das <b>16:00h</b>.",
+        "promotional_text_hours": "",
+        "selector_mode": "dropdown",
+        "color_mode": "dropdown",
+        "show_quantity_selector": true,
+        "show_payment_button": false,
+        "show_pickup_availability": false,
+        "image_size": "small",
+        "enable_video_looping": false,
+        "enable_image_zoom": false,
+        "zoom_effect": "outside",
+        "main_carousel_effect": "fade",
+        "show_inventory_quantity": false,
+        "low_inventory_threshold": 0,
+        "content_display_mode": "show_all_and_expand_description",
+        "tab_page_1_handle": "",
+        "tab_page_2_handle": "",
+        "tab_page_3_handle": "",
+        "enable_reviews": false,
+        "show_reviews_badge": false,
+        "trust_title": "Payment & Security",
+        "show_payment_icons": false,
+        "custom_security_badge_width": 200,
+        "show_shipping_estimator": false,
+        "shipping_estimator_default_country": "United States",
+        "show_refunds_policy": false,
+        "display_product_values": false,
+        "values_heading_color": "#95c120",
+        "value_image_1": "shopify://shop_images/Group_382.svg",
+        "icon_1": "bi-customer-support",
+        "value_title_1": "<p>ENVIO GRATUITO</p>",
+        "value_description_1": "<p>A partir de 29,99€</p>",
+        "value_image_2": "shopify://shop_images/Group_383.svg",
+        "icon_2": "bi-customer-support",
+        "value_title_2": "<p>DEVOLUÇÕES</p>",
+        "value_description_2": "<p>Até 14 dias</p>",
+        "value_image_3": "shopify://shop_images/Group_384.svg",
+        "icon_3": "bi-customer-support",
+        "value_title_3": "<p>QUALIDADE GARANTIDA</p>",
+        "value_description_3": "<p>Desde 1981</p>",
+        "value_image_4": "shopify://shop_images/Group_385.svg",
+        "icon_4": "bi-customer-support",
+        "value_title_4": "<p>PAGAMENTO SEGURO</p>",
+        "value_description_4": "<p>100% Segurança</p>",
+        "promotional_information": "<p>Mais informações sobre campanhas, aqui.</p>",
+        "show_slideshow": false,
+        "edge_to_edge": false,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "heading": "Também poderá gostar",
+        "show_quick_buy": true
+      }
+    },
+    "promotion-list": {
+      "type": "static-promotion-list",
+      "disabled": true,
+      "settings": {
+        "expand_items": false,
+        "section_size": "medium",
+        "stack_mobile": false
+      }
+    },
+    "recently-viewed-products": {
+      "type": "static-recently-viewed-products",
+      "disabled": true,
+      "settings": {
+        "show_section": false,
+        "title": "Recently viewed",
+        "show_quick_buy": false
+      }
+    }
+  },
+  "order": [
+    "product_custom_Aibztd",
+    "main",
+    "product-recommendations",
+    "promotion-list",
+    "recently-viewed-products"
+  ]
+}
