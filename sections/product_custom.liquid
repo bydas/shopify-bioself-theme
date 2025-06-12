@@ -162,7 +162,7 @@
     const minutes = Math.floor((diffMs % 3_600_000) / 60_000);
 
     const parts = [];
-    if (totalHours > 0) parts.push(`${totalHours} h`);
+    if (totalHours > 0) parts.push(`${totalHours} h e`);
     if (minutes > 0) parts.push(`${minutes} min`);
     const diffText = parts.join(' ') || '0 min';
 
@@ -1097,6 +1097,13 @@
     }
   }
 
+  @media screen and (max-width: 400px) {
+    .product_delivery_time {
+      grid-template-rows: repeat(2, max-content);
+      grid-template-columns: max-content !important;
+    }
+  }
+
   @media screen and (max-width: 370px) {
     .delivery_wrapper_custom > span {
       width: 14rem;
@@ -1119,8 +1126,7 @@
     }
 
     #price_percentage_modal,
-    .quantity_stock_container,
-    .product_delivery_time {
+    .quantity_stock_container {
       grid-template-rows: repeat(2, max-content);
       grid-template-columns: max-content !important;
     }
@@ -1620,14 +1626,11 @@
 
           <div>
             <span style="font-weight: bold;">
-              Próximo envio:
-              <b class="next_delivery_date"><span class="spinner_date"></span></b>
+              Aproveita o <b style="color: #258439;">próximo envio</b> em
+              <b class="next_delivery_time"><span class="spinner_date"></span></b>!
             </span>
 
-            <span>
-              Faça o seu pedido dentro de
-              <b class="next_delivery_time"><span class="spinner_date"></span></b>
-            </span>
+            <span style="font-weight: bold;">Entrega estimada no dia útil seguinte.</span>
           </div>
         </div>
       {% endif %}
@@ -1925,14 +1928,11 @@
 
         <div>
           <span style="font-weight: bold;">
-            Próximo envio:
-            <b class="next_delivery_date"><span class="spinner_date"></span></b>
+            Aproveita o <b style="color: #258439">próximo envio</b> em
+            <b class="next_delivery_time"><span class="spinner_date"></span></b>!
           </span>
 
-          <span>
-            Faça o seu pedido dentro de
-            <b class="next_delivery_time"><span class="spinner_date"></span></b>
-          </span>
+          <span style="font-weight: bold;">Entrega estimada no dia útil seguinte.</span>
         </div>
       </div>
     {% endif %}
