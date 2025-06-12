@@ -38,7 +38,7 @@
           "type": "coupon",
           "settings": {
             "title": "V-C 15 Forte Neo 24 Ampolas",
-            "background_color": "#ffffff",
+            "background_color": "#b5c5c5",
             "selected_tags": "V-C 15",
             "selected_title": "<p><strong>Campanha V-C 15: Sem Cupão</strong></p>",
             "selected_description": "<p>Compra 2 ou mais unidades <strong>VC-15 Forte Neo 24 Ampolas</strong> e conquista <strong>10% EXTRA</strong>.</p>",
@@ -60,7 +60,7 @@
           "type": "coupon",
           "settings": {
             "title": "Vitalenzym",
-            "background_color": "#c5c5c5",
+            "background_color": "#c9cdcd",
             "selected_tags": "Marcas_Vitalenzym",
             "selected_title": "<p><strong>Campanha Vitalenzym: Sem Cupão</strong></p>",
             "selected_description": "<p>Compra 1 ou mais unidades de produtos da marca <strong>Vitalenzym</strong> e conquista <strong>20% EXTRA</strong>.</p>",
