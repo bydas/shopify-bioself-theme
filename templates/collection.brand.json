@@ -14,7 +14,6 @@
       "blocks": {
         "custom_qh6DAD": {
           "type": "custom",
-          "name": "Banner Brand",
           "disabled": true,
           "settings": {
             "title": "Dietmed",
@@ -24,7 +23,6 @@
         },
         "custom_aDbCqg": {
           "type": "custom",
-          "name": "Banner Brand",
           "settings": {
             "title": "Bioscalin",
             "banner": "shopify://shop_images/banner-bioscalin-1920x500.jpg",
@@ -33,7 +31,6 @@
         },
         "custom_9UT4cN": {
           "type": "custom",
-          "name": "Banner Brand",
           "settings": {
             "title": "Solgar",
             "banner": "shopify://shop_images/banner-solgar-1920x500.jpg",
@@ -42,7 +39,6 @@
         },
         "custom_jX8RL3": {
           "type": "custom",
-          "name": "Banner Brand",
           "settings": {
             "title": "Now Foods",
             "banner": "shopify://shop_images/banner-now-foods-1920x500.jpg",
@@ -51,7 +47,6 @@
         },
         "custom_QbWjQD": {
           "type": "custom",
-          "name": "Banner Brand",
           "settings": {
             "title": "Nutergia",
             "banner": "shopify://shop_images/banner-nutergia-1920x500.jpg",
@@ -60,7 +55,6 @@
         },
         "custom_XfGcUU": {
           "type": "custom",
-          "name": "Banner Brand",
           "settings": {
             "title": "Florais de Bach",
             "banner": "shopify://shop_images/banner-florais-bach-1920x500.jpg",
@@ -76,7 +70,6 @@
         "custom_QbWjQD",
         "custom_XfGcUU"
       ],
-      "name": "Banner Custom",
       "settings": {}
     },
     "collection_custom_page_YJnKbe": {

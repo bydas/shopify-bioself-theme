@@ -55,13 +55,25 @@
             "selected_description": "<p>Compra 2 ou mais unidades de produtos da marca <strong>Sovex</strong> e conquista <strong>15% EXTRA</strong>.</p>",
             "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Junho, limitada ao stock existente."
           }
+        },
+        "coupon_WWtqpi": {
+          "type": "coupon",
+          "settings": {
+            "title": "Vitalenzym",
+            "background_color": "#c5c5c5",
+            "selected_tags": "Marcas_Vitalenzym",
+            "selected_title": "<p><strong>Campanha Vitalenzym: Sem Cupão</strong></p>",
+            "selected_description": "<p>Compra 1 ou mais unidades de produtos da marca <strong>Vitalenzym</strong> e conquista <strong>20% EXTRA</strong>.</p>",
+            "selected_modal_description": "Adiciona 1 ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Vitalenzym — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Junho, limitada ao stock existente."
+          }
         }
       },
       "block_order": [
         "coupon_NqxtrQ",
         "coupon_iWDRdN",
         "coupon_WRTneq",
-        "coupon_C38Njb"
+        "coupon_C38Njb",
+        "coupon_WWtqpi"
       ],
       "settings": {
         "disclamer_text": "<p>A Bioself Natura Lda não é responsável por eventuais divergências e/ou modificações relacionadas com a informação sobre os produtos presentes no site, facultada pelo fornecedor/fabricante, que figura nos rótulos dos mesmos. Recomendamos, por isso, que leia sempre a informação obrigatória e/ou voluntária constante nos rótulos dos produtos antes de os utilizar ou consumir.</p>"
