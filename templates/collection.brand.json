@@ -14,10 +14,9 @@
       "blocks": {
         "custom_qh6DAD": {
           "type": "custom",
-          "disabled": true,
           "settings": {
             "title": "Dietmed",
-            "banner": "shopify://shop_images/Rectangle_a6d2848c-d712-45d5-801b-084d8b79ed53.svg",
+            "banner": "shopify://shop_images/banner_campanha-naturmil-dietmed.jpg",
             "tags": "Dietmed,Naturmil"
           }
         },
