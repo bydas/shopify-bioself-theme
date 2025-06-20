@@ -59,6 +59,14 @@
             "banner": "shopify://shop_images/banner-florais-bach-1920x500.jpg",
             "tags": "Marcas_Florais de Bach"
           }
+        },
+        "custom_xpWTMw": {
+          "type": "custom",
+          "settings": {
+            "title": "Auri Foods",
+            "banner": "shopify://shop_images/auri-foods-banner.png",
+            "tags": "Auri Foods"
+          }
         }
       },
       "block_order": [
@@ -67,7 +75,8 @@
         "custom_9UT4cN",
         "custom_jX8RL3",
         "custom_QbWjQD",
-        "custom_XfGcUU"
+        "custom_XfGcUU",
+        "custom_xpWTMw"
       ],
       "settings": {}
     },
