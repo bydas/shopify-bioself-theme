@@ -234,13 +234,13 @@
       "no_orders_button": "Faça sua primeira compra"
     },
     "login": {
-      "login": "Entrar em minha conta",
+      "login": "Entrar na minha conta",
       "description": "Introduz o teu e-mail e palavra-passe:",
       "email": "E-mail",
       "password": "Palavra-passe",
       "submit": "Entrar",
       "new_customer": "Novo cliente?",
-      "create_your_account": "Criar sua conta",
+      "create_your_account": "Criar conta",
       "lost_password": "Esqueceu sua palavra-passe?",
       "recover_password": "Recuperar palavra-passe"
     },
