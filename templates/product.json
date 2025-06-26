@@ -66,104 +66,6 @@
             "selected_description": "<p>Compra 1 ou mais unidades de produtos da marca <strong>Vitalenzym</strong> e conquista <strong>20% EXTRA</strong>.</p>",
             "selected_modal_description": "Adiciona 1 ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Vitalenzym — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Junho, limitada ao stock existente."
           }
-        },
-        "holiday_3tiYbx": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "01-01",
-            "title": "Ano Novo"
-          }
-        },
-        "holiday_VrpPVH": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "04-03",
-            "title": "Sexta Feira Santa"
-          }
-        },
-        "holiday_gPAcYN": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "04-05",
-            "title": "Páscoa"
-          }
-        },
-        "holiday_cp6XVg": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "04-25",
-            "title": "Dia da Liberdade"
-          }
-        },
-        "holiday_dFiMWN": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "05-01",
-            "title": "Dia do Trabalhador"
-          }
-        },
-        "holiday_c7rUBn": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "06-10",
-            "title": "Dia de Portugal"
-          }
-        },
-        "holiday_fBnyWD": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "06-19",
-            "title": "Corpo de Deus"
-          }
-        },
-        "holiday_TC39CR": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "06-24",
-            "title": "São João"
-          }
-        },
-        "holiday_gbTaPW": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "08-15",
-            "title": "Assunção de Nossa Senhora"
-          }
-        },
-        "holiday_WUaVkm": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "10-05",
-            "title": "Implantação da República"
-          }
-        },
-        "holiday_eMUMLN": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "11-01",
-            "title": "Todos os Santos"
-          }
-        },
-        "holiday_tgyAN9": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "12-01",
-            "title": "Restauração da Independência"
-          }
-        },
-        "holiday_fnfChf": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "12-08",
-            "title": "Imaculada Conceição"
-          }
-        },
-        "holiday_8YhiRJ": {
-          "type": "holiday",
-          "settings": {
-            "holiday_date": "12-25",
-            "title": "Natal"
-          }
         }
       },
       "block_order": [
@@ -171,24 +73,11 @@
         "coupon_iWDRdN",
         "coupon_WRTneq",
         "coupon_C38Njb",
-        "coupon_WWtqpi",
-        "holiday_3tiYbx",
-        "holiday_VrpPVH",
-        "holiday_gPAcYN",
-        "holiday_cp6XVg",
-        "holiday_dFiMWN",
-        "holiday_c7rUBn",
-        "holiday_fBnyWD",
-        "holiday_TC39CR",
-        "holiday_gbTaPW",
-        "holiday_WUaVkm",
-        "holiday_eMUMLN",
-        "holiday_tgyAN9",
-        "holiday_fnfChf",
-        "holiday_8YhiRJ"
+        "coupon_WWtqpi"
       ],
       "settings": {
-        "disclamer_text": "<p>A Bioself Natura Lda não é responsável por eventuais divergências e/ou modificações relacionadas com a informação sobre os produtos presentes no site, facultada pelo fornecedor/fabricante, que figura nos rótulos dos mesmos. Recomendamos, por isso, que leia sempre a informação obrigatória e/ou voluntária constante nos rótulos dos produtos antes de os utilizar ou consumir.</p>"
+        "disclamer_text": "<p>A Bioself Natura Lda não é responsável por eventuais divergências e/ou modificações relacionadas com a informação sobre os produtos presentes no site, facultada pelo fornecedor/fabricante, que figura nos rótulos dos mesmos. Recomendamos, por isso, que leia sempre a informação obrigatória e/ou voluntária constante nos rótulos dos produtos antes de os utilizar ou consumir.</p>",
+        "holidays": "01-01, 04-18, 04-20, 04-25, 05-01, 06-19, 06-10, 06-24, 08-15, 10-05, 11-01, 12-01, 12-08, 12-25"
       }
     },
     "main": {
