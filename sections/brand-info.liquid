@@ -1,54 +1,3 @@
-{% schema %}
-{
-  "name": "Brand info",
-  "settings": [],
-  "presets": [
-    {
-      "name": "Brand info",
-      "category": "collection"
-    }
-  ]
-}
-{% endschema %}
-
-{% if collection.metafields.custom.brand_image %}
-  <section id="custom_brand_info">
-    <img
-      src="{{ collection.metafields.custom.brand_image | img_url: '250x' }}"
-      alt="{% if collection.metafields.custom.brand_title %}{{ collection.metafields.custom.brand_title | split: 'Sobre a ' | last }}{% else %}Logo da marca{% endif %}"
-    >
-
-    <div>
-      {% if collection.metafields.custom.brand_title %}
-        <h1>{{ collection.metafields.custom.brand_title }}</h1>
-      {% endif %}
-
-      {% if collection.metafields.custom.brand_description_2 %}
-        {{ collection.metafields.custom.brand_description_2 | metafield_tag }}
-      {% endif %}
-    </div>
-  </section>
-{% endif %}
-
-{% if collection.metafields.custom.brand_image %}
-  <section id="custom_brand_info_mobile">
-    <img
-      src="{{ collection.metafields.custom.brand_image | img_url: '150x' }}"
-      alt="{% if collection.metafields.custom.brand_title %}{{ collection.metafields.custom.brand_title | split: 'Sobre a ' | last }}{% else %}Logo da marca{% endif %}"
-    >
-
-    <div>
-      {% if collection.metafields.custom.brand_title %}
-        <h1>{{ collection.metafields.custom.brand_title }}</h1>
-      {% endif %}
-
-      {% if collection.metafields.custom.brand_description_2 %}
-        {{ collection.metafields.custom.brand_description_2 | metafield_tag }}
-      {% endif %}
-    </div>
-  </section>
-{% endif %}
-
 <style>
   #custom_brand_info {
     display: grid;
@@ -164,3 +113,54 @@
     }
   }
 </style>
+
+{% if collection.metafields.custom.brand_image %}
+  <section id="custom_brand_info">
+    <img
+      src="{{ collection.metafields.custom.brand_image | img_url: '250x' }}"
+      alt="{% if collection.metafields.custom.brand_title %}{{ collection.metafields.custom.brand_title | split: 'Sobre a ' | last }}{% else %}Logo da marca{% endif %}"
+    >
+
+    <div>
+      {% if collection.metafields.custom.brand_title %}
+        <h1>{{ collection.metafields.custom.brand_title }}</h1>
+      {% endif %}
+
+      {% if collection.metafields.custom.brand_description_2 %}
+        {{ collection.metafields.custom.brand_description_2 | metafield_tag }}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% if collection.metafields.custom.brand_image %}
+  <section id="custom_brand_info_mobile">
+    <img
+      src="{{ collection.metafields.custom.brand_image | img_url: '150x' }}"
+      alt="{% if collection.metafields.custom.brand_title %}{{ collection.metafields.custom.brand_title | split: 'Sobre a ' | last }}{% else %}Logo da marca{% endif %}"
+    >
+
+    <div>
+      {% if collection.metafields.custom.brand_title %}
+        <h1>{{ collection.metafields.custom.brand_title }}</h1>
+      {% endif %}
+
+      {% if collection.metafields.custom.brand_description_2 %}
+        {{ collection.metafields.custom.brand_description_2 | metafield_tag }}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Brand info",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Brand info",
+      "category": "collection"
+    }
+  ]
+}
+{% endschema %}
