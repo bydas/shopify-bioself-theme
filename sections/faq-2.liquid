@@ -295,105 +295,103 @@
 {% endif %}
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const container = document.getElementById("perguntas_frequentes_custom");
+  document.addEventListener('DOMContentLoaded', function () {
+    const container = document.getElementById('perguntas_frequentes_custom');
     const isDesktop = window.innerWidth > 1600;
     const isTablet = window.innerWidth <= 1600 && window.innerWidth >= 1000;
     const isMobile = window.innerWidth < 1000;
 
     if (container) {
-      const lis = container.querySelectorAll("li");
-      const questionBlocks = container.querySelectorAll(".question_custom_block");
+      const lis = container.querySelectorAll('li');
+      const questionBlocks = container.querySelectorAll('.question_custom_block');
 
       questionBlocks.forEach((questionBlock) => {
-        questionBlock.addEventListener("click", function() {
+        questionBlock.addEventListener('click', function () {
           const li = questionBlock.parentElement;
 
           const previousLi = Array.from(lis).find((l) => {
-            const previousAnswerBlock = l.querySelector(".answer_custom_block");
-            return previousAnswerBlock && previousAnswerBlock.style.display === "block" && l !== li;
+            const previousAnswerBlock = l.querySelector('.answer_custom_block');
+            return previousAnswerBlock && previousAnswerBlock.style.display === 'block' && l !== li;
           });
 
-          const img = li.querySelector("img");
-          const answerBlock = li.querySelector(".answer_custom_block");
+          const img = li.querySelector('img');
+          const answerBlock = li.querySelector('.answer_custom_block');
 
           if (answerBlock) {
-            if (answerBlock.style.display === "block") {
+            if (answerBlock.style.display === 'block') {
               img.src = "{{ 'plus_2.svg' | asset_url }}";
-              img.alt = "Ícone de mais";
+              img.alt = 'Ícone de mais';
 
-              li.style.padding = "0";
-              questionBlock.style.padding = isDesktop
-                ? "2rem 0"
-                : isTablet
-                ? "1.5rem 0"
-                : "1rem 0";
+              li.style.padding = '0';
+              questionBlock.style.padding = isDesktop ? '2rem 0' : isTablet ? '1.5rem 0' : '1rem 0';
 
-              answerBlock.style.display = "none";
+              answerBlock.style.display = 'none';
             } else {
               if (previousLi) {
-                const previousIcon = previousLi.querySelector("img");
+                const previousIcon = previousLi.querySelector('img');
                 previousIcon.src = "{{ 'plus_2.svg' | asset_url }}";
-                previousIcon.alt = "Ícone de mais";
+                previousIcon.alt = 'Ícone de mais';
 
-                const openedAnswerBlock = previousLi.querySelector(".answer_custom_block");
-                openedAnswerBlock.style.display = "none";
-              };
+                const openedAnswerBlock = previousLi.querySelector('.answer_custom_block');
+                openedAnswerBlock.style.display = 'none';
+              }
 
               img.src = "{{ 'minus_2.svg' | asset_url }}";
-              img.alt = "Ícone de menos";
+              img.alt = 'Ícone de menos';
 
-              li.style.padding = isDesktop
-                ? "2rem 0"
-                : isTablet
-                ? "1.5rem 0"
-                : "1rem 0";
+              li.style.padding = isDesktop ? '2rem 0' : isTablet ? '1.5rem 0' : '1rem 0';
 
-              questionBlock.style.padding = "0";
-              answerBlock.style.display = "block";
+              questionBlock.style.padding = '0';
+              answerBlock.style.display = 'block';
             }
           }
         });
       });
 
       const alterPaddingOnResize = () => {
-        const answerBlocks = container.querySelectorAll(".answer_custom_block");
+        const answerBlocks = container.querySelectorAll('.answer_custom_block');
 
         answerBlocks.forEach((answerBlock) => {
           const answerBlockFirstElement = answerBlock.firstElementChild;
           const answerBlockLastElement = answerBlock.lastElementChild;
 
-          if (answerBlockLastElement && (answerBlockLastElement.tagName === "UL" || answerBlockLastElement.tagName === "OL")) {
-            answerBlockLastElement.style.marginBottom = "0";
+          if (
+            answerBlockLastElement &&
+            (answerBlockLastElement?.tagName === 'UL' || answerBlockLastElement?.tagName === 'OL')
+          ) {
+            answerBlockLastElement.style.marginBottom = '0';
           }
 
-          if (answerBlockFirstElement && (answerBlockFirstElement.tagName === "UL" || answerBlockFirstElement.tagName === "OL")) {
-            answerBlockFirstElement.style.marginTop = "0";
+          if (
+            answerBlockFirstElement &&
+            (answerBlockFirstElement?.tagName === 'UL' || answerBlockFirstElement?.tagName === 'OL')
+          ) {
+            answerBlockFirstElement.style.marginTop = '0';
           }
         });
-      }
+      };
 
       alterPaddingOnResize();
-      window.addEventListener("resize", alterPaddingOnResize);
+      window.addEventListener('resize', alterPaddingOnResize);
     }
   });
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const answers = document.querySelectorAll(".answer_custom_block");
+  document.addEventListener('DOMContentLoaded', function () {
+    const answers = document.querySelectorAll('.answer_custom_block');
 
     if (answers.length > 0) {
       answers.forEach((answer) => {
-        const ols = answer.querySelectorAll("ol");
+        const ols = answer.querySelectorAll('ol');
 
         if (ols) {
           ols.forEach((ol, index) => {
             if ((index + 1) % 2 === 0) {
               const previousOl = ols[index - 1];
-              const liCount = previousOl.querySelectorAll("li").length;
+              const liCount = previousOl.querySelectorAll('li').length;
 
-              ol.setAttribute("start", liCount + 1);
+              ol.setAttribute('start', liCount + 1);
             }
           });
         }

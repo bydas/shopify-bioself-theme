@@ -829,7 +829,7 @@ document.addEventListener("DOMContentLoaded", function () {
      */
 
     function matchesTag(tagName, element) {
-      return tagName.toLowerCase() === element.tagName.toLowerCase()
+      return tagName?.toLowerCase() === element?.tagName?.toLowerCase()
     }
     /**
      * Check whether an element
@@ -16108,13 +16108,13 @@ document.addEventListener("DOMContentLoaded", function () {
               ) {
                 tagElement.classList.add("is-selected")
 
-                if (tagElement.tagName === "INPUT") {
+                if (tagElement?.tagName === "INPUT") {
                   tagElement.checked = true
                 }
               } else {
                 tagElement.classList.remove("is-selected")
 
-                if (tagElement.tagName === "INPUT") {
+                if (tagElement?.tagName === "INPUT") {
                   tagElement.checked = false
                 }
               }
