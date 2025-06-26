@@ -193,6 +193,9 @@
   }
 </style>
 
+{% assign alt_payments = 'mbway,multibanco' | split: ',' %}
+{% assign new_payments = shop.enabled_payment_types | concat: alt_payments %}
+
 <section id="custom_last_footer">
   <div id="footer_top_block">
     {% if section.settings.image and section.settings.image_url %}
@@ -217,10 +220,7 @@
     </div>
   </div>
 
-  {% unless shop.enabled_payment_types.size == 0 %}
-    {% assign alt_payments = 'mbway,multibanco' | split: ',' %}
-    {% assign new_payments = shop.enabled_payment_types | concat: alt_payments %}
-
+  {% unless new_payments == 0 %}
     <ul>
       {% for payment in new_payments %}
         <li>
@@ -232,9 +232,9 @@
 </section>
 
 <section id="custom_last_footer_mobile">
-  {% unless shop.enabled_payment_types.size == 0 %}
+  {% unless new_payments == 0 %}
     <ul>
-      {% for payment in shop.enabled_payment_types %}
+      {% for payment in new_payments %}
         <li>
           {{ payment | payment_type_svg_tag }}
         </li>
