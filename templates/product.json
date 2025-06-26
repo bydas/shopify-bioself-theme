@@ -12,6 +12,20 @@
     "product_custom_Aibztd": {
       "type": "product_custom",
       "blocks": {
+        "icon_R6KTjY": {
+          "type": "icon",
+          "settings": {
+            "product_icon": "shopify://shop_images/ChemicalFree.png",
+            "title": "ChemicalFree"
+          }
+        },
+        "icon_piYrtJ": {
+          "type": "icon",
+          "settings": {
+            "product_icon": "shopify://shop_images/CrueltyFree.png",
+            "title": "CrueltyFree"
+          }
+        },
         "coupon_NqxtrQ": {
           "type": "coupon",
           "settings": {
@@ -69,6 +83,8 @@
         }
       },
       "block_order": [
+        "icon_R6KTjY",
+        "icon_piYrtJ",
         "coupon_NqxtrQ",
         "coupon_iWDRdN",
         "coupon_WRTneq",
