@@ -220,7 +220,7 @@
     </div>
   </div>
 
-  {% unless new_payments == 0 %}
+  {% unless new_payments.size == 0 %}
     <ul>
       {% for payment in new_payments %}
         <li>
@@ -232,7 +232,7 @@
 </section>
 
 <section id="custom_last_footer_mobile">
-  {% unless new_payments == 0 %}
+  {% unless new_payments.size == 0 %}
     <ul>
       {% for payment in new_payments %}
         <li>
