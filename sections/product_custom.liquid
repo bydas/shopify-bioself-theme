@@ -6,6 +6,12 @@
       "type": "richtext",
       "id": "disclamer_text",
       "label": "Descrição do disclamer"
+    },
+    {
+      "type": "text",
+      "id": "holidays",
+      "label": "Feriados",
+      "info": "Formato mês-dia, e separado por vírgulas, ex.: 01-01, 06-10, 12-25"
     }
   ],
   "blocks": [
@@ -47,19 +53,18 @@
       ]
     },
     {
-      "type": "holiday",
-      "name": "Feriado",
+      "type": "icon",
+      "name": "Ícone",
       "settings": [
         {
-          "type": "text",
-          "id": "holiday_date",
-          "label": "Data (MM-DD)",
-          "info": "Formato mês-dia, ex.: “06-10” para 10 de Junho"
+          "type": "image_picker",
+          "id": "product_icon",
+          "label": "Imagem"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Nome do feriado"
+          "label": "Referência (ChemicalFree, CrueltyFree..)"
         }
       ]
     }
@@ -79,19 +84,14 @@
 <script>
   const fullfillDeliveryText = (dateEls, timeEls) => {
     const now = new Date();
+    {% assign holidays_array = section.settings.holidays | split: ', ' %}
 
     const fixedHolidays = [
-      {% for block in section.blocks %}
-        {% if block.type == 'holiday' %}
-          {
-            date: '{{ block.settings.holiday_date }}',
-            title: '{{ block.settings.title | escape }}'
-          },
-        {% endif %}
+      {% for holiday in holidays_array %}
+        { date: '{{ holiday }}' },
       {% endfor %}
     ];
 
-    // Cálculo da Páscoa (algoritmo de Gauss)
     const calculateEaster = (year) => {
       const a = year % 19;
       const b = Math.floor(year / 100);
@@ -110,12 +110,9 @@
       return new Date(year, n - 1, p + 1);
     };
 
-    // Verifica se é feriado
     const isHoliday = (date) => {
       const year = date.getFullYear();
       const monthDay = String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-
-      console.log(fixedHolidays)
 
       if (fixedHolidays.some(h => h.date === monthDay)) return true;
 
@@ -127,13 +124,11 @@
       return t === goodFriday || t === corpusChristi;
     };
 
-    // Verifica se é dia útil (não fim de semana nem feriado)
     const isBusinessDay = (date) => {
       const d = date.getDay();
       return d !== 0 && d !== 6 && !isHoliday(date);
     };
 
-    // Próximo dia útil
     const getNextBusinessDay = (date) => {
       const next = new Date(date);
       next.setDate(next.getDate() + 1);
@@ -143,10 +138,8 @@
       return next;
     };
 
-    // Obter data de entrega
     const deliveryDate = getNextBusinessDay(now);
 
-    // Determinar momento limite de encomenda
     let cutoffMoment;
     const todayIsBiz = isBusinessDay(now);
     if (todayIsBiz) {
@@ -155,22 +148,18 @@
       if (now.getTime() <= todayCutoff.getTime()) {
         cutoffMoment = todayCutoff;
       } else {
-        // passou das 16h, usa 16h do próximo dia útil
         cutoffMoment = new Date(deliveryDate);
         cutoffMoment.setHours(16, 0, 0, 0);
       }
     } else {
-      // fim de semana ou feriado: sempre 16h do próximo dia útil
       cutoffMoment = new Date(deliveryDate);
       cutoffMoment.setHours(16, 0, 0, 0);
     }
 
-    // Preencher nome do dia de entrega
     const weekdayRaw = deliveryDate.toLocaleDateString('pt-PT', { weekday: 'long' });
     const weekday = weekdayRaw.charAt(0).toUpperCase() + weekdayRaw.slice(1);
     dateEls.forEach((el) => (el.textContent = weekday));
 
-    // Calcular diferença
     const diffMs = cutoffMoment - now;
     const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
     const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
@@ -270,6 +259,14 @@
       font-size: 0.75rem !important;
     }
 
+    #product_page_custom > section > div > div > div {
+      gap: 1rem !important;
+    }
+
+    .swym-btn-container .swym-button:after {
+      font-size: 20px !important;
+    }
+
     .img_favorite_custom > img,
     .img_favorite_custom > .mobile_img_icon_wrapper > img {
       max-width: 300px !important;
@@ -291,6 +288,11 @@
     #oferta_product_custom > li > span,
     .delivery_wrapper_custom > span {
       font-size: 0.75rem !important;
+    }
+
+    #product-icons-block > li > img {
+      width: 50px !important;
+      height: 50px !important;
     }
 
     #indicacoes_list_custom > ul > li,
@@ -551,7 +553,8 @@
 
   #product_page_custom > section > div > div > div {
     display: grid;
-    grid-template-rows: repeat(2, max-content);
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
@@ -713,6 +716,21 @@
   #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > #percentage_custom,
   #product_page_custom_mobile > #custom_wrapper_content > #price_percentage_modal > span {
     font-size: 13px;
+  }
+
+  #product-icons-block {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, max-content));
+    gap: 0.5rem;
+  }
+
+  #product-icons-block > li {
+    display: grid;
+  }
+
+  #product-icons-block > li > img {
+    width: 70px;
+    height: 70px;
   }
 
   #product_page_custom_mobile > aside {
@@ -1080,6 +1098,10 @@
       width: 250px;
     }
 
+    #product-icons-block {
+      justify-content: center;
+    }
+
     #related_products_custom > h1 {
       font-size: 1rem;
     }
@@ -1247,6 +1269,8 @@
 {% assign composicao_nutricional = product.description | split: '[Composição Nutricional]' | slice: 1, 1 %}
 {% assign ingredientes = product.description | split: '[Ingredientes]' | slice: 1, 1 %}
 {% assign utilizacao = product.description | split: '[Modo de Utilização]' | slice: 1, 1 %}
+{% assign blocos_icon = section.blocks | where: 'type', 'icon' %}
+{% assign titulos_phc = product.metafields.PHC.icons.value %}
 
 <main id="product_page_custom">
   <ul id="product_page_breadcrumbs">
@@ -1271,7 +1295,7 @@
     {% else %}
       {% if product.collections.size > 0 %}
         <li>
-          <a class="link_collection" href="/collections/{{ product.collections.first.handle }}">
+          <a class="link_collection" href="{{ routes.collections_url }}/{{ product.collections.first.handle }}">
             {{- product.collections.first.title -}}
           </a>
         </li>
@@ -1350,7 +1374,7 @@
               </a>
             {% else %}
               {% if product.collections.size > 0 %}
-                <a class="link_collection" href="/collections/{{ product.collections.first.handle }}">
+                <a class="link_collection" href="{{ routes.collections_url }}/{{ product.collections.first.handle }}">
                   {{- product.collections.first.title -}}
                 </a>
               {% endif %}
@@ -1368,6 +1392,24 @@
 
             {{ indicacoes }}
           </div>
+
+          {% unless titulos_phc.size == 0 %}
+            <ul id="product-icons-block">
+              {% for icon in blocos_icon %}
+                {% if titulos_phc contains icon.settings.title %}
+                  <li>
+                    <img
+                      src="{{ icon.settings.product_icon | image_url: width: 70, height: 70 }}"
+                      alt="{{ icon.settings.title }}"
+                      title="{{ icon.settings.title }}"
+                      width="70"
+                      height="70"
+                    >
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endunless %}
         </div>
       </div>
 
@@ -1722,7 +1764,7 @@
       </a>
     {% else %}
       {% if product.collections.size > 0 %}
-        <a class="link_collection" href="/collections/{{ product.collections.first.handle }}">
+        <a class="link_collection" href="{{ routes.collections_url }}/{{ product.collections.first.handle }}">
           {{- product.collections.first.title -}}
         </a>
       {% endif %}
@@ -1954,6 +1996,24 @@
       </div>
     {% endif %}
   </aside>
+
+  {% unless titulos_phc.size == 0 %}
+    <ul id="product-icons-block">
+      {% for icon in blocos_icon %}
+        {% if titulos_phc contains icon.settings.title %}
+          <li>
+            <img
+              src="{{ icon.settings.product_icon | image_url: width: 70, height: 70 }}"
+              alt="{{ icon.settings.title }}"
+              title="{{ icon.settings.title }}"
+              width="70"
+              height="70"
+            >
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endunless %}
 
   <ul id="product_description_custom">
     {% if indicacoes != blank %}
