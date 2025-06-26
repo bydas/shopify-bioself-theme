@@ -78,7 +78,7 @@
 }
 {% endschema %}
 
-{% assign product_images = product.images %}
+{% assign product_images = product.images | reverse %}
 {% assign current_image = product_images.first %}
 
 <script>
