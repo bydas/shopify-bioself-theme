@@ -218,8 +218,11 @@
   </div>
 
   {% unless shop.enabled_payment_types.size == 0 %}
+    {% assign alt_payments = 'mbway,multibanco' | split: ',' %}
+    {% assign new_payments = shop.enabled_payment_types | concat: alt_payments %}
+
     <ul>
-      {% for payment in shop.enabled_payment_types %}
+      {% for payment in new_payments %}
         <li>
           {{ payment | payment_type_svg_tag }}
         </li>
