@@ -17,6 +17,7 @@
 }
 {% endschema %}
 
+{% assign marca_section = linklists['2024-dev-menu'].links | where: 'title', 'Marcas' | first %}
 {% assign sorted_brands = linklists['pagina-marcas'].links | sort: 'title' %}
 
 <style>
@@ -248,29 +249,32 @@
   {%- assign used_letters = '' -%}
 
   <ul id="marcas_images_custom">
-    {%- assign image_count = 0 -%}
+    {% for marca in marca_section.links %}
+      {% assign marca_url = marca.url | split: '/' | last %}
+      {% assign collection_handle = collections[marca.handle] %}
+      {% assign collections_url = collections[marca_url] %}
 
-    {% for marca in sorted_brands %}
-      {% assign image_url = collections[marca.handle].image.src | downcase %}
-
-      {% if image_url contains '.gif' %}
-        {% assign wrong_format = true %}
-      {% else %}
-        {% assign wrong_format = false %}
-      {% endif %}
-
-      {% unless image_url == empty or wrong_format %}
-        <a href="{{ collections[marca.handle].url }}">
-          <li>
-            <img loading="lazy" src="{{ collections[marca.handle].image | img_url: 'master' }}" alt="{{ marca.title }}">
-          </li>
-        </a>
-        {%- assign image_count = image_count | plus: 1 -%}
-
-        {% if image_count == 10 %}
-          {% break %}
-        {% endif %}
-      {% endunless %}
+      <a href="{{ marca.url }}" title="{{ marca.title }}">
+        <li>
+          {% if collections_url.image %}
+            <img
+              loading="lazy"
+              src="{{ collections_url.image.src | image_url: width: '225', height: '100' }}"
+              alt="{{ marca.title }}"
+              width="225"
+              height="100"
+            >
+          {% else %}
+            <img
+              loading="lazy"
+              src="{{ collection_handle.image.src | image_url: width: '225', height: '100' }}"
+              alt="{{ marca.title }}"
+              width="225"
+              height="100"
+            >
+          {% endif %}
+        </li>
+      </a>
     {% endfor %}
   </ul>
 

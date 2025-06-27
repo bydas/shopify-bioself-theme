@@ -78,9 +78,6 @@
 }
 {% endschema %}
 
-{% assign product_images = product.images | reverse %}
-{% assign current_image = product_images.first %}
-
 <script>
   const fullfillDeliveryText = (dateEls, timeEls) => {
     const now = new Date();
@@ -169,6 +166,77 @@
     const diffText = parts.join(' e ') || '0 min';
     timeEls.forEach((el) => (el.textContent = diffText));
   };
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const productImages = {{ product.images | json }};
+
+    if (productImages.length > 1) {
+      const getNum = url => {
+        const m = url.match(/-(\d+)\.[^/.]+(?:\?.*)?$/);
+        return m ? parseInt(m[1], 10) : 0;
+      };
+      
+      const sortedImages = productImages
+        .slice()
+        .sort((a, b) => getNum(a) - getNum(b));
+      
+      const containers = [
+        { el: document.getElementById("product_page_custom"),      thumbClass: "thumbnail-product" },
+        { el: document.getElementById("product_page_custom_mobile"), thumbClass: "thumbnail-product-mobile" }
+      ];
+      
+      containers.forEach(({ el, thumbClass }) => {
+        if (!el) {
+          console.warn(`Container com thumbClass="${thumbClass}" não encontrado.`);
+          return;
+        }
+        
+        const galleryWrappers = el.querySelectorAll(".images_wrapper");
+        const currentWrappers = el.querySelectorAll(".mobile_img_icon_wrapper");
+        
+        sortedImages.forEach((imgUrl, index) => {
+          const imgEl = document.createElement("img");
+          imgEl.src     = imgUrl;
+          imgEl.alt     = `Imagem do produto #${index + 1}`;
+          imgEl.loading = "eager";
+          imgEl.classList.add(thumbClass);
+          
+          galleryWrappers.forEach(w => w.appendChild(imgEl));
+          
+          if (index === 0) {
+            const mainImg = imgEl.cloneNode(true);
+            mainImg.id = thumbClass === "thumbnail-product-mobile"
+              ? "main-image-product-mobile"
+              : "main-image-product";
+            mainImg.classList.remove(thumbClass);
+            currentWrappers.forEach(w => w.insertAdjacentElement("afterbegin", mainImg));
+          }
+        });
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const thumbnails = document.querySelectorAll('.img_favorite_custom .thumbnail-product');
+    const mainImage = document.getElementById('main-image-product');
+
+    function setAsMain(event) {
+      const novaSrc = event.currentTarget.getAttribute('src');
+      mainImage.setAttribute('src', novaSrc);
+
+      const novoAlt = event.currentTarget.getAttribute('alt');
+      mainImage.setAttribute('alt', novoAlt);
+    }
+
+    thumbnails.forEach(function (thumb) {
+      thumb.addEventListener('click', setAsMain);
+      thumb.addEventListener('mouseenter', setAsMain);
+    });
+  });
 </script>
 
 <style>
@@ -1315,54 +1383,24 @@
     <div>
       <div>
         <section class="img_favorite_custom">
-          {% unless product_images.size < 2 %}
-            <div class="images_wrapper">
-              {% for image in product_images %}
-                <img
-                  src="{{ image | img_url: 'master' }}"
-                  alt="{{ product.title }} - imagem {{ forloop.index }}"
-                  loading="eager"
-                  width="auto"
-                  height="auto"
-                  class="thumbnail-product"
-                >
-              {% endfor %}
-            </div>
+          {% unless product.images.size < 2 %}
+            <div class="images_wrapper"></div>
           {% endunless %}
 
           <div class="mobile_img_icon_wrapper">
-            <img
-              src="{{ current_image | img_url: 'master' }}"
-              alt="{{ product.title }} - imagem principal"
-              loading="eager"
-              width="auto"
-              height="auto"
-              id="main-image-product"
-            >
-
+            {% unless product.images.size > 1 %}
+              <img
+                src="{{ product.images.first.src | img_url: 'master' }}"
+                alt="{{ product.title }} - imagem principal"
+                loading="eager"
+                width="auto"
+                height="auto"
+                id="main-image-product"
+              >
+            {% endunless %}
             <div class="favorite_icon_wrapper"></div>
           </div>
         </section>
-
-        <script>
-          document.addEventListener('DOMContentLoaded', function () {
-            const thumbnails = document.querySelectorAll('.img_favorite_custom .thumbnail-product');
-            const mainImage = document.getElementById('main-image-product');
-
-            function setAsMain(event) {
-              const novaSrc = event.currentTarget.getAttribute('src');
-              mainImage.setAttribute('src', novaSrc);
-
-              const novoAlt = event.currentTarget.getAttribute('alt');
-              mainImage.setAttribute('alt', novoAlt);
-            }
-
-            thumbnails.forEach(function (thumb) {
-              thumb.addEventListener('click', setAsMain);
-              thumb.addEventListener('mouseenter', setAsMain);
-            });
-          });
-        </script>
 
         <div>
           <div>
@@ -1640,7 +1678,7 @@
         {% else %}
           <a
             href="#"
-            class="SI_trigger {{ quick_buy_classes }} notify_button_collection"
+            class="SI_trigger notify_button_collection"
             style="background-color: #74797F !important;"
             data-product-data="{{ product | json | escape }}"
           >
@@ -1707,31 +1745,22 @@
 <main id="product_page_custom_mobile">
   <section class="img_favorite_custom">
     <div class="mobile_img_icon_wrapper">
-      <img
-        src="{{ current_image | img_url: 'master' }}"
-        alt="{{ product.title }} - imagem principal"
-        loading="eager"
-        width="auto"
-        height="auto"
-        id="main-image-product-mobile"
-      >
+      {% unless product.images.size > 1 %}
+        <img
+          src="{{ product.images.first.src | img_url: 'master' }}"
+          alt="{{ product.title }} - imagem principal"
+          loading="eager"
+          width="auto"
+          height="auto"
+          id="main-image-product-mobile"
+        >
+      {% endunless %}
 
       <div class="favorite_icon_wrapper"></div>
     </div>
 
-    {% unless product_images.size < 2 %}
-      <div class="images_wrapper">
-        {% for image in product_images %}
-          <img
-            src="{{ image | img_url: 'master' }}"
-            alt="{{ product.title }} - imagem {{ forloop.index }}"
-            loading="eager"
-            width="auto"
-            height="auto"
-            class="thumbnail-product-mobile"
-          >
-        {% endfor %}
-      </div>
+    {% unless product.images.size < 2 %}
+      <div class="images_wrapper"></div>
     {% endunless %}
   </section>
 
@@ -1951,7 +1980,7 @@
       {% else %}
         <a
           href="#"
-          class="SI_trigger {{ quick_buy_classes }} notify_button_collection"
+          class="SI_trigger notify_button_collection"
           style="background-color: #74797F !important;"
           data-product-data="{{ product | json | escape }}"
         >
@@ -2440,4 +2469,5 @@
 <script
   charset="utf-8"
   src="https://cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/AWS/PRODUCT_API/tag.min.js"
+  defer
 ></script>
