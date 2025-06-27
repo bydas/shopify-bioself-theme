@@ -54,7 +54,13 @@ Disallow: /.well-known/shopify/monorail
 Disallow: /cdn/wpm/*.js
 Disallow: /recommendations/products
 Disallow: /*/recommendations/products
-Sitemap: https://www.bioself.pt/sitemap.xml
+
+# Bloqueia qualquer URL que comece por /sitemap_products_ e termine em .xml, incluindo os parâmetros variáveis
+Disallow: /sitemap_products_*.xml
+# Sitemap principal (índice)
+Sitemap: https://bioself.pt/sitemap.xml
+# Sitemap personalizado de produtos para usar no robots.txt
+Sitemap: https://bioself.apps.bydas.com/?action=bioself_sitemap
 
 User-agent: adsbot-google
 Disallow: /checkouts/
