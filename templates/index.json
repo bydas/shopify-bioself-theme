@@ -15,8 +15,8 @@
         "slide_QxyQWn": {
           "type": "slide",
           "settings": {
-            "image_desktop": "shopify://shop_images/banner-bioself-junho-2025.png",
-            "image_mobile": "shopify://shop_images/banner-bioself-mobile-junho-2025.png",
+            "image_desktop": "shopify://shop_images/banner-julho-2025-bioself-desktop.png",
+            "image_mobile": "shopify://shop_images/banner-julho-2025-bioself-mobile.png",
             "link": "shopify://collections/shop"
           }
         },
@@ -118,17 +118,6 @@
       ],
       "settings": {}
     },
-    "products_collection_with_image_AhgAw9": {
-      "type": "products-collection-with-image",
-      "settings": {
-        "selected_section_title": "Lucidus: ativa a tua mente!",
-        "selected_product": "farmodietica-lucidus-extra-forte-30-ampolas",
-        "selected_product_image": "shopify://shop_images/Lucidus-Extra-Forte-sem-fundo.png",
-        "desktop_image": "shopify://shop_images/Memoria_Destaque_Desktop.jpg",
-        "mobile_image": "shopify://shop_images/Memoria_Destaque_Mobile.jpg",
-        "collection": "lucidus"
-      }
-    },
     "collection_campanhas_2_tndV7M": {
       "type": "collection-campanhas-2",
       "disabled": true,
@@ -167,12 +156,24 @@
     "product_collection_list_custom_yfhcVR": {
       "type": "product-collection-list-custom",
       "settings": {
-        "selected_collection": "florais-bach",
-        "title_collection": "Florais de Bach: Equilíbrio Emocional!"
+        "selected_collection": "auri-foods",
+        "title_collection": "Auri Foods: vive com mais vitalidade!"
+      }
+    },
+    "products_collection_with_image_AhgAw9": {
+      "type": "products-collection-with-image",
+      "settings": {
+        "selected_section_title": "Ansioval: serenidade no teu dia!",
+        "selected_product": "farmodietica-ansioval-relax-30-ampolas-5601653017480",
+        "selected_product_image": "shopify://shop_images/ansioval-relax-30-ampolas.png",
+        "desktop_image": "shopify://shop_images/ansiedade_desktop_ad4e6d1e-bc86-4c83-aeb0-6d67c530617b.png",
+        "mobile_image": "shopify://shop_images/ansiedade_mobile_48fa4159-b941-446e-b7d7-11cb80fc4d2f.png",
+        "collection": "ansioval"
       }
     },
     "collection_campanhas_3_t96Pgd": {
       "type": "collection-campanhas-3",
+      "disabled": true,
       "settings": {
         "selected_title": "Mais Vitalidade, Mais Poupança!",
         "image_1_desktop": "shopify://shop_images/Nutridil_780500.png",
@@ -186,8 +187,8 @@
     "product_collection_list_custom_Tb94AX": {
       "type": "product-collection-list-custom",
       "settings": {
-        "selected_collection": "naturmil",
-        "title_collection": "Naturmil: O Melhor da Natureza!"
+        "selected_collection": "drenalight",
+        "title_collection": "Drenalight: ativa a tua leveza!"
       }
     },
     "bioself_blog_tnVbj3": {
@@ -445,10 +446,10 @@
     "slideshow_custom_AiKNbT",
     "collection_images_slideshow_custom_KbWJmY",
     "collection_list_2_BYnyXr",
-    "products_collection_with_image_AhgAw9",
     "collection_campanhas_2_tndV7M",
     "collection_campanhas_1_iQwbFn",
     "product_collection_list_custom_yfhcVR",
+    "products_collection_with_image_AhgAw9",
     "collection_campanhas_3_t96Pgd",
     "product_collection_list_custom_Tb94AX",
     "bioself_blog_tnVbj3",
