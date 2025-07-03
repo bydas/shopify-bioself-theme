@@ -169,57 +169,6 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const productImages = {{ product.images | json }};
-
-    if (productImages.length > 1) {
-      const getNum = url => {
-        const m = url.match(/-(\d+)\.[^/.]+(?:\?.*)?$/);
-        return m ? parseInt(m[1], 10) : 0;
-      };
-      
-      const sortedImages = productImages
-        .slice()
-        .sort((a, b) => getNum(a) - getNum(b));
-      
-      const containers = [
-        { el: document.getElementById("product_page_custom"),      thumbClass: "thumbnail-product" },
-        { el: document.getElementById("product_page_custom_mobile"), thumbClass: "thumbnail-product-mobile" }
-      ];
-      
-      containers.forEach(({ el, thumbClass }) => {
-        if (!el) {
-          console.warn(`Container com thumbClass="${thumbClass}" não encontrado.`);
-          return;
-        }
-        
-        const galleryWrappers = el.querySelectorAll(".images_wrapper");
-        const currentWrappers = el.querySelectorAll(".mobile_img_icon_wrapper");
-        
-        sortedImages.forEach((imgUrl, index) => {
-          const imgEl = document.createElement("img");
-          imgEl.src     = imgUrl;
-          imgEl.alt     = `Imagem do produto #${index + 1}`;
-          imgEl.loading = "eager";
-          imgEl.classList.add(thumbClass);
-          
-          galleryWrappers.forEach(w => w.appendChild(imgEl));
-          
-          if (index === 0) {
-            const mainImg = imgEl.cloneNode(true);
-            mainImg.id = thumbClass === "thumbnail-product-mobile"
-              ? "main-image-product-mobile"
-              : "main-image-product";
-            mainImg.classList.remove(thumbClass);
-            currentWrappers.forEach(w => w.insertAdjacentElement("afterbegin", mainImg));
-          }
-        });
-      });
-    }
-  });
-</script>
-
-<script>
   document.addEventListener('DOMContentLoaded', function () {
     const thumbnails = document.querySelectorAll('.img_favorite_custom .thumbnail-product');
     const mainImage = document.getElementById('main-image-product');
@@ -1384,20 +1333,30 @@
       <div>
         <section class="img_favorite_custom">
           {% unless product.images.size < 2 %}
-            <div class="images_wrapper"></div>
+            <div class="images_wrapper">
+              {% for image in product.images %}
+                <img
+                  src="{{ image | img_url: 'master' }}"
+                  alt="{{ product.title }} - imagem {{ forloop.index }}"
+                  loading="eager"
+                  width="auto"
+                  height="auto"
+                  class="thumbnail-product"
+                >
+              {% endfor %}
+            </div>
           {% endunless %}
 
           <div class="mobile_img_icon_wrapper">
-            {% unless product.images.size > 1 %}
-              <img
-                src="{{ product.images.first.src | img_url: 'master' }}"
-                alt="{{ product.title }} - imagem principal"
-                loading="eager"
-                width="auto"
-                height="auto"
-                id="main-image-product"
-              >
-            {% endunless %}
+            <img
+              src="{{ product.featured_image | img_url: 'master' }}"
+              alt="{{ product.title }} - imagem principal"
+              loading="eager"
+              width="auto"
+              height="auto"
+              id="main-image-product"
+            >
+
             <div class="favorite_icon_wrapper"></div>
           </div>
         </section>
@@ -1745,26 +1704,37 @@
 <main id="product_page_custom_mobile">
   <section class="img_favorite_custom">
     <div class="mobile_img_icon_wrapper">
-      {% unless product.images.size > 1 %}
-        <img
-          src="{{ product.images.first.src | img_url: 'master' }}"
-          alt="{{ product.title }} - imagem principal"
-          loading="eager"
-          width="auto"
-          height="auto"
-          id="main-image-product-mobile"
-        >
-      {% endunless %}
+      <img
+        src="{{ product.featured_image | img_url: 'master' }}"
+        alt="{{ product.title }} - imagem principal"
+        loading="eager"
+        width="auto"
+        height="auto"
+        id="main-image-product-mobile"
+      >
 
       <div class="favorite_icon_wrapper"></div>
     </div>
 
     {% unless product.images.size < 2 %}
-      <div class="images_wrapper"></div>
+      <div class="images_wrapper">
+        {% for image in product.images %}
+          <img
+            src="{{ image | img_url: 'master' }}"
+            alt="{{ product.title }} - imagem {{ forloop.index }}"
+            loading="eager"
+            width="auto"
+            height="auto"
+            class="thumbnail-product-mobile"
+          >
+        {% endfor %}
+      </div>
     {% endunless %}
   </section>
 
   <script>
+    console.log({{ product.metafields.PHC | json }})
+
     document.addEventListener('DOMContentLoaded', function () {
       const thumbnails = document.querySelectorAll('.img_favorite_custom .thumbnail-product-mobile');
       const mainImage = document.getElementById('main-image-product-mobile');
