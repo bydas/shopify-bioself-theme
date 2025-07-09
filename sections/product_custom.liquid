@@ -729,11 +729,6 @@
     display: grid;
   }
 
-  #product-icons-block > li > img {
-    width: 70px;
-    height: 70px;
-  }
-
   #product_page_custom_mobile > aside {
     display: grid;
     grid-auto-rows: max-content;
@@ -1379,11 +1374,11 @@
                 {% if titulos_phc contains icon.referencia %}
                   <li>
                     <img
-                      src="{{ icon.icone | image_url: width: 70, height: 70 }}"
+                      src="{{ icon.icone | image_url: width: 90, height: 90 }}"
                       alt="{{ icon.referencia }}"
                       title="{{ icon.referencia }}"
-                      width="70"
-                      height="70"
+                      width="90"
+                      height="90"
                     >
                   </li>
                 {% endif %}
@@ -1983,11 +1978,11 @@
         {% if titulos_phc contains icon.referencia %}
           <li>
             <img
-              src="{{ icon.icone | image_url: width: 70, height: 70 }}"
+              src="{{ icon.icone | image_url: width: 90, height: 90 }}"
               alt="{{ icon.referencia }}"
               title="{{ icon.referencia }}"
-              width="70"
-              height="70"
+              width="90"
+              height="90"
             >
           </li>
         {% endif %}
