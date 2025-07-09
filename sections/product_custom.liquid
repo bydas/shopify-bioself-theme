@@ -1979,13 +1979,13 @@
 
   {% unless titulos_phc.size == 0 %}
     <ul id="product-icons-block">
-      {% for icon in blocos_icon %}
-        {% if titulos_phc contains icon.settings.title %}
+      {% for icon in metaobjects.iconografia.values %}
+        {% if titulos_phc contains icon.referencia %}
           <li>
             <img
-              src="{{ icon.settings.product_icon | image_url: width: 70, height: 70 }}"
-              alt="{{ icon.settings.title }}"
-              title="{{ icon.settings.title }}"
+              src="{{ icon.icone | image_url: width: 70, height: 70 }}"
+              alt="{{ icon.referencia }}"
+              title="{{ icon.referencia }}"
               width="70"
               height="70"
             >
