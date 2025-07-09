@@ -1,7 +1,37 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-342178610"></script>
+
+    <script>
+      if (!localStorage.getItem('shopify_consent')) {
+        localStorage.setItem('shopify_consent', 'denied');
+      }
+
+      gtag('consent', 'default', {
+        ad_storage: localStorage.getItem('shopify_consent'),
+        analytics_storage: localStorage.getItem('shopify_consent'),
+        functionality_storage: 'granted',
+        personalization_storage: localStorage.getItem('shopify_consent'),
+        security_storage: 'granted',
+      });
+    </script>
+
     {% style %}
+      .shopify-pc__prefs__overlay {
+        display: none;
+      }
+
       @font-face {
         font-family: 'Red Hat Display';
         src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Light.woff2?v=1740479613')
@@ -249,17 +279,6 @@
       })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
     </script>
 
-    <script>
-      window.uetq = window.uetq || [];
-
-      var consent = localStorage.getItem('shopify_consent');
-      var adStorageDefault = consent === 'granted' ? 'granted' : 'denied';
-
-      window.uetq.push('consent', 'default', {
-        ad_storage: adStorageDefault,
-      });
-    </script>
-
     {%- capture seo_page_title -%}
       {%- if request.page_type == 'search' and search.terms != blank -%}
         {{ search.terms | split: ' AND ' | last | split: 'product_type:' | last }} - {{ shop.name }}
@@ -459,10 +478,12 @@
             if (entry.isIntersecting) {
               const element = entry.target;
               const bgUrl = element.getAttribute('data-bg');
+
               if (bgUrl) {
                 element.style.backgroundImage = `url('${bgUrl}')`;
                 element.removeAttribute('data-bg');
               }
+
               observer.unobserve(element);
             }
           });
@@ -516,14 +537,15 @@
 
     <script>
       window.addEventListener('click', function (e) {
-        const elementId = e.target.getAttribute('id');
+        const btnIds = ['shopify-pc__banner__btn-accept', 'shopify-pc__prefs__header-accept'];
 
-        if (elementId === 'shopify-pc__banner__btn-accept' || elementId === 'shopify-pc__prefs__header-accept') {
+        if (btnIds.includes(e.target.id)) {
           localStorage.setItem('shopify_consent', 'granted');
 
-          window.uetq = window.uetq || [];
-          window.uetq.push('consent', 'update', {
+          gtag('consent', 'update', {
             ad_storage: 'granted',
+            analytics_storage: 'granted',
+            personalization_storage: 'granted',
           });
         }
       });

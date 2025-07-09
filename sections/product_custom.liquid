@@ -51,22 +51,6 @@
           "label": "Descrição da informação adicional"
         }
       ]
-    },
-    {
-      "type": "icon",
-      "name": "Ícone",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "product_icon",
-          "label": "Imagem"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Referência (ChemicalFree, CrueltyFree..)"
-        }
-      ]
     }
   ],
   "presets": [
@@ -1286,8 +1270,7 @@
 {% assign composicao_nutricional = product.description | split: '[Composição Nutricional]' | slice: 1, 1 %}
 {% assign ingredientes = product.description | split: '[Ingredientes]' | slice: 1, 1 %}
 {% assign utilizacao = product.description | split: '[Modo de Utilização]' | slice: 1, 1 %}
-{% assign blocos_icon = section.blocks | where: 'type', 'icon' %}
-{% assign titulos_phc = product.metafields.PHC.icons.value %}
+{% assign titulos_phc = product.description | split: '[Iconografia]' | slice: 1, 1 | first %}
 
 <main id="product_page_custom">
   <ul id="product_page_breadcrumbs">
@@ -1392,13 +1375,13 @@
 
           {% unless titulos_phc.size == 0 %}
             <ul id="product-icons-block">
-              {% for icon in blocos_icon %}
-                {% if titulos_phc contains icon.settings.title %}
+              {% for icon in metaobjects.iconografia.values %}
+                {% if titulos_phc contains icon.referencia %}
                   <li>
                     <img
-                      src="{{ icon.settings.product_icon | image_url: width: 70, height: 70 }}"
-                      alt="{{ icon.settings.title }}"
-                      title="{{ icon.settings.title }}"
+                      src="{{ icon.icone | image_url: width: 70, height: 70 }}"
+                      alt="{{ icon.referencia }}"
+                      title="{{ icon.referencia }}"
                       width="70"
                       height="70"
                     >
@@ -1733,8 +1716,6 @@
   </section>
 
   <script>
-    console.log({{ product.metafields.PHC | json }})
-
     document.addEventListener('DOMContentLoaded', function () {
       const thumbnails = document.querySelectorAll('.img_favorite_custom .thumbnail-product-mobile');
       const mainImage = document.getElementById('main-image-product-mobile');
