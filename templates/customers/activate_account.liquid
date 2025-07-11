@@ -1,8 +1,15 @@
 {% form 'activate_customer_password' %}
   {{ form.errors | default_errors }}
-  <label>Nova palavra-passe</label>
-  <input type="password" name="customer[password]" required>
-  <label>Confirmar palavra-passe</label>
-  <input type="password" name="customer[password_confirmation]" required>
+
+  <div>
+    <label for="Password">Nova palavra-passe</label>
+    <input id="Password" type="password" name="customer[password]" required>
+  </div>
+
+  <div>
+    <label for="PasswordConfirmation">Confirmar palavra-passe</label>
+    <input id="PasswordConfirmation" type="password" name="customer[password_confirmation]" required>
+  </div>
+
   <button type="submit">Ativar conta</button>
 {% endform %}
