@@ -23,19 +23,19 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   }
 
-  #servico_head_custom > .text_container > p,
-  #servico_head_custom > .text_container > h1 {
+  #servico_head_custom > .text_container > div > p,
+  #servico_head_custom > .text_container > div > h1 {
     padding: 0;
     margin: 0;
     line-height: normal;
   }
 
-  #servico_head_custom > .text_container > h1 {
+  #servico_head_custom > .text_container > div > h1 {
     font-size: 3rem;
     font-weight: 900;
   }
 
-  #servico_head_custom > .text_container > p {
+  #servico_head_custom > .text_container > div > p {
     font-size: 1.25rem;
     font-weight: 500;
   }
@@ -65,11 +65,11 @@
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
-    #servico_head_custom > .text_container > h1 {
+    #servico_head_custom > .text_container > div > h1 {
       font-size: 2rem;
     }
 
-    #servico_head_custom > .text_container > p {
+    #servico_head_custom > .text_container > div > p {
       font-size: 1rem;
     }
   }
@@ -79,16 +79,17 @@
       top: 75%;
       left: 50%;
       transform: translate(-50%, 0);
+      border-radius: 0.5rem;
       padding: 1rem;
       width: 90dvw;
       max-width: 100%;
     }
 
-    #servico_head_custom > .text_container > h1 {
+    #servico_head_custom > .text_container > div > h1 {
       font-size: 1.25rem;
     }
 
-    #servico_head_custom > .text_container > p {
+    #servico_head_custom > .text_container > div > p {
       font-size: 0.875rem;
     }
 
@@ -121,10 +122,14 @@
 
     {% if section.settings.title %}
       <div class="text_container">
-        {{ section.settings.title }}
+        <div>
+          {{ section.settings.title }}
+        </div>
 
         {% if section.settings.description %}
-          {{ section.settings.description }}
+          <div>
+            {{ section.settings.description }}
+          </div>
         {% endif %}
 
         {% if section.settings.btn_txt %}
