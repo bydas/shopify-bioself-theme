@@ -1,6 +1,106 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+<style>
+  #servico_block_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    width: 100dvw;
+    background-color: #88A44E33;
+    text-align: center;
   }
+
+  #servico_block_custom > div > p,
+  #servico_block_custom > div > h1 {
+    padding: 0;
+    margin: 0;
+    line-height: normal;
+  }
+
+  #servico_block_custom > div > h1 {
+    font-size: 3rem;
+  }
+
+  #servico_block_custom > div > p {
+    font-size: 1rem;
+  }
+
+  #servico_block_custom > div > button {
+    padding: 0.5rem 2rem;
+    color: white;
+    background-color: #258439;
+    border-radius: 0.5rem;
+    border: none;
+    width: max-content;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width: 1500px) and (min-width: 1000px) {
+    #servico_block_custom > div > h1 {
+      font-size: 1.5rem;
+    }
+
+    #servico_block_custom > div > p,
+    #servico_block_custom > div > button {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #servico_block_custom > div > h1 {
+      font-size: 1rem;
+    }
+
+    #servico_block_custom > div > p,
+    #servico_block_custom > div > button {
+      font-size: 0.875rem;
+    }
+  }
+</style>
+
+<section id="servico_block_custom">
+  {% if section.settings.title %}
+    <div>
+      {{ section.settings.title }}
+    </div>
+  {% endif %}
+
+  {% if section.settings.description %}
+    <div>
+      {{ section.settings.description }}
+    </div>
+  {% endif %}
+
+  {% if section.settings.btn_txt %}
+    <button>{{ section.settings.btn_txt }}</button>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Servico Nutricao Block",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "text",
+      "id": "btn_txt",
+      "label": "Texto do botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Block",
+      "category": "block"
+    }
+  ]
+}
 {% endschema %}
