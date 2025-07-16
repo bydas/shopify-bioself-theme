@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "servico_nutricao_head_cVhcd9": {
+      "type": "servico-nutricao-head",
+      "name": "Servico Nutricao Head",
+      "settings": {
+        "first_image": "shopify://shop_images/image_55.svg",
+        "second_image": "shopify://shop_images/Rectangle_ab03428f-ec64-4da7-bf60-78a3b10b4acf.svg",
+        "title": "",
+        "description": "",
+        "btn_txt": ""
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -32,6 +43,7 @@
       "block_order": [
         "image_cjGPcL"
       ],
+      "disabled": true,
       "settings": {
         "edge_to_edge": true,
         "section_size": "small",
@@ -76,6 +88,7 @@
         "item_kEGLwX",
         "item_mwapiz"
       ],
+      "disabled": true,
       "settings": {
         "show_section": true,
         "stack_mobile": false,
@@ -193,6 +206,7 @@
         "line_dfTHQ7",
         "line_mDHWJz"
       ],
+      "disabled": true,
       "settings": {
         "hide_title": true
       }
@@ -233,6 +247,7 @@
         "item_CNjn3Y",
         "item_kEg7Ay"
       ],
+      "disabled": true,
       "settings": {
         "show_section": true,
         "stack_mobile": false,
@@ -242,6 +257,7 @@
     }
   },
   "order": [
+    "servico_nutricao_head_cVhcd9",
     "slideshow",
     "text-with-icons-top",
     "template",
