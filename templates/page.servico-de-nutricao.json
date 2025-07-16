@@ -20,6 +20,15 @@
         "btn_txt": "MARCA JÁ A TUA CONSULTA"
       }
     },
+    "servico_nutricao_msg_block_7h8TLG": {
+      "type": "servico-nutricao-msg-block",
+      "name": "Servico Nutricao Block",
+      "settings": {
+        "title": "<h1>Alimenta o teu equilíbrio.</h1><h1> A Nutrição Funcional mostra-te o caminho!</h1>",
+        "description": "<p>Na Bioself, a consulta de Nutrição baseia-se numa abordagem funcional e integrativa, valorizando a ligação entre alimentação, corpo, mente, emoções e estilo de vida.  O objetivo é compreender a origem dos desequilíbrios e ajustar a intervenção à tua realidade. Com um acompanhamento próximo, materiais de apoio e orientações práticas, vais sentir-te mais confiante e saudável.</p>",
+        "btn_txt": "SIM, QUERO CUIDAR DE MIM!"
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -258,6 +267,7 @@
   },
   "order": [
     "servico_nutricao_head_cVhcd9",
+    "servico_nutricao_msg_block_7h8TLG",
     "slideshow",
     "text-with-icons-top",
     "template",
