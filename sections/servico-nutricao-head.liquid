@@ -64,6 +64,10 @@
     display: block;
   }
 
+  .mobile_background {
+    display: none;
+  }
+
   @media screen and (min-width: 1920px) {
     #servico_head_custom > .image-wrapper {
       max-height: 800px;
@@ -92,7 +96,7 @@
     }
 
     #servico_head_custom > .text_container > div > p,
-    #servico_head_custom > .text_container > div > button {
+    #servico_head_custom > .text_container > button {
       font-size: 1rem;
     }
   }
@@ -107,13 +111,28 @@
     }
 
     #servico_head_custom > .text_container > div > p,
-    #servico_head_custom > .text_container > div > button {
+    #servico_head_custom > .text_container > button {
       font-size: 0.875rem;
     }
   }
 
   @media screen and (max-width: 1000px) {
+    .mobile_background {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 25vh;
+      background-color: white;
+      z-index: 0;
+      margin-top: -25vh;
+    }
+
+    #servico_head_custom {
+      padding-bottom: 25vh;
+    }
+
     #servico_head_custom > .text_container {
+      z-index: 1;
       text-align: center;
       top: 75%;
       left: 50%;
@@ -159,6 +178,8 @@
         width="1500"
       >
     </div>
+
+    <div class="mobile_background"></div>
 
     {% if section.settings.title %}
       <div class="text_container">
