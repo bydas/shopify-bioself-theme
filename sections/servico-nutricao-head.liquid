@@ -1,6 +1,153 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+<style>
+  #servico_head_custom {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    min-width: 100dvw;
+    position: relative;
   }
+
+  #servico_head_custom > div {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    background-color: white;
+  }
+
+  #servico_head_custom > div > p,
+  #servico_head_custom > div > h1 {
+    padding: 0;
+    margin: 0;
+    line-height: normal;
+  }
+
+  #servico_head_custom > div > h1 {
+    font-size: 3rem;
+    font-weight: 900;
+  }
+
+  #servico_head_custom > div > p {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  #servico_head_custom > div > button {
+    padding: 1rem 2rem;
+    color: white;
+    background-color: #258439;
+    border-radius: 0.5rem;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #servico_head_custom > div > h1 {
+      font-size: 2rem;
+    }
+
+    #servico_head_custom > div > p {
+      font-size: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #servico_head_custom > div {
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 1rem;
+    }
+
+    #servico_head_custom > div > h1 {
+      font-size: 1.125rem;
+    }
+
+    #servico_head_custom > div > p {
+      font-size: 1rem;
+    }
+
+    #servico_head_custom > div > button {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<section id="servico_head_custom">
+  {% if section.settings.first_image and section.settings.second_image %}
+    <img
+      src="{{ section.settings.first_image | image_url: width: '100%' }}"
+      alt="Primeira imagem"
+      width="auto"
+      height="auto"
+    >
+
+    <img
+      src="{{ section.settings.second_image | image_url: width: '100%' }}"
+      alt="Segunda imagem"
+      width="auto"
+      height="auto"
+    >
+
+    {% if section.settings.title %}
+      <div>
+        <h1>{{ section.settings.title }}</h1>
+
+        {% if section.settings.description %}
+          <p>{{ section.settings.description }}</p>
+        {% endif %}
+
+        {% if section.settings.btn_txt %}
+          <button>{{ section.settings.btn_txt }}</button>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Servico Nutricao Head",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "first_image",
+      "label": "Primeira Imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "second_image",
+      "label": "Segunda Imagem"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "text",
+      "id": "btn_txt",
+      "label": "Texto do botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Head",
+      "category": "head"
+    }
+  ]
+}
 {% endschema %}
