@@ -13,11 +13,11 @@
       "type": "servico-nutricao-head",
       "name": "Servico Nutricao Head",
       "settings": {
-        "first_image": "shopify://shop_images/image_55.svg",
-        "second_image": "shopify://shop_images/Rectangle_ab03428f-ec64-4da7-bf60-78a3b10b4acf.svg",
-        "title": "",
-        "description": "",
-        "btn_txt": ""
+        "first_image": "shopify://shop_images/image_55.png",
+        "second_image": "shopify://shop_images/Rectangle_20ba74e8-4e8e-49f7-ae74-a694700e2315.png",
+        "title": "Nutrição que orienta. Bem-estar que se transforma.",
+        "description": "<p>Sou a Rita de Cássia Silva, Nutricionista (CP: 4249N), e o meu propósito é acompanhar-te numa jornada de reconexão com o teu corpo rumo ao equilíbrio. Acredito numa abordagem individualizada, onde a nutrição se adapta às tuas necessidades, respeita o teu ritmo e valoriza a ligação entre corpo, mente e emoções.  Se sentes que chegou o momento de cuidar verdadeiramente de ti, estou aqui para caminhar contigo.<br/><br/></p>",
+        "btn_txt": "MARCA JÁ A TUA CONSULTA"
       }
     },
     "slideshow": {
