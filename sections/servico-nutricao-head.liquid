@@ -64,6 +64,24 @@
     display: block;
   }
 
+  @media screen and (min-width: 1920px) {
+    #servico_head_custom > .image-wrapper {
+      max-height: 800px;
+    }
+
+    #servico_head_custom > .image-wrapper > img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @media screen and (min-width: 1001px) {
+    #servico_head_custom > .text_container {
+      left: 30%;
+      transform: translate(-30%, -50%);
+    }
+  }
+
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
     #servico_head_custom > .text_container > div > h1 {
       font-size: 2rem;
