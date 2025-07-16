@@ -116,10 +116,10 @@
 
     {% if section.settings.title %}
       <div class="text_container">
-        <h1>{{ section.settings.title }}</h1>
+        {{ section.settings.title }}
 
         {% if section.settings.description %}
-          <p>{{ section.settings.description }}</p>
+          {{ section.settings.description }}
         {% endif %}
 
         {% if section.settings.btn_txt %}
