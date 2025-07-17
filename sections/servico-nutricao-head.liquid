@@ -1,9 +1,4 @@
 <style>
-  #mobile_bg {
-    display: none;
-    position: relative;
-  }
-
   #servico_head_custom {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -11,7 +6,7 @@
     position: relative;
   }
 
-  .text_container {
+  #servico_head_custom > .text_container {
     position: absolute;
     z-index: 1;
     top: 50%;
@@ -28,24 +23,24 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   }
 
-  .text_container > div > p,
-  .text_container > div > h1 {
+  #servico_head_custom > .text_container > div > p,
+  #servico_head_custom > .text_container > div > h1 {
     padding: 0;
     margin: 0;
     line-height: normal;
   }
 
-  .text_container > div > h1 {
+  #servico_head_custom > .text_container > div > h1 {
     font-size: 4rem;
     font-weight: 900;
   }
 
-  .text_container > div > p {
+  #servico_head_custom > .text_container > div > p {
     font-size: 1.25rem;
     font-weight: 500;
   }
 
-  .text_container > button {
+  #servico_head_custom > .text_container > button {
     padding: 0.5rem 1rem;
     color: white;
     background-color: #258439;
@@ -81,56 +76,44 @@
   }
 
   @media screen and (min-width: 1001px) {
-    #desktop_bg {
-      display: none;
-    }
-
-    .text_container {
+    #servico_head_custom > .text_container {
       left: 30%;
       transform: translate(-30%, -50%);
     }
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1250px) {
-    .text_container {
+    #servico_head_custom > .text_container {
       gap: 1rem;
     }
 
-    .text_container > div > h1 {
+    #servico_head_custom > .text_container > div > h1 {
       font-size: 3rem;
     }
 
-    .text_container > div > p,
-    .text_container > div > button {
+    #servico_head_custom > .text_container > div > p,
+    #servico_head_custom > .text_container > div > button {
       font-size: 1rem;
     }
   }
 
   @media screen and (max-width: 1249px) and (min-width: 1000px) {
-    .text_container {
+    #servico_head_custom > .text_container {
       gap: 1rem;
     }
 
-    .text_container > div > h1 {
+    #servico_head_custom > .text_container > div > h1 {
       font-size: 2rem;
     }
 
-    .text_container > div > p,
-    .text_container > div > button {
+    #servico_head_custom > .text_container > div > p,
+    #servico_head_custom > .text_container > div > button {
       font-size: 0.875rem;
     }
   }
 
   @media screen and (max-width: 1000px) {
-    #mobile_bg {
-      display: grid;
-    }
-
-    #desktop_bg {
-      display: none;
-    }
-
-    .text_container {
+    #servico_head_custom > .text_container {
       text-align: center;
       top: 75%;
       left: 50%;
@@ -142,40 +125,20 @@
       max-width: 100%;
     }
 
-    .text_container > div > h1 {
+    #servico_head_custom > .text_container > div > h1 {
       font-size: 1.25rem;
     }
 
-    .text_container > div > p {
+    #servico_head_custom > .text_container > div > p {
       font-size: 0.875rem;
     }
 
-    .text_container > button {
+    #servico_head_custom > .text_container > button {
       padding: 0.5rem;
       font-size: 0.875rem;
     }
   }
 </style>
-
-{% capture absolute_block %}
-  {% if section.settings.title %}
-    <div class="text_container">
-      <div>
-        {{ section.settings.title }}
-      </div>
-    
-      {% if section.settings.description %}
-        <div>
-          {{ section.settings.description }}
-        </div>
-      {% endif %}
-    
-      {% if section.settings.btn_txt %}
-        <button>{{ section.settings.btn_txt }}</button>
-      {% endif %}
-    </div>
-  {% endif %}
-{% endcapture %}
 
 <section id="servico_head_custom">
   {% if section.settings.first_image and section.settings.second_image %}
@@ -197,9 +160,23 @@
       >
     </div>
 
-    <div id="desktop_bg">{{ absolute_block }}</div>
+    {% if section.settings.title %}
+      <div class="text_container">
+        <div>
+          {{ section.settings.title }}
+        </div>
 
-    <div id="mobile_bg">{{ absolute_block }}</div>
+        {% if section.settings.description %}
+          <div>
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.btn_txt %}
+          <button>{{ section.settings.btn_txt }}</button>
+        {% endif %}
+      </div>
+    {% endif %}
   {% endif %}
 </section>
 
