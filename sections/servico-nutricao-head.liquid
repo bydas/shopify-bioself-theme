@@ -1,3 +1,6 @@
+Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_container` para larguras até 1000 px:
+
+```html
 <style>
   #servico_head_custom {
     display: grid;
@@ -93,7 +96,7 @@
     }
 
     #servico_head_custom > .text_container > div > p,
-    #servico_head_custom > .text_container > div > button {
+    #servico_head_custom > .text_container > button {
       font-size: 1rem;
     }
   }
@@ -109,12 +112,13 @@
     }
 
     #servico_head_custom > .text_container > div > p,
-    #servico_head_custom > .text_container > div > button {
+    #servico_head_custom > .text_container > button {
       font-size: 0.875rem;
     }
   }
 
   @media screen and (max-width: 1000px) {
+    /* Versão desktop original */
     #servico_head_custom > .text_container {
       text-align: center;
       top: 75%;
@@ -138,6 +142,15 @@
     #servico_head_custom > .text_container > button {
       padding: 0.5rem;
       font-size: 0.875rem;
+    }
+
+    /* Fundo branco e posicionamento para o mobile_text_container */
+    #servico_head_custom > #mobile_text_container {
+      position: relative;
+      z-index: 1;
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 0.5rem;
     }
   }
 </style>
@@ -164,6 +177,22 @@
 
     {% if section.settings.title %}
       <div class="text_container">
+        <div>
+          {{ section.settings.title }}
+        </div>
+
+        {% if section.settings.description %}
+          <div>
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.btn_txt %}
+          <button>{{ section.settings.btn_txt }}</button>
+        {% endif %}
+      </div>
+
+      <div id="mobile_text_container">
         <div>
           {{ section.settings.title }}
         </div>
@@ -220,3 +249,4 @@
   ]
 }
 {% endschema %}
+```
