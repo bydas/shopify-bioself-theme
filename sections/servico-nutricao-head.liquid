@@ -1,3 +1,7 @@
+Segue o ficheiro completo da secção, com todo o CSS (incluindo o ajuste mobile) e o JavaScript para reajustar
+dinamicamente o fundo branco e o padding:
+
+```liquid
 <style>
   #servico_head_custom {
     display: grid;
@@ -64,15 +68,10 @@
     display: block;
   }
 
-  .mobile_background {
-    display: none;
-  }
-
   @media screen and (min-width: 1920px) {
     #servico_head_custom > .image-wrapper {
       max-height: 800px;
     }
-
     #servico_head_custom > .image-wrapper > img {
       height: 100%;
       object-fit: cover;
@@ -90,11 +89,9 @@
     #servico_head_custom > .text_container {
       gap: 1rem;
     }
-
     #servico_head_custom > .text_container > div > h1 {
       font-size: 3rem;
     }
-
     #servico_head_custom > .text_container > div > p,
     #servico_head_custom > .text_container > button {
       font-size: 1rem;
@@ -105,56 +102,45 @@
     #servico_head_custom > .text_container {
       gap: 1rem;
     }
-
     #servico_head_custom > .text_container > div > h1 {
       font-size: 2rem;
     }
-
     #servico_head_custom > .text_container > div > p,
     #servico_head_custom > .text_container > button {
       font-size: 0.875rem;
     }
   }
 
+  /* ======= ESTILOS MOBILE (≤1000px) ======= */
   @media screen and (max-width: 1000px) {
+    #servico_head_custom {
+      position: relative; /* permite padding do JS */
+    }
+
+    /* fundo branco dinâmico atrás do texto */
     .mobile_background {
       display: block;
-      position: relative;
+      position: absolute;
+      top: 75%;
+      left: 0;
       width: 100%;
-      height: 25vh;
       background-color: white;
       z-index: 0;
-      margin-top: -25vh;
+      height: 0; /* será ajustado via JS */
     }
 
-    #servico_head_custom {
-      padding-bottom: 25vh;
-    }
-
+    /* container de texto posicionado por cima */
     #servico_head_custom > .text_container {
-      z-index: 1;
-      text-align: center;
+      position: absolute;
       top: 75%;
       left: 50%;
-      transform: translate(-50%, 0);
-      border-radius: 0.5rem;
-      padding: 1rem;
-      width: 90dvw;
-      gap: 1rem;
+      transform: translateX(-50%);
+      z-index: 1;
+      width: 90vw;
       max-width: 100%;
-    }
-
-    #servico_head_custom > .text_container > div > h1 {
-      font-size: 1.25rem;
-    }
-
-    #servico_head_custom > .text_container > div > p {
-      font-size: 0.875rem;
-    }
-
-    #servico_head_custom > .text_container > button {
-      padding: 0.5rem;
-      font-size: 0.875rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      gap: 1rem;
     }
   }
 </style>
@@ -201,6 +187,29 @@
   {% endif %}
 </section>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    function ajustaMobileBackground() {
+      if (window.innerWidth <= 1000) {
+        const sec = document.getElementById("servico_head_custom");
+        const bg  = sec.querySelector(".mobile_background");
+        const tc  = sec.querySelector(".text_container");
+        const h   = tc.getBoundingClientRect().height;
+        bg.style.height = h + "px";
+        sec.style.paddingBottom = h + "px";
+      } else {
+        const sec = document.getElementById("servico_head_custom");
+        const bg  = sec.querySelector(".mobile_background");
+        if (bg) bg.style.height = "";
+        if (sec) sec.style.paddingBottom = "";
+      }
+    }
+
+    ajustaMobileBackground();
+    window.addEventListener("resize", ajustaMobileBackground);
+  });
+</script>
+
 {% schema %}
 {
   "name": "Servico Nutricao Head",
@@ -239,3 +248,4 @@
   ]
 }
 {% endschema %}
+```
