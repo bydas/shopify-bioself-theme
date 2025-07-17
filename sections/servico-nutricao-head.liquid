@@ -1,6 +1,3 @@
-Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_container` para larguras até 1000 px:
-
-```html
 <style>
   #servico_head_custom {
     display: grid;
@@ -19,7 +16,7 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     gap: 2rem;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
     border-radius: 1rem;
     background-color: white;
     max-width: 40dvw;
@@ -67,6 +64,10 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
     display: block;
   }
 
+  .mobile_background {
+    display: none;
+  }
+
   @media screen and (min-width: 1920px) {
     #servico_head_custom > .image-wrapper {
       max-height: 800px;
@@ -87,7 +88,6 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
 
   @media screen and (max-width: 1599px) and (min-width: 1250px) {
     #servico_head_custom > .text_container {
-      padding: 1.5rem;
       gap: 1rem;
     }
 
@@ -103,7 +103,6 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
 
   @media screen and (max-width: 1249px) and (min-width: 1000px) {
     #servico_head_custom > .text_container {
-      padding: 1.5rem;
       gap: 1rem;
     }
 
@@ -118,8 +117,22 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
   }
 
   @media screen and (max-width: 1000px) {
-    /* Versão desktop original */
+    .mobile_background {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 25vh;
+      background-color: white;
+      z-index: 0;
+      margin-top: -25vh;
+    }
+
+    #servico_head_custom {
+      padding-bottom: 25vh;
+    }
+
     #servico_head_custom > .text_container {
+      z-index: 1;
       text-align: center;
       top: 75%;
       left: 50%;
@@ -142,15 +155,6 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
     #servico_head_custom > .text_container > button {
       padding: 0.5rem;
       font-size: 0.875rem;
-    }
-
-    /* Fundo branco e posicionamento para o mobile_text_container */
-    #servico_head_custom > #mobile_text_container {
-      position: relative;
-      z-index: 1;
-      background-color: #fff;
-      padding: 1rem;
-      border-radius: 0.5rem;
     }
   }
 </style>
@@ -175,24 +179,10 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
       >
     </div>
 
+    <div class="mobile_background"></div>
+
     {% if section.settings.title %}
       <div class="text_container">
-        <div>
-          {{ section.settings.title }}
-        </div>
-
-        {% if section.settings.description %}
-          <div>
-            {{ section.settings.description }}
-          </div>
-        {% endif %}
-
-        {% if section.settings.btn_txt %}
-          <button>{{ section.settings.btn_txt }}</button>
-        {% endif %}
-      </div>
-
-      <div id="mobile_text_container">
         <div>
           {{ section.settings.title }}
         </div>
@@ -249,4 +239,3 @@ Aqui tens o código completo, com a adição do fundo branco no `#mobile_text_co
   ]
 }
 {% endschema %}
-```
