@@ -140,6 +140,22 @@
   }
 </style>
 
+{% capture absolute_block %}
+  <div>
+    {{ section.settings.title }}
+  </div>
+
+  {% if section.settings.description %}
+    <div>
+      {{ section.settings.description }}
+    </div>
+  {% endif %}
+
+  {% if section.settings.btn_txt %}
+    <button>{{ section.settings.btn_txt }}</button>
+  {% endif %}
+{% endcapture %}
+
 <section id="servico_head_custom">
   {% if section.settings.first_image and section.settings.second_image %}
     <div class="image-wrapper">
@@ -161,21 +177,7 @@
     </div>
 
     {% if section.settings.title %}
-      <div class="text_container">
-        <div>
-          {{ section.settings.title }}
-        </div>
-
-        {% if section.settings.description %}
-          <div>
-            {{ section.settings.description }}
-          </div>
-        {% endif %}
-
-        {% if section.settings.btn_txt %}
-          <button>{{ section.settings.btn_txt }}</button>
-        {% endif %}
-      </div>
+      <div class="text_container">{{ absolute_block }}</div>
     {% endif %}
   {% endif %}
 </section>
