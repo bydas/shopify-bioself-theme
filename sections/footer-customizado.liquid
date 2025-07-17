@@ -93,13 +93,13 @@
       }
     };
 
-    // const observer = new MutationObserver((mutations) => {
-    //   mutations.forEach((mutation) => {
-    //     if (mutation.target.id === "selected-menu") {
-    //       console.log("Menu alterado")
-    //     }
-    //   });
-    // });
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.target.id === "selected-menu") {
+          console.log("Menu alterado")
+        }
+      });
+    });
 
     document.querySelectorAll(".mobile_footer_additional_menu").forEach((menu) => {
       observer.observe(menu, { attributes: true, attributeFilter: ["id"] });
