@@ -181,7 +181,7 @@
 </section>
 
 <script>
-  const main = document.getElementById("main");
+  const section = document.getElementById("servico_head_custom");
   const container = document.querySelector(".text_container");
   const mobileBg = document.createElement("div");
   mobileBg.style.height = `${container.clientHeight}px`;
@@ -191,7 +191,7 @@
     if (window.innerWidth > 1000) {
       mobileBg.remove();
     } else {
-      main.appendChild(mobileBg);
+      section.insertAdjacentHTML('afterend', mobileBg);
     }
   }
 
