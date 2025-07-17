@@ -1,6 +1,171 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+{% assign step_blocks = section.blocks | where: 'type', 'step' %}
+
+<style>
+  #section_step_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+    padding: 2rem 2rem 1rem 2rem;
+    justify-content: center;
+    text-align: center;
   }
+
+  #section_step_custom > h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 4rem;
+    font-weight: 900;
+  }
+
+  #section_step_custom > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 2rem;
+  }
+
+  #section_step_custom > div > img {
+    border-radius: 1rem;
+  }
+
+  #section_step_custom > div > ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 2rem;
+    align-content: space-between;
+  }
+
+  #section_step_custom > div > ul > li {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    text-align: center;
+    background-color: #258439;
+    border-radius: 1rem;
+    color: white;
+    gap: 1rem;
+    position: relative;
+  }
+
+  #section_step_custom > div > ul > li {
+    padding: 0;
+    margin: 0;
+    line-height: normal;
+  }
+
+  #section_step_custom > div > ul > li > h1 {
+    font-size: 1.5rem;
+    font-weight: 900;
+  }
+
+  #section_step_custom > div > ul > li > p {
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  #section_step_custom > div > ul > li > div {
+    position: absolute;
+    z-index: 1;
+    background-color: #D7FECD;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: grid;
+    place-items: center;
+    left: 0;
+    top: 0;
+  }
+
+  #section_step_custom > div > ul > li > div > span {
+    padding: 0;
+    margin: 0;
+    line-height: normal;
+    font-size: 3rem;
+    color: #258439;
+    font-weight: 900;
+  }
+</style>
+
+<section id="section_step_custom">
+  {% if section.settings.title %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endif %}
+
+  <div>
+    {% if section.settings.main_image %}
+      <img
+        src="{{ section.settings.main_image | image_url: height: 865 }}"
+        alt="Imagem principal"
+        width="100%"
+        height="865"
+      >
+    {% endif %}
+
+    {% unless step_blocks.size == 0 %}
+      <ul>
+        {% for step in step_blocks %}
+          <li>
+            <div>
+              <span>{{ forloop.index }}</span>
+            </div>
+
+            {% if step.settings.title %}
+              <h1>{{ step.settings.title }}</h1>
+            {% endif %}
+
+            {% if step.settings.description %}
+              {{ step.settings.description }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endunless %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Servico Nutricao Etapas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Secção"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Imagem da Secção"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Etapa",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título da Etapa"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Descrição da Etapa"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Etapas",
+      "category": "step"
+    }
+  ]
+}
 {% endschema %}
