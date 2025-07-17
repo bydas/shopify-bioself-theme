@@ -184,11 +184,20 @@
   const main = document.getElementById("main");
   const container = document.querySelector(".text_container");
   const mobileBg = document.createElement("div");
-
   mobileBg.style.height = `${container.clientHeight}px`;
   mobileBg.style.width = '100dvw';
 
-  main.appendChild(mobileBg);
+  function handleResize() {
+    if (window.innerWidth > 1000) {
+      mobileBg.remove();
+    } else {
+      main.appendChild(mobileBg);
+    }
+  }
+
+  handleResize()
+
+  window.addEventListener("resize", handleResize);
 </script>
 
 {% schema %}
