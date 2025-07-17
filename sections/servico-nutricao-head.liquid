@@ -181,15 +181,14 @@
 </section>
 
 <script>
-  const section = document.getElementById("servico_head_custom");
+  const main = document.getElementById("main");
   const container = document.querySelector(".text_container");
   const mobileBg = document.querySelector("div");
 
-  mobileBg.style.height = container.clientHeight.toString() + 'px';
+  mobileBg.style.height = `${container.clientHeight}px`;
   mobileBg.style.width = '100dvw';
 
-  const parent = section.parentElement;
-  parent.appendChild(mobileBg);
+  main.appendChild(mobileBg);
 </script>
 
 {% schema %}
