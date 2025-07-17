@@ -185,13 +185,10 @@
   const container = document.querySelector(".text_container");
   const mobileBg = document.querySelector("div");
 
-  mobileBg.style.height = container.style.height;
+  mobileBg.style.height = container.innerHeight;
   mobileBg.style.width = '100dvw';
 
   const parent = section.parentElement;
-
-  console.log("parent", parent);
-
   parent.appendChild(mobileBg);
 </script>
 
