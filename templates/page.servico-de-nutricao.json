@@ -29,6 +29,42 @@
         "btn_txt": "SIM, QUERO CUIDAR DE MIM!"
       }
     },
+    "servico_nutricao_steps_EFpMbD": {
+      "type": "servico-nutricao-steps",
+      "blocks": {
+        "step_rTKDTC": {
+          "type": "step",
+          "settings": {
+            "title": "AVALIAÇÃO CLÍNICA E FÍSICA COMPLETAS ",
+            "description": "Dedico-me a analisar detalhadamente o teu histórico de saúde, análises e exames, de forma a ter uma visão completa do teu estado nutricional e metabólico. Realizo também uma avaliação física com recurso a bioimpedância e perímetros corporais."
+          }
+        },
+        "step_cpxhRT": {
+          "type": "step",
+          "settings": {
+            "title": "PLANO  ALIMENTAR PERSONALIZADO",
+            "description": "Não existem planos iguais, cada pessoa é única! Crio um plano que responde às tuas necessidades e objetivos. Tendo em conta a tua individualidade gastrointestinal e bioquímica, em conjunto, vamos definir estratégias práticas, realistas e sustentáveis."
+          }
+        },
+        "step_ERENCy": {
+          "type": "step",
+          "settings": {
+            "title": "SUPLEMENTAÇÃO ALIMENTAR",
+            "description": "Sempre que fizer sentido no teu percurso, vais receber recomendações de suplementação ajustadas às tuas necessidades. Estas orientações personalizadas contribuem para o teu bem-estar, potenciam os resultados e apoiam a tua saúde."
+          }
+        }
+      },
+      "block_order": [
+        "step_rTKDTC",
+        "step_cpxhRT",
+        "step_ERENCy"
+      ],
+      "name": "Servico Nutricao Etapas",
+      "settings": {
+        "title": "ETAPAS DA CONSULTA DE NUTRIÇÃO FUNCIONAL",
+        "main_image": "shopify://shop_images/Rectangle_9d2a316f-502b-4355-bfba-aaa09548ffcf.png"
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -268,6 +304,7 @@
   "order": [
     "servico_nutricao_head_cVhcd9",
     "servico_nutricao_msg_block_7h8TLG",
+    "servico_nutricao_steps_EFpMbD",
     "slideshow",
     "text-with-icons-top",
     "template",
