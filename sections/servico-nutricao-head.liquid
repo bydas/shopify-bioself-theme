@@ -1,4 +1,9 @@
 <style>
+  #mobile_bg {
+    display: none;
+    position: relative;
+  }
+
   #servico_head_custom {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -76,6 +81,10 @@
   }
 
   @media screen and (min-width: 1001px) {
+    #desktop_bg {
+      display: none;
+    }
+
     #servico_head_custom > .text_container {
       left: 30%;
       transform: translate(-30%, -50%);
@@ -113,6 +122,10 @@
   }
 
   @media screen and (max-width: 1000px) {
+    #mobile_bg {
+      display: block;
+    }
+
     #servico_head_custom > .text_container {
       text-align: center;
       top: 75%;
@@ -141,18 +154,22 @@
 </style>
 
 {% capture absolute_block %}
-  <div>
-    {{ section.settings.title }}
-  </div>
-
-  {% if section.settings.description %}
-    <div>
-      {{ section.settings.description }}
+  {% if section.settings.title %}
+    <div class="text_container">
+      <div>
+        {{ section.settings.title }}
+      </div>
+    
+      {% if section.settings.description %}
+        <div>
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+    
+      {% if section.settings.btn_txt %}
+        <button>{{ section.settings.btn_txt }}</button>
+      {% endif %}
     </div>
-  {% endif %}
-
-  {% if section.settings.btn_txt %}
-    <button>{{ section.settings.btn_txt }}</button>
   {% endif %}
 {% endcapture %}
 
@@ -176,9 +193,9 @@
       >
     </div>
 
-    {% if section.settings.title %}
-      <div class="text_container">{{ absolute_block }}</div>
-    {% endif %}
+    <div id="desktop_bg">{{ absolute_block }}</div>
+
+    <div id="mobile_bg">{{ absolute_block }}</div>
   {% endif %}
 </section>
 
