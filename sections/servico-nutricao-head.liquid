@@ -181,38 +181,24 @@
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const section  = document.getElementById("servico_head_custom");
-    const parent   = document.getElementById("main");
-    const mobileBg = document.createElement("div");
-    mobileBg.classList.add("mobile_background");
+  const section = document.getElementById("servico_head_custom");
+  const parent = section.parentElement;
+  const container = document.querySelector(".text_container");
+  const mobileBg = document.createElement("div");
+  mobileBg.style.height = `${container.clientHeight}px`;
+  mobileBg.style.width = '100dvw';
 
-    function updateMobileBg() {
-      const tc = section.querySelector(".text_container");
-
-      if (!tc) return;
-
-      const h = tc.getBoundingClientRect().height + "px";
-      mobileBg.style.height = h;
-
-      if (window.innerWidth <= 1000) {
-        if (!mobileBg.isConnected) {
-          parent.insertAdjacentElement("afterend", mobileBg);
-        }
-
-        section.style.paddingBottom = h;
-      } else {
-        if (mobileBg.isConnected) {
-          mobileBg.remove();
-        }
-
-        section.style.paddingBottom = "";
-      }
+  function handleResize() {
+    if (window.innerWidth > 1000) {
+      mobileBg.remove();
+    } else {
+      parent.insertAdjacentHTML('afterend', mobileBg);
     }
+  }
 
-    updateMobileBg();
-    window.addEventListener("resize", updateMobileBg);
-  });
+  handleResize()
+
+  window.addEventListener("resize", handleResize);
 </script>
 
 {% schema %}
