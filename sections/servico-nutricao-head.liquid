@@ -180,6 +180,18 @@
   {% endif %}
 </section>
 
+<script>
+  const section = document.getElementById("servico_head_custom");
+  const container = document.querySelector(".text_container");
+  const mobileBg = document.querySelector("div");
+
+  mobileBg.style.height = container.style.height;
+  mobileBg.style.width = '100dvw';
+
+  const parent = section.parentElement;
+  parent.appendChild(mobileBg);
+</script>
+
 {% schema %}
 {
   "name": "Servico Nutricao Head",
