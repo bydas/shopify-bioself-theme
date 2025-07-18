@@ -7,7 +7,6 @@
     grid-auto-flow: row;
     gap: 2rem;
     padding: 2rem;
-    justify-content: center;
     text-align: center;
     width: 100dvw;
     margin: 2rem 0;
@@ -129,14 +128,12 @@
 </section>
 
 <script>
-  // Variáveis para guardar coordenadas do início e fim do gesto
   let touchStartX = 0;
   let touchEndX = 0;
 
   const reviewsContainer = document.getElementById('reviews_content');
   const bulletPoints = document.querySelectorAll('.review_index_point');
 
-  // Função genérica que altera o slide (dir = +1 ou -1)
   function changeReview(dir) {
     const activeBullet = document.querySelector('.review_index_point.active');
     let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
@@ -145,19 +142,16 @@
     bulletPoints[idx - 1].click();
   }
 
-  // Função que trata o swipe com threshold
   function handleSwipe() {
-    const threshold = 50; // px mínimos para considerar swipe
+    const threshold = 50;
+    
     if (touchEndX < touchStartX - threshold) {
-      // swipe para a esquerda → avançar
       changeReview(1);
     } else if (touchEndX > touchStartX + threshold) {
-      // swipe para a direita → recuar
       changeReview(-1);
     }
   }
 
-  // Captura início do gesto (touch ou mouse/pointer)
   function onStart(e) {
     if (e.changedTouches) {
       touchStartX = e.changedTouches[0].screenX;
@@ -166,27 +160,22 @@
     }
   }
 
-  // Captura fim do gesto (touch ou mouse/pointer) e dispara swipe
   function onEnd(e) {
     if (e.changedTouches) {
       touchEndX = e.changedTouches[0].screenX;
     } else {
       touchEndX = e.clientX;
     }
-    // Só para debug: confirma que o evento chegou
-    console.log('Gesto de', touchStartX, 'a', touchEndX);
+
     handleSwipe();
   }
 
-  // Ouvintes para touch
   reviewsContainer.addEventListener('touchstart', onStart, false);
   reviewsContainer.addEventListener('touchend',   onEnd,   false);
 
-  // Ouvintes para pointer (desktop e rato)
   reviewsContainer.addEventListener('pointerdown', onStart, false);
   reviewsContainer.addEventListener('pointerup',   onEnd,   false);
 
-  // Ouvinte de clique nos bullet points (já existente)
   bulletPoints.forEach((bp) => {
     bp.addEventListener('click', () => {
       const activeBp = document.querySelector('.review_index_point.active');
