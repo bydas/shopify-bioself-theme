@@ -70,7 +70,7 @@
     <div>
       <ul>
         {% for review in reviews_block %}
-          <div id="servico_review_{{ forloop.index }}">
+          <li id="servico_review_{{ forloop.index }}">
             {% unless review.settings.description == blank %}
               <div>{{ review.settings.description }}</div>
             {% endunless %}
@@ -83,7 +83,7 @@
                 </span>
               </div>
             {% endunless %}
-          </div>
+          </li>
         {% endfor %}
       </ul>
 
