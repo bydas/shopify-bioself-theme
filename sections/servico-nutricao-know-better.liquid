@@ -1,6 +1,102 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+{% assign path_block = section.blocks | where: 'type', 'path' %}
+
+<style>
+  #servico_know_custom {
+    width: 100dvw;
+    height: 1200px;
+    backgroud-position: center;
   }
+</style>
+
+<section
+  id="servico_know_custom"
+  style="{% unless section.settings.bg_img == blank %}background-image: {{ section.settings.bg_img }}{% endunless %}"
+>
+  {% unless section.settings.title == blank %}
+    <div>
+      <h1>{{ section.settings.title }}</h1>
+
+      {% if section.settings.description != blank %}
+        {{ section.settings.description }}
+      {% endif %}
+    </div>
+  {% endunless %}
+
+  {% unless path_block.size == 0 %}
+    <ul>
+      {% for p in path_block %}
+        <li>
+          {% unless p.settings.icon %}
+            <img
+              src="{{ p.settings.icon | image_url: width: 80, height: 80 }}"
+              alt="{{ forloop.index }}-icon"
+              width="80"
+              height="80"
+            >
+          {% endunless %}
+
+          {% unless p.settings.title == blank %}
+            <h1>{{ p.settings.title }}</h1>
+          {% endunless %}
+
+          {% unless p.settings.description == blank %}
+            {{ p.settings.description }}
+          {% endunless %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endunless %}
+</section>
+
+{% schema %}
+{
+  "name": "Servico Nutricao Know",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_img",
+      "label": "Imagem de Fundo"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "path",
+      "name": "Percurso",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Ícone"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Descrição"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Know",
+      "category": "custom"
+    }
+  ]
+}
 {% endschema %}
