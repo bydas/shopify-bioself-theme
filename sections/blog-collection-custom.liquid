@@ -26,12 +26,6 @@
       "type": "text",
       "id": "title_blog",
       "label": "Selecione um título"
-    },
-    {
-      "type": "metaobject",
-      "id": "author",
-      "label": "Selecione um Autor",
-      "metaobject_type": "autores"
     }
   ],
   "presets": [
@@ -341,54 +335,40 @@
           {% endif %}
         {%- endfor -%}
 
-        {% capture article_html %}
         <a href="{{ article.url }}">
-            <li
-              class="lazy-bg"
-              data-bg="{{ article.image | img_url: 'master' }}"
-              style="background-size: cover; background-position: center;"
-            >
-              {% for tag in article.tags %}
-                {% unless tag contains '_' %}
-                  <button>{{ tag }}</button>
-                {% endunless %}
+          <li
+            class="lazy-bg"
+            data-bg="{{ article.image | img_url: 'master' }}"
+            style="background-size: cover; background-position: center;"
+          >
+            {% for tag in article.tags %}
+              {% unless tag contains '_' %}
+                <button>{{ tag }}</button>
+              {% endunless %}
+            {% endfor %}
+
+            {% if article.title %}
+              <h2>{{ article.title }}</h2>
+            {% endif %}
+
+            {% if article.author %}
+              {% assign date = article.created_at | date: '%d %B %Y' %}
+              {% assign english_month = article.created_at | date: '%B' %}
+              {% assign months_pt_split = months_pt | split: ',' %}
+
+              {% for pair in months_pt_split %}
+                {% assign parts = pair | split: ':' %}
+                {% if parts[0] == english_month %}
+                  {% assign portuguese_month = parts[1] %}
+                {% endif %}
               {% endfor %}
-  
-              {% if article.title %}
-                <h2>{{ article.title }}</h2>
-              {% endif %}
-  
-              {% if article.author %}
-                {% assign date = article.created_at | date: '%d %B %Y' %}
-                {% assign english_month = article.created_at | date: '%B' %}
-                {% assign months_pt_split = months_pt | split: ',' %}
-  
-                {% for pair in months_pt_split %}
-                  {% assign parts = pair | split: ':' %}
-                  {% if parts[0] == english_month %}
-                    {% assign portuguese_month = parts[1] %}
-                  {% endif %}
-                {% endfor %}
-  
-                {% assign translated_date = date | replace: english_month, portuguese_month %}
-  
-                <span>{{ author[1] }}, {{ translated_date }}</span>
-              {% endif %}
-            </li>
-          </a>
-        {% endcapture %}
 
-        {% if section.settings.author != blank %}
-          <script>
-            console.log("{{ section.settings.author.tag }}", "{{ author[1] }}")
-          </script>
+              {% assign translated_date = date | replace: english_month, portuguese_month %}
 
-          {% if section.settings.author.tag == author %}
-            {{ article_html }}
-          {% endif %}
-        {% else %}
-          {{ article_html }}
-        {% endif %}
+              <span>{{ author[1] }}, {{ translated_date }}</span>
+            {% endif %}
+          </li>
+        </a>
       {% endfor %}
     </ul>
   {% endif %}
