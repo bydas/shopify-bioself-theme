@@ -137,6 +137,46 @@
         "title": "O QUE DIZEM OS NOSSOS CLIENTES"
       }
     },
+    "servico_nutricao_know_better_AYrtPJ": {
+      "type": "servico-nutricao-know-better",
+      "blocks": {
+        "path_DqQDhz": {
+          "type": "path",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_a26fdafb-1ae9-49b3-be7b-f5bb1ade9fc6.png",
+            "title": "O MEU PERCURSO",
+            "description": "<p>Sou Nutricionista desde 2019, apaixonada pela nutrição funcional, metabolismo e suplementação. Desde cedo percebi que a saúde vai muito além de contar calorias, pois envolve compreender a complexidade do corpo e da mente como um todo. Por isso, tenho-me dedicado a estudar a extraordinária rede que envolve os vários sistemas do organismo e a nutrição, com foco especial na saúde intestinal.</p>"
+          }
+        },
+        "path_XDpqtX": {
+          "type": "path",
+          "settings": {
+            "icon": "shopify://shop_images/Isolation_Mode.png",
+            "title": "O QUE ME MOVE",
+            "description": "<p>A intervenção nutricional que pratico respeita o corpo, a história e o ritmo de cada pessoa. É prática, flexível e centrada na tua realidade, sem extremismos e sem fórmulas rígidas. Sou guiada por uma abordagem integrativa, que une o conhecimento científico à escuta ativa, à empatia e ao cuidado genuíno.</p>"
+          }
+        },
+        "path_fkPGfJ": {
+          "type": "path",
+          "settings": {
+            "icon": "shopify://shop_images/Layer_1.png",
+            "title": "ALÉM DA NUTRIÇÃO",
+            "description": "<p>Interesso-me profundamente por desenvolvimento pessoal, espiritualidade e coaching, áreas que me ajudam a evoluir e a estar mais presente para os outros. Adoro ler, ir ao cinema e estar com a minha família e amigos. Sinto-me uma eterna estudante, sempre em busca de mais ferramentas para cuidar melhor de quem me procura.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "path_DqQDhz",
+        "path_XDpqtX",
+        "path_fkPGfJ"
+      ],
+      "name": "Servico Nutricao Know",
+      "settings": {
+        "bg_img": "shopify://shop_images/Rectangle_1_f2fe2aa0-c7d6-4256-a488-1e8875641159.png",
+        "title": "<h1>Conhece melhor</h1><h1>a nutricionista</h1>",
+        "description": "<p>Dedicada a guiar-te na transformação</p><p>da tua saúde. </p>"
+      }
+    },
     "blog_collection_custom_xkhXGH": {
       "type": "blog-collection-custom",
       "name": "Blog custom",
@@ -432,6 +472,7 @@
     "servico_nutricao_who_to_block_6LXiPB",
     "servico_nutricao_cta_H3cCYf",
     "servico_nutricao_reviews_hrY7tx",
+    "servico_nutricao_know_better_AYrtPJ",
     "blog_collection_custom_xkhXGH",
     "faq_2_EThpxa",
     "slideshow",
