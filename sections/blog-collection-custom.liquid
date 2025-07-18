@@ -380,7 +380,10 @@
         {% endcapture %}
 
         {% if section.settings.author != blank %}
-          {{ section.settings.author }}
+          <script>
+            console.log({{ section.settings.author | json }})
+          </script>
+
           {% if section.settings.author.tag == author_tag %}
             {{ article_html }}
           {% endif %}
