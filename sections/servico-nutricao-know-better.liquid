@@ -1,17 +1,11 @@
 {% assign path_block = section.blocks | where: 'type', 'path' %}
 
-<style>
-  /* #servico_know_custom {
-    width: 100dvw;
-    height: 1200px;
-    backgroud-position: center;
-  } */
-</style>
+<style></style>
 
 <section
   id="servico_know_custom"
   class="lazy-bg"
-  data-bg="{{ section.settings.bg_img | img_url: 'master' }}"
+  data-bg="{{ section.settings.bg_img | image_url: width: '100%', height: '1311' }}"
   style="background-size: cover; background-position: center;"
 >
   {% unless section.settings.title == blank %}
