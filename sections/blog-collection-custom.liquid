@@ -380,6 +380,7 @@
         {% endcapture %}
 
         {% if section.settings.author != blank %}
+          {{ section.settings.author }}
           {% if section.settings.author.tag == author_tag %}
             {{ article_html }}
           {% endif %}
