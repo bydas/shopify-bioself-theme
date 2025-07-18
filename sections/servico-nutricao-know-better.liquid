@@ -33,7 +33,7 @@
     width: max-content;
   }
 
-  #servico_know_custom > div > h1  {
+  #servico_know_custom > div > div > h1  {
     margin: 0;
     padding: 0;
     font-size: 3rem;
@@ -41,7 +41,7 @@
     line-height: normal;
   }
 
-  #servico_know_custom > div > p {
+  #servico_know_custom > div > div > p {
     margin: 0;
     padding: 0;
     font-size: 1.25rem;
@@ -96,10 +96,14 @@
 >
   {% unless section.settings.title == blank %}
     <div>
-      <h1>{{ section.settings.title }}</h1>
+      <div>
+        <h1>{{ section.settings.title }}</h1>
+      </div>
 
       {% if section.settings.description != blank %}
-        {{ section.settings.description }}
+        <div>
+          {{ section.settings.description }}
+        </div>
       {% endif %}
     </div>
   {% endunless %}
