@@ -35,8 +35,15 @@
     gap: 2rem;
   }
 
+  #reviews_content > li.active {
+    display: grid;
+  }
+
+  #reviews_content > li.inactive {
+    display: grid;
+  }
+
   #reviews_content > li {
-    display: none;
     grid-template-rows: repeat(2, max-content);
     text-align: center;
     gap: 2rem;
@@ -44,10 +51,6 @@
     margin: 0;
     max-width: 50%;
     transition: display 0.3s ease;
-  }
-
-  #reviews_content > li.active {
-    display: grid;
   }
 
   #reviews_content > li > div > p,
@@ -139,8 +142,11 @@
         const rw = document.querySelector(`.review_txt[data-index="${clickedIdx}"]`);
 
         activeRw.classList.remove("active");
-        activeRw.style.display = 'none';
+        activeRw.classList.add("inactive");
+        
+        rw.classList.remove("inactive");
         rw.classList.add("active");
+        
         activeBp.classList.remove("active");
         bp.classList.add("active");
       }
