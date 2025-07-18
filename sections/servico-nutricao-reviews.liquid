@@ -129,29 +129,41 @@
 </section>
 
 <script>
-  const bulletPoints = document.querySelectorAll(".review_index_point");
+  let touchStartX = 0;
+  let touchEndX = 0;
 
-  bulletPoints.forEach((bp) => {
-    bp.addEventListener("click", () => {
-      const activeBp = document.querySelector(".review_index_point.active");
-      const currentIdx = activeBp.getAttribute("data-index");
-      const clickedIdx = bp.getAttribute("data-index");
+  const reviewsContainer = document.getElementById('reviews_content');
 
-      if (currentIdx != clickedIdx) {
-        const activeRw = document.querySelector(".review_txt.active");
-        const rw = document.querySelector(`.review_txt[data-index="${clickedIdx}"]`);
+  reviewsContainer.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
 
-        activeRw.classList.remove("active");
-        activeRw.classList.add("inactive");
-        
-        rw.classList.remove("inactive");
-        rw.classList.add("active");
-        
-        activeBp.classList.remove("active");
-        bp.classList.add("active");
-      }
-    });
-  });
+  reviewsContainer.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, false);
+
+  function handleSwipe() {
+    const threshold = 50;
+
+    if (touchEndX < touchStartX - threshold) {
+      changeReview(1);
+    } else if (touchEndX > touchStartX + threshold) {
+      changeReview(-1);
+    }
+  }
+
+  function changeReview(dir) {
+    const bullets = document.querySelectorAll('.review_index_point');
+    const activeBullet = document.querySelector('.review_index_point.active');
+
+    let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
+
+    const total = bullets.length;
+    idx = ((idx - 1 + dir + total) % total) + 1;
+
+    bullets[idx - 1].click();
+  }
 </script>
 
 {% schema %}
