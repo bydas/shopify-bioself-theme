@@ -129,6 +129,40 @@
 </section>
 
 <script>
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const reviewsContainer = document.getElementById('reviews_content');
+
+  reviewsContainer.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
+
+  reviewsContainer.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe(); 
+  }, false);
+
+  function handleSwipe() {
+    const threshold = 50;
+    if (touchEndX < touchStartX - threshold) {
+      changeReview(1);
+    } else if (touchEndX > touchStartX + threshold) {
+      changeReview(-1);
+    }
+  }
+  
+  function changeReview(dir) {
+    const bullets = document.querySelectorAll('.review_index_point');
+    const activeBullet = document.querySelector('.review_index_point.active');
+    let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
+  
+    const total = bullets.length;
+    idx = ((idx - 1 + dir + total) % total) + 1;
+  
+    bullets[idx - 1].click();
+  }
+  
   const bulletPoints = document.querySelectorAll(".review_index_point");
 
   bulletPoints.forEach((bp) => {
