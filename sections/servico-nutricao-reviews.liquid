@@ -129,64 +129,79 @@
 </section>
 
 <script>
+  // Variáveis para guardar coordenadas do início e fim do gesto
   let touchStartX = 0;
   let touchEndX = 0;
 
   const reviewsContainer = document.getElementById('reviews_content');
+  const bulletPoints = document.querySelectorAll('.review_index_point');
 
-  reviewsContainer.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, false);
+  // Função genérica que altera o slide (dir = +1 ou -1)
+  function changeReview(dir) {
+    const activeBullet = document.querySelector('.review_index_point.active');
+    let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
+    const total = bulletPoints.length;
+    idx = ((idx - 1 + dir + total) % total) + 1;
+    bulletPoints[idx - 1].click();
+  }
 
-  reviewsContainer.addEventListener('touchend', e => {
-    console.log(e);
-    
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe(); 
-  }, false);
-
+  // Função que trata o swipe com threshold
   function handleSwipe() {
-    const threshold = 50;
-    
+    const threshold = 50; // px mínimos para considerar swipe
     if (touchEndX < touchStartX - threshold) {
+      // swipe para a esquerda → avançar
       changeReview(1);
     } else if (touchEndX > touchStartX + threshold) {
+      // swipe para a direita → recuar
       changeReview(-1);
     }
   }
 
-  const bulletPoints = document.querySelectorAll(".review_index_point");
-  
-  function changeReview(dir) {
-    const activeBullet = document.querySelector('.review_index_point.active');
-    let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
-  
-    const total = bulletPoints.length;
-    idx = ((idx - 1 + dir + total) % total) + 1;
-
-    console.log(bulletPoints[idx - 1]);
-  
-    bulletPoints[idx - 1].click();
+  // Captura início do gesto (touch ou mouse/pointer)
+  function onStart(e) {
+    if (e.changedTouches) {
+      touchStartX = e.changedTouches[0].screenX;
+    } else {
+      touchStartX = e.clientX;
+    }
   }
 
-  bulletPoints.forEach((bp) => {
-    bp.addEventListener("click", () => {
-      const activeBp = document.querySelector(".review_index_point.active");
-      const currentIdx = activeBp.getAttribute("data-index");
-      const clickedIdx = bp.getAttribute("data-index");
+  // Captura fim do gesto (touch ou mouse/pointer) e dispara swipe
+  function onEnd(e) {
+    if (e.changedTouches) {
+      touchEndX = e.changedTouches[0].screenX;
+    } else {
+      touchEndX = e.clientX;
+    }
+    // Só para debug: confirma que o evento chegou
+    console.log('Gesto de', touchStartX, 'a', touchEndX);
+    handleSwipe();
+  }
 
-      if (currentIdx != clickedIdx) {
-        const activeRw = document.querySelector(".review_txt.active");
+  // Ouvintes para touch
+  reviewsContainer.addEventListener('touchstart', onStart, false);
+  reviewsContainer.addEventListener('touchend',   onEnd,   false);
+
+  // Ouvintes para pointer (desktop e rato)
+  reviewsContainer.addEventListener('pointerdown', onStart, false);
+  reviewsContainer.addEventListener('pointerup',   onEnd,   false);
+
+  // Ouvinte de clique nos bullet points (já existente)
+  bulletPoints.forEach((bp) => {
+    bp.addEventListener('click', () => {
+      const activeBp = document.querySelector('.review_index_point.active');
+      const currentIdx = activeBp.getAttribute('data-index');
+      const clickedIdx = bp.getAttribute('data-index');
+
+      if (currentIdx !== clickedIdx) {
+        const activeRw = document.querySelector('.review_txt.active');
         const rw = document.querySelector(`.review_txt[data-index="${clickedIdx}"]`);
 
-        activeRw.classList.remove("active");
-        activeRw.classList.add("inactive");
-        
-        rw.classList.remove("inactive");
-        rw.classList.add("active");
-        
-        activeBp.classList.remove("active");
-        bp.classList.add("active");
+        activeRw.classList.replace('active', 'inactive');
+        rw.classList.replace('inactive', 'active');
+
+        activeBp.classList.remove('active');
+        bp.classList.add('active');
       }
     });
   });
