@@ -159,6 +159,8 @@
   
     const total = bullets.length;
     idx = ((idx - 1 + dir + total) % total) + 1;
+
+    console.log(bullets[idx - 1]);
   
     bullets[idx - 1].click();
   }
