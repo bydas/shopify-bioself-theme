@@ -138,6 +138,8 @@
         const activeRw = document.querySelector(".review_txt.active");
         const rw = document.querySelector(`.review_txt[data-index="${clickedIdx}"]`);
 
+        console.log(rw);
+
         activeRw.classList.remove("active");
         activeRw.classList.add("active");
         activeBp.classList.remove("active");
