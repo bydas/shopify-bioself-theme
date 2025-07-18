@@ -81,13 +81,41 @@
         "btn_txt": "QUERO COMEÇAR ESTE CAMINHO"
       }
     },
+    "servico_nutricao_reviews_hrY7tx": {
+      "type": "servico-nutricao-reviews",
+      "blocks": {
+        "review_J47GFF": {
+          "type": "review",
+          "settings": {
+            "description": "<p>Quando procurei a Dra. Rita, estava a passar por uma fase complicada devido à síndrome do cólon irritado e não sabia bem o que fazer. A sua análise foi super completa e senti que olhou para mim como uma pessoa, e não apenas como um conjunto de sintomas. O plano alimentar e de suplementação que construímos juntas foi personalizado e, acredite, tem sido fácil de seguir!</p>",
+            "name": "Marta",
+            "age": 38
+          }
+        },
+        "review_UXbQHB": {
+          "type": "review",
+          "settings": {
+            "description": "<p>Este é um teste</p>",
+            "name": "Leonardo",
+            "age": 23
+          }
+        }
+      },
+      "block_order": [
+        "review_J47GFF",
+        "review_UXbQHB"
+      ],
+      "name": "Servico Nutricao Reviews",
+      "settings": {
+        "title": "O QUE DIZEM OS NOSSOS CLIENTES"
+      }
+    },
     "blog_collection_custom_xkhXGH": {
       "type": "blog-collection-custom",
       "name": "Blog custom",
       "settings": {
         "selected_blog": "blog-page",
-        "title_blog": "BIOSELF BLOG",
-        "author": "rita-silva"
+        "title_blog": "BIOSELF BLOG"
       }
     },
     "faq_2_EThpxa": {
@@ -376,6 +404,7 @@
     "servico_nutricao_steps_EFpMbD",
     "servico_nutricao_who_to_block_6LXiPB",
     "servico_nutricao_cta_H3cCYf",
+    "servico_nutricao_reviews_hrY7tx",
     "blog_collection_custom_xkhXGH",
     "faq_2_EThpxa",
     "slideshow",
