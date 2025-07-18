@@ -65,6 +65,14 @@
         "main_image": "shopify://shop_images/Rectangle_9d2a316f-502b-4355-bfba-aaa09548ffcf.png"
       }
     },
+    "servico_nutricao_who_to_block_6LXiPB": {
+      "type": "servico-nutricao-who-to-block",
+      "name": "Servico Nutricao Who",
+      "settings": {
+        "title": "A QUEM SE DESTINA",
+        "description": "<p>Esta consulta é para ti se procuras uma abordagem sem extremismos, que respeita o teu corpo e promova equilíbrio.</p><p>É também para ti se já experimentaste várias estratégias sem resultados duradouros.</p><p>Se desejas recuperar o conforto digestivo e restaurar a função gastrointestinal.</p><p>Ou se enfrentas desafios como dificuldade em perder peso, stress, fadiga, alterações no ciclo menstrual, desequilíbrios hormonais e metabólicos, e procuras orientação de forma próxima e integrada!</p>"
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -305,6 +313,7 @@
     "servico_nutricao_head_cVhcd9",
     "servico_nutricao_msg_block_7h8TLG",
     "servico_nutricao_steps_EFpMbD",
+    "servico_nutricao_who_to_block_6LXiPB",
     "slideshow",
     "text-with-icons-top",
     "template",
