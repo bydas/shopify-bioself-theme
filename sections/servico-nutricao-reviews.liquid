@@ -31,6 +31,16 @@
     touch-action: pan-y;
     transform: translateX(0);
     transition: transform .3s ease;
+    cursor: grab;
+  }
+
+  #servico_reviews_list > li > div > p,
+  #servico_reviews_list > li > div > span {
+    max-width: 60%;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
   }
 
   #servico_reviews_list > li {
@@ -54,13 +64,13 @@
   .review_index_point {
     width: 15px;
     height: 15px;
-    border-radius: 50%;
     background-color: black;
     cursor: pointer;
-    transition: width .3s;
+    transition: all .3s;
   }
 
   .review_index_point.active {
+    border-radius: 0.5rem;
     width: 50px;
   }
 </style>
