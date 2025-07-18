@@ -94,9 +94,7 @@
       <ul id="reviews_content">
         {% for review in reviews_block %}
           <li
-            {% if forloop.first %}
-              class="active"
-            {% endif %}
+            class="review_txt {% if forloop.first %}active{% endif %}"
             data-index="{{ forloop.index }}"
           >
             {% unless review.settings.description == blank %}
@@ -133,8 +131,15 @@
   bulletPoints.forEach((bp) => {
     bp.addEventListener("click", () => {
       const activeBp = document.querySelector(".review_index_point.active");
+      const currentIdx = activeBp.getAttribute("data-index");
+      const clickedIdx = bp.getAttribute("data-index");
 
-      if (activeBp.getAttribute("data-index") != bp.getAttribute("data-index")) {
+      if (currentIdx != clickedIdx) {
+        const activeRw = document.querySelector(".review_txt.active");
+        const rw = document.querySelector(`.review_txt[data-index="${clickedIdx}"]`);
+
+        activeRw.classList.remove("active");
+        activeRw.classList.add("active");
         activeBp.classList.remove("active");
         bp.classList.add("active");
       }
