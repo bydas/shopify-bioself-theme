@@ -6,12 +6,25 @@
   }
 
   #servico_know_custom > div {
+    position: relative;
+    margin: 0 var(--desktop-container-gutter);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #servico_know_custom > div {
+      margin: 0 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #servico_know_custom > div {
+      margin: 0 18vw;
+    }
+  }
+
+  #servico_know_custom > div > div {
     position: absolute;
     z-index: 1;
-    top: 50%;
-    left: 0%;
-    margin: 0 var(--desktop-container-gutter);
-    transform: translate(-50%, -50%);
     display: grid;
     grid-auto-rows: max-content;
     grid-auto-flow: row;
@@ -22,26 +35,14 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   }
 
-  @media screen and (min-width: 1499px) {
-    #section_step_custom {
-      margin: 0 9vw;
-    }
-  }
-
-  @media screen and (min-width: 2559px) {
-    #section_step_custom {
-      margin: 0 18vw;
-    }
-  }
-
-  #servico_know_custom > div > div > h1 {
+  #servico_know_custom > div > div > div > h1 {
     padding: 0;
     margin: 0;
     font-size: 2rem;
     font-weight: 900 !important;
   }
 
-  #servico_know_custom > div > div > p {
+  #servico_know_custom > div > div > div > p {
     padding: 0;
     margin: 0;
     font-size: 1rem;
@@ -64,14 +65,16 @@
   {% unless section.settings.title == blank %}
     <div>
       <div>
-        <h1>{{ section.settings.title }}</h1>
-      </div>
-
-      {% if section.settings.description != blank %}
         <div>
-          {{ section.settings.description }}
+          <h1>{{ section.settings.title }}</h1>
         </div>
-      {% endif %}
+  
+        {% if section.settings.description != blank %}
+          <div>
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
     </div>
   {% endunless %}
 
