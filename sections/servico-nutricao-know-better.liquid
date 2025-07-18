@@ -66,14 +66,16 @@
     right: 0;
   }
 
-  #servico-know__item-title {
+  .servico-know__item-title {
     padding: 0;
     margin: 0;
   }
 
   .servico-know__path-item {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
     align-items: center;
     text-align: center;
     padding: 1rem;
