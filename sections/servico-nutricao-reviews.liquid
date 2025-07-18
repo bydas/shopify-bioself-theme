@@ -28,10 +28,23 @@
     overflow: hidden;
     padding: 0;
     margin: 0;
+    width: 100%;           /* garante largura total */
     touch-action: pan-y;
     transform: translateX(0);
     transition: transform .3s ease;
     cursor: grab;
+  }
+
+  #servico_reviews_list > li {
+    min-width: 100%;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;   /* centra todo o conteúdo */
+    grid-template-rows: repeat(2, max-content);
+    text-align: center;
+    gap: 2rem;
+    padding: 0;
+    margin: 0;
   }
 
   #servico_reviews_list > li > div {
@@ -46,17 +59,6 @@
     margin: 0;
     padding: 0;
     font-size: 1rem;
-  }
-
-  #servico_reviews_list > li {
-    min-width: 100%;
-    flex-shrink: 0;
-    display: grid;
-    grid-template-rows: repeat(2, max-content);
-    text-align: center;
-    gap: 2rem;
-    padding: 0;
-    margin: 0;
   }
 
   #bullet_points_container {
@@ -86,7 +88,7 @@
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
 
-  {% if section.blocks.size > 0 %}
+  {% if reviews_block.size > 0 %}
     <div>
       <ul id="servico_reviews_list">
         {% for review in reviews_block %}
@@ -118,13 +120,11 @@
     const list = document.getElementById('servico_reviews_list');
     const bullets = Array.from(document.querySelectorAll('.review_index_point'));
     const total = list.children.length;
-    
     let current = 0;
     let startX = 0, deltaX = 0, isDragging = false;
 
     function updateView() {
       list.style.transform = `translateX(${-current * 100}%)`;
-      
       bullets.forEach((b, i) => {
         b.classList.toggle('active', i === current);
       });
@@ -140,36 +140,44 @@
     list.addEventListener('pointerdown', e => {
       isDragging = true;
       startX = e.clientX;
-      
       list.style.transition = 'none';
       list.setPointerCapture(e.pointerId);
     });
 
     list.addEventListener('pointermove', e => {
       if (!isDragging) return;
-      
       deltaX = e.clientX - startX;
-      const percent = deltaX / list.clientWidth * 100;
+      const containerWidth = list.getBoundingClientRect().width;
+      const percent = deltaX / containerWidth * 100;
       list.style.transform = `translateX(${-current * 100 + percent}%)`;
     });
 
     list.addEventListener('pointerup', e => {
+      if (!isDragging) return;
       isDragging = false;
       list.style.transition = '';
-      
-      const threshold = list.clientWidth * 0.2;
-      
+      const containerWidth = list.getBoundingClientRect().width;
+      const threshold = containerWidth * 0.2; // 20% largura para trocar
       if (deltaX > threshold && current > 0) {
         current--;
       } else if (deltaX < -threshold && current < total - 1) {
         current++;
       }
-      
       deltaX = 0;
       updateView();
       list.releasePointerCapture(e.pointerId);
     });
 
+    // suporta cancelar se sair do elemento
+    list.addEventListener('pointercancel', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      list.style.transition = '';
+      deltaX = 0;
+      updateView();
+    });
+
+    // Inicializa
     updateView();
   });
 </script>
