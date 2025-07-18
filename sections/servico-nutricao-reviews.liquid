@@ -97,7 +97,7 @@
             {% if forloop.first %}
               class="active"
             {% endif %}
-            id="servico_review_{{ forloop.index }}"
+            data-index="{{ forloop.index }}"
           >
             {% unless review.settings.description == blank %}
               <div>{{ review.settings.description }}</div>
@@ -119,13 +119,28 @@
         {% for review in reviews_block %}
           <li
             class="review_index_point {% if forloop.first %}active{% endif %}"
-            id="for_servico_review_{{ forloop.index }}"
+            data-index="{{ forloop.index }}"
           ></li>
         {% endfor %}
       </ul>
     </div>
   {% endif %}
 </section>
+
+<script>
+  const bulletPoints = document.querySelectorAll(".review_index_point");
+
+  bulletPoints.forEach((bp) => {
+    bp.addEventListener("click", () => {
+      const activeBp = document.querySelector(".review_index_point.active");
+
+      if (activeBp.getAttribute("data-index") != bp.getAttribute("data-index")) {
+        activeBp.classList.remove("active");
+        bp.classList.add("active");
+      }
+    });
+  });
+</script>
 
 {% schema %}
 {
