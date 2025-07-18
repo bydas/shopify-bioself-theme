@@ -139,6 +139,8 @@
   }, false);
 
   reviewsContainer.addEventListener('touchend', e => {
+    console.log(e);
+    
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe(); 
   }, false);
