@@ -1,0 +1,26 @@
+{% assign items = path_block %}
+
+{% unless items.size == 0 %}
+  <ul class="servico-know__path-list">
+    {% for p in items %}
+      <li class="servico-know__path-item">
+        {% unless p.settings.icon == blank %}
+          <img
+            src="{{ p.settings.icon | image_url: width: 70, height: 70 }}"
+            alt="{{ forloop.index }}-icon"
+            width="70"
+            height="70"
+          >
+        {% endunless %}
+
+        {% unless p.settings.title == blank %}
+          <h3 class="servico-know__item-title">{{ p.settings.title }}</h3>
+        {% endunless %}
+
+        {% unless p.settings.description == blank %}
+          {{ p.settings.description }}
+        {% endunless %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endunless %}
