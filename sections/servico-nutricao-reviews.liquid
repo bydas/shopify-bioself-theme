@@ -97,7 +97,7 @@
       <ul id="reviews_content">
         {% for review in reviews_block %}
           <li
-            class="review_txt {% if forloop.first %}active{% endif %}"
+            class="review_txt {% if forloop.first %}active{% else %}inactive{% endif %}"
             data-index="{{ forloop.index }}"
           >
             {% unless review.settings.description == blank %}
