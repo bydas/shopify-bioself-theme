@@ -380,7 +380,7 @@
 
         {% if section.settings.author != blank %}
           <script>
-            console.log("{{ section.settings.author.tag }}", "{{ author }}")
+            console.log("{{ section.settings.author.tag }}", "{{ author[1] }}")
           </script>
 
           {% if section.settings.author.tag == author %}
