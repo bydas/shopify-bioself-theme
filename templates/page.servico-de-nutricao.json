@@ -86,7 +86,8 @@
       "name": "Blog custom",
       "settings": {
         "selected_blog": "blog-page",
-        "title_blog": "BIOSELF BLOG"
+        "title_blog": "BIOSELF BLOG",
+        "author": "rita-silva"
       }
     },
     "faq_2_EThpxa": {
