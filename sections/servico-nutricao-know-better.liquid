@@ -1,35 +1,36 @@
 {% assign path_block = section.blocks | where: 'type', 'path' %}
 
 <style>
-  #servico_know_custom {
+  .servico-know {
     position: relative;
     height: 1000px;
   }
 
-  #servico_know_custom > div {
+  .servico-know__container {
     position: relative;
+    height: 100%;
     margin: 0 var(--desktop-container-gutter);
   }
 
   @media screen and (min-width: 1499px) {
-    #servico_know_custom > div {
+    .servico-know__container {
       margin: 0 9vw;
     }
   }
 
   @media screen and (min-width: 2559px) {
-    #servico_know_custom > div {
+    .servico-know__container {
       margin: 0 18vw;
     }
   }
 
-  #servico_know_custom > div > div {
+  .servico-know__content {
     position: absolute;
     z-index: 1;
     display: grid;
     top: 50%;
-    left: 0%;
-    transform: translate(-50%, -50%);
+    left: 0;
+    transform: translateY(-50%);
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     gap: 1rem;
@@ -37,75 +38,112 @@
     border-radius: 1rem;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    max-width: 50%;
   }
 
-  #servico_know_custom > div > div > div > h1 {
+  .servico-know__title {
     padding: 0;
     margin: 0;
     font-size: 2rem;
     font-weight: 900 !important;
   }
 
-  #servico_know_custom > div > div > div > p {
+  .servico-know__description {
     padding: 0;
     margin: 0;
     font-size: 1rem;
     font-weight: 500 !important;
   }
 
-  #servico_know_custom > ul {
+  .servico-know__path-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     list-style-type: none;
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    padding: 0 var(--desktop-container-gutter);
+  }
+
+  .servico-know__path-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .servico-know {
+      height: auto;
+      min-height: 800px;
+    }
+    
+    .servico-know__content {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      max-width: 100%;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .servico-know__path-list {
+      position: relative;
+      grid-template-columns: 1fr;
+      margin-top: 2rem;
+    }
   }
 </style>
 
 <section
   id="servico_know_custom"
-  class="lazy-bg"
+  class="servico-know lazy-bg"
   data-bg="{{ section.settings.bg_img | image_url: width: '1923', height: '1310' }}"
   style="background-size: cover; background-position: center;"
 >
-  {% unless section.settings.title == blank %}
-    <div>
-      <div>
+  <div class="servico-know__container">
+    {% unless section.settings.title == blank %}
+      <div class="servico-know__content">
         <div>
-          <h1>{{ section.settings.title }}</h1>
+          <h1 class="servico-know__title">{{ section.settings.title }}</h1>
         </div>
   
         {% if section.settings.description != blank %}
-          <div>
+          <div class="servico-know__description">
             {{ section.settings.description }}
           </div>
         {% endif %}
       </div>
-    </div>
-  {% endunless %}
+    {% endunless %}
 
-  {% unless path_block.size == 0 %}
-    <ul>
-      {% for p in path_block %}
-        <li>
-          {% unless p.settings.icon == blank %}
-            <img
-              src="{{ p.settings.icon | image_url: width: 70, height: 70 }}"
-              alt="{{ forloop.index }}-icon"
-              width="70"
-              height="70"
-            >
-          {% endunless %}
+    {% unless path_block.size == 0 %}
+      <ul class="servico-know__path-list">
+        {% for p in path_block %}
+          <li class="servico-know__path-item">
+            {% unless p.settings.icon == blank %}
+              <img
+                src="{{ p.settings.icon | image_url: width: 70, height: 70 }}"
+                alt="{{ forloop.index }}-icon"
+                width="70"
+                height="70"
+              >
+            {% endunless %}
 
-          {% unless p.settings.title == blank %}
-            <h1>{{ p.settings.title }}</h1>
-          {% endunless %}
+            {% unless p.settings.title == blank %}
+              <h3 class="servico-know__item-title">{{ p.settings.title }}</h3>
+            {% endunless %}
 
-          {% unless p.settings.description == blank %}
-            {{ p.settings.description }}
-          {% endunless %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% endunless %}
+            {% unless p.settings.description == blank %}
+              <p class="servico-know__item-description">{{ p.settings.description }}</p>
+            {% endunless %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endunless %}
+  </div>
 </section>
 
 {% schema %}
