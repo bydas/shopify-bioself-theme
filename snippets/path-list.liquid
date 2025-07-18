@@ -1,4 +1,7 @@
-{% unless path_block.size == 0 %}
+{%- assign items = path_block | default: items -%}
+{%- assign class_name = class_name | default: 'servico-know__path-list' -%}
+
+{% unless items.size == 0 %}
   <ul class="{{ class_name }}">
     {% for p in items %}
       <li class="servico-know__path-item">
