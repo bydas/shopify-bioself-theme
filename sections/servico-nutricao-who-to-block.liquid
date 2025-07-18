@@ -1,6 +1,62 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+<style>
+  #servico_who_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    border: 1px solid #258439;
+    border-radius: 1rem;
+    text-align: center;
+    margin: 2rem var(--desktop-container-gutter);
+    width: 100%;
   }
+
+  #servico_who_custom > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 900 !important;
+    line-height: normal;
+  }
+
+  #servico_who_custom > p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+    font-weight: 500 !important;
+    line-height: normal;
+  }
+</style>
+
+<section id="servico_who_custom">
+  {% if section.settings.title %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endif %}
+
+  {% if section.settings.description %}
+    <div>{{ section.settings.description }}</div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Servico Nutricao Who",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Who",
+      "category": "block"
+    }
+  ]
+}
 {% endschema %}
