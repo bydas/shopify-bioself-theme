@@ -22,24 +22,13 @@
     line-height: normal;
   }
 
-  #servico_reviews_list {
-    list-style: none;
-    display: flex;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    width: 100%;           /* garante largura total */
-    touch-action: pan-y;
-    transform: translateX(0);
-    transition: transform .3s ease;
+  #servico_reviews_custom > ul {
+    list-style-type: none;
     cursor: grab;
   }
 
-  #servico_reviews_list > li {
-    min-width: 100%;
-    flex-shrink: 0;
+  #servico_reviews_custom > ul > li {
     display: grid;
-    place-items: center;   /* centra todo o conteúdo */
     grid-template-rows: repeat(2, max-content);
     text-align: center;
     gap: 2rem;
@@ -47,42 +36,28 @@
     margin: 0;
   }
 
-  #servico_reviews_list > li > div {
-    display: grid;
-    place-items: center;
-  }
-
-  #servico_reviews_list > li > div > p,
-  #servico_reviews_list > li > div > span {
-    line-height: normal;
-    margin: 0;
+  #servico_reviews_custom > ul > li > div > p,
+  #servico_reviews_custom > ul > li > div > span {
     padding: 0;
+    margin: 0;
+    line-height: normal;
     font-size: 1rem;
-  }
-
-  #servico_reviews_list > li > div > p {
-    max-width: 60%;
+    font-weight: 500 !important;
   }
 
   #bullet_points_container {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
     gap: 1rem;
-    margin-top: 1rem;
+    place-items: center;
   }
 
   .review_index_point {
-    width: 10px;
-    height: 10px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background-color: black;
-    cursor: pointer;
-    transition: all .3s;
-  }
-
-  .review_index_point.active {
-    border-radius: 0.5rem;
-    width: 50px;
   }
 </style>
 
@@ -93,137 +68,73 @@
 
   {% if reviews_block.size > 0 %}
     <div>
-      <ul id="servico_reviews_list">
+      <ul>
         {% for review in reviews_block %}
-          <li data-index="{{ forloop.index0 }}">
+          <div id="servico_review_{{ forloop.index }}">
             {% unless review.settings.description == blank %}
               <div>{{ review.settings.description }}</div>
             {% endunless %}
-          
+
             {% unless review.settings.name == blank %}
               <div>
-                <span>{{ review.settings.name }}{% if review.settings.age %} - {{ review.settings.age }}{% endif %}</span>
+                <span>
+                  {{- review.settings.name -}}
+                  {%- if review.settings.age %} - {{ review.settings.age }}{% endif -%}
+                </span>
               </div>
             {% endunless %}
-          </li>
+          </div>
         {% endfor %}
       </ul>
 
       <div id="bullet_points_container">
         {% for review in reviews_block %}
-          <div class="review_index_point" data-index="{{ forloop.index0 }}"></div>
+          <div class="review_index_point" id="for_servico_review_{{ forloop.index }}"></div>
         {% endfor %}
       </div>
     </div>
   {% endif %}
 </section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const list = document.getElementById('servico_reviews_list');
-    const bullets = Array.from(document.querySelectorAll('.review_index_point'));
-    const total = list.children.length;
-    let current = 0;
-    let startX = 0, deltaX = 0, isDragging = false;
-
-    function updateView() {
-      list.style.transform = `translateX(${-current * 100}%)`;
-      bullets.forEach((b, i) => {
-        b.classList.toggle('active', i === current);
-      });
-    }
-
-    bullets.forEach(b => {
-      b.addEventListener('click', () => {
-        current = parseInt(b.dataset.index, 10);
-        updateView();
-      });
-    });
-
-    list.addEventListener('pointerdown', e => {
-      isDragging = true;
-      startX = e.clientX;
-      list.style.transition = 'none';
-      list.setPointerCapture(e.pointerId);
-    });
-
-    list.addEventListener('pointermove', e => {
-      if (!isDragging) return;
-      deltaX = e.clientX - startX;
-      const containerWidth = list.getBoundingClientRect().width;
-      const percent = deltaX / containerWidth * 100;
-      list.style.transform = `translateX(${-current * 100 + percent}%)`;
-    });
-
-    list.addEventListener('pointerup', e => {
-      if (!isDragging) return;
-      isDragging = false;
-      list.style.transition = '';
-      const containerWidth = list.getBoundingClientRect().width;
-      const threshold = containerWidth * 0.2; // 20% largura para trocar
-      if (deltaX > threshold && current > 0) {
-        current--;
-      } else if (deltaX < -threshold && current < total - 1) {
-        current++;
-      }
-      deltaX = 0;
-      updateView();
-      list.releasePointerCapture(e.pointerId);
-    });
-
-    // suporta cancelar se sair do elemento
-    list.addEventListener('pointercancel', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      list.style.transition = '';
-      deltaX = 0;
-      updateView();
-    });
-
-    // Inicializa
-    updateView();
-  });
-</script>
-
 {% schema %}
-  {
-    "name": "Servico Nutricao Reviews",
-    "settings": [
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Título"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "review",
-        "name": "Review",
-        "limit": 5,
-        "settings": [
-          {
-            "type": "richtext",
-            "id": "description",
-            "label": "Avaliação"
-          },
-          {
-            "type": "text",
-            "id": "name",
-            "label": "Nome"
-          },
-          {
-            "type": "number",
-            "id": "age",
-            "label": "Idade"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Servico Nutricao Reviews",
-        "category": "review"
-      }
-    ]
-  }
+{
+  "name": "Servico Nutricao Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Avaliação"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome"
+        },
+        {
+          "type": "number",
+          "id": "age",
+          "label": "Idade"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Reviews",
+      "category": "review"
+    }
+  ]
+}
 {% endschema %}
