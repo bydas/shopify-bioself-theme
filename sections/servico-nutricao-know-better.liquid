@@ -61,9 +61,16 @@
     gap: 2rem;
     list-style-type: none;
     position: absolute;
-    bottom: -2rem;
     left: 0;
     right: 0;
+  }
+
+  .servico-know__path-list:nth-child(odd) {
+    bottom: -2rem;
+  }
+
+  .servico-know__path-list:nth-child(even) {
+    bottom: 0;
   }
 
   .servico-know__item-title {
@@ -82,7 +89,6 @@
     border-radius: 1rem;
     justify-items: center;
     color: white;
-    height: max-content;
   }
 
   .servico-know__path-item img {
