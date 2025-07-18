@@ -36,19 +36,18 @@
   }
 
   #reviews_content > li {
-    display: grid;
-    opacity: 0;
+    display: none;
     grid-template-rows: repeat(2, max-content);
     text-align: center;
     gap: 2rem;
     padding: 0;
     margin: 0;
     max-width: 50%;
-    transform: opacity 0.3s ease;
+    transform: display 0.3s ease;
   }
 
   #reviews_content > li.active {
-    opacity: 1;
+    display: grid;
   }
 
   #reviews_content > li > div > p,
