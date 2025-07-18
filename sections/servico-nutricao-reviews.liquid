@@ -37,12 +37,18 @@
 
   #reviews_content > li {
     display: grid;
+    opacity: 0;
     grid-template-rows: repeat(2, max-content);
     text-align: center;
     gap: 2rem;
     padding: 0;
     margin: 0;
     max-width: 50%;
+    transform: opacity 0.3s ease;
+  }
+
+  #reviews_content > li.active {
+    opacity: 1;
   }
 
   #reviews_content > li > div > p,
@@ -81,7 +87,12 @@
     <div>
       <ul id="reviews_content">
         {% for review in reviews_block %}
-          <li id="servico_review_{{ forloop.index }}">
+          <li
+            {% if forloop.first %}
+              class="active"
+            {% endif %}
+            id="servico_review_{{ forloop.index }}"
+          >
             {% unless review.settings.description == blank %}
               <div>{{ review.settings.description }}</div>
             {% endunless %}
