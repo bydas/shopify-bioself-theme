@@ -28,7 +28,7 @@
     gap: 1rem;
     border-radius: 1rem;
     background-color: white;
-    padding: 1.5rem;
+    padding: 2rem;
     width: max-content;
   }
 
@@ -51,13 +51,13 @@
   #servico_know_custom > ul {
     display: grid;
     gap: 1rem;
-    grid-auto-columns: max-content;
-    grid-auto-flow: column;
+    grid-template-columns: repeat(3, 1fr);
     list-style-type: none;
+    justify-content: space-between;
   }
 
   #servico_know_custom > ul > li {
-    padding: 1.5rem;
+    padding: 2rem;
     background-color: #258439;
     color: white;
     border-radius: 1rem;
@@ -67,7 +67,6 @@
     grid-auto-flow: row;
     gap: 1rem;
     justify-items: center;
-    max-width: 480px;
   }
 
   #servico_know_custom > ul > li > h1 {
