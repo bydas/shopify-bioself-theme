@@ -10,7 +10,7 @@
 
 <section
   id="servico_know_custom"
-  style="{% unless section.settings.bg_img == blank %}background-image: {{ section.settings.bg_img }}{% endunless %}"
+  style="{% unless section.settings.bg_img == blank %}background-image: {{ section.settings.bg_img.url }}{% endunless %}"
 >
   {% unless section.settings.title == blank %}
     <div>
