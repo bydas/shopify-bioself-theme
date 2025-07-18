@@ -66,11 +66,11 @@
 </style>
 
 <section id="sevico_cta_custom">
-  {% if section.settings.title %}
+  {% if section.settings.title != blank %}
     <div>{{ section.settings.title }}</div>
   {% endif %}
 
-  {% if section.settings.btn_txt %}
+  {% if section.settings.btn_txt != blank %}
     <button>{{ section.settings.btn_txt }}</button>
   {% endif %}
 </section>

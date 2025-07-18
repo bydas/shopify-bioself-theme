@@ -73,6 +73,14 @@
         "description": "<p>Esta consulta é para ti se procuras uma abordagem sem extremismos, que respeita o teu corpo e promova equilíbrio.</p><p>É também para ti se já experimentaste várias estratégias sem resultados duradouros.</p><p>Se desejas recuperar o conforto digestivo e restaurar a função gastrointestinal.</p><p>Ou se enfrentas desafios como dificuldade em perder peso, stress, fadiga, alterações no ciclo menstrual, desequilíbrios hormonais e metabólicos, e procuras orientação de forma próxima e integrada!</p>"
       }
     },
+    "servico_nutricao_cta_H3cCYf": {
+      "type": "servico-nutricao-cta",
+      "name": "Servico Nutricao CTA",
+      "settings": {
+        "title": "<h1>Na consulta de Nutrição Funcional na Bioself, </h1><h1>vais experienciar uma abordagem distinta, adaptada a ti! </h1>",
+        "btn_txt": "QUERO COMEÇAR ESTE CAMINHO"
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -314,6 +322,7 @@
     "servico_nutricao_msg_block_7h8TLG",
     "servico_nutricao_steps_EFpMbD",
     "servico_nutricao_who_to_block_6LXiPB",
+    "servico_nutricao_cta_H3cCYf",
     "slideshow",
     "text-with-icons-top",
     "template",
