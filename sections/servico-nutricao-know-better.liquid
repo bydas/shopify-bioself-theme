@@ -1,6 +1,73 @@
 {% assign path_block = section.blocks | where: 'type', 'path' %}
 
-<style></style>
+<style>
+  #servico_know_custom {
+    height: 1310px;
+  }
+
+  #servico_know_custom > div {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    border-radius: 1rem;
+    background-color: white;
+    padding: 2rem 1rem;
+  }
+
+  #servico_know_custom > div > h1  {
+    margin: 0;
+    padding: 0;
+    font-size: 3rem;
+    font-weight: 900 !important;
+    line-height: normal;
+  }
+
+  #servico_know_custom > div > p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  #servico_know_custom > ul {
+    display: grid;
+    gap: 1rem;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    list-style-type: none;
+  }
+
+  #servico_know_custom > ul > li {
+    padding: 2rem 1rem;
+    background-color: #258439;
+    color: white;
+    border-radius: 1rem;
+    margin: 0;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  #servico_know_custom > ul > li > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 900 !important;
+    line-height: normal;
+  }
+
+  #servico_know_custom > ul > li > p {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 500 !important;
+    line-height: normal;
+  }
+</style>
 
 <section
   id="servico_know_custom"
