@@ -106,7 +106,7 @@
     <ul>
       {% for p in path_block %}
         <li>
-          {% unless p.settings.icon %}
+          {% unless p.settings.icon == blank %}
             <img
               src="{{ p.settings.icon | image_url: width: 80, height: 80 }}"
               alt="{{ forloop.index }}-icon"
