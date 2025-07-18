@@ -81,6 +81,58 @@
         "btn_txt": "QUERO COMEÇAR ESTE CAMINHO"
       }
     },
+    "blog_collection_custom_xkhXGH": {
+      "type": "blog-collection-custom",
+      "name": "Blog custom",
+      "settings": {
+        "selected_blog": "blog-page",
+        "title_blog": "BIOSELF BLOG"
+      }
+    },
+    "faq_2_EThpxa": {
+      "type": "faq-2",
+      "blocks": {
+        "custom_zLCYVJ": {
+          "type": "custom",
+          "settings": {
+            "title": "Qual é o preço das consultas?",
+            "answer": "<p>O preço das consultas online ou presenciais é de 40 euros. A sessão tem uma duração aproximada de 1 hora.</p>"
+          }
+        },
+        "custom_gfi69M": {
+          "type": "custom",
+          "settings": {
+            "title": "Onde são as consultas presenciais?",
+            "answer": ""
+          }
+        },
+        "custom_XVaWy6": {
+          "type": "custom",
+          "settings": {
+            "title": "Como funcionam as consultas online?",
+            "answer": ""
+          }
+        },
+        "custom_cqHNXB": {
+          "type": "custom",
+          "settings": {
+            "title": "Possuem acordos com seguros?",
+            "answer": ""
+          }
+        }
+      },
+      "block_order": [
+        "custom_zLCYVJ",
+        "custom_gfi69M",
+        "custom_XVaWy6",
+        "custom_cqHNXB"
+      ],
+      "name": "Perguntas Frequentes",
+      "settings": {
+        "title": "Perguntas frequentes",
+        "layout": "homepage"
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -315,14 +367,6 @@
         "background_color": "",
         "text_color": "#308a36"
       }
-    },
-    "blog_collection_custom_xkhXGH": {
-      "type": "blog-collection-custom",
-      "name": "Blog custom",
-      "settings": {
-        "selected_blog": "blog-page",
-        "title_blog": "BIOSELF BLOG"
-      }
     }
   },
   "order": [
@@ -331,10 +375,11 @@
     "servico_nutricao_steps_EFpMbD",
     "servico_nutricao_who_to_block_6LXiPB",
     "servico_nutricao_cta_H3cCYf",
+    "blog_collection_custom_xkhXGH",
+    "faq_2_EThpxa",
     "slideshow",
     "text-with-icons-top",
     "template",
-    "text-with-icons-bottom",
-    "blog_collection_custom_xkhXGH"
+    "text-with-icons-bottom"
   ]
 }
