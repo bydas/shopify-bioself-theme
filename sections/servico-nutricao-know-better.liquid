@@ -1,6 +1,22 @@
 {% assign path_block = section.blocks | where: 'type', 'path' %}
 
 <style>
+  #servico_know_custom {
+    position: relative;
+  }
+
+  #servico_know_custom > div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2rem 8rem 2rem 2rem;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 2rem;
+  }
 </style>
 
 <section
