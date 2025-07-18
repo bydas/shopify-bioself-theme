@@ -315,6 +315,14 @@
         "background_color": "",
         "text_color": "#308a36"
       }
+    },
+    "blog_collection_custom_xkhXGH": {
+      "type": "blog-collection-custom",
+      "name": "Blog custom",
+      "settings": {
+        "selected_blog": "blog-page",
+        "title_blog": "BIOSELF BLOG"
+      }
     }
   },
   "order": [
@@ -326,6 +334,7 @@
     "slideshow",
     "text-with-icons-top",
     "template",
-    "text-with-icons-bottom"
+    "text-with-icons-bottom",
+    "blog_collection_custom_xkhXGH"
   ]
 }
