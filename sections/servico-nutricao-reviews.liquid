@@ -145,27 +145,27 @@
 
   function handleSwipe() {
     const threshold = 50;
+    
     if (touchEndX < touchStartX - threshold) {
       changeReview(1);
     } else if (touchEndX > touchStartX + threshold) {
       changeReview(-1);
     }
   }
+
+  const bulletPoints = document.querySelectorAll(".review_index_point");
   
   function changeReview(dir) {
-    const bullets = document.querySelectorAll('.review_index_point');
     const activeBullet = document.querySelector('.review_index_point.active');
     let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
   
-    const total = bullets.length;
+    const total = bulletPoints.length;
     idx = ((idx - 1 + dir + total) % total) + 1;
 
-    console.log(bullets[idx - 1]);
+    console.log(bulletPoints[idx - 1]);
   
-    bullets[idx - 1].click();
+    bulletPoints[idx - 1].click();
   }
-  
-  const bulletPoints = document.querySelectorAll(".review_index_point");
 
   bulletPoints.forEach((bp) => {
     bp.addEventListener("click", () => {
