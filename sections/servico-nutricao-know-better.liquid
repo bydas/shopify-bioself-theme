@@ -41,7 +41,7 @@
     max-width: 50%;
   }
 
-  .servico-know__title {
+  .servico-know__title h1 {
     padding: 0;
     margin: 0;
     font-size: 2rem;
@@ -122,8 +122,8 @@
   <div class="servico-know__container">
     {% unless section.settings.title == blank %}
       <div class="servico-know__content">
-        <div>
-          <h1 class="servico-know__title">{{ section.settings.title }}</h1>
+        <div class="servico-know__title">
+          {{ section.settings.title }}
         </div>
   
         {% if section.settings.description != blank %}
