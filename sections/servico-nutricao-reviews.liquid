@@ -74,6 +74,11 @@
     height: 10px;
     border-radius: 50%;
     background-color: black;
+    transition: width 0.3s ease
+  }
+
+  .review_index_point.active {
+    width: 50px;
   }
 </style>
 
@@ -110,7 +115,10 @@
 
       <ul id="bullet_points_container">
         {% for review in reviews_block %}
-          <li class="review_index_point" id="for_servico_review_{{ forloop.index }}"></li>
+          <li
+            class="review_index_point {% if forloop.first %}active{% endif %}"
+            id="for_servico_review_{{ forloop.index }}"
+          ></li>
         {% endfor %}
       </ul>
     </div>
