@@ -95,26 +95,21 @@
     margin-bottom: 2rem;
   }
 
-  @media (max-width: 768px) {
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
     .servico-know {
-      height: auto;
-      min-height: 800px;
+      height: 1310px;
     }
-    
-    .servico-know__content {
-      position: relative;
-      top: auto;
-      left: auto;
-      transform: none;
-      max-width: 100%;
-      padding: 1.5rem;
-      margin-top: 2rem;
+  
+    .servico-know__title h1 {
+      font-size: 1.5rem;
     }
-    
-    .servico-know__path-list {
-      position: relative;
-      grid-template-columns: 1fr;
-      margin-top: 2rem;
+  
+    .servico-know__description p {
+      font-size: 0.875rem;
+    }
+  
+    .servico-know__item-title {
+      font-size: 1rem;
     }
   }
 </style>
