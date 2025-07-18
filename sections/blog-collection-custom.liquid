@@ -337,7 +337,6 @@
       {% for article in blog.articles limit: 4 %}
         {%- for tag in article.tags -%}
           {% if tag contains 'author' %}
-            {% assign author_tag = tag %}
             {% assign author = tag | split: '_' %}
           {% endif %}
         {%- endfor -%}
@@ -381,10 +380,10 @@
 
         {% if section.settings.author != blank %}
           <script>
-            console.log("{{ section.settings.author.nome }}", "{{ article.author }}")
+            console.log("{{ section.settings.author.tag }}", "{{ author }}")
           </script>
 
-          {% if section.settings.author.tag == author_tag %}
+          {% if section.settings.author.tag == author %}
             {{ article_html }}
           {% endif %}
         {% else %}
