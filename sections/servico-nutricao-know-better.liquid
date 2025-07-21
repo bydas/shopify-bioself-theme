@@ -1,6 +1,10 @@
 {% assign path_block = section.blocks | where: 'type', 'path' %}
 
 <style>
+  .servico-know__path-list-mobile {
+    display: none;  
+  }
+  
   .servico-know {
     position: relative;
     height: 1310px;
@@ -130,6 +134,10 @@
       display: none;
     }
 
+    .servico-know__path-list-mobile {
+      display: grid;
+    }
+
     .servico-know {
       height: 250px;
     }
@@ -177,10 +185,7 @@
     {% render 'path-list', class_name: 'servico-know__path-list', path_block: path_block  %}
   </div>
 
-  {% comment %}
-    <!-- Adicionar a versão mobile -->
-    {% render 'path-list', class_name: 'servico-know__path-list-mobile', path_block: path_block  %}
-  {% endcomment %}
+  {% render 'path-list', class_name: 'servico-know__path-list-mobile', path_block: path_block  %}
 </section>
 
 {% schema %}
