@@ -278,20 +278,20 @@
       }
     }
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('touchstart', (e) => {
+    container.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, false);
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('touchend', (e) => {
+    container.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
     }, false);
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('mousedown', (e) => {
+    container.addEventListener('mousedown', (e) => {
       touchStartX = e.clientX;
     }, false);
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('mouseup', (e) => {
+    container.addEventListener('mouseup', (e) => {
       touchEndX = e.clientX;
       handleSwipe();
     }, false);
