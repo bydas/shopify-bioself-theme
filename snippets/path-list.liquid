@@ -1,10 +1,10 @@
 {%- assign items = path_block | default: items -%}
 {%- assign class_name = class_name | default: 'servico-know__path-list' -%}
 
-{% unless items.size == 0 %}
+{% unless items.size == 0 %}  
   <ul class="{{ class_name }}">
     {% for p in items %}
-      <li
+      <li 
         class="servico-know__path-item {% if forloop.first and is_mobile %}active{% else %}inactive{% endif %}"
         data-index="{{ forloop.index }}"
       >
@@ -24,16 +24,16 @@
         {% unless p.settings.description == blank %}
           {{ p.settings.description }}
         {% endunless %}
-      </li>
-    {% endfor %}
-  </ul>
 
-  <ul id="servico_slides_container">
-    {% for p in items %}
-      <li
-        class="slide_point {% if forloop.first and is_mobile %}active{% else %}inactive{% endif %}"
-        data-index="{{ forloop.index }}"
-      ></li>
+        <ul id="servico_slides_container">
+          {% for p in items %}
+            <li
+              class="slide_point {% if forloop.first and is_mobile %}active{% else %}inactive{% endif %}"
+              data-index="{{ forloop.index }}"
+            ></li>
+          {% endfor %}
+        </ul>
+      </li>
     {% endfor %}
   </ul>
 {% endunless %}
