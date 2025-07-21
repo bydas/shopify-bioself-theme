@@ -236,119 +236,127 @@
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const section = document.getElementById("servico_know_custom");
-    if (!section) return;
+document.addEventListener("DOMContentLoaded", function() {
+  const section = document.getElementById("servico_know_custom");
+  if (!section) return;
   
-    const parent = section.parentElement;
-    const container = document.querySelector(".servico-know__path-list-mobile");
-    if (!container) return;
+  const parent = section.parentElement;
+  const container = document.querySelector(".servico-know__path-list-mobile");
+  if (!container) return;
   
-    const elements = container.querySelectorAll("li.servico-know__path-item");
-    const bullets = container.querySelectorAll(".slide_point");
-
-    const div = document.createElement("div");
+  const elements = container.querySelectorAll("li.servico-know__path-item");
+  const bullets = container.querySelectorAll(".slide_point");
+  
+  // Cria a div espaçadora
+  const spacerDiv = document.createElement("div");
+  spacerDiv.style.height = container.clientHeight + "px";
+  parent.insertAdjacentElement("afterend", spacerDiv);
+  
+  // Função para atualizar a altura do espaçador
+  function updateSpacerHeight() {
+    spacerDiv.style.height = container.clientHeight + "px";
+  }
+  
+  // Debounce para o evento de resize
+  let resizeTimeout;
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      updateSpacerHeight();
+    }, 100);
+  }
+  
+  // Adiciona event listener para resize
+  window.addEventListener('resize', handleResize);
+  
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  function changeReview(dir) {
+    const activeBullet = document.querySelector('.slide_point.active');
+    if (!activeBullet) return;
     
-    const handleResize = () => {
-      if (document.querySelector(".servico-know__path-list-mobile");.clientHeight > 0) {
-        if (!!div.clientHeight) {
-          div.style.height = document.querySelector(".servico-know__path-list-mobile").clientHeight + "px";
-        } else {
-          div.style.height = document.querySelector(".servico-know__path-list-mobile").clientHeight + "px";
-          parent.insertAdjacentElement("afterend", div);
-        }
-      }  
+    let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
+    const total = elements.length;
+    idx = ((idx - 1 + dir + total) % total) + 1;
+    
+    const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
+    if (nextBullet) bpEvents(nextBullet);
+  }
+  
+  function handleSwipe() {
+    const threshold = 50;
+    
+    if (touchEndX < touchStartX - threshold) {
+      changeReview(1);
+    } else if (touchEndX > touchStartX + threshold) {
+      changeReview(-1);
     }
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
+  }
   
-    let touchStartX = 0;
-    let touchEndX = 0;
+  // Adiciona event listeners para todos os slides
+  elements.forEach(slide => {
+    slide.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
   
-    function changeReview(dir) {
-      const activeBullet = document.querySelector('.slide_point.active');
-      if (!activeBullet) return;
-      
-      let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
-      const total = elements.length;
-      idx = ((idx - 1 + dir + total) % total) + 1;
-      
-      const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
-      if (nextBullet) bpEvents(nextBullet);
-    }
+    slide.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
   
-    function handleSwipe() {
-      const threshold = 50;
-      
-      if (touchEndX < touchStartX - threshold) {
-        changeReview(1);
-      } else if (touchEndX > touchStartX + threshold) {
-        changeReview(-1);
-      }
-    }
+    slide.addEventListener('mousedown', (e) => {
+      touchStartX = e.clientX;
+    }, false);
   
-    // Adiciona event listeners para todos os slides
-    elements.forEach(slide => {
-      slide.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, false);
-  
-      slide.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      }, false);
-  
-      slide.addEventListener('mousedown', (e) => {
-        touchStartX = e.clientX;
-      }, false);
-  
-      slide.addEventListener('mouseup', (e) => {
-        touchEndX = e.clientX;
-        handleSwipe();
-      }, false);
-    });
-  
-    const bpEvents = (e) => {
-      const activeBp = document.querySelector('.slide_point.active');
-      const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
-      const clickedIdx = e.getAttribute('data-index');
-  
-      if (!currentIdx || currentIdx !== clickedIdx) {
-        document.querySelectorAll('.servico-know__path-item').forEach(item => {
-          if (item.getAttribute('data-index') === clickedIdx) {
-            item.classList.remove('inactive');
-            item.classList.add('active');
-          } else {
-            item.classList.remove('active');
-            item.classList.add('inactive');
-          }
-        });
-  
-        bullets.forEach(b => {
-          if (b.getAttribute('data-index') === clickedIdx) {
-            b.classList.add('active');
-          } else {
-            b.classList.remove('active');
-          }
-        });
-      }
-    }
-  
-    bullets.forEach((bp) => {
-      bp.addEventListener('click', () => bpEvents(bp));
-    });
-  
-    if (window.innerWidth <= 1000 && elements.length > 0) {
-      elements[0].classList.add('active');
-      elements[0].classList.remove('inactive');
-      
-      if (bullets.length > 0) {
-        bullets[0].classList.add('active');
-      }
-    }
+    slide.addEventListener('mouseup', (e) => {
+      touchEndX = e.clientX;
+      handleSwipe();
+    }, false);
   });
+  
+  const bpEvents = (e) => {
+    const activeBp = document.querySelector('.slide_point.active');
+    const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
+    const clickedIdx = e.getAttribute('data-index');
+  
+    if (!currentIdx || currentIdx !== clickedIdx) {
+      document.querySelectorAll('.servico-know__path-item').forEach(item => {
+        if (item.getAttribute('data-index') === clickedIdx) {
+          item.classList.remove('inactive');
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+          item.classList.add('inactive');
+        }
+      });
+  
+      bullets.forEach(b => {
+        if (b.getAttribute('data-index') === clickedIdx) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
+      
+      // Atualiza a altura após mudar o slide
+      updateSpacerHeight();
+    }
+  }
+  
+  bullets.forEach((bp) => {
+    bp.addEventListener('click', () => bpEvents(bp));
+  });
+  
+  if (window.innerWidth <= 1000 && elements.length > 0) {
+    elements[0].classList.add('active');
+    elements[0].classList.remove('inactive');
+    
+    if (bullets.length > 0) {
+      bullets[0].classList.add('active');
+    }
+  }
+});
 </script>
 
 {% schema %}
