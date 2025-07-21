@@ -188,6 +188,13 @@
   {% render 'path-list', class_name: 'servico-know__path-list-mobile', path_block: path_block  %}
 </section>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const mobileContainer = document.querySelector(".servico-know__path-list-mobile");
+    console.log(mobileContainer);
+  });
+</script>
+
 {% schema %}
 {
   "name": "Servico Nutricao Know",
