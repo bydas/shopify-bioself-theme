@@ -191,7 +191,10 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const mobileContainer = document.querySelector(".servico-know__path-list-mobile");
-    console.log(mobileContainer.height);
+    const div = document.createElement("div");
+    
+    div.style.height = mobileContainer.clientHeight + "px";
+    mobileContainer.insertAdjacentElement("afterend", div);
   });
 </script>
 
