@@ -4,7 +4,10 @@
 {% unless items.size == 0 %}
   <ul class="{{ class_name }}">
     {% for p in items %}
-      <li class="servico-know__path-item">
+      <li 
+        class="servico-know__path-item"
+        data-index="{{ forloop.index }}"
+      >
         {% unless p.settings.icon == blank %}
           <img
             src="{{ p.settings.icon | image_url: width: 70, height: 70 }}"
@@ -21,6 +24,15 @@
         {% unless p.settings.description == blank %}
           {{ p.settings.description }}
         {% endunless %}
+
+        <ul id="servico_slides_container">
+          {% for review in reviews_block %}
+            <li
+              class="slide_point {% if forloop.first %}active{% endif %}"
+              data-index="{{ forloop.index }}"
+            ></li>
+          {% endfor %}
+        </ul>
       </li>
     {% endfor %}
   </ul>
