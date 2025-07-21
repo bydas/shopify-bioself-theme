@@ -278,29 +278,32 @@
       }
     }
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, false);
+    // Adiciona event listeners para todos os slides
+    elements.forEach(slide => {
+      slide.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, false);
+      slide.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('mousedown', (e) => {
-      touchStartX = e.clientX;
-    }, false);
+      slide.addEventListener('mousedown', (e) => {
+        touchStartX = e.clientX;
+      }, false);
   
-    document.querySelector(".servico-know__path-item.active").addEventListener('mouseup', (e) => {
-      touchEndX = e.clientX;
-      handleSwipe();
-    }, false);
-
+      slide.addEventListener('mouseup', (e) => {
+        touchEndX = e.clientX;
+        handleSwipe();
+      }, false);
+    });
+  
     const bpEvents = (e) => {
       const activeBp = document.querySelector('.slide_point.active');
       const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
       const clickedIdx = e.getAttribute('data-index');
-
+  
       if (!currentIdx || currentIdx !== clickedIdx) {
         document.querySelectorAll('.servico-know__path-item').forEach(item => {
           if (item.getAttribute('data-index') === clickedIdx) {
@@ -311,7 +314,7 @@
             item.classList.add('inactive');
           }
         });
-
+  
         bullets.forEach(b => {
           if (b.getAttribute('data-index') === clickedIdx) {
             b.classList.add('active');
