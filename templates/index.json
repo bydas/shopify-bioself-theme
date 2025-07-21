@@ -358,7 +358,7 @@
           "type": "custom",
           "settings": {
             "title": "Qual o custo de entrega?",
-            "answer": "<ul><li><strong>Portugal Continental</strong>: O preço dos portes de envio é de 3,90€. Grátis acima de 29.99€.</li><li><strong>Regiões Autónomas Açores e Madeira:</strong> O preço dos portes de envio é de 14,90€.</li></ul>"
+            "answer": "<ul><li><strong>Portugal Continental</strong>: O preço dos portes de envio é de 3,90€. Grátis acima de 29.99€.</li><li><strong>Regiões Autónomas Açores e Madeira:</strong> O preço dos portes de envio é de 14,90€.</li><li><strong>Recolha em Loja (Porto)</strong>: Grátis.</li></ul>"
           }
         },
         "custom_mhyXEd": {
