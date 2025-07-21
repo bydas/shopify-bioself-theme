@@ -283,7 +283,7 @@
   
     elements.forEach((bp) => {
       bp.addEventListener('click', () => {
-        const activeBp = document.querySelector('.slide_point-item.active');
+        const activeBp = document.querySelector('.slide_point.active');
         const currentIdx = activeBp.getAttribute('data-index');
         const clickedIdx = bp.getAttribute('data-index');
   
