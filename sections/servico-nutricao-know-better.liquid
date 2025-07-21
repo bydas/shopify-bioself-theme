@@ -265,7 +265,7 @@
       idx = ((idx - 1 + dir + total) % total) + 1;
       
       const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
-      if (nextBullet) nextBullet.click();
+      if (nextBullet) bpEvents(nextBullet);
     }
   
     function handleSwipe() {
@@ -295,34 +295,35 @@
       touchEndX = e.clientX;
       handleSwipe();
     }, false);
+
+    const bpEvents = (e) => {
+      const activeBp = document.querySelector('.slide_point.active');
+      const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
+      const clickedIdx = e.getAttribute('data-index');
+
+      if (!currentIdx || currentIdx !== clickedIdx) {
+        document.querySelectorAll('.servico-know__path-item').forEach(item => {
+          if (item.getAttribute('data-index') === clickedIdx) {
+            item.classList.remove('inactive');
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+            item.classList.add('inactive');
+          }
+        });
+
+        bullets.forEach(b => {
+          if (b.getAttribute('data-index') === clickedIdx) {
+            b.classList.add('active');
+          } else {
+            b.classList.remove('active');
+          }
+        });
+      }
+    }
   
     bullets.forEach((bp) => {
-      bp.addEventListener('click', () => {
-        console.log("oi")
-        const activeBp = document.querySelector('.slide_point.active');
-        const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
-        const clickedIdx = bp.getAttribute('data-index');
-  
-        if (!currentIdx || currentIdx !== clickedIdx) {
-          document.querySelectorAll('.servico-know__path-item').forEach(item => {
-            if (item.getAttribute('data-index') === clickedIdx) {
-              item.classList.remove('inactive');
-              item.classList.add('active');
-            } else {
-              item.classList.remove('active');
-              item.classList.add('inactive');
-            }
-          });
-  
-          bullets.forEach(b => {
-            if (b.getAttribute('data-index') === clickedIdx) {
-              b.classList.add('active');
-            } else {
-              b.classList.remove('active');
-            }
-          });
-        }
-      });
+      bp.addEventListener('click', bpEvents(bp));
     });
   
     if (window.innerWidth <= 1000 && elements.length > 0) {
