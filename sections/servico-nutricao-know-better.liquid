@@ -265,7 +265,7 @@
       idx = ((idx - 1 + dir + total) % total) + 1;
       
       const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
-      if (nextBullet) nextBullet.click();
+      if (nextBullet) console.log("oi");
     }
   
     function handleSwipe() {
@@ -301,8 +301,6 @@
         const activeBp = document.querySelector('.slide_point.active');
         const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
         const clickedIdx = bp.getAttribute('data-index');
-
-        console.log(!currentIdx || currentIdx !== clickedIdx);
   
         if (!currentIdx || currentIdx !== clickedIdx) {
           document.querySelectorAll('.servico-know__path-item').forEach(item => {
