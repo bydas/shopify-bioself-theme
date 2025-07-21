@@ -261,10 +261,12 @@
       if (!activeBullet) return;
       
       let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
+      console.log(idx);
       const total = elements.length;
       idx = ((idx - 1 + dir + total) % total) + 1;
       
       const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
+      console.log(nextBullet);
       if (nextBullet) nextBullet.click();
     }
   
@@ -279,7 +281,6 @@
     }
   
     document.querySelector(".servico-know__path-item.active").addEventListener('touchstart', (e) => {
-      console.log("oi")
       touchStartX = e.changedTouches[0].screenX;
     }, false);
   
