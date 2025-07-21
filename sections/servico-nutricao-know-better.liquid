@@ -277,21 +277,23 @@
         changeReview(-1);
       }
     }
+
+    const activeEl = container.querySelector(".servico-know__path-item.active");
   
-    container.addEventListener('touchstart', (e) => {
+    activeEl.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, false);
   
-    container.addEventListener('touchend', (e) => {
+    activeEl.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
     }, false);
   
-    container.addEventListener('mousedown', (e) => {
+    activeEl.addEventListener('mousedown', (e) => {
       touchStartX = e.clientX;
     }, false);
   
-    container.addEventListener('mouseup', (e) => {
+    activeEl.addEventListener('mouseup', (e) => {
       touchEndX = e.clientX;
       handleSwipe();
     }, false);
