@@ -2,7 +2,7 @@
 
 <style>
   .servico-know__path-list-mobile,
-  .servico_slides_container {
+  #servico_slides_container {
     display: none;
   }
 
@@ -112,7 +112,7 @@
   }
 
   #servico_slides_container {
-    display: grid;
+    display: none;
     grid-auto-columns: max-content;
     grid-auto-flow: column;
     gap: 1rem;
@@ -181,7 +181,7 @@
     }
 
     .servico-know__path-list-mobile,
-    .servico_slides_container {
+    #servico_slides_container {
       display: grid;
     }
 
@@ -237,127 +237,121 @@
 </section>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const section = document.getElementById("servico_know_custom");
-  if (!section) return;
-  
-  const parent = section.parentElement;
-  const container = document.querySelector(".servico-know__path-list-mobile");
-  if (!container) return;
-  
-  const elements = container.querySelectorAll("li.servico-know__path-item");
-  const bullets = container.querySelectorAll(".slide_point");
-  
-  // Cria a div espaçadora
-  const spacerDiv = document.createElement("div");
-  spacerDiv.style.height = container.clientHeight + "px";
-  parent.insertAdjacentElement("afterend", spacerDiv);
-  
-  // Função para atualizar a altura do espaçador
-  function updateSpacerHeight() {
+  document.addEventListener("DOMContentLoaded", function() {
+    const section = document.getElementById("servico_know_custom");
+    if (!section) return;
+    
+    const parent = section.parentElement;
+    const container = document.querySelector(".servico-know__path-list-mobile");
+    if (!container) return;
+    
+    const elements = container.querySelectorAll("li.servico-know__path-item");
+    const bullets = container.querySelectorAll(".slide_point");
+    
+    const spacerDiv = document.createElement("div");
     spacerDiv.style.height = container.clientHeight + "px";
-  }
-  
-  // Debounce para o evento de resize
-  let resizeTimeout;
-  function handleResize() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      updateSpacerHeight();
-    }, 100);
-  }
-  
-  // Adiciona event listener para resize
-  window.addEventListener('resize', handleResize);
-  
-  let touchStartX = 0;
-  let touchEndX = 0;
-  
-  function changeReview(dir) {
-    const activeBullet = document.querySelector('.slide_point.active');
-    if (!activeBullet) return;
+    parent.insertAdjacentElement("afterend", spacerDiv);
     
-    let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
-    const total = elements.length;
-    idx = ((idx - 1 + dir + total) % total) + 1;
-    
-    const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
-    if (nextBullet) bpEvents(nextBullet);
-  }
-  
-  function handleSwipe() {
-    const threshold = 50;
-    
-    if (touchEndX < touchStartX - threshold) {
-      changeReview(1);
-    } else if (touchEndX > touchStartX + threshold) {
-      changeReview(-1);
+    function updateSpacerHeight() {
+      spacerDiv.style.height = container.clientHeight + "px";
     }
-  }
-  
-  // Adiciona event listeners para todos os slides
-  elements.forEach(slide => {
-    slide.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, false);
-  
-    slide.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, false);
-  
-    slide.addEventListener('mousedown', (e) => {
-      touchStartX = e.clientX;
-    }, false);
-  
-    slide.addEventListener('mouseup', (e) => {
-      touchEndX = e.clientX;
-      handleSwipe();
-    }, false);
-  });
-  
-  const bpEvents = (e) => {
-    const activeBp = document.querySelector('.slide_point.active');
-    const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
-    const clickedIdx = e.getAttribute('data-index');
-  
-    if (!currentIdx || currentIdx !== clickedIdx) {
-      document.querySelectorAll('.servico-know__path-item').forEach(item => {
-        if (item.getAttribute('data-index') === clickedIdx) {
-          item.classList.remove('inactive');
-          item.classList.add('active');
-        } else {
-          item.classList.remove('active');
-          item.classList.add('inactive');
-        }
-      });
-  
-      bullets.forEach(b => {
-        if (b.getAttribute('data-index') === clickedIdx) {
-          b.classList.add('active');
-        } else {
-          b.classList.remove('active');
-        }
-      });
+    
+    let resizeTimeout;
+    function handleResize() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        updateSpacerHeight();
+      }, 100);
+    }
+    
+    window.addEventListener('resize', handleResize);
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    function changeReview(dir) {
+      const activeBullet = document.querySelector('.slide_point.active');
+      if (!activeBullet) return;
       
-      // Atualiza a altura após mudar o slide
-      updateSpacerHeight();
+      let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
+      const total = elements.length;
+      idx = ((idx - 1 + dir + total) % total) + 1;
+      
+      const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
+      if (nextBullet) bpEvents(nextBullet);
     }
-  }
-  
-  bullets.forEach((bp) => {
-    bp.addEventListener('click', () => bpEvents(bp));
-  });
-  
-  if (window.innerWidth <= 1000 && elements.length > 0) {
-    elements[0].classList.add('active');
-    elements[0].classList.remove('inactive');
     
-    if (bullets.length > 0) {
-      bullets[0].classList.add('active');
+    function handleSwipe() {
+      const threshold = 50;
+      
+      if (touchEndX < touchStartX - threshold) {
+        changeReview(1);
+      } else if (touchEndX > touchStartX + threshold) {
+        changeReview(-1);
+      }
     }
-  }
-});
+
+    elements.forEach(slide => {
+      slide.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+    
+      slide.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
+    
+      slide.addEventListener('mousedown', (e) => {
+        touchStartX = e.clientX;
+      }, false);
+    
+      slide.addEventListener('mouseup', (e) => {
+        touchEndX = e.clientX;
+        handleSwipe();
+      }, false);
+    });
+    
+    const bpEvents = (e) => {
+      const activeBp = document.querySelector('.slide_point.active');
+      const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
+      const clickedIdx = e.getAttribute('data-index');
+    
+      if (!currentIdx || currentIdx !== clickedIdx) {
+        document.querySelectorAll('.servico-know__path-item').forEach(item => {
+          if (item.getAttribute('data-index') === clickedIdx) {
+            item.classList.remove('inactive');
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+            item.classList.add('inactive');
+          }
+        });
+    
+        bullets.forEach(b => {
+          if (b.getAttribute('data-index') === clickedIdx) {
+            b.classList.add('active');
+          } else {
+            b.classList.remove('active');
+          }
+        });
+        
+        updateSpacerHeight();
+      }
+    }
+    
+    bullets.forEach((bp) => {
+      bp.addEventListener('click', () => bpEvents(bp));
+    });
+    
+    if (window.innerWidth <= 1000 && elements.length > 0) {
+      elements[0].classList.add('active');
+      elements[0].classList.remove('inactive');
+      
+      if (bullets.length > 0) {
+        bullets[0].classList.add('active');
+      }
+    }
+  });
 </script>
 
 {% schema %}
