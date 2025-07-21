@@ -2,6 +2,8 @@
 {%- assign class_name = class_name | default: 'servico-know__path-list' -%}
 
 {% unless items.size == 0 %}
+  {% assign has_ended = false %}
+  
   <ul class="{{ class_name }}">
     {% for p in items %}
       <li 
@@ -25,12 +27,20 @@
           {{ p.settings.description }}
         {% endunless %}
 
-        <ul id="servico_slides_container">
-          <li
-            class="slide_point {% if forloop.first and is_mobile %}active{% else %}inactive{% endif %}"
-            data-index="{{ forloop.index }}"
-          ></li>
-        </ul>
+        {% unless has_ended %}
+          <ul id="servico_slides_container">
+            {% for p in items %}
+              {% if forloop.last %}
+                {% assign has_ended = true %}
+              {% endif %}
+              
+              <li
+                class="slide_point {% if forloop.first and is_mobile %}active{% else %}inactive{% endif %}"
+                data-index="{{ forloop.index }}"
+              ></li>
+            {% endfor %}
+          </ul>
+        {% endunless %}
       </li>
     {% endfor %}
   </ul>
