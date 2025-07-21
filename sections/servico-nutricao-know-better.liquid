@@ -167,6 +167,11 @@
   }
 
   @media screen and (max-width: 1000px) {
+    .servico-know__path-item:nth-child(even) {
+      transform: unset;
+      height: unset;
+    }
+    
     .servico-know__path-item img {
       margin-bottom: 0;  
     }
@@ -242,7 +247,6 @@
     const elements = container.querySelectorAll("li.servico-know__path-item");
     const bullets = container.querySelectorAll(".slide_point");
     
-    // Apenas para mobile - ajuste de altura
     if (container.clientHeight > 0) {
       const div = document.createElement("div");
       div.style.height = container.clientHeight + "px";
@@ -268,13 +272,12 @@
       const threshold = 50;
       
       if (touchEndX < touchStartX - threshold) {
-        changeReview(1); // Swipe left - next
+        changeReview(1);
       } else if (touchEndX > touchStartX + threshold) {
-        changeReview(-1); // Swipe right - previous
+        changeReview(-1);
       }
     }
   
-    // Event listeners para touch
     container.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, false);
@@ -284,7 +287,6 @@
       handleSwipe();
     }, false);
   
-    // Event listeners para mouse
     container.addEventListener('mousedown', (e) => {
       touchStartX = e.clientX;
     }, false);
@@ -294,7 +296,6 @@
       handleSwipe();
     }, false);
   
-    // Inicialização dos bullets
     bullets.forEach((bp) => {
       bp.addEventListener('click', () => {
         const activeBp = document.querySelector('.slide_point.active');
@@ -302,7 +303,6 @@
         const clickedIdx = bp.getAttribute('data-index');
   
         if (!currentIdx || currentIdx !== clickedIdx) {
-          // Atualizar cards
           document.querySelectorAll('.servico-know__path-item').forEach(item => {
             if (item.getAttribute('data-index') === clickedIdx) {
               item.classList.remove('inactive');
@@ -313,7 +313,6 @@
             }
           });
   
-          // Atualizar bullets
           bullets.forEach(b => {
             if (b.getAttribute('data-index') === clickedIdx) {
               b.classList.add('active');
@@ -325,10 +324,10 @@
       });
     });
   
-    // Inicializar primeiro item se for mobile
     if (window.innerWidth <= 1000 && elements.length > 0) {
       elements[0].classList.add('active');
       elements[0].classList.remove('inactive');
+      
       if (bullets.length > 0) {
         bullets[0].classList.add('active');
       }
