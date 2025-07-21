@@ -298,8 +298,10 @@
       
           activeRw.classList.replace('active', 'inactive');
           rw.classList.replace('inactive', 'active');
-      
-          document.querySelectorAll('.slide_point').forEach((point) => {
+
+          const bullets = document.querySelectorAll('#servico_slides_container .slide_point');
+
+          bullets.forEach((point) => {
             point.classList.remove('active');
             point.classList.add('inactive');
           });
