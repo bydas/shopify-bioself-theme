@@ -177,6 +177,41 @@
         "description": "<p>Dedicada a guiar-te na transformação</p><p>da tua saúde. </p>"
       }
     },
+    "servico_nutricao_formacao_NJftjr": {
+      "type": "servico-nutricao-formacao",
+      "blocks": {
+        "formacao_Q7wMP3": {
+          "type": "formacao",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_cbe425b0-b44d-4aac-bdd1-2f249a1127c1.png",
+            "description": "<p>Pós-Graduação em Nutrição e Suplementação Alimentar</p><p><em>CESPU</em></p><p>Mestrado em Nutrição Humana e Metabolismo</p><p><em>NOVA Medical School</em></p><p>Pós-Graduação em Terapêutica Ortomolecular e Nutrição Funcional</p><p><em>CESPU</em></p><p>Licenciatura em Ciências da Nutrição</p><p><em>FCNAUP</em></p>"
+          }
+        },
+        "formacao_9HpcNh": {
+          "type": "formacao",
+          "settings": {
+            "icon": "shopify://shop_images/Layer_1_11da2dc4-91e2-420c-9b1c-0ce2b0aafcbd.png",
+            "description": "<p>Certificação Intensiva em Nutrição na Saúde Gastrointestinal</p><p><em>Nutrition Academy</em></p><p>Curso Pós-graduado em Microbiota Intestinal</p><p><em>NOVA Medical School</em></p>"
+          }
+        },
+        "formacao_YD6FQQ": {
+          "type": "formacao",
+          "settings": {
+            "icon": "shopify://shop_images/Layer_1_1.png",
+            "description": "<p>Applying Functional Medicine in Clinical Practice</p><p><em>The Institute for Functional Medicine</em></p><p><em>Curso de Análises Clínicas</em></p><p>Nutrition Academy MD Course in Mind Body Medicine</p><p><em>Harvard Medical School</em></p><p>Therapeutic Food Plans</p><p><em>The Institute for Functional</em></p><p>Medicine Coaching Nutricional</p><p><em>Instituto Nutricoaching</em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "formacao_Q7wMP3",
+        "formacao_9HpcNh",
+        "formacao_YD6FQQ"
+      ],
+      "name": "Servico Nutricao Formacao",
+      "settings": {
+        "title": "formação que sustenta um acompanhamento de excelência"
+      }
+    },
     "blog_collection_custom_xkhXGH": {
       "type": "blog-collection-custom",
       "name": "Blog custom",
@@ -473,6 +508,7 @@
     "servico_nutricao_cta_H3cCYf",
     "servico_nutricao_reviews_hrY7tx",
     "servico_nutricao_know_better_AYrtPJ",
+    "servico_nutricao_formacao_NJftjr",
     "blog_collection_custom_xkhXGH",
     "faq_2_EThpxa",
     "slideshow",
