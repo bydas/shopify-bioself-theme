@@ -295,6 +295,8 @@
         if (currentIdx !== clickedIdx) {
           const activeRw = document.querySelector('.servico-know__path-item.active');
           const rw = document.querySelector(`.servico-know__path-item[data-index="${clickedIdx}"]`);
+
+          console.log(rw);
   
           activeRw.classList.replace('active', 'inactive');
           rw.classList.replace('inactive', 'active');
