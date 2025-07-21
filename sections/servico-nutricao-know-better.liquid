@@ -247,11 +247,17 @@
     const elements = container.querySelectorAll("li.servico-know__path-item");
     const bullets = container.querySelectorAll(".slide_point");
     
-    if (container.clientHeight > 0) {
-      const div = document.createElement("div");
-      div.style.height = container.clientHeight + "px";
-      parent.insertAdjacentElement("afterend", div);
+    const handleResize = () => {
+      if (container.clientHeight > 0) {
+        const div = document.createElement("div");
+        div.style.height = container.clientHeight + "px";
+        parent.insertAdjacentElement("afterend", div);
+      }  
     }
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
   
     let touchStartX = 0;
     let touchEndX = 0;
