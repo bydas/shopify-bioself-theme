@@ -233,79 +233,106 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const section = document.getElementById("servico_know_custom");
+    if (!section) return;
+  
     const parent = section.parentElement;
     const container = document.querySelector(".servico-know__path-list-mobile");
-    const elements = container.querySelectorAll("li");
-    const div = document.createElement("div");
+    if (!container) return;
+  
+    const elements = container.querySelectorAll("li.servico-know__path-item");
+    const bullets = container.querySelectorAll(".slide_point");
     
-    div.style.height = container.clientHeight + "px";
-    parent.insertAdjacentElement("afterend", div);
-
+    // Apenas para mobile - ajuste de altura
+    if (container.clientHeight > 0) {
+      const div = document.createElement("div");
+      div.style.height = container.clientHeight + "px";
+      parent.insertAdjacentElement("afterend", div);
+    }
+  
     let touchStartX = 0;
     let touchEndX = 0;
   
     function changeReview(dir) {
       const activeBullet = document.querySelector('.slide_point.active');
+      if (!activeBullet) return;
+      
       let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
       const total = elements.length;
       idx = ((idx - 1 + dir + total) % total) + 1;
-      elements[idx - 1].click();
+      
+      const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
+      if (nextBullet) nextBullet.click();
     }
   
     function handleSwipe() {
       const threshold = 50;
       
       if (touchEndX < touchStartX - threshold) {
-        changeReview(1);
+        changeReview(1); // Swipe left - next
       } else if (touchEndX > touchStartX + threshold) {
-        changeReview(-1);
+        changeReview(-1); // Swipe right - previous
       }
     }
   
-    function onStart(e) {
-      if (e.changedTouches) {
-        touchStartX = e.changedTouches[0].screenX;
-      } else {
-        touchStartX = e.clientX;
-      }
-    }
+    // Event listeners para touch
+    container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
   
-    function onEnd(e) {
-      if (e.changedTouches) {
-        touchEndX = e.changedTouches[0].screenX;
-      } else {
-        touchEndX = e.clientX;
-      }
-  
+    container.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
-    }
+    }, false);
   
-    container.addEventListener('touchstart', onStart, false);
-    container.addEventListener('touchend',   onEnd,   false);
+    // Event listeners para mouse
+    container.addEventListener('mousedown', (e) => {
+      touchStartX = e.clientX;
+    }, false);
   
-    container.addEventListener('pointerdown', onStart, false);
-    container.addEventListener('pointerup',   onEnd,   false);
+    container.addEventListener('mouseup', (e) => {
+      touchEndX = e.clientX;
+      handleSwipe();
+    }, false);
   
-    elements.forEach((bp) => {
+    // Inicialização dos bullets
+    bullets.forEach((bp) => {
       bp.addEventListener('click', () => {
         const activeBp = document.querySelector('.slide_point.active');
-        const currentIdx = activeBp.getAttribute('data-index');
+        const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
         const clickedIdx = bp.getAttribute('data-index');
   
-        if (currentIdx !== clickedIdx) {
-          const activeRw = document.querySelector('.servico-know__path-item.active');
-          const rw = document.querySelector(`.servico-know__path-item[data-index="${clickedIdx}"]`);
-
-          console.log(activeRw, rw);
+        if (!currentIdx || currentIdx !== clickedIdx) {
+          // Atualizar cards
+          document.querySelectorAll('.servico-know__path-item').forEach(item => {
+            if (item.getAttribute('data-index') === clickedIdx) {
+              item.classList.remove('inactive');
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+              item.classList.add('inactive');
+            }
+          });
   
-          activeRw.classList.replace('active', 'inactive');
-          rw.classList.replace('inactive', 'active');
-  
-          activeBp.classList.remove('active');
-          bp.classList.add('active');
+          // Atualizar bullets
+          bullets.forEach(b => {
+            if (b.getAttribute('data-index') === clickedIdx) {
+              b.classList.add('active');
+            } else {
+              b.classList.remove('active');
+            }
+          });
         }
       });
     });
+  
+    // Inicializar primeiro item se for mobile
+    if (window.innerWidth <= 1000 && elements.length > 0) {
+      elements[0].classList.add('active');
+      elements[0].classList.remove('inactive');
+      if (bullets.length > 0) {
+        bullets[0].classList.add('active');
+      }
+    }
   });
 </script>
 
