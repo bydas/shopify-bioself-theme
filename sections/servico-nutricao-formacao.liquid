@@ -1,3 +1,30 @@
+{% assign formation_block = section.blocks | where: 'type', 'formacao' %}
+
+<section>
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% unless formation_block.size == 0 %}
+    <ul>
+      {% for b in formation_block %}
+        {% unless b.settings.icon == blank %}
+          <img
+            src="{{ b.settings.icon | image_url: width: 70, height: 70 }}"
+            alt="Ícone {{ forloop.index }}"
+            width="70"
+            height="70"
+          >
+        {% endunless %}
+
+        {% unless b.settings.description == blank %}
+          {{ b.settings.description }}
+        {% endunless %}
+      {% endfor %}
+    </ul>
+  {% endunless %}
+</section>
+
 {% schema %}
 {
   "name": "Servico Nutricao Formacao",
