@@ -106,11 +106,6 @@
     object-fit: contain;
   }
 
-  .servico-know__path-item.active {
-    display: grid;
-    gap: 1rem;
-  }
-
   #servico_slides_container {
     display: none;
     grid-auto-columns: max-content;
@@ -118,10 +113,6 @@
     gap: 1rem;
     list-style-type: none;
     justify-content: center;
-  }
-
-  .servico-know__path-item.inactive {
-    display: none;
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
@@ -167,6 +158,15 @@
   }
 
   @media screen and (max-width: 1000px) {
+    .servico-know__path-item.active {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .servico-know__path-item.inactive {
+      display: none;
+    }
+
     .servico-know__path-item:nth-child(even) {
       transform: unset;
       height: unset;
