@@ -189,15 +189,13 @@
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const section = document.getElementById("servico_know_custom");
-    const parent = section.parentElement;
-    const mobileContainer = document.querySelector(".servico-know__path-list-mobile");
-    const div = document.createElement("div");
-    
-    div.style.height = mobileContainer.clientHeight + "px";
-    parent.insertAdjacentElement("afterend", div);
-  });
+  const section = document.getElementById("servico_know_custom");
+  const parent = section.parentElement;
+  const mobileContainer = document.querySelector(".servico-know__path-list-mobile");
+  const div = document.createElement("div");
+  
+  div.style.height = mobileContainer.clientHeight + "px";
+  parent.insertAdjacentElement("afterend", div);
 </script>
 
 {% schema %}
