@@ -1,6 +1,53 @@
 {% assign formation_block = section.blocks | where: 'type', 'formacao' %}
 
-<section>
+<style>
+  #servico_formation_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 2rem;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem var(--desktop-container-gutter);
+  }
+
+  #servico_formation_custom > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 900 !important;
+  }
+
+  #servico_formation_custom > ul {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 2rem;
+    list-style-type: none;
+  }
+
+  #servico_formation_custom > ul > li {
+    margin: 0;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    justify-items: center;
+    height: max-content;
+  }
+
+  #servico_formation_custom > ul > li > p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+</style>
+
+<section id="servico_formation_custom">
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
