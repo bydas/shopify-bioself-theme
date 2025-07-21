@@ -265,7 +265,7 @@
       idx = ((idx - 1 + dir + total) % total) + 1;
       
       const nextBullet = document.querySelector(`.slide_point[data-index="${idx}"]`);
-      if (nextBullet) console.log("oi");
+      if (nextBullet) nextBullet.click();
     }
   
     function handleSwipe() {
@@ -298,6 +298,7 @@
   
     bullets.forEach((bp) => {
       bp.addEventListener('click', () => {
+        console.log("oi")
         const activeBp = document.querySelector('.slide_point.active');
         const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
         const clickedIdx = bp.getAttribute('data-index');
