@@ -246,12 +246,17 @@
   
     const elements = container.querySelectorAll("li.servico-know__path-item");
     const bullets = container.querySelectorAll(".slide_point");
+
+    const div = document.createElement("div");
     
     const handleResize = () => {
-      if (container.clientHeight > 0) {
-        const div = document.createElement("div");
-        div.style.height = container.clientHeight + "px";
-        parent.insertAdjacentElement("afterend", div);
+      if (document.querySelector(".servico-know__path-list-mobile");.clientHeight > 0) {
+        if (!!div.clientHeight) {
+          div.style.height = document.querySelector(".servico-know__path-list-mobile");.clientHeight + "px";
+        } else {
+          div.style.height = document.querySelector(".servico-know__path-list-mobile");.clientHeight + "px";
+          parent.insertAdjacentElement("afterend", div);
+        }
       }  
     }
 
