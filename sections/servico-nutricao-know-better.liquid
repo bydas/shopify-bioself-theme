@@ -323,7 +323,7 @@
     }
   
     bullets.forEach((bp) => {
-      bp.addEventListener('click', bpEvents(bp));
+      bp.addEventListener('click', () => bpEvents(bp));
     });
   
     if (window.innerWidth <= 1000 && elements.length > 0) {
