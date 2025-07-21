@@ -334,9 +334,10 @@
     
         bullets.forEach(b => {
           if (b.getAttribute('data-index') === clickedIdx) {
-            b.classList.replace('inactive', 'active');
+            b.classList.remove('inactive');
+            b.classList.add('active');
           } else {
-            b.classList.replace('active', 'inactive');
+            b.classList.remove('active');
           }
         });
         
