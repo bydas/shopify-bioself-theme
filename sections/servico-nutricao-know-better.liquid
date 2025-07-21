@@ -138,6 +138,20 @@
     }
   }
 
+  .slide_point {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: black;
+    transition: all 0.3s ease;
+    cursor: pointer; 
+  }
+
+  .slide_point.active {
+    border-radius: 0.25rem;
+    width: 30px;
+  }
+
   @media screen and (max-width: 1000px) {
     .servico-know__path-list {
       display: none;

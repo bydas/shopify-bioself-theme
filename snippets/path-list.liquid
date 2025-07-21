@@ -26,12 +26,10 @@
         {% endunless %}
 
         <ul id="servico_slides_container">
-          {% for review in reviews_block %}
-            <li
-              class="slide_point {% if forloop.first %}active{% endif %}"
-              data-index="{{ forloop.index }}"
-            ></li>
-          {% endfor %}
+          <li
+            class="slide_point {% if forloop.first %}active{% endif %}"
+            data-index="{{ forloop.index }}"
+          ></li>
         </ul>
       </li>
     {% endfor %}
