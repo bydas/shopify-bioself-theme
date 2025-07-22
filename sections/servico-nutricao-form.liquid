@@ -1,6 +1,62 @@
+<section id="servico_form_custom">
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% form 'contact' %}
+    <div class="name">
+      <label for="name">Nome</label>
+      <input type="text" name="contact[first_name]" id="name" placeholder="Jane Doe" />
+    </div>
+  
+    <div>
+      <label for="phone">Contacto</label>
+      <input type="tel" name="contact[phone]" id="phone" placeholder="962345678" />
+    </div>
+  
+    <div>
+      <label for="email">E-mail</label>
+      <input type="email" name="contact[email]" id="email" placeholder="janedoe@janedoe.pt" />
+    </div>
+
+    <div class="contact-time">
+      <div>
+        <input id="consulta_presencial" type="checkbox" name="contact[consulta_presencial]" value="presencial" />
+        <label for="consulta_presencial">Consulta presencial<br>40€</label>
+      </div>
+
+      <div>
+        <input id="consulta_online" type="checkbox" name="contact[consulta_online]" value="online" />
+        <label for="consulta_online">Consulta online<br>40€</label>
+      </div>
+    </div>
+  
+    <div>
+      <label for="message">Motivo da consulta</label>
+      <textarea name="contact[body]" id="message" placeholder="lorem ipsum"></textarea>
+    </div>
+
+    <button type="submit">
+      Enviar
+    </button>
+  {% endform %}
+</section>
+
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "Servico Nutricao Form",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Servico Nutricao Form",
+        "category": "form"
+      }
+    ]
   }
 {% endschema %}
