@@ -36,7 +36,7 @@
     line-height: normal;
   }
 
-  #sevico_cta_custom > button {
+  #sevico_cta_custom > a {
     margin: 0;
     color: black;
     border-radius: 0.5rem;
@@ -44,6 +44,7 @@
     background-color: #FFBB12;
     font-size: 1rem;
     font-weight: 700 !important;
+    text-align: center;
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
@@ -51,7 +52,7 @@
       font-size: 1.5rem;
     }
 
-    #sevico_cta_custom > button {
+    #sevico_cta_custom > a {
       font-size: 0.875rem;
     }
   }
@@ -65,7 +66,7 @@
       font-size: 1.25rem;
     }
 
-    #sevico_cta_custom > button {
+    #sevico_cta_custom > a {
       font-size: 1rem;
     }
   }
@@ -77,7 +78,7 @@
   {% endif %}
 
   {% if section.settings.btn_txt != blank %}
-    <button>{{ section.settings.btn_txt }}</button>
+    <a href="#servico_form_custom">{{ section.settings.btn_txt }}</a>
   {% endif %}
 </section>
 
