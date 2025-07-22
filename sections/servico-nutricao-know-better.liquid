@@ -149,7 +149,7 @@
     border-radius: 50%;
     background-color: white;
     transition: all 0.3s ease;
-    cursor: pointer;
+    cursor: pointer !important;
   }
 
   .slide_point.active {
@@ -158,6 +158,11 @@
   }
 
   @media screen and (max-width: 1000px) {
+    .servico-know__path-item {
+      cursor: grab;
+      user-select: none;
+    }
+    
     .servico-know__path-item.active {
       display: grid;
       gap: 1rem;
