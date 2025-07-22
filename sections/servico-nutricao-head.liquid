@@ -40,7 +40,7 @@
     font-weight: 500;
   }
 
-  #servico_head_custom > .text_container > button {
+  #servico_head_custom > .text_container > a {
     padding: 0.5rem 1rem;
     color: white;
     background-color: #258439;
@@ -92,7 +92,7 @@
     }
 
     #servico_head_custom > .text_container > div > p,
-    #servico_head_custom > .text_container > div > button {
+    #servico_head_custom > .text_container > div > a {
       font-size: 1rem;
     }
   }
@@ -107,7 +107,7 @@
     }
 
     #servico_head_custom > .text_container > div > p,
-    #servico_head_custom > .text_container > div > button {
+    #servico_head_custom > .text_container > div > a {
       font-size: 1rem;
     }
   }
@@ -130,10 +130,10 @@
     }
 
     #servico_head_custom > .text_container > div > p {
-      font-size: 0.875rem;
+      font-size: 1rem;
     }
 
-    #servico_head_custom > .text_container > button {
+    #servico_head_custom > .text_container > a {
       padding: 0.5rem;
       font-size: 1rem;
     }
@@ -173,7 +173,7 @@
         {% endif %}
 
         {% if section.settings.btn_txt %}
-          <button>{{ section.settings.btn_txt }}</button>
+          <a href="#servico_form_custom">{{ section.settings.btn_txt }}</a>
         {% endif %}
       </div>
     {% endif %}
