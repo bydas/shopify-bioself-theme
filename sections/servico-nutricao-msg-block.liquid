@@ -29,7 +29,7 @@
     font-weight: 500;
   }
 
-  #servico_block_custom > button {
+  #servico_block_custom > a {
     padding: 0.5rem 2rem;
     color: white;
     background-color: #258439;
@@ -38,6 +38,7 @@
     width: max-content;
     font-size: 1rem;
     font-weight: 700;
+    text-align: center;
   }
 
   @media screen and (max-width: 1500px) and (min-width: 1000px) {
@@ -51,7 +52,7 @@
     }
 
     #servico_block_custom > div > p,
-    #servico_block_custom > button {
+    #servico_block_custom > a {
       font-size: 0.875rem;
     }
   }
@@ -71,7 +72,7 @@
     }
 
     #servico_block_custom > div > p,
-    #servico_block_custom > button {
+    #servico_block_custom > a {
       font-size: 1rem;
     }
   }
@@ -91,7 +92,7 @@
   {% endif %}
 
   {% if section.settings.btn_txt %}
-    <button>{{ section.settings.btn_txt }}</button>
+    <a href="#servico_form_custom">{{ section.settings.btn_txt }}</a>
   {% endif %}
 </section>
 
