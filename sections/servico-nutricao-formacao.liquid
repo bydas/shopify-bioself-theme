@@ -49,6 +49,8 @@
     grid-auto-flow: row;
     justify-items: center;
     height: max-content;
+    cursor: grab;
+    user-select: none;
   }
 
   #servico_formation_custom > ul > li > img {
@@ -96,7 +98,7 @@
       border-radius: 50%;
       background-color: #258439;
       transition: all 0.3s ease;
-      cursor: pointer;
+      cursor: pointer !important;
     }
   
     .formation_point.active {
