@@ -62,7 +62,7 @@
   #servico_form_custom > form > div > label {
     padding: 0;
     margin: 0;
-    fo
+    font-size: 1rem;
   }
 
   #servico_form_custom > form > div > div > label,
@@ -81,6 +81,7 @@
     color: white;
     padding: 0.5rem;
     font-weight: 700 !important;
+    font-size: 1rem;
   }
 
   @media screen and (min-width: 1499px) {
@@ -92,6 +93,17 @@
   @media screen and (min-width: 2559px) {
     #servico_form_custom {
       margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #servico_form_custom > h1 {
+      font-size: 1.5rem;
+    }
+
+    #servico_form_custom > form > div > label,
+    #servico_form_custom > form > button {
+      font-size: 0.875rem;
     }
   }
 </style>
