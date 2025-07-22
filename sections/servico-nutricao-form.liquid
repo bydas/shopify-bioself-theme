@@ -1,3 +1,77 @@
+<style>
+  #servico_form_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    text-align: center;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #servico_form_custom > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+  }
+
+  #servico_form_custom > form {
+    padding: 1rem;
+    borer-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+  }
+
+  #servico_form_custom > form > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+  }
+
+  #servico_form_custom > .contact-form {
+    grid-template-columns: repeat(2, max-content);
+    grid-template-rows: max-content;
+    gap: 4rem;
+  }
+
+  #servico_form_custom > form > div > input,
+  #servico_form_custom > form > div > textarea {
+    background-color: #D7FECD33;
+    border: 1px solid #258439;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    resize: none;
+  }
+
+  #servico_form_custom > form > div > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  #servico_form_custom > form > div > div > label {
+    padding: 0;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #servico_form_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #servico_form_custom {
+      margin: 2rem 18vw;
+    }
+  }
+</style>
+
 <section id="servico_form_custom">
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
@@ -19,7 +93,7 @@
       <input type="email" name="contact[email]" id="email" placeholder="janedoe@janedoe.pt" />
     </div>
 
-    <div class="contact-time">
+    <div class="contact-form">
       <div>
         <input id="consulta_presencial" type="checkbox" name="contact[consulta_presencial]" value="presencial" />
         <label for="consulta_presencial">Consulta presencial<br>40€</label>
