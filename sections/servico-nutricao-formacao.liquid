@@ -28,6 +28,7 @@
     padding: 0;
     font-size: 2rem;
     font-weight: 900 !important;
+    text-transform: uppercase;
   }
 
   #servico_formation_custom > ul {
@@ -60,6 +61,56 @@
     font-weight: 500;
     color: #258439;
   }
+
+  #servico_formation_points {
+    display: none;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #servico_formation_custom > h1 {
+      font-size: 1.25rem;
+    }
+
+    .servico_formation_item.active {
+      display: grid;
+    }
+
+    #servico_formation_points {
+      display: grid;
+      grid-auto-columns: max-content;
+      grid-auto-flow: column;
+      gap: 1rem;
+      list-style-type: none;
+      justify-content: center;
+    }
+
+    .formation_point {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: white;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+  
+    .formation_point.active {
+      border-radius: 0.25rem;
+      width: 30px;
+    }
+
+    .servico_formation_item.inactive {
+      display: none;
+    }
+
+    #servico_formation_custom > ul > li > p {
+      font-size: 1rem;
+    }
+
+    #servico_formation_custom > ul > li > img {
+      width: 50px;
+      height: 50px;
+    }
+  }
 </style>
 
 <section id="servico_formation_custom">
@@ -68,9 +119,12 @@
   {% endunless %}
 
   {% unless formation_block.size == 0 %}
-    <ul>
+    <ul class="servico_formation_list">
       {% for b in formation_block %}
-        <li>
+        <li
+          class="servico_formation_item {% if forloop.first %}active{% else %}inactive{% endif %}"
+          data-index="{{ forloop.index }}"
+        >
           {% unless b.settings.icon == blank %}
             <img
               src="{{ b.settings.icon | image_url: width: 70, height: 70 }}"
@@ -83,11 +137,118 @@
           {% unless b.settings.description == blank %}
             {{ b.settings.description }}
           {% endunless %}
+
+          <ul id="servico_formation_points">
+            {% for b in formation_block %}
+              <li
+                class="formation_point {% if forloop.first %}active{% else %}inactive{% endif %}"
+                data-index="{{ forloop.index }}"
+              ></li>
+            {% endfor %}
+          </ul>
         </li>
       {% endfor %}
     </ul>
   {% endunless %}
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {    
+    const container = document.querySelector(".servico_formation_list");
+    if (!container) return;
+    
+    const elements = container.querySelectorAll("li.servico_formation_item");
+    const bullets = container.querySelectorAll(".formation_point");
+    
+    window.addEventListener('resize', handleResize);
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    function changeReview(dir) {
+      const activeBullet = document.querySelector('.formation_point.active');
+      if (!activeBullet) return;
+      
+      let idx = parseInt(activeBullet.getAttribute('data-index'), 10);
+      const total = elements.length;
+      idx = ((idx - 1 + dir + total) % total) + 1;
+      
+      const nextBullet = document.querySelector(`.formation_point[data-index="${idx}"]`);
+      if (nextBullet) bpEvents(nextBullet);
+    }
+    
+    function handleSwipe() {
+      const threshold = 50;
+      
+      if (touchEndX < touchStartX - threshold) {
+        changeReview(1);
+      } else if (touchEndX > touchStartX + threshold) {
+        changeReview(-1);
+      }
+    }
+
+    elements.forEach(slide => {
+      slide.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+    
+      slide.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
+    
+      slide.addEventListener('mousedown', (e) => {
+        touchStartX = e.clientX;
+      }, false);
+    
+      slide.addEventListener('mouseup', (e) => {
+        touchEndX = e.clientX;
+        handleSwipe();
+      }, false);
+    });
+    
+    const bpEvents = (e) => {
+      const activeBp = document.querySelector('.formation_point.active');
+      const currentIdx = activeBp ? activeBp.getAttribute('data-index') : null;
+      const clickedIdx = e.getAttribute('data-index');
+    
+      if (!currentIdx || currentIdx !== clickedIdx) {
+        document.querySelectorAll('.servico_formation_item').forEach(item => {
+          if (item.getAttribute('data-index') === clickedIdx) {
+            item.classList.remove('inactive');
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+            item.classList.add('inactive');
+          }
+        });
+    
+        bullets.forEach(b => {
+          if (b.getAttribute('data-index') === clickedIdx) {
+            b.classList.replace('inactive', 'active');
+          } else {
+            b.classList.replace('active', 'inactive');
+          }
+        });
+        
+        updateSpacerHeight();
+      }
+    }
+    
+    bullets.forEach((bp) => {
+      bp.addEventListener('click', () => bpEvents(bp));
+    });
+    
+    if (window.innerWidth <= 1000 && elements.length > 0) {
+      elements[0].classList.add('active');
+      elements[0].classList.remove('inactive');
+      
+      if (bullets.length > 0) {
+        bullets[0].classList.add('active');
+      }
+    }
+  });
+</script>
 
 {% schema %}
 {
