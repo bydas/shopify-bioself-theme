@@ -49,8 +49,6 @@
     grid-auto-flow: row;
     justify-items: center;
     height: max-content;
-    cursor: grab;
-    user-select: none;
   }
 
   #servico_formation_custom > ul > li > img {
@@ -70,6 +68,11 @@
   }
 
   @media screen and (max-width: 1000px) {
+    #servico_formation_custom > ul > li {
+      cursor: grab;
+      user-select: none;
+    }
+    
     #servico_formation_custom > h1 {
       font-size: 1.25rem;
     }
