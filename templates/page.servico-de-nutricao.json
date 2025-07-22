@@ -212,6 +212,13 @@
         "title": "formação que sustenta um acompanhamento de excelência"
       }
     },
+    "servico_nutricao_form_LJajLT": {
+      "type": "servico-nutricao-form",
+      "name": "Servico Nutricao Form",
+      "settings": {
+        "title": "Marcar consulta"
+      }
+    },
     "blog_collection_custom_xkhXGH": {
       "type": "blog-collection-custom",
       "name": "Blog custom",
@@ -509,6 +516,7 @@
     "servico_nutricao_reviews_hrY7tx",
     "servico_nutricao_know_better_AYrtPJ",
     "servico_nutricao_formacao_NJftjr",
+    "servico_nutricao_form_LJajLT",
     "blog_collection_custom_xkhXGH",
     "faq_2_EThpxa",
     "slideshow",
