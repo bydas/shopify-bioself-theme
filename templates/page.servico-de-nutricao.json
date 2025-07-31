@@ -198,7 +198,7 @@
           "type": "formacao",
           "settings": {
             "icon": "shopify://shop_images/Layer_1_1.png",
-            "description": "<p>Applying Functional Medicine in Clinical Practice</p><p><em>The Institute for Functional Medicine</em></p><p><em>Curso de Análises Clínicas</em></p><p>Nutrition Academy MD Course in Mind Body Medicine</p><p><em>Harvard Medical School</em></p><p>Therapeutic Food Plans</p><p><em>The Institute for Functional</em></p><p>Medicine Coaching Nutricional</p><p><em>Instituto Nutricoaching</em></p>"
+            "description": "<p>Applying Functional Medicine in Clinical Practice</p><p><em>The Institute for Functional Medicine</em></p><p><em>Curso de Análises Clínicas</em></p><p>Nutrition Academy MD Course in Mind Body Medicine</p><p><em>Harvard Medical School</em></p><p>Therapeutic Food Plans</p><p><em>The Institute for Functional </em>Medicine</p><p>Coaching Nutricional</p><p><em>Instituto Nutricoaching</em></p>"
           }
         }
       },
