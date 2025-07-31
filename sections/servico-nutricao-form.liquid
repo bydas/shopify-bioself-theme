@@ -16,6 +16,16 @@
     text-transform: uppercase;
   }
 
+  .terms_container > label {
+    color: black !important;
+    font-weight: 400 !important;
+  }
+
+  .terms_container > label > a {
+    font-weight: 700 !important;
+    text-decoration: underline;
+  }
+
   #servico_form_custom > form {
     padding: 1.5rem;
     border-radius: 1rem;
@@ -55,7 +65,7 @@
     align-items: center;
   }
 
-  #servico_form_custom > form > div > label {
+  #servico_form_custom > form > .default-container > label {
     padding: 0;
     margin: 0;
     font-size: 1rem;
@@ -63,7 +73,7 @@
   }
 
   #servico_form_custom > form > div > div > label,
-  #servico_form_custom > form > div > label {
+  #servico_form_custom > form > .default-container > label {
     padding: 0;
     margin: 0;
     font-size: 1rem;
@@ -126,16 +136,6 @@
     grid-template-columns: repeat(2, max-content);
     gap: 0.5rem;
     align-items: center;
-  }
-
-  .terms_container > label {
-    color: black !important;
-    font-weight: 400 !important;
-  }
-
-  .terms_container > label > a {
-    font-weight: 700 !important;
-    text-decoration: underline;
   }
 </style>
 
