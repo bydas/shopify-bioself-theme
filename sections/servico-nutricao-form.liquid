@@ -26,7 +26,7 @@
     gap: 1rem;
   }
 
-  #servico_form_custom > form > div {
+  #servico_form_custom > form > .default-container {
     display: grid;
     grid-template-rows: repeat(2, max-content);
     gap: 0.5rem;
@@ -134,17 +134,17 @@
   {% endunless %}
 
   {% form 'contact' %}
-    <div class="name">
+    <div class="name default-container">
       <label for="name">Nome*</label>
       <input type="text" name="contact[first_name]" id="name" required>
     </div>
 
-    <div>
+    <div class="default-container">
       <label for="phone">Contacto</label>
       <input type="tel" name="contact[phone]" id="phone">
     </div>
 
-    <div>
+    <div class="default-container">
       <label for="email">E-mail*</label>
       <input type="email" name="contact[email]" id="email" required>
     </div>
@@ -161,7 +161,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="default-container">
       <label for="message">Motivo da consulta*</label>
       <textarea name="contact[body]" id="message" required></textarea>
     </div>
