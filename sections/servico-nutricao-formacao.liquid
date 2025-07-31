@@ -64,6 +64,22 @@
     line-height: normal;
   }
 
+  #servico_formation_custom > ul > li > p {
+    margin-bottom: 0 !important; /* Reset inicial */
+  }
+
+  #servico_formation_custom > ul > li > p:nth-child(odd) {
+    margin-bottom: 0 !important; /* Ímpares sem margem */
+  }
+
+  #servico_formation_custom > ul > li > p:nth-child(even) {
+    margin-bottom: 1rem !important; /* Pares com margem */
+  }
+
+  #servico_formation_custom > ul > li > p:last-child {
+    margin-bottom: 0 !important; /* Último sempre sem margem */
+  }
+
   #servico_formation_points {
     display: none;
   }
