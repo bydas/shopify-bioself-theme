@@ -119,6 +119,13 @@
       gap: 1rem;
     }
   }
+
+  .terms_container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+  }
 </style>
 
 <section id="servico_form_custom">
@@ -159,7 +166,7 @@
       <textarea name="contact[body]" id="message" required></textarea>
     </div>
 
-    <div>
+    <div class="terms_container">
       <input id="terms_agreed" type="checkbox" name="contact[terms_agreed]" required>
       <label for="terms_agreed">Li e aceito a <a>Política de Privacidade</a></label>
     </div>
