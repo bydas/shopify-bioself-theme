@@ -112,7 +112,7 @@
     #servico_form_custom > form > button {
       font-size: 1rem;
     }
-    
+
     #servico_form_custom > form > .contact_div_container {
       grid-template-columns: max-content;
       grid-template-rows: repeat(2, max-content);
@@ -129,57 +129,60 @@
   {% form 'contact' %}
     <div class="name">
       <label for="name">Nome*</label>
-      <input type="text" name="contact[first_name]" id="name" />
+      <input type="text" name="contact[first_name]" id="name" required>
     </div>
-  
+
     <div>
       <label for="phone">Contacto</label>
-      <input type="tel" name="contact[phone]" id="phone" />
+      <input type="tel" name="contact[phone]" id="phone">
     </div>
-  
+
     <div>
       <label for="email">E-mail*</label>
-      <input type="email" name="contact[email]" id="email" required />
+      <input type="email" name="contact[email]" id="email" required>
     </div>
 
     <div class="contact_div_container">
       <div>
-        <input id="consulta_presencial" type="checkbox" name="contact[consulta_presencial]" value="presencial" />
+        <input id="consulta_presencial" type="checkbox" name="contact[consulta_presencial]" value="presencial">
         <label for="consulta_presencial">Consulta presencial (40€)</label>
       </div>
 
       <div>
-        <input id="consulta_online" type="checkbox" name="contact[consulta_online]" value="online" />
+        <input id="consulta_online" type="checkbox" name="contact[consulta_online]" value="online">
         <label for="consulta_online">Consulta online (40€)</label>
       </div>
     </div>
-  
+
     <div>
       <label for="message">Motivo da consulta*</label>
       <textarea name="contact[body]" id="message" required></textarea>
     </div>
 
-    <button type="submit">
-      Enviar
-    </button>
+    <div>
+      <input id="terms_agreed" type="checkbox" name="contact[terms_agreed]" required>
+      <label for="terms_agreed">Li e aceito a <a>Política de Privacidade</a></label>
+    </div>
+
+    <button type="submit">Enviar</button>
   {% endform %}
 </section>
 
 {% schema %}
-  {
-    "name": "Servico Nutricao Form",
-    "settings": [
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Título"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Servico Nutricao Form",
-        "category": "form"
-      }
-    ]
-  }
+{
+  "name": "Servico Nutricao Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Form",
+      "category": "form"
+    }
+  ]
+}
 {% endschema %}
