@@ -16,6 +16,13 @@
     text-transform: uppercase;
   }
 
+  .terms_container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+  }
+
   .terms_container > label {
     color: black !important;
     font-weight: 400 !important;
@@ -24,6 +31,7 @@
   .terms_container > label > a {
     font-weight: 700 !important;
     text-decoration: underline;
+    cursor: pointer !important;
   }
 
   #servico_form_custom > form {
@@ -130,13 +138,6 @@
       gap: 1rem;
     }
   }
-
-  .terms_container {
-    display: grid;
-    grid-template-columns: repeat(2, max-content);
-    gap: 0.5rem;
-    align-items: center;
-  }
 </style>
 
 <section id="servico_form_custom">
@@ -179,7 +180,7 @@
 
     <div class="terms_container">
       <input id="terms_agreed" type="checkbox" name="contact[terms_agreed]" required>
-      <label for="terms_agreed">Li e aceito a <a>Política de Privacidade</a></label>
+      <label for="terms_agreed">Li e aceito a <a href="/policies/privacy-policy" target="_blank">Política de Privacidade</a></label>
     </div>
 
     <button type="submit">Enviar</button>
