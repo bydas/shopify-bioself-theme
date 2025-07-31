@@ -47,11 +47,6 @@
     resize: none;
   }
 
-  #servico_form_custom > form > div > input::placeholder,
-  #servico_form_custom > form > div > textarea::placeholder {
-    opacity: 0.5;
-  }
-
   #servico_form_custom > form > div > div {
     display: grid;
     grid-template-columns: repeat(2, max-content);
@@ -63,6 +58,7 @@
     padding: 0;
     margin: 0;
     font-size: 1rem;
+    font-weight: 700 !important;
   }
 
   #servico_form_custom > form > div > div > label,
@@ -133,17 +129,17 @@
   {% form 'contact' %}
     <div class="name">
       <label for="name">Nome</label>
-      <input type="text" name="contact[first_name]" id="name" placeholder="Jane Doe" />
+      <input type="text" name="contact[first_name]" id="name" />
     </div>
   
     <div>
       <label for="phone">Contacto</label>
-      <input type="tel" name="contact[phone]" id="phone" placeholder="962345678" />
+      <input type="tel" name="contact[phone]" id="phone" />
     </div>
   
     <div>
       <label for="email">E-mail</label>
-      <input type="email" name="contact[email]" id="email" placeholder="janedoe@janedoe.pt" required />
+      <input type="email" name="contact[email]" id="email" required />
     </div>
 
     <div class="contact_div_container">
@@ -160,7 +156,7 @@
   
     <div>
       <label for="message">Motivo da consulta</label>
-      <textarea name="contact[body]" id="message" placeholder="lorem ipsum" required></textarea>
+      <textarea name="contact[body]" id="message" required></textarea>
     </div>
 
     <button type="submit">
