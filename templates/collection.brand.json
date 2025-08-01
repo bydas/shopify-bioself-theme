@@ -90,7 +90,7 @@
             "selected_tags": "Naturmil,Dietmed",
             "collection_cupon_title": "Poupa 20% EXTRA ao comprar 3 ou mais produtos Naturmil e Dietmed 🥳",
             "collection_cupon_boolean": false,
-            "collection_cupon_description": "Campanha válida de 1 a 30 de Junho de 2025",
+            "collection_cupon_description": "Campanha válida de 1 a 31 de Agosto de 2025",
             "collection_cupon_text": "Ver detalhes",
             "collection_cupon_code": "",
             "campaign_details": "Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 30 de Junho, limitada ao stock disponível. Packs não estão incluídos na promoção."
@@ -156,8 +156,7 @@
       "type": "blog-collection-custom",
       "settings": {
         "selected_blog": "blog-page",
-        "title_blog": "Visita o nosso blog",
-        "image_blog": "shopify://shop_images/Rectangle_8.svg"
+        "title_blog": "Visita o nosso blog"
       }
     },
     "collection-template": {
