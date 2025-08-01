@@ -1,1 +1,80 @@
-{"sections":{"main":{"type":"blog","blocks":{"image_WfemQX":{"type":"image","settings":{"blog_sidebar_image":"shopify:\/\/shop_images\/condicoes-plano-BioPoints-mobile-800x800.png","blog_sidebar_image_url":"shopify:\/\/pages\/biopoints"}},"newsletter_8zmy8t":{"type":"newsletter","settings":{"title":"Subscreva a newsletter","content":"<p>Conquiste acesso a novidades e promoções exclusivas!<\/p>","text_gdpr":"<p>Aceito a <a href=\"\/policies\/privacy-policy\" title=\"Privacy Policy\">Política de Privacidade<\/a> e os <a href=\"\/policies\/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Termos e Condições<\/a><\/p>","subtext":"","background":"#ffffff","text":"#677279"}},"show_tags_XM4MP9":{"type":"show_tags","settings":{"blog_sidebar_tags_title":"Categorias"}}},"block_order":["image_WfemQX","newsletter_8zmy8t","show_tags_XM4MP9"],"settings":{"title":"","subtitle":"","button_text":"Ler Artigo","button_link":"","show_blog_heading":true,"articles_per_page":12,"show_tags":false,"show_category":true,"show_author":true,"show_date":true,"show_excerpt":false,"show_on_mobile":true,"list_show_blog_heading":false,"list_articles_per_page":12,"list_show_tags":true,"list_show_category":true,"list_show_author":true,"list_show_date":true,"list_show_excerpt":false}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "blog_slideshow_fj6VeK": {
+      "type": "blog-slideshow",
+      "name": "Blog Slideshow",
+      "settings": {
+        "blog_selected": "blog-page",
+        "slide_time": 5
+      }
+    },
+    "main": {
+      "type": "blog",
+      "blocks": {
+        "image_WfemQX": {
+          "type": "image",
+          "settings": {
+            "blog_sidebar_image": "shopify://shop_images/condicoes-plano-BioPoints-mobile-800x800.png",
+            "blog_sidebar_image_url": "shopify://pages/biopoints"
+          }
+        },
+        "newsletter_8zmy8t": {
+          "type": "newsletter",
+          "settings": {
+            "title": "Subscreva a newsletter",
+            "content": "<p>Conquiste acesso a novidades e promoções exclusivas!</p>",
+            "text_gdpr": "<p>Aceito a <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Política de Privacidade</a> e os <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Termos e Condições</a></p>",
+            "subtext": "",
+            "background": "#ffffff",
+            "text": "#677279"
+          }
+        },
+        "show_tags_XM4MP9": {
+          "type": "show_tags",
+          "settings": {
+            "blog_sidebar_tags_title": "Categorias"
+          }
+        }
+      },
+      "block_order": [
+        "image_WfemQX",
+        "newsletter_8zmy8t",
+        "show_tags_XM4MP9"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "button_text": "Ler Artigo",
+        "button_link": "",
+        "show_blog_heading": true,
+        "articles_per_page": 12,
+        "show_tags": false,
+        "show_category": true,
+        "show_author": true,
+        "show_date": true,
+        "show_excerpt": false,
+        "show_on_mobile": true,
+        "list_show_blog_heading": false,
+        "list_articles_per_page": 12,
+        "list_show_tags": true,
+        "list_show_category": true,
+        "list_show_author": true,
+        "list_show_date": true,
+        "list_show_excerpt": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "blog_slideshow_fj6VeK"
+  ]
+}
