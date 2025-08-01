@@ -1,23 +1,14 @@
 {% layout none %}
-{% assign autor_alvo = blog.metafields.custom.autor_escolhido.value %}
-
-<ul id="blogPostsList">
-  {% assign contador = 0 %}
-
-  {% for artigo in blog.articles %}
-    {% comment %} Verifica se atingiu o limite de 4 artigos {% endcomment %}
-    {% if contador >= 4 %}{% break %}{% endif %}
-
-    {% comment %} Verifica se o autor do artigo corresponde ao selecionado {% endcomment %}
-    {% assign autor_artigo = artigo.metafields.custom.autor_referencia.value %}
-    {% if autor_artigo and autor_artigo.handle == autor_alvo.handle %}
+{% assign rita_posts = section.settings['selected-blog'].articles | where: 'author', 'Rita Silva' %}
+{% paginate rita_posts by 4 %}
+  <ul id="blogPostsList">
+    {% for article in rita_posts %}
       <li>
-        <a href="{{ artigo.url }}">
-          <div style="background-image: url({{ artigo.image | img_url: 'master' }})"></div>
-          <h4>{{ artigo.title }}</h4>
+        <a href="{{ article.url }}">
+          <div style="background-image: url({{ article.image | img_url: 'master' }})"></div>
+          <h4>{{ article.title }}</h4>
         </a>
       </li>
-      {% assign contador = contador | plus: 1 %}
-    {% endif %}
-  {% endfor %}
-</ul>
+    {% endfor %}
+  </ul>
+{% endpaginate %}
