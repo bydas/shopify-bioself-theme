@@ -63,9 +63,20 @@
         "list_show_date": true,
         "list_show_excerpt": false
       }
+    },
+    "blog_posts_autor_custom_CjBntP": {
+      "type": "blog-posts-autor-custom",
+      "disabled": true,
+      "name": "Blog posts custom autor",
+      "settings": {
+        "title": "O que diz a nossa nutricionista",
+        "selected-blog": "blog-page",
+        "btn_text": "Ver mais publicações"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "blog_posts_autor_custom_CjBntP"
   ]
 }
