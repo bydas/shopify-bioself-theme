@@ -173,14 +173,13 @@
     },
     "collection_campanhas_3_t96Pgd": {
       "type": "collection-campanhas-3",
-      "disabled": true,
       "settings": {
-        "selected_title": "Mais Vitalidade, Mais Poupança!",
-        "image_1_desktop": "shopify://shop_images/Nutridil_780500.png",
-        "image_1_mobile": "shopify://shop_images/campanha_mobile_nutridil_390170.jpg",
-        "image_1_url": "shopify://collections/nutridil",
-        "image_2_desktop": "shopify://shop_images/vitalize_780500.png",
-        "image_2_mobile": "shopify://shop_images/campanha_mobile_vitalize_390170.jpg",
+        "selected_title": "Proteção solar e Mais vitalidade!",
+        "image_1_desktop": "shopify://shop_images/annemarie-borlind-780x500.png",
+        "image_1_mobile": "shopify://shop_images/annemarie-borlind-390x170.png",
+        "image_1_url": "shopify://collections/annemarie-borlind",
+        "image_2_desktop": "shopify://shop_images/vitalize_780x500_7a2f68e0-372b-424a-aae8-a72570e760fa.png",
+        "image_2_mobile": "shopify://shop_images/vitalize_390x170_4c86662f-989d-4214-be3b-e08809bfab31.png",
         "image_2_url": "shopify://collections/vitalize"
       }
     },
