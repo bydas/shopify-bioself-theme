@@ -12,29 +12,15 @@
     "product_custom_Aibztd": {
       "type": "product_custom",
       "blocks": {
-        "icon_R6KTjY": {
-          "type": "icon",
-          "settings": {
-            "product_icon": "shopify://shop_images/ChemicalFree.png",
-            "title": "ChemicalFree"
-          }
-        },
-        "icon_piYrtJ": {
-          "type": "icon",
-          "settings": {
-            "product_icon": "shopify://shop_images/CrueltyFree.png",
-            "title": "CrueltyFree"
-          }
-        },
         "coupon_NqxtrQ": {
           "type": "coupon",
           "settings": {
             "title": "Junho2025",
             "background_color": "",
             "selected_tags": "SHOP",
-            "selected_title": "<p><strong>Cupão: JULHO2025</strong></p>",
+            "selected_title": "<p><strong>Cupão: AGOSTO2025</strong></p>",
             "selected_description": "<p>Conquista <strong>10€ de desconto</strong> adicionais em compras superiores a 99.99€.</p>",
-            "selected_modal_description": "Aplica o código de cupão JULHO2025 no checkout e conquista 10€ de desconto adicionais em compras superiores a 99.99€. Campanha exclusiva da loja online e válida de 1 a 31 de Julho de 2025. Acumulável com outras campanhas em vigor e limitado ao stock existente."
+            "selected_modal_description": "Aplica o código de cupão AGOSTO2025 no checkout e conquista 10€ de desconto adicionais em compras superiores a 99.99€. Campanha exclusiva da loja online e válida de 1 a 31 de Agosto de 2025. Acumulável com outras campanhas em vigor e limitado ao stock existente."
           }
         },
         "coupon_iWDRdN": {
@@ -83,8 +69,6 @@
         }
       },
       "block_order": [
-        "icon_R6KTjY",
-        "icon_piYrtJ",
         "coupon_NqxtrQ",
         "coupon_iWDRdN",
         "coupon_WRTneq",
