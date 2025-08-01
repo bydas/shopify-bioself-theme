@@ -1,24 +1,22 @@
-<head>
-  <!-- Preload critical CSS and JavaScript -->
-  {{ 'theme.css' | asset_url | preload_tag: as: 'style' }}
-  {{ 'theme.js' | asset_url | preload_tag: as: 'script' }}
+<!-- Preload critical CSS and JavaScript -->
+{{ 'theme.css' | asset_url | preload_tag: as: 'style' }}
+{{ 'theme.js' | asset_url | preload_tag: as: 'script' }}
 
-  <!-- Preconnect for faster external resource loading -->
-  <link rel="preconnect" href="https://cdn.shopify.com">
-  <link rel="preconnect" href="https://fonts.shopifycdn.com">
+<!-- Preconnect for faster external resource loading -->
+<link rel="preconnect" href="https://cdn.shopify.com">
+<link rel="preconnect" href="https://fonts.shopifycdn.com">
 
-  <!-- Preload only first visible images -->
-  {% if section.blocks.size > 0 %}
-    {% assign first_slide = section.blocks | first %}
-    {% if first_slide.settings.image_desktop %}
-      {{ first_slide.settings.image_desktop | image_url: width: 1080 | preload_tag: as: 'image' }}
-    {% endif %}
-
-    {% if first_slide.settings.image_mobile %}
-      {{ first_slide.settings.image_mobile | image_url: width: 1080 | preload_tag: as: 'image' }}
-    {% endif %}
+<!-- Preload only first visible images -->
+{% if section.blocks.size > 0 %}
+  {% assign first_slide = section.blocks | first %}
+  {% if first_slide.settings.image_desktop %}
+    {{ first_slide.settings.image_desktop | image_url: width: 1080 | preload_tag: as: 'image' }}
   {% endif %}
-</head>
+
+  {% if first_slide.settings.image_mobile %}
+    {{ first_slide.settings.image_mobile | image_url: width: 1080 | preload_tag: as: 'image' }}
+  {% endif %}
+{% endif %}
 
 <style>
   #custom_slideshow {
