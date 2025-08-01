@@ -1,0 +1,186 @@
+{% assign collection_nav = section.blocks | where: 'type', 'Nav' %}
+
+<style>
+  #blog-nav {
+      display: grid;
+      grid-auto-rows: max-content;
+      grid-auto-flow: row;
+      gap: 1rem;
+      margin: 2rem var(--desktop-container-gutter);
+      justify-content: center;
+      text-align: center;
+  }
+
+  #blog-nav > h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 3rem;
+  }
+
+  #blog-nav > nav {
+      display: grid;
+  }
+
+  #blog-nav > nav > ul {
+      display: grid;
+      grid-auto-columns: max-content;
+      grid-auto-flow: column;
+      gap: 2rem;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  }
+
+  #blog-nav > nav > ul > li {
+      display: grid;
+      padding: 0;
+      margin: 0;
+  }
+
+  #blog-nav > nav > ul > li > a {
+      display: grid;
+      grid-auto-rows: max-content;
+      grid-auto-flow: row;
+      gap: 1rem;
+      justify-items: center;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  #blog-nav > nav > ul > li > a > div {
+      display: grid;
+      justify-items: center;
+      border: 1px solid #FFBB12;
+      border-radius 50%;
+      padding: 0.5rem;
+  }
+
+  #blog-nav > nav > ul > li > a > span {
+      padding: 0.5rem;
+      background-color: #258439;
+      border-radius: 0.5rem;
+      color: white;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+      #blog-nav > h1 {
+          font-size: 2rem;
+      }
+
+      #blog-nav > nav > ul > li > a > div > img {
+          width: 50px;
+          height: 50px;
+      }
+  }
+
+  @media screen and (min-width: 1499px) {
+      #blog-nav {
+          margin: 2rem 9vw;
+      }
+  }
+
+  @media screen and (min-width: 2559px) {
+      #blog-nav {
+          margin: 2rem 18vw;
+      }
+  }
+
+  @media screen and (min-width: 1000px) {
+      #blog-nav {
+          margin: 1rem var(--mobile-container-gutter);
+      }
+
+      #blog-nav > nav > ul {
+          display: flex;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          list-style-type: none;
+          gap: 0.5rem;
+          scrollbar-width: none;
+      }
+
+      #blog-nav > nav > ul > li > a > div > img {
+          width: 35px;
+          height: 35px;
+      }
+
+      #blog-nav > h1 {
+          font-size: 1.5rem;
+      }
+
+    #blog-nav > nav > ul > li > a > span {
+          font-size: 0.875rem;
+    }
+  }
+</style>
+
+<section id="blog-nav">
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% unless collection_nav.size == 0 %}
+    <nav>
+      <ul>
+        {% for c in collection_nav %}
+          <li>
+            {% unless c.settings.collection_nav == blank %}
+              <a href="{{ c.settings.collection_nav.url }}">
+                {% unless c.settings.icon == blank %}
+                  <div>
+                    <img
+                      src="{{ c.settings.icon | image_url: width: 68, height: 68 }}"
+                      alt="Ícone"
+                      width="68"
+                      height="68"
+                    >
+                  </div>
+                {% endunless %}
+
+                <span>{{ c.settings.collection_nav.title }}</span>
+              </a>
+            {% endunless %}
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endunless %}
+</section>
+
+{% schema %}
+{
+  "name": "Blog nav",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Nav",
+      "name": "Nav",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Selecione o ícone"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Selecione a coleção"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog nav",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}
