@@ -1,0 +1,40 @@
+<section id="blog_posts_custom">
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {% unless section.settings['selected-blog'] == blank %}
+    <ul>
+      {% for post in section.settings['selected-blog'].articles limit: 8 %}
+        <li>
+          <div style="background-image: {{ post.image.src }}"></div>
+          <h4>{{ post.title }}</h4>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endunless %}
+</section>
+
+{% schema %}
+{
+  "name": "Blog posts custom",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "blog",
+      "id": "selected-blog",
+      "label": "Selecione o blog"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts custom",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}
