@@ -23,7 +23,7 @@
 
   #product_item_custom > #custom_link_product {
     display: grid;
-    grid-template-rows: max-content 1fr max-content max-content max-content max-content;
+    grid-template-rows: max-content max-content 1fr max-content max-content max-content;
     gap: 0.125rem;
     padding: 1rem 1rem 0 1rem;
   }
@@ -39,16 +39,16 @@
 
   #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
     width: auto;
-    height: 80%;
+    height: 100%;
     object-fit: cover;
     place-self: center;
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
-    #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
+    {% comment %} #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
       height: 70% !important;
       max-width: 70% !important;
-    }
+    } {% endcomment %}
 
     #product_item_custom > #custom_link_product > h1,
     #product_item_custom > #custom_link_product > #prices_custom > h3 {
@@ -82,11 +82,11 @@
     }
   }
 
-  @media screen and (max-width: 450px) {
+  {% comment %} @media screen and (max-width: 450px) {
     #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
       height: 100px;
     }
-  }
+  } {% endcomment %}
 
   #product_item_custom > #custom_link_product > h1 {
     margin: 0;
@@ -197,12 +197,12 @@
     }
   }
 
-  @media screen and (max-width: 1000px) and (min-width: 768px) {
+  {% comment %} @media screen and (max-width: 1000px) and (min-width: 768px) {
     #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
       width: 75%;
       height: 75%;
     }
-  }
+  } {% endcomment %}
 
   #product_item_custom > form > button > svg {
     width: 18px;
@@ -259,7 +259,7 @@
       margin: 0.5rem;
     }
 
-    #product_item_custom > #custom_link_product, {
+    #product_item_custom > #custom_link_product {
       padding: 0.5rem;
     }
 
@@ -413,30 +413,30 @@
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const productSections = document.querySelectorAll("#product_item_custom");
+  document.addEventListener('DOMContentLoaded', function () {
+    const productSections = document.querySelectorAll('#product_item_custom');
 
     function checkReviews() {
       productSections.forEach((section) => {
-        const starsContainer = section.querySelector(".NETREVIEWS_PRODUCT_STARS");
-        const skeepersContainer = section.querySelector(".skeepers_product__stars");
-        const noReviewsFallback = section.querySelector("#no_reviews_stars");
+        const starsContainer = section.querySelector('.NETREVIEWS_PRODUCT_STARS');
+        const skeepersContainer = section.querySelector('.skeepers_product__stars');
+        const noReviewsFallback = section.querySelector('#no_reviews_stars');
 
         if (starsContainer) {
           const observer = new MutationObserver(() => {
-            if (starsContainer.innerHTML.trim() === "") {
-              noReviewsFallback.style.display = "block";
+            if (starsContainer.innerHTML.trim() === '') {
+              noReviewsFallback.style.display = 'block';
 
-              starsContainer.style.display = "none";
+              starsContainer.style.display = 'none';
               if (skeepersContainer) {
-                skeepersContainer.style.display = "none";
+                skeepersContainer.style.display = 'none';
               }
             } else {
               // Oculta o fallback e exibe as estrelas
-              noReviewsFallback.style.display = "none";
-              starsContainer.style.display = "block";
+              noReviewsFallback.style.display = 'none';
+              starsContainer.style.display = 'block';
               if (skeepersContainer) {
-                skeepersContainer.style.display = "block";
+                skeepersContainer.style.display = 'block';
               }
             }
           });
@@ -444,11 +444,11 @@
           observer.observe(starsContainer, { childList: true, subtree: true });
 
           setTimeout(() => {
-            if (starsContainer.innerHTML.trim() === "") {
-              noReviewsFallback.style.display = "block";
-              starsContainer.style.display = "none";
+            if (starsContainer.innerHTML.trim() === '') {
+              noReviewsFallback.style.display = 'block';
+              starsContainer.style.display = 'none';
               if (skeepersContainer) {
-                skeepersContainer.style.display = "none";
+                skeepersContainer.style.display = 'none';
               }
             }
           }, 2000);
@@ -461,129 +461,128 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll("form[action='/cart/add']");
 
-    const loader = document.getElementById("loader");
+    const loader = document.getElementById('loader');
 
     function showLoader() {
-      loader.style.display = "block";
-      loader.style.width = "0%";
+      loader.style.display = 'block';
+      loader.style.width = '0%';
 
       setTimeout(() => {
-        loader.style.width = "30%";
+        loader.style.width = '30%';
       }, 100);
     }
 
-
     function hideLoader() {
-      loader.style.width = "100%";
-      
+      loader.style.width = '100%';
+
       setTimeout(() => {
-        loader.style.display = "none";
-        loader.style.width = "0%";
+        loader.style.display = 'none';
+        loader.style.width = '0%';
       }, 400);
     }
 
     forms.forEach((form) => {
-      form.addEventListener("submit", function (event) {
+      form.addEventListener('submit', function (event) {
         event.preventDefault();
 
         const formData = new FormData(form);
-        const productId = formData.get("id");
+        const productId = formData.get('id');
 
         if (!productId) return;
 
         showLoader();
 
-        fetch("/cart/add.js", {
-          method: "POST",
+        fetch('/cart/add.js', {
+          method: 'POST',
           body: formData,
         })
           .then((response) => {
             if (!response.ok) {
               return response.json().then((data) => {
-                throw new Error(data.message || "Erro ao adicionar ao carrinho.");
+                throw new Error(data.message || 'Erro ao adicionar ao carrinho.');
               });
             }
 
             fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`)
               .then((res) => {
                 if (!res.ok) {
-                  throw new Error("Erro ao obter carrinho");
+                  throw new Error('Erro ao obter carrinho');
                 }
 
                 return res.text();
               })
               .then((data) => {
                 if (data) {
-                  const carts = document.querySelectorAll("#mini-cart");
+                  const carts = document.querySelectorAll('#mini-cart');
 
                   if (carts) {
-                    carts.forEach((cart) => cart.innerHTML = data);
-                    
+                    carts.forEach((cart) => (cart.innerHTML = data));
+
                     if (innerWidth >= 2559) {
-                      carts.forEach((cart) => cart.style.marginRight = "17vw");
+                      carts.forEach((cart) => (cart.style.marginRight = '17vw'));
                     }
-            
+
                     if (innerWidth < 2559 && innerWidth >= 1499) {
-                      carts.forEach((cart) => cart.style.marginRight = "8vw");
+                      carts.forEach((cart) => (cart.style.marginRight = '8vw'));
                     }
-            
+
                     if (innerWidth < 1499 && innerWidth >= 1000) {
-                      carts.forEach((cart) => cart.style.marginRight = "2vw");
+                      carts.forEach((cart) => (cart.style.marginRight = '2vw'));
                     }
-            
+
                     if (innerWidth >= 1000) {
-                      carts.forEach((cart) => cart.style.top = "4.85rem");
+                      carts.forEach((cart) => (cart.style.top = '4.85rem'));
                     }
-            
+
                     if (innerWidth < 1000) {
                       carts.forEach((cart) => {
-                        cart.style.transform = "scale(1)";
-                        cart.style.maxHeight = "calc(100vh - 40px)";
-                        cart.style.padding = "1rem 1rem 2rem 1rem";
+                        cart.style.transform = 'scale(1)';
+                        cart.style.maxHeight = 'calc(100vh - 40px)';
+                        cart.style.padding = '1rem 1rem 2rem 1rem';
                       });
-            
-                      const as = carts.forEach((cart) => cart.querySelector("a"));
-            
+
+                      const as = carts.forEach((cart) => cart.querySelector('a'));
+
                       if (as) {
-                        as.forEach((a) => a.style.padding = "0 1rem");
+                        as.forEach((a) => (a.style.padding = '0 1rem'));
                       }
                     } else {
                       carts.forEach((cart) => {
-                        cart.style.visibility = "visible";
-                        cart.style.opacity = 1
+                        cart.style.visibility = 'visible';
+                        cart.style.opacity = 1;
                       });
                     }
                   }
 
-                  return fetch("/cart.js")
+                  return fetch('/cart.js');
                 }
               })
               .then((res) => {
                 if (!res.ok) {
-                  throw new Error("Error while fetching cart")
+                  throw new Error('Error while fetching cart');
                 }
 
                 return res.json();
               })
               .then((data) => {
                 if (data) {
-                  const cartCounters = document.querySelectorAll(".header__cart-count");
+                  const cartCounters = document.querySelectorAll('.header__cart-count');
 
                   if (cartCounters) {
-                    cartCounters.forEach((cart) => cart.innerText = data.item_count );
-                  } 
+                    cartCounters.forEach((cart) => (cart.innerText = data.item_count));
+                  }
                 }
               })
               .catch((error) => {
-                console.error("Error when getting cart");
-              })
+                console.error('Error when getting cart');
+              });
           })
           .catch((error) => {
-            console.error("Erro ao adicionar ao carrinho:", error);
-            alert(error.message || "Erro ao adicionar ao carrinho.");
+            console.error('Erro ao adicionar ao carrinho:', error);
+            alert(error.message || 'Erro ao adicionar ao carrinho.');
           })
           .finally(() => hideLoader());
       });
@@ -592,15 +591,15 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const divs = document.querySelectorAll(".image_and_div_wrapper > div");
+  document.addEventListener('DOMContentLoaded', function () {
+    const divs = document.querySelectorAll('.image_and_div_wrapper > div');
 
     if (divs.length > 0) {
       divs.forEach((div) => {
-        div.addEventListener("click", function(event) {
-          event.stopPropagation()
-        })
-      })
+        div.addEventListener('click', function (event) {
+          event.stopPropagation();
+        });
+      });
     }
   });
 </script>

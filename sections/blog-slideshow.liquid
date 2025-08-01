@@ -6,6 +6,18 @@
 <link rel="preconnect" href="https://cdn.shopify.com">
 <link rel="preconnect" href="https://fonts.shopifycdn.com">
 
+<!-- Preload only first visible images -->
+{% if section.blocks.size > 0 %}
+  {% assign first_slide = section.blocks | first %}
+  {% if first_slide.settings.image_desktop %}
+    {{ first_slide.settings.image_desktop | image_url: width: 1080 | preload_tag: as: 'image' }}
+  {% endif %}
+
+  {% if first_slide.settings.image_mobile %}
+    {{ first_slide.settings.image_mobile | image_url: width: 1080 | preload_tag: as: 'image' }}
+  {% endif %}
+{% endif %}
+
 <style>
   #custom_slideshow {
     display: grid;
@@ -65,6 +77,50 @@
     align-items: center;
   }
 
+  .slide-content {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    margin: 0 var(--desktop-container-gutter);
+    justify-content: center;
+    align-items: center;
+    max-width: 35%;
+  }
+
+  @media screen and (min-width: 1499px) {
+    .slide-content {
+      margin: 0 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    .slide-content {
+      margin: 0 18vw;
+    }
+  }
+
+  .slide-content > h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 900 !important;
+    line-height: normal;
+  }
+
+  .slide-content > p {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+    color: white;
+    line-height: normal;
+  }
+
   .dot {
     display: inline-block;
     width: 8px;
@@ -113,6 +169,18 @@
     .arrow {
       display: none;
     }
+
+    .slide-content {
+      max-width: 100%;
+    }
+
+    .slide-content > h3 {
+      font-size: 1.75rem;
+    }
+
+    .slide-content > p {
+      font-size: 1.25rem;
+    }
   }
 
   .arrow-left {
@@ -149,14 +217,14 @@
       </svg>
     </div>
 
-    {% for article in section.settings.blog_selected.articles limit: 5 %}
+    {% for slide in section.blocks %}
       <div class="slide">
-        {% if article.image != blank %}
-          <a href="{{ article.url }}">
+        {% if slide.settings.image_mobile and slide.settings.image_desktop %}
+          <a href="{{ slide.settings.link | default: '#' }}">
             <picture>
-              <source media="(max-width: 768px)" srcset="{{ article.image.src | img_url: 'master' }}">
+              <source media="(max-width: 768px)" srcset="{{ slide.settings.image_mobile | img_url: 'master' }}">
               <img
-                src="{{ article.image.src | img_url: 'master' }}"
+                src="{{ slide.settings.image_desktop | img_url: 'master' }}"
                 alt="Slide {{ forloop.index }}"
                 width="100%"
                 height="100%"
@@ -165,10 +233,20 @@
           </a>
         {% endif %}
       </div>
+
+      <div class="slide-content">
+        {% unless slide.settings.title == blank %}
+          <h3>{{ slide.settings.title }}</h3>
+        {% endunless %}
+
+        {% unless slide.settings.description == blank %}
+          {{ slide.settings.description }}
+        {% endunless %}
+      </div>
     {% endfor %}
 
     <div class="dots">
-      {% for slide in section.settings.blog_selected.articles limit: 5 %}
+      {% for slide in section.blocks %}
         <span class="dot" onclick="currentSlide({{ forloop.index }})"></span>
       {% endfor %}
     </div>
@@ -176,8 +254,8 @@
 </section>
 
 <script>
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".dot");
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
 
   let slideIndex = 0;
   let autoSlideInterval;
@@ -185,10 +263,10 @@
 
   function showSlides() {
     slides.forEach((slide, index) => {
-      slide.style.display = index === slideIndex ? "block" : "none";
+      slide.style.display = index === slideIndex ? 'block' : 'none';
     });
     dots.forEach((dot, index) => {
-      dot.className = index === slideIndex ? "dot active-slide" : "dot";
+      dot.className = index === slideIndex ? 'dot active-slide' : 'dot';
     });
   }
 
@@ -220,21 +298,21 @@
 
     slides.forEach((slide) => {
       // Início do arrasto (mouse ou toque)
-      slide.addEventListener("mousedown", (e) => {
+      slide.addEventListener('mousedown', (e) => {
         e.preventDefault();
         startX = e.clientX;
         isDragging = true;
-        slide.style.cursor = "grabbing";
+        slide.style.cursor = 'grabbing';
       });
 
-      slide.addEventListener("touchstart", (e) => {
+      slide.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
         isDragging = true;
-        slide.style.cursor = "grabbing";
+        slide.style.cursor = 'grabbing';
       });
 
       // Durante o arrasto
-      slide.addEventListener("mousemove", (e) => {
+      slide.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
         const currentX = e.clientX;
         const diffX = startX - currentX;
@@ -245,7 +323,7 @@
         }
       });
 
-      slide.addEventListener("touchmove", (e) => {
+      slide.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         const currentX = e.touches[0].clientX;
         const diffX = startX - currentX;
@@ -257,24 +335,24 @@
       });
 
       // Fim do arrasto
-      slide.addEventListener("mouseup", () => {
+      slide.addEventListener('mouseup', () => {
         isDragging = false;
-        slide.style.cursor = "grab";
+        slide.style.cursor = 'grab';
       });
 
-      slide.addEventListener("mouseleave", () => {
+      slide.addEventListener('mouseleave', () => {
         isDragging = false;
-        slide.style.cursor = "grab";
+        slide.style.cursor = 'grab';
       });
 
-      slide.addEventListener("touchend", () => {
+      slide.addEventListener('touchend', () => {
         isDragging = false;
-        slide.style.cursor = "grab";
+        slide.style.cursor = 'grab';
       });
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     showSlides();
     autoSlideInterval = setInterval(autoSlide, slideTime);
     handleDrag(); // Ativar eventos de arrasto para mouse e toque
@@ -283,13 +361,8 @@
 
 {% schema %}
 {
-  "name": "Blog Slideshow",
+  "name": "Blog Slideshow Custom",
   "settings": [
-    {
-      "type": "blog",
-      "id": "blog_selected",
-      "label": "Selecione o blog"
-    },
     {
       "type": "number",
       "id": "slide_time",
@@ -297,10 +370,51 @@
       "default": 5
     }
   ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Slide para Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Slide para Mobile"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link do Slide"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título do Slide"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Descrição do Slide"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Blog Slideshow",
-      "category": "Blog"
+      "name": "Blog Slideshow Custom",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
     }
   ]
 }

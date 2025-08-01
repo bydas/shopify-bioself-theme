@@ -1,19 +1,221 @@
-<section id="blog_posts_custom">
+<style>
+  #blog_posts_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 2rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #blog_posts_custom > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    text-align: left;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  #blog_posts_custom > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #blog_posts_custom > ul > li {
+    display: grid;
+    padding: 0;
+    margin: 0;
+  }
+
+  #blog_posts_custom > .see_all_btn {
+    border: 1px solid #258439;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #258439;
+    font-weight: 700 !important;
+    font-size: 1rem;
+    cursor: pointer;
+    width: max-content;
+    justify-self: center;
+    transition: all 0.15s ease;
+    background-color: transparent;
+  }
+
+  #blog_posts_custom > .see_all_btn:hover {
+    background-color: #258439;
+    color: white;
+  }
+
+  #blog_posts_custom > ul > li > a {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    border-radius: 1rem;
+    border: 1px solid #258439;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+
+  #blog_posts_custom > ul > li > a > span {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+  }
+
+  #blog_posts_custom > ul > li > a:hover {
+    transform: translateY(-10px);
+  }
+
+  #blog_posts_custom > ul > li > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  #blog_posts_custom > ul > li > a > h4 {
+    padding: 1rem;
+    font-weight: 700 !important;
+    font-size: 1rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #blog_posts_custom > h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #blog_posts_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #blog_posts_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #blog_posts_custom {
+      margin: 1rem var(--mobile-container-gutter);
+    }
+
+    #blog_posts_custom > h1 {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 415px) {
+    #blog_posts_custom > ul {
+      grid-auto-rows: max-content;
+      grid-auto-flow: row;
+      grid-template-columns: unset;
+    }
+  }
+</style>
+
+<section
+  id="blog_posts_custom"
+  data-blog-handle="{{ section.settings.selected-blog.handle }}"
+  data-next-page="2"
+  data-total-pages="{{ section.settings.selected-blog.articles_count | divided_by: 8.0 | ceil }}"
+>
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
 
   {% unless section.settings['selected-blog'] == blank %}
-    <ul>
+    <ul id="blogPostsList">
       {% for post in section.settings['selected-blog'].articles limit: 8 %}
+        {% for tag in post.tags %}
+          {% unless tag contains 'author'
+            or tag contains 'dificuldade'
+            or tag contains 'doses'
+            or tag contains 'duracao'
+          %}
+            {% assign post_tag = tag %}
+            {% break %}
+          {% endunless %}
+        {% endfor %}
+
         <li>
-          <div style="background-image: {{ post.image.src }}"></div>
-          <h4>{{ post.title }}</h4>
+          <a href="{{ post.url }}">
+            <div style="background-image: url({{ post.image | img_url: 'master' }})"></div>
+            <h4>{{ post.title }}</h4>
+            <span>{{ post_tag }}</span>
+          </a>
         </li>
       {% endfor %}
     </ul>
+
+    {% if section.settings['selected-blog'].articles_count > 8 %}
+      <button class="see_all_btn" id="loadMoreBtn">
+        {{ section.settings.btn_text }}
+      </button>
+    {% endif %}
   {% endunless %}
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.getElementById('blog_posts_custom');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+    if (!loadMoreBtn) return;
+
+    loadMoreBtn.addEventListener('click', async () => {
+      const blogHandle = section.dataset.blogHandle;
+      let nextPage = parseInt(section.dataset.nextPage);
+      const totalPages = parseInt(section.dataset.totalPages);
+
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = 'Carregando...';
+
+      try {
+        const response = await fetch(`/blogs/${blogHandle}?page=${nextPage}&view=ajax`);
+        const html = await response.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newArticles = doc.querySelectorAll('#blogPostsList li');
+
+        const blogPostsList = document.getElementById('blogPostsList');
+        newArticles.forEach((article) => {
+          blogPostsList.appendChild(article);
+        });
+
+        nextPage++;
+        section.dataset.nextPage = nextPage;
+
+        if (nextPage > totalPages) {
+          loadMoreBtn.remove();
+        } else {
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
+        }
+      } catch (error) {
+        console.error('Error loading posts:', error);
+        loadMoreBtn.disabled = false;
+        loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
+      }
+    });
+  });
+</script>
 
 {% schema %}
 {
@@ -28,6 +230,12 @@
       "type": "blog",
       "id": "selected-blog",
       "label": "Selecione o blog"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Texto do botão",
+      "default": "Ver mais publicações"
     }
   ],
   "presets": [

@@ -1,0 +1,23 @@
+{% layout none %}
+{% assign autor_alvo = blog.metafields.custom.autor_escolhido.value %}
+
+<ul id="blogPostsList">
+  {% assign contador = 0 %}
+
+  {% for artigo in blog.articles %}
+    {% comment %} Verifica se atingiu o limite de 4 artigos {% endcomment %}
+    {% if contador >= 4 %}{% break %}{% endif %}
+
+    {% comment %} Verifica se o autor do artigo corresponde ao selecionado {% endcomment %}
+    {% assign autor_artigo = artigo.metafields.custom.autor_referencia.value %}
+    {% if autor_artigo and autor_artigo.handle == autor_alvo.handle %}
+      <li>
+        <a href="{{ artigo.url }}">
+          <div style="background-image: url({{ artigo.image | img_url: 'master' }})"></div>
+          <h4>{{ artigo.title }}</h4>
+        </a>
+      </li>
+      {% assign contador = contador | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+</ul>
