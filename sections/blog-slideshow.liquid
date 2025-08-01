@@ -1,0 +1,307 @@
+<!-- Preload critical CSS and JavaScript -->
+{{ 'theme.css' | asset_url | preload_tag: as: 'style' }}
+{{ 'theme.js' | asset_url | preload_tag: as: 'script' }}
+
+<!-- Preconnect for faster external resource loading -->
+<link rel="preconnect" href="https://cdn.shopify.com">
+<link rel="preconnect" href="https://fonts.shopifycdn.com">
+
+<style>
+  #custom_slideshow {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+  }
+
+  .slideshow-container {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .slide {
+    display: none;
+    width: 100%;
+    height: auto;
+    position: relative;
+    cursor: grab;
+    transition: transform 0.5s ease;
+  }
+
+  .slide:active {
+    cursor: grabbing;
+  }
+
+  .slideshow-container img {
+    width: 100%;
+    max-height: 1080px;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #custom_slideshow {
+      margin: 0 var(--mobile-container-gutter) 1rem var(--mobile-container-gutter);
+    }
+
+    .slideshow-container img {
+      max-height: 600px;
+      border-radius: 0.65rem;
+    }
+
+    .slide {
+      cursor: grab;
+    }
+  }
+
+  .dots {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dot.active-slide {
+    width: 35px;
+    border-radius: 5px;
+    background-color: white;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 4;
+    border-radius: 50%;
+  }
+
+  @media screen and (min-width: 1000px) {
+    .arrow {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.15s ease;
+    }
+
+    .slideshow-container:hover > .arrow {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .arrow {
+      display: none;
+    }
+  }
+
+  .arrow-left {
+    left: 10px;
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .arrow-right {
+    right: 10px;
+  }
+
+  .arrow svg {
+    fill: #ffffff;
+    width: 14px;
+    height: 14px;
+  }
+
+  .arrow:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+</style>
+
+<section id="custom_slideshow">
+  <div class="slideshow-container">
+    <!-- Setas -->
+    <div class="arrow arrow-left" onclick="changeSlide(-1)">
+      <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
+        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+      </svg>
+    </div>
+    <div class="arrow arrow-right" onclick="changeSlide(1)">
+      <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
+        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+      </svg>
+    </div>
+
+    {% for article in section.settings.blog_selected.articles limit: 5 %}
+      <div class="slide">
+        {% if article.image != blank %}
+          <a href="{{ article.url }}">
+            <picture>
+              <source media="(max-width: 768px)" srcset="{{ article.image.src | img_url: 'master' }}">
+              <img
+                src="{{ article.image.src | img_url: 'master' }}"
+                alt="Slide {{ forloop.index }}"
+                width="100%"
+                height="100%"
+              >
+            </picture>
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="dots">
+      {% for slide in section.settings.blog_selected.articles limit: 5 %}
+        <span class="dot" onclick="currentSlide({{ forloop.index }})"></span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+
+  let slideIndex = 0;
+  let autoSlideInterval;
+  let slideTime = parseInt('{{ section.settings.slide_time | default: 5 }}', 10) * 1000; // Tempo de troca configurável
+
+  function showSlides() {
+    slides.forEach((slide, index) => {
+      slide.style.display = index === slideIndex ? "block" : "none";
+    });
+    dots.forEach((dot, index) => {
+      dot.className = index === slideIndex ? "dot active-slide" : "dot";
+    });
+  }
+
+  function currentSlide(index) {
+    slideIndex = index - 1;
+    showSlides();
+    resetAutoSlide();
+  }
+
+  function autoSlide() {
+    slideIndex = (slideIndex + 1) % slides.length;
+    showSlides();
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(autoSlide, slideTime);
+  }
+
+  function changeSlide(direction) {
+    slideIndex = (slideIndex + direction + slides.length) % slides.length;
+    showSlides();
+    resetAutoSlide();
+  }
+
+  function handleDrag() {
+    let startX = 0;
+    let isDragging = false;
+
+    slides.forEach((slide) => {
+      // Início do arrasto (mouse ou toque)
+      slide.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        startX = e.clientX;
+        isDragging = true;
+        slide.style.cursor = "grabbing";
+      });
+
+      slide.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        slide.style.cursor = "grabbing";
+      });
+
+      // Durante o arrasto
+      slide.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const currentX = e.clientX;
+        const diffX = startX - currentX;
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0) changeSlide(1); // Deslize para a esquerda
+          else changeSlide(-1); // Deslize para a direita
+          isDragging = false;
+        }
+      });
+
+      slide.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        const currentX = e.touches[0].clientX;
+        const diffX = startX - currentX;
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0) changeSlide(1); // Deslize para a esquerda
+          else changeSlide(-1); // Deslize para a direita
+          isDragging = false;
+        }
+      });
+
+      // Fim do arrasto
+      slide.addEventListener("mouseup", () => {
+        isDragging = false;
+        slide.style.cursor = "grab";
+      });
+
+      slide.addEventListener("mouseleave", () => {
+        isDragging = false;
+        slide.style.cursor = "grab";
+      });
+
+      slide.addEventListener("touchend", () => {
+        isDragging = false;
+        slide.style.cursor = "grab";
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    showSlides();
+    autoSlideInterval = setInterval(autoSlide, slideTime);
+    handleDrag(); // Ativar eventos de arrasto para mouse e toque
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Blog Slideshow",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog_selected",
+      "label": "Selecione o blog"
+    },
+    {
+      "type": "number",
+      "id": "slide_time",
+      "label": "Tempo de troca de slides (em segundos)",
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Slideshow",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}
