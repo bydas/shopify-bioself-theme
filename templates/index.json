@@ -162,6 +162,7 @@
     },
     "products_collection_with_image_AhgAw9": {
       "type": "products-collection-with-image",
+      "disabled": true,
       "settings": {
         "selected_section_title": "Ansioval: serenidade no teu dia!",
         "selected_product": "farmodietica-ansioval-relax-30-ampolas-5601653017480",
