@@ -63,29 +63,9 @@
         "list_show_date": true,
         "list_show_excerpt": false
       }
-    },
-    "blog_nav_8innUR": {
-      "type": "blog-nav",
-      "blocks": {
-        "nav_V4DxCy": {
-          "type": "Nav",
-          "settings": {
-            "icon": "shopify://shop_images/grocery.png",
-            "collection": "suplementacao-alimentar"
-          }
-        }
-      },
-      "block_order": [
-        "nav_V4DxCy"
-      ],
-      "name": "Blog nav",
-      "settings": {
-        "title": "Saúde para viver com equilíbrio"
-      }
     }
   },
   "order": [
-    "main",
-    "blog_nav_8innUR"
+    "main"
   ]
 }
