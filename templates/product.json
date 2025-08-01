@@ -34,17 +34,6 @@
             "selected_modal_description": "Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 31 de Agosto, limitada ao stock disponível. Packs não estão incluídos na promoção."
           }
         },
-        "coupon_FgXrjW": {
-          "type": "coupon",
-          "settings": {
-            "title": "",
-            "background_color": "",
-            "selected_tags": "",
-            "selected_title": "",
-            "selected_description": "",
-            "selected_modal_description": ""
-          }
-        },
         "coupon_WRTneq": {
           "type": "coupon",
           "settings": {
@@ -82,7 +71,6 @@
       "block_order": [
         "coupon_NqxtrQ",
         "coupon_iWDRdN",
-        "coupon_FgXrjW",
         "coupon_WRTneq",
         "coupon_C38Njb",
         "coupon_WWtqpi"
