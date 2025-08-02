@@ -1,24 +1,14 @@
 {% layout none %}
-{% assign rita_posts = blogs[blog.handle].articles | where: 'author', 'Rita Silva' %}
-{% assign start_index = (current_page | minus: 1) | times: 4 %}
-{% assign end_index = start_index | plus: 3 | at_most: rita_posts.size | minus: 1) %}
-
-<ul id="blogPostsList">
-  {% for article in rita_posts limit: 4 offset: start_index %}
-    {% assign post_tag = "" %}
-    {% for tag in article.tags %}
-      {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao' %}
-        {% assign post_tag = tag %}
-        {% break %}
-      {% endunless %}
+{% assign rita_posts = section.settings['selected-blog'].articles | where: 'author', 'Rita Silva' %}
+{% paginate rita_posts by 4 %}
+  <ul id="blogPostsList">
+    {% for article in rita_posts %}
+      <li>
+        <a href="{{ article.url }}">
+          <div style="background-image: url({{ article.image | img_url: 'master' }})"></div>
+          <h4>{{ article.title }}</h4>
+        </a>
+      </li>
     {% endfor %}
-
-    <li>
-      <a href="{{ article.url }}">
-        <div style="background: url({{ article.image | img_url: '500x' }}) center/cover; min-height:240px"></div>
-        <h4>{{ article.title }}</h4>
-        {% if post_tag != "" %}<span>{{ post_tag }}</span>{% endif %}
-      </a>
-    </li>
-  {% endfor %}
-</ul>
+  </ul>
+{% endpaginate %}
