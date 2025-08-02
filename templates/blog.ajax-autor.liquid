@@ -1,5 +1,5 @@
 {% layout none %}
-{% assign rita_posts = section.settings['selected-blog'].articles | where: 'author', 'Tiago Silva' %}
+{% assign rita_posts = section.settings['selected-blog'].articles | where: 'author', 'Rita Silva' %}
 {% paginate rita_posts by 4 %}
   <ul id="blogPostsList">
     {% for article in rita_posts %}
