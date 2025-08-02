@@ -144,7 +144,7 @@
 
 <section
   id="blog_posts_custom"
-  data-blog-handle="{{ section.settings['selected-blog'].handle }}"
+  data-blog-handle="{{ blog.handle }}"
   data-next-page="2"
   data-total-pages="{{ all_rita_articles.size | divided_by: 4.0 | ceil }}"
 >
@@ -185,46 +185,58 @@
 </section>
 
 <script>
+  // Adicione esta variável global para armazenar os artigos
+  window.ritaArticles = [
+    {% for article in all_rita_articles %}
+      {
+        title: {{ article.title | json }},
+        url: {{ article.url | json }},
+        image: {{ article.image | img_url: 'master' | json }},
+        tags: {{ article.tags | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+
+<script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById('blog_posts_custom');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
 
     if (!loadMoreBtn) return;
 
-    loadMoreBtn.addEventListener('click', async () => {
-      const blogHandle = section.dataset.blogHandle;
-      let nextPage = parseInt(section.dataset.nextPage);
-      const totalPages = parseInt(section.dataset.totalPages);
+    loadMoreBtn.addEventListener('click', () => {
+      const nextPage = parseInt(section.dataset.nextPage);
+      const perPage = 4;
+      const startIndex = (nextPage - 1) * perPage;
+      const endIndex = startIndex + perPage;
 
-      loadMoreBtn.disabled = true;
-      loadMoreBtn.textContent = 'Carregando...';
+      // Cria elementos a partir dos dados já carregados
+      const fragment = document.createDocumentFragment();
 
-      try {
-        const response = await fetch(`/blogs/${blogHandle}?page=${nextPage}&view=ajax-autor`);
-        const html = await response.text();
+      window.ritaArticles.slice(startIndex, endIndex).forEach((article) => {
+        // Encontra a primeira tag relevante (como no seu loop original)
+        const relevantTag = article.tags.find(
+          (tag) => !['author', 'dificuldade', 'doses', 'duracao'].some((forbidden) => tag.includes(forbidden))
+        );
 
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const newArticles = doc.querySelectorAll('#blogPostsList li');
+        const li = document.createElement('li');
+        li.innerHTML = `
+      <a href="${article.url}">
+        <div style="background-image: url(${article.image})"></div>
+        <h4>${article.title}</h4>
+        ${relevantTag ? `<span>${relevantTag}</span>` : ''}
+      </a>
+    `;
+        fragment.appendChild(li);
+      });
 
-        const blogPostsList = document.getElementById('blogPostsList');
-        newArticles.forEach((article) => {
-          blogPostsList.appendChild(article);
-        });
+      document.getElementById('blogPostsList').appendChild(fragment);
 
-        nextPage++;
-        section.dataset.nextPage = nextPage;
-
-        if (nextPage > totalPages) {
-          loadMoreBtn.remove();
-        } else {
-          loadMoreBtn.disabled = false;
-          loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
-        }
-      } catch (error) {
-        console.error('Error loading posts:', error);
-        loadMoreBtn.disabled = false;
-        loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
+      // Atualiza paginação
+      section.dataset.nextPage = nextPage + 1;
+      if (endIndex >= window.ritaArticles.length) {
+        loadMoreBtn.remove();
       }
     });
   });

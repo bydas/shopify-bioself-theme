@@ -1,26 +1,2 @@
 {% layout none %}
-{% assign all_rita_articles = '' | split: ',' %}
-{% assign total_pages = blog.articles_count | divided_by: 50.0 | ceil %}
-
-{% for page in (1..total_pages) %}
-  {% paginate blog.articles by 50 | page: page %}
-    {% for article in paginate.collection %}
-      {% if article.author == 'Rita Silva' %}
-        {% assign all_rita_articles = all_rita_articles | concat: [article] %}
-      {% endif %}
-    {% endfor %}
-  {% endpaginate %}
-{% endfor %}
-
-{% paginate all_rita_articles by 4 %}
-  <ul id="blogPostsList">
-    {% for article in all_rita_articles %}
-      <li>
-        <a href="{{ article.url }}">
-          <div style="background-image: url({{ article.image | img_url: 'master' }})"></div>
-          <h4>{{ article.title }}</h4>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-{% endpaginate %}
+{{ content_for_layout }}
