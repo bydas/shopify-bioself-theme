@@ -1,7 +1,7 @@
 {% comment %}
   start blog-top-banner
 {% endcomment %}
-{% assign rita_posts = section.settings['selected-blog'].articles | where: 'author', 'Rita Silva' %}
+{% assign rita_posts = section.settings['selected-blog'].articles %}
 <script>
   console.log({{ rita_posts | json }})
 </script>
