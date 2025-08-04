@@ -129,27 +129,28 @@
   }
 </style>
 
-{%- capture search_query -%}
-  blog:{{ section.settings.selected-blog.handle }} author:"Rita Silva"
-{%- endcapture -%}
-
 {% assign articles_per_page = 8 %}
+{% assign selected_blog = section.settings['selected-blog'] %}
 
-<section
-  id="blog_posts_custom"
-  data-blog-handle="{{ section.settings.selected-blog.handle }}"
-  data-next-page="2"
-  data-articles-per-page="{{ articles_per_page }}"
-  data-author="Rita Silva"
->
-  {% unless section.settings.title == blank %}
-    <h1>{{ section.settings.title }}</h1>
-  {% endunless %}
+{% if selected_blog != blank %}
+  {% comment %} Busca inicial com paginação {% endcomment %}
+  {% capture search_query %}blog:{{ selected_blog.handle }} author:"Rita Silva"{% endcapture %}
+  {% assign first_articles = search.articles | limit: articles_per_page %}
 
-  <ul id="blogPostsList">
-    {% # Busca inicial com limite de 1 página %}
-    {% paginate search.articles by articles_per_page %}
-      {% for post in search.articles %}
+  <section
+    id="blog_posts_custom"
+    data-blog-handle="{{ selected_blog.handle }}"
+    data-next-page="2"
+    data-articles-per-page="{{ articles_per_page }}"
+    data-author="Rita Silva"
+    data-total-articles="{{ search.results_count }}"
+  >
+    {% unless section.settings.title == blank %}
+      <h1>{{ section.settings.title }}</h1>
+    {% endunless %}
+
+    <ul id="blogPostsList">
+      {% for post in first_articles %}
         {% assign post_tag = '' %}
         {% for tag in post.tags %}
           {% unless tag contains 'author'
@@ -170,18 +171,17 @@
           </a>
         </li>
       {% endfor %}
-    {% endpaginate %}
-  </ul>
+    </ul>
 
-  {% if search.results_count > articles_per_page %}
-    <button class="see_all_btn" id="loadMoreBtn">
-      {{ section.settings.btn_text }}
-    </button>
-  {% endif %}
-</section>
+    {% if search.results_count > articles_per_page %}
+      <button class="see_all_btn" id="loadMoreBtn">
+        {{ section.settings.btn_text }}
+      </button>
+    {% endif %}
+  </section>
+{% endif %}
 
 <script>
-  // === JAVASCRIPT ATUALIZADO ===
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById('blog_posts_custom');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
@@ -193,6 +193,7 @@
       const nextPage = parseInt(section.dataset.nextPage);
       const articlesPerPage = parseInt(section.dataset.articlesPerPage);
       const author = encodeURIComponent(section.dataset.author);
+      const totalArticles = parseInt(section.dataset.totalArticles);
 
       loadMoreBtn.disabled = true;
       loadMoreBtn.textContent = 'Carregando...';
@@ -205,29 +206,40 @@
             q: `blog:${blogHandle} author:"${author}"`,
             page: nextPage,
             articles_per_page: articlesPerPage,
-            view: 'blog.ajax',
+            blog_handle: blogHandle,
+            author: author,
+            view: 'blog.ajax-autor',
           });
 
         const response = await fetch(url);
-        const html = await response.text();
+        const text = await response.text();
 
-        if (!response.ok) throw new Error(html);
+        if (!response.ok) throw new Error(text);
 
-        const blogPostsList = document.getElementById('blogPostsList');
-        blogPostsList.insertAdjacentHTML('beforeend', html);
+        // Extrai apenas os itens da lista
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+        const newItems = doc.querySelectorAll('#tempList li');
 
-        // Atualizar paginação
-        section.dataset.nextPage = nextPage + 1;
+        if (newItems.length > 0) {
+          const blogPostsList = document.getElementById('blogPostsList');
+          newItems.forEach((item) => {
+            blogPostsList.appendChild(item.cloneNode(true));
+          });
 
-        // Verificar fim dos resultados
-        const itemsAdded = blogPostsList.querySelectorAll('li').length;
-        const maxResults = itemsAdded < nextPage * articlesPerPage;
+          // Atualiza paginação
+          section.dataset.nextPage = nextPage + 1;
 
-        if (maxResults) {
-          loadMoreBtn.remove();
+          // Verifica se ainda há mais artigos
+          const loadedCount = blogPostsList.querySelectorAll('li').length;
+          if (loadedCount >= totalArticles) {
+            loadMoreBtn.remove();
+          } else {
+            loadMoreBtn.disabled = false;
+            loadMoreBtn.textContent = loadMoreBtn.dataset.originalText;
+          }
         } else {
-          loadMoreBtn.disabled = false;
-          loadMoreBtn.textContent = section.dataset.btnText;
+          loadMoreBtn.remove();
         }
       } catch (error) {
         console.error('Error loading posts:', error);
@@ -235,6 +247,9 @@
         loadMoreBtn.textContent = 'Tentar novamente';
       }
     });
+
+    // Preserva o texto original do botão
+    loadMoreBtn.dataset.originalText = loadMoreBtn.textContent;
   });
 </script>
 
