@@ -129,22 +129,28 @@
   }
 </style>
 
-{% assign rita_articles = section.settings['selected-blog'].articles | where: 'author', 'Rita Silva' %}
-{% assign rita_articles_count = section.settings['selected-blog'].articles_count | where: 'author', 'Rita Silva' %}
+{%- capture search_query -%}
+  blog:{{ section.settings.selected-blog.handle }} author:"Rita Silva"
+{%- endcapture -%}
+
+{% assign articles_per_page = 8 %}
 
 <section
   id="blog_posts_custom"
   data-blog-handle="{{ section.settings.selected-blog.handle }}"
   data-next-page="2"
-  data-total-pages="{{ rita_articles_count | divided_by: 8.0 | ceil }}"
+  data-articles-per-page="{{ articles_per_page }}"
+  data-author="Rita Silva"
 >
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
 
-  {% unless section.settings['selected-blog'] == blank %}
-    <ul id="blogPostsList">
-      {% for post in rita_articles limit: 8 %}
+  <ul id="blogPostsList">
+    {% # Busca inicial com limite de 1 página %}
+    {% paginate search.articles by articles_per_page %}
+      {% for post in search.articles %}
+        {% assign post_tag = '' %}
         {% for tag in post.tags %}
           {% unless tag contains 'author'
             or tag contains 'dificuldade'
@@ -164,17 +170,18 @@
           </a>
         </li>
       {% endfor %}
-    </ul>
+    {% endpaginate %}
+  </ul>
 
-    {% if section.settings['selected-blog'].articles_count > 8 %}
-      <button class="see_all_btn" id="loadMoreBtn">
-        {{ section.settings.btn_text }}
-      </button>
-    {% endif %}
-  {% endunless %}
+  {% if search.results_count > articles_per_page %}
+    <button class="see_all_btn" id="loadMoreBtn">
+      {{ section.settings.btn_text }}
+    </button>
+  {% endif %}
 </section>
 
 <script>
+  // === JAVASCRIPT ATUALIZADO ===
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById('blog_posts_custom');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
@@ -183,38 +190,49 @@
 
     loadMoreBtn.addEventListener('click', async () => {
       const blogHandle = section.dataset.blogHandle;
-      let nextPage = parseInt(section.dataset.nextPage);
-      const totalPages = parseInt(section.dataset.totalPages);
+      const nextPage = parseInt(section.dataset.nextPage);
+      const articlesPerPage = parseInt(section.dataset.articlesPerPage);
+      const author = encodeURIComponent(section.dataset.author);
 
       loadMoreBtn.disabled = true;
       loadMoreBtn.textContent = 'Carregando...';
 
       try {
-        const response = await fetch(`/blogs/${blogHandle}?page=${nextPage}&view=ajax`);
+        const url =
+          `/search?` +
+          new URLSearchParams({
+            type: 'article',
+            q: `blog:${blogHandle} author:"${author}"`,
+            page: nextPage,
+            articles_per_page: articlesPerPage,
+            view: 'blog.ajax',
+          });
+
+        const response = await fetch(url);
         const html = await response.text();
 
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const newArticles = doc.querySelectorAll('#blogPostsList li');
+        if (!response.ok) throw new Error(html);
 
         const blogPostsList = document.getElementById('blogPostsList');
-        newArticles.forEach((article) => {
-          if (article.author === 'Rita Silva') blogPostsList.appendChild(article);
-        });
+        blogPostsList.insertAdjacentHTML('beforeend', html);
 
-        nextPage++;
-        section.dataset.nextPage = nextPage;
+        // Atualizar paginação
+        section.dataset.nextPage = nextPage + 1;
 
-        if (nextPage > totalPages) {
+        // Verificar fim dos resultados
+        const itemsAdded = blogPostsList.querySelectorAll('li').length;
+        const maxResults = itemsAdded < nextPage * articlesPerPage;
+
+        if (maxResults) {
           loadMoreBtn.remove();
         } else {
           loadMoreBtn.disabled = false;
-          loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
+          loadMoreBtn.textContent = section.dataset.btnText;
         }
       } catch (error) {
         console.error('Error loading posts:', error);
         loadMoreBtn.disabled = false;
-        loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
+        loadMoreBtn.textContent = 'Tentar novamente';
       }
     });
   });

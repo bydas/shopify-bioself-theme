@@ -1,15 +1,29 @@
-{% layout none %}
-{% assign rita_articles = blog.articles | where: 'author', 'Rita Silva' %}
+{% comment %} === blog.ajax.liquid (TEMPLATE AJAX) === {% endcomment %}
 
-{% paginate rita_articles by 8 %}
-  <ul id="blogPostsList">
-    {% for article in rita_articles %}
-      <li>
-        <a href="{{ article.url }}">
-          <div style="background-image: url({{ article.image | img_url: 'master' }})"></div>
-          <h4>{{ article.title }}</h4>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-{% endpaginate %}
+{% assign articles_per_page = request.query.articles_per_page | default: 8 | plus: 0 %}
+{% assign author = request.query.author %}
+
+{% capture search_query %}
+  blog:{{ blog.handle }} author:"{{ author }}"
+{% endcapture %}
+
+{% # Força a busca a retornar apenas artigos %}
+{% assign search_results = search.results | where: 'object_type', 'article' %}
+
+{% for post in search_results %}
+  {% assign post_tag = '' %}
+  {% for tag in post.tags %}
+    {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao' %}
+      {% assign post_tag = tag %}
+      {% break %}
+    {% endunless %}
+  {% endfor %}
+
+  <li>
+    <a href="{{ post.url }}">
+      <div style="background-image: url({{ post.image | img_url: 'master' }})"></div>
+      <h4>{{ post.title }}</h4>
+      <span>{{ post_tag }}</span>
+    </a>
+  </li>
+{% endfor %}
