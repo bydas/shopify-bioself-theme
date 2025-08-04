@@ -129,11 +129,14 @@
   }
 </style>
 
+{% assign rita_articles = section.settings['selected-blog'].articles | where: 'author', 'Rita Silva' %}
+{% assign rita_articles_count = section.settings['selected-blog'].articles_count | where: 'author', 'Rita Silva' %}
+
 <section
   id="blog_posts_custom"
   data-blog-handle="{{ section.settings.selected-blog.handle }}"
   data-next-page="2"
-  data-total-pages="{{ section.settings.selected-blog.articles_count | divided_by: 8.0 | ceil }}"
+  data-total-pages="{{ rita_articles_count | divided_by: 8.0 | ceil }}"
 >
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
@@ -141,7 +144,7 @@
 
   {% unless section.settings['selected-blog'] == blank %}
     <ul id="blogPostsList">
-      {% for post in section.settings['selected-blog'].articles limit: 8 %}
+      {% for post in rita_articles limit: 8 %}
         {% for tag in post.tags %}
           {% unless tag contains 'author'
             or tag contains 'dificuldade'
@@ -196,7 +199,7 @@
 
         const blogPostsList = document.getElementById('blogPostsList');
         newArticles.forEach((article) => {
-          blogPostsList.appendChild(article);
+          if (article.author === 'Rita Silva') blogPostsList.appendChild(article);
         });
 
         nextPage++;

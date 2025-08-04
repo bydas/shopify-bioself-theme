@@ -1,7 +1,9 @@
 {% layout none %}
-{% paginate blog.articles by 8 %}
+{% assign rita_articles = blog.articles | where: 'author', 'Rita Silva' %}
+
+{% paginate rita_articles by 8 %}
   <ul id="blogPostsList">
-    {% for article in blog.articles %}
+    {% for article in rita_articles %}
       <li>
         <a href="{{ article.url }}">
           <div style="background-image: url({{ article.image | img_url: 'master' }})"></div>
