@@ -66,6 +66,7 @@
     },
     "blog_posts_autor_custom_yRizmU": {
       "type": "blog-posts-autor-custom",
+      "disabled": true,
       "name": "Blog author posts custom",
       "settings": {
         "title": "dwadwadwa",
