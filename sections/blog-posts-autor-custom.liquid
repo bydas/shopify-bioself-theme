@@ -129,32 +129,19 @@
   }
 </style>
 
-{% assign all_rita_articles = '' | split: ',' %}
-{% assign total_pages = blog.articles_count | divided_by: 50.0 | ceil %}
-
-{% for page in (1..total_pages) %}
-  {% paginate blog.articles by 50 | page: page %}
-    {% for article in paginate.collection %}
-      {% if article.author == 'Rita Silva' %}
-        {% assign all_rita_articles = all_rita_articles | concat: [article] %}
-      {% endif %}
-    {% endfor %}
-  {% endpaginate %}
-{% endfor %}
-
 <section
   id="blog_posts_custom"
-  data-blog-handle="{{ blog.handle }}"
+  data-blog-handle="{{ section.settings.selected-blog.handle }}"
   data-next-page="2"
-  data-total-pages="{{ all_rita_articles.size | divided_by: 4.0 | ceil }}"
+  data-total-pages="{{ section.settings.selected-blog.articles_count | divided_by: 8.0 | ceil }}"
 >
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
 
-  {% unless all_rita_articles == blank %}
+  {% unless section.settings['selected-blog'] == blank %}
     <ul id="blogPostsList">
-      {% for post in all_rita_articles limit: 4 %}
+      {% for post in section.settings['selected-blog'].articles limit: 8 %}
         {% for tag in post.tags %}
           {% unless tag contains 'author'
             or tag contains 'dificuldade'
@@ -176,7 +163,7 @@
       {% endfor %}
     </ul>
 
-    {% if all_rita_articles.articles_count > 4 %}
+    {% if section.settings['selected-blog'].articles_count > 8 %}
       <button class="see_all_btn" id="loadMoreBtn">
         {{ section.settings.btn_text }}
       </button>
@@ -185,58 +172,46 @@
 </section>
 
 <script>
-  // Adicione esta variável global para armazenar os artigos
-  window.ritaArticles = [
-    {% for article in all_rita_articles %}
-      {
-        title: {{ article.title | json }},
-        url: {{ article.url | json }},
-        image: {{ article.image | img_url: 'master' | json }},
-        tags: {{ article.tags | json }}
-      }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ];
-</script>
-
-<script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById('blog_posts_custom');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
 
     if (!loadMoreBtn) return;
 
-    loadMoreBtn.addEventListener('click', () => {
-      const nextPage = parseInt(section.dataset.nextPage);
-      const perPage = 4;
-      const startIndex = (nextPage - 1) * perPage;
-      const endIndex = startIndex + perPage;
+    loadMoreBtn.addEventListener('click', async () => {
+      const blogHandle = section.dataset.blogHandle;
+      let nextPage = parseInt(section.dataset.nextPage);
+      const totalPages = parseInt(section.dataset.totalPages);
 
-      // Cria elementos a partir dos dados já carregados
-      const fragment = document.createDocumentFragment();
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = 'Carregando...';
 
-      window.ritaArticles.slice(startIndex, endIndex).forEach((article) => {
-        // Encontra a primeira tag relevante (como no seu loop original)
-        const relevantTag = article.tags.find(
-          (tag) => !['author', 'dificuldade', 'doses', 'duracao'].some((forbidden) => tag.includes(forbidden))
-        );
+      try {
+        const response = await fetch(`/blogs/${blogHandle}?page=${nextPage}&view=ajax`);
+        const html = await response.text();
 
-        const li = document.createElement('li');
-        li.innerHTML = `
-      <a href="${article.url}">
-        <div style="background-image: url(${article.image})"></div>
-        <h4>${article.title}</h4>
-        ${relevantTag ? `<span>${relevantTag}</span>` : ''}
-      </a>
-    `;
-        fragment.appendChild(li);
-      });
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newArticles = doc.querySelectorAll('#blogPostsList li');
 
-      document.getElementById('blogPostsList').appendChild(fragment);
+        const blogPostsList = document.getElementById('blogPostsList');
+        newArticles.forEach((article) => {
+          blogPostsList.appendChild(article);
+        });
 
-      // Atualiza paginação
-      section.dataset.nextPage = nextPage + 1;
-      if (endIndex >= window.ritaArticles.length) {
-        loadMoreBtn.remove();
+        nextPage++;
+        section.dataset.nextPage = nextPage;
+
+        if (nextPage > totalPages) {
+          loadMoreBtn.remove();
+        } else {
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
+        }
+      } catch (error) {
+        console.error('Error loading posts:', error);
+        loadMoreBtn.disabled = false;
+        loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
       }
     });
   });
@@ -244,7 +219,7 @@
 
 {% schema %}
 {
-  "name": "Blog posts custom autor",
+  "name": "Blog posts custom",
   "settings": [
     {
       "type": "text",
@@ -265,7 +240,7 @@
   ],
   "presets": [
     {
-      "name": "Blog posts custom autor",
+      "name": "Blog posts custom",
       "category": "Blog"
     }
   ]
