@@ -63,9 +63,19 @@
         "list_show_date": true,
         "list_show_excerpt": false
       }
+    },
+    "blog_posts_autor_custom_yRizmU": {
+      "type": "blog-posts-autor-custom",
+      "name": "Blog author posts custom",
+      "settings": {
+        "title": "dwadwadwa",
+        "selected-blog": "blog-page",
+        "btn_text": "Ver mais publicações"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "blog_posts_autor_custom_yRizmU"
   ]
 }
