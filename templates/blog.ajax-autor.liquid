@@ -1,2 +1,13 @@
 {% layout none %}
-{{ content_for_layout }}
+{% paginate blog.articles by 8 %}
+  <ul id="blogPostsList">
+    {% for article in blog.articles %}
+      <li>
+        <a href="{{ article.url }}">
+          <div style="background-image: url({{ article.image | img_url: 'master' }})"></div>
+          <h4>{{ article.title }}</h4>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endpaginate %}
