@@ -278,7 +278,7 @@
       >
 
       <input type="hidden" name="form_type" value="customer">
-      <input type="hidden" name="contact_tags" value="newsletter">
+      <input type="hidden" name="contact[tags]" value="newsletter">
 
       {% if section.settings.newsletter_btn %}
         <button type="submit">{{ section.settings.newsletter_btn }}</button>
@@ -332,7 +332,7 @@
     >
 
     <input type="hidden" name="form_type" value="customer">
-    <input type="hidden" name="contact_tags" value="newsletter">
+    <input type="hidden" name="contact[tags]" value="newsletter">
 
     {% if section.settings.newsletter_page %}
       <div id="newsletter_checkbox">
