@@ -1,0 +1,24 @@
+{% schema %}
+{
+  "name": "Blog artigos page",
+  "settings": [
+    {
+      "type": "number",
+      "id": "artigos_limit",
+      "label": "Quantos artigos mostrar",
+      "default": 24
+    },
+    {
+      "type": "blog",
+      "id": "selected_blog",
+      "label": "Selecione blogue"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog artigos page",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}
