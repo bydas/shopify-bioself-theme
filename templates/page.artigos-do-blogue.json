@@ -32,6 +32,7 @@
       "block_order": [
         "image_cjGPcL"
       ],
+      "disabled": true,
       "settings": {
         "edge_to_edge": true,
         "section_size": "small",
@@ -76,6 +77,7 @@
         "item_kEGLwX",
         "item_mwapiz"
       ],
+      "disabled": true,
       "settings": {
         "show_section": true,
         "stack_mobile": false,
@@ -193,6 +195,7 @@
         "line_dfTHQ7",
         "line_mDHWJz"
       ],
+      "disabled": true,
       "settings": {
         "hide_title": true
       }
@@ -233,6 +236,7 @@
         "item_CNjn3Y",
         "item_kEg7Ay"
       ],
+      "disabled": true,
       "settings": {
         "show_section": true,
         "stack_mobile": false,
