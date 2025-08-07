@@ -9,6 +9,14 @@
  */
 {
   "sections": {
+    "blog_artigos_page_xJL4xp": {
+      "type": "blog-artigos-page",
+      "name": "Blog artigos page",
+      "settings": {
+        "artigos_limit": 24,
+        "selected_blog": "blog-page"
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -246,6 +254,7 @@
     }
   },
   "order": [
+    "blog_artigos_page_xJL4xp",
     "slideshow",
     "text-with-icons-top",
     "template",
