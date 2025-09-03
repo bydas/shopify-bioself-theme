@@ -198,35 +198,35 @@
           "type": "custom",
           "settings": {
             "title": "Qual é o preço das consultas?",
-            "answer": "<p>O preço das consultas online ou presenciais é de 40 euros. A sessão tem uma duração aproximada de 1 hora.</p>"
-          }
-        },
-        "custom_gfi69M": {
-          "type": "custom",
-          "settings": {
-            "title": "Onde são as consultas presenciais?",
-            "answer": ""
+            "answer": "<p>A primeira consulta (online ou presencial) tem o valor de 50 € e uma duração aproximada de 1h30. As consultas de seguimento têm o valor de 40 € e duram cerca de 1 hora.</p>"
           }
         },
         "custom_XVaWy6": {
           "type": "custom",
           "settings": {
             "title": "Como funcionam as consultas online?",
-            "answer": ""
+            "answer": "<p>As consultas online são realizadas por videochamada, através de plataformas como Zoom, GoogleMeet ou WhatsApp, de forma simples e segura — no conforto da tua casa.</p>"
+          }
+        },
+        "custom_gfi69M": {
+          "type": "custom",
+          "settings": {
+            "title": "Onde são realizadas as consultas presenciais?",
+            "answer": "<p>As consultas presenciais decorrem na Bioself Natura, localizada na Rua da Alegria, nº 183, 4000-043 Porto.</p>"
           }
         },
         "custom_cqHNXB": {
           "type": "custom",
           "settings": {
-            "title": "Possuem acordos com seguros?",
-            "answer": ""
+            "title": "Têm acordos com seguros de saúde?",
+            "answer": "<p>Atualmente, não temos acordos diretos com seguros de saúde. No entanto, poderás submeter a fatura da consulta ao teu seguro e verificar se existe possibilidade de reembolso, conforme as condições da tua apólice.</p>"
           }
         }
       },
       "block_order": [
         "custom_zLCYVJ",
-        "custom_gfi69M",
         "custom_XVaWy6",
+        "custom_gfi69M",
         "custom_cqHNXB"
       ],
       "name": "Perguntas Frequentes",
