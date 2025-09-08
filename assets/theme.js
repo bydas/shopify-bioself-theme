@@ -72,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   bannerObserver.observe(document.body, { childList: true, subtree: true })
 })
+
+
 ;(function (factory) {
   typeof define === "function" && define.amd
     ? define("index", factory)
