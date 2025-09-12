@@ -193,6 +193,7 @@
     },
     "blog_consultas_nutricao_JDkWEd": {
       "type": "blog-consultas-nutricao",
+      "disabled": true,
       "name": "Blog consultas",
       "settings": {
         "title": "Nutricionista Rita de Cássia Silva",
