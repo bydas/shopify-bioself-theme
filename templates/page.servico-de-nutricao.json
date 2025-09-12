@@ -216,7 +216,9 @@
       "type": "servico-nutricao-form",
       "name": "Servico Nutricao Form",
       "settings": {
-        "title": "Marcar consulta"
+        "title": "Marcar consulta",
+        "first_text": "Primeira Consulta (50€)",
+        "second_text": "Consulta de seguimento (40€)"
       }
     },
     "blog_collection_custom_xkhXGH": {
