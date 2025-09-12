@@ -95,9 +95,9 @@
         "review_99TEit": {
           "type": "review",
           "settings": {
-            "description": "<p>Agradeço pelo apoio contínuo que me deu, tanto nas consultas como através das mensagens. Isso fez toda a diferença, especialmente nos dias em que me sentia perdida. É ótimo saber que posso contar consigo, e fico muito feliz por estar a ver melhorias. Obrigada por tudo e por me ajudar a sentir-me melhor!<br/></p>",
-            "name": "Patrícia",
-            "age": 30
+            "description": "<p>Uma abordagem honesta, diferente e descomplicada, mas, principalmente, adequada à minha realidade de rotinas e ao meu quotidiano. Obrigada, Drª. Rita por ser uma profissional incrível!<br/></p>",
+            "name": "Catarina",
+            "age": 35
           }
         },
         "review_QEPUfJ": {
@@ -111,17 +111,17 @@
         "review_gy9Rid": {
           "type": "review",
           "settings": {
-            "description": "<p>Obrigada por me ajudar a desconstruir a ideia implementada pela sociedade, de que alimentação cuidada e atividade física são só estética. Errado, nutrição é uma questão de saúde física e emocional.</p>",
-            "name": "Maria",
-            "age": 55
+            "description": "<p>Graças às consultas de nutrição com a Drª. Rita, em dois meses perdi 9 kg. Com um plano alimentar adequado para mim, deixei de ter azia, perdi peso e volume e ganhei energia a comer o que gosto. Obrigada!</p>",
+            "name": "Rosa",
+            "age": 56
           }
         },
         "review_Up6Em3": {
           "type": "review",
           "settings": {
-            "description": "<p>Quero manifestar a minha enorme satisfação após cerca de 3 anos de experiência com a Dr.ª Rita de Cássia. Sem dúvida que graças ao acompanhamento melhorei a minha qualidade de vida bem como ganhei mais e melhores opções alimentares. Destaco sobretudo a sua competência, elevado profissionalismo, flexibilidade em ajustar-se às minhas necessidades e excelente acompanhamento.</p>",
-            "name": "Tiago",
-            "age": 35
+            "description": "<p>Quando marquei consulta, foi na tentativa de procurar uma solução para o meu problema intestinal. E 2 meses depois, posso dizer que foi a melhor coisa que eu fiz! Além de conseguirmos melhorar a minha condição intestinal, conseguimos melhorar a minha autoestima, diminuir o meu peso e claro sentir-me melhor no meu dia a dia. Obrigada Drª. Rita.</p>",
+            "name": "Cátia",
+            "age": 24
           }
         }
       },
