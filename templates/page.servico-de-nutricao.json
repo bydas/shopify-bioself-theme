@@ -91,10 +91,46 @@
             "name": "Marta",
             "age": 38
           }
+        },
+        "review_99TEit": {
+          "type": "review",
+          "settings": {
+            "description": "<p>Agradeço pelo apoio contínuo que me deu, tanto nas consultas como através das mensagens. Isso fez toda a diferença, especialmente nos dias em que me sentia perdida. É ótimo saber que posso contar consigo, e fico muito feliz por estar a ver melhorias. Obrigada por tudo e por me ajudar a sentir-me melhor!<br/></p>",
+            "name": "Patrícia",
+            "age": 30
+          }
+        },
+        "review_QEPUfJ": {
+          "type": "review",
+          "settings": {
+            "description": "<p>Procurei a Drª. Rita, com o objetivo de alterar a minha alimentação, para ganhar algum peso e para combater o acne. E a verdade é que com uma alimentação mais cuidada e com o exercício físico, os objetivos foram surgindo.</p>",
+            "name": "Verónica",
+            "age": 32
+          }
+        },
+        "review_gy9Rid": {
+          "type": "review",
+          "settings": {
+            "description": "<p>Obrigada por me ajudar a desconstruir a ideia implementada pela sociedade, de que alimentação cuidada e atividade física são só estética. Errado, nutrição é uma questão de saúde física e emocional.</p>",
+            "name": "Maria",
+            "age": 55
+          }
+        },
+        "review_Up6Em3": {
+          "type": "review",
+          "settings": {
+            "description": "<p>Quero manifestar a minha enorme satisfação após cerca de 3 anos de experiência com a Dr.ª Rita de Cássia. Sem dúvida que graças ao acompanhamento melhorei a minha qualidade de vida bem como ganhei mais e melhores opções alimentares. Destaco sobretudo a sua competência, elevado profissionalismo, flexibilidade em ajustar-se às minhas necessidades e excelente acompanhamento.</p>",
+            "name": "Tiago",
+            "age": 35
+          }
         }
       },
       "block_order": [
-        "review_J47GFF"
+        "review_J47GFF",
+        "review_99TEit",
+        "review_QEPUfJ",
+        "review_gy9Rid",
+        "review_Up6Em3"
       ],
       "name": "Servico Nutricao Reviews",
       "settings": {
