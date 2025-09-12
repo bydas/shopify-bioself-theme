@@ -163,12 +163,12 @@
     <div class="contact_div_container">
       <div>
         <input id="consulta_presencial" type="checkbox" name="contact[consulta_presencial]" value="presencial">
-        <label for="consulta_presencial">Consulta presencial (40€)</label>
+        <label for="consulta_presencial">{{ section.settings.first_text }}</label>
       </div>
 
       <div>
         <input id="consulta_online" type="checkbox" name="contact[consulta_online]" value="online">
-        <label for="consulta_online">Consulta online (40€)</label>
+        <label for="consulta_online">{{ section.settings.second_text }}</label>
       </div>
     </div>
 
@@ -179,7 +179,9 @@
 
     <div class="terms_container">
       <input id="terms_agreed" type="checkbox" name="contact[terms_agreed]" required>
-      <label for="terms_agreed">Li e aceito a <a href="/policies/privacy-policy" target="_blank">Política de Privacidade</a></label>
+      <label for="terms_agreed"
+        >Li e aceito a <a href="/policies/privacy-policy" target="_blank">Política de Privacidade</a></label
+      >
     </div>
 
     <button type="submit">Enviar</button>
@@ -194,6 +196,18 @@
       "type": "text",
       "id": "title",
       "label": "Título"
+    },
+    {
+      "type": "text",
+      "id": "first_text",
+      "label": "Primeiro texto",
+      "default": "Consulta presencial (40€)"
+    },
+    {
+      "type": "text",
+      "id": "second_text",
+      "label": "Segundo texto",
+      "default": "Consulta online (40€)"
     }
   ],
   "presets": [
