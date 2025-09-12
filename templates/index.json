@@ -191,6 +191,19 @@
         "title_collection": "Nutergia: ativa o teu bem-estar!"
       }
     },
+    "blog_consultas_nutricao_JDkWEd": {
+      "type": "blog-consultas-nutricao",
+      "name": "Blog consultas",
+      "settings": {
+        "title": "Nutricionista Rita de Cássia Silva",
+        "description": "<h1>Alimenta o teu equilíbrio com a Nutrição Funcional</h1>",
+        "sub_description": "<p>Dá o primeiro passo para uma vida mais equilibrada.</p>",
+        "btn_text": "CONSULTAS DE NUTRIÇÃO",
+        "btn_link": "shopify://pages/servico-de-nutricao",
+        "image": "shopify://shop_images/Ellipse_35.png",
+        "mobile_image": "shopify://shop_images/image.png"
+      }
+    },
     "bioself_blog_tnVbj3": {
       "type": "bioself-blog",
       "settings": {
@@ -452,6 +465,7 @@
     "products_collection_with_image_AhgAw9",
     "collection_campanhas_3_t96Pgd",
     "product_collection_list_custom_Tb94AX",
+    "blog_consultas_nutricao_JDkWEd",
     "bioself_blog_tnVbj3",
     "collection_categorias_custom_mUaHG8",
     "opinioes_verificadas_custom_gqWRmC",
