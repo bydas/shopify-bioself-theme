@@ -118,19 +118,6 @@
       ],
       "settings": {}
     },
-    "blog_consultas_nutricao_JDkWEd": {
-      "type": "blog-consultas-nutricao",
-      "name": "Consultas",
-      "settings": {
-        "title": "Nutricionista Rita de Cássia Silva",
-        "description": "<h1>Alimenta o teu equilíbrio com a Nutrição Funcional</h1>",
-        "sub_description": "<p>Dá o primeiro passo para uma vida mais equilibrada.</p>",
-        "btn_text": "CONSULTAS DE NUTRIÇÃO",
-        "btn_link": "shopify://pages/servico-de-nutricao",
-        "image": "shopify://shop_images/Ellipse_35.png",
-        "mobile_image": "shopify://shop_images/image.png"
-      }
-    },
     "collection_campanhas_2_tndV7M": {
       "type": "collection-campanhas-2",
       "disabled": true,
@@ -171,6 +158,19 @@
       "settings": {
         "selected_collection": "naturmil",
         "title_collection": "Naturmil: a resposta da natureza!"
+      }
+    },
+    "blog_consultas_nutricao_JDkWEd": {
+      "type": "blog-consultas-nutricao",
+      "name": "Consultas",
+      "settings": {
+        "title": "Nutricionista Rita de Cássia Silva",
+        "description": "<h1>Alimenta o teu equilíbrio com a Nutrição Funcional</h1>",
+        "sub_description": "<p>Dá o primeiro passo para uma vida mais equilibrada.</p>",
+        "btn_text": "CONSULTAS DE NUTRIÇÃO",
+        "btn_link": "shopify://pages/servico-de-nutricao",
+        "image": "shopify://shop_images/Ellipse_35.png",
+        "mobile_image": "shopify://shop_images/image.png"
       }
     },
     "products_collection_with_image_AhgAw9": {
@@ -459,10 +459,10 @@
     "slideshow_custom_AiKNbT",
     "collection_images_slideshow_custom_KbWJmY",
     "collection_list_2_BYnyXr",
-    "blog_consultas_nutricao_JDkWEd",
     "collection_campanhas_2_tndV7M",
     "collection_campanhas_1_iQwbFn",
     "product_collection_list_custom_yfhcVR",
+    "blog_consultas_nutricao_JDkWEd",
     "products_collection_with_image_AhgAw9",
     "collection_campanhas_3_t96Pgd",
     "product_collection_list_custom_Tb94AX",
