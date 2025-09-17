@@ -385,7 +385,7 @@
           "type": "custom",
           "settings": {
             "title": "Como recebo o reembolso do meu produto?",
-            "answer": "<p>O reembolso será efetuado pelo mesmo método de pagamento utilizado na compra. No caso de pagamentos por PayPal, o reembolso poderá demorar até 30 dias úteis a ser processado. Já para pagamentos efetuados por Referência Multibanco ou MBWAY, o reembolso poderá demorar até 3 dias úteis a ser processado.</p>"
+            "answer": "<p>O reembolso será efetuado pelo mesmo método de pagamento utilizado na compra.</p><ul><li><strong>PayPal:</strong> poderá demorar até <strong>30 dias úteis</strong> a ser processado.<br/></li><li><strong>Cartão de Crédito:</strong> poderá demorar até <strong>7 dias úteis</strong> a ser processado.<br/></li><li><strong>Referência Multibanco ou MB WAY:</strong> poderá demorar até <strong>3 dias úteis</strong> a ser processado.<br/></li></ul><p>Em caso de qualquer erro no processamento do reembolso, motivado por falhas temporárias dos nossos parceiros de pagamento, poderá ser solicitado o seu <strong>IBAN</strong>, de forma a realizarmos o reembolso através de transferência bancária.</p>"
           }
         },
         "custom_tAayhD": {
