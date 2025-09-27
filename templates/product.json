@@ -49,11 +49,22 @@
           "type": "coupon",
           "settings": {
             "title": "Sovex",
-            "background_color": "",
+            "background_color": "#8a9297",
             "selected_tags": "Sovex",
             "selected_title": "<p><strong>Campanha Sovex 15% Extra</strong></p>",
             "selected_description": "<p>Compra 2 ou mais unidades de produtos da marca <strong>Sovex</strong> e conquista <strong>15% EXTRA</strong>.</p>",
             "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Setembro, limitada ao stock existente."
+          }
+        },
+        "coupon_XhpUi6": {
+          "type": "coupon",
+          "settings": {
+            "title": "Excelent Zen",
+            "background_color": "#fb6060",
+            "selected_tags": "Excelent Zen",
+            "selected_title": "<p><strong>Campanha Excelent Zen 20% Extra</strong></p>",
+            "selected_description": "<p>Compra 2 ou mais unidades de <strong>Excelent Zen</strong> e conquista <strong>20% EXTRA</strong>.</p>",
+            "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 27 a 30 de Setembro, limitada ao stock existente."
           }
         },
         "coupon_WWtqpi": {
@@ -73,6 +84,7 @@
         "coupon_iWDRdN",
         "coupon_WRTneq",
         "coupon_C38Njb",
+        "coupon_XhpUi6",
         "coupon_WWtqpi"
       ],
       "settings": {
