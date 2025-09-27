@@ -60,7 +60,7 @@
           "type": "coupon",
           "settings": {
             "title": "Excelent Zen",
-            "background_color": "#fb6060",
+            "background_color": "#83bd3f",
             "selected_tags": "Excelent Zen",
             "selected_title": "<p><strong>Campanha Excelent Zen 20% Extra</strong></p>",
             "selected_description": "<p>Compra 2 ou mais unidades de <strong>Excelent Zen</strong> e conquista <strong>20% EXTRA</strong>.</p>",
