@@ -27,11 +27,21 @@
             "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
             "link": "shopify://pages/biopoints"
           }
+        },
+        "slide_jd8FqE": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
+            "image_mobile": "shopify://shop_images/OutMobile25.png",
+            "link": "shopify://collections/shop"
+          }
         }
       },
       "block_order": [
         "slide_QxyQWn",
-        "slide_dQTCBz"
+        "slide_dQTCBz",
+        "slide_jd8FqE"
       ],
       "settings": {
         "slide_time": 5
