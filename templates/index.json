@@ -197,6 +197,7 @@
     },
     "collection_campanhas_3_t96Pgd": {
       "type": "collection-campanhas-3",
+      "disabled": true,
       "settings": {
         "selected_title": "marcas de referência!",
         "image_1_desktop": "shopify://shop_images/physalis_780500.png",
