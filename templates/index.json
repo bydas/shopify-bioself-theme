@@ -14,9 +14,18 @@
       "blocks": {
         "slide_QxyQWn": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_desktop": "shopify://shop_images/banner-bioself-setembro-2025-desktop.png",
             "image_mobile": "shopify://shop_images/banner-bioself-mobile-setembro.jpg",
+            "link": "shopify://collections/shop"
+          }
+        },
+        "slide_jd8FqE": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
+            "image_mobile": "shopify://shop_images/OutMobile25.png",
             "link": "shopify://collections/shop"
           }
         },
@@ -27,21 +36,12 @@
             "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
             "link": "shopify://pages/biopoints"
           }
-        },
-        "slide_jd8FqE": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
-            "image_mobile": "shopify://shop_images/OutMobile25.png",
-            "link": "shopify://collections/shop"
-          }
         }
       },
       "block_order": [
         "slide_QxyQWn",
-        "slide_dQTCBz",
-        "slide_jd8FqE"
+        "slide_jd8FqE",
+        "slide_dQTCBz"
       ],
       "settings": {
         "slide_time": 5
