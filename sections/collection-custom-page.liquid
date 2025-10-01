@@ -1270,62 +1270,158 @@
   });
 </script>
 
+<!-- SORT BY: mantém todos os queries e só altera 'sort_by' -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const sortByInputs = document.querySelectorAll('#sort-by');
+  document.addEventListener('DOMContentLoaded', () => {
+    const STORAGE_KEY = 'sort-by-changed';
+    const sortZones = document.querySelectorAll('#sort-by');
 
-    sortByInputs.forEach((input) => {
-      input.addEventListener('click', function () {
-        const currentPath = new URL(window.location.href).pathname;
-        localStorage.setItem('sort-by-changed', currentPath);
+    function setQuery(key, value, base = window.location.href) {
+      const url = new URL(base);
+      if (value === undefined || value === null || value === '') {
+        url.searchParams.delete(key);
+      } else {
+        url.searchParams.set(key, value);
+      }
+      return url;
+    }
+
+    function applySort(value) {
+      const url = setQuery('sort_by', value);
+      localStorage.setItem(STORAGE_KEY, url.pathname + url.search);
+      window.location.assign(url.toString());
+    }
+
+    sortZones.forEach((zone) => {
+      // Para <select> ou <input> (radios)
+      zone.addEventListener('change', (ev) => {
+        const t = ev.target;
+        if (!t) return;
+        const v = t.value || t.dataset.sortValue;
+        if (v) applySort(v);
       });
+
+      // Para <a> (links de ordenação) ou elementos com data-sort-value
+      zone.addEventListener(
+        'click',
+        (ev) => {
+          const t = ev.target.closest('a,[data-sort-value]');
+          if (!t) return;
+
+          let v = t.dataset.sortValue;
+          if (!v && t.tagName === 'A') {
+            try {
+              const hrefUrl = new URL(t.getAttribute('href'), window.location.origin);
+              v = hrefUrl.searchParams.get('sort_by');
+            } catch (e) {}
+          }
+          if (v) {
+            ev.preventDefault(); // impede navegação do link original
+            applySort(v); // navega preservando TODOS os queries atuais
+          }
+        },
+        true
+      );
     });
 
-    const newsletterDesktops = document.querySelectorAll('#newsletter_custom');
-    const newsletterMobiles = document.querySelectorAll('#newsletter_custom_mobile');
-    const storageItem = localStorage.getItem('sort-by-changed');
+    // Lógica do newsletter – agora considera path + query
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const here = new URL(window.location.href);
+      const hereKey = here.pathname + here.search;
+      const desktops = document.querySelectorAll('#newsletter_custom');
+      const mobiles = document.querySelectorAll('#newsletter_custom_mobile');
 
-    if (storageItem) {
-      const currentPath = new URL(window.location.href).pathname;
-      const hasChanged = storageItem === currentPath;
-
-      if (hasChanged) {
-        newsletterDesktops?.forEach((el) => el.remove());
-        newsletterMobiles?.forEach((el) => el.remove());
+      if (stored === hereKey) {
+        desktops?.forEach((el) => el.remove());
+        mobiles?.forEach((el) => el.remove());
       } else {
-        localStorage.removeItem('sort-by-changed');
+        localStorage.removeItem(STORAGE_KEY);
       }
     }
   });
 </script>
 
+<!-- LIMIT: mantém todos os queries e só altera 'limit' -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const quantitySelector = document.getElementById('quantity-selector');
-    const quantitySelectorMobile = document.getElementById('quantity-selector_mobile');
-
-    const updateURLParameter = (url, key, value) => {
-      let updatedURL = new URL(url);
-
-      updatedURL.searchParams.set(key, value);
-
-      return updatedURL.toString();
+  document.addEventListener('DOMContentLoaded', () => {
+    // Helpers
+    const setParamOnCurrent = (key, value) => {
+      const url = new URL(window.location.href);
+      if (value === undefined || value === null || value === '') {
+        url.searchParams.delete(key);
+      } else {
+        url.searchParams.set(key, value);
+      }
+      return url.toString();
     };
 
-    if (quantitySelector || quantitySelectorMobile) {
-      [quantitySelector, quantitySelectorMobile].forEach((selector) => {
-        if (selector) {
-          selector.addEventListener('change', function () {
-            const selectedQuantity = selector.value;
-            const currentURL = window.location.href;
+    const getParamFromHref = (el, param) => {
+      try {
+        const u = new URL(el.getAttribute('href'), window.location.origin);
+        return u.searchParams.get(param);
+      } catch (e) {
+        return null;
+      }
+    };
 
-            const newURL = updateURLParameter(currentURL, 'limit', selectedQuantity);
+    // 1) LIMIT (desktop + mobile): intercepta links dos modais e preserva todos os queries
+    const limitLinkSelectors = '#quantity_options_custom_modal_2 a, #quantity_options_custom_modal_2_mobile a';
+    document.querySelectorAll(limitLinkSelectors).forEach((a) => {
+      a.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const v = getParamFromHref(a, 'limit') || a.textContent.trim();
+          if (!v) return;
+          const newURL = setParamOnCurrent('limit', v);
+          window.location.assign(newURL);
+        },
+        { capture: true }
+      );
+    });
 
-            window.location.href = newURL;
-          });
-        }
-      });
-    }
+    // 2) PAGINAÇÃO (desktop + mobile): preserva limit, sort_by, filter.*, q, etc.
+    const pagerSelectors = `
+      #pagination_wrapper a[href*="?page="],
+      #pagination a[href*="?page="],
+      a#previous-page, a#next-page
+    `;
+    document.querySelectorAll(pagerSelectors).forEach((a) => {
+      a.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const page = getParamFromHref(a, 'page');
+          if (!page) {
+            window.location.assign(a.href);
+            return;
+          }
+          const newURL = setParamOnCurrent('page', page);
+          window.location.assign(newURL);
+        },
+        { capture: true }
+      );
+    });
+
+    // 3) (Opcional) SORT em links de fallback (já tens isto noutro script, fica aqui por redundância segura)
+    const sortLinkSelectors = 'a#sort-by';
+    document.querySelectorAll(sortLinkSelectors).forEach((a) => {
+      a.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const v = getParamFromHref(a, 'sort_by');
+          if (!v) return;
+          const newURL = setParamOnCurrent('sort_by', v);
+          window.location.assign(newURL);
+        },
+        { capture: true }
+      );
+    });
   });
 </script>
 
@@ -1448,7 +1544,7 @@
 <main id="brands_collections_custom_products">
   <ul id="breadcrumbs">
     <li>
-      <a href="/">Página Inicial</a>
+      <a href="{{ routes.root_url }}">Página Inicial</a>
       <span> &gt; </span>
     </li>
     {% assign path_parts = request.path | split: '/' %}
@@ -1545,6 +1641,8 @@
 
     <div id="main_collection_products_custom">
       {% for block in section.blocks %}
+        {% assign block_has_tag = false %}
+
         {% assign current_index = forloop.index %}
         {% assign array_tags = block.settings.selected_tags | split: ',' %}
 
@@ -1864,6 +1962,7 @@
 
 <main id="brands_collections_custom_products_mobile">
   {% for block in section.blocks %}
+    {% assign block_has_tag = false %}
     {% assign current_index = forloop.index %}
     {% assign array_tags = block.settings.selected_tags | split: ',' %}
 
@@ -2184,6 +2283,7 @@
 </main>
 
 {% for block in section.blocks %}
+  {% assign block_has_tag = false %}
   {% assign current_index = forloop.index %}
   {% assign array_tags = block.settings.selected_tags | split: ',' %}
 
