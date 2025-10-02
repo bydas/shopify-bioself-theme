@@ -56,6 +56,17 @@
             "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro, limitada ao stock existente."
           }
         },
+        "coupon_FAnVMJ": {
+          "type": "coupon",
+          "settings": {
+            "title": "Soria Natural",
+            "background_color": "#8a9297",
+            "selected_tags": "Soria Natural",
+            "selected_title": "<p><strong>Campanha Soria Natural 10% Extra</strong></p>",
+            "selected_description": "<p>Compra 2 ou mais unidades de produtos da marca <strong>Soria Natural</strong> e conquista <strong>10% EXTRA</strong>.</p>",
+            "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Soria Natural — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro, limitada ao stock existente."
+          }
+        },
         "coupon_XhpUi6": {
           "type": "coupon",
           "settings": {
@@ -75,7 +86,7 @@
             "selected_tags": "Marcas_Vitalenzym",
             "selected_title": "<p><strong>Campanha Vitalenzym 20%</strong></p>",
             "selected_description": "<p>Compra 1 ou mais unidades de produtos da marca <strong>Vitalenzym</strong> e conquista <strong>20% EXTRA</strong>.</p>",
-            "selected_modal_description": "Adiciona 1 ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Vitalenzym — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Setembro, limitada ao stock existente."
+            "selected_modal_description": "Adiciona 1 ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Vitalenzym — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro, limitada ao stock existente."
           }
         }
       },
@@ -84,6 +95,7 @@
         "coupon_iWDRdN",
         "coupon_WRTneq",
         "coupon_C38Njb",
+        "coupon_FAnVMJ",
         "coupon_XhpUi6",
         "coupon_WWtqpi"
       ],
