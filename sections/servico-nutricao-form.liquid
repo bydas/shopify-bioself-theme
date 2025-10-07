@@ -58,7 +58,7 @@
 
   #servico_form_custom > form > div > input,
   #servico_form_custom > form > div > textarea {
-    background-color: #D7FECD33;
+    background-color: #d7fecd33;
     border: 1px solid #258439;
     border-radius: 0.5rem;
     padding: 0.5rem 0.75rem;
@@ -187,6 +187,122 @@
     <button type="submit">Enviar</button>
   {% endform %}
 </section>
+
+<style>
+  #servico_modal_post_submitted {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    padding: 6dvh 6dvw;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 1003;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 1rem;
+    position: fixed;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    transition: opacity 0.1s;
+    justify-items: center;
+  }
+
+  #success_servico_icon {
+    justify-self: center;
+  }
+
+  #servico_modal_post_submitted > p {
+    padding: 0;
+    margin: 0;
+    width: 70%;
+    line-height: normal;
+    text-align: center;
+  }
+
+  #escape_servico_modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.1s;
+  }
+
+  #escape_servico_modal:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #servico_modal_post_submitted {
+      padding: 2rem 1rem;
+      width: 90%;
+    }
+  }
+</style>
+
+<div id="servico_modal_post_submitted">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="14"
+    width="10.5"
+    viewBox="0 0 384 512"
+    id="escape_servico_modal"
+  >
+    <path fill="{{ section.settings.text_color }}" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+  </svg>
+
+  <svg
+    id="success_servico_icon"
+    width="56"
+    height="55"
+    viewBox="0 0 56 55"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M24.1644 40.0247L43.4836 20.7055L39.6472 16.8691L24.1644 32.3518L16.3545 24.5419L12.518 28.3784L24.1644 40.0247ZM28.0008 54.8224C24.21 54.8224 20.6476 54.1031 17.3136 52.6644C13.9795 51.2258 11.0794 49.2733 8.61308 46.807C6.1468 44.3407 4.19432 41.4406 2.75566 38.1065C1.31699 34.7725 0.597656 31.21 0.597656 27.4193C0.597656 23.6285 1.31699 20.0661 2.75566 16.732C4.19432 13.398 6.1468 10.4978 8.61308 8.03154C11.0794 5.56525 13.9795 3.61278 17.3136 2.17411C20.6476 0.735446 24.21 0.0161133 28.0008 0.0161133C31.7916 0.0161133 35.354 0.735446 38.688 2.17411C42.0221 3.61278 44.9223 5.56525 47.3886 8.03154C49.8548 10.4978 51.8073 13.398 53.246 16.732C54.6846 20.0661 55.404 23.6285 55.404 27.4193C55.404 31.21 54.6846 34.7725 53.246 38.1065C51.8073 41.4406 49.8548 44.3407 47.3886 46.807C44.9223 49.2733 42.0221 51.2258 38.688 52.6644C35.354 54.1031 31.7916 54.8224 28.0008 54.8224Z" fill="#88A44E"/>
+  </svg>
+
+  <p>
+    Obrigado pela confiança 💚<br>
+    A tua jornada de bem-estar já começou.<br>
+    Em breve, entraremos em contacto para dar o próximo passo contigo.
+  </p>
+</div>
+
+<script>
+  const sectionServico = document.querySelector('#servico_form_custom');
+
+  if (sectionServico) {
+    const formServico = sectionServico.querySelector('form');
+    formServico?.addEventListener('submit', () => {
+      localStorage.setItem('servicoContactSubmitted', 'true');
+      localStorage.removeItem('not_show_sucess_servico_modal');
+    });
+
+    if (localStorage.getItem('servicoContactSubmitted') && !localStorage.getItem('not_show_sucess_servico_modal')) {
+      const servicoModal = document.getElementById('servico_modal_post_submitted');
+      const overlayModal = document.getElementById('modal_overlay');
+
+      if (servicoModal && overlayModal) {
+        overlayModal.style.display = 'block';
+        servicoModal.style.opacity = '1';
+        servicoModal.style.visibility = 'visible';
+      }
+
+      const escapeIconModalServico = document.getElementById('escape_servico_modal');
+      escapeIconModalServico?.addEventListener('click', function () {
+        localStorage.setItem('not_show_sucess_servico_modal', 'true');
+        servicoModal?.remove();
+        overlayModal.style.display = 'none';
+      });
+    }
+  }
+</script>
 
 {% schema %}
 {
