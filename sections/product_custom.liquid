@@ -292,8 +292,19 @@
     }
 
     #product-icons-block > li > img {
+      display: block;
+      margin: 0 auto;
       width: 50px !important;
       height: 50px !important;
+    }
+
+    .product-icon-text {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2f6138;
+      text-align: left;
     }
 
     #indicacoes_list_custom > ul > li,
@@ -429,13 +440,16 @@
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: max-content;
-    gap: 0.35rem;
     overflow: hidden;
     list-style-type: none;
   }
 
   #related_products_custom > ul > li {
     display: grid;
+  }
+
+  #related_products_custom > ul > li:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
+    margin-right: 0.35rem;
   }
 
   #related_products_custom > ul > li > section {
@@ -1235,6 +1249,17 @@
       transform: rotate(360deg);
     }
   }
+
+  .newsletter-success {
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 0.65rem;
+    background-color: #e6f6e8;
+    border: 1px solid #308a36;
+    color: #308a36;
+    font-weight: 600;
+    text-align: center;
+  }
 </style>
 
 {% assign has_tag = false %}
@@ -1372,7 +1397,7 @@
             <ul id="product-icons-block">
               {% for icon in metaobjects.iconografia.values %}
                 {% if titulos_phc contains icon.referencia %}
-                  <li>
+                  <li style="text-align:center;">
                     <img
                       src="{{ icon.icone | image_url: width: 90, height: 90 }}"
                       alt="{{ icon.referencia }}"
@@ -1380,6 +1405,13 @@
                       width="90"
                       height="90"
                     >
+                    <span class="product-icon-text">
+                      {{
+                        icon.referencia
+                        | replace: 'CrueltyFree', 'Cruelty Free'
+                        | replace: 'ChemicalFree', 'Chemical Free'
+                      }}
+                    </span>
                   </li>
                 {% endif %}
               {% endfor %}

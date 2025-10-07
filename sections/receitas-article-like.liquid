@@ -1,0 +1,226 @@
+<style>
+  #receitas_article_like_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 2rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #receitas_article_like_custom > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    text-align: left;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  #receitas_article_like_custom > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #receitas_article_like_custom > ul > li {
+    display: grid;
+    padding: 0;
+    margin: 0;
+  }
+
+  #receitas_article_like_custom > .see_all_btn {
+    border: 1px solid #258439;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #258439;
+    font-weight: 700 !important;
+    font-size: 1rem;
+    cursor: pointer;
+    width: max-content;
+    justify-self: center;
+    transition: all 0.15s ease;
+    background-color: transparent;
+  }
+
+  #receitas_article_like_custom > .see_all_btn:hover {
+    background-color: #258439;
+    color: white;
+  }
+
+  #receitas_article_like_custom > ul > li > a {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    border-radius: 1rem;
+    border: 1px solid #258439;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+
+  #receitas_article_like_custom > ul > li > a > span {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+  }
+
+  #receitas_article_like_custom > ul > li > a:hover {
+    transform: translateY(-10px);
+  }
+
+  #receitas_article_like_custom > ul > li > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  #receitas_article_like_custom > ul > li > a > h4 {
+    padding: 1rem;
+    font-weight: 700 !important;
+    font-size: 1.25rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #receitas_article_like_custom > h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #receitas_article_like_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #receitas_article_like_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #receitas_article_like_custom {
+      margin: 1rem var(--mobile-container-gutter);
+      gap: 1rem;
+    }
+
+    #receitas_article_like_custom > h1 {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 415px) {
+    #receitas_article_like_custom > ul {
+      grid-auto-rows: max-content;
+      grid-auto-flow: row;
+      grid-template-columns: unset;
+    }
+  }
+
+  #receitas_article_like_custom > ul > li > a > div > div > span {
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+    width: max-content;
+  }
+
+  #receitas_article_like_custom > ul > li > a > div > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  #receitas_article_like_custom > ul > li > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  @media screen and (max-width: 369px) {
+    #receitas_article_like_custom > ul > li > a > div > div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section id="receitas_article_like_custom">
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  {%- comment -%} Determinar a primeira tag relevante do artigo atual {%- endcomment -%}
+  {% assign post_tag = '' %}
+  {% for t in article.tags %}
+    {% unless t contains 'author' or t contains 'dificuldade' or t contains 'doses' or t contains 'duracao' %}
+      {% assign post_tag = t %}
+      {% break %}
+    {% endunless %}
+  {% endfor %}
+
+  <ul>
+    {% assign shown = 0 %}
+    {%- for post in blog.articles -%}
+      {%- if post.id == article.id -%}{% continue %}{%- endif -%}
+      {%- if post_tag == '' or post.tags contains post_tag -%}
+        <li>
+          <a href="{{ post.url }}">
+            <div style="background-size:cover;background-position:center center;background-image:url({{ post.image | img_url: 'master' }})">
+              <div>
+                {% if post_tag != '' -%}
+                  <span>{{ post_tag }}</span>
+                {%- endif %}
+                {% if post.author == 'Rita Silva' %}
+                  {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
+                {% endif %}
+              </div>
+            </div>
+            <h4>{{ post.title }}</h4>
+          </a>
+        </li>
+        {% assign shown = shown | plus: 1 %}
+        {% if shown == 4 %}{% break %}{% endif %}
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Receitas articles like",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "selected_img",
+      "label": "Imagem da Rita"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Receitas articles like",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}

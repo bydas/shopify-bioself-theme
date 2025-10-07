@@ -80,12 +80,10 @@
   }
 
   #newsletter_custom > form {
-    display: grid;
     gap: 0.5rem;
   }
 
   #newsletter_custom_mobile > form {
-    display: grid;
     grid-auto-rows: max-content;
     gap: 0.5rem;
     margin: 0 1rem;
@@ -101,7 +99,7 @@
 
   #newsletter_inputs > input,
   #newsletter_custom_mobile > form > input {
-    background-color: #FFFEF8;
+    background-color: #fffef8;
     border-radius: 0.65rem;
     border: 1px solid #308a36;
     padding: 0.5rem 1.5rem;
@@ -118,7 +116,7 @@
 
   #newsletter_inputs > input::placeholder,
   #newsletter_custom_mobile > form > input::placeholder {
-    color: #B9B8B3;
+    color: #b9b8b3;
   }
 
   #newsletter_custom > form > #newsletter_checkbox > label {
@@ -154,7 +152,7 @@
   #newsletter_inputs > button:hover {
     background-color: white;
     border: 1px solid #308a36;
-    background-color: #FFFEF8;
+    background-color: #fffef8;
     color: #308a36;
   }
 
@@ -204,7 +202,14 @@
     <h1>{{ section.settings.newsletter_title }}</h1>
   {% endif %}
 
-  {% form 'customer' %}
+  <div class="already_accepted_newsletter">
+    <span>
+      Obrigado pelo teu registo. Irás receber um email na tua caixa de correio para confirmares a tua inscrição na
+      newsletter Bioself.
+    </span>
+  </div>
+
+  {% form 'customer', class: 'newsletter_custom_form' %}
     <div id="newsletter_inputs">
       <input
         type="text"
@@ -257,7 +262,14 @@
     <h1>{{ section.settings.newsletter_title }}</h1>
   {% endif %}
 
-  {% form 'customer' %}
+  <div class="already_accepted_newsletter">
+    <span>
+      Obrigado pelo teu registo. Irás receber um email na tua caixa de correio para confirmares a tua inscrição na
+      newsletter Bioself.
+    </span>
+  </div>
+
+  {% form 'customer', class: 'newsletter_custom_form' %}
     <input
       type="text"
       id="newsletter[contact][name]"
@@ -298,61 +310,3 @@
     {% endif %}
   {% endform %}
 </section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const desktopSections = document.querySelectorAll("#newsletter_custom");
-
-    if (desktopSections.length > 0) {
-      desktopSections.forEach((desktopSection) => {
-        // Verifica se o newsletter já foi submetido
-        if (localStorage.getItem("newsletterSubmitted") === "true") {
-          desktopSection.remove();
-          return;
-        }
-
-        // Adiciona evento ao SVG de cada seção desktop
-        const desktopImg = desktopSection.querySelector("svg");
-        desktopImg?.addEventListener("click", function () {
-          desktopSection.remove();
-        });
-
-        // Adiciona evento ao formulário de cada seção desktop
-        const desktopForm = desktopSection.querySelector("form");
-
-        desktopForm?.addEventListener("submit", function () {
-          localStorage.setItem("newsletterSubmitted", "true");
-        });
-      });
-    }
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const mobileSections = document.querySelectorAll("#newsletter_custom_mobile");
-
-    if (mobileSections.length > 0) {
-      mobileSections.forEach((mobileSection) => {
-        // Verifica se o newsletter já foi submetido
-        if (localStorage.getItem("newsletterSubmitted") === "true") {
-          mobileSection.remove();
-          return;
-        }
-
-        // Adiciona evento ao SVG de cada seção móvel
-        const mobileImg = mobileSection.querySelector("svg");
-        mobileImg?.addEventListener("click", () => {
-          mobileSection.remove();
-        });
-
-        // Adiciona evento ao formulário de cada seção móvel
-        const mobileForm = mobileSection.querySelector("form");
-
-        mobileForm?.addEventListener("submit", function () {
-          localStorage.setItem("newsletterSubmitted", "true");
-        });
-      });
-    }
-  });
-</script>

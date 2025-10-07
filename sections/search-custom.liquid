@@ -35,11 +35,11 @@
     color: #308a36;
   }
 
-  #search_custom > #search_results_products {
+  #search_custom > #search_results_custom {
     display: grid;
     list-style-type: none;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
   }
 
   #search_custom > h2 {
@@ -59,6 +59,26 @@
     }
   }
 
+  .search-tabs {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .search-tabs a {
+    color: #308a36;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    font-weight: 700 !important;
+    font-size: 20px;
+  }
+
+  .search-tabs a[aria-current='page'] {
+    border-bottom-color: #ffbb12;
+  }
+
   @media screen and (max-width: 1000px) {
     #search_custom {
       gap: 0.5rem;
@@ -66,9 +86,16 @@
       margin: 1rem var(--mobile-container-gutter);
     }
 
-    #search_custom > #search_results_products  {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.25rem;
+    .search-tabs {
+      margin-bottom: 1rem;
+    }
+
+    .search-tabs a {
+      font-size: 16px;
+    }
+
+    #search_custom > #search_results_custom {
+      grid-template-columns: 1fr;
     }
 
     #search_custom > #search_breadcrumbs {
@@ -85,42 +112,135 @@
       max-width: 20rem;
     }
   }
+
+  .search-tabs a.disabled {
+    color: #999;
+    border-bottom-color: transparent;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 </style>
 
-{%- paginate search.results by 16 -%}
-  <section id="search_custom">
-    <ul id="search_breadcrumbs">
-      <li>
-        <a href="/">Página inicial</a>
-      </li>
+<section id="search_custom">
+  <ul id="search_breadcrumbs">
+    <li><a href="{{ routes.root_url }}">Página inicial</a></li>
+    <span>></span>
+    <li id="current_page">
+      <a href="">Resultados de pesquisa com {{ search.terms }}</a>
+    </li>
+  </ul>
 
-      <span>></span>
+  <h1>Resultados com "{{ search.terms }}"</h1>
 
-      <li id="current_page">
-        <a href="">Resultados de pesquisa com "{{ search.terms }}"</a>
-      </li>
-    </ul>
+  {% if search.results.size == 0 %}
+    <h2>Nenhum resultado encontrado</h2>
+  {% else %}
+    {%- comment -%}
+      Construímos já os hrefs server-side para ficar resiliente sem JS.
+      /search?q=TERMO&type=product   e   /search?q=TERMO&type=article
+    {%- endcomment -%}
+    {% assign term_qs = search.terms | url_encode %}
+    {% assign base_search_url = routes.search_url %}
+    {% assign href_products = base_search_url | append: '?q=' | append: term_qs | append: '&type=product' %}
+    {% assign href_articles = base_search_url | append: '?q=' | append: term_qs | append: '&type=article' %}
 
-    <h1>Produtos com "{{ search.terms }}"</h1>
+    <div class="search-tabs">
+      <a id="tab-products" href="{{ href_products }}">Produtos (<span>…</span>)</a>
+      <a id="tab-articles" href="{{ href_articles }}">Blog (<span>…</span>)</a>
+    </div>
 
-    {% if search.results.size == 0 %}
-      <h2>Nenhum produto encontrado</h2>
-    {% else %}
-      <ul id="search_results_products">
-        {%- for product in search.results -%}
-          {%- render 'product-item-2', product: product -%}
+    {% paginate search.results by 16 %}
+      <ul id="search_results_custom">
+        {%- for result in search.results -%}
+          {% if result.object_type == 'product' %}
+            {%- render 'product-item-2', product: result -%}
+          {% else %}
+            {%- render 'article-item-custom', article: result -%}
+          {% endif %}
         {%- endfor -%}
       </ul>
-    {% endif %}
 
-    {%- render 'pagination', paginate: paginate -%}
-  </section>
-{% endpaginate %}
+      {%- render 'pagination', paginate: paginate -%}
+    {% endpaginate %}
+  {% endif %}
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const term = {{ search.terms | json }};
+    const endpoint = '/api/2025-07/graphql.json'; // ajusta se necessário
+    const token = 'bfe1eb076dd1eeff39af26ba722acebf'; // recomenda-se App Proxy/SSR para não expor
+
+    // Marcar tab ativa conforme ?type=...
+    const params = new URLSearchParams(location.search);
+    const type = params.get('type'); // 'product' | 'article' | null (ambos)
+    const tabProducts = document.getElementById('tab-products');
+    const tabArticles = document.getElementById('tab-articles');
+
+    if (type === 'product' && tabProducts) tabProducts.setAttribute('aria-current', 'page');
+    if (type === 'article' && tabArticles) tabArticles.setAttribute('aria-current', 'page');
+
+    async function getCount(types) {
+      const query = `
+        query Count($term: String!, $types: [SearchType!]!) {
+          search(query: $term, types: $types, first: 1) {
+            totalCount
+          }
+        }
+      `;
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': token
+        },
+        body: JSON.stringify({ query, variables: { term, types } })
+      });
+      if (!res.ok) throw new Error('GraphQL HTTP error');
+      const json = await res.json();
+      return json?.data?.search?.totalCount ?? 0;
+    }
+
+    try {
+      const [productsCount, articlesCount] = await Promise.all([
+        getCount(['PRODUCT']),
+        getCount(['ARTICLE'])
+      ]);
+
+      const pEl = document.querySelector('#tab-products span');
+      const aEl = document.querySelector('#tab-articles span');
+
+      if (pEl) pEl.textContent = productsCount.toLocaleString('pt-PT');
+      if (aEl) aEl.textContent = articlesCount.toLocaleString('pt-PT');
+
+      const tabProducts = document.getElementById('tab-products');
+      const tabArticles = document.getElementById('tab-articles');
+
+      if (productsCount === 0 && tabProducts) {
+        tabProducts.classList.add('disabled');
+        tabProducts.removeAttribute('href'); // remove o link
+      }
+
+      if (articlesCount === 0 && tabArticles) {
+        tabArticles.classList.add('disabled');
+        tabArticles.removeAttribute('href');
+      }
+    } catch (e) {
+      console.warn('Falha ao carregar totais via GraphQL:', e);
+    }
+  });
+</script>
 
 {% schema %}
 {
   "name": "Search custom",
-  "settings": [],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "selected_img",
+      "label": "Imagem da Rita"
+    }
+  ],
   "presets": [
     {
       "name": "Search custom",

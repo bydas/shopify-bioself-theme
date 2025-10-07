@@ -1,0 +1,85 @@
+<style>
+  .blog-search-article {
+    display: grid;
+    padding: 0;
+    margin: 0;
+  }
+
+  .blog-search-article > a {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    border-radius: 1rem;
+    border: 1px solid #258439;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+
+  .blog-search-article > a > div > div > span {
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+    width: max-content;
+  }
+
+  .blog-search-article > a:hover {
+    transform: translateY(-10px);
+  }
+
+  .blog-search-article > a > div > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .blog-search-article > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  .blog-search-article > a > h4 {
+    padding: 1rem;
+    font-weight: 700 !important;
+    font-size: 1.25rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 369px) {
+    .blog-search-article > a > div > div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% assign article_tag = '' %}
+{% for tag in article.tags %}
+  {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao' %}
+    {% assign article_tag = tag %}
+    {% break %}
+  {% endunless %}
+{% endfor %}
+<li class="blog-search-article">
+  <a href="{{ article.url }}">
+    <div style="background-size:cover;background-position:center center;background-image:url({{ article.image | img_url: 'master' }})">
+      <div>
+        {% if article_tag != '' -%}
+          <span>{{ article_tag }}</span>
+        {%- endif %}
+        {% if article.author == 'Rita Silva' %}
+          {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
+        {% endif %}
+      </div>
+    </div>
+    <h4>{{ article.title }}</h4>
+  </a>
+</li>

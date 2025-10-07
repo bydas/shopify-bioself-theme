@@ -2,291 +2,336 @@
   <section
     class="blog-sidebar"
     data-section-id="{{ section.id }}"
-    data-section-type="blog-sidebar">
+    data-section-type="blog-sidebar"
+  >
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'newsletter' -%}
-        <div
-          class="blog-sidebar__item blog-sidebar__item--newsletter"
-          id="block-{{ block.id }}"
-          {{ block.shopify_attributes }}>
-          <style>
-            #block-{{ block.id }}{
-              background: {{ block.settings.background }}
-              ;
-              color: {{ block.settings.text }}
-              ;
-            }
-          </style>
+          <div
+            class="blog-sidebar__item blog-sidebar__item--newsletter"
+            id="block-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            <style>
+              #block-{{ block.id }}{
+                background: {{ block.settings.background }}
+                ;
+                color: {{ block.settings.text }}
+                ;
+              }
+            </style>
 
-          {%- if block.settings.title != blank -%}
-            <h2 class="heading h3 newsletter_title">{{ block.settings.title | escape }}</h2>
-          {%- endif -%}
-
-          {%- if block.settings.content != blank -%}
-            <div class="rte newsletter_text sidebar_newsletter_text">
-              {{ block.settings.content }}
-            </div>
-          {%- endif -%}
-
-          {%- assign newsletter_id = 'newsletter-' | append: block.id -%}
-
-          <div class="newsletter newsletter--compact">
-            {%- form 'customer', id: newsletter_id, class: 'form newsletter__form' -%}
-              {%- if form.posted_successfully? -%}
-                <p class="alert alert--success">Foi registado com sucesso na nossa newsletter!</p>
-              {%- else -%}
-                {%- if form.errors -%}
-                  <p class="alert alert--error">{{ form.errors.messages['email'] }}</p>
-                {%- endif -%}
-
-                <input
-                  type="hidden"
-                  name="contact[tags]"
-                  value="newsletter">
-
-                <div class="form__input-wrapper form__input-wrapper--labelled">
-                  <input
-                    type="email"
-                    name="contact[email]"
-                    placeholder="Email"
-                    class="form__field form__field--text form__field--borderless form-no-padding"
-                    aria-label="{{ 'home_page.newsletter.input' | t }}"
-                    required>
-                  <label for="newsletter[contact][email]" class="form__floating-label">{{ 'home_page.newsletter.input' | t }}</label>
-
-                  {%- if block.settings.text_gdpr != blank -%}
-                    <div class="gdpr_container">
-                      <input
-                        type="checkbox"
-                        id="accept_gdpr"
-                        name="accept_gdpr"
-                        value="Accept GDPR">
-                      <label
-                        for="newsletter[contact][email]"
-                        class="rte newsletter_gdpr"
-                        required>{{ block.settings.text_gdpr }}</label>
-                    </div>
-                  {%- endif -%}
-                </div>
-
-
-
-                <button id="newslettersubmit" type="submit" class="form__submit form__submit--tight button button--primary button--full">{{ 'home_page.newsletter.submit' | t }}</button>
-
-                <script type="text/javascript">
-                  $('#newslettersubmit').click(function() {
-                    fbq('track', 'Lead');
-                  });
-                </script>
-              {%- endif -%}
-            {%- endform -%}
-
-            {%- if block.settings.subtext != blank -%}
-              <p class="newsletter__text">{{ block.settings.subtext | escape }}</p>
+            {%- if block.settings.title != blank -%}
+              <h2 class="heading h3 newsletter_title">{{ block.settings.title | escape }}</h2>
             {%- endif -%}
+
+            {%- if block.settings.content != blank -%}
+              <div class="rte newsletter_text sidebar_newsletter_text">
+                {{ block.settings.content }}
+              </div>
+            {%- endif -%}
+
+            {%- assign newsletter_id = 'newsletter-' | append: block.id -%}
+
+            <div class="newsletter newsletter--compact">
+              {%- form 'customer', id: newsletter_id, class: 'form newsletter__form' -%}
+                {%- if form.posted_successfully? -%}
+                  <p class="alert alert--success">Foi registado com sucesso na nossa newsletter!</p>
+                {%- else -%}
+                  {%- if form.errors -%}
+                    <p class="alert alert--error">{{ form.errors.messages.email }}</p>
+                  {%- endif -%}
+
+                  <input
+                    type="hidden"
+                    name="contact[tags]"
+                    value="newsletter"
+                  >
+
+                  <div class="form__input-wrapper form__input-wrapper--labelled">
+                    <input
+                      type="email"
+                      name="contact[email]"
+                      placeholder="Email"
+                      class="form__field form__field--text form__field--borderless form-no-padding"
+                      aria-label="{{ 'home_page.newsletter.input' | t }}"
+                      required
+                    >
+                    <label for="newsletter[contact][email]" class="form__floating-label">
+                      {{- 'home_page.newsletter.input' | t -}}
+                    </label>
+
+                    {%- if block.settings.text_gdpr != blank -%}
+                      <div class="gdpr_container">
+                        <input
+                          type="checkbox"
+                          id="accept_gdpr"
+                          name="accept_gdpr"
+                          value="Accept GDPR"
+                        >
+                        <label
+                          for="newsletter[contact][email]"
+                          class="rte newsletter_gdpr"
+                          required
+                        >
+                          {{- block.settings.text_gdpr -}}
+                        </label>
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <button
+                    id="newslettersubmit"
+                    type="submit"
+                    class="form__submit form__submit--tight button button--primary button--full"
+                  >
+                    {{ 'home_page.newsletter.submit' | t }}
+                  </button>
+
+                  <script type="text/javascript">
+                    $('#newslettersubmit').click(function () {
+                      fbq('track', 'Lead');
+                    });
+                  </script>
+                {%- endif -%}
+              {%- endform -%}
+
+              {%- if block.settings.subtext != blank -%}
+                <p class="newsletter__text">{{ block.settings.subtext | escape }}</p>
+              {%- endif -%}
+            </div>
           </div>
-        </div>
 
         {%- when 'featured_posts' -%}
-        <div
-          class="blog-sidebar__item blog-sidebar__item--posts"
-          id="block-{{ block.id }}"
-          {{ block.shopify_attributes }}>
-          {%- if block.settings.title != blank -%}
-            <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
-          {%- endif -%}
-
-          <ol class="blog-sidebar__post-list {% if block.settings.show_ranking %}blog-sidebar__post-list--ranked{% endif %}" role="list">
-            {%- assign show_placeholder = true -%}
-
-            {%- for i in (1..5) -%}
-              {%- assign article_option = 'article_' | append: i -%}
-              {%- assign article = articles[block.settings[article_option]] -%}
-
-              {%- unless article.empty? -%}
-                <li class="blog-sidebar__post-item">
-                  {%- if article.image -%}
-                    <a href="{{ article.url }}" class="blog-sidebar__post-image-wrapper">
-                      <div class="blog-sidebar__post-image-overflow">
-                        <img
-                          src="{{ article.image | img_url: '100x80', crop: 'center', scale: 2 }}"
-                          alt="{{ article.image.alt | escape }}"
-                          class="blog-sidebar__post-image">
-                      </div>
-                    </a>
-                  {%- endif -%}
-
-                  <div class="blog-sidebar__post-info">
-                    <a class="blog-sidebar__post-title text--strong link" href="{{ article.url }}">{{ article.title }}</a>
-
-                    {%- if block.settings.show_date or block.settings.show_category and article.tags.size > 0 -%}
-                      <div class="blog-sidebar__post-meta">
-                        {%- if block.settings.show_author -%}
-                          {%- for tag in article.tags -%}
-                            {% if tag contains 'author' %}
-                              {% assign author = tag | split: "_" %}
-                              <a href="{{ blog.handle }}/tagged/{{ tag | handle }}">{{ author[1] }},
-                              </a>
-                            {% endif %}
-                          {%- endfor -%}
-
-                        {%- endif -%}
-
-                        {%- if block.settings.show_date -%}
-                          <span>{{ article.published_at | date: "%d %b %Y" }}</span>
-                        {%- endif -%}
-                      </div>
-                    {%- endif -%}
-                  </div>
-                </li>
-
-                {%- assign show_placeholder = false -%}
-              {%- endunless -%}
-            {%- endfor -%}
-
-            {%- if show_placeholder -%}
-              {%- for i in (1..3) -%}
-                <li class="blog-sidebar__post-item">
-                  {%- if article.image -%}
-                    <a href="#" class="blog-sidebar__post-image-wrapper">
-                      <div class="blog-sidebar__post-image-overflow">
-                        {%- capture placeholder -%}
-                          {% cycle 'lifestyle-1', 'lifestyle-2' %}{%- endcapture -%}
-                        {{ placeholder | placeholder_svg_tag: 'blog-sidebar__post-placeholder placeholder-svg' }}
-                      </div>
-                    </a>
-                  {%- endif -%}
-
-                  <div class="blog-sidebar__post-info">
-                    <a class="blog-sidebar__post-title text--strong" href="#">{{ 'home_page.onboarding.article_title' | t }}</a>
-
-                    {%- if block.settings.show_date or block.settings.show_category -%}
-                      <div class="blog-sidebar__post-meta">
-                        {%- if block.settings.show_category -%}
-                          <span class="blog-sidebar__post-meta-item">{{ 'home_page.onboarding.article_category' | t }}</span>
-                        {%- endif -%}
-
-                        {%- if block.settings.show_date -%}
-                          <span class="blog-sidebar__post-meta-item">{{ 'now' | date: format: 'short_month_day_year' }}</span>
-                        {%- endif -%}
-                      </div>
-                    {%- endif -%}
-                  </div>
-                </li>
-              {%- endfor -%}
+          <div
+            class="blog-sidebar__item blog-sidebar__item--posts"
+            id="block-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.title != blank -%}
+              <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
             {%- endif -%}
-          </ol>
-        </div>
+
+            <ol
+              class="blog-sidebar__post-list {% if block.settings.show_ranking %}blog-sidebar__post-list--ranked{% endif %}"
+              role="list"
+            >
+              {%- assign show_placeholder = true -%}
+
+              {%- for i in (1..5) -%}
+                {%- assign article_option = 'article_' | append: i -%}
+                {%- assign article = articles[block.settings[article_option]] -%}
+
+                {%- unless article.empty? -%}
+                  <li class="blog-sidebar__post-item">
+                    {%- if article.image -%}
+                      <a href="{{ article.url }}" class="blog-sidebar__post-image-wrapper">
+                        <div class="blog-sidebar__post-image-overflow">
+                          <img
+                            src="{{ article.image | img_url: '100x80', crop: 'center', scale: 2 }}"
+                            alt="{{ article.image.alt | escape }}"
+                            class="blog-sidebar__post-image"
+                          >
+                        </div>
+                      </a>
+                    {%- endif -%}
+
+                    <div class="blog-sidebar__post-info">
+                      <a class="blog-sidebar__post-title text--strong link" href="{{ article.url }}">
+                        {{- article.title -}}
+                      </a>
+
+                      {%- if block.settings.show_date or block.settings.show_category and article.tags.size > 0 -%}
+                        <div class="blog-sidebar__post-meta">
+                          {%- if block.settings.show_author -%}
+                            {%- for tag in article.tags -%}
+                              {% if tag contains 'author' %}
+                                {% assign author = tag | split: '_' %}
+                                <a href="{{ blog.handle }}/tagged/{{ tag | handle }}">{{ author[1] }}, </a>
+                              {% endif %}
+                            {%- endfor -%}
+                          {%- endif -%}
+
+                          {%- if block.settings.show_date -%}
+                            {% assign meses = 'Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+                              | split: ', '
+                            %}
+                            {% assign mes_num = article.published_at | date: '%-m' | minus: 1 %}
+                            <span>
+                              {{- article.published_at | date: '%d' }}
+                              {{ meses[mes_num] }}
+                              {{ article.published_at | date: '%Y' -}}
+                            </span>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </li>
+
+                  {%- assign show_placeholder = false -%}
+                {%- endunless -%}
+              {%- endfor -%}
+
+              {%- if show_placeholder -%}
+                {%- for i in (1..3) -%}
+                  <li class="blog-sidebar__post-item">
+                    {%- if article.image -%}
+                      <a href="#" class="blog-sidebar__post-image-wrapper">
+                        <div class="blog-sidebar__post-image-overflow">
+                          {%- capture placeholder -%}
+                          {% cycle 'lifestyle-1', 'lifestyle-2' %}{%- endcapture -%}
+                          {{ placeholder | placeholder_svg_tag: 'blog-sidebar__post-placeholder placeholder-svg' }}
+                        </div>
+                      </a>
+                    {%- endif -%}
+
+                    <div class="blog-sidebar__post-info">
+                      <a class="blog-sidebar__post-title text--strong" href="#">
+                        {{- 'home_page.onboarding.article_title' | t -}}
+                      </a>
+
+                      {%- if block.settings.show_date or block.settings.show_category -%}
+                        <div class="blog-sidebar__post-meta">
+                          {%- if block.settings.show_category -%}
+                            <span class="blog-sidebar__post-meta-item">
+                              {{- 'home_page.onboarding.article_category' | t -}}
+                            </span>
+                          {%- endif -%}
+
+                          {%- if block.settings.show_date -%}
+                            <span class="blog-sidebar__post-meta-item">
+                              {{- 'now' | date: format: 'short_month_day_year' -}}
+                            </span>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </li>
+                {%- endfor -%}
+              {%- endif -%}
+            </ol>
+          </div>
 
         {%- when 'rich_text' -%}
-        <div
-          class="blog-sidebar__item blog-sidebar__item--text"
-          id="block-{{ block.id }}"
-          {{ block.shopify_attributes }}>
-          {%- if block.settings.title != blank -%}
-            <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
-          {%- endif -%}
+          <div
+            class="blog-sidebar__item blog-sidebar__item--text"
+            id="block-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.title != blank -%}
+              <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
 
-          {%- if block.settings.content != blank -%}
-            <div class="rte text--pull">
-              {{ block.settings.content }}
-            </div>
-          {%- endif -%}
-        </div>
-
-        {%- when 'featured_products' -%}
-        <div
-          class="blog-sidebar__item blog-sidebar__item--products"
-          id="block-{{ block.id }}"
-          {{ block.shopify_attributes }}>
-          {%- if block.settings.title != blank -%}
-            <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
-          {%- endif -%}
-
-          <div class="product-list product-list--horizontal">
-            {%- assign show_placeholder = true -%}
-
-            {%- for i in (1..3) -%}
-              {%- assign product_option = 'product_' | append: i -%}
-              {%- assign product = all_products[block.settings[product_option]] -%}
-
-              {%- unless product.empty? -%}
-                {% render 'product-item', product: product, horizontal: true %}
-                {%- assign show_placeholder = false -%}
-              {%- endunless -%}
-            {%- endfor -%}
-
-            {%- if show_placeholder -%}
-              {%- for i in (1..2) -%}
-                {% render 'product-item-placeholder', horizontal: true %}
-              {%- endfor -%}
+            {%- if block.settings.content != blank -%}
+              <div class="rte text--pull">
+                {{ block.settings.content }}
+              </div>
             {%- endif -%}
           </div>
-        </div>
+
+        {%- when 'featured_products' -%}
+          <div
+            class="blog-sidebar__item blog-sidebar__item--products"
+            id="block-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.title != blank -%}
+              <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
+
+            <div class="product-list product-list--horizontal">
+              {%- assign show_placeholder = true -%}
+
+              {%- for i in (1..3) -%}
+                {%- assign product_option = 'product_' | append: i -%}
+                {%- assign product = all_products[block.settings[product_option]] -%}
+
+                {%- unless product.empty? -%}
+                  {% render 'product-item', product: product, horizontal: true %}
+                  {%- assign show_placeholder = false -%}
+                {%- endunless -%}
+              {%- endfor -%}
+
+              {%- if show_placeholder -%}
+                {%- for i in (1..2) -%}
+                  {% render 'product-item-placeholder', horizontal: true %}
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </div>
 
         {%- when 'links' -%}
-        <div
-          class="blog-sidebar__item blog-sidebar__item--menu"
-          id="block-{{ block.id }}"
-          {{ block.shopify_attributes }}>
-          {%- assign menu = linklists[block.settings.menu] -%}
+          <div
+            class="blog-sidebar__item blog-sidebar__item--menu"
+            id="block-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- assign menu = linklists[block.settings.menu] -%}
 
-          {%- unless menu.empty? -%}
-            <p class="blog-sidebar__block-title heading h3">{{ menu.title }}</p>
+            {%- unless menu.empty? -%}
+              <p class="blog-sidebar__block-title heading h3">{{ menu.title }}</p>
 
-            <ul class="blog-sidebar__linklist" role="list">
-              {%- for link in menu.links -%}
-                <li class="blog-sidebar__link-item">
-                  <a href="{{ link.url }}" class="text--strong link">{{ link.title }}</a>
-                </li>
-              {%- endfor -%}
-            </ul>
-          {%- endunless -%}
-        </div>
+              <ul class="blog-sidebar__linklist" role="list">
+                {%- for link in menu.links -%}
+                  <li class="blog-sidebar__link-item">
+                    <a href="{{ link.url }}" class="text--strong link">{{ link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endunless -%}
+          </div>
 
         {%- when 'social_media' -%}
-        <div
-          class="blog-sidebar__item blog-sidebar__item--social"
-          id="block-{{ block.id }}"
-          {{ block.shopify_attributes }}>
-          {%- if block.settings.title != blank -%}
-            <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
-          {%- endif -%}
+          <div
+            class="blog-sidebar__item blog-sidebar__item--social"
+            id="block-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.title != blank -%}
+              <p class="blog-sidebar__block-title heading h3">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
 
-          {%- capture social_media -%}
+            {%- capture social_media -%}
             {% render 'social-media', show_social_media_name: false %}{%- endcapture -%}
 
-          {%- if social_media != blank -%}
-            <div class="blog-sidebar__social-list">
-              {{ social_media }}
-            </div>
-          {%- endif -%}
-        </div>
+            {%- if social_media != blank -%}
+              <div class="blog-sidebar__social-list">
+                {{ social_media }}
+              </div>
+            {%- endif -%}
+          </div>
 
         {%- when 'image' -%}
-        <div
-          class="blog-sidebar__item blog-sidebar__item--image"
-          id="block-{{ block.id }}"
-          {{ block.shopify_attributes }}>
-          {%- if block.settings.blog_sidebar_image_url != blank -%}
-            <a href="{{ block.settings.blog_sidebar_image_url  }}">
-            {%- endif -%}
-            <img src="{{ block.settings.blog_sidebar_image | img_url: 'master' }}" />
+          <div
+            class="blog-sidebar__item blog-sidebar__item--image"
+            id="block-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
             {%- if block.settings.blog_sidebar_image_url != blank -%}
-            </a>
-          {%- endif -%}
-        </div>
+              <a href="{{ block.settings.blog_sidebar_image_url  }}">
+            {%- endif -%}
+            <img src="{{ block.settings.blog_sidebar_image | img_url: 'master' }}">
+            {%- if block.settings.blog_sidebar_image_url != blank -%}
+              </a>
+            {%- endif -%}
+          </div>
 
         {%- when 'show_tags' -%}
           <div
             class="blog-sidebar__item blog-sidebar__item--tags"
             id="block-{{ block.id }}"
-            {{ block.shopify_attributes }}>
+            {{ block.shopify_attributes }}
+          >
             <p class="blog-sidebar__block-title heading h3">{{ block.settings.blog_sidebar_tags_title }}</p>
             {%- for tag in blog.all_tags -%}
-              {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao' %}
-                <li class="page__tag-item"><button class="button button--primary">{{ tag | link_to_tag: tag }}</button></li>
+              {% unless tag contains 'author'
+                or tag contains 'dificuldade'
+                or tag contains 'doses'
+                or tag contains 'duracao'
+              %}
+                <li class="page__tag-item">
+                  <button class="button button--primary">{{ tag | link_to_tag: tag }}</button>
+                </li>
               {% endunless %}
             {%- endfor -%}
           </div>
@@ -295,13 +340,14 @@
   </section>
 {%- else -%}
   {%- comment -%}
-  If sidebar is not visible, then we must do some adjustments to the grid of article (especially, we must change how many items per row are displayed).
-  Because Shopify sections are independent, I didn't find a better approach than changing it in JavaScript
-  {%- endcomment -%}<section data-section-id="{{ section.id }}" data-section-type="blog-sidebar">
+    If sidebar is not visible, then we must do some adjustments to the grid of article (especially, we must change how many items per row are displayed).
+    Because Shopify sections are independent, I didn't find a better approach than changing it in JavaScript
+  {%- endcomment -%}
+  <section data-section-id="{{ section.id }}" data-section-type="blog-sidebar">
     {%- if template.name == 'blog' -%}
       <script>
         document.querySelector('.blog-container').classList.add('blog-container--without-sidebar');
-        document.querySelectorAll('.shopify-section__blog-posts .block-list__item').forEach(function(item) {
+        document.querySelectorAll('.shopify-section__blog-posts .block-list__item').forEach(function (item) {
           if (item.classList.contains('1/2--lap-and-up')) {
             item.classList.remove('1/2--lap-and-up');
             item.classList.add('1/3--lap-and-up');
@@ -321,234 +367,256 @@
 {%- endif -%}
 
 {% schema %}
-  {
-    "name": "Blog sidebar",
-    "class": "shopify-section__blog-sidebar",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "show_on_mobile",
-        "label": "Show on mobile",
-        "default": true
-      }
-    ],
-    "blocks": [
-      {
-        "type": "newsletter",
-        "name": "Newsletter",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "paragraph",
-            "content": "Customers who subscribe will have their email address added to the \"accepts marketing\" [customer list](/admin/customers?query=&accepts_marketing=1)."
-          },
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Heading",
-            "default": "Join Us"
-          },
-          {
-            "type": "richtext",
-            "id": "content",
-            "label": "Text",
-            "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
-          },
-          {
-            "type": "richtext",
-            "id": "text_gdpr",
-            "label": "Text gdpr",
-            "default": "<p>Aceito a Política de Privacidade e os Termos e Condições</p>"
-          }, {
-            "type": "text",
-            "id": "subtext",
-            "label": "Sub-text",
-            "default": "100% free, Unsubscribe any time!"
-          }, {
-            "type": "color",
-            "id": "background",
-            "label": "Background",
-            "default": "#1e2d7d"
-          }, {
-            "type": "color",
-            "id": "text",
-            "label": "Text",
-            "default": "#ffffff"
-          }
-        ]
-      },
-      {
-        "type": "image",
-        "name": "Image",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "paragraph",
-            "content": "Show image with link"
-          }, {
-            "type": "image_picker",
-            "id": "blog_sidebar_image",
-            "label": "Image"
-          }, {
-            "type": "url",
-            "id": "blog_sidebar_image_url",
-            "label": "Image url"
-          }
-        ]
-      },
-      {
-        "type": "show_tags",
-        "name": "Show tags",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "text",
-            "id": "blog_sidebar_tags_title",
-            "label": "Heading",
-            "default": "Categorias"
-          }
-        ]
-      },
-      {
-        "type": "social_media",
-        "name": "Social media",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "paragraph",
-            "content": "Make sure to have properly configured your social media in the theme settings."
-          }, {
-            "type": "text",
-            "id": "title",
-            "label": "Heading",
-            "default": "Follow us"
-          }, {
-            "type": "checkbox",
-            "id": "show_rss",
-            "label": "Show RSS",
-            "default": true
-          }
-        ]
-      }, {
-        "type": "featured_posts",
-        "name": "Blog posts",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Heading",
-            "default": "Popular posts"
-          },
-          {
-            "type": "checkbox",
-            "id": "show_ranking",
-            "label": "Show ranking",
-            "default": true
-          },
-          {
-            "type": "checkbox",
-            "id": "show_category",
-            "label": "Show category",
-            "info": "The first article's tag will be shown as category.",
-            "default": true
-          },
-          {
-            "type": "checkbox",
-            "id": "show_author",
-            "label": "Show author",
-            "default": true
-          }, {
-            "type": "checkbox",
-            "id": "show_date",
-            "label": "Show date",
-            "default": true
-          }, {
-            "type": "article",
-            "id": "article_1",
-            "label": "Blog post 1"
-          }, {
-            "type": "article",
-            "id": "article_2",
-            "label": "Blog post 2"
-          }, {
-            "type": "article",
-            "id": "article_3",
-            "label": "Blog post 3"
-          }, {
-            "type": "article",
-            "id": "article_4",
-            "label": "Blog post 4"
-          }, {
-            "type": "article",
-            "id": "article_5",
-            "label": "Blog post 5"
-          }
-        ]
-      }, {
-        "type": "rich_text",
-        "name": "Rich text",
-        "limit": 2,
-        "settings": [
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Heading",
-            "default": "Your text"
-          }, {
-            "type": "richtext",
-            "id": "content",
-            "label": "Text",
-            "default": "<p>You can use this text to write about your brand.</p>"
-          }
-        ]
-      }, {
-        "type": "featured_products",
-        "name": "Featured products",
-        "limit": 1,
-        "settings": [
-          {
-            "type": "text",
-            "id": "title",
-            "label": "Heading",
-            "default": "Featured products"
-          }, {
-            "type": "product",
-            "id": "product_1",
-            "label": "Product 1"
-          }, {
-            "type": "product",
-            "id": "product_2",
-            "label": "Product 2"
-          }, {
-            "type": "product",
-            "id": "product_3",
-            "label": "Product 3"
-          }
-        ]
-      }, {
-        "type": "links",
-        "name": "Links",
-        "settings": [
-          {
-            "type": "link_list",
-            "id": "menu",
-            "label": "Menu",
-            "info": "This menu won't show dropdown items."
-          }
-        ]
-      }
-    ],
-    "default": {
-      "blocks": [
+{
+  "name": "Blog sidebar",
+  "class": "shopify-section__blog-sidebar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
         {
-          "type": "newsletter",
-          "settings": {}
-        }, {
-          "type": "social_media",
-          "settings": {}
+          "type": "paragraph",
+          "content": "Customers who subscribe will have their email address added to the \"accepts marketing\" [customer list](/admin/customers?query=&accepts_marketing=1)."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Join Us"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>A short sentence describing what someone will receive by subscribing</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text_gdpr",
+          "label": "Text gdpr",
+          "default": "<p>Aceito a Política de Privacidade e os Termos e Condições</p>"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Sub-text",
+          "default": "100% free, Unsubscribe any time!"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#1e2d7d"
+        },
+        {
+          "type": "color",
+          "id": "text",
+          "label": "Text",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Show image with link"
+        },
+        {
+          "type": "image_picker",
+          "id": "blog_sidebar_image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "blog_sidebar_image_url",
+          "label": "Image url"
+        }
+      ]
+    },
+    {
+      "type": "show_tags",
+      "name": "Show tags",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "blog_sidebar_tags_title",
+          "label": "Heading",
+          "default": "Categorias"
+        }
+      ]
+    },
+    {
+      "type": "social_media",
+      "name": "Social media",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Make sure to have properly configured your social media in the theme settings."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Follow us"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rss",
+          "label": "Show RSS",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "featured_posts",
+      "name": "Blog posts",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Popular posts"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_ranking",
+          "label": "Show ranking",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_category",
+          "label": "Show category",
+          "info": "The first article's tag will be shown as category.",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_author",
+          "label": "Show author",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_date",
+          "label": "Show date",
+          "default": true
+        },
+        {
+          "type": "article",
+          "id": "article_1",
+          "label": "Blog post 1"
+        },
+        {
+          "type": "article",
+          "id": "article_2",
+          "label": "Blog post 2"
+        },
+        {
+          "type": "article",
+          "id": "article_3",
+          "label": "Blog post 3"
+        },
+        {
+          "type": "article",
+          "id": "article_4",
+          "label": "Blog post 4"
+        },
+        {
+          "type": "article",
+          "id": "article_5",
+          "label": "Blog post 5"
+        }
+      ]
+    },
+    {
+      "type": "rich_text",
+      "name": "Rich text",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your text"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Text",
+          "default": "<p>You can use this text to write about your brand.</p>"
+        }
+      ]
+    },
+    {
+      "type": "featured_products",
+      "name": "Featured products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Featured products"
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product 3"
+        }
+      ]
+    },
+    {
+      "type": "links",
+      "name": "Links",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "This menu won't show dropdown items."
         }
       ]
     }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "newsletter",
+        "settings": {}
+      },
+      {
+        "type": "social_media",
+        "settings": {}
+      }
+    ]
   }
+}
 {% endschema %}

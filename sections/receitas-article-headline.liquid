@@ -1,0 +1,413 @@
+{% for tag in article.tags %}
+  {% if tag contains 'duracao' %}
+    {% assign duracao_receita = tag | split: '_' | last %}
+    {% continue %}
+  {% endif %}
+
+  {% if tag contains 'dificuldade' %}
+    {% assign dificuldade_receita = tag | split: '_' | last %}
+    {% continue %}
+  {% endif %}
+
+  {% if tag contains 'doses' %}
+    {% assign doses_receita = tag | split: '_' | last %}
+    {% continue %}
+  {% endif %}
+
+  {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao' %}
+    {% assign breadcrumb_route = tag %}
+    {% assign breadcrumb_route_handle = tag | handleize %}
+    {% continue %}
+  {% endunless %}
+{% endfor %}
+
+{%- comment -%}
+  1) Limpar a descrição para evitar quebras por tags HTML
+{%- endcomment -%}
+{% assign descricao = article.content | strip_html | replace: '&nbsp;', ' ' %}
+
+{%- comment -%}
+  Helper: corta a string em 'texto' no primeiro terminador que exista.
+  Uso:
+    - Definir texto base
+    - Iterar parando no primeiro terminador que ocorra
+{%- endcomment -%}
+{% assign terminadores_quebra = ';\n,\r,\n,\r\n' | split: ',' %}
+
+{%- comment -%}
+  ENERGIA
+{%- endcomment -%}
+{% if descricao contains 'Energia:' %}
+  {% assign energia_texto = descricao | split: 'Energia:' | last | strip %}
+  {%- assign energia_stops = ' kcal, kcal ,kcal ,kcal;,;,\n,\r,\r\n' | split: ',' -%}
+  {% assign energia_clean = energia_texto %}
+  {% for stop in energia_stops %}
+    {% if energia_clean contains stop %}
+      {% assign energia_clean = energia_clean | split: stop | first %}
+    {% endif %}
+  {% endfor %}
+  {% assign energia_clean = energia_clean | strip %}
+  {%- comment -%} Se ficar com o número sozinho, podemos voltar a juntar a unidade quando mostrarmos {%- endcomment -%}
+  {% assign energia_valor = energia_clean | remove: 'kcal' | strip %}
+{% endif %}
+
+{%- comment -%}
+  HIDRATOS DE CARBONO
+{%- endcomment -%}
+{% if descricao contains 'Hidratos de Carbono:' %}
+  {% assign hc_texto = descricao | split: 'Hidratos de Carbono:' | last | strip %}
+  {%- assign hc_stops = ' g, g ,g ,g;,;,\n,\r,\r\n' | split: ',' -%}
+  {% assign hc_clean = hc_texto %}
+  {% for stop in hc_stops %}
+    {% if hc_clean contains stop %}
+      {% assign hc_clean = hc_clean | split: stop | first %}
+    {% endif %}
+  {% endfor %}
+  {% assign hidratos_valor = hc_clean | remove: 'g' | strip %}
+{% endif %}
+
+{%- comment -%}
+  PROTEÍNAS
+{%- endcomment -%}
+{% if descricao contains 'Proteínas:' %}
+  {% assign prot_texto = descricao | split: 'Proteínas:' | last | strip %}
+  {%- assign prot_stops = ' g, g ,g ,g;,;,\n,\r,\r\n' | split: ',' -%}
+  {% assign prot_clean = prot_texto %}
+  {% for stop in prot_stops %}
+    {% if prot_clean contains stop %}
+      {% assign prot_clean = prot_clean | split: stop | first %}
+    {% endif %}
+  {% endfor %}
+  {% assign proteinas_valor = prot_clean | remove: 'g' | strip %}
+{% endif %}
+
+{%- comment -%}
+  GORDURAS — pode não ter ';' no fim; parar em ' g' ou quebra de linha
+{%- endcomment -%}
+{% if descricao contains 'Gorduras:' %}
+  {% assign gord_texto = descricao | split: 'Gorduras:' | last | strip %}
+  {%- assign gord_stops = ' g, g ,g ,g;,;,\n,\r,\r\n' | split: ',' -%}
+  {% assign gord_clean = gord_texto %}
+  {% for stop in gord_stops %}
+    {% if gord_clean contains stop %}
+      {% assign gord_clean = gord_clean | split: stop | first %}
+    {% endif %}
+  {% endfor %}
+  {% assign gorduras_valor = gord_clean | remove: 'g' | strip %}
+{% endif %}
+
+<style>
+  #receitas-headline-custom-article {
+    display: grid;
+    {% unless article.image == blank %}
+      grid-template-columns: repeat(2, 1fr);
+    {% endunless %}
+  }
+
+  #receitas-headline-custom-article > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 4rem;
+    padding: 2rem 2rem 2rem var(--desktop-container-gutter);
+    background-color: #25843914;
+  }
+
+  @media screen and (min-width: 1499px) { #receitas-headline-custom-article > div { padding: 2rem 2rem 2rem 9vw; } }
+  @media screen and (min-width: 2559px) { #receitas-headline-custom-article > div { padding: 2rem 2rem 2rem 18vw; } }
+
+  #receitas-headline-custom-article > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #receitas-headline-custom-article > div > nav {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  #receitas-headline-custom-article > div > nav svg.chevron {
+    width: 16px;
+    height: 16px;
+    transform: translateY(1px);
+  }
+
+  #receitas-headline-custom-article > div > nav > a {
+    text-decoration: underline;
+  }
+
+  #receitas-headline-custom-article > div > nav > a:last-child {
+    color: #258439;
+    margin: 0;
+  }
+
+  #receitas-headline-custom-article > div > div {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    align-content: space-between;
+    gap: 3rem;
+  }
+
+  #receitas-headline-custom-article > div > div > h1 {
+    font-size: 2rem;
+    font-weight: 700 !important;
+    padding: 0;
+    margin: 0;
+    line-height: normal;
+  }
+
+  #article_info_custom_headline {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+  }
+
+  #article_info_custom_headline > ul {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 1rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #article_info_custom_headline > ul > li {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.35rem;
+    padding: 0;
+    margin: 0;
+    font-weight: 700 !important;
+    align-items: center;
+  }
+
+  #valor_porcao_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.35rem;
+  }
+
+  #valor_porcao_custom > div {
+    background-color: white;
+    padding: 1.25rem 2rem;
+    border-radius: 1rem;
+    justify-content: center;
+    display: grid;
+    width: max-content;
+  }
+
+  #valor_porcao_custom > span {
+    font-weight: 700 !important;
+  }
+
+  #valor_porcao_custom > div > ul {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  #valor_porcao_custom > div > ul > li {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.35rem;
+    padding: 0;
+    margin: 0;
+    font-weight: 700 !important;
+    align-items: center;
+  }
+
+  #valor_porcao_custom > div > ul > li > span {
+    color: #258439;
+  }
+
+  #valor_porcao_custom > div > ul > li > p {
+    padding: 0;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #receitas-headline-custom-article {
+      display: grid;
+      {% unless article.image == blank %}
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+      {% endunless %}
+    }
+
+    #receitas-headline-custom-article > div {
+      padding: 1rem var(--mobile-container-gutter);
+      gap: 2rem;
+    }
+
+    #receitas-headline-custom-article > div > div > h1 {
+      font-size: 1.5rem;
+    }
+
+    #valor_porcao_custom > div {
+      width: 100%;
+      justify-content: unset;
+      padding: 0.5rem;
+    }
+
+    #valor_porcao_custom > div > ul {
+      grid-template-columns: repeat(2, max-content);
+      grid-auto-columns: unset;
+      grid-auto-flow: unset;
+      justify-items: left;
+      justify-content: center;
+    }
+
+    #receitas-headline-custom-article > div > div {
+      gap: 2rem;
+    }
+  }
+</style>
+
+<section id="receitas-headline-custom-article">
+  <div>
+    <nav>
+      <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+      <svg class="chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <a href="{{ blog.url }}">{{ blog.title }}</a>
+      {% unless breadcrumb_route == blank %}
+        <svg
+          class="chevron"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <a href="/pages/blog-categories#{{ breadcrumb_route_handle }}">{{ breadcrumb_route }}</a>
+      {% endunless %}
+    </nav>
+
+    <div>
+      <h1>{{ article.title }}</h1>
+
+      <div id="article_info_custom_headline">
+        <ul>
+          {% unless duracao_receita == blank %}
+            <li>
+              <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_2028_9311" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
+                <rect x="0.671875" y="0.292969" width="24" height="24" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_2028_9311)">
+                <path d="M12.6701 21.7912C11.4906 21.7912 10.3855 21.5681 9.35484 21.1219C8.32401 20.6758 7.42526 20.0694 6.65859 19.3027C5.89193 18.536 5.28551 17.6373 4.83934 16.6064C4.39318 15.5758 4.17009 14.4707 4.17009 13.2912C4.17009 12.1117 4.39318 11.0066 4.83934 9.97594C5.28551 8.94511 5.89193 8.04635 6.65859 7.27969C7.42526 6.51302 8.32401 5.90661 9.35484 5.46044C10.3855 5.01427 11.4906 4.79119 12.6701 4.79119C13.8496 4.79119 14.9547 5.01427 15.9853 5.46044C17.0162 5.90661 17.9149 6.51302 18.6816 7.27969C19.4483 8.04635 20.0547 8.94511 20.5008 9.97594C20.947 11.0066 21.1701 12.1117 21.1701 13.2912C21.1701 14.4707 20.947 15.5758 20.5008 16.6064C20.0547 17.6373 19.4483 18.536 18.6816 19.3027C17.9149 20.0694 17.0162 20.6758 15.9853 21.1219C14.9547 21.5681 13.8496 21.7912 12.6701 21.7912ZM15.6431 17.3182L16.6971 16.2642L13.4201 12.9874V8.29119H11.9201V13.5949L15.6431 17.3182ZM6.42384 3.17969L7.47784 4.23344L3.61234 8.09894L2.55859 7.04494L6.42384 3.17969ZM18.9163 3.17969L22.7816 7.04494L21.7278 8.09894L17.8623 4.23344L18.9163 3.17969ZM12.6701 20.2912C14.6138 20.2912 16.2663 19.6104 17.6278 18.2489C18.9893 16.8874 19.6701 15.2349 19.6701 13.2912C19.6701 11.3475 18.9893 9.69494 17.6278 8.33344C16.2663 6.97194 14.6138 6.29119 12.6701 6.29119C10.7264 6.29119 9.07384 6.97194 7.71234 8.33344C6.35084 9.69494 5.67009 11.3475 5.67009 13.2912C5.67009 15.2349 6.35084 16.8874 7.71234 18.2489C9.07384 19.6104 10.7264 20.2912 12.6701 20.2912Z" fill="#258439"/>
+                </g>
+              </svg>
+
+              <span>{{ duracao_receita }} min</span>
+            </li>
+          {% endunless %}
+
+          {% unless dificuldade_receita == blank %}
+            <li>
+              <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_2028_9301" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
+                <rect x="0.671875" y="0.292969" width="24" height="24" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_2028_9301)">
+                <path d="M5.62588 10.6007C5.78221 10.0264 5.78437 9.50905 5.63238 9.04872C5.48054 8.58855 5.20338 8.08664 4.80088 7.54297C4.30204 6.8828 3.96996 6.27447 3.80462 5.71797C3.63929 5.16164 3.59887 4.51997 3.68338 3.79297H5.16237C5.06737 4.3878 5.07538 4.89488 5.18638 5.31422C5.29721 5.73338 5.55396 6.2148 5.95662 6.75847C6.50646 7.48014 6.86413 8.11922 7.02962 8.67572C7.19496 9.23205 7.21996 9.87372 7.10462 10.6007H5.62588ZM9.58738 10.6007C9.74371 10.0264 9.74846 9.50905 9.60162 9.04872C9.45496 8.58855 9.18029 8.08664 8.77763 7.54297C8.27896 6.8828 7.94437 6.27447 7.77387 5.71797C7.60337 5.16164 7.56038 4.51997 7.64488 3.79297H9.12387C9.02887 4.3878 9.03688 4.89488 9.14788 5.31422C9.25871 5.73338 9.51546 6.2148 9.91813 6.75847C10.4681 7.48014 10.8258 8.11922 10.9911 8.67572C11.1565 9.23205 11.1815 9.87372 11.0661 10.6007H9.58738ZM13.5874 10.6007C13.7437 10.0264 13.7469 9.50905 13.5969 9.04872C13.4469 8.58855 13.1706 8.08664 12.7681 7.54297C12.2693 6.8828 11.9363 6.27447 11.7691 5.71797C11.6018 5.16164 11.5604 4.51997 11.6449 3.79297H13.1239C13.0289 4.3878 13.0369 4.89488 13.1479 5.31422C13.2587 5.73338 13.5155 6.2148 13.9181 6.75847C14.4681 7.48014 14.8258 8.11922 14.9911 8.67572C15.1565 9.23205 15.1815 9.87372 15.0661 10.6007H13.5874ZM5.67188 19.793C4.97321 19.793 4.38187 19.551 3.89787 19.067C3.41387 18.583 3.17188 17.9916 3.17188 17.293V12.793H16.6874C16.7385 12.2583 16.9299 11.7849 17.2614 11.3727C17.5927 10.9606 18.0122 10.6692 18.5199 10.4987L22.9334 9.01622L23.4046 10.4352L18.9911 11.918C18.7463 11.9975 18.5485 12.144 18.3979 12.3575C18.2472 12.571 18.1719 12.8085 18.1719 13.07V17.293C18.1719 17.9853 17.9299 18.5751 17.4459 19.0622C16.9619 19.5494 16.3705 19.793 15.6719 19.793H5.67188ZM5.67188 18.293H15.6719C15.9552 18.293 16.1927 18.1971 16.3844 18.0055C16.576 17.8138 16.6719 17.5763 16.6719 17.293V14.293H4.67188V17.293C4.67188 17.5763 4.76771 17.8138 4.95938 18.0055C5.15104 18.1971 5.38854 18.293 5.67188 18.293Z" fill="#258439"/>
+                </g>
+              </svg>
+
+              <span style="text-transform: capitalize;">{{ dificuldade_receita }}</span>
+            </li>
+          {% endunless %}
+
+          {% unless doses_receita == blank %}
+            <li>
+              <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_2028_9306" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
+                <rect x="0.671875" y="0.292969" width="24" height="24" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_2028_9306)">
+                <path d="M3.28516 18.4824V16.9824H22.0542V18.4824H3.28516ZM4.16966 15.7902V15.1747C4.16966 13.1247 4.83182 11.3328 6.15616 9.79894C7.48049 8.26494 9.15166 7.31969 11.1697 6.96319V6.61719C11.1697 6.20819 11.3174 5.85594 11.6129 5.56044C11.9084 5.26494 12.2607 5.11719 12.6697 5.11719C13.0787 5.11719 13.4309 5.26494 13.7264 5.56044C14.0219 5.85594 14.1697 6.20819 14.1697 6.61719V6.96319C16.1978 7.31969 17.8715 8.26494 19.1907 9.79894C20.51 11.3328 21.1697 13.1247 21.1697 15.1747V15.7902H4.16966ZM5.72916 14.2902H19.6102C19.4152 12.6082 18.6529 11.1909 17.3234 10.0382C15.9939 8.88569 14.4427 8.30944 12.6697 8.30944C10.8967 8.30944 9.34791 8.88569 8.02341 10.0382C6.69907 11.1909 5.93432 12.6082 5.72916 14.2902Z" fill="#258439"/>
+                </g>
+              </svg>
+
+              <span>{{ doses_receita }}</span>
+            </li>
+          {% endunless %}
+        </ul>
+      </div>
+
+      {% if energia_valor or hidratos_valor or proteinas_valor or gorduras_valor %}
+        <div id="valor_porcao_custom">
+          <span>Valor Médio por Porção</span>
+
+          <div>
+            <ul>
+              {% unless energia_valor == blank %}
+                <li>
+                  <p>Energia:</p>
+                  <span>{{ energia_valor }} kcal</span>
+                </li>
+              {% endunless %}
+
+              {% unless hidratos_valor == blank %}
+                <li>
+                  <p>Hidratos:</p>
+                  <span>{{ hidratos_valor }} g</span>
+                </li>
+              {% endunless %}
+
+              {% unless proteinas_valor == blank %}
+                <li>
+                  <p>Proteínas:</p>
+                  <span>{{ proteinas_valor }} g</span>
+                </li>
+              {% endunless %}
+
+              {% unless gorduras_valor == blank %}
+                <li>
+                  <p>Gorduras:</p>
+                  <span>{{ gorduras_valor }} g</span>
+                </li>
+              {% endunless %}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% unless article.image == blank %}
+    <img
+      src="{{ article.image | img_url: 'master' }}"
+      alt="{{ article.image.alt }}"
+      width="auto"
+      height="auto"
+    >
+  {% endunless %}
+</section>
+
+{% schema %}
+{
+  "name": "Receitas headline",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Receitas headline",
+      "category": "blog"
+    }
+  ]
+}
+{% endschema %}

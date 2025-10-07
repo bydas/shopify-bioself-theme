@@ -1,27 +1,27 @@
 <style>
-  #blog_consultas_custom {
+  #blog_visitas_custom {
     display: grid;
     grid-auto-columns: 1fr;
     grid-auto-flow: column;
     gap: 1rem;
     margin: 4rem var(--desktop-container-gutter);
-    background-color: #ffbb12;
+    background-color: #258439;
     border-radius: 1rem;
   }
 
   @media screen and (min-width: 1499px) {
-    #blog_consultas_custom {
+    #blog_visitas_custom {
       margin: 4rem 9vw;
     }
   }
 
   @media screen and (min-width: 2559px) {
-    #blog_consultas_custom {
+    #blog_visitas_custom {
       margin: 4rem 18vw;
     }
   }
 
-  #blog_consultas_custom > div {
+  #blog_visitas_custom > div {
     display: grid;
     grid-auto-rows: max-content;
     grid-auto-flow: row;
@@ -31,33 +31,38 @@
     text-align: center;
   }
 
-  #blog_consultas_custom > div > h1,
-  #blog_consultas_custom > div > h3,
-  #blog_consultas_custom > div > p {
+  #blog_visitas_custom > div > h1,
+  #blog_visitas_custom > div > h3,
+  #blog_visitas_custom > div > p {
     padding: 0;
     margin: 0;
     line-height: normal;
+    color: white;
   }
 
-  #blog_consultas_custom > div > h3 {
+  #blog_visitas_custom > div > img {
+    justify-self: center;
+  }
+
+  #blog_visitas_custom > div > h3 {
     font-size: 1.75rem;
   }
 
-  #blog_consultas_custom > div > h1 {
-    font-size: 2.75rem;
+  #blog_visitas_custom > div > h1 {
+    font-size: 2.5rem;
     font-weight: 900 !important;
   }
 
-  #blog_consultas_custom > div > p {
+  #blog_visitas_custom > div > p {
     font-size: 1.25rem;
     font-weight: 500 !important;
   }
 
-  #blog_consultas_custom > div > a {
+  #blog_visitas_custom > div > a {
     color: white;
     padding: 0.5rem 2rem;
     text-transform: uppercase;
-    background-color: #258439;
+    background-color: #ffbb12;
     width: max-content;
     justify-self: center;
     border-radius: 0.5rem;
@@ -65,117 +70,137 @@
     font-weight: 700 !important;
     border: 1px solid transparent;
     transition: all 0.15s ease;
-  }
-
-  #blog_consultas_custom > div > a:hover {
-    border-color: #258439;
-    background-color: transparent;
     color: black;
   }
 
-  #blog_consultas_custom > picture > img {
+  #blog_visitas_custom > div > a:hover {
+    border-color: #ffbb12;
+    background-color: transparent;
+    color: white;
+  }
+
+  #blog_visitas_custom > picture > img {
     width: 100%;
+    border-radius: 0 1rem 1rem 0;
     height: 100%;
     object-fit: cover;
-    border-radius: 0 1rem 1rem 0;
+  }
+
+  @media screen and (min-width: 1001px) {
+    #blog_visitas_custom > picture > img {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 C10,75 20,25 20,0 L100,0 L100,100 Z' fill='black'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 C10,75 20,25 20,0 L100,0 L100,100 Z' fill='black'/%3E%3C/svg%3E");
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+    }
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1350px) {
-    #blog_consultas_custom > div {
+    #blog_visitas_custom > div {
       gap: 1rem;
     }
 
-    #blog_consultas_custom > div > h3 {
+    #blog_visitas_custom > div > h3 {
       font-size: 1.5rem;
     }
 
-    #blog_consultas_custom > div > h1 {
+    #blog_visitas_custom > div > h1 {
       font-size: 2rem;
     }
 
-    #blog_consultas_custom > div > p {
+    #blog_visitas_custom > div > p {
       font-size: 1.125rem;
     }
 
-    #blog_consultas_custom > div > a {
+    #blog_visitas_custom > div > a {
       font-size: 1rem;
     }
   }
 
   @media screen and (max-width: 1349px) and (min-width: 1000px) {
-    #blog_consultas_custom > div {
+    #blog_visitas_custom > div {
       gap: 1rem;
     }
 
-    #blog_consultas_custom > div > h3 {
+    #blog_visitas_custom > div > h3 {
       font-size: 1.25rem;
     }
 
-    #blog_consultas_custom > div > h1 {
+    #blog_visitas_custom > div > h1 {
       font-size: 1.5rem;
     }
 
-    #blog_consultas_custom > div > p {
+    #blog_visitas_custom > div > p {
       font-size: 1rem;
     }
 
-    #blog_consultas_custom > div > a {
-      font-size: 1rem;
+    #blog_visitas_custom > div > a {
+      font-size: 0.875rem;
     }
   }
 
   @media screen and (max-width: 1000px) {
-    #blog_consultas_custom {
+    #blog_visitas_custom {
       grid-auto-rows: max-content;
       grid-auto-flow: row;
       margin: 2rem var(--mobile-container-gutter);
     }
 
-    #blog_consultas_custom > picture {
+    #blog_visitas_custom > picture {
       order: 1;
     }
 
-    #blog_consultas_custom > div > h3 {
+    #blog_visitas_custom > div > h3 {
       font-size: 1.25rem;
     }
 
-    #blog_consultas_custom > div > h1 {
+    #blog_visitas_custom > div > h1 {
       font-size: 2rem;
     }
 
-    #blog_consultas_custom > div > a {
+    #blog_visitas_custom > div > a {
       padding: 0.5rem 1rem;
     }
 
-    #blog_consultas_custom > picture > img {
+    #blog_visitas_custom > picture > img {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L0,100 C25,80 75,80 100,100 L100,0 Z' fill='black'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L0,100 C25,80 75,80 100,100 L100,0 Z' fill='black'/%3E%3C/svg%3E");
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
       border-radius: 1rem 1rem 0 0;
     }
 
-    #blog_consultas_custom > div {
+    #blog_visitas_custom > div {
+      padding-top: 0;
       order: 2;
     }
   }
 
   @media screen and (max-width: 369px) {
-    #blog_consultas_custom > div {
+    #blog_visitas_custom > div {
       padding: 1rem;
     }
 
-    #blog_consultas_custom > div > h1 {
+    #blog_visitas_custom > div > h1 {
       font-size: 1.5rem;
     }
 
-    #blog_consultas_custom > div > p,
-    #blog_consultas_custom > div > a {
+    #blog_visitas_custom > div > p,
+    #blog_visitas_custom > div > a {
       font-size: 0.875rem;
     }
   }
 </style>
 
-<section id="blog_consultas_custom">
+<section id="blog_visitas_custom">
   <div>
-    {% unless section.settings.title == blank %}
-      <h3>{{ section.settings.title }}</h3>
+    {% unless section.settings.logo == blank %}
+      <img
+        src="{{ section.settings.logo | img_url: 'master' }}"
+        alt="Logo"
+        width="auto"
+        height="auto"
+      >
     {% endunless %}
 
     {% unless section.settings.description == blank %}
@@ -206,12 +231,12 @@
 
 {% schema %}
 {
-  "name": "Blog consultas",
+  "name": "Blog visita",
   "settings": [
     {
-      "type": "text",
-      "id": "title",
-      "label": "Título"
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Selecione a imagem"
     },
     {
       "type": "richtext",
@@ -246,7 +271,7 @@
   ],
   "presets": [
     {
-      "name": "Blog consultas",
+      "name": "Blog visita",
       "category": "Blog"
     }
   ]

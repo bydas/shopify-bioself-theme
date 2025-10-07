@@ -568,11 +568,111 @@
         border: none !important;
       }
 
+      {% if customer and customer.accepts_marketing %}
+        .already_accepted_newsletter {
+          display: grid;
+        }
+
+        .newsletter_custom_form {
+          display: none;
+        }
+      {% else %}
+        .already_accepted_newsletter,
+        .newsletter_custom_form {
+          display: none;
+        }
+      {% endif %}
+
+      .already_accepted_newsletter {
+        text-align: center;
+        padding: 1rem;
+        background-color: #88a44e33;
+        border-radius: 0.65rem;
+        margin: 1rem 10vw;
+        border: 1px solid #308a36;
+      }
+
+      .already_accepted_newsletter span {
+        line-height: normal;
+        font-size: 1.1rem;
+        color: #308a36;
+      }
+
       @media screen and (max-width: 1000px) {
         .bbcomments-block {
           margin: 1rem var(--mobile-container-gutter) !important;
         }
+
+        .already_accepted_newsletter {
+          margin: 1rem;
+        }
       }
     </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const hasSubmitted = localStorage.getItem('newsletterSubmitted') === 'true';
+
+        const formsDetails = document.querySelectorAll('.newsletter_custom_form');
+        formsDetails.forEach((f) => (f.style.display = hasSubmitted ? 'none' : 'grid'));
+
+        const formsMessages = document.querySelectorAll('.already_accepted_newsletter');
+        formsMessages.forEach((f) => (f.style.display = hasSubmitted ? 'grid' : 'none'));
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        desktopSections = document.querySelectorAll('#newsletter_custom');
+
+        desktopSections.forEach((desktopSection) => {
+          const desktopImg = desktopSection.querySelector('svg');
+          desktopImg?.addEventListener('click', function () {
+            desktopSection.remove();
+          });
+
+          const desktopForm = desktopSection.querySelector('form');
+          desktopForm?.addEventListener('submit', function () {
+            localStorage.setItem('newsletterSubmitted', 'true');
+          });
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const mobileSections = document.querySelectorAll('#newsletter_custom_mobile');
+
+        mobileSections.forEach((mobileSection) => {
+          const mobileImg = mobileSection.querySelector('svg');
+          mobileImg?.addEventListener('click', () => {
+            mobileSection.remove();
+          });
+
+          const mobileForm = mobileSection.querySelector('form');
+          mobileForm?.addEventListener('submit', function () {
+            localStorage.setItem('newsletterSubmitted', 'true');
+          });
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const mobileUniqueSections = document.querySelectorAll('#newsletter_custom_mobile_1');
+
+        mobileUniqueSections.forEach((mobileUniqueSection) => {
+          const mobileImg = mobileUniqueSection.querySelector('svg');
+          mobileImg?.addEventListener('click', () => {
+            mobileUniqueSection.remove();
+          });
+
+          const mobileForm = mobileUniqueSection.querySelector('form');
+          mobileForm?.addEventListener('submit', function () {
+            localStorage.setItem('newsletterSubmitted', 'true');
+          });
+        });
+      });
+    </script>
   </body>
 </html>

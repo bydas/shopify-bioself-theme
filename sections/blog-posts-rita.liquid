@@ -1,0 +1,398 @@
+<style>
+  #blog_posts_customRita {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 2rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #blog_posts_customRita > h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    text-align: left;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+
+  #blogPostsListRita {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #blogPostsListRita > li {
+    display: grid;
+    padding: 0;
+    margin: 0;
+  }
+
+  #blogPostsListRita > li > a {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    border-radius: 1rem;
+    border: 1px solid #258439;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #blogPostsListRita > li > a > span {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+  }
+
+  #blogPostsListRita > li > a:hover {
+    transform: translateY(-10px);
+  }
+
+  #blogPostsListRita > li > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  #blogPostsListRita > li > a > h4 {
+    padding: 1rem;
+    font-weight: 700 !important;
+    font-size: 1.25rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  #loadMoreBtnRita {
+    border: 1px solid #258439;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #258439;
+    font-weight: 700 !important;
+    font-size: 1.25rem;
+    cursor: pointer;
+    width: max-content;
+    justify-self: center;
+    transition: all 0.15s ease;
+    background-color: transparent;
+  }
+
+  #loadMoreBtnRita:hover {
+    background-color: #258439;
+    color: white;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #blog_posts_customRita > h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    #blog_posts_customRita {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #blog_posts_customRita {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #blog_posts_customRita {
+      margin: 1rem var(--mobile-container-gutter);
+    }
+
+    #blog_posts_customRita > h1 {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 415px) {
+    #blogPostsListRita {
+      grid-auto-rows: max-content;
+      grid-auto-flow: row;
+      grid-template-columns: unset;
+    }
+  }
+
+  #blogContainer {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+  }
+
+  #blogContainer > ul > li > a > div > div > span {
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+    width: max-content;
+  }
+
+  #blogContainer > ul > li > a > div > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  #blogContainer > ul > li > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  @media screen and (max-width: 369px) {
+    #blogContainer > ul > li > a > div > div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section
+  id="blog_posts_customRita"
+  data-blog-handle="{{ section.settings.selected-blog.handle }}"
+>
+  {% unless section.settings.title == blank %}
+    <h1>{{ section.settings.title }}</h1>
+  {% endunless %}
+
+  <div id="blogContainer">
+    <ul id="blogPostsListRita"></ul>
+
+    <div id="loadMoreWrapperRita">
+      <button id="loadMoreBtnRita" style="display:none;">
+        {{ section.settings.btn_text }}
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Elementos DOM
+    const section = document.getElementById('blog_posts_customRita');
+    const blogPostsListRita = document.getElementById('blogPostsListRita');
+    const loadMoreBtnRita = document.getElementById('loadMoreBtnRita');
+    const loadMoreWrapperRita = document.getElementById('loadMoreWrapperRita');
+
+    // Dados da seção
+    const blogHandle = section.dataset.blogHandle;
+    const authorName = 'Rita Silva';
+    let endCursor = null;
+    let hasNextPage = false;
+
+    // Configuração da GraphQL
+    const storefrontAccessToken = 'bfe1eb076dd1eeff39af26ba722acebf';
+    const graphqlEndpoint = '/api/2023-07/graphql.json';
+
+    // Função para buscar artigos via GraphQL
+    async function fetchArticles() {
+      const query = `
+      query GetBlogArticles($blogHandle: String!, $first: Int!, $after: String, $query: String) {
+        blog(handle: $blogHandle) {
+          articles(
+            first: $first
+            after: $after
+            query: $query
+            reverse: true
+          ) {
+            edges {
+              cursor
+              node {
+                title
+                onlineStoreUrl
+                image {
+                  url(transform: { maxWidth: 800 })
+                }
+                tags
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+          }
+        }
+      }
+    `;
+
+      const variables = {
+        blogHandle: blogHandle,
+        first: 4,
+        after: endCursor,
+        query: `author:${authorName}`,
+      };
+
+      try {
+        const response = await fetch(graphqlEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+          },
+          body: JSON.stringify({ query, variables }),
+        });
+
+        const { data, errors } = await response.json();
+
+        if (errors) {
+          throw new Error(errors.map((e) => e.message).join(', '));
+        }
+
+        return data.blog.articles;
+      } catch (error) {
+        console.error('GraphQL Error:', error);
+        throw error;
+      }
+    }
+
+    // Função para renderizar artigos
+    function renderArticles(articles) {
+      articles.forEach((article) => {
+        // Encontrar a primeira tag válida
+        let postTag = '';
+        article.node.tags.find((tag) => {
+          if (
+            !tag.includes('author') &&
+            !tag.includes('dificuldade') &&
+            !tag.includes('doses') &&
+            !tag.includes('duracao')
+          ) {
+            postTag = tag;
+            return true;
+          }
+          return false;
+        });
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+        <a href="${article.node.onlineStoreUrl}">
+          <div style="background-size: cover;background-position: center center;background-image: url(${
+            article.node.image?.url || 'https://via.placeholder.com/800x600?text=Sem+imagem'
+          })">
+            <div>
+              ${postTag ? `<span>${postTag}</span>` : ''}
+              {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
+            </div>
+          </div>
+          <h4>${article.node.title}</h4>
+        </a>
+      `;
+        blogPostsListRita.appendChild(li);
+      });
+    }
+
+    // Carregar artigos iniciais
+    async function loadInitialArticles() {
+      try {
+        const articlesData = await fetchArticles();
+        const articles = articlesData.edges;
+
+        if (articles.length > 0) {
+          renderArticles(articles);
+          loadMoreBtnRita.style.display = 'block';
+        } else {
+          blogPostsListRita.innerHTML = '<p>Nenhum artigo encontrado</p>';
+        }
+
+        // Atualizar estado da paginação
+        hasNextPage = articlesData.pageInfo.hasNextPage;
+        endCursor = articlesData.pageInfo.endCursor;
+
+        // Esconder botão se não houver mais artigos
+        if (!hasNextPage) {
+          loadMoreBtnRita.style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error loading articles:', error);
+        blogPostsListRita.innerHTML = '<p>Erro ao carregar artigos</p>';
+      }
+    }
+
+    // Carregar mais artigos
+    async function loadMoreArticles() {
+      loadMoreBtnRita.disabled = true;
+      loadMoreBtnRita.textContent = 'Carregando...';
+
+      try {
+        const articlesData = await fetchArticles();
+        renderArticles(articlesData.edges);
+
+        // Atualizar estado da paginação
+        hasNextPage = articlesData.pageInfo.hasNextPage;
+        endCursor = articlesData.pageInfo.endCursor;
+
+        // Esconder botão se não houver mais artigos
+        if (!hasNextPage) {
+          loadMoreBtnRita.style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error loading more articles:', error);
+        loadMoreWrapperRita.innerHTML = '<p>Erro ao carregar mais artigos</p>';
+      } finally {
+        loadMoreBtnRita.disabled = false;
+        loadMoreBtnRita.textContent = '{{ section.settings.btn_text | escape }}';
+      }
+    }
+
+    // Iniciar carregamento
+    loadInitialArticles();
+
+    // Evento do botão
+    loadMoreBtnRita.addEventListener('click', loadMoreArticles);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Blog posts rita",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "image_picker",
+      "id": "selected_img",
+      "label": "Imagem da Rita"
+    },
+    {
+      "type": "blog",
+      "id": "selected-blog",
+      "label": "Selecione o blog"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Texto do botão",
+      "default": "Ver mais publicações"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts rita",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,707 @@
+<style>
+  #blog_custom_page_navigation {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #blog_custom_page_navigation > nav {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  #blog_custom_page_navigation > nav svg.chevron {
+    width: 18px;
+    height: 18px;
+    transform: translateY(1px);
+  }
+
+  #blog_custom_page_navigation > nav > a {
+    text-decoration: underline;
+  }
+  #blog_custom_page_navigation > nav > p {
+    color: #258439;
+    margin: 0;
+  }
+
+  #current_tag_filter_p {
+    margin: 0 0 0 0.5rem;
+    color: #258439;
+    font-weight: 700;
+    display: none; /* é mostrado via JS quando há filtro */
+  }
+
+  #blog_custom_page_navigation > main {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 2rem;
+  }
+
+  .list_cat_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    border-radius: 0.65rem;
+    border: 2px solid #258439;
+    padding: 1rem;
+    height: max-content;
+    max-width: 300px;
+  }
+
+  .list_cat_custom > h1 {
+    font-size: 1.5rem;
+    color: #258439;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+  }
+
+  .list_cat_custom > ul {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  .list_cat_custom > ul > li {
+    display: grid;
+  }
+  .list_cat_custom > ul > li > a {
+    font-weight: 700;
+  }
+  .list_cat_custom > ul > li > a:hover {
+    text-decoration: underline;
+  }
+
+  #group_articles_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+  }
+  #line_break_custom {
+    width: 100%;
+    height: 2px;
+    background-color: #e5e5e5;
+  }
+
+  #blog_results_filters {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    gap: 1rem;
+    font-weight: 700;
+  }
+
+  #blog_results_filters > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.5rem;
+    align-items: center;
+    color: #258439;
+    cursor: pointer;
+  }
+
+  #articles_list_nav_blog_custom {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #articles_list_nav_blog_custom > li {
+    display: grid;
+    padding: 0;
+    margin: 0;
+  }
+
+  .page-see_all_btn {
+    border: 1px solid #258439;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: #258439;
+    font-weight: 700 !important;
+    font-size: 1rem;
+    cursor: pointer;
+    width: max-content;
+    justify-self: center;
+    transition: all 0.15s ease;
+    background-color: transparent;
+  }
+  .page-see_all_btn:hover {
+    background-color: #258439;
+    color: white;
+  }
+
+  .page-see_cat_btn {
+    display: none;
+  }
+
+  #articles_list_nav_blog_custom > li > a {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    border-radius: 1rem;
+    border: 1px solid #258439;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  #articles_list_nav_blog_custom > li > a > span {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+  }
+  #articles_list_nav_blog_custom > li > a:hover {
+    transform: translateY(-10px);
+  }
+  #articles_list_nav_blog_custom > li > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+    background-size: cover;
+    background-position: center;
+  }
+  #articles_list_nav_blog_custom > li > a > h4 {
+    padding: 1rem;
+    font-weight: 700 !important;
+    font-size: 1rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #blog_custom_page_navigation {
+      margin: 2rem 9vw;
+    }
+  }
+  @media screen and (min-width: 2559px) {
+    #blog_custom_page_navigation {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #blog_custom_page_navigation {
+      margin: 1rem var(--mobile-container-gutter);
+      gap: 1rem;
+    }
+    #blog_custom_page_navigation > main {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .remove_desktop_blog_nav_custom {
+      display: none;
+    }
+    #articles_list_nav_blog_custom {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .page-see_cat_btn {
+      display: grid;
+      border: 1px solid #258439;
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      color: #258439;
+      font-weight: 500 !important;
+      font-size: 1rem;
+      cursor: pointer;
+      width: max-content;
+      transition: all 0.15s ease;
+      background-color: transparent;
+    }
+    .page-see_cat_btn:hover {
+      background-color: #258439;
+      color: white;
+    }
+  }
+
+  #articles_list_nav_blog_custom > li > a > div > div > span {
+    padding: 0.25rem 1rem;
+    background-color: #258439;
+    border-radius: 2rem;
+    font-weight: 700 !important;
+    color: white;
+    width: max-content;
+  }
+
+  #articles_list_nav_blog_custom > li > a > div > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  #articles_list_nav_blog_custom > li > a > div {
+    width: 100%;
+    min-height: 240px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  @media screen and (max-width: 369px) {
+    #articles_list_nav_blog_custom > li > a > div > div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section id="blog_custom_page_navigation" data-blog-handle="{{ section.settings.selected_blog.handle }}">
+  <nav>
+    <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+    <svg class="chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    {% unless section.settings.selected_blog == blank %}
+      <a href="{{ section.settings.selected_blog.url }}">{{ section.settings.selected_blog.title }}</a>
+    {% endunless %}
+
+    <svg
+      style="display: none;"
+      id="current_tag_filter_svg"
+      class="chevron"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <!-- etiqueta dinâmica do filtro de tag atual -->
+    <p id="current_tag_filter_p"></p>
+  </nav>
+
+  <main>
+    <aside class="list_cat_custom remove_desktop_blog_nav_custom">
+      <h1>Categorias</h1>
+      <ul class="blog-tags-list">
+        {%- for tag in section.settings.selected_blog.all_tags -%}
+          {% unless tag contains 'author'
+            or tag contains 'dificuldade'
+            or tag contains 'doses'
+            or tag contains 'duracao'
+          %}
+            {% assign tag_handle = tag | handleize %}
+            <li class="nav-item-link">
+              <a href="#{{ tag_handle }}" data-tag="{{ tag | escape }}" data-handle="{{ tag_handle }}">
+                <span>{{ tag }}</span> <span class="tag-count" aria-label="Total">(0)</span>
+              </a>
+            </li>
+          {% endunless %}
+        {%- endfor -%}
+      </ul>
+    </aside>
+
+    <div id="group_articles_custom">
+      <div id="line_break_custom"></div>
+
+      <div id="blog_results_filters">
+        <span id="results_count">0 resultados</span>
+        <div id="sort_toggle" role="button" aria-label="Alternar ordenação">
+          <span id="sort_label">Recentes</span>
+          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="mask0_2028_9179" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="21">
+              <rect x="0.527344" y="20.9688" width="20" height="20" transform="rotate(-90 0.527344 20.9688)" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#mask0_2028_9179)">
+              <path d="M17.5273 14.9687L13.5273 18.9687L9.52734 14.9687L10.5898 13.9062L12.7773 16.0937V8.96875L14.2773 8.96875V16.0937L16.4648 13.9062L17.5273 14.9687ZM11.5273 6.96875L10.4648 8.03125L8.27734 5.84375V12.9687L6.77734 12.9687V5.84375L4.58984 8.03125L3.52734 6.96875L7.52734 2.96875L11.5273 6.96875Z" fill="#258439"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <button class="page-see_cat_btn">Ver Categorias de Blog</button>
+
+      <ul id="articles_list_nav_blog_custom"></ul>
+
+      <button class="page-see_all_btn" id="pageLoadMoreBtn" style="display: none;">Ver mais publicações</button>
+    </div>
+  </main>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const catBlogModal = document.querySelector('#blog_custom_cat_mobile_modal');
+
+    if (catBlogModal) {
+      const listBlogCustom = document.querySelector(".list_cat_custom");
+      const listBlogCopy = listBlogCustom.cloneNode(true);
+      listBlogCopy.classList.remove("remove_desktop_blog_nav_custom");
+      listBlogCopy.style.padding = "2rem 0";
+      listBlogCopy.style.borderTop = "1px solid #308a36";
+      listBlogCopy.style.borderBottom = "1px solid #308a36";
+      listBlogCopy.style.borderRight = "0";
+      listBlogCopy.style.borderLeft = "0";
+      listBlogCopy.style.borderRadius = "0";
+      catBlogModal.appendChild(listBlogCopy);
+    }
+
+    // DOM
+    const sectionEl = document.getElementById('blog_custom_page_navigation');
+    const blogPostsList = document.getElementById('articles_list_nav_blog_custom');
+    const pageLoadMoreBtn = document.getElementById('pageLoadMoreBtn');
+    const sortToggle = document.getElementById('sort_toggle');
+    const sortLabel = document.getElementById('sort_label');
+    const resultsCountEl = document.getElementById('results_count');
+    const tagsList = document.querySelectorAll('.blog-tags-list');
+    const currentFilterP = document.getElementById('current_tag_filter_p');
+
+    // Dados
+    const blogHandle = sectionEl.dataset.blogHandle;
+    let endCursor = null;
+    let hasNextPage = false;
+    let reverseOrder = true; // true = Recentes (padrão)
+    let loadedCount = 0;
+
+    // Exclusões de tags (para contar/mostrar)
+    const EXCLUDED_TAG_SNIPPETS = ['author', 'dificuldade', 'doses', 'duracao'];
+
+    // Helpers
+    function isVisibleTag(tag) {
+      return !EXCLUDED_TAG_SNIPPETS.some((s) => tag.includes(s));
+    }
+
+    // Tag atual (derivada do hash)
+    function getCurrentTagFromHash() {
+      const hash = window.location.hash.slice(1).trim();
+      if (!hash) return null;
+
+      let found = null;
+      // tagsList é um NodeList – vamos iterar de forma segura
+      for (const list of tagsList) {
+        const a = list.querySelector(`a[href="#${CSS.escape(hash)}"]`);
+        if (a) { found = a; break; }
+      }
+
+      if (found && found.dataset.tag) return found.dataset.tag;
+      return decodeURIComponent(hash).replace(/-/g, ' ');
+    }
+
+    const currentFilterSvg = document.getElementById("current_tag_filter_svg");
+
+    function updateCurrentFilterLabel() {
+      if (currentTag && currentTag.trim().length) {
+        currentFilterSvg.style.display = 'inline';
+        currentFilterP.textContent = `${currentTag}`;
+        currentFilterP.style.display = 'inline';
+      } else {
+        currentFilterP.textContent = '';
+        currentFilterP.style.display = 'none';
+        currentFilterSvg.style.display = 'none';
+      }
+    }
+
+    let currentTag = getCurrentTagFromHash();
+    updateCurrentFilterLabel();
+
+    // Config GraphQL
+    const storefrontAccessToken = 'bfe1eb076dd1eeff39af26ba722acebf';
+    const graphqlEndpoint = '/api/2023-07/graphql.json';
+
+    // Monta a query do FEED
+    function buildArticlesQueryString() {
+      const parts = [];
+      if (currentTag && currentTag.trim().length) {
+        parts.push(`tag:"${currentTag.replaceAll('"', '\\"')}"`);
+      }
+      return parts.join(' ');
+    }
+
+    // Fetch de artigos (feed com paginação)
+    async function fetchArticles() {
+      const query = `
+        query GetBlogArticles($blogHandle: String!, $first: Int!, $after: String, $query: String, $reverse: Boolean!) {
+          blog(handle: $blogHandle) {
+            articles(first: $first, after: $after, query: $query, reverse: $reverse) {
+              edges {
+                cursor
+                node {
+                  title
+                  onlineStoreUrl
+                  image { url(transform: { maxWidth: 800 }) }
+                  tags
+                  authorV2 { name }
+                }
+              }
+              pageInfo { hasNextPage endCursor }
+            }
+          }
+        }
+      `;
+      const variables = {
+        blogHandle,
+        first: {{ section.settings.paginate_limit | default: 24 }},
+        after: endCursor,
+        query: buildArticlesQueryString() || null,
+        reverse: reverseOrder,
+      };
+
+      const response = await fetch(graphqlEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+        },
+        body: JSON.stringify({ query, variables }),
+      });
+
+      const { data, errors } = await response.json();
+      if (errors) throw new Error(errors.map((e) => e.message).join(', '));
+      return data.blog.articles;
+    }
+
+    // Render feed
+    function renderArticles(edges) {
+      edges.forEach(({ node }) => {
+        let postTag = '';
+        node.tags.find((tag) => {
+          if (isVisibleTag(tag)) {
+            postTag = tag;
+            return true;
+          }
+          return false;
+        });
+
+        const author = node.authorV2?.name || '';
+
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <a href="${node.onlineStoreUrl}">
+            <div style="background-image:url(${
+              node.image?.url || 'https://via.placeholder.com/800x600?text=Sem+imagem'
+            })">
+              <div>
+                ${postTag ? `<span>${postTag}</span>` : ``}
+                ${
+                  author === 'Rita Silva'
+                    ? `{% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}`
+                    : ''
+                }
+              </div>
+            </div>
+            <h4>${node.title}</h4>
+          </a>
+        `;
+        blogPostsList.appendChild(li);
+      });
+
+      loadedCount += edges.length;
+      resultsCountEl.textContent = `${loadedCount} ${loadedCount === 1 ? 'resultado' : 'resultados'}`;
+    }
+
+    // Estado / Reset FEED
+    function resetAndClear() {
+      endCursor = null;
+      hasNextPage = false;
+      loadedCount = 0;
+      blogPostsList.innerHTML = '';
+      pageLoadMoreBtn.style.display = 'none';
+      resultsCountEl.textContent = '0 resultados';
+    }
+
+    // Carregamentos FEED
+    async function loadInitialArticles() {
+      try {
+        const articlesData = await fetchArticles();
+        const edges = articlesData.edges || [];
+        if (edges.length) {
+          renderArticles(edges);
+          pageLoadMoreBtn.style.display = 'block';
+        } else {
+          blogPostsList.innerHTML = '<p>Nenhum artigo encontrado</p>';
+        }
+        hasNextPage = articlesData.pageInfo.hasNextPage;
+        endCursor = articlesData.pageInfo.endCursor;
+        if (!hasNextPage) pageLoadMoreBtn.style.display = 'none';
+      } catch (err) {
+        console.error('Erro ao carregar artigos:', err);
+        blogPostsList.innerHTML = '<p>Erro ao carregar artigos</p>';
+      }
+    }
+
+    async function loadMoreArticles() {
+      pageLoadMoreBtn.disabled = true;
+      pageLoadMoreBtn.textContent = 'A carregar...';
+      try {
+        const articlesData = await fetchArticles();
+        renderArticles(articlesData.edges || []);
+        hasNextPage = articlesData.pageInfo.hasNextPage;
+        endCursor = articlesData.pageInfo.endCursor;
+        if (!hasNextPage) pageLoadMoreBtn.style.display = 'none';
+      } catch (err) {
+        console.error('Erro ao carregar mais artigos:', err);
+      } finally {
+        pageLoadMoreBtn.disabled = false;
+        pageLoadMoreBtn.textContent = 'Ver mais publicações';
+      }
+    }
+
+    // ===== Contagem por tag (Categorias) =====
+    async function fetchAllArticlesForCounts() {
+      const PAGE_SIZE = 100; // ajusta conforme o tamanho do teu blog
+      let after = null;
+      let allTags = [];
+
+      const query = `
+        query GetAllArticlesForCounts($blogHandle: String!, $first: Int!, $after: String) {
+          blog(handle: $blogHandle) {
+            articles(first: $first, after: $after, reverse: false) {
+              edges {
+                cursor
+                node { tags }
+              }
+              pageInfo { hasNextPage endCursor }
+            }
+          }
+        }
+      `;
+
+      while (true) {
+        const response = await fetch(graphqlEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
+          },
+          body: JSON.stringify({ query, variables: { blogHandle, first: PAGE_SIZE, after } }),
+        });
+
+        const { data, errors } = await response.json();
+        if (errors) throw new Error(errors.map((e) => e.message).join(', '));
+
+        const conn = data.blog.articles;
+        conn.edges.forEach((e) => {
+          const tags = e.node.tags || [];
+          tags.forEach((t) => {
+            if (isVisibleTag(t)) allTags.push(t);
+          });
+        });
+
+        if (conn.pageInfo.hasNextPage) {
+          after = conn.pageInfo.endCursor;
+        } else {
+          break;
+        }
+      }
+
+      // agrega
+      const counts = {};
+      allTags.forEach((t) => {
+        counts[t] = (counts[t] || 0) + 1;
+      });
+      return counts;
+    }
+
+    function applyCountsToSidebar(counts) {
+      // percorre todos os links e coloca (n)
+      tagsList.forEach((list) => {
+        list.querySelectorAll('a[data-tag]').forEach((a) => {
+          const tagName = a.dataset.tag;
+          const n = counts[tagName] || 0;
+          const countSpan = a.querySelector('.tag-count');
+          if (countSpan) countSpan.textContent = `(${n})`;
+        })
+      })
+    }
+
+    async function initTagCounts() {
+      try {
+        const counts = await fetchAllArticlesForCounts();
+        applyCountsToSidebar(counts);
+      } catch (e) {
+        console.error('Erro a calcular contagens por tag:', e);
+      }
+    }
+
+    // Interações
+    if (tagsList) {
+      tagsList.forEach((list) => {
+        list.addEventListener('click', (ev) => {
+          const a = ev.target.closest('a[href^="#"]');
+          if (!a) return;
+          ev.preventDefault();
+          const tagName = a.dataset.tag || a.textContent.trim();
+          const href = a.getAttribute('href'); // ex: #nome-handle
+          if (href) window.location.hash = href;
+          currentTag = tagName;
+          updateCurrentFilterLabel();
+          resetAndClear();
+          loadInitialArticles();
+        })
+      })
+    }
+
+    sortToggle.addEventListener('click', () => {
+      reverseOrder = !reverseOrder; // alterna
+      sortLabel.textContent = reverseOrder ? 'Recentes' : 'Antigos';
+      resetAndClear();
+      loadInitialArticles();
+    });
+
+    window.addEventListener('hashchange', () => {
+      const newTag = getCurrentTagFromHash();
+      if (newTag !== currentTag) {
+        currentTag = newTag;
+        updateCurrentFilterLabel();
+        resetAndClear();
+        loadInitialArticles();
+      }
+    });
+
+    pageLoadMoreBtn.addEventListener('click', loadMoreArticles);
+
+    // Boot
+    currentTag = getCurrentTagFromHash();
+    updateCurrentFilterLabel();
+    loadInitialArticles();
+    initTagCounts(); // calcula e aplica os totais nas categorias
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Blog navigation",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "selected_img",
+      "label": "Imagem da Rita"
+    },
+    {
+      "type": "blog",
+      "id": "selected_blog",
+      "label": "Blogue"
+    },
+    {
+      "type": "number",
+      "id": "paginate_limit",
+      "label": "Artigos por load",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog navigation",
+      "category": "custom"
+    }
+  ]
+}
+{% endschema %}

@@ -1,7 +1,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const isNewsletterClosed = sessionStorage.getItem("newsletterPopupClosed");
-    const isAlreadySubscribed = localStorage.getItem("newsletterAlreadySubscribed");
+    const isAlreadySubscribed = localStorage.getItem("newsletterSubmitted");
 
     if (isNewsletterClosed || isAlreadySubscribed) return;
 
@@ -46,7 +46,7 @@
       });
 
       newsletterPopup.addEventListener("submit", function() {
-        localStorage.setItem("newsletterAlreadySubscribed", "true");
+        localStorage.setItem("newsletterSubmitted", "true");
       });
     }
   });

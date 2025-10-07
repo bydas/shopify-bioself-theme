@@ -115,12 +115,10 @@
   }
 
   #newsletter_custom > form {
-    display: grid;
     gap: 0.5rem;
   }
 
   #newsletter_custom_mobile_1 > form {
-    display: grid;
     grid-auto-rows: max-content;
     gap: 0.5rem;
     margin: 0 1rem;
@@ -136,7 +134,7 @@
 
   #newsletter_inputs > input,
   #newsletter_custom_mobile_1 > form > input {
-    background-color: #FFFEF8;
+    background-color: #fffef8;
     border-radius: 0.65rem;
     border: 1px solid #308a36;
     padding: 0.5rem 1.5rem;
@@ -153,7 +151,7 @@
 
   #newsletter_inputs > input::placeholder,
   #newsletter_custom_mobile_1 > form > input::placeholder {
-    color: #B9B8B3;
+    color: #b9b8b3;
   }
 
   #newsletter_inputs > button {
@@ -185,7 +183,7 @@
   #newsletter_inputs > button:hover {
     background-color: white;
     border: 1px solid #308a36;
-    background-color: #FFFEF8;
+    background-color: #fffef8;
     color: #308a36;
   }
 
@@ -259,7 +257,14 @@
     <h1>{{ section.settings.newsletter_title }}</h1>
   {% endif %}
 
-  {% form 'customer' %}
+  <div class="already_accepted_newsletter">
+    <span>
+      Obrigado pelo teu registo. Irás receber um email na tua caixa de correio para confirmares a tua inscrição na
+      newsletter Bioself.
+    </span>
+  </div>
+
+  {% form 'customer', class: 'newsletter_custom_form' %}
     <div id="newsletter_inputs">
       <input
         type="text"
@@ -314,7 +319,14 @@
     <h1>{{ section.settings.newsletter_title }}</h1>
   {% endif %}
 
-  {% form 'customer' %}
+  <div class="already_accepted_newsletter">
+    <span>
+      Obrigado pelo teu registo. Irás receber um email na tua caixa de correio para confirmares a tua inscrição na
+      newsletter Bioself.
+    </span>
+  </div>
+
+  {% form 'customer', class: 'newsletter_custom_form' %}
     <input
       type="text"
       id="newsletter[contact][name]"
@@ -357,41 +369,3 @@
     {% endif %}
   {% endform %}
 </section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const section = document.querySelector("#newsletter_custom");
-    const img = section?.querySelector("svg");
-
-    if (localStorage.getItem("newsletterSubmitted") === "true") {
-      section?.remove();
-      return;
-    }
-
-    if (section && img) {
-      img.addEventListener("click", function () {
-        section.remove();
-      });
-    }
-
-    const form = section?.querySelector("form");
-
-    form?.addEventListener("submit", function () {
-      localStorage.setItem("newsletterSubmitted", "true");
-    });
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const section = document.querySelector("#newsletter_custom_mobile_1");
-
-    if (section) {
-      const img = section.querySelector("svg");
-
-      img?.addEventListener("click", function() {
-        section.remove();
-      })
-    }
-  });
-</script>

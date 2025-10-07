@@ -1,0 +1,39 @@
+<style>
+  #rita_icon_custom {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    position: relative;
+    width: 151px;
+    align-items: center;
+  }
+
+  #rita_icon_custom > img {
+    z-index: 10;
+  }
+
+  #rita_icon_custom > div {
+    background-color: white;
+    border-radius: 2rem;
+    display: grid;
+    height: 41px;
+    padding: 0 0.8rem 0 2rem;
+    position: absolute;
+    place-items: center;
+    left: 45px;
+  }
+
+  #rita_icon_custom > div > span {
+    font-weight: 700 !important;
+  }
+</style>
+
+<div id="rita_icon_custom">
+  <img
+    src="{{ img | img_url: 'master' }}"
+    alt="Rita Silva"
+  >
+
+  <div>
+    <span>Rita Silva</span>
+  </div>
+</div>

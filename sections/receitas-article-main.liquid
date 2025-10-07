@@ -1,0 +1,630 @@
+{%- comment -%} 1) Normalizar quebras e limpar HTML {%- endcomment -%}
+{%- assign norm = article.content
+  | replace: '</p>', '\n\n'
+  | replace: '<p>', ''
+  | replace: '<br />', '\n'
+  | replace: '<br>', '\n'
+  | replace: '</h1>', '\n\n'
+  | replace: '<h1>', ''
+  | replace: '</h2>', '\n\n'
+  | replace: '<h2>', ''
+  | replace: '</h3>', '\n\n'
+  | replace: '<h3>', ''
+  | replace: '</h4>', '\n\n'
+  | replace: '<h4>', ''
+  | replace: '</h5>', '\n\n'
+  | replace: '<h5>', ''
+  | replace: '</h6>', '\n\n'
+  | replace: '<h6>', ''
+-%}
+{%- assign text = norm | strip_html -%}
+
+{%- comment -%} 2) Uniformizar \r\n e partir por linhas em branco {%- endcomment -%}
+{%- assign text = text | replace: '\r\n', '\n' -%}
+{%- assign blocks = text | split: '\n\n' -%}
+
+{%- assign first_clean_paragraph = '' -%}
+{%- for b in blocks -%}
+  {%- assign cand = b | strip -%}
+  {%- if cand == '' -%}{% continue %}{%- endif -%}
+
+  {%- comment -%} Heurísticas de filtragem {%- endcomment -%}
+  {%- assign up = cand | upcase -%}
+
+  {%- if up == cand -%}{% continue %}{%- endif -%}
+  {%- if cand contains 'kcal'
+    or cand contains ' g '
+    or cand contains 'hidratos'
+    or cand contains 'proteína'
+    or cand contains 'fibra'
+    or cand contains 'gordura'
+  -%}
+    {% continue %}
+  {%- endif -%}
+  {% assign cand_size = cand | size %}
+  {%- if cand_size < 60 -%}{% continue %}{%- endif -%}
+  {%- unless cand contains '. ' or cand contains '!' or cand contains '?' -%}{% continue %}{%- endunless -%}
+
+  {%- assign first_clean_paragraph = cand -%}
+  {%- break -%}
+{%- endfor -%}
+
+{%- assign html = article.content -%}
+
+{%- comment %} 1) Encontrar "Preparação"/"Preparacao" {%- endcomment %}
+{%- assign markers = 'Preparação|Preparacao' | split: '|' -%}
+{%- assign after = '' -%}
+{%- for m in markers -%}
+  {%- assign attempt = html | split: m -%}
+  {%- if attempt.size > 1 -%}
+    {%- assign after = attempt[1] -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if after == '' -%}
+  {%- assign prep_steps = '' | split: ',' -%}
+  {%- comment %} array vazio {%- endcomment %}
+{%- else -%}
+  {%- comment %} 2) Corta o bloco da preparação antes de headings/labels seguintes {%- endcomment %}
+  {%- assign block = after -%}
+  {%- assign cut_markers = '<h2|<h3|INFORMAÇÃO NUTRICIONAL|Informação Nutricial|Informação Nutricional|INFORMACAO NUTRICIONAL|Informacao Nutricional|INGREDIENTES|Ingredientes|Lê Mais|Le Mais|LE MAIS'
+    | split: '|'
+  -%}
+  {%- for cm in cut_markers -%}
+    {%- assign block = block | split: cm | first -%}
+  {%- endfor -%}
+
+  {%- comment %} 3) Normaliza para separadores e remove HTML {%- endcomment %}
+  {%- assign SEP = '||__STEP__||' -%}
+  {%- assign normalized = block
+    | replace: '<li', SEP
+    | replace: '</li>', SEP
+    | replace: '<br />', SEP
+    | replace: '<br>', SEP
+    | replace: '</p>', SEP
+    | replace: '<p>', SEP
+  -%}
+  {%- assign plain = normalized | strip_html -%}
+  {%- assign raw = plain | split: SEP -%}
+
+  {%- comment %} 4) Limpeza: remove bolinha, numeração e linhas nutricionais {%- endcomment %}
+  {%- assign joined = '' -%}
+  {%- for s in raw -%}
+    {%- assign t = s | strip -%}
+    {%- if t == '' -%}{% continue %}{%- endif -%}
+
+    {%- assign prefix2 = t | slice: 0, 2 -%}
+    {%- if prefix2 == '● ' -%}
+      {%- assign t = t | slice: 2, t.size | strip -%}
+    {%- endif -%}
+
+    {%- for i in (1..300) -%}
+      {%- assign dot = i | append: '. ' -%}
+      {%- assign par = i | append: ') ' -%}
+      {%- assign len_dot = dot | size -%}
+      {%- assign len_par = par | size -%}
+      {%- assign head_dot = t | slice: 0, len_dot -%}
+      {%- assign head_par = t | slice: 0, len_par -%}
+      {%- if head_dot == dot -%}
+        {%- assign t = t | slice: len_dot, t.size | strip -%}
+        {%- break -%}
+      {%- elsif head_par == par -%}
+        {%- assign t = t | slice: len_par, t.size | strip -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- assign up = t | upcase -%}
+    {%- if up contains 'INFORMAÇÃO' or up contains 'INFORMACAO' or t contains 'kcal' or t contains ' g ' -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {%- if t == 'Preparação' or t == 'Preparacao' -%}{% continue %}{%- endif -%}
+
+    {%- assign joined = joined | append: t | append: SEP -%}
+  {%- endfor -%}
+
+  {%- assign prep_steps = joined | split: SEP -%}
+{%- endif -%}
+
+{%- comment %} 1) Partir por <h3> para encontrar blocos "Ingredientes ..." {%- endcomment %}
+{%- assign chunks = html | split: '<h3>' -%}
+
+{%- assign GROUP_SEP = '||__GROUP__||' -%}
+{%- assign ITEM_SEP = '||' -%}
+{%- assign TITLE_SEP = '::' -%}
+{%- assign groups_join = '' -%}
+
+{%- for c in chunks offset: 1 -%}
+  {%- comment %} c = "TITULO</h3>...resto..." {%- endcomment %}
+  {%- assign title_part = c | split: '</h3>' | first | strip_html | strip -%}
+  {%- assign up = title_part | upcase -%}
+
+  {%- comment %} 2) Só processa se o <h3> começar por "INGREDIENTES" {%- endcomment %}
+  {%- assign prefix = up | slice: 0, 12 -%}
+  {%- if prefix != 'INGREDIENTES' -%}{% continue %}{%- endif -%}
+
+  {%- comment %} 3) Limpar título: remover "Ingredientes" + conectores iniciais comuns {%- endcomment %}
+  {%- assign title_clean = title_part | remove_first: 'Ingredientes' | remove_first: 'INGREDIENTES' -%}
+  {%- assign title_clean = title_clean | strip -%}
+  {%- assign lead = title_clean | slice: 0, 2 -%}
+  {%- if lead == ': ' -%}{%- assign title_clean = title_clean | slice: 2, title_clean.size | strip -%}{%- endif -%}
+  {%- assign lead3 = title_clean | slice: 0, 3 -%}
+  {%- if lead3 == 'de ' -%}{%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
+  {%- assign lead3b = title_clean | slice: 0, 3 -%}
+  {%- if lead3b == 'da ' -%}{%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
+  {%- assign lead3c = title_clean | slice: 0, 3 -%}
+  {%- if lead3c == 'do ' -%}{%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
+  {%- assign lead5 = title_clean | slice: 0, 5 -%}
+  {%- if lead5 == 'para ' -%}{%- assign title_clean = title_clean | slice: 5, title_clean.size | strip -%}{%- endif -%}
+  {%- assign lead6a = title_clean | slice: 0, 6 -%}
+  {%- if lead6a == 'para o' -%}
+    {%- assign title_clean = title_clean | slice: 6, title_clean.size | strip -%}
+  {%- endif -%}
+  {%- assign lead6b = title_clean | slice: 0, 6 -%}
+  {%- if lead6b == 'para a' -%}
+    {%- assign title_clean = title_clean | slice: 6, title_clean.size | strip -%}
+  {%- endif -%}
+  {%- assign title_clean = title_clean | replace: ':', '' | replace: '—', '' | replace: '-', ' ' | strip -%}
+  {%- if title_clean == '' -%}{%- assign title_clean = 'ingredientes' -%}{%- endif -%}
+  {%- assign title_clean = title_clean | downcase -%}
+
+  {%- comment %} 4) Bloco de conteúdo após o </h3>, cortado antes do próximo heading/etiqueta {%- endcomment %}
+  {%- assign after_h3 = c | split: '</h3>' | last -%}
+  {%- assign block = after_h3
+    | split: '<h2'
+    | first
+    | split: '<h3'
+    | first
+    | split: '<h4'
+    | first
+    | split: 'Preparação'
+    | first
+    | split: 'Preparacao'
+    | first
+  -%}
+
+  {%- comment %} 5) Normalizar linhas em separadores e limpar HTML {%- endcomment %}
+  {%- assign SEP = '||__LINE__||' -%}
+  {%- assign normalized = block
+    | replace: '<li', SEP
+    | replace: '</li>', SEP
+    | replace: '<br />', SEP
+    | replace: '<br>', SEP
+    | replace: '</p>', SEP
+    | replace: '<p>', SEP
+  -%}
+  {%- assign plain = normalized | strip_html -%}
+  {%- assign lines = plain | split: SEP -%}
+
+  {%- comment %} 6) Extrair itens (remover bolinha e vazios) {%- endcomment %}
+  {%- assign items_join = '' -%}
+  {%- for ln in lines -%}
+    {%- assign t = ln | strip -%}
+    {%- if t == '' -%}{% continue %}{%- endif -%}
+    {%- assign prefix2 = t | slice: 0, 2 -%}
+    {%- if prefix2 == '• ' -%}
+      {%- assign t = t | slice: 2, t.size | strip -%}
+    {%- endif -%}
+    {%- comment %} Evitar apanhar restos tipo "Ingredientes ..." novamente {%- endcomment %}
+    {%- assign up2 = t | upcase -%}
+    {%- if up2 contains 'INGREDIENTES' -%}{% continue %}{%- endif -%}
+
+    {%- assign items_join = items_join | append: t | append: ITEM_SEP -%}
+  {%- endfor -%}
+
+  {%- assign items_arr = items_join | split: ITEM_SEP -%}
+
+  {%- comment %} 7) Se há pelo menos 1 item, guarda o grupo {%- endcomment %}
+  {%- assign has_item = false -%}
+  {%- for it in items_arr -%}
+    {%- assign it_trim = it | strip -%}
+    {%- if it_trim != '' -%}
+      {%- assign has_item = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_item -%}
+    {%- comment %} Grupo no formato: "titulo::item1||item2||..." {%- endcomment %}
+    {%- assign group_string = title_clean | append: TITLE_SEP | append: items_join -%}
+    {%- assign groups_join = groups_join | append: group_string | append: GROUP_SEP -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment %} 8) Array final de grupos {%- endcomment %}
+{%- assign ingredients_groups = groups_join | split: GROUP_SEP -%}
+
+<style>
+  #receitas_article_main_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #receitas_article_main_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #receitas_article_main_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  #receitas_article_main_custom > p {
+    padding: 0;
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  #receitas_article_main_custom > main {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 6rem;
+  }
+
+  #receitas_article_main_custom > main > aside {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+
+  #receitas_article_main_custom > main > aside > span,
+  #receitas_article_main_custom > main > article > span {
+    color: #258439;
+    font-weight: 700 !important;
+    font-size: 1.125rem;
+  }
+
+  #receitas_article_main_custom > main > aside > div {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
+    padding: 1.35rem 1rem;
+    background-color: #25843914;
+    border-radius: 0.5rem;
+    border-top: 2px solid #258439;
+    max-width: 300px;
+  }
+
+  #receitas_article_main_custom > main > aside > button {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.25rem;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding-top: 1rem;
+  }
+
+  #receitas_article_main_custom > main > aside > button > span {
+    color: #258439;
+    font-size: 1rem;
+    font-weight: 700 !important;
+  }
+
+  #receitas_article_main_custom > main > aside > div > div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.25rem;
+  }
+
+  #receitas_article_main_custom > main > aside > div > div > h4 {
+    margin: 0;
+    padding: 0;
+    font-weight: 700 !important;
+    text-transform: capitalize;
+  }
+
+  #receitas_article_main_custom > main > aside > div > div > ul {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    padding-inline-start: 1.1em;
+  }
+
+  #receitas_article_main_custom > main > aside > div > div > ul > li {
+    font-weight: 500 !important;
+  }
+
+  #receitas_article_main_custom > main > aside > div > div > ul > li::marker {
+    font-size: 0.7em;
+  }
+
+  #receitas_article_main_custom > main > article {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+  }
+
+  #receitas_article_main_custom > main > article > span {
+    border-bottom: 2px solid #258439;
+  }
+
+  #receitas_article_main_custom > main > article > ol {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+  }
+
+  #receitas_article_main_custom > main > article > ol > li {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem;
+    padding: 1.35rem 1.35rem 1.35rem 0;
+    border-bottom: 1px solid rgba(37, 132, 58, 0.5);
+  }
+
+  #receitas_article_main_custom > main > article > ol > li > p {
+    font-weight: 500 !important;
+    align-self: center;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+
+  #receitas_article_main_custom > main > article > ol > li > span {
+    color: #258439;
+    font-size: 1.125rem;
+    font-weight: 700 !important;
+  }
+
+  #receitas_article_main_custom > main > article > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  #receitas_article_main_custom > main > article > div > button {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.25rem;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  #receitas_article_main_custom > main > article > div > button > span {
+    color: #258439;
+    font-size: 1rem;
+    font-weight: 700 !important;
+  }
+
+  #receitas_article_main_custom > main > article > div > span {
+    text-transform: capitalize;
+    line-height: normal;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #receitas_article_main_custom {
+      margin: 1rem var(--mobile-container-gutter);
+    }
+
+    #receitas_article_main_custom > main > aside {
+      position: unset;
+      top: 0;
+      align-self: unset;
+    }
+
+    #receitas_article_main_custom > main {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, max-content);
+      gap: 1rem;
+    }
+
+    #receitas_article_main_custom > main > aside > div {
+      max-width: 100%;
+    }
+  }
+
+  @media print {
+    body * {
+      visibility: hidden !important;
+    }
+    #receitas-headline-custom-article,
+    #receitas-headline-custom-article *,
+    #receitas_article_main_custom,
+    #receitas_article_main_custom * {
+      visibility: visible !important;
+    }
+
+    #receitas-headline-custom-article {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+
+    #receitas_article_main_custom {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+  }
+
+  #btn-print-receita {
+    width: max-content;
+  }
+</style>
+
+<section id="receitas_article_main_custom">
+  <p>{{ first_clean_paragraph }}</p>
+
+  <main>
+    <aside>
+      <span>Ingredientes</span>
+
+      <div>
+        {%- for g in ingredients_groups -%}
+          <div>
+            {%- assign gtrim = g | strip -%}
+            {%- if gtrim == '' -%}{% continue %}{%- endif -%}
+
+            {%- assign parts = gtrim | split: '::' -%}
+            {%- assign ing_title = parts[0] | strip -%}
+            {%- assign items_blob = parts[1] | default: '' -%}
+            {%- assign items = items_blob | split: '||' -%}
+
+            <h4 class="ingredientes__titulo">{{ ing_title }}</h4>
+            <ul class="ingredientes__lista">
+              {%- for it in items -%}
+                {%- assign s = it | strip | remove_first: '●' -%}
+                {%- if s != '' -%}
+                  <li>{{ s }}</li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <button id="btn-print-receita">
+        <svg width="33" height="34" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <mask id="mask0_2043_10674" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="33" height="34">
+          <rect y="0.953125" width="33" height="33" fill="#D9D9D9"/>
+          </mask>
+          <g mask="url(#mask0_2043_10674)">
+          <path d="M22.0018 12.375V8.25H11.0017V12.375H8.93925V6.1875H24.0643V12.375H22.0018ZM24.4874 17.875C24.877 17.875 25.2036 17.7432 25.4671 17.4797C25.7306 17.2161 25.8624 16.8896 25.8624 16.5C25.8624 16.1104 25.7306 15.7839 25.4671 15.5203C25.2036 15.2568 24.877 15.125 24.4874 15.125C24.0978 15.125 23.7713 15.2568 23.5077 15.5203C23.2442 15.7839 23.1124 16.1104 23.1124 16.5C23.1124 16.8896 23.2442 17.2161 23.5077 17.4797C23.7713 17.7432 24.0978 17.875 24.4874 17.875ZM22.0018 27.0768V21.2066H11.0017V27.0768H22.0018ZM24.0643 29.1393H8.93925V23.6393H3.83594V15.8125C3.83594 14.8385 4.16869 14.0221 4.83419 13.3633C5.49969 12.7044 6.31277 12.375 7.27344 12.375H25.7301C26.704 12.375 27.5204 12.7044 28.1793 13.3633C28.8381 14.0221 29.1676 14.8385 29.1676 15.8125V23.6393H24.0643V29.1393ZM27.1051 21.5768V15.8125C27.1051 15.4229 26.9733 15.0964 26.7098 14.8328C26.4462 14.5693 26.1196 14.4375 25.7301 14.4375H7.27344C6.88385 14.4375 6.55729 14.5693 6.29375 14.8328C6.03021 15.0964 5.89844 15.4229 5.89844 15.8125V21.5768H8.93925V19.1441H24.0643V21.5768H27.1051Z" fill="#258439"/>
+          </g>
+        </svg>
+
+        <span>Imprimir</span>
+      </button>
+    </aside>
+
+    <article>
+      <span>Preparação</span>
+
+      {%- if prep_steps.size > 0 -%}
+        <ol class="preparacao">
+          {%- for step in prep_steps -%}
+            {%- assign s = step | strip | remove_first: '•' | replace: ';', '.' -%}
+            {%- if s != '' -%}
+              <li>
+                <span>{{ forloop.index }}.</span>
+                <p>{{ s }}</p>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      <div>
+        <button id="btn-share-receita">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="mask0_2043_10663" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
+            <rect x="0.34375" y="0.953125" width="33" height="33" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#mask0_2043_10663)">
+            <path d="M9.01691 31.8911C8.3223 31.8911 7.73438 31.6505 7.25313 31.1692C6.77188 30.688 6.53125 30.1 6.53125 29.4054V15.1268C6.53125 14.4321 6.77188 13.8442 7.25313 13.363C7.73438 12.8817 8.3223 12.6411 9.01691 12.6411H12.5335V14.7036H9.01691C8.91103 14.7036 8.81409 14.7477 8.72609 14.8359C8.63787 14.9239 8.59375 15.0209 8.59375 15.1268V29.4054C8.59375 29.5113 8.63787 29.6083 8.72609 29.6963C8.81409 29.7845 8.91103 29.8286 9.01691 29.8286H24.6706C24.7765 29.8286 24.8734 29.7845 24.9614 29.6963C25.0496 29.6083 25.0938 29.5113 25.0938 29.4054V15.1268C25.0938 15.0209 25.0496 14.9239 24.9614 14.8359C24.8734 14.7477 24.7765 14.7036 24.6706 14.7036H21.154V12.6411H24.6706C25.3652 12.6411 25.9531 12.8817 26.4344 13.363C26.9156 13.8442 27.1563 14.4321 27.1563 15.1268V29.4054C27.1563 30.1 26.9156 30.688 26.4344 31.1692C25.9531 31.6505 25.3652 31.8911 24.6706 31.8911H9.01691ZM15.8125 22.6098V7.44256L13.2688 9.98631L11.8198 8.51609L16.8438 3.49219L21.8677 8.51609L20.4188 9.98631L17.875 7.44256V22.6098H15.8125Z" fill="#258439"/>
+            </g>
+          </svg>
+
+          <span>Partilhar</span>
+        </button>
+
+        {% assign meses = 'Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+          | split: ', '
+        %}
+        {% assign mes_num = article.published_at | date: '%-m' | minus: 1 %}
+        <span>
+          {{- article.published_at | date: '%d' }}
+          {{ meses[mes_num] }}
+          {{ article.published_at | date: '%Y' -}}
+        </span>
+      </div>
+    </article>
+  </main>
+</section>
+
+<script>
+  (function () {
+    // Botões
+    const btnPrint =
+      document.getElementById('btn-print-receita') ||
+      document.querySelector('#receitas_article_main_custom > main > aside > button'); // fallback
+
+    const btnShare =
+      document.getElementById('btn-share-receita') ||
+      document.querySelector('#receitas_article_main_custom > main > article > div > button'); // fallback
+
+    // Utilitários
+    function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      // Fallback mais amplo
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {}
+      document.body.removeChild(ta);
+      return Promise.resolve();
+    }
+
+    // PARTILHAR: usa Web Share API se disponível, senão copia URL
+    if (btnShare) {
+      btnShare.addEventListener('click', async function () {
+        const shareData = {
+          title: document.title || 'Partilha',
+          text: '', // podes colocar um resumo se quiseres
+          url: window.location.href,
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            // Se o utilizador cancelar, não fazemos nada
+          }
+        } else {
+          try {
+            await copyToClipboard(shareData.url);
+            alert('Ligação copiada para a área de transferência.');
+          } catch (e) {
+            prompt('Copie a ligação desta página:', shareData.url);
+          }
+        }
+      });
+    }
+
+    // IMPRIMIR: com o CSS @media print acima, basta chamar window.print()
+    if (btnPrint) {
+      btnPrint.addEventListener('click', function () {
+        // Opcional: forçar reflow antes de imprimir (alguns browsers)
+        requestAnimationFrame(() => window.print());
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Receitas main",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Receitas main",
+      "category": "blog"
+    }
+  ]
+}
+{% endschema %}

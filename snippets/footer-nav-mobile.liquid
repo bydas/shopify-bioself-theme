@@ -25,6 +25,23 @@
     overflow: auto;
   }
 
+  #blog_custom_cat_mobile_modal {
+    display: none;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    grid-template-rows: max-content 1fr;
+    gap: 1rem;
+    background-color: white;
+    padding: 1rem 1rem 2rem 1rem;
+    height: calc(100dvh - 162.5px);
+    width: 90%;
+    position: fixed;
+    bottom: 69.5px;
+    left: 0;
+    z-index: 4000;
+    overflow: auto;
+  }
+
   #categorias_mobile_modal {
     display: none;
     transform: translateX(-100%);
@@ -150,15 +167,15 @@
   }
 
   #menu_mobile_modal.active,
-  #categorias_mobile_modal.active_categoria {
+  #categorias_mobile_modal.active_categoria,
+  #blog_custom_cat_mobile_modal.active_blog {
     transform: translateX(0);
-    box-shadow:
-      0px -5px 10px rgba(0, 0, 0, 0.1),
-      5px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1), 5px 0px 10px rgba(0, 0, 0, 0.3);
   }
 
   #menu_mobile_modal > #close_menu_mobile,
-  #categorias_mobile_modal > #close_categoria_mobile {
+  #categorias_mobile_modal > #close_categoria_mobile,
+  #blog_custom_cat_mobile_modal > #close_blog_modal_mobile {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     justify-self: end;
@@ -329,7 +346,9 @@
     }
 
     #menu_mobile_modal,
-    #categorias_mobile_modal {
+    #categorias_mobile_modal,
+    #hidden_close_menu_mobile,
+    #blog_custom_cat_mobile_modal {
       display: grid;
     }
 
@@ -388,29 +407,34 @@
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const footerNav = document.querySelector("#footer_nav_mobile");
-    const menuModal = document.querySelector("#menu_mobile_modal");
-    const categoriasModal = document.querySelector("#categorias_mobile_modal");
+  document.addEventListener('DOMContentLoaded', function () {
+    const footerNav = document.querySelector('#footer_nav_mobile');
+    const menuModal = document.querySelector('#menu_mobile_modal');
+    const catBlogModal = document.querySelector('#blog_custom_cat_mobile_modal');
+    const categoriasModal = document.querySelector('#categorias_mobile_modal');
 
     let lastScrollTop = 0;
 
     if (footerNav) {
-      window.addEventListener("scroll", function () {
+      window.addEventListener('scroll', function () {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
         if (currentScroll > lastScrollTop) {
-          footerNav.style.transform = "translateY(100%)";
+          footerNav.style.transform = 'translateY(100%)';
 
-          if (menuModal && menuModal.classList.contains("active")) {
-            menuModal.classList.remove("active");
+          if (menuModal && menuModal.classList.contains('active')) {
+            menuModal.classList.remove('active');
           }
 
-          if (categoriasModal && categoriasModal.classList.contains("active_categoria")) {
-            categoriasModal.classList.remove("active_categoria");
+          if (catBlogModal && catBlogModal.classList.contains('active_blog')) {
+            catBlogModal.classList.remove('active_blog');
+          }
+
+          if (categoriasModal && categoriasModal.classList.contains('active_categoria')) {
+            categoriasModal.classList.remove('active_categoria');
           }
         } else {
-          footerNav.style.transform = "translateY(0)";
+          footerNav.style.transform = 'translateY(0)';
         }
 
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
@@ -420,152 +444,196 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const modal = document.querySelector("#categorias_mobile_modal");
-    const escapeElement = document.querySelector("#close_categoria_mobile");
-    const openModal = document.querySelector("#categorias_nav_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.querySelector('#categorias_mobile_modal');
+    const escapeElement = document.querySelector('#close_categoria_mobile');
+    const openModal = document.querySelector('#categorias_nav_mobile');
 
     if (modal && escapeElement && openModal) {
-      openModal.addEventListener("click", function() {
+      openModal.addEventListener('click', function () {
         if (modal.classList.contains('active')) {
-          modal.classList.remove("active");
+          modal.classList.remove('active');
         } else {
-          modal.classList.add("active");
+          modal.classList.add('active');
         }
       });
 
-      escapeElement.addEventListener("click", function() {
-        modal.classList.remove("active");
+      escapeElement.addEventListener('click', function () {
+        modal.classList.remove('active');
       });
     }
   });
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const modal = document.querySelector("#menu_mobile_modal");
-    const otherModal = document.querySelector("#categorias_mobile_modal");
-    const escapeElement = document.querySelector("#close_menu_mobile");
-    const openModal = document.querySelector("#open_modal_menu_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.querySelector('#menu_mobile_modal');
+    const blogModal = document.querySelector('#blog_custom_cat_mobile_modal');
+    const otherModal = document.querySelector('#categorias_mobile_modal');
+    const escapeElement = document.querySelector('#close_menu_mobile');
+    const openModal = document.querySelector('#open_modal_menu_mobile');
+    const seeCatBtn = document.querySelector('.page-see_cat_btn');
+    const closeBlogModal = document.querySelector('#close_blog_modal_mobile');
 
     if (modal && escapeElement && openModal) {
-      openModal.addEventListener("click", function() {
+      if (seeCatBtn) {
+        seeCatBtn.addEventListener('click', function () {
+          if (blogModal.classList.contains('active_blog')) {
+            blogModal.classList.remove('active_blog');
+          } else {
+            blogModal.classList.add('active_blog');
+          }
+
+          if (otherModal.classList.contains('active_categoria') || modal.classList.contains('active')) {
+            otherModal.classList.remove('active_categoria');
+            modal.classList.remove('active');
+          }
+        });
+      }
+
+      openModal.addEventListener('click', function () {
         if (modal.classList.contains('active')) {
-          modal.classList.remove("active");
+          modal.classList.remove('active');
         } else {
-          modal.classList.add("active");
+          modal.classList.add('active');
         }
 
-        if (otherModal.classList.contains('active_categoria')) {
-          otherModal.classList.remove("active_categoria");
+        if (otherModal.classList.contains('active_categoria') || blogModal?.classList.contains('active_blog')) {
+          otherModal.classList.remove('active_categoria');
+          blogModal?.classList.remove('active_blog');
         }
       });
 
-      escapeElement.addEventListener("click", function() {
-        modal.classList.remove("active");
+      escapeElement.addEventListener('click', function () {
+        modal.classList.remove('active');
+      });
+
+      closeBlogModal.addEventListener('click', function () {
+        blogModal.classList.remove('active_blog');
       });
     }
   });
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const modal = document.querySelector("#categorias_mobile_modal");
-    const otherModal = document.querySelector("#menu_mobile_modal");
-    const escapeElement = document.querySelector("#close_categoria_mobile");
-    const openModal = document.querySelector("#categorias_nav_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const blogModal = document.querySelector('#blog_custom_cat_mobile_modal');
+
+    if (blogModal) {
+      const blogAside = blogModal.querySelector('aside');
+      const asideList = blogAside?.querySelectorAll('a');
+
+      asideList?.forEach((a) => {
+        a.addEventListener('click', function () {
+          blogModal.classList.remove('active_blog');
+        });
+      });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.querySelector('#categorias_mobile_modal');
+    const otherModal = document.querySelector('#menu_mobile_modal');
+    const escapeElement = document.querySelector('#close_categoria_mobile');
+    const blogModal = document.querySelector('#blog_custom_cat_mobile_modal');
+    const openModal = document.querySelector('#categorias_nav_mobile');
 
     if (modal && escapeElement && openModal) {
-      openModal.addEventListener("click", function() {
+      openModal.addEventListener('click', function () {
         if (modal.classList.contains('active_categoria')) {
-          modal.classList.remove("active_categoria");
+          modal.classList.remove('active_categoria');
         } else {
-          modal.classList.add("active_categoria");
+          modal.classList.add('active_categoria');
         }
 
-        if (otherModal.classList.contains('active')) {
-          otherModal.classList.remove("active");
+        if (otherModal.classList.contains('active') || blogModal?.classList.contains('active_blog')) {
+          otherModal.classList.remove('active');
+          blogModal?.classList.remove('active_blog');
         }
       });
 
-      escapeElement.addEventListener("click", function() {
-        modal.classList.remove("active_categoria");
+      escapeElement.addEventListener('click', function () {
+        modal.classList.remove('active_categoria');
       });
     }
   });
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const firstMenuMobile = document.querySelector("#first_menu_mobile");
-    const secondMenuMobile = document.querySelector("#second_menu_mobile");
-    const closeMenuMobile = document.querySelector("#close_menu_mobile");
-    const hiddenCloseMenuMobile = document.querySelector("#hidden_close_menu_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const firstMenuMobile = document.querySelector('#first_menu_mobile');
+    const secondMenuMobile = document.querySelector('#second_menu_mobile');
+    const closeMenuMobile = document.querySelector('#close_menu_mobile');
+    const hiddenCloseMenuMobile = document.querySelector('#hidden_close_menu_mobile');
 
     if (firstMenuMobile) {
-      firstMenuMobile.addEventListener("click", function(event) {
-        const target = event.target.closest("li");
-        if (!target || !target.nextElementSibling?.classList.contains("hidden_nav_li")) return;
+      firstMenuMobile.addEventListener('click', function (event) {
+        const target = event.target.closest('li');
+        if (!target || !target.nextElementSibling?.classList.contains('hidden_nav_li')) return;
 
-        [...firstMenuMobile.children].forEach(child => {
-          child.style.display = "none";
+        [...firstMenuMobile.children].forEach((child) => {
+          child.style.display = 'none';
         });
 
-        target.nextElementSibling.style.display = "grid";
+        target.nextElementSibling.style.display = 'grid';
 
-        if (secondMenuMobile) secondMenuMobile.style.display = "none";
+        if (secondMenuMobile) secondMenuMobile.style.display = 'none';
 
-        closeMenuMobile.style.display = "none";
-        hiddenCloseMenuMobile.style.display = "grid";
+        closeMenuMobile.style.display = 'none';
+        hiddenCloseMenuMobile.style.display = 'grid';
       });
     }
 
     if (hiddenCloseMenuMobile) {
-      hiddenCloseMenuMobile.addEventListener("click", function() {
-        [...firstMenuMobile.children].forEach(child => {
-          child.style.display = "grid";
+      hiddenCloseMenuMobile.addEventListener('click', function () {
+        [...firstMenuMobile.children].forEach((child) => {
+          child.style.display = 'grid';
         });
 
-        if (secondMenuMobile) secondMenuMobile.style.display = "grid";
+        if (secondMenuMobile) secondMenuMobile.style.display = 'grid';
 
-        document.querySelectorAll(".hidden_nav_li").forEach(navLi => {
-          navLi.style.display = "none";
+        document.querySelectorAll('.hidden_nav_li').forEach((navLi) => {
+          navLi.style.display = 'none';
         });
 
-        closeMenuMobile.style.display = "grid";
-        hiddenCloseMenuMobile.style.display = "none";
+        closeMenuMobile.style.display = 'grid';
+        hiddenCloseMenuMobile.style.display = 'none';
       });
     }
   });
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const customBtn = document.getElementById("add_to_cart_btn_container_mobile");
+  document.addEventListener('DOMContentLoaded', function () {
+    const customBtn = document.getElementById('add_to_cart_btn_container_mobile');
 
-    if (!window.location.pathname.includes("/products/") && customBtn) customBtn.remove();
+    if (!window.location.pathname.includes('/products/') && customBtn) customBtn.remove();
 
-    const standardAddCart = document.querySelector("#product_page_custom_mobile #add-to-cart, #product_page_custom_mobile a.notify_button_collection");
-    const footerNav = document.getElementById("footer_nav_mobile");
-    const customFooter = document.getElementById("custom_footer_mobile");
+    const standardAddCart = document.querySelector(
+      '#product_page_custom_mobile #add-to-cart, #product_page_custom_mobile a.notify_button_collection'
+    );
+    const footerNav = document.getElementById('footer_nav_mobile');
+    const customFooter = document.getElementById('custom_footer_mobile');
 
     if (!standardAddCart || !customBtn || !footerNav) return;
 
-    customBtn.style.position = "fixed";
-    customBtn.style.left = "0";
-    customBtn.style.right = "0";
-    customBtn.style.margin = "0 auto";
-    customBtn.style.opacity = "0";
-    customBtn.style.visibility = "hidden";
-    customBtn.style.transition = "opacity 0.3s ease, bottom 0.3s ease";
+    customBtn.style.position = 'fixed';
+    customBtn.style.left = '0';
+    customBtn.style.right = '0';
+    customBtn.style.margin = '0 auto';
+    customBtn.style.opacity = '0';
+    customBtn.style.visibility = 'hidden';
+    customBtn.style.transition = 'opacity 0.3s ease, bottom 0.3s ease';
 
     function updateWidthVisibility() {
       if (window.innerWidth > 1000) {
-        customBtn.style.visibility = "hidden";
-        customBtn.style.opacity = "0";
-        customBtn.style.display = "none";
+        customBtn.style.visibility = 'hidden';
+        customBtn.style.opacity = '0';
+        customBtn.style.display = 'none';
       } else {
-        customBtn.style.display = "block";
+        customBtn.style.display = 'block';
       }
     }
 
@@ -579,8 +647,8 @@
 
     function updateCustomBtnVisibility() {
       if (!hasScrolled) {
-        customBtn.style.opacity = "0";
-        customBtn.style.visibility = "hidden";
+        customBtn.style.opacity = '0';
+        customBtn.style.visibility = 'hidden';
         return;
       }
 
@@ -590,8 +658,8 @@
         const cfRect = customFooter.getBoundingClientRect();
 
         if (cfRect.top < viewportHeight && cfRect.bottom > 0) {
-          customBtn.style.opacity = "0";
-          customBtn.style.visibility = "hidden";
+          customBtn.style.opacity = '0';
+          customBtn.style.visibility = 'hidden';
           return;
         }
       }
@@ -599,11 +667,11 @@
       const rect = standardAddCart.getBoundingClientRect();
 
       if (rect.bottom < 0) {
-        customBtn.style.visibility = "visible";
-        customBtn.style.opacity = "1";
+        customBtn.style.visibility = 'visible';
+        customBtn.style.opacity = '1';
       } else {
-        customBtn.style.opacity = "0";
-        customBtn.style.visibility = "hidden";
+        customBtn.style.opacity = '0';
+        customBtn.style.visibility = 'hidden';
       }
     }
 
@@ -616,7 +684,7 @@
         bottomOffset = viewportHeight - footerRect.top;
       }
 
-      customBtn.style.bottom = bottomOffset + "px";
+      customBtn.style.bottom = bottomOffset + 'px';
     }
 
     function updateAll() {
@@ -625,16 +693,16 @@
       updateCustomBtnPosition();
     }
 
-    window.addEventListener("scroll", function() {
+    window.addEventListener('scroll', function () {
       hasScrolled = true;
       updateAll();
     });
 
-    window.addEventListener("resize", updateAll);
+    window.addEventListener('resize', updateAll);
 
     if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", updateAll);
-      window.visualViewport.addEventListener("scroll", updateAll);
+      window.visualViewport.addEventListener('resize', updateAll);
+      window.visualViewport.addEventListener('scroll', updateAll);
     }
 
     updateAll();
@@ -880,6 +948,25 @@
   <a href="/pages/apoio-ao-cliente">Apoio ao Cliente</a>
 </nav>
 
+<nav id="blog_custom_cat_mobile_modal">
+  <div id="close_blog_modal_mobile">
+    <span>Fechar</span>
+
+    <svg
+      stroke="#308a36"
+      fill="currentColor"
+      stroke-width="0"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      height="20px"
+      width="20px"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+    </svg>
+  </div>
+</nav>
+
 <nav id="categorias_mobile_modal">
   <div id="close_categoria_mobile">
     <span>Fechar</span>
@@ -977,17 +1064,19 @@
   function adjustModalHeight() {
     const announcementBar = document.querySelector('#shopify-section-announcement-bar');
     const menuModal = document.querySelector('#menu_mobile_modal');
+    const blogModal = document.querySelector('#blog_custom_cat_mobile_modal');
     const categoriaModal = document.querySelector('#categorias_mobile_modal');
-  
-    if (menuModal || categoriaModal) {
+
+    if (menuModal || categoriaModal || blogModal) {
       const isAnnouncementBarVisible = announcementBar && announcementBar.getBoundingClientRect().bottom > 0;
       const additionalHeight = isAnnouncementBarVisible ? 0 : 45;
-      
+
       menuModal.style.height = `calc(100dvh - ${162.5 - additionalHeight}px)`;
+      blogModal.style.height = `calc(100dvh - ${162.5 - additionalHeight}px)`;
       categoriaModal.style.height = `calc(100dvh - ${162.5 - additionalHeight}px)`;
     }
   }
-  
+
   window.addEventListener('load', adjustModalHeight);
   window.addEventListener('resize', adjustModalHeight);
   window.addEventListener('scroll', adjustModalHeight);

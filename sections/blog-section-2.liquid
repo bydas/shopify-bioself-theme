@@ -9,69 +9,77 @@
     }
 {%- endcapture -%}
 
-
 <section
-        data-section-id="{{ section.id }}"
-        data-section-type="slideshow"
-        data-section-settings='{{ section_settings }}'
-        class="slideshow-section"
+  data-section-id="{{ section.id }}"
+  data-section-type="slideshow"
+  data-section-settings="{{ section_settings }}"
+  class="slideshow-section"
 >
+  {%- if section.settings.title != blank -%}
+    <div class="container">
+      <header class="section__header">
+        <h2 class="section__title heading h3">{{ section.settings.title | escape }}</h2>
+      </header>
+    </div>
+  {%- endif -%}
 
-    {%- if section.settings.title != blank -%}
-      <div class="container">
-        <header class="section__header">
-            <h2 class="section__title heading h3">{{ section.settings.title | escape }}</h2>
-        </header>
-        </div>
-    {%- endif -%}
+  {%- assign blog = blogs[section.settings.blog] -%}
 
+  {%- if blog.articles_count > 0 -%}
+    <div class="container container--flush" id="blog-section-container">
+      <div class="blog-list-section slideshow">
+        {%- for article in blog.articles limit: section.settings.post_limit -%}
+          <a
+            href="{{ block.settings.link | default: article.url | default: '#' }}"
+            class="collection-item section-article-card"
+            data-collection-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- unless article.empty? -%}
+              {%- assign article_image = block.settings.image | default: article.image -%}
+              <div
+                class="collection-item__image-wrapper"
+                style="
+                  background-image: url({{ article_image | img_url: '450x' }});
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                "
+              >
+                {%- capture supported_sizes -%}{%- render 'image-size', sizes: '300,400,500,600,700,800', image: article_image -%}{%- endcapture -%}
+                {%- assign image_url = article_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                <div
+                  class="aspect-ratio"
+                  style="background: rgba(0, 0, 0, 0.{{ block.settings.article_image_overlay }});"
+                >
+                  <div class="blog-posts-section-meta">
+                    {% for tag in article.tags %}
+                      {% unless tag contains 'author' %}
+                        {% assign tags_without_author = tag %}
+                        <div class="section-article-card-tag">{{ tags_without_author }}</div>
+                      {% endunless %}
+                    {% endfor %}
+                    <div class="section-article-card-title">{{ article.title }}</div>
+                    {% assign meses = 'Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+                      | split: ', '
+                    %}
+                    {% assign mes_num = article.published_at | date: '%-m' | minus: 1 %}
 
-    {%- assign blog = blogs[section.settings.blog] -%}
-
-    {%- if blog.articles_count > 0 -%}
-
-        <div class="container container--flush" id="blog-section-container">
-            <div class="blog-list-section slideshow">
-                {%- for article in blog.articles limit: section.settings.post_limit -%}
-
-                    <a href="{{ block.settings.link | default: article.url | default: '#' }}"
-                       class="collection-item section-article-card"
-                       data-collection-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
-                        {%- unless article.empty? -%}
-                            {%- assign article_image = block.settings.image | default: article.image -%}
-                            <div class="collection-item__image-wrapper"
-                                 style="
-                                         background-image: url({{ article_image | img_url: '450x' }});
-                                         background-repeat: no-repeat;
-                                         background-size: cover;
-                                         ">
-                                {%- capture supported_sizes -%}{%- render 'image-size', sizes: '300,400,500,600,700,800', image: article_image -%}{%- endcapture -%}
-                                {%- assign image_url = article_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-                                <div class="aspect-ratio"
-                                     style="background: rgba(0, 0, 0, 0.{{ block.settings.article_image_overlay }});">
-
-                                    <div class="blog-posts-section-meta">
-                                        {% for tag in article.tags %}
-                                            {% unless tag contains 'author' %}
-                                                {% assign tags_without_author = tag %}
-                                                <div class="section-article-card-tag">{{ tags_without_author }}</div>
-                                            {% endunless %}
-                                        {% endfor %}
-                                        <div class="section-article-card-title">{{ article.title }}</div>
-                                        <div class="section-article-card-author">{{ article.author }}, {{ article.published_at | date: "%d %b %Y" }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        {%- endunless -%}
-                    </a>
-
-                {%- endfor -%}
-            </div>
-        </div>
-
-    {%- endif -%}
+                    <div class="section-article-card-author">
+                      {{ article.author }},
+                      {{- article.published_at | date: '%d' }}
+                      {{ meses[mes_num] }}
+                      {{ article.published_at | date: '%Y' -}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endunless -%}
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
 </section>
-
 
 {% schema %}
 {

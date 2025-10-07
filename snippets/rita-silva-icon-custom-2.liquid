@@ -1,0 +1,42 @@
+<style>
+  #rita_icon_custom-2 {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    position: relative;
+    width: 132px;
+    align-items: center;
+  }
+
+  #rita_icon_custom-2 > img {
+    z-index: 10;
+  }
+
+  #rita_icon_custom-2 > div {
+    background-color: white;
+    border-radius: 2rem;
+    display: grid;
+    height: 35px;
+    padding: 0 0.8rem 0 1.8rem;
+    position: absolute;
+    place-items: center;
+    left: 32px;
+  }
+
+  #rita_icon_custom-2 > div > span {
+    font-weight: 700 !important;
+    font-size: 14px;
+  }
+</style>
+
+<div id="rita_icon_custom-2">
+  <img
+    src="{% if img != blank %}{{ img | img_url: 'master' }}{% else %}https://cdn.shopify.com/s/files/1/0451/2327/2853/files/Ellipse_35_1.png?v=1756740925{% endif %}"
+    alt="Rita Silva"
+    width="auto"
+    height="auto"
+  >
+
+  <div>
+    <span>Rita Silva</span>
+  </div>
+</div>

@@ -62,7 +62,8 @@
     background-color: #258439;
     border-radius: 0.5rem;
     color: white;
-    font-size: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
     transition: all 0.15s ease;
   }
 
@@ -87,7 +88,7 @@
     }
 
     #blog-nav > nav > ul > li > a > span {
-      font-size: 0.875rem;
+      font-size: 1rem;
     }
 
     #blog-nav > nav > ul > li > a > div > img {
@@ -106,7 +107,7 @@
     }
 
     #blog-nav > nav > ul > li > a > span {
-      font-size: 0.825rem;
+      font-size: 0.875rem;
     }
 
     #blog-nav > nav > ul > li > a > div > img {
@@ -129,7 +130,7 @@
 
   @media screen and (max-width: 1000px) {
     #blog-nav {
-      margin: 1rem var(--mobile-container-gutter);
+      margin: 2rem var(--mobile-container-gutter);
       gap: 1.5rem;
     }
 
@@ -160,6 +161,23 @@
 <section id="blog-nav">
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
+    <script>
+      const blogNavCustom = document.querySelector('#blog-nav');
+
+      if (blogNavCustom) {
+        const h1Blog = blogNavCustom.querySelector('h1');
+
+        if (h1Blog) {
+          const text = h1Blog.textContent.trim();
+          const words = text.split(' ');
+
+          if (words.length > 0) {
+            words[0] = `<span style="color:#258439">${words[0]}</span>`;
+            h1Blog.innerHTML = words.join(' ');
+          }
+        }
+      }
+    </script>
   {% endunless %}
 
   {% unless section.settings.selected_blog == blank %}
@@ -171,25 +189,24 @@
             or tag contains 'doses'
             or tag contains 'duracao'
           %}
-            <li class="page__tag-item">
-              {% assign blog_url = section.settings.selected_blog.url %}
-              {% assign tag_handle = tag | handleize %}
-              <a href="{{ blog_url }}/tagged/{{ tag_handle }}">
-                <div>
-                  {% for icon_block in icon_collection %}
-                    {% if icon_block.settings.label == tag %}
+            {% for icon_block in icon_collection %}
+              {% if icon_block.settings.label == tag %}
+                <li class="page__tag-item">
+                  {% assign tag_handle = tag | handleize %}
+                  <a href="{{ shop.url }}/pages/blog-categories#{{ tag_handle }}">
+                    <div>
                       <img
                         src="{{ icon_block.settings.icon | image_url: width: 68, height: 68 }}"
                         alt="{{ tag }}"
                         width="55"
                         height="55"
                       >
-                    {% endif %}
-                  {% endfor %}
-                </div>
-                <span>{{ tag }}</span>
-              </a>
-            </li>
+                    </div>
+                    <span>{{ tag }}</span>
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
           {% endunless %}
         {%- endfor -%}
       </ul>

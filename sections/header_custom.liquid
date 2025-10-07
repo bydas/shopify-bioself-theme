@@ -744,12 +744,40 @@
         }
       });
 
-      form.addEventListener('submit', function (e) {
+      form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        if (input.value) {
-          window.location.href = `/search?type=product&options%5Bprefix%5D=last&q=${input.value}` ?? collectionLink;
+        const q = (input.value || '').trim();
+        if (!q) return;
 
+        // Montar URL final com os mesmos parâmetros (options[prefix]=last)
+        const makeUrl = (type) => {
+          const params = new URLSearchParams({
+            q,
+            'options[prefix]': 'last',
+            type,
+          });
+          return `/search?${params.toString()}`;
+        };
+
+        try {
+          // Verifica se há pelo menos 1 produto via Predictive Search (não requer token)
+          const res = await fetch(
+            `/search/suggest.json?q=${encodeURIComponent(q)}&resources[type]=product&resources[limit]=1`
+          );
+          const data = await res.json();
+
+          // Diferentes temas podem estruturar ligeiramente o payload; cobrimos ambos.
+          const productsA = data?.resources?.results?.products || [];
+          const productsB = data?.resources?.products || [];
+          const hasProduct = (productsA.length || productsB.length) > 0;
+
+          window.location.href = hasProduct ? makeUrl('product') : makeUrl('article');
+        } catch (err) {
+          console.warn('Falha na verificação de produtos; a redirecionar por defeito.', err);
+          // Fallback: tenta produtos; se tiveres uma variável collectionLink, usa-a como último recurso
+          window.location.href = makeUrl('product') || collectionLink;
+        } finally {
           input.value = '';
         }
       });
@@ -864,12 +892,40 @@
         }
       });
 
-      formMobile.addEventListener('submit', function (e) {
+      formMobile.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        if (input.value) {
-          window.location.href = `/search?type=product&options%5Bprefix%5D=last&q=${input.value}` ?? collectionLink;
+        const q = (input.value || '').trim();
+        if (!q) return;
 
+        // Montar URL final com os mesmos parâmetros (options[prefix]=last)
+        const makeUrl = (type) => {
+          const params = new URLSearchParams({
+            q,
+            'options[prefix]': 'last',
+            type,
+          });
+          return `/search?${params.toString()}`;
+        };
+
+        try {
+          // Verifica se há pelo menos 1 produto via Predictive Search (não requer token)
+          const res = await fetch(
+            `/search/suggest.json?q=${encodeURIComponent(q)}&resources[type]=product&resources[limit]=1`
+          );
+          const data = await res.json();
+
+          // Diferentes temas podem estruturar ligeiramente o payload; cobrimos ambos.
+          const productsA = data?.resources?.results?.products || [];
+          const productsB = data?.resources?.products || [];
+          const hasProduct = (productsA.length || productsB.length) > 0;
+
+          window.location.href = hasProduct ? makeUrl('product') : makeUrl('article');
+        } catch (err) {
+          console.warn('Falha na verificação de produtos; a redirecionar por defeito.', err);
+          // Fallback: tenta produtos; se tiveres uma variável collectionLink, usa-a como último recurso
+          window.location.href = makeUrl('product') || collectionLink;
+        } finally {
           input.value = '';
         }
       });
