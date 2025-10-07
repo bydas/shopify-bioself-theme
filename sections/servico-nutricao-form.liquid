@@ -294,6 +294,9 @@
         servicoModal.style.visibility = 'visible';
       }
 
+      sectionServico.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', '#servico_form_custom');
+
       const escapeIconModalServico = document.getElementById('escape_servico_modal');
       escapeIconModalServico?.addEventListener('click', function () {
         localStorage.setItem('not_show_sucess_servico_modal', 'true');
