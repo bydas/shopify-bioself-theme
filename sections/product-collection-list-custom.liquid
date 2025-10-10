@@ -176,9 +176,7 @@
   {% if collection and collection.products.size > 0 %}
     <ul>
       {% for product in collection.products limit: 5 %}
-        <li>
-          {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
-        </li>
+        {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
       {% endfor %}
     </ul>
   {% endif %}
@@ -192,9 +190,7 @@
     <ul>
       <div>
         {% for product in collection.products limit: 6 %}
-          <li>
-            {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
-          </li>
+          {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
         {% endfor %}
       </div>
     </ul>

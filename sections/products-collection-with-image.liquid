@@ -305,7 +305,6 @@
     }
   }
 
-
   @media screen and (max-width: 370px) {
     #product_collection_with_image_mobile > div > ul > div {
       grid-template-columns: 1fr;
@@ -358,9 +357,7 @@
     {% if collection and collection.products.size > 0 %}
       <ul>
         {% for product in collection.products limit: 4 %}
-          <li>
-            {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
-          </li>
+          {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
         {% endfor %}
       </ul>
     {% endif %}
@@ -411,9 +408,7 @@
       <ul>
         <div>
           {% for product in collection.products limit: 4 %}
-            <li>
-              {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
-            </li>
+            {%- render 'product-item-2', product: product, show_add_to_cart: true -%}
           {% endfor %}
         </div>
       </ul>

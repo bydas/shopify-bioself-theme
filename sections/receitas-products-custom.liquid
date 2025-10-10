@@ -121,9 +121,7 @@
     </li>
 
     {% for p in section.settings.selected_c.products limit: 12 %}
-      <li>
-        {% render 'product-item-2', product: p %}
-      </li>
+      {% render 'product-item-2', product: p %}
     {% endfor %}
 
     <li>

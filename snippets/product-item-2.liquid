@@ -1,8 +1,14 @@
-{% comment %} Product Display Snippet {% endcomment %}
+<script
+  charset="utf-8"
+  src="https://cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/AWS/PRODUCT_API/tag.min.js"
+  defer
+></script>
+
 <style>
   .image_and_div_wrapper {
     display: grid;
     position: relative;
+    padding: 2rem 0;
   }
 
   form {
@@ -14,21 +20,54 @@
     display: none;
   }
 
-  #product_item_custom {
+  .product_item_custom {
     display: grid;
     grid-template-rows: 1fr max-content;
     border: 1px solid #308a36;
     border-radius: 0.65rem;
   }
 
-  #product_item_custom > #custom_link_product {
+  .product_item_custom > .custom_link_product {
     display: grid;
     grid-template-rows: max-content 1fr max-content max-content max-content max-content;
     gap: 0.125rem;
     padding: 1rem 1rem 0 1rem;
   }
 
-  #product_item_custom > #custom_link_product > #label_custom {
+  .product_header_custom {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product_header_custom > div {
+    display: grid;
+    background-color: #ffbb12;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  .product_header_custom > div > * {
+    color: black;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .product_header_custom > div > h4 {
+    font-size: 2rem;
+    line-height: 1.6rem;
+  }
+
+  .product_header_custom > div > h6 {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+
+  .product_item_custom > .custom_link_product > .product_header_custom > .label_custom {
     font-weight: 700 !important;
     padding: 0.25rem 2rem;
     background-color: #ffbb12;
@@ -37,39 +76,31 @@
     font-size: 15px;
   }
 
-  #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
-    width: auto;
-    height: 80%;
-    object-fit: cover;
+  .product_item_custom > .custom_link_product > .image_and_div_wrapper > img {
     place-self: center;
   }
 
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
-    #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
-      height: 70% !important;
-      max-width: 70% !important;
-    }
-
-    #product_item_custom > #custom_link_product > h1,
-    #product_item_custom > #custom_link_product > #prices_custom > h3 {
+    .product_item_custom > .custom_link_product > h1,
+    .product_item_custom > .custom_link_product > #prices_custom > h3 {
       font-size: 14px !important;
     }
 
-    #product_item_custom > form > button > span,
+    .product_item_custom > form > button > span,
     #notify_button_custom {
       font-size: 12px !important;
     }
 
-    #product_item_custom > #custom_link_product > #pvp_custom {
+    .product_item_custom > .custom_link_product > #pvp_custom {
       font-size: 13px !important;
     }
 
-    #product_item_custom > #custom_link_product > #label_custom {
+    .product_item_custom > .custom_link_product > .product_header_custom > .label_custom {
       font-size: 13px !important;
       padding: 0.2rem 1.5rem !important;
     }
 
-    #product_item_custom > #custom_link_product > #prices_custom > h2 {
+    .product_item_custom > .custom_link_product > #prices_custom > h2 {
       font-size: 20px !important;
     }
 
@@ -80,53 +111,69 @@
     #product_collection_with_image > div > a > div > div > span:nth-child(1) {
       font-size: 16px !important;
     }
-  }
 
-  @media screen and (max-width: 450px) {
-    #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
-      height: 100px;
+    .product_header_custom > div > h4 {
+      font-size: 1.75rem;
+      line-height: 1.4rem;
+    }
+
+    .product_header_custom > div > h6 {
+      font-size: 0.85rem;
+      line-height: 1.2rem;
     }
   }
 
-  #product_item_custom > #custom_link_product > h1 {
+  @media screen and (max-width: 450px) {
+    .product_header_custom > div > h4 {
+      font-size: 1.5rem;
+      line-height: 1.2rem;
+    }
+
+    .product_header_custom > div > h6 {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+  }
+
+  .product_item_custom > .custom_link_product > h1 {
     margin: 0;
     font-size: 16px;
     line-height: normal;
   }
 
-  #product_item_custom > #custom_link_product > #ratings_custom {
+  .product_item_custom > .custom_link_product > #ratings_custom {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     gap: 0.5rem;
   }
 
-  #product_item_custom > #custom_link_product > #ratings_custom > ul {
+  .product_item_custom > .custom_link_product > #ratings_custom > ul {
     display: grid;
     grid-template-columns: repeat(5, max-content);
     gap: 0.125rem;
     list-style-type: none;
   }
 
-  #product_item_custom > #custom_link_product > #ratings_custom > span {
+  .product_item_custom > .custom_link_product > #ratings_custom > span {
     font-size: 14px;
     line-height: normal;
   }
 
-  #product_item_custom > #custom_link_product > #prices_custom {
+  .product_item_custom > .custom_link_product > #prices_custom {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     gap: 0.65rem;
     align-items: center;
   }
 
-  #product_item_custom > #custom_link_product > #prices_custom > h2 {
+  .product_item_custom > .custom_link_product > #prices_custom > h2 {
     margin: 0;
     font-size: 24px;
     color: #308a36;
     line-height: normal;
   }
 
-  #product_item_custom > #custom_link_product > #prices_custom > h3 {
+  .product_item_custom > .custom_link_product > #prices_custom > h3 {
     margin: 0;
     font-size: 16px;
     line-height: normal;
@@ -134,13 +181,13 @@
     align-self: end;
   }
 
-  #product_item_custom > #custom_link_product > #pvp_custom {
+  .product_item_custom > .custom_link_product > #pvp_custom {
     font-size: 14px;
     font-weight: 500;
   }
 
-  #product_item_custom > form > button,
-  #product_item_custom > #custom_specific_product {
+  .product_item_custom > form > button,
+  .product_item_custom > #custom_specific_product {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     justify-content: center;
@@ -159,8 +206,8 @@
     transition: all 0.15s ease;
   }
 
-  #product_item_custom > form > button:hover,
-  #product_item_custom > #custom_specific_product:hover {
+  .product_item_custom > form > button:hover,
+  .product_item_custom > #custom_specific_product:hover {
     background-color: #ffbb12;
     color: black;
   }
@@ -189,27 +236,20 @@
   }
 
   @media screen and (max-width: 1000px) {
-    #product_item_custom > form > button,
-    #product_item_custom > #custom_specific_product,
+    .product_item_custom > form > button,
+    .product_item_custom > #custom_specific_product,
     #notify_button_custom {
       padding: 0.75rem 1rem !important;
       min-height: 41px;
     }
   }
 
-  @media screen and (max-width: 1000px) and (min-width: 768px) {
-    #product_item_custom > #custom_link_product > .image_and_div_wrapper > img {
-      width: 75%;
-      height: 75%;
-    }
-  }
-
-  #product_item_custom > form > button > svg {
+  .product_item_custom > form > button > svg {
     width: 18px;
     height: 18px;
   }
 
-  #product_item_custom > form > button > span,
+  .product_item_custom > form > button > span,
   #notify_button_custom {
     font-size: 14px;
     text-transform: uppercase;
@@ -217,30 +257,30 @@
   }
 
   @media screen and (max-width: 430px) {
-    #product_item_custom > #custom_link_product > h1,
-    #product_item_custom > #custom_link_product > #prices_custom > h3 {
+    .product_item_custom > .custom_link_product > h1,
+    .product_item_custom > .custom_link_product > #prices_custom > h3 {
       font-size: 14px;
     }
 
-    #product_item_custom > #custom_link_product > #prices_custom > h2 {
+    .product_item_custom > .custom_link_product > #prices_custom > h2 {
       font-size: 18px;
     }
 
-    #product_item_custom > form > button > span,
+    .product_item_custom > form > button > span,
     #notify_button_custom {
       font-size: 13px;
     }
 
-    #product_item_custom > form > button > svg,
+    .product_item_custom > form > button > svg,
     #notify_button_custom > svg {
       width: 16px;
       height: 16px;
     }
 
-    #product_item_custom > #custom_link_product > #pvp_custom,
+    .product_item_custom > .custom_link_product > #pvp_custom,
     .netreviews_bg_stars div,
     .netreviews_review_rate_and_stars div,
-    #product_item_custom > #custom_link_product > #label_custom {
+    .product_item_custom > .custom_link_product > .product_header_custom > .label_custom {
       font-size: 12px;
     }
   }
@@ -250,21 +290,21 @@
       margin-top: 1rem;
     }
 
-    #product_item_custom > #custom_link_product > #label_custom {
+    .product_item_custom > .custom_link_product > .product_header_custom > .label_custom {
       padding: 0.25rem 1.5rem;
     }
 
-    #product_item_custom > form > button,
-    #product_item_custom > #custom_specific_product {
+    .product_item_custom > form > button,
+    .product_item_custom > #custom_specific_product {
       margin: 0.5rem;
     }
 
-    #product_item_custom > #custom_link_product {
+    .product_item_custom > .custom_link_product {
       padding: 0.5rem;
     }
 
-    #product_item_custom > button,
-    #product_item_custom > #custom_specific_product,
+    .product_item_custom > button,
+    .product_item_custom > #custom_specific_product,
     #notify_button_custom {
       margin: 0.5rem;
       line-height: normal;
@@ -272,27 +312,36 @@
   }
 </style>
 
-<section id="product_item_custom">
-  <a href="{{ product.url }}" id="custom_link_product">
-    {%- if product.price < product.compare_at_price -%}
-      <span id="label_custom">
-        -
-        {{-
-          product.compare_at_price
-          | minus: product.price
-          | times: 100.0
-          | divided_by: product.compare_at_price
-          | round
-        -}}
-        %</span
-      >
-    {%- endif -%}
+<li class="product_item_custom">
+  <a href="{{ product.url }}" class="custom_link_product">
+    <div class="product_header_custom">
+      {%- if product.price < product.compare_at_price -%}
+        <span class="label_custom">
+          -
+          {{-
+            product.compare_at_price
+            | minus: product.price
+            | times: 100.0
+            | divided_by: product.compare_at_price
+            | round
+          -}}
+          %</span
+        >
+      {%- endif -%}
+
+      {% if product.tags contains 'Pack Poupança' %}
+        <div>
+          <h4>Pack</h4>
+          <h6>Poupança</h6>
+        </div>
+      {% endif %}
+    </div>
 
     <div class="image_and_div_wrapper">
       <img
         alt="{{ product.title }}"
         loading="lazy"
-        src="{{ product.featured_image | img_url: 'master' }}"
+        src="{{ product.featured_image | image_url: width: 200 }}"
         width="200px"
         height="100%"
       >
@@ -313,10 +362,6 @@
 
     <h1>{{ product.title }}</h1>
 
-    <script
-      charset="utf-8"
-      src="https://cl.avis-verifies.com/pt/cache/3/0/b/30b17f6b-db4c-0c24-0d69-c5635e2a1e35/AWS/PRODUCT_API/tag.min.js"
-    ></script>
     <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
     <div class="skeepers_product__stars" data-product-id="{{ product.id }}"></div>
 
@@ -349,7 +394,7 @@
   </a>
 
   {%- if product.available -%}
-    <form method="post" action="/cart/add">
+    <form method="post" action="{{ routes.cart_add_url }}">
       {%- if product.variants.size == 1 -%}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
@@ -410,17 +455,17 @@
       </a>
     {% endunless %}
   {%- endif -%}
-</section>
+</li>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const productSections = document.querySelectorAll('#product_item_custom');
+    const productDivs = document.querySelectorAll('.product_item_custom');
 
     function checkReviews() {
-      productSections.forEach((section) => {
-        const starsContainer = section.querySelector('.NETREVIEWS_PRODUCT_STARS');
-        const skeepersContainer = section.querySelector('.skeepers_product__stars');
-        const noReviewsFallback = section.querySelector('#no_reviews_stars');
+      productDivs.forEach((div) => {
+        const starsContainer = div.querySelector('.NETREVIEWS_PRODUCT_STARS');
+        const skeepersContainer = div.querySelector('.skeepers_product__stars');
+        const noReviewsFallback = div.querySelector('#no_reviews_stars');
 
         if (starsContainer) {
           const observer = new MutationObserver(() => {
@@ -432,7 +477,6 @@
                 skeepersContainer.style.display = 'none';
               }
             } else {
-              // Oculta o fallback e exibe as estrelas
               noReviewsFallback.style.display = 'none';
               starsContainer.style.display = 'block';
               if (skeepersContainer) {
@@ -463,7 +507,6 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll("form[action='/cart/add']");
-
     const loader = document.getElementById('loader');
 
     function showLoader() {
@@ -594,12 +637,10 @@
   document.addEventListener('DOMContentLoaded', function () {
     const divs = document.querySelectorAll('.image_and_div_wrapper > div');
 
-    if (divs.length > 0) {
-      divs.forEach((div) => {
-        div.addEventListener('click', function (event) {
-          event.stopPropagation();
-        });
+    divs.forEach((div) => {
+      div.addEventListener('click', function (event) {
+        event.stopPropagation();
       });
-    }
+    });
   });
 </script>

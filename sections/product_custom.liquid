@@ -299,7 +299,6 @@
     }
 
     .product-icon-text {
-      display: block;
       margin-top: 6px;
       font-size: 14px;
       font-weight: 500;
@@ -1405,13 +1404,8 @@
                       width="90"
                       height="90"
                     >
-                    <span class="product-icon-text">
-                      {{
-                        icon.referencia
-                        | replace: 'CrueltyFree', 'Cruelty Free'
-                        | replace: 'ChemicalFree', 'Chemical Free'
-                      }}
-                    </span>
+
+                    <span class="product-icon-text">{{ icon.referencia }}</span>
                   </li>
                 {% endif %}
               {% endfor %}
@@ -2094,15 +2088,11 @@
     {% assign brand_related = collections[product.vendor] %}
     {% if brand_related.products.size > 0 %}
       {% for p in brand_related.products limit: 12 %}
-        <li>
-          {% render 'product-item-2', product: p %}
-        </li>
+        {% render 'product-item-2', product: p %}
       {% endfor %}
     {% else %}
       {% for p in product.collections.first.products limit: 12 %}
-        <li>
-          {% render 'product-item-2', product: p %}
-        </li>
+        {% render 'product-item-2', product: p %}
       {% endfor %}
     {% endif %}
 

@@ -149,7 +149,6 @@
 
 <section id="custom_slideshow">
   <div class="slideshow-container">
-    <!-- Setas -->
     <div class="arrow arrow-left" onclick="changeSlide(-1)">
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
         <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
@@ -172,6 +171,7 @@
                 alt="Slide {{ forloop.index }}"
                 width="100%"
                 height="100%"
+                loading="eager"
               >
             </picture>
           </a>
@@ -188,8 +188,8 @@
 </section>
 
 <script>
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".dot");
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
 
   let slideIndex = 0;
   let autoSlideInterval;
@@ -197,10 +197,10 @@
 
   function showSlides() {
     slides.forEach((slide, index) => {
-      slide.style.display = index === slideIndex ? "block" : "none";
+      slide.style.display = index === slideIndex ? 'block' : 'none';
     });
     dots.forEach((dot, index) => {
-      dot.className = index === slideIndex ? "dot active-slide" : "dot";
+      dot.className = index === slideIndex ? 'dot active-slide' : 'dot';
     });
   }
 
@@ -231,65 +231,62 @@
     let isDragging = false;
 
     slides.forEach((slide) => {
-      // Início do arrasto (mouse ou toque)
-      slide.addEventListener("mousedown", (e) => {
+      slide.addEventListener('mousedown', (e) => {
         e.preventDefault();
         startX = e.clientX;
         isDragging = true;
-        slide.style.cursor = "grabbing";
+        slide.style.cursor = 'grabbing';
       });
 
-      slide.addEventListener("touchstart", (e) => {
+      slide.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
         isDragging = true;
-        slide.style.cursor = "grabbing";
+        slide.style.cursor = 'grabbing';
       });
 
-      // Durante o arrasto
-      slide.addEventListener("mousemove", (e) => {
+      slide.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
         const currentX = e.clientX;
         const diffX = startX - currentX;
         if (Math.abs(diffX) > 50) {
-          if (diffX > 0) changeSlide(1); // Deslize para a esquerda
-          else changeSlide(-1); // Deslize para a direita
+          if (diffX > 0) changeSlide(1);
+          else changeSlide(-1);
           isDragging = false;
         }
       });
 
-      slide.addEventListener("touchmove", (e) => {
+      slide.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
         const currentX = e.touches[0].clientX;
         const diffX = startX - currentX;
         if (Math.abs(diffX) > 50) {
-          if (diffX > 0) changeSlide(1); // Deslize para a esquerda
-          else changeSlide(-1); // Deslize para a direita
+          if (diffX > 0) changeSlide(1);
+          else changeSlide(-1);
           isDragging = false;
         }
       });
 
-      // Fim do arrasto
-      slide.addEventListener("mouseup", () => {
+      slide.addEventListener('mouseup', () => {
         isDragging = false;
-        slide.style.cursor = "grab";
+        slide.style.cursor = 'grab';
       });
 
-      slide.addEventListener("mouseleave", () => {
+      slide.addEventListener('mouseleave', () => {
         isDragging = false;
-        slide.style.cursor = "grab";
+        slide.style.cursor = 'grab';
       });
 
-      slide.addEventListener("touchend", () => {
+      slide.addEventListener('touchend', () => {
         isDragging = false;
-        slide.style.cursor = "grab";
+        slide.style.cursor = 'grab';
       });
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     showSlides();
     autoSlideInterval = setInterval(autoSlide, slideTime);
-    handleDrag(); // Ativar eventos de arrasto para mouse e toque
+    handleDrag();
   });
 </script>
 

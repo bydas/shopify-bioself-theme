@@ -38,7 +38,7 @@
   #search_custom > #search_results_custom {
     display: grid;
     list-style-type: none;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
   }
 
@@ -77,6 +77,12 @@
 
   .search-tabs a[aria-current='page'] {
     border-bottom-color: #ffbb12;
+  }
+
+  @media screen and (max-width: 1349px) {
+    #search_custom > #search_results_custom {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media screen and (max-width: 1000px) {
@@ -135,10 +141,6 @@
   {% if search.results.size == 0 %}
     <h2>Nenhum resultado encontrado</h2>
   {% else %}
-    {%- comment -%}
-      Construímos já os hrefs server-side para ficar resiliente sem JS.
-      /search?q=TERMO&type=product   e   /search?q=TERMO&type=article
-    {%- endcomment -%}
     {% assign term_qs = search.terms | url_encode %}
     {% assign base_search_url = routes.search_url %}
     {% assign href_products = base_search_url | append: '?q=' | append: term_qs | append: '&type=product' %}
@@ -168,10 +170,9 @@
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
     const term = {{ search.terms | json }};
-    const endpoint = '/api/2025-07/graphql.json'; // ajusta se necessário
-    const token = 'bfe1eb076dd1eeff39af26ba722acebf'; // recomenda-se App Proxy/SSR para não expor
+    const endpoint = '/api/2025-07/graphql.json';
+    const token = 'bfe1eb076dd1eeff39af26ba722acebf';
 
-    // Marcar tab ativa conforme ?type=...
     const params = new URLSearchParams(location.search);
     const type = params.get('type'); // 'product' | 'article' | null (ambos)
     const tabProducts = document.getElementById('tab-products');

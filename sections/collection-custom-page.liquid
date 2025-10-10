@@ -1802,9 +1802,7 @@
           <div id="product_list_wrapper_first">
             <ul>
               {% for product in collection.products %}
-                <li>
-                  {%- render 'product-item-2', product: product -%}
-                </li>
+                {%- render 'product-item-2', product: product -%}
               {% endfor %}
             </ul>
 
@@ -1814,9 +1812,7 @@
           <div id="product_list_wrapper_last">
             <ul>
               {% for product in collection.products limit: 8 %}
-                <li>
-                  {%- render 'product-item-2', product: product -%}
-                </li>
+                {%- render 'product-item-2', product: product -%}
               {% endfor %}
             </ul>
 
@@ -1825,9 +1821,7 @@
             <ul>
               {% for product in collection.products limit: current_limit %}
                 {% if forloop.index >= 9 %}
-                  <li>
-                    {%- render 'product-item-2', product: product -%}
-                  </li>
+                  {%- render 'product-item-2', product: product -%}
                 {% endif %}
               {% endfor %}
             </ul>
@@ -2124,9 +2118,7 @@
       <div id="product_list_wrapper_first">
         <ul>
           {% for product in collection.products %}
-            <li>
-              {%- render 'product-item-2', product: product -%}
-            </li>
+            {%- render 'product-item-2', product: product -%}
           {% endfor %}
         </ul>
 
@@ -2138,9 +2130,7 @@
       <div id="product_list_wrapper_last">
         <ul>
           {% for product in collections[collection.handle].products limit: 8 %}
-            <li>
-              {%- render 'product-item-2', product: product -%}
-            </li>
+            {%- render 'product-item-2', product: product -%}
           {% endfor %}
         </ul>
 
@@ -2151,9 +2141,7 @@
         <ul>
           {% for product in collections[collection.handle].products limit: current_limit %}
             {% if forloop.index >= 9 %}
-              <li>
-                {%- render 'product-item-2', product: product -%}
-              </li>
+              {%- render 'product-item-2', product: product -%}
             {% endif %}
           {% endfor %}
         </ul>
