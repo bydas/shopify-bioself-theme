@@ -38,8 +38,7 @@
   #search_custom > #search_results_custom {
     display: grid;
     list-style-type: none;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    gap: 0.5rem;
   }
 
   #search_custom > h2 {
@@ -79,12 +78,6 @@
     border-bottom-color: #ffbb12;
   }
 
-  @media screen and (max-width: 1349px) {
-    #search_custom > #search_results_custom {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   @media screen and (max-width: 1000px) {
     #search_custom {
       gap: 0.5rem;
@@ -98,10 +91,6 @@
 
     .search-tabs a {
       font-size: 16px;
-    }
-
-    #search_custom > #search_results_custom {
-      grid-template-columns: 1fr;
     }
 
     #search_custom > #search_breadcrumbs {
@@ -124,6 +113,12 @@
     border-bottom-color: transparent;
     pointer-events: none;
     cursor: not-allowed;
+  }
+
+  @media screen and (max-width: 369px) {
+    #search_custom > #search_results_custom {
+      grid-template-columns: 1fr !important;
+    }
   }
 </style>
 
@@ -155,8 +150,32 @@
       <ul id="search_results_custom">
         {%- for result in search.results -%}
           {% if result.object_type == 'product' %}
+            <style>
+              #search_custom > #search_results_custom {
+                grid-template-columns: repeat(5, 1fr);
+              }
+
+              @media screen and (max-width: 1699px) {
+                #search_custom > #search_results_custom {
+                  grid-template-columns: repeat(4, 1fr);
+                }
+              }
+
+              @media screen and (max-width: 1349px) {
+                #search_custom > #search_results_custom {
+                  grid-template-columns: repeat(2, 1fr);
+                }
+              }
+            </style>
+
             {%- render 'product-item-2', product: result -%}
           {% else %}
+            <style>
+              #search_custom > #search_results_custom {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+              }
+            </style>
+
             {%- render 'article-item-custom', article: result -%}
           {% endif %}
         {%- endfor -%}
