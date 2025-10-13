@@ -11507,6 +11507,13 @@ body.template-collection .product-list .product-item,body.template-search .produ
     left: 0
 }
 
+@media screen and (max-width: 409px) {
+    .pagination__prev span,
+    .pagination__next span {
+        display: none;
+    }
+}
+
 .pagination__prev svg {
     margin-right: 14px
 }

@@ -114,12 +114,6 @@
     pointer-events: none;
     cursor: not-allowed;
   }
-
-  @media screen and (max-width: 369px) {
-    #search_custom > #search_results_custom {
-      grid-template-columns: 1fr !important;
-    }
-  }
 </style>
 
 <section id="search_custom">
@@ -146,7 +140,7 @@
       <a id="tab-articles" href="{{ href_articles }}">Blog (<span>…</span>)</a>
     </div>
 
-    {% paginate search.results by 16 %}
+    {% paginate search.results by 15 %}
       <ul id="search_results_custom">
         {%- for result in search.results -%}
           {% if result.object_type == 'product' %}
@@ -166,6 +160,12 @@
                   grid-template-columns: repeat(2, 1fr);
                 }
               }
+
+              @media screen and (max-width: 369px) {
+                #search_custom > #search_results_custom {
+                  grid-template-columns: 1fr !important;
+                }
+              }
             </style>
 
             {%- render 'product-item-2', product: result -%}
@@ -173,6 +173,12 @@
             <style>
               #search_custom > #search_results_custom {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+              }
+
+              @media screen and (max-width: 379px) {
+                #search_custom > #search_results_custom {
+                  grid-template-columns: 1fr !important;
+                }
               }
             </style>
 
