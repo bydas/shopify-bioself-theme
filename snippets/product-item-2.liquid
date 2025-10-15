@@ -506,130 +506,159 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const forms = document.querySelectorAll("form[action='/cart/add']");
-    const loader = document.getElementById('loader');
+    const LOADER_ID = 'loader';
 
     function showLoader() {
+      const loader = document.getElementById(LOADER_ID);
+      if (!loader) return;
       loader.style.display = 'block';
       loader.style.width = '0%';
-
       setTimeout(() => {
         loader.style.width = '30%';
       }, 100);
     }
 
     function hideLoader() {
+      const loader = document.getElementById(LOADER_ID);
+      if (!loader) return;
       loader.style.width = '100%';
-
       setTimeout(() => {
         loader.style.display = 'none';
         loader.style.width = '0%';
       }, 400);
     }
 
-    forms.forEach((form) => {
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
+    function bindCartForms(root = document) {
+      const forms = root.querySelectorAll("form[action='/cart/add']:not([data-cart-bound='1'])");
+      forms.forEach((form) => {
+        // Marca para impedir múltiplos listeners no mesmo form
+        form.setAttribute('data-cart-bound', '1');
 
-        const formData = new FormData(form);
-        const productId = formData.get('id');
+        let locked = false;
 
-        if (!productId) return;
+        form.addEventListener('submit', async function onSubmit(e) {
+          e.preventDefault();
 
-        showLoader();
+          if (locked) return; // evita submits paralelos
+          locked = true;
 
-        fetch('/cart/add.js', {
-          method: 'POST',
-          body: formData,
-        })
-          .then((response) => {
-            if (!response.ok) {
-              return response.json().then((data) => {
-                throw new Error(data.message || 'Erro ao adicionar ao carrinho.');
+          const btn = form.querySelector("button[type='submit']");
+          btn?.setAttribute('disabled', 'disabled');
+
+          try {
+            const fd = new FormData(form);
+            const variantId = fd.get('id');
+            if (!variantId) throw new Error('Sem variante selecionada (id em falta).');
+
+            showLoader();
+
+            const addOnce = () =>
+              fetch('/cart/add.js', {
+                method: 'POST',
+                headers: { Accept: 'application/json' },
+                body: fd,
               });
+
+            let res = await addOnce();
+
+            // Retry leve para conflito momentâneo
+            if (res.status === 409) {
+              await fetch('/cart.js', { headers: { Accept: 'application/json' } });
+              res = await addOnce();
             }
 
-            fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`)
-              .then((res) => {
-                if (!res.ok) {
-                  throw new Error('Erro ao obter carrinho');
+            if (!res.ok) {
+              const err = await res.json().catch(() => ({}));
+              throw new Error(err.message || err.description || 'Erro ao adicionar ao carrinho.');
+            }
+
+            // === Mantém EXATAMENTE a tua lógica de estilos no mini-cart ===
+            const html = await fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`).then((r) => {
+              if (!r.ok) throw new Error('Erro ao obter carrinho');
+              return r.text();
+            });
+
+            if (html) {
+              const carts = document.querySelectorAll('#mini-cart');
+
+              if (carts) {
+                carts.forEach((cart) => (cart.innerHTML = html));
+
+                if (innerWidth >= 2559) {
+                  carts.forEach((cart) => (cart.style.marginRight = '17vw'));
                 }
 
-                return res.text();
-              })
-              .then((data) => {
-                if (data) {
-                  const carts = document.querySelectorAll('#mini-cart');
-
-                  if (carts) {
-                    carts.forEach((cart) => (cart.innerHTML = data));
-
-                    if (innerWidth >= 2559) {
-                      carts.forEach((cart) => (cart.style.marginRight = '17vw'));
-                    }
-
-                    if (innerWidth < 2559 && innerWidth >= 1499) {
-                      carts.forEach((cart) => (cart.style.marginRight = '8vw'));
-                    }
-
-                    if (innerWidth < 1499 && innerWidth >= 1000) {
-                      carts.forEach((cart) => (cart.style.marginRight = '2vw'));
-                    }
-
-                    if (innerWidth >= 1000) {
-                      carts.forEach((cart) => (cart.style.top = '4.85rem'));
-                    }
-
-                    if (innerWidth < 1000) {
-                      carts.forEach((cart) => {
-                        cart.style.transform = 'scale(1)';
-                        cart.style.maxHeight = 'calc(100vh - 40px)';
-                        cart.style.padding = '1rem 1rem 2rem 1rem';
-                      });
-
-                      const as = carts.forEach((cart) => cart.querySelector('a'));
-
-                      if (as) {
-                        as.forEach((a) => (a.style.padding = '0 1rem'));
-                      }
-                    } else {
-                      carts.forEach((cart) => {
-                        cart.style.visibility = 'visible';
-                        cart.style.opacity = 1;
-                      });
-                    }
-                  }
-
-                  return fetch('/cart.js');
-                }
-              })
-              .then((res) => {
-                if (!res.ok) {
-                  throw new Error('Error while fetching cart');
+                if (innerWidth < 2559 && innerWidth >= 1499) {
+                  carts.forEach((cart) => (cart.style.marginRight = '8vw'));
                 }
 
-                return res.json();
-              })
-              .then((data) => {
-                if (data) {
-                  const cartCounters = document.querySelectorAll('.header__cart-count');
-
-                  if (cartCounters) {
-                    cartCounters.forEach((cart) => (cart.innerText = data.item_count));
-                  }
+                if (innerWidth < 1499 && innerWidth >= 1000) {
+                  carts.forEach((cart) => (cart.style.marginRight = '2vw'));
                 }
-              })
-              .catch((error) => {
-                console.error('Error when getting cart');
-              });
-          })
-          .catch((error) => {
-            console.error('Erro ao adicionar ao carrinho:', error);
-            alert(error.message || 'Erro ao adicionar ao carrinho.');
-          })
-          .finally(() => hideLoader());
+
+                if (innerWidth >= 1000) {
+                  carts.forEach((cart) => (cart.style.top = '4.85rem'));
+                }
+
+                if (innerWidth < 1000) {
+                  carts.forEach((cart) => {
+                    cart.style.transform = 'scale(1)';
+                    cart.style.maxHeight = 'calc(100vh - 40px)';
+                    cart.style.padding = '1rem 1rem 2rem 1rem';
+                  });
+
+                  // Mantendo a mesma intenção (aplicar padding aos <a>)
+                  const asAll = [];
+                  carts.forEach((cart) => {
+                    const as = cart.querySelectorAll('a');
+                    as.forEach((a) => {
+                      a.style.padding = '0 1rem';
+                      asAll.push(a);
+                    });
+                  });
+                } else {
+                  carts.forEach((cart) => {
+                    cart.style.visibility = 'visible';
+                    cart.style.opacity = 1;
+                  });
+                }
+              }
+            }
+            // === Fim da tua lógica de estilos mantida ===
+
+            // Atualiza contador do carrinho (sem mexer no styling)
+            const cartData = await fetch('/cart.js', { headers: { Accept: 'application/json' } }).then((r) => r.json());
+            const counters = document.querySelectorAll('.header__cart-count');
+            if (counters) counters.forEach((el) => (el.innerText = cartData.item_count));
+          } catch (err) {
+            console.error('Erro ao adicionar ao carrinho:', err);
+            alert(err.message || 'Erro ao adicionar ao carrinho.');
+          } finally {
+            hideLoader();
+            btn?.removeAttribute('disabled');
+            locked = false;
+          }
+        });
       });
+    }
+
+    // Liga nos forms existentes
+    bindCartForms(document);
+
+    // Re-liga apenas em nós novos (se o tema re-renderizar secções)
+    const mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return;
+          if (node.matches && node.matches("form[action='/cart/add']")) {
+            bindCartForms(node.parentElement || node);
+          } else if (node.querySelector) {
+            bindCartForms(node);
+          }
+        });
+      }
     });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
   });
 </script>
 
