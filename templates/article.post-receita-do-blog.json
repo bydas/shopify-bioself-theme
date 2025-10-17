@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "article",
+      "blocks": {
+        "featured_posts_htghYp": {
+          "type": "featured_posts",
+          "settings": {
+            "title": "Popular posts",
+            "show_ranking": true,
+            "show_category": true,
+            "show_author": true,
+            "show_date": true,
+            "article_1": "",
+            "article_2": "",
+            "article_3": "",
+            "article_4": "",
+            "article_5": ""
+          }
+        },
+        "newsletter_KPLyeh": {
+          "type": "newsletter",
+          "settings": {
+            "title": "Subscreva a newsletter para novidades exclusivas!",
+            "content": "",
+            "text_gdpr": "<p>Aceito a <a href=\"https://bioself.pt/policies/privacy-policy\" title=\"https://bioself.pt/policies/privacy-policy\">Política de Privacidade</a> e os <a href=\"https://bioself.pt/policies/terms-of-service\" title=\"https://bioself.pt/policies/terms-of-service\">Termos e Condições</a>.</p>",
+            "subtext": "",
+            "background": "#ffffff",
+            "text": "#ffffff"
+          }
+        },
+        "show_tags_4yn3Jq": {
+          "type": "show_tags",
+          "settings": {
+            "blog_sidebar_tags_title": "Categorias"
+          }
+        }
+      },
+      "block_order": [
+        "featured_posts_htghYp",
+        "newsletter_KPLyeh",
+        "show_tags_4yn3Jq"
+      ],
+      "settings": {
+        "show_category": true,
+        "show_author": true,
+        "show_date": true,
+        "show_share_buttons": true,
+        "show_tags": true,
+        "show_gravatar": true,
+        "font_size": 12,
+        "notice_heading": "Aviso legal:",
+        "notice_text": "Este artigo não tem a intenção de diagnosticar, tratar ou substituir aconselhamento médico sendo o seu conteúdo apenas para fins informativos. Consulta um médico ou profissional de saúde sobre qualquer diagnóstico médico relacionado com a tua saúde ou mesmo eventuais opções de tratamento. As afirmações feitas sobre produtos específicos neste artigo não são aprovadas para diagnosticar, tratar, curar ou prevenir doenças.",
+        "show_on_mobile": true
+      }
+    },
+    "174715264411e0695e": {
+      "type": "apps",
+      "blocks": {
+        "better_blog_comments_app_block_3TWJNK": {
+          "type": "shopify://apps/better-blog-comments/blocks/app-block/38e9cf33-0578-44a5-a6bd-6ec02ed07c66",
+          "settings": {
+            "padding_top": 0,
+            "font_scaling": 1,
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "better_blog_comments_app_block_3TWJNK"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "174715264411e0695e"
+  ]
+}
