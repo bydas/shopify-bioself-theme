@@ -30,9 +30,87 @@
       "settings": {
         "slide_time": 5
       }
+    },
+    "blog_nav_te9bTq": {
+      "type": "blog-nav",
+      "blocks": {
+        "icon_JLKWMM": {
+          "type": "Icon",
+          "settings": {
+            "icon": "shopify://shop_images/grocery.png",
+            "label": "Alimentação"
+          }
+        },
+        "icon_JQfxkd": {
+          "type": "Icon",
+          "settings": {
+            "icon": "shopify://shop_images/psychiatry.png",
+            "label": "Óleos Essenciais"
+          }
+        },
+        "icon_zkXR8j": {
+          "type": "Icon",
+          "settings": {
+            "icon": "shopify://shop_images/skillet.png",
+            "label": "Receitas"
+          }
+        },
+        "icon_rKWJqJ": {
+          "type": "Icon",
+          "settings": {
+            "icon": "shopify://shop_images/cardiology.png",
+            "label": "Saúde e bem-estar"
+          }
+        },
+        "icon_mG86LV": {
+          "type": "Icon",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_d0010923-7c10-4b14-bd01-60b08b55eb4b.png",
+            "label": "Suplementação"
+          }
+        }
+      },
+      "block_order": [
+        "icon_JLKWMM",
+        "icon_JQfxkd",
+        "icon_zkXR8j",
+        "icon_rKWJqJ",
+        "icon_mG86LV"
+      ],
+      "name": "Blog nav",
+      "settings": {
+        "title": "Saúde para viver com equilíbrio",
+        "selected_blog": "blog-page"
+      }
+    },
+    "blog_posts_custom_Wmqhdb": {
+      "type": "blog-posts-custom",
+      "name": "Blog posts custom",
+      "settings": {
+        "title": "Acabados de chegar",
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
+        "selected-blog": "blog-page",
+        "btn_text": "Ver mais publicações"
+      }
+    },
+    "blog_consultas_nutricao_k4QRgJ": {
+      "type": "blog-consultas-nutricao",
+      "name": "Blog consultas",
+      "settings": {
+        "title": "Nutricionista Rita de Cássia Silva",
+        "description": "<h1>Alimenta o teu equilíbrio com a Nutrição Funcional</h1>",
+        "sub_description": "<p>Dá o primeiro passo para uma vida mais equilibrada.</p>",
+        "btn_text": "CONSULTAS DE NUTRIÇÃO",
+        "btn_link": "shopify://pages/servico-de-nutricao",
+        "image": "shopify://shop_images/Ellipse_35.png",
+        "mobile_image": "shopify://shop_images/image.png"
+      }
     }
   },
   "order": [
-    "blog_slideshow_MVaVNC"
+    "blog_slideshow_MVaVNC",
+    "blog_nav_te9bTq",
+    "blog_posts_custom_Wmqhdb",
+    "blog_consultas_nutricao_k4QRgJ"
   ]
 }
