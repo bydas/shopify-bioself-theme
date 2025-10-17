@@ -9,6 +9,71 @@
  */
 {
   "sections": {
+    "blog_article_headline_rita_custom_Ra9EKF": {
+      "type": "blog-article-headline-rita-custom",
+      "name": "Receitas rita headline",
+      "settings": {
+        "is_rita_page": true,
+        "selected_img": "shopify://shop_images/Ellipse_35_f260ff99-6feb-4dd6-b468-ea6f1e091847.png"
+      }
+    },
+    "rita_article_main_custom_EpgrHR": {
+      "type": "rita-article-main-custom",
+      "name": "Rita main custom",
+      "settings": {
+        "is_rita_page": true,
+        "selected_img": "shopify://shop_images/image_ed9e88ee-12ad-459f-80ae-88b222202554.png",
+        "title": "<h3>Nutricionista </h3><h3>Rita de Cássia Silva</h3>",
+        "description": "<p>Alimenta o teu equilíbrio com a Nutrição Funcional</p>",
+        "alt_text": "Dá o primeiro passo para uma vida mais equilibrada.",
+        "btn_txt": "consulta de nutrição",
+        "btn_link": "shopify://pages/servico-de-nutricao",
+        "aviso_legal": "<p>Este artigo não tem a intenção de diagnosticar, tratar ou substituir aconselhamento médico sendo o seu conteúdo apenas para fins informativos. Consulta um médico ou profissional de saúde sobre qualquer diagnóstico médico relacionado com a tua saúde ou mesmo eventuais opções de tratamento. As afirmações feitas sobre produtos específicos neste artigo não são aprovadas para diagnosticar, tratar, curar ou prevenir doenças.</p>"
+      }
+    },
+    "174715264411e0695e": {
+      "type": "apps",
+      "blocks": {
+        "better_blog_comments_app_block_3TWJNK": {
+          "type": "shopify://apps/better-blog-comments/blocks/app-block/38e9cf33-0578-44a5-a6bd-6ec02ed07c66",
+          "settings": {
+            "padding_top": 0,
+            "font_scaling": 1,
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "better_blog_comments_app_block_3TWJNK"
+      ],
+      "settings": {}
+    },
+    "receitas_products_custom_PbtgCy": {
+      "type": "receitas-products-custom",
+      "name": "Receitas products",
+      "settings": {
+        "title": "Loja Bioself Natura",
+        "selected_c": "shop"
+      }
+    },
+    "receitas_article_like_UwVz8b": {
+      "type": "receitas-article-like",
+      "name": "Receitas articles like",
+      "settings": {
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
+        "title": "Também vais gostar"
+      }
+    },
+    "newsletter_custom_jB9eEd": {
+      "type": "newsletter-custom",
+      "name": "Newsletter custom",
+      "settings": {
+        "newsletter_title": "SUBSCREVE A NEWSLETTER E RECEBE PROMOÇÕES E OFERTAS",
+        "newsletter_btn": "Subscrever",
+        "newsletter_page": "termos-de-utilizacao-do-site",
+        "newsletter_terms": "Li e aceito os"
+      }
+    },
     "main": {
       "type": "article",
       "blocks": {
@@ -50,6 +115,7 @@
         "newsletter_KPLyeh",
         "show_tags_4yn3Jq"
       ],
+      "disabled": true,
       "settings": {
         "show_category": true,
         "show_author": true,
@@ -62,27 +128,15 @@
         "notice_text": "Este artigo não tem a intenção de diagnosticar, tratar ou substituir aconselhamento médico sendo o seu conteúdo apenas para fins informativos. Consulta um médico ou profissional de saúde sobre qualquer diagnóstico médico relacionado com a tua saúde ou mesmo eventuais opções de tratamento. As afirmações feitas sobre produtos específicos neste artigo não são aprovadas para diagnosticar, tratar, curar ou prevenir doenças.",
         "show_on_mobile": true
       }
-    },
-    "174715264411e0695e": {
-      "type": "apps",
-      "blocks": {
-        "better_blog_comments_app_block_3TWJNK": {
-          "type": "shopify://apps/better-blog-comments/blocks/app-block/38e9cf33-0578-44a5-a6bd-6ec02ed07c66",
-          "settings": {
-            "padding_top": 0,
-            "font_scaling": 1,
-            "custom_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "better_blog_comments_app_block_3TWJNK"
-      ],
-      "settings": {}
     }
   },
   "order": [
-    "main",
-    "174715264411e0695e"
+    "blog_article_headline_rita_custom_Ra9EKF",
+    "rita_article_main_custom_EpgrHR",
+    "174715264411e0695e",
+    "receitas_products_custom_PbtgCy",
+    "receitas_article_like_UwVz8b",
+    "newsletter_custom_jB9eEd",
+    "main"
   ]
 }
