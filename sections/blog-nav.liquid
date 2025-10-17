@@ -193,7 +193,7 @@
               {% if icon_block.settings.label == tag %}
                 <li class="page__tag-item">
                   {% assign tag_handle = tag | handleize %}
-                  <a href="/pages/blog-categories#{{ tag_handle }}">
+                  <a href="{{ section.settings.selected_page | default: '/pages/blog-categorias'}}#{{ tag_handle }}">
                     <div>
                       <img
                         src="{{ icon_block.settings.icon | image_url: width: 68, height: 68 }}"
@@ -227,6 +227,11 @@
       "type": "blog",
       "id": "selected_blog",
       "label": "Blogue"
+    },
+    {
+      "type": "page",
+      "id": "selected_page",
+      "label": "Página das categorias"
     }
   ],
   "blocks": [
