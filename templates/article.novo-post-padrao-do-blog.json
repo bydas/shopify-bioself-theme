@@ -50,6 +50,7 @@
         "newsletter_KPLyeh",
         "show_tags_4yn3Jq"
       ],
+      "disabled": true,
       "settings": {
         "show_category": true,
         "show_author": true,
@@ -63,10 +64,32 @@
         "show_on_mobile": true
       }
     },
-    "174715264411e0695e": {
+    "blog_article_headline_rita_custom_CCaDeb": {
+      "type": "blog-article-headline-rita-custom",
+      "name": "Receitas rita headline",
+      "settings": {
+        "is_rita_page": false
+      }
+    },
+    "rita_article_main_custom_cwKXeN": {
+      "type": "rita-article-main-custom",
+      "name": "Rita main custom",
+      "settings": {
+        "is_rita_page": false,
+        "logo": "shopify://shop_images/bioself-logo-wh.svg",
+        "selected_img": "shopify://shop_images/Rectangle_273.png",
+        "title": "<h1>Cuida de ti com o melhor da natureza.</h1>",
+        "description": "<p>Entregas 24h </p><p>Promoções </p><p>Portes Grátis ≥ 29,99€</p>",
+        "alt_text": "",
+        "btn_txt": "Visita a Loja Online",
+        "btn_link": "shopify://collections/all",
+        "aviso_legal": "<p>Este artigo não tem a intenção de diagnosticar, tratar ou substituir aconselhamento médico sendo o seu conteúdo apenas para fins informativos. Consulta um médico ou profissional de saúde sobre qualquer diagnóstico médico relacionado com a tua saúde ou mesmo eventuais opções de tratamento. As afirmações feitas sobre produtos específicos neste artigo não são aprovadas para diagnosticar, tratar, curar ou prevenir doenças.</p>"
+      }
+    },
+    "1760692322f10dd9e2": {
       "type": "apps",
       "blocks": {
-        "better_blog_comments_app_block_3TWJNK": {
+        "better_blog_comments_app_block_FXQ4k6": {
           "type": "shopify://apps/better-blog-comments/blocks/app-block/38e9cf33-0578-44a5-a6bd-6ec02ed07c66",
           "settings": {
             "padding_top": 0,
@@ -76,13 +99,44 @@
         }
       },
       "block_order": [
-        "better_blog_comments_app_block_3TWJNK"
+        "better_blog_comments_app_block_FXQ4k6"
       ],
       "settings": {}
+    },
+    "receitas_products_custom_WzdPHR": {
+      "type": "receitas-products-custom",
+      "name": "Receitas products",
+      "settings": {
+        "title": "Loja Bioself Natura",
+        "selected_c": "shop"
+      }
+    },
+    "receitas_article_like_7Jhkpx": {
+      "type": "receitas-article-like",
+      "name": "Receitas articles like",
+      "settings": {
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
+        "title": "Também vais gostar"
+      }
+    },
+    "newsletter_custom_8GtFPE": {
+      "type": "newsletter-custom",
+      "name": "Newsletter custom",
+      "settings": {
+        "newsletter_title": "SUBSCREVE A NEWSLETTER E RECEBE PROMOÇÕES E OFERTAS",
+        "newsletter_btn": "Subscrever",
+        "newsletter_page": "termos-de-utilizacao-do-site",
+        "newsletter_terms": "Li e aceito os"
+      }
     }
   },
   "order": [
-    "main",
-    "174715264411e0695e"
+    "blog_article_headline_rita_custom_CCaDeb",
+    "rita_article_main_custom_cwKXeN",
+    "1760692322f10dd9e2",
+    "receitas_products_custom_WzdPHR",
+    "receitas_article_like_7Jhkpx",
+    "newsletter_custom_8GtFPE",
+    "main"
   ]
 }
