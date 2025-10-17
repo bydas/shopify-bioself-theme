@@ -1,47 +1,34 @@
-{%- comment -%} 1) Normalizar quebras e limpar HTML {%- endcomment -%}
-{%- assign norm = article.content
-  | replace: '</p>', '\n\n'
-  | replace: '<p>', ''
-  | replace: '<br />', '\n'
-  | replace: '<br>', '\n'
-  | replace: '</h1>', '\n\n'
-  | replace: '<h1>', ''
-  | replace: '</h2>', '\n\n'
-  | replace: '<h2>', ''
-  | replace: '</h3>', '\n\n'
-  | replace: '<h3>', ''
-  | replace: '</h4>', '\n\n'
-  | replace: '<h4>', ''
-  | replace: '</h5>', '\n\n'
-  | replace: '<h5>', ''
-  | replace: '</h6>', '\n\n'
-  | replace: '<h6>', ''
+{%- comment -%} 1) Marcar fechos de bloco e limpar HTML {%- endcomment -%}
+{%- assign marked = article.content
+  | replace: '</p>', '[[BRK]]'
+  | replace: '</h1>', '[[BRK]]'
+  | replace: '</h2>', '[[BRK]]'
+  | replace: '</h3>', '[[BRK]]'
+  | replace: '</h4>', '[[BRK]]'
+  | replace: '</h5>', '[[BRK]]'
+  | replace: '</h6>', '[[BRK]]'
 -%}
-{%- assign text = norm | strip_html -%}
 
-{%- comment -%} 2) Uniformizar \r\n e partir por linhas em branco {%- endcomment -%}
-{%- assign text = text | replace: '\r\n', '\n' -%}
-{%- assign blocks = text | split: '\n\n' -%}
+{%- assign text = marked | strip_html -%}
+{%- assign blocks = text | split: '[[BRK]]' -%}
 
 {%- assign first_clean_paragraph = '' -%}
 {%- for b in blocks -%}
   {%- assign cand = b | strip -%}
   {%- if cand == '' -%}{% continue %}{%- endif -%}
 
-  {%- comment -%} Heurísticas de filtragem {%- endcomment -%}
   {%- assign up = cand | upcase -%}
-
   {%- if up == cand -%}{% continue %}{%- endif -%}
+
   {%- if cand contains 'kcal'
     or cand contains ' g '
     or cand contains 'hidratos'
     or cand contains 'proteína'
     or cand contains 'fibra'
     or cand contains 'gordura'
-  -%}
-    {% continue %}
-  {%- endif -%}
-  {% assign cand_size = cand | size %}
+  -%}{% continue %}{%- endif -%}
+
+  {%- assign cand_size = cand | size -%}
   {%- if cand_size < 60 -%}{% continue %}{%- endif -%}
   {%- unless cand contains '. ' or cand contains '!' or cand contains '?' -%}{% continue %}{%- endunless -%}
 
