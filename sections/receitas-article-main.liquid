@@ -514,7 +514,7 @@
             {%- if s != '' -%}
               <li>
                 <span>{{ forloop.index }}.</span>
-                <p>{{ s }}</p>
+                <p>{{ s | remove_first: '>' }}</p>
               </li>
             {%- endif -%}
           {%- endfor -%}
