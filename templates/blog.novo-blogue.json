@@ -80,7 +80,8 @@
       "name": "Blog nav",
       "settings": {
         "title": "Saúde para viver com equilíbrio",
-        "selected_blog": "blog-page"
+        "selected_blog": "blog-page",
+        "selected_page": "blog-categorias"
       }
     },
     "blog_posts_custom_Wmqhdb": {
