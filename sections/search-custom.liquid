@@ -172,7 +172,7 @@
           {% else %}
             <style>
               #search_custom > #search_results_custom {
-                grid-template-columns: {% if search.results > 2 %}repeat(auto-fit, minmax(350px, 1fr)){% else %}repeat(auto-fit, 350px){% endif %};
+                grid-template-columns: {% if search.results.size > 2 %}repeat(auto-fit, minmax(350px, 1fr)){% else %}repeat(auto-fit, 350px){% endif %};
               }
 
               @media screen and (max-width: 379px) {
