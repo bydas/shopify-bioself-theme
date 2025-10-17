@@ -9,6 +9,59 @@
  */
 {
   "sections": {
+    "receitas_article_headline_dxqn7i": {
+      "type": "receitas-article-headline",
+      "name": "Receitas headline",
+      "settings": {}
+    },
+    "receitas_article_main_UEh8iY": {
+      "type": "receitas-article-main",
+      "name": "Receitas main",
+      "settings": {}
+    },
+    "174715264411e0695e": {
+      "type": "apps",
+      "blocks": {
+        "better_blog_comments_app_block_3TWJNK": {
+          "type": "shopify://apps/better-blog-comments/blocks/app-block/38e9cf33-0578-44a5-a6bd-6ec02ed07c66",
+          "settings": {
+            "padding_top": 0,
+            "font_scaling": 1,
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "better_blog_comments_app_block_3TWJNK"
+      ],
+      "settings": {}
+    },
+    "receitas_article_like_HyfFtm": {
+      "type": "receitas-article-like",
+      "name": "Receitas articles like",
+      "settings": {
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
+        "title": "Também vais gostar"
+      }
+    },
+    "receitas_products_custom_j96Pz3": {
+      "type": "receitas-products-custom",
+      "name": "Receitas products",
+      "settings": {
+        "title": "Loja Bioself Natura",
+        "selected_c": "shop"
+      }
+    },
+    "newsletter_custom_kjgbd9": {
+      "type": "newsletter-custom",
+      "name": "Newsletter custom",
+      "settings": {
+        "newsletter_title": "SUBSCREVE A NEWSLETTER E RECEBE PROMOÇÕES E OFERTAS",
+        "newsletter_btn": "Subscrever",
+        "newsletter_page": "termos-de-utilizacao-do-site",
+        "newsletter_terms": "Li e aceito os"
+      }
+    },
     "main": {
       "type": "article",
       "blocks": {
@@ -50,6 +103,7 @@
         "newsletter_KPLyeh",
         "show_tags_4yn3Jq"
       ],
+      "disabled": true,
       "settings": {
         "show_category": true,
         "show_author": true,
@@ -62,27 +116,15 @@
         "notice_text": "Este artigo não tem a intenção de diagnosticar, tratar ou substituir aconselhamento médico sendo o seu conteúdo apenas para fins informativos. Consulta um médico ou profissional de saúde sobre qualquer diagnóstico médico relacionado com a tua saúde ou mesmo eventuais opções de tratamento. As afirmações feitas sobre produtos específicos neste artigo não são aprovadas para diagnosticar, tratar, curar ou prevenir doenças.",
         "show_on_mobile": true
       }
-    },
-    "174715264411e0695e": {
-      "type": "apps",
-      "blocks": {
-        "better_blog_comments_app_block_3TWJNK": {
-          "type": "shopify://apps/better-blog-comments/blocks/app-block/38e9cf33-0578-44a5-a6bd-6ec02ed07c66",
-          "settings": {
-            "padding_top": 0,
-            "font_scaling": 1,
-            "custom_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "better_blog_comments_app_block_3TWJNK"
-      ],
-      "settings": {}
     }
   },
   "order": [
-    "main",
-    "174715264411e0695e"
+    "receitas_article_headline_dxqn7i",
+    "receitas_article_main_UEh8iY",
+    "174715264411e0695e",
+    "receitas_article_like_HyfFtm",
+    "receitas_products_custom_j96Pz3",
+    "newsletter_custom_kjgbd9",
+    "main"
   ]
 }
