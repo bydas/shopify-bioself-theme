@@ -105,12 +105,23 @@
         "image": "shopify://shop_images/Ellipse_35.png",
         "mobile_image": "shopify://shop_images/image.png"
       }
+    },
+    "blog_posts_rita_Ht6GhQ": {
+      "type": "blog-posts-rita",
+      "name": "Blog posts rita",
+      "settings": {
+        "title": "O que diz a nossa nutricionista",
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
+        "selected-blog": "blog-page",
+        "btn_text": "Ver mais publicações"
+      }
     }
   },
   "order": [
     "blog_slideshow_MVaVNC",
     "blog_nav_te9bTq",
     "blog_posts_custom_Wmqhdb",
-    "blog_consultas_nutricao_k4QRgJ"
+    "blog_consultas_nutricao_k4QRgJ",
+    "blog_posts_rita_Ht6GhQ"
   ]
 }
