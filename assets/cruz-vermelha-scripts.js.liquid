@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
       )
         .then((res) => {
           if (!res.ok) {
-            cruz_nif_message.innerText = "NIF Inválido"
+            cruz_nif_message.innerText = "Número Inválido"
             cruz_nif_message.style.color = "red"
             return
           }
@@ -52,24 +52,32 @@ document.addEventListener("DOMContentLoaded", function () {
           return res.json()
         })
         .then((data) => {
-          if (data && data.status) {
+          const { status, msg, response, coupon } = data
+
+          if (response && !response.valid) {
+            cruz_nif_message.innerText = msg
+            cruz_nif_message.style.color = "red"
+            return
+          }
+
+          if (status) {
             if (data.customer_id && customer_id !== data.customer_id) {
               cruz_nif_message.innerText =
-                "NIF já associado a uma conta, por favor, faça login para o aplicar"
+                "Número já associado a uma conta, por favor, faça login para o aplicar"
               cruz_nif_message.style.color = "red"
               return
             }
 
-            if (data.coupon) {
+            if (coupon) {
               modal_form_cruz.style.opacity = "0"
               modal_form_cruz.style.visibility = "hidden"
               modal_form_cruz.style.display = "none"
               modal_successful_cruz.style.display = "grid"
 
               setTimeout(function () {
-                localStorage.setItem("CV_Discount", data.coupon)
+                localStorage.setItem("CV_Discount", coupon)
 
-                fetch(`/discount/${data.coupon}`)
+                fetch(`/discount/${coupon}`)
                   .then(() => {
                     return fetch("/cart/update.js", {
                       method: "POST",
@@ -85,13 +93,13 @@ document.addEventListener("DOMContentLoaded", function () {
               }, 2000)
             }
           } else {
-            cruz_nif_message.innerText = "NIF Inválido"
+            cruz_nif_message.innerText = "Número Inválido"
             cruz_nif_message.style.color = "red"
           }
         })
         .catch((error) => {
           console.error(error)
-          cruz_nif_message.innerText = "NIF Inválido"
+          cruz_nif_message.innerText = "Número Inválido"
           cruz_nif_message.style.color = "red"
         })
         .finally(() => {
