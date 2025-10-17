@@ -115,6 +115,69 @@
         "selected-blog": "blog-page",
         "btn_text": "Ver mais publicações"
       }
+    },
+    "blog_visite_loja_4gKwzF": {
+      "type": "blog-visite-loja",
+      "name": "Blog visita",
+      "settings": {
+        "logo": "shopify://shop_images/bioself-logo-wh.svg",
+        "description": "<h1>Cuida de ti com o melhor da natureza.</h1>",
+        "sub_description": "<p>Entregas 24h • Promoções • Portes Grátis ≥ 29,99€</p>",
+        "btn_text": "Visita a Loja Online",
+        "btn_link": "/",
+        "image": "shopify://shop_images/Rectangle_362fbbb2-aab6-4171-90fb-84f8b6e5ac61.png",
+        "mobile_image": "shopify://shop_images/Rectangle_273.png"
+      }
+    },
+    "blog_destaques_custom_wpgQGn": {
+      "type": "blog-destaques-custom",
+      "blocks": {
+        "custom_Jdi3FL": {
+          "type": "custom",
+          "settings": {
+            "blog_post": "blog-page/como-tomar-suplementos-alimentares"
+          }
+        },
+        "custom_3GcnRx": {
+          "type": "custom",
+          "settings": {
+            "blog_post": "blog-page/aliviar-sintomas-das-enxaquecas"
+          }
+        },
+        "custom_UTmYYE": {
+          "type": "custom",
+          "settings": {
+            "blog_post": "blog-page/falta-de-ferro-sinais-causas"
+          }
+        },
+        "custom_nTrcJn": {
+          "type": "custom",
+          "settings": {
+            "blog_post": "blog-page/dietas-para-emagrecer-porque-muitas-falham"
+          }
+        }
+      },
+      "block_order": [
+        "custom_Jdi3FL",
+        "custom_3GcnRx",
+        "custom_UTmYYE",
+        "custom_nTrcJn"
+      ],
+      "name": "Blog destaques custom",
+      "settings": {
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
+        "title": "DESTAQUES"
+      }
+    },
+    "newsletter_custom_WU3wL7": {
+      "type": "newsletter-custom",
+      "name": "Newsletter custom",
+      "settings": {
+        "newsletter_title": "SUBSCREVE A NEWSLETTER E RECEBE PROMOÇÕES E OFERTAS",
+        "newsletter_btn": "Subscrever",
+        "newsletter_page": "termos-de-utilizacao-do-site",
+        "newsletter_terms": "Li e aceito os"
+      }
     }
   },
   "order": [
@@ -122,6 +185,9 @@
     "blog_nav_te9bTq",
     "blog_posts_custom_Wmqhdb",
     "blog_consultas_nutricao_k4QRgJ",
-    "blog_posts_rita_Ht6GhQ"
+    "blog_posts_rita_Ht6GhQ",
+    "blog_visite_loja_4gKwzF",
+    "blog_destaques_custom_wpgQGn",
+    "newsletter_custom_WU3wL7"
   ]
 }
