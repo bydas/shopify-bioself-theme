@@ -17,7 +17,7 @@
           "settings": {
             "image_desktop": "shopify://shop_images/image_43.png",
             "image_mobile": "shopify://shop_images/image_43_1.png",
-            "link": "/pages/blog-categorias#alimentacao",
+            "link": "/pages/blog-categorias#receitas",
             "title": "Receitas Saudáveis",
             "description": "<p>Do pequeno-almoço ao jantar, inspira-te com receitas fáceis, nutritivas e cheias de sabor.</p>"
           }
