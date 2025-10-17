@@ -255,3 +255,10 @@
     font-size: 0.875rem;
   }
 }
+
+@media screen and (max-width: 369px) {
+  #modal_form_cruz > svg {
+    width: 24px;
+    height: 24px;
+  }
+}
