@@ -9,6 +9,25 @@
  */
 {
   "sections": {
+    "blog_navigation_custom_TjUd8E": {
+      "type": "blog-navigation-custom",
+      "name": "Blog navigation",
+      "settings": {
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
+        "selected_blog": "blog-page",
+        "paginate_limit": 24
+      }
+    },
+    "newsletter_custom_EbQVgC": {
+      "type": "newsletter-custom",
+      "name": "Newsletter custom",
+      "settings": {
+        "newsletter_title": "SUBSCREVE A NEWSLETTER E RECEBE PROMOÇÕES E OFERTAS",
+        "newsletter_btn": "SUBSCREVER",
+        "newsletter_page": "termos-de-utilizacao-do-site",
+        "newsletter_terms": "Li e aceito os"
+      }
+    },
     "slideshow": {
       "type": "about-us-slideshow",
       "blocks": {
@@ -32,6 +51,7 @@
       "block_order": [
         "image_cjGPcL"
       ],
+      "disabled": true,
       "settings": {
         "edge_to_edge": true,
         "section_size": "small",
@@ -76,6 +96,7 @@
         "item_kEGLwX",
         "item_mwapiz"
       ],
+      "disabled": true,
       "settings": {
         "show_section": true,
         "stack_mobile": false,
@@ -193,6 +214,7 @@
         "line_dfTHQ7",
         "line_mDHWJz"
       ],
+      "disabled": true,
       "settings": {
         "hide_title": true
       }
@@ -233,6 +255,7 @@
         "item_CNjn3Y",
         "item_kEg7Ay"
       ],
+      "disabled": true,
       "settings": {
         "show_section": true,
         "stack_mobile": false,
@@ -242,6 +265,8 @@
     }
   },
   "order": [
+    "blog_navigation_custom_TjUd8E",
+    "newsletter_custom_EbQVgC",
     "slideshow",
     "text-with-icons-top",
     "template",
