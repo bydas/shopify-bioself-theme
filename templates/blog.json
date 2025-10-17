@@ -65,13 +65,11 @@
       }
     },
     "blog_posts_autor_custom_yRizmU": {
-      "type": "blog-posts-autor-custom",
+      "type": "blog-posts",
       "disabled": true,
-      "name": "Blog author posts custom",
+      "name": "Blog posts",
       "settings": {
-        "title": "dwadwadwa",
-        "selected-blog": "blog-page",
-        "btn_text": "Ver mais publicações"
+        "title": "dwadwadwa"
       }
     }
   },
