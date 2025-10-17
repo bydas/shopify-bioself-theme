@@ -482,7 +482,7 @@
               {%- for it in items -%}
                 {%- assign s = it | strip | remove_first: '●' -%}
                 {%- if s != '' -%}
-                  <li>{{ s }}</li>
+                  <li>{{ s | remove_first: '>' }}</li>
                 {%- endif -%}
               {%- endfor -%}
             </ul>
