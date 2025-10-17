@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const { status, msg, response, coupon } = data
 
           if (response && !response.valid) {
-            cruz_nif_message.innerText = msg
+            cruz_nif_message.innerText = response.message ?? msg
             cruz_nif_message.style.color = "red"
             return
           }
