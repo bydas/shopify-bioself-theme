@@ -257,6 +257,10 @@
 }
 
 @media screen and (max-width: 369px) {
+  #modal_cruz_vermelha > #modal_form_cruz {
+    gap: 0.5rem;
+  }
+
   #modal_form_cruz > svg {
     width: 24px;
     height: 24px;
