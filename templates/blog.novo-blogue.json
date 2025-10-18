@@ -15,8 +15,8 @@
         "slide_Uiegaf": {
           "type": "slide",
           "settings": {
-            "image_desktop": "shopify://shop_images/image_43.png",
-            "image_mobile": "shopify://shop_images/image_43_1.png",
+            "image_desktop": "shopify://shop_images/bioself-blog-desktop.png",
+            "image_mobile": "shopify://shop_images/bioself-blog-mobile.png",
             "link": "/pages/blog-categorias#receitas",
             "title": "Descobre o novo Bioself Blog",
             "description": "<p>Inspiração natural para o teu equilíbrio diário.</p>"
