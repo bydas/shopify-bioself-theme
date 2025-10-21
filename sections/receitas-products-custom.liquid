@@ -142,6 +142,16 @@
 
     const updateLayout = () => {
       if (window.innerWidth > 1000) {
+        const contentWidth = productsContainer.scrollWidth;
+        const containerWidth = productsContainer.clientWidth;
+
+        // Se o conteúdo não ultrapassa a área visível, esconder setas
+        if (contentWidth <= containerWidth) {
+          leftButton.style.display = 'none';
+          rightButton.style.display = 'none';
+          return;
+        }
+
         leftButton.style.display = 'block';
         rightButton.style.display = 'block';
 
