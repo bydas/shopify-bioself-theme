@@ -31,6 +31,13 @@
         "aviso_legal": "<p>Este artigo não tem a intenção de diagnosticar, tratar ou substituir aconselhamento médico sendo o seu conteúdo apenas para fins informativos. Consulta um médico ou profissional de saúde sobre qualquer diagnóstico médico relacionado com a tua saúde ou mesmo eventuais opções de tratamento. As afirmações feitas sobre produtos específicos neste artigo não são aprovadas para diagnosticar, tratar, curar ou prevenir doenças.</p>"
       }
     },
+    "sugestoes_products_custom_gLeBpm": {
+      "type": "sugestoes-products-custom",
+      "name": "Sugestões products",
+      "settings": {
+        "title": "Sugestões Bioself"
+      }
+    },
     "1760692322f10dd9e2": {
       "type": "apps",
       "blocks": {
@@ -47,13 +54,6 @@
         "better_blog_comments_app_block_FXQ4k6"
       ],
       "settings": {}
-    },
-    "sugestoes_products_custom_gLeBpm": {
-      "type": "sugestoes-products-custom",
-      "name": "Sugestões products",
-      "settings": {
-        "title": "Sugestões Bioself"
-      }
     },
     "receitas_products_custom_WzdPHR": {
       "type": "receitas-products-custom",
@@ -140,8 +140,8 @@
   "order": [
     "blog_article_headline_rita_custom_CCaDeb",
     "rita_article_main_custom_cwKXeN",
-    "1760692322f10dd9e2",
     "sugestoes_products_custom_gLeBpm",
+    "1760692322f10dd9e2",
     "receitas_products_custom_WzdPHR",
     "receitas_article_like_7Jhkpx",
     "newsletter_custom_8GtFPE",
