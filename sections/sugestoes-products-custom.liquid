@@ -121,7 +121,7 @@
         </svg>
       </li>
 
-      {% for p in article.metafields.article.products limit: 12 %}
+      {% for p in article.metafields.article.products.value limit: 12 %}
         {% render 'product-item-2', product: p %}
       {% endfor %}
 
