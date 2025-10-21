@@ -50,7 +50,6 @@
     },
     "sugestoes_products_custom_gLeBpm": {
       "type": "sugestoes-products-custom",
-      "disabled": true,
       "name": "Sugestões products",
       "settings": {
         "title": "Sugestões Bioself"
