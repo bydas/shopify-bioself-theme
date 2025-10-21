@@ -1,0 +1,191 @@
+{% if article.metafields.article.products.list? %}
+  <style>
+    #sugestoes_products_custom {
+      display: grid;
+      grid-template-rows: repeat(2, max-content);
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    #sugestoes_products_custom > h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    #sugestoes_products_custom > ul {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
+      overflow: hidden;
+      list-style-type: none;
+    }
+
+    #sugestoes_products_custom > ul > li {
+      display: grid;
+    }
+
+    #sugestoes_products_custom > ul > .product_item_custom {
+      width: 350px;
+    }
+
+    #sugestoes_products_custom > ul > li:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
+      margin-right: 1.5rem;
+    }
+
+    #sugestoes_products_custom > ul > li > svg {
+      position: absolute;
+      padding: 0.5rem;
+      background-color: #258439;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      align-self: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    #sugestoes_products_custom > ul:hover > li > svg {
+      visibility: visible;
+      opacity: 1;
+      z-index: 10;
+    }
+
+    #sugestoes_products_custom > ul > li > #right-button-svg {
+      right: var(--desktop-container-gutter);
+    }
+
+    #sugestoes_products_custom {
+      margin: 2rem var(--desktop-container-gutter);
+    }
+
+    @media screen and (min-width: 1499px) {
+      #sugestoes_products_custom {
+        margin: 2rem 9vw;
+      }
+
+      #sugestoes_products_custom > ul > li > #right-button-svg {
+        right: 9vw;
+      }
+    }
+
+    @media screen and (min-width: 2559px) {
+      #sugestoes_products_custom {
+        margin: 2rem 18vw;
+      }
+
+      #sugestoes_products_custom > ul > li > #right-button-svg {
+        right: 18vw;
+      }
+    }
+
+    @media screen and (max-width: 1499px) {
+      #sugestoes_products_custom > ul > .product_item_custom {
+        width: 300px;
+      }
+    }
+
+    @media screen and (max-width: 1000px) {
+      #sugestoes_products_custom > ul {
+        overflow: auto;
+      }
+
+      #sugestoes_products_custom > ul > .product_item_custom {
+        width: 250px;
+      }
+
+      #product-icons-block {
+        justify-content: center;
+      }
+
+      #sugestoes_products_custom > h1 {
+        font-size: 1rem;
+      }
+
+      #sugestoes_products_custom {
+        margin: 1rem var(--mobile-container-gutter);
+      }
+    }
+  </style>
+
+  <div id="sugestoes_products_custom">
+    <h1>{{ section.settings.title }}</h1>
+
+    <ul>
+      <li>
+        <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512">
+          <path fill="#ffffff" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+        </svg>
+      </li>
+
+      {% for p in article.metafields.article.products limit: 12 %}
+        {% render 'product-item-2', product: p %}
+      {% endfor %}
+
+      <li>
+        <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512" id="right-button-svg">
+          <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+        </svg>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const productsContainer = document.querySelector('#sugestoes_products_custom ul');
+      const leftButton = document.querySelector('#sugestoes_products_custom ul li:first-child svg');
+      const rightButton = document.querySelector('#sugestoes_products_custom ul li:last-child svg');
+
+      if (!productsContainer || !leftButton || !rightButton) return;
+
+      const updateLayout = () => {
+        if (window.innerWidth > 1000) {
+          leftButton.style.display = 'block';
+          rightButton.style.display = 'block';
+
+          const productWidth = productsContainer.offsetWidth / 4;
+          const itemsPerPage = 4;
+          productsContainer.style.scrollBehavior = 'smooth';
+
+          leftButton.onclick = () => {
+            productsContainer.scrollLeft -= productWidth * itemsPerPage;
+          };
+
+          rightButton.onclick = () => {
+            productsContainer.scrollLeft += productWidth * itemsPerPage;
+          };
+        } else {
+          leftButton.style.display = 'none';
+          rightButton.style.display = 'none';
+        }
+      };
+
+      updateLayout();
+
+      window.addEventListener('resize', updateLayout);
+    });
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Receitas products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Sugestões Bioself"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Receitas products",
+      "category": "blog"
+    }
+  ]
+}
+{% endschema %}
