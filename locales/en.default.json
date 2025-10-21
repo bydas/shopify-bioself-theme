@@ -53,7 +53,9 @@
     "popup": {
       "success": "You have been registered to our newsletter!",
       "email_placeholder": "Your email",
-      "subscribe": "Subscribe"
+      "subscribe": "Subscribe",
+      "success_heading": "You will receive our newsletter soon.",
+      "success_subheading": "Check your email to view your discount code."
     }
   },
   "header": {
@@ -182,7 +184,8 @@
         "one": "Showing {{offset}} - {{page_size}} of {{count}} product",
         "other": "Showing {{offset}} - {{page_size}} of {{count}} products"
       },
-      "page_size": "{{page_size}} per page"
+      "page_size": "{{page_size}} per page",
+      "all_brands": "All brands"
     },
     "filter": {
       "title": "Filter",
@@ -326,7 +329,9 @@
       "password": "Password",
       "submit": "Create my account",
       "already_have_account": "Already have an account?",
-      "login": "Login here"
+      "login": "Login here",
+      "terms_html": "By agreeing to create the account, I accept the <a href=\"/policies/terms-of-service\" class=\"create_account-label-link\">T&amp;C</a> and <a href=\"/policies/privacy-policy\" class=\"create_account-label-link\">Privacy Policy</a>",
+      "accept_marketing": "Receive exclusive content and promotions in your email 😍"
     }
   },
   "cart": {
@@ -392,7 +397,9 @@
       "estimate_shipping": "Estimate shipping",
       "refund_policy": "Refund Policy",
       "include_taxes": "Tax included",
-      "shipping_policy_html": "<a href=\"{{ link }}\" class=\"link link--accented\">Shipping calculated</a> at checkout"
+      "shipping_policy_html": "<a href=\"{{ link }}\" class=\"link link--accented\">Shipping calculated</a> at checkout",
+      "promotionaltext": "Buy 4 Pay 3",
+      "disclaimer": "Bioself Natura Ltda. is not responsible for any discrepancies and/or changes in the product information provided by the supplier/manufacturer on the website, as stated on the product labels. Therefore, we recommend that you always read the mandatory and/or voluntary information on product labels before using or consuming them."
     },
     "labels": {
       "sold_out": "Sold out"
@@ -482,7 +489,9 @@
       "email": "Your email",
       "message": "Your message",
       "submit": "Send message",
-      "successfully_sent": "Your message has been successfully sent."
+      "successfully_sent": "Your message has been successfully sent.",
+      "phone": "Telephone",
+      "subject": "Subject"
     }
   },
   "date_formats": {
@@ -868,7 +877,94 @@
         },
         "confirmed_gift_card_additional_description": {
           "many": "Each gift card will be sent in a separate email."
+        },
+        "delivered_description_gift_card_text": {
+          "many": "Gift cards were sent via message."
+        },
+        "confirmed_gift_card_additional_description_text": {
+          "many": "Each gift card will be sent in a separate message."
+        },
+        "gift_resend_success": {
+          "many": "Resent Gift Cards"
+        },
+        "gift_resend_failure": {
+          "many": "There was a problem resending your gift cards. Please try again or contact us."
+        },
+        "tracking_number": {
+          "many": "Tracking numbers"
+        },
+        "gift_card_resend_button": {
+          "many": "Resend Gift Cards"
         }
+      }
+    },
+    "order_details": {
+      "image_gallery": {
+        "load_more_items": {
+          "many": "Load more {{count}} item"
+        }
+      }
+    },
+    "B2B": {
+      "orders": {
+        "draft_order_list": {
+          "pending_tab_accessibility_label": {
+            "pending_orders": {
+              "many": "You have {{count}} pending orders"
+            }
+          }
+        }
+      },
+      "draft_order_details": {
+        "payment_status": {
+          "pending": {
+            "banner_overdue": {
+              "many": "Your payment is {{count}} days due"
+            },
+            "banner_due": {
+              "many": "Your payment expires in {{count}} days"
+            }
+          }
+        }
+      }
+    },
+    "errors": {
+      "banner_title": {
+        "many": "There are {{count}} errors"
+      }
+    },
+    "ui_components": {
+      "autocompleteOptionsAvailable": {
+        "many": "{{count}} items available"
+      },
+      "month": {
+        "many": "months"
+      },
+      "mapClusterTitle": {
+        "many": "Cluster of {{number}} markers"
+      }
+    },
+    "date": {
+      "humanize": {
+        "lessThanOneHourAgo": {
+          "many": "{{count}} minutes ago"
+        }
+      }
+    },
+    "subscriptions": {
+      "subscription_contracts": {
+        "more_items": {
+          "many": "and more {{count}} products"
+        },
+        "product_count": {
+          "many": "{{count}} products"
+        }
+      },
+      "updating_contracts": {
+        "many": "Updating {{count}} subscription contracts..."
+      },
+      "contracts_updated": {
+        "many": "{{count}} subscription contracts have been successfully updated"
       }
     }
   }
