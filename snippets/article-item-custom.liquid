@@ -71,7 +71,8 @@
           <span>{{ article_tag }}</span>
         {%- endif %}
         {% if article.author == 'Rita Silva' %}
-          {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
+          {% render 'rita-silva-icon-custom-2'
+            , img: section.settings.selected_img %}
         {% endif %}
       </div>
     </div>
