@@ -36,7 +36,7 @@
   #servico_form_custom > form {
     padding: 1.5rem;
     border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
     display: grid;
     grid-auto-rows: max-content;
     grid-auto-flow: row;
@@ -110,7 +110,7 @@
     }
   }
 
-  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+  @media screen and (max-width: 1599px) and(min-width: 1000px) {
     #servico_form_custom > h1 {
       font-size: 1.5rem;
     }
@@ -147,41 +147,67 @@
   {% form 'contact' %}
     <div class="name default-container">
       <label for="name">Nome*</label>
-      <input type="text" name="contact[first_name]" id="name" required>
+      <input
+        type="text"
+        name="contact[first_name]"
+        id="name"
+        required>
     </div>
 
     <div class="default-container">
       <label for="phone">Contacto</label>
-      <input type="tel" name="contact[phone]" id="phone">
+      <input
+        type="tel"
+        name="contact[phone]"
+        id="phone">
     </div>
 
     <div class="default-container">
       <label for="email">E-mail*</label>
-      <input type="email" name="contact[email]" id="email" required>
+      <input
+        type="email"
+        name="contact[email]"
+        id="email"
+        required>
     </div>
 
     <div class="contact_div_container">
       <div>
-        <input id="consulta_presencial" type="checkbox" name="contact[consulta_presencial]" value="presencial">
+        <input
+          id="consulta_presencial"
+          type="checkbox"
+          name="contact[consulta_presencial]"
+          value="presencial">
         <label for="consulta_presencial">{{ section.settings.first_text }}</label>
       </div>
 
       <div>
-        <input id="consulta_online" type="checkbox" name="contact[consulta_online]" value="online">
+        <input
+          id="consulta_online"
+          type="checkbox"
+          name="contact[consulta_online]"
+          value="online">
         <label for="consulta_online">{{ section.settings.second_text }}</label>
       </div>
     </div>
 
     <div class="default-container">
       <label for="message">Motivo da consulta*</label>
-      <textarea name="contact[body]" id="message" required></textarea>
+      <textarea
+        name="contact[body]"
+        id="message"
+        required></textarea>
     </div>
 
     <div class="terms_container">
-      <input id="terms_agreed" type="checkbox" name="contact[terms_agreed]" required>
-      <label for="terms_agreed"
-        >Li e aceito a <a href="/policies/privacy-policy" target="_blank">Política de Privacidade</a></label
-      >
+      <input
+        id="terms_agreed"
+        type="checkbox"
+        name="contact[terms_agreed]"
+        required>
+      <label for="terms_agreed">Li e aceito a
+        <a href="/policies/privacy-policy" target="_blank">Política de Privacidade</a>
+      </label>
     </div>
 
     <button type="submit">Enviar</button>
@@ -251,9 +277,8 @@
     height="14"
     width="10.5"
     viewBox="0 0 384 512"
-    id="escape_servico_modal"
-  >
-    <path fill="{{ section.settings.text_color }}" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+    id="escape_servico_modal">
+    <path fill="{{ section.settings.text_color }}" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
   </svg>
 
   <svg
@@ -262,9 +287,8 @@
     height="55"
     viewBox="0 0 56 55"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M24.1644 40.0247L43.4836 20.7055L39.6472 16.8691L24.1644 32.3518L16.3545 24.5419L12.518 28.3784L24.1644 40.0247ZM28.0008 54.8224C24.21 54.8224 20.6476 54.1031 17.3136 52.6644C13.9795 51.2258 11.0794 49.2733 8.61308 46.807C6.1468 44.3407 4.19432 41.4406 2.75566 38.1065C1.31699 34.7725 0.597656 31.21 0.597656 27.4193C0.597656 23.6285 1.31699 20.0661 2.75566 16.732C4.19432 13.398 6.1468 10.4978 8.61308 8.03154C11.0794 5.56525 13.9795 3.61278 17.3136 2.17411C20.6476 0.735446 24.21 0.0161133 28.0008 0.0161133C31.7916 0.0161133 35.354 0.735446 38.688 2.17411C42.0221 3.61278 44.9223 5.56525 47.3886 8.03154C49.8548 10.4978 51.8073 13.398 53.246 16.732C54.6846 20.0661 55.404 23.6285 55.404 27.4193C55.404 31.21 54.6846 34.7725 53.246 38.1065C51.8073 41.4406 49.8548 44.3407 47.3886 46.807C44.9223 49.2733 42.0221 51.2258 38.688 52.6644C35.354 54.1031 31.7916 54.8224 28.0008 54.8224Z" fill="#88A44E"/>
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M24.1644 40.0247L43.4836 20.7055L39.6472 16.8691L24.1644 32.3518L16.3545 24.5419L12.518 28.3784L24.1644 40.0247ZM28.0008 54.8224C24.21 54.8224 20.6476 54.1031 17.3136 52.6644C13.9795 51.2258 11.0794 49.2733 8.61308 46.807C6.1468 44.3407 4.19432 41.4406 2.75566 38.1065C1.31699 34.7725 0.597656 31.21 0.597656 27.4193C0.597656 23.6285 1.31699 20.0661 2.75566 16.732C4.19432 13.398 6.1468 10.4978 8.61308 8.03154C11.0794 5.56525 13.9795 3.61278 17.3136 2.17411C20.6476 0.735446 24.21 0.0161133 28.0008 0.0161133C31.7916 0.0161133 35.354 0.735446 38.688 2.17411C42.0221 3.61278 44.9223 5.56525 47.3886 8.03154C49.8548 10.4978 51.8073 13.398 53.246 16.732C54.6846 20.0661 55.404 23.6285 55.404 27.4193C55.404 31.21 54.6846 34.7725 53.246 38.1065C51.8073 41.4406 49.8548 44.3407 47.3886 46.807C44.9223 49.2733 42.0221 51.2258 38.688 52.6644C35.354 54.1031 31.7916 54.8224 28.0008 54.8224Z" fill="#88A44E" />
   </svg>
 
   <p>
@@ -279,11 +303,41 @@
 
   if (sectionServico) {
     const formServico = sectionServico.querySelector('form');
-    formServico?.addEventListener('submit', () => {
+
+    // --- INTERCEPTA SUBMISSÃO DO FORMULÁRIO ---
+    formServico?.addEventListener('submit', function (e) {
+      // Previne a submissão padrão
+      e.preventDefault();
+
+      // Marca que o formulário foi submetido
       localStorage.setItem('servicoContactSubmitted', 'true');
       localStorage.removeItem('not_show_sucess_servico_modal');
+
+      // Função de submissão com flag para evitar múltiplas chamadas
+      let finalized = false;
+      const proceed = () => {
+        if (finalized) return;
+        finalized = true;
+        // Submete o formulário de forma programática
+        formServico.submit();
+      };
+
+      // Chama o gtag com event_callback
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
+          'event_callback': proceed
+        });
+
+        // Timeout de segurança para garantir a submissão
+        setTimeout(proceed, 1500);
+      } else {
+        // Se o gtag não estiver disponível, prossegue imediatamente
+        proceed();
+      }
     });
 
+    // --- MOSTRA MODAL APÓS SUBMISSÃO ---
     if (localStorage.getItem('servicoContactSubmitted') && !localStorage.getItem('not_show_sucess_servico_modal')) {
       const servicoModal = document.getElementById('servico_modal_post_submitted');
       const overlayModal = document.getElementById('modal_overlay');
@@ -301,39 +355,38 @@
       escapeIconModalServico?.addEventListener('click', function () {
         localStorage.setItem('not_show_sucess_servico_modal', 'true');
         servicoModal?.remove();
-        overlayModal.style.display = 'none';
+        if (overlayModal) overlayModal.style.display = 'none';
       });
     }
   }
 </script>
 
+
 {% schema %}
-{
-  "name": "Servico Nutricao Form",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Título"
-    },
-    {
-      "type": "text",
-      "id": "first_text",
-      "label": "Primeiro texto",
-      "default": "Consulta presencial (40€)"
-    },
-    {
-      "type": "text",
-      "id": "second_text",
-      "label": "Segundo texto",
-      "default": "Consulta online (40€)"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Servico Nutricao Form",
-      "category": "form"
-    }
-  ]
-}
+  {
+    "name": "Servico Nutricao Form",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título"
+      }, {
+        "type": "text",
+        "id": "first_text",
+        "label": "Primeiro texto",
+        "default": "Consulta presencial (40€)"
+      }, {
+        "type": "text",
+        "id": "second_text",
+        "label": "Segundo texto",
+        "default": "Consulta online (40€)"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Servico Nutricao Form",
+        "category": "form"
+      }
+    ]
+  }
 {% endschema %}
