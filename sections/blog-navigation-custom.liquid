@@ -470,9 +470,12 @@
       const params = new URLSearchParams({
         handle: blogHandle,
         pageSize: {{ section.settings.paginate_limit | default: 24 }},
-        query: buildArticlesQueryString() || null,
         reverse: reverseOrder,
       });
+
+      if (buildArticlesQueryString()) {
+        params.append('query', buildArticlesQueryString());
+      }
 
       if (endCursor) {
         params.append('after', endCursor);
