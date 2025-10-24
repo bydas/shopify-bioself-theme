@@ -18,6 +18,23 @@
   {% endif %}
 {% endif %}
 
+{%  assign auto_image_height = '100%' %}
+{%  assign small_image_height = '400px' %}
+{%  assign medium_image_height = '550px' %}
+{%  assign large_image_height = '700px' %}
+{% case section.settings.imagem_height %}
+  {% when 'auto' %}
+    {% assign image_height = auto_image_height %}
+  {% when 'small' %}
+    {% assign image_height = small_image_height %}
+  {% when 'medium' %}
+    {% assign image_height = medium_image_height %}
+  {% when 'large' %}
+    {% assign image_height = large_image_height %}
+  {% else %}
+    {% assign image_height = auto_image_height %}
+{% endcase %}
+
 <style>
   #custom_slideshow {
     display: grid;
@@ -47,17 +64,17 @@
 
   .slideshow-container img {
     width: 100%;
-    max-height: 1080px;
+    height: {{ image_height }};
     object-fit: cover;
   }
 
   @media screen and (max-width: 1000px) {
     #custom_slideshow {
-      margin: 0 var(--mobile-container-gutter) 1rem var(--mobile-container-gutter);
+      margin: 0 var(--mobile-container-gutter) 1rem;
     }
 
     .slideshow-container img {
-      max-height: 600px;
+      max-height: 400px;
       border-radius: 0.65rem;
     }
 
@@ -207,21 +224,42 @@
   <div class="slideshow-container">
     <!-- Setas -->
     <div class="arrow arrow-left" onclick="changeSlide(-1)">
-      <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
-        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="14"
+        width="8.75"
+        viewBox="0 0 320 512">
+        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
       </svg>
     </div>
     <div class="arrow arrow-right" onclick="changeSlide(1)">
-      <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
-        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="14"
+        width="8.75"
+        viewBox="0 0 320 512">
+        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
       </svg>
     </div>
 
     {% for slide in section.blocks %}
       <div class="slide">
         {% if slide.settings.image_mobile and slide.settings.image_desktop %}
-          <a href="{{ slide.settings.link | default: '#' }}">
-            <picture>
+          {%  if slide.settings.link != blank %}
+            <a href="{{ slide.settings.link | default: '#' }}" id="{{ slide.id }}">
+              <picture>
+                <source media="(max-width: 768px)" srcset="{{ slide.settings.image_mobile | img_url: 'master' }}">
+                <img
+                  src="{{ slide.settings.image_desktop | img_url: 'master' }}"
+                  alt="Slide {{ forloop.index }}"
+                  width="100%"
+                  height="100%"
+                  loading="eager"
+                  >
+              </picture>
+            </a>
+          {% else %}
+            <picture id="{{ slide.id }}">
               <source media="(max-width: 768px)" srcset="{{ slide.settings.image_mobile | img_url: 'master' }}">
               <img
                 src="{{ slide.settings.image_desktop | img_url: 'master' }}"
@@ -229,20 +267,39 @@
                 width="100%"
                 height="100%"
                 loading="eager"
-              >
+                >
             </picture>
-          </a>
+          {% endif %}
+
+          <style>
+            #{{ slide.id }}::after {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, {{ slide.settings.overlay_opacity | default: 30 | divided_by: 100.0 }});
+              pointer-events: none;
+            }
+
+            @media screen and (max-width: 1000px) {
+              #{{ slide.id }}::after {
+                border-radius: 0.65rem;
+              }
+            }
+          </style>
         {% endif %}
-      </div>
 
-      <div class="slide-content">
-        {% unless slide.settings.title == blank %}
-          <h3>{{ slide.settings.title }}</h3>
-        {% endunless %}
+        <div class="slide-content">
+          {% unless slide.settings.title == blank %}
+            <h3>{{ slide.settings.title }}</h3>
+          {% endunless %}
 
-        {% unless slide.settings.description == blank %}
-          {{ slide.settings.description }}
-        {% endunless %}
+          {% unless slide.settings.description == blank %}
+            {{ slide.settings.description }}
+          {% endunless %}
+        </div>
       </div>
     {% endfor %}
 
@@ -356,67 +413,99 @@
   document.addEventListener('DOMContentLoaded', () => {
     showSlides();
     autoSlideInterval = setInterval(autoSlide, slideTime);
-    handleDrag(); // Ativar eventos de arrasto para mouse e toque
+    handleDrag();
   });
 </script>
 
 {% schema %}
-{
-  "name": "Blog Slideshow Custom",
-  "settings": [
-    {
-      "type": "number",
-      "id": "slide_time",
-      "label": "Tempo de troca de slides (em segundos)",
-      "default": 5
-    }
-  ],
-  "blocks": [
-    {
-      "type": "slide",
-      "name": "Slide",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image_desktop",
-          "label": "Slide para Desktop"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_mobile",
-          "label": "Slide para Mobile"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link do Slide"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Título do Slide"
-        },
-        {
-          "type": "richtext",
-          "id": "description",
-          "label": "Descrição do Slide"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Blog Slideshow Custom",
-      "category": "Custom",
-      "blocks": [
-        {
-          "type": "slide"
-        },
-        {
-          "type": "slide"
-        }
-      ]
-    }
-  ]
-}
+  {
+    "name": "Blog Slideshow Custom",
+    "settings": [
+      {
+        "type": "number",
+        "id": "slide_time",
+        "label": "Tempo de troca de slides (em segundos)",
+        "default": 8
+      },
+      {
+        "type": "select",
+        "id": "imagem_height",
+        "label": "Altura das imagens",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Automática"
+          },
+          {
+            "value": "small",
+            "label": "Pequena"
+          },
+          {
+            "value": "medium",
+            "label": "Média"
+          },
+          {
+            "value": "large",
+            "label": "Grande"
+          }
+        ],
+        "default": "medium"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image_desktop",
+            "label": "Slide para Desktop"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Slide para Mobile"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link do Slide"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Título do Slide"
+          }, {
+            "type": "richtext",
+            "id": "description",
+            "label": "Descrição do Slide"
+          }, {
+            "type": "range",
+            "id": "overlay_opacity",
+            "label": "Opacidade do Overlay",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "default": 30,
+            "info": "Define a opacidade do overlay escuro sobre a imagem do slide.",
+            "unit": "%"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog Slideshow Custom",
+        "category": "Custom",
+        "blocks": [
+          {
+            "type": "slide"
+          }, {
+            "type": "slide"
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}

@@ -22,13 +22,19 @@
   }
 
   #rita-main-article-custom > article > ul {
+    display: grid;
     padding-inline-start: 1.1em;
     margin-bottom: 1rem;
     font-size: 1.25rem;
+    gap: 0.75rem;
   }
 
   #rita-main-article-custom > article > ol {
     margin-bottom: 1rem;
+  }
+
+  #rita-main-article-custom > article > ul > li {
+    line-height: 18px;
   }
 
   #rita-main-article-custom > article > ul > li::marker {
@@ -128,12 +134,18 @@
     gap: 1rem;
   }
 
-  #referencias_article_custom > p {
+  .metafield-rich_text_field {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    max-width: 100%;
     display: none;
-    padding: 0;
-    margin: 0;
-    line-height: 26px;
-    transition: display 0.3s ease;
+  }
+
+  .metafield-rich_text_field a {
+    color: #258439;
+    text-decoration: underline;
+    text-decoration-color: #258439;
+    text-decoration-thickness: 2px;
   }
 
   #referencias_article_custom > #referencias_wrapper {
@@ -272,17 +284,34 @@
         <div id="referencias_wrapper">
           <h3>Referências</h3>
 
-          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="mask0_2028_8909" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
-            <rect x="0.515625" y="0.847656" width="24" height="24" fill="#D9D9D9"/>
+          <svg
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <mask
+              id="mask0_2028_8909"
+              style="mask-type:alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="25"
+              height="25">
+              <rect
+                x="0.515625"
+                y="0.847656"
+                width="24"
+                height="24"
+                fill="#D9D9D9" />
             </mask>
             <g mask="url(#mask0_2028_8909)">
-            <path d="M11.5156 21.8477V13.8477H3.51562V11.8477H11.5156V3.84766H13.5156V11.8477H21.5156V13.8477H13.5156V21.8477H11.5156Z" fill="#258439"/>
+              <path d="M11.5156 21.8477V13.8477H3.51562V11.8477H11.5156V3.84766H13.5156V11.8477H21.5156V13.8477H13.5156V21.8477H11.5156Z" fill="#258439" />
             </g>
           </svg>
         </div>
 
-        <p id="refs_body">{{ article.metafields.custom.referencias | metafield_text }}</p>
+        {{ article.metafields.custom.referencias | metafield_tag }}
         <div class="line_div_breaker_custom"></div>
       </div>
 
@@ -298,12 +327,29 @@
 
       <div id="article_date_custom">
         <button>
-          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="mask0_2043_10663" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
-            <rect x="0.34375" y="0.953125" width="33" height="33" fill="#D9D9D9"/>
+          <svg
+            width="34"
+            height="34"
+            viewBox="0 0 34 34"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <mask
+              id="mask0_2043_10663"
+              style="mask-type:alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="34"
+              height="34">
+              <rect
+                x="0.34375"
+                y="0.953125"
+                width="33"
+                height="33"
+                fill="#D9D9D9" />
             </mask>
             <g mask="url(#mask0_2043_10663)">
-            <path d="M9.01691 31.8911C8.3223 31.8911 7.73438 31.6505 7.25313 31.1692C6.77188 30.688 6.53125 30.1 6.53125 29.4054V15.1268C6.53125 14.4321 6.77188 13.8442 7.25313 13.363C7.73438 12.8817 8.3223 12.6411 9.01691 12.6411H12.5335V14.7036H9.01691C8.91103 14.7036 8.81409 14.7477 8.72609 14.8359C8.63787 14.9239 8.59375 15.0209 8.59375 15.1268V29.4054C8.59375 29.5113 8.63787 29.6083 8.72609 29.6963C8.81409 29.7845 8.91103 29.8286 9.01691 29.8286H24.6706C24.7765 29.8286 24.8734 29.7845 24.9614 29.6963C25.0496 29.6083 25.0938 29.5113 25.0938 29.4054V15.1268C25.0938 15.0209 25.0496 14.9239 24.9614 14.8359C24.8734 14.7477 24.7765 14.7036 24.6706 14.7036H21.154V12.6411H24.6706C25.3652 12.6411 25.9531 12.8817 26.4344 13.363C26.9156 13.8442 27.1563 14.4321 27.1563 15.1268V29.4054C27.1563 30.1 26.9156 30.688 26.4344 31.1692C25.9531 31.6505 25.3652 31.8911 24.6706 31.8911H9.01691ZM15.8125 22.6098V7.44256L13.2688 9.98631L11.8198 8.51609L16.8438 3.49219L21.8677 8.51609L20.4188 9.98631L17.875 7.44256V22.6098H15.8125Z" fill="#258439"/>
+              <path d="M9.01691 31.8911C8.3223 31.8911 7.73438 31.6505 7.25313 31.1692C6.77188 30.688 6.53125 30.1 6.53125 29.4054V15.1268C6.53125 14.4321 6.77188 13.8442 7.25313 13.363C7.73438 12.8817 8.3223 12.6411 9.01691 12.6411H12.5335V14.7036H9.01691C8.91103 14.7036 8.81409 14.7477 8.72609 14.8359C8.63787 14.9239 8.59375 15.0209 8.59375 15.1268V29.4054C8.59375 29.5113 8.63787 29.6083 8.72609 29.6963C8.81409 29.7845 8.91103 29.8286 9.01691 29.8286H24.6706C24.7765 29.8286 24.8734 29.7845 24.9614 29.6963C25.0496 29.6083 25.0938 29.5113 25.0938 29.4054V15.1268C25.0938 15.0209 25.0496 14.9239 24.9614 14.8359C24.8734 14.7477 24.7765 14.7036 24.6706 14.7036H21.154V12.6411H24.6706C25.3652 12.6411 25.9531 12.8817 26.4344 13.363C26.9156 13.8442 27.1563 14.4321 27.1563 15.1268V29.4054C27.1563 30.1 26.9156 30.688 26.4344 31.1692C25.9531 31.6505 25.3652 31.8911 24.6706 31.8911H9.01691ZM15.8125 22.6098V7.44256L13.2688 9.98631L11.8198 8.51609L16.8438 3.49219L21.8677 8.51609L20.4188 9.98631L17.875 7.44256V22.6098H15.8125Z" fill="#258439" />
             </g>
           </svg>
 
@@ -311,7 +357,7 @@
         </button>
 
         {% assign meses = 'Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
-          | split: ', '
+ | split: ', '
         %}
         {% assign mes_num = article.published_at | date: '%-m' | minus: 1 %}
         <span>
@@ -325,10 +371,7 @@
 
   {% if section.settings.is_rita_page == true %}
     <aside>
-      <img
-        src="{{ section.settings.selected_img | img_url: 'master' }}"
-        alt="Rita Silva"
-      >
+      <img src="{{ section.settings.selected_img | img_url: 'master' }}" alt="Rita Silva">
 
       <div>{{ section.settings.title }}</div>
       <h1>{{ section.settings.description }}</h1>
@@ -357,7 +400,7 @@
         grid-auto-rows: max-content;
         grid-auto-flow: row;
         gap: 1.5rem;
-        padding: 0 1.5rem 2.5rem 1.5rem;
+        padding: 0 1.5rem 2.5rem;
         place-content: center;
         text-align: center;
       }
@@ -417,8 +460,8 @@
       }
 
       #blog_visitas_custom > picture > img {
-        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L0,100 C25,80 75,80 100,100 L100,0 Z' fill='black'/%3E%3C/svg%3E");
-        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L0,100 C25,80 75,80 100,100 L100,0 Z' fill='black'/%3E%3C/svg%3E");
+        -webkit-mask-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0, 0 L0, 100 C25, 80 75, 80 100, 100 L100, 0 Z' fill='black'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0, 0 L0, 100 C25, 80 75, 80 100, 100 L100, 0 Z' fill='black'/%3E%3C/svg%3E");
         mask-size: 100% 100%;
         -webkit-mask-size: 100% 100%;
         border-radius: 1rem 1rem 0 0;
@@ -452,8 +495,7 @@
             src="{{ section.settings.selected_img | img_url: 'master' }}"
             alt="Imagem"
             width="auto"
-            height="auto"
-          >
+            height="auto">
         </picture>
       {% endunless %}
 
@@ -463,8 +505,7 @@
             src="{{ section.settings.logo | img_url: 'master' }}"
             alt="Logo"
             width="auto"
-            height="auto"
-          >
+            height="auto">
         {% endunless %}
 
         {% unless section.settings.title == blank %}
@@ -486,7 +527,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.querySelector('#referencias_article_custom > #referencias_wrapper');
-    const body = document.getElementById('refs_body');
+    const body = document.querySelector('.metafield-rich_text_field');
 
     if (wrapper && body) {
       wrapper.addEventListener('click', () => {
@@ -555,60 +596,55 @@
 </script>
 
 {% schema %}
-{
-  "name": "Rita main custom",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "is_rita_page",
-      "label": "Artigo da Rita"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Selecione a logo"
-    },
-    {
-      "type": "image_picker",
-      "id": "selected_img",
-      "label": "Selecione a imagem"
-    },
-    {
-      "type": "richtext",
-      "id": "title",
-      "label": "Titulo"
-    },
-    {
-      "type": "richtext",
-      "id": "description",
-      "label": "Descricao"
-    },
-    {
-      "type": "text",
-      "id": "alt_text",
-      "label": "Texto"
-    },
-    {
-      "type": "text",
-      "id": "btn_txt",
-      "label": "Texto do botao"
-    },
-    {
-      "type": "url",
-      "id": "btn_link",
-      "label": "Link do botao"
-    },
-    {
-      "type": "richtext",
-      "id": "aviso_legal",
-      "label": "Texto do aviso legal"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Rita main custom",
-      "category": "blog"
-    }
-  ]
-}
+  {
+    "name": "Rita main custom",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "is_rita_page",
+        "label": "Artigo da Rita"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Selecione a logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "selected_img",
+        "label": "Selecione a imagem"
+      },
+      {
+        "type": "richtext",
+        "id": "title",
+        "label": "Titulo"
+      }, {
+        "type": "richtext",
+        "id": "description",
+        "label": "Descricao"
+      }, {
+        "type": "text",
+        "id": "alt_text",
+        "label": "Texto"
+      }, {
+        "type": "text",
+        "id": "btn_txt",
+        "label": "Texto do botao"
+      }, {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Link do botao"
+      }, {
+        "type": "richtext",
+        "id": "aviso_legal",
+        "label": "Texto do aviso legal"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Rita main custom",
+        "category": "blog"
+      }
+    ]
+  }
 {% endschema %}

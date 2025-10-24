@@ -78,7 +78,7 @@
     object-fit: contain;
   }
 
-  @media screen and (max-width: 1599px) and (min-width: 1250px) {
+  @media screen and (max-width: 1599px) and(min-width: 1250px) {
     #blog-nav {
       gap: 2rem;
     }
@@ -97,7 +97,7 @@
     }
   }
 
-  @media screen and (max-width: 1249px) and (min-width: 1000px) {
+  @media screen and (max-width: 1249px) and(min-width: 1000px) {
     #blog-nav {
       gap: 2rem;
     }
@@ -130,8 +130,12 @@
 
   @media screen and (max-width: 1000px) {
     #blog-nav {
-      margin: 2rem var(--mobile-container-gutter);
+      margin: 2rem 0 2rem var(--mobile-container-gutter);
       gap: 1.5rem;
+    }
+
+    .page__tag-item:last-child {
+      margin-right: var(--mobile-container-gutter) !important;
     }
 
     #blog-nav > nav > ul {
@@ -185,9 +189,9 @@
       <ul>
         {%- for tag in blog.all_tags -%}
           {% unless tag contains 'author'
-            or tag contains 'dificuldade'
-            or tag contains 'doses'
-            or tag contains 'duracao'
+ or tag contains 'dificuldade'
+ or tag contains 'doses'
+ or tag contains 'duracao'
           %}
             {% for icon_block in icon_collection %}
               {% if icon_block.settings.label == tag %}
@@ -199,8 +203,7 @@
                         src="{{ icon_block.settings.icon | image_url: width: 68, height: 68 }}"
                         alt="{{ tag }}"
                         width="55"
-                        height="55"
-                      >
+                        height="55">
                     </div>
                     <span>{{ tag }}</span>
                   </a>
@@ -215,48 +218,45 @@
 </section>
 
 {% schema %}
-{
-  "name": "Blog nav",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Título"
-    },
-    {
-      "type": "blog",
-      "id": "selected_blog",
-      "label": "Blogue"
-    },
-    {
-      "type": "page",
-      "id": "selected_page",
-      "label": "Página das categorias"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "Icon",
-      "name": "Icon",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "icon",
-          "label": "Ícone"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Nome da categoria"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Blog nav",
-      "category": "Blog"
-    }
-  ]
-}
+  {
+    "name": "Blog nav",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título"
+      }, {
+        "type": "blog",
+        "id": "selected_blog",
+        "label": "Blogue"
+      }, {
+        "type": "page",
+        "id": "selected_page",
+        "label": "Página das categorias"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Icon",
+        "name": "Icon",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Ícone"
+          }, {
+            "type": "text",
+            "id": "label",
+            "label": "Nome da categoria"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog nav",
+        "category": "Blog"
+      }
+    ]
+  }
 {% endschema %}

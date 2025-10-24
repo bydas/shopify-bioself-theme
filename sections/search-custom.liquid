@@ -118,7 +118,9 @@
 
 <section id="search_custom">
   <ul id="search_breadcrumbs">
-    <li><a href="{{ routes.root_url }}">Página inicial</a></li>
+    <li>
+      <a href="{{ routes.root_url }}">Página inicial</a>
+    </li>
     <span>></span>
     <li id="current_page">
       <a href="">Resultados de pesquisa com {{ search.terms }}</a>
@@ -168,26 +170,29 @@
               }
             </style>
 
-            {%- render 'product-item-2', product: result -%}
+            {%- render 'product-item-2'
+              , product: result -%}
           {% else %}
             <style>
               #search_custom > #search_results_custom {
                 grid-template-columns: {% if search.results.size > 2 %}repeat(auto-fit, minmax(350px, 1fr)){% else %}repeat(auto-fit, 350px){% endif %};
-              }
+          }
 
-              @media screen and (max-width: 379px) {
-                #search_custom > #search_results_custom {
-                  grid-template-columns: 1fr !important;
-                }
-              }
+          @media screen and (max-width: 379px) {
+            #search_custom > #search_results_custom {
+              grid-template-columns: 1fr !important;
+            }
+          }
             </style>
 
-            {%- render 'article-item-custom', article: result -%}
+            {%- render 'article-item-custom'
+              , article: result -%}
           {% endif %}
         {%- endfor -%}
       </ul>
 
-      {%- render 'pagination', paginate: paginate -%}
+      {%- render 'pagination'
+        , paginate: paginate -%}
     {% endpaginate %}
   {% endif %}
 </section>
@@ -195,83 +200,66 @@
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
     const term = {{ search.terms | json }};
-    const endpoint = '/api/2025-07/graphql.json';
-    const token = 'bfe1eb076dd1eeff39af26ba722acebf';
 
     const params = new URLSearchParams(location.search);
-    const type = params.get('type'); // 'product' | 'article' | null (ambos)
+    const type = params.get('type'); // 'product' | 'article' | null
     const tabProducts = document.getElementById('tab-products');
     const tabArticles = document.getElementById('tab-articles');
 
     if (type === 'product' && tabProducts) tabProducts.setAttribute('aria-current', 'page');
     if (type === 'article' && tabArticles) tabArticles.setAttribute('aria-current', 'page');
 
-    async function getCount(types) {
-      const query = `
-        query Count($term: String!, $types: [SearchType!]!) {
-          search(query: $term, types: $types, first: 1) {
-            totalCount
-          }
-        }
-      `;
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': token
-        },
-        body: JSON.stringify({ query, variables: { term, types } })
+    async function getCountsFromBackend(term) {
+      const qs = new URLSearchParams({
+        action: 'get_search_counts',
+        term: term
       });
-      if (!res.ok) throw new Error('GraphQL HTTP error');
-      const json = await res.json();
-      return json?.data?.search?.totalCount ?? 0;
+      const res = await fetch(`https://bioself.apps.bydas.com/?${qs.toString()}`);
+      if (!res.ok) throw new Error('HTTP error ' + res.status);
+      const { data, errors } = await res.json();
+      if (errors) throw new Error(errors.map(e => e.message).join(', '));
+      return data.counts; // { products, articles }
     }
 
     try {
-      const [productsCount, articlesCount] = await Promise.all([
-        getCount(['PRODUCT']),
-        getCount(['ARTICLE'])
-      ]);
+      const { products, articles } = await getCountsFromBackend(term);
 
       const pEl = document.querySelector('#tab-products span');
       const aEl = document.querySelector('#tab-articles span');
 
-      if (pEl) pEl.textContent = productsCount.toLocaleString('pt-PT');
-      if (aEl) aEl.textContent = articlesCount.toLocaleString('pt-PT');
+      if (pEl) pEl.textContent = Number(products).toLocaleString('pt-PT');
+      if (aEl) aEl.textContent = Number(articles).toLocaleString('pt-PT');
 
-      const tabProducts = document.getElementById('tab-products');
-      const tabArticles = document.getElementById('tab-articles');
-
-      if (productsCount === 0 && tabProducts) {
+      if (Number(products) === 0 && tabProducts) {
         tabProducts.classList.add('disabled');
-        tabProducts.removeAttribute('href'); // remove o link
+        tabProducts.removeAttribute('href');
       }
 
-      if (articlesCount === 0 && tabArticles) {
+      if (Number(articles) === 0 && tabArticles) {
         tabArticles.classList.add('disabled');
         tabArticles.removeAttribute('href');
       }
     } catch (e) {
-      console.warn('Falha ao carregar totais via GraphQL:', e);
+      console.warn('Falha ao carregar totais via backend:', e);
     }
   });
 </script>
 
 {% schema %}
-{
-  "name": "Search custom",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "selected_img",
-      "label": "Imagem da Rita"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Search custom",
-      "category": "search"
-    }
-  ]
-}
+  {
+    "name": "Search custom",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "selected_img",
+        "label": "Imagem da Rita"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Search custom",
+        "category": "search"
+      }
+    ]
+  }
 {% endschema %}

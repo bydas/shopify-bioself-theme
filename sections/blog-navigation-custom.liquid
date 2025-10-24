@@ -33,7 +33,8 @@
     margin: 0 0 0 0.5rem;
     color: #258439;
     font-weight: 700;
-    display: none; /* é mostrado via JS quando há filtro */
+    display: none;
+    /* é mostrado via JS quando há filtro */
   }
 
   #blog_custom_page_navigation > main {
@@ -182,7 +183,7 @@
   #articles_list_nav_blog_custom > li > a > h4 {
     padding: 1rem;
     font-weight: 700 !important;
-    font-size: 1rem;
+    font-size: 1.25rem;
     line-height: normal;
     margin: 0;
   }
@@ -267,8 +268,18 @@
 <section id="blog_custom_page_navigation" data-blog-handle="{{ section.settings.selected_blog.handle }}">
   <nav>
     <a href="{{ routes.root_url }}">{{ shop.name }}</a>
-    <svg class="chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg
+      class="chevron"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true">
+      <path
+        d="M9 6l6 6-6 6"
+        fill="none"
+        stroke="#000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
     </svg>
     {% unless section.settings.selected_blog == blank %}
       <a href="{{ section.settings.selected_blog.url }}">{{ section.settings.selected_blog.title }}</a>
@@ -280,9 +291,14 @@
       class="chevron"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      aria-hidden="true">
+      <path
+        d="M9 6l6 6-6 6"
+        fill="none"
+        stroke="#000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
     </svg>
 
     <!-- etiqueta dinâmica do filtro de tag atual -->
@@ -295,14 +311,18 @@
       <ul class="blog-tags-list">
         {%- for tag in section.settings.selected_blog.all_tags -%}
           {% unless tag contains 'author'
-            or tag contains 'dificuldade'
-            or tag contains 'doses'
-            or tag contains 'duracao'
+ or tag contains 'dificuldade'
+ or tag contains 'doses'
+ or tag contains 'duracao'
           %}
             {% assign tag_handle = tag | handleize %}
             <li class="nav-item-link">
-              <a href="#{{ tag_handle }}" data-tag="{{ tag | escape }}" data-handle="{{ tag_handle }}">
-                <span>{{ tag }}</span> <span class="tag-count" aria-label="Total">(0)</span>
+              <a
+                href="#{{ tag_handle }}"
+                data-tag="{{ tag | escape }}"
+                data-handle="{{ tag_handle }}">
+                <span>{{ tag }}</span>
+                <span class="tag-count" aria-label="Total">(0)</span>
               </a>
             </li>
           {% endunless %}
@@ -315,14 +335,35 @@
 
       <div id="blog_results_filters">
         <span id="results_count">0 resultados</span>
-        <div id="sort_toggle" role="button" aria-label="Alternar ordenação">
+        <div
+          id="sort_toggle"
+          role="button"
+          aria-label="Alternar ordenação">
           <span id="sort_label">Recentes</span>
-          <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="mask0_2028_9179" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="21">
-              <rect x="0.527344" y="20.9688" width="20" height="20" transform="rotate(-90 0.527344 20.9688)" fill="#D9D9D9"/>
+          <svg
+            width="21"
+            height="21"
+            viewBox="0 0 21 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <mask
+              id="mask0_2028_9179"
+              style="mask-type:alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="21"
+              height="21">
+              <rect
+                x="0.527344"
+                y="20.9688"
+                width="20"
+                height="20"
+                transform="rotate(-90 0.527344 20.9688)"
+                fill="#D9D9D9" />
             </mask>
             <g mask="url(#mask0_2028_9179)">
-              <path d="M17.5273 14.9687L13.5273 18.9687L9.52734 14.9687L10.5898 13.9062L12.7773 16.0937V8.96875L14.2773 8.96875V16.0937L16.4648 13.9062L17.5273 14.9687ZM11.5273 6.96875L10.4648 8.03125L8.27734 5.84375V12.9687L6.77734 12.9687V5.84375L4.58984 8.03125L3.52734 6.96875L7.52734 2.96875L11.5273 6.96875Z" fill="#258439"/>
+              <path d="M17.5273 14.9687L13.5273 18.9687L9.52734 14.9687L10.5898 13.9062L12.7773 16.0937V8.96875L14.2773 8.96875V16.0937L16.4648 13.9062L17.5273 14.9687ZM11.5273 6.96875L10.4648 8.03125L8.27734 5.84375V12.9687L6.77734 12.9687V5.84375L4.58984 8.03125L3.52734 6.96875L7.52734 2.96875L11.5273 6.96875Z" fill="#258439" />
             </g>
           </svg>
         </div>
@@ -332,7 +373,10 @@
 
       <ul id="articles_list_nav_blog_custom"></ul>
 
-      <button class="page-see_all_btn" id="pageLoadMoreBtn" style="display: none;">Ver mais publicações</button>
+      <button
+        class="page-see_all_btn"
+        id="pageLoadMoreBtn"
+        style="display: none;">Ver mais publicações</button>
     </div>
   </main>
 </section>
@@ -412,10 +456,6 @@
     let currentTag = getCurrentTagFromHash();
     updateCurrentFilterLabel();
 
-    // Config GraphQL
-    const storefrontAccessToken = 'bfe1eb076dd1eeff39af26ba722acebf';
-    const graphqlEndpoint = '/api/2023-07/graphql.json';
-
     // Monta a query do FEED
     function buildArticlesQueryString() {
       const parts = [];
@@ -427,45 +467,22 @@
 
     // Fetch de artigos (feed com paginação)
     async function fetchArticles() {
-      const query = `
-        query GetBlogArticles($blogHandle: String!, $first: Int!, $after: String, $query: String, $reverse: Boolean!) {
-          blog(handle: $blogHandle) {
-            articles(first: $first, after: $after, query: $query, reverse: $reverse) {
-              edges {
-                cursor
-                node {
-                  title
-                  onlineStoreUrl
-                  image { url(transform: { maxWidth: 800 }) }
-                  tags
-                  authorV2 { name }
-                }
-              }
-              pageInfo { hasNextPage endCursor }
-            }
-          }
-        }
-      `;
-      const variables = {
-        blogHandle,
-        first: {{ section.settings.paginate_limit | default: 24 }},
-        after: endCursor,
+      const params = new URLSearchParams({
+        handle: blogHandle,
+        pageSize: {{ section.settings.paginate_limit | default: 24 }},
         query: buildArticlesQueryString() || null,
         reverse: reverseOrder,
-      };
-
-      const response = await fetch(graphqlEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
-        },
-        body: JSON.stringify({ query, variables }),
       });
+
+      if (endCursor) {
+        params.append('after', endCursor);
+      }
+
+      const response = await fetch(`https://bioself.apps.bydas.com/?action=get_next_blog_posts&${params.toString()}`);
 
       const { data, errors } = await response.json();
       if (errors) throw new Error(errors.map((e) => e.message).join(', '));
-      return data.blog.articles;
+      return data.blogByHandle.articles;
     }
 
     // Render feed
@@ -539,7 +556,7 @@
 
     async function loadMoreArticles() {
       pageLoadMoreBtn.disabled = true;
-      pageLoadMoreBtn.textContent = 'A carregar...';
+      pageLoadMoreBtn.textContent = 'A Carregar';
       try {
         const articlesData = await fetchArticles();
         renderArticles(articlesData.edges || []);
@@ -556,78 +573,36 @@
 
     // ===== Contagem por tag (Categorias) =====
     async function fetchAllArticlesForCounts() {
-      const PAGE_SIZE = 100; // ajusta conforme o tamanho do teu blog
-      let after = null;
-      let allTags = [];
-
-      const query = `
-        query GetAllArticlesForCounts($blogHandle: String!, $first: Int!, $after: String) {
-          blog(handle: $blogHandle) {
-            articles(first: $first, after: $after, reverse: false) {
-              edges {
-                cursor
-                node { tags }
-              }
-              pageInfo { hasNextPage endCursor }
-            }
-          }
-        }
-      `;
-
-      while (true) {
-        const response = await fetch(graphqlEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
-          },
-          body: JSON.stringify({ query, variables: { blogHandle, first: PAGE_SIZE, after } }),
-        });
-
-        const { data, errors } = await response.json();
-        if (errors) throw new Error(errors.map((e) => e.message).join(', '));
-
-        const conn = data.blog.articles;
-        conn.edges.forEach((e) => {
-          const tags = e.node.tags || [];
-          tags.forEach((t) => {
-            if (isVisibleTag(t)) allTags.push(t);
-          });
-        });
-
-        if (conn.pageInfo.hasNextPage) {
-          after = conn.pageInfo.endCursor;
-        } else {
-          break;
-        }
-      }
-
-      // agrega
-      const counts = {};
-      allTags.forEach((t) => {
-        counts[t] = (counts[t] || 0) + 1;
+      const params = new URLSearchParams({
+        action: 'get_next_blog_posts_count',
+        handle: sectionEl.dataset.blogHandle,
+        // opcional: usa as mesmas exclusões do backend
+        excluded: 'author,dificuldade,doses,duracao'
       });
-      return counts;
+
+      const res = await fetch(`https://bioself.apps.bydas.com/?${params.toString()}`);
+      const { data, errors } = await res.json();
+      if (errors) throw new Error(errors.map(e => e.message).join(', '));
+      return data.blogByHandle;
     }
 
     function applyCountsToSidebar(counts) {
-      // percorre todos os links e coloca (n)
       tagsList.forEach((list) => {
         list.querySelectorAll('a[data-tag]').forEach((a) => {
           const tagName = a.dataset.tag;
           const n = counts[tagName] || 0;
           const countSpan = a.querySelector('.tag-count');
           if (countSpan) countSpan.textContent = `(${n})`;
-        })
-      })
+        });
+      });
     }
 
     async function initTagCounts() {
       try {
-        const counts = await fetchAllArticlesForCounts();
+        const { total, counts } = await fetchAllArticlesForCounts();
         applyCountsToSidebar(counts);
       } catch (e) {
-        console.error('Erro a calcular contagens por tag:', e);
+        console.error('Erro a obter contagens do backend:', e);
       }
     }
 
@@ -677,31 +652,29 @@
 </script>
 
 {% schema %}
-{
-  "name": "Blog navigation",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "selected_img",
-      "label": "Imagem da Rita"
-    },
-    {
-      "type": "blog",
-      "id": "selected_blog",
-      "label": "Blogue"
-    },
-    {
-      "type": "number",
-      "id": "paginate_limit",
-      "label": "Artigos por load",
-      "default": 24
-    }
-  ],
-  "presets": [
-    {
-      "name": "Blog navigation",
-      "category": "custom"
-    }
-  ]
-}
+  {
+    "name": "Blog navigation",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "selected_img",
+        "label": "Imagem da Rita"
+      }, {
+        "type": "blog",
+        "id": "selected_blog",
+        "label": "Blogue"
+      }, {
+        "type": "number",
+        "id": "paginate_limit",
+        "label": "Artigos por load",
+        "default": 24
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog navigation",
+        "category": "custom"
+      }
+    ]
+  }
 {% endschema %}

@@ -94,7 +94,7 @@
     color: white;
   }
 
-  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+  @media screen and (max-width: 1599px) and(min-width: 1000px) {
     #blog_posts_customRita > h1 {
       font-size: 1.5rem;
     }
@@ -167,10 +167,7 @@
   }
 </style>
 
-<section
-  id="blog_posts_customRita"
-  data-blog-handle="{{ section.settings.selected-blog.handle }}"
->
+<section id="blog_posts_customRita" data-blog-handle="{{ section.settings.selected-blog.handle }}">
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
@@ -193,78 +190,40 @@
     const blogPostsListRita = document.getElementById('blogPostsListRita');
     const loadMoreBtnRita = document.getElementById('loadMoreBtnRita');
     const loadMoreWrapperRita = document.getElementById('loadMoreWrapperRita');
-
+  
     // Dados da seção
     const blogHandle = section.dataset.blogHandle;
     const authorName = 'Rita Silva';
     let endCursor = null;
     let hasNextPage = false;
-
-    // Configuração da GraphQL
-    const storefrontAccessToken = 'bfe1eb076dd1eeff39af26ba722acebf';
-    const graphqlEndpoint = '/api/2023-07/graphql.json';
-
+  
     // Função para buscar artigos via GraphQL
     async function fetchArticles() {
-      const query = `
-      query GetBlogArticles($blogHandle: String!, $first: Int!, $after: String, $query: String) {
-        blog(handle: $blogHandle) {
-          articles(
-            first: $first
-            after: $after
-            query: $query
-            reverse: true
-          ) {
-            edges {
-              cursor
-              node {
-                title
-                onlineStoreUrl
-                image {
-                  url(transform: { maxWidth: 800 })
-                }
-                tags
-              }
-            }
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-          }
-        }
-      }
-    `;
-
-      const variables = {
-        blogHandle: blogHandle,
-        first: 4,
-        after: endCursor,
-        query: `author:${authorName}`,
-      };
-
       try {
-        const response = await fetch(graphqlEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
-          },
-          body: JSON.stringify({ query, variables }),
+        const params = new URLSearchParams({
+          query: `author:${authorName}`,
+          handle: blogHandle,
+          pageSize: '8'
         });
-
-        const { data, errors } = await response.json();
-
+  
+        if (endCursor) {
+          params.append('after', endCursor);
+        }
+  
+        const res = await fetch(`https://bioself.apps.bydas.com/?action=get_next_blog_posts&${params.toString()}`);
+        const { data, errors } = await res.json();
+  
         if (errors) {
           throw new Error(errors.map((e) => e.message).join(', '));
         }
-
-        return data.blog.articles;
+  
+        return data.blogByHandle.articles;
       } catch (error) {
         console.error('GraphQL Error:', error);
         throw error;
       }
     }
-
+  
     // Função para renderizar artigos
     function renderArticles(articles) {
       articles.forEach((article) => {
@@ -282,7 +241,7 @@
           }
           return false;
         });
-
+  
         const li = document.createElement('li');
         li.innerHTML = `
         <a href="${article.node.onlineStoreUrl}">
@@ -300,24 +259,24 @@
         blogPostsListRita.appendChild(li);
       });
     }
-
+  
     // Carregar artigos iniciais
     async function loadInitialArticles() {
       try {
         const articlesData = await fetchArticles();
         const articles = articlesData.edges;
-
+  
         if (articles.length > 0) {
           renderArticles(articles);
           loadMoreBtnRita.style.display = 'block';
         } else {
           blogPostsListRita.innerHTML = '<p>Nenhum artigo encontrado</p>';
         }
-
+  
         // Atualizar estado da paginação
         hasNextPage = articlesData.pageInfo.hasNextPage;
         endCursor = articlesData.pageInfo.endCursor;
-
+  
         // Esconder botão se não houver mais artigos
         if (!hasNextPage) {
           loadMoreBtnRita.style.display = 'none';
@@ -327,20 +286,20 @@
         blogPostsListRita.innerHTML = '<p>Erro ao carregar artigos</p>';
       }
     }
-
+  
     // Carregar mais artigos
     async function loadMoreArticles() {
       loadMoreBtnRita.disabled = true;
-      loadMoreBtnRita.textContent = 'Carregando...';
-
+      loadMoreBtnRita.textContent = 'A Carregar';
+  
       try {
         const articlesData = await fetchArticles();
         renderArticles(articlesData.edges);
-
+  
         // Atualizar estado da paginação
         hasNextPage = articlesData.pageInfo.hasNextPage;
         endCursor = articlesData.pageInfo.endCursor;
-
+  
         // Esconder botão se não houver mais artigos
         if (!hasNextPage) {
           loadMoreBtnRita.style.display = 'none';
@@ -353,46 +312,43 @@
         loadMoreBtnRita.textContent = '{{ section.settings.btn_text | escape }}';
       }
     }
-
+  
     // Iniciar carregamento
     loadInitialArticles();
-
+  
     // Evento do botão
     loadMoreBtnRita.addEventListener('click', loadMoreArticles);
   });
 </script>
 
 {% schema %}
-{
-  "name": "Blog posts rita",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Título"
-    },
-    {
-      "type": "image_picker",
-      "id": "selected_img",
-      "label": "Imagem da Rita"
-    },
-    {
-      "type": "blog",
-      "id": "selected-blog",
-      "label": "Selecione o blog"
-    },
-    {
-      "type": "text",
-      "id": "btn_text",
-      "label": "Texto do botão",
-      "default": "Ver mais publicações"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Blog posts rita",
-      "category": "Blog"
-    }
-  ]
-}
+  {
+    "name": "Blog posts rita",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título"
+      }, {
+        "type": "image_picker",
+        "id": "selected_img",
+        "label": "Imagem da Rita"
+      }, {
+        "type": "blog",
+        "id": "selected-blog",
+        "label": "Selecione o blog"
+      }, {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Texto do botão",
+        "default": "Ver mais publicações"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog posts rita",
+        "category": "Blog"
+      }
+    ]
+  }
 {% endschema %}

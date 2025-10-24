@@ -1,19 +1,4 @@
 {% for tag in article.tags %}
-  {% if tag contains 'duracao' %}
-    {% assign duracao_receita = tag | split: '_' | last %}
-    {% continue %}
-  {% endif %}
-
-  {% if tag contains 'dificuldade' %}
-    {% assign dificuldade_receita = tag | split: '_' | last %}
-    {% continue %}
-  {% endif %}
-
-  {% if tag contains 'doses' %}
-    {% assign doses_receita = tag | split: '_' | last %}
-    {% continue %}
-  {% endif %}
-
   {% unless tag contains 'author' or tag contains 'dificuldade' or tag contains 'doses' or tag contains 'duracao' %}
     {% assign breadcrumb_route = tag %}
     {% assign breadcrumb_route_handle = tag | handleize %}
@@ -21,98 +6,123 @@
   {% endunless %}
 {% endfor %}
 
+{% assign auto_image_height = '100%' %}
+{% assign small_image_height = '400px' %}
+{% assign medium_image_height = '550px' %}
+{% assign large_image_height = '700px' %}
+{% case section.settings.imagem_height %}
+  {% when 'auto' %}
+    {% assign image_height = auto_image_height %}
+  {% when 'small' %}
+    {% assign image_height = small_image_height %}
+  {% when 'medium' %}
+    {% assign image_height = medium_image_height %}
+  {% when 'large' %}
+    {% assign image_height = large_image_height %}
+  {% else %}
+    {% assign image_height = auto_image_height %}
+{% endcase %}
+
 <style>
   #receitas-headline-custom-article {
-      display: grid;
-      {% unless article.image == blank %}
-        grid-template-columns: repeat(2, 1fr);
-      {% endunless %}
+    display: grid;
+    {% unless article.image == blank %}
+      grid-template-columns: repeat(2, 1fr);
+    {% endunless %}
   }
 
   #receitas-headline-custom-article > div {
-      display: grid;
-      grid-template-rows: max-content 1fr;
-      gap: 1rem;
-      padding: 2rem 2rem 2rem var(--desktop-container-gutter);
-      background-color: #25843914;
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    gap: 1rem;
+    padding: 2rem 2rem 2rem var(--desktop-container-gutter);
+    background-color: #25843914;
   }
 
-  @media screen and (min-width: 1499px) { #receitas-headline-custom-article > div { padding: 2rem 2rem 2rem 9vw; } }
-  @media screen and (min-width: 2559px) { #receitas-headline-custom-article > div { padding: 2rem 2rem 2rem 18vw; } }
+  @media screen and (min-width: 1499px) {
+    #receitas-headline-custom-article > div {
+      padding: 2rem 2rem 2rem 9vw;
+    }
+  }
+  @media screen and (min-width: 2559px) {
+    #receitas-headline-custom-article > div {
+      padding: 2rem 2rem 2rem 18vw;
+    }
+  }
 
   #receitas-headline-custom-article > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    width: 100%;
+    height: {{ image_height }};
+    object-fit: cover;
   }
 
   #receitas-headline-custom-article > div > nav {
-      display: grid;
-      grid-auto-columns: max-content;
-      grid-auto-flow: column;
-      gap: 0.5rem;
-      align-items: center;
-      font-weight: 700;
-      font-size: 0.875rem;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.875rem;
   }
 
   #receitas-headline-custom-article > div > nav svg.chevron {
-      width: 16px;
-      height: 16px;
-      transform: translateY(1px);
+    width: 16px;
+    height: 16px;
+    transform: translateY(1px);
   }
 
   #receitas-headline-custom-article > div > nav > a {
-      text-decoration: underline;
+    text-decoration: underline;
   }
 
   #receitas-headline-custom-article > div > nav > a:last-child {
-      color: #258439;
-      margin: 0;
+    color: #258439;
+    margin: 0;
   }
 
   #receitas-headline-custom-article > div > div {
-      display: grid;
-      grid-auto-rows: max-content;
-      grid-auto-flow: row;
-      align-content: center;
-      gap: 2rem;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    align-content: center;
+    gap: 2rem;
   }
 
   #receitas-headline-custom-article > div > div > h1 {
-      font-size: 2rem;
-      font-weight: 700 !important;
-      padding: 0;
-      margin: 0;
-      line-height: normal;
+    font-size: 2rem;
+    font-weight: 700 !important;
+    padding: 0;
+    margin: 0;
+    line-height: normal;
   }
 
   #article_info_custom_headline {
-      display: grid;
-      grid-auto-columns: max-content;
-      grid-auto-flow: row;
-      gap: 1rem;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: row;
+    gap: 1rem;
   }
 
   #article_info_custom_headline > ul {
-      display: grid;
-      grid-auto-columns: max-content;
-      grid-auto-flow: column;
-      gap: 1rem;
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 1rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
   }
 
   #article_info_custom_headline > ul > li {
-      display: grid;
-      grid-auto-columns: max-content;
-      grid-auto-flow: column;
-      gap: 0.35rem;
-      padding: 0;
-      margin: 0;
-      font-weight: 700 !important;
-      align-items: center;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 0.35rem;
+    padding: 0;
+    margin: 0;
+    font-weight: 700 !important;
+    align-items: center;
   }
 
   #valor_porcao_custom {
@@ -165,7 +175,7 @@
   }
 
   .description_headline_custom {
-    line-height: 26px;
+    line-height: 30px;
     font-size: 1.5rem;
   }
 
@@ -176,6 +186,10 @@
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, 1fr);
       {% endunless %}
+    }
+
+    #receitas-headline-custom-article > img {
+      height: {{ auto_image_height }};
     }
 
     .description_headline_custom {
@@ -217,8 +231,18 @@
   <div>
     <nav>
       <a href="{{ routes.root_url }}">{{ shop.name }}</a>
-      <svg class="chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg
+        class="chevron"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true">
+        <path
+          d="M9 6l6 6-6 6"
+          fill="none"
+          stroke="#000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
       </svg>
       <a href="{{ blog.url }}">{{ blog.title }}</a>
       {% unless breadcrumb_route == blank %}
@@ -226,9 +250,14 @@
           class="chevron"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          aria-hidden="true">
+          <path
+            d="M9 6l6 6-6 6"
+            fill="none"
+            stroke="#000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
         <a href="/pages/blog-categorias#{{ breadcrumb_route_handle }}">{{ breadcrumb_route }}</a>
       {% endunless %}
@@ -238,7 +267,8 @@
       <h1>{{ article.title }}</h1>
 
       {% unless section.settings.is_rita_page == false %}
-        {% render 'rita-silva-icon-custom', img: section.settings.selected_img %}
+        {% render 'rita-silva-icon-custom'
+          , img: section.settings.selected_img %}
       {% endunless %}
 
       <p class="description_headline_custom">{{ page_description }}</p>
@@ -250,31 +280,49 @@
       src="{{ article.image | img_url: 'master' }}"
       alt="{{ article.image.alt }}"
       width="auto"
-      height="auto"
-    >
+      height="auto">
   {% endunless %}
 </section>
 
 {% schema %}
-{
-  "name": "Receitas rita headline",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "is_rita_page",
-      "label": "Artigo da Rita"
-    },
-    {
-      "type": "image_picker",
-      "id": "selected_img",
-      "label": "Rita imagem"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Receitas rita headline",
-      "category": "blog"
-    }
-  ]
-}
+  {
+    "name": "Receitas rita headline",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "is_rita_page",
+        "label": "Artigo da Rita"
+      }, {
+        "type": "image_picker",
+        "id": "selected_img",
+        "label": "Rita imagem"
+      }, {
+        "type": "select",
+        "id": "imagem_height",
+        "label": "Altura das imagens",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Automática"
+          }, {
+            "value": "small",
+            "label": "Pequena"
+          }, {
+            "value": "medium",
+            "label": "Média"
+          }, {
+            "value": "large",
+            "label": "Grande"
+          }
+        ],
+        "default": "medium"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Receitas rita headline",
+        "category": "blog"
+      }
+    ]
+  }
 {% endschema %}

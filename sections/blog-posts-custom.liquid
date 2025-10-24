@@ -99,7 +99,7 @@
     margin: 0;
   }
 
-  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+  @media screen and (max-width: 1599px) and(min-width: 1000px) {
     #blog_posts_custom > h1 {
       font-size: 1.5rem;
     }
@@ -148,8 +148,7 @@
   data-blog-handle="{{ section.settings.selected-blog.handle }}"
   data-next-cursor=""
   data-has-next="true"
-  data-selected-img="{{ section.settings.selected_img | image_url: width: 160 }}"
->
+  data-selected-img="{{ section.settings.selected_img | image_url: width: 160 }}">
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
@@ -160,9 +159,9 @@
         {% assign post_tag = '' %}
         {% for tag in post.tags %}
           {% unless tag contains 'author'
-            or tag contains 'dificuldade'
-            or tag contains 'doses'
-            or tag contains 'duracao'
+ or tag contains 'dificuldade'
+ or tag contains 'doses'
+ or tag contains 'duracao'
           %}
             {% assign post_tag = tag %}
             {% break %}
@@ -176,7 +175,8 @@
                   <span>{{ post_tag }}</span>
                 {%- endif %}
                 {% if post.author == 'Rita Silva' %}
-                  {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
+                  {% render 'rita-silva-icon-custom-2'
+                    , img: section.settings.selected_img %}
                 {% endif %}
               </div>
             </div>
@@ -198,75 +198,45 @@
   document.addEventListener('DOMContentLoaded', () => {
     const sectionEl = document.getElementById('blog_posts_custom');
     const blogHandle = sectionEl.dataset.blogHandle;
-    const selectedImg = sectionEl.dataset.selectedImg; // imagem da section
+    const selectedImg = sectionEl.dataset.selectedImg;
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     const blogPostsList = document.getElementById('blogPostsList');
-
+  
     if (!loadMoreBtn) return;
-
-    const STOREFRONT_ENDPOINT = '/api/2024-07/graphql.json';
-    const STOREFRONT_TOKEN = 'bfe1eb076dd1eeff39af26ba722acebf';
-
-    const query = `
-    query BlogArticles($handle: String!, $pageSize: Int!, $after: String) {
-      blogByHandle(handle: $handle) {
-        id
-        title
-        articles(first: $pageSize, after: $after, reverse: false) {
-          pageInfo { hasNextPage endCursor }
-          edges {
-            node {
-              id
-              title
-              handle
-              tags
-              onlineStoreUrl
-              image { url altText }
-              authorV2 { name }
-            }
-          }
-        }
-      }
-    }
-  `;
-
+  
     async function fetchArticles(afterCursor) {
-      const variables = {
+      const params = new URLSearchParams({
         handle: blogHandle,
-        pageSize: 8,
-        after: afterCursor || null,
-      };
-      const res = await fetch(STOREFRONT_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN,
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({ query, variables }),
+        pageSize: '8'
       });
-
+  
+      if (afterCursor) {
+        params.append('after', afterCursor);
+      }
+  
+      const res = await fetch(`https://bioself.apps.bydas.com/?action=get_next_blog_posts&${params.toString()}`);
+  
       if (!res.ok) throw new Error('Storefront API error: ' + res.status);
       const json = await res.json();
       if (json.errors) throw new Error(JSON.stringify(json.errors));
       return json.data.blogByHandle.articles;
     }
-
+  
     function firstEligibleTag(tags) {
       if (!tags || !tags.length) return '';
       const skip = ['author', 'dificuldade', 'doses', 'duracao'];
       const t = tags.find((tg) => !skip.some((s) => tg.toLowerCase().includes(s)));
       return t || tags[0] || '';
     }
-
+  
     function renderArticle(node) {
       const li = document.createElement('li');
       const url = node.onlineStoreUrl || `/blogs/${blogHandle}/${node.handle}`;
       const bg = node.image?.url || '';
-
+  
       const tag = firstEligibleTag(node.tags || []);
       const author = node.authorV2?.name || '';
-
+  
       li.innerHTML = `
       <a href="${url}">
         <div style="background-size:cover;background-position:center center;background-image:url(${bg})">
@@ -284,24 +254,30 @@
     `;
       return li;
     }
-
+  
     loadMoreBtn.addEventListener('click', async () => {
       if (sectionEl.dataset.hasNext === 'false') return;
-
+  
       loadMoreBtn.disabled = true;
-      loadMoreBtn.textContent = 'Carregando...';
-
+      loadMoreBtn.textContent = 'A Carregar';
+  
       try {
+        if (!sectionEl.dataset.nextCursor) {
+          const firstPage = await fetchArticles(null);
+          sectionEl.dataset.hasNext = firstPage.pageInfo.hasNextPage ? 'true' : 'false';
+          sectionEl.dataset.nextCursor = firstPage.pageInfo.endCursor || '';
+        }
+  
         const after = sectionEl.dataset.nextCursor || null;
         const articles = await fetchArticles(after);
-
+  
         const edges = articles.edges || [];
         edges.forEach((edge) => blogPostsList.appendChild(renderArticle(edge.node)));
-
+  
         const { hasNextPage, endCursor } = articles.pageInfo;
         sectionEl.dataset.hasNext = hasNextPage ? 'true' : 'false';
         sectionEl.dataset.nextCursor = hasNextPage ? endCursor : '';
-
+  
         if (hasNextPage) {
           loadMoreBtn.disabled = false;
           loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';
@@ -318,36 +294,33 @@
 </script>
 
 {% schema %}
-{
-  "name": "Blog posts custom",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Título"
-    },
-    {
-      "type": "image_picker",
-      "id": "selected_img",
-      "label": "Imagem da Rita"
-    },
-    {
-      "type": "blog",
-      "id": "selected-blog",
-      "label": "Selecione o blog"
-    },
-    {
-      "type": "text",
-      "id": "btn_text",
-      "label": "Texto do botão",
-      "default": "Ver mais publicações"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Blog posts custom",
-      "category": "Blog"
-    }
-  ]
-}
+  {
+    "name": "Blog posts custom",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título"
+      }, {
+        "type": "image_picker",
+        "id": "selected_img",
+        "label": "Imagem da Rita"
+      }, {
+        "type": "blog",
+        "id": "selected-blog",
+        "label": "Selecione o blog"
+      }, {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Texto do botão",
+        "default": "Ver mais publicações"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Blog posts custom",
+        "category": "Blog"
+      }
+    ]
+  }
 {% endschema %}
