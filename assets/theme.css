@@ -64,8 +64,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700 !important;
 }
 
-.header-main, 
-.header-secondary, 
+.header-main,
+.header-secondary,
 .points-expiry-desc {
   color: white !important;
 }
@@ -123,7 +123,7 @@ html {
 @media screen and (min-width: 769px) {
   .header__inner > .header__logo {
     right: 0 !important;
-  } 
+  }
 }
 
 .top_banner_blog_content p,body,ol,ul {
@@ -6209,7 +6209,7 @@ select::-ms-expand {
 
 @media screen and (max-width: 769px) and (min-width: 399px) {
   .header__logo-image {
-     left: 10px; 
+     left: 10px;
   }
 }
 
@@ -9291,7 +9291,7 @@ select.brands__search_bar option:hover {
 @media screen and (max-width: 768px) {
     .price-list {
         column-gap: 0px;
-    }  
+    }
 }
 
 .price {
@@ -11507,7 +11507,7 @@ body.template-collection .product-list .product-item,body.template-search .produ
     left: 0
 }
 
-@media screen and (max-width: 409px) {
+@media screen and (max-width: 449px) {
     .pagination__prev span,
     .pagination__next span {
         display: none;
@@ -12069,7 +12069,7 @@ body.template-collection .product-list .product-item,body.template-search .produ
 }
 
 .cart-recap__secure-payment {
-   display: grid; 
+   display: grid;
 }
 
 .payment-list--centered {
@@ -13876,7 +13876,7 @@ button.limoniapps-discountninja-cartdiscountfield-apply,button[type=button].limo
 @media screen and (min-width: 1100px) {
   #shopify-section-template--22661866422600__reviews_widget_Vizdnd {
     margin: 0 150px;
-  } 
+  }
 }
 
 .reviews-section {
@@ -15376,7 +15376,7 @@ input#newsletter\[contact\]\[email\]::placeholder, input#newsletter\[contact\]\[
 @media screen and (max-width:325px) {
     .recipe_portion, .recipe_dificulty, .recipe_duration {
         column-gap: 5px;
-    }  
+    }
 }
 
 p.article-author__profession, p.article-author__cedula_profissional {
@@ -15447,7 +15447,7 @@ h2.section__title.heading.h3 {
 .featured-collection-section .section__header .section__header-stack,
 .image-with-text, .section__header-stack, .social-media__item-list {
     justify-content: space-between;
-} 
+}
 
 button.section_title_button {
     display: block;
