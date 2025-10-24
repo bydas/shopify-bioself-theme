@@ -17,9 +17,10 @@
           "settings": {
             "image_desktop": "shopify://shop_images/suplementos-antioxidantes-longevidade_6e4eef2a-3444-45b8-8737-d00b1fcb5c8b.png",
             "image_mobile": "shopify://shop_images/bioself-blog-mobile_1d90b276-4a9c-48b2-99c2-df5d4c2310ae.png",
-            "link": "shopify://pages/blog-categorias",
+            "link": "",
             "title": "Descobre o novo Bioself Blog",
-            "description": "<p>Inspiração natural para o teu equilíbrio diário.</p>"
+            "description": "<p>Inspiração natural para o teu equilíbrio diário.</p>",
+            "overlay_opacity": 30
           }
         }
       },
@@ -28,7 +29,8 @@
       ],
       "name": "Blog Slideshow Custom",
       "settings": {
-        "slide_time": 5
+        "slide_time": 5,
+        "imagem_height": "medium"
       }
     },
     "blog_nav_te9bTq": {
