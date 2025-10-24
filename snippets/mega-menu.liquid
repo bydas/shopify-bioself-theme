@@ -38,32 +38,34 @@
   }
 
   .mega-menu {
-      width: 100vw;
-      margin: 0;
-      padding: 0;
-      box-shadow: 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 8px 10px -6px rgba(0, 0, 0, 0.2);
   }
 
   .alphabeth_container {
-      display: grid;
-      grid-auto-columns: max-content;
-      grid-auto-flow: column;
-      gap: 1.25rem;
-      justify-content: center;
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 1.25rem;
+    justify-content: center;
   }
 
-  #shopify-section-{{ section.id }} .letter_container {
-      padding: 0 8px;
+  #shopify-section-{{ section.id }}
+  .letter_container {
+    padding: 0 8px;
   }
 
-  #shopify-section-{{ section.id }} .letter_container a {
-      font-size: 16px;
-      color: #308a36;
-      font-weight: 700;
+  #shopify-section-{{ section.id }}
+  .letter_container a {
+    font-size: 16px;
+    color: #308a36;
+    font-weight: 700;
   }
 
-  #shopify-section-{{ section.id }} .letter_container a:hover {
-     text-decoration: underline;
+  #shopify-section-{{ section.id }}.letter_container a:hover {
+    text-decoration: underline;
   }
 
   .mega-menu__inner {
@@ -82,6 +84,9 @@
   }
 
   @media screen and (max-width: 1399px) {
+    .mega-menu-brands-container {
+      grid-template-columns: repeat(3, max-content);
+    }
     .mega-menu-brands-item {
       padding: 0.5rem !important;
     }
@@ -91,27 +96,33 @@
     }
   }
 
+  @media screen and (max-width: 1249px) {
+    #favorites_custom {
+      display: none !important;
+    }
+  }
+
   .mega-menu-brands-item {
-      border: 1px solid #308a36;
-      padding: 1rem;
-      border-radius: 0.35rem;
+    border: 1px solid #308a36;
+    padding: 1rem;
+    border-radius: 0.35rem;
   }
 
   .mega-menu-brands-item > a {
-      display: grid;
+    display: grid;
   }
 
   .mega-menu-brands-item > a > img {
-      width: 225px;
-      height: 100px;
-      object-fit: contain;
+    width: 225px;
+    height: 100px;
+    object-fit: contain;
   }
 
   .mega-menu-tabs {
-      display: grid;
-      grid-template-columns: repeat(3, max-content);
-      justify-content: center;
-      gap: 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: center;
+    gap: 4rem;
   }
 
   .mega-menu-tabs__titles {
@@ -192,19 +203,20 @@
     text-decoration: underline;
   }
 
-  .accordion:after, .active:after {
+  .accordion:after,
+  .active:after {
     display: none;
   }
 
   .mega-menu__image-wrapper {
-      height: 100%;
+    height: 100%;
   }
 
   .mega-menu__promo {
     display: grid;
     grid-template-rows: repeat(3, max-content);
     gap: 2rem;
-    padding: 2rem 2rem 1rem 2rem;
+    padding: 2rem 2rem 1rem;
     place-items: center;
     text-align: center;
     background-color: #308a36;
@@ -269,8 +281,9 @@
   }
 
   @media screen and (max-width: 1100px) {
-    .mega-menu__promo {
-      padding: 1rem 0 !important;
+    .mega-menu__promo,
+    #biopoints_custom {
+      display: none !important;
     }
   }
 </style>
@@ -281,8 +294,7 @@
   data-type="menu"
   aria-hidden="true"
   role="list"
-  {{ mega_menu_block.shopify_attributes }}
->
+  {{ mega_menu_block.shopify_attributes }}>
   {%- capture mega_menu_inner -%}
     {%- assign should_center = false -%}
 
@@ -308,65 +320,65 @@
 
     <div class="mega-menu__inner {{ mega_menu_classes }}">
       {%- if mega_menu.links.size > 0 -%}
-        {%- capture mega_menu_columns -%} 
+        {%- capture mega_menu_columns -%}
           {% if mega_menu.title == 'Marcas' %}
             <div id="marcas_container">
               <div class="alphabeth_container">
                 {%- assign initials = "" -%}
                 {%- assign has_number = false -%}
-              
+
                 {% for link in marcas_links %}
                   {%- assign first_letter = link.title | slice: 0, 1 | downcase -%}
-              
+
                   {%- if first_letter >= "0" and first_letter <= "9" -%}
                     {%- assign has_number = true -%}
                   {%- endif -%}
                 {% endfor %}
-              
+
                 {%- if has_number -%}
                   <div class="letter_container">
                     <a style="width: 20px;" href="/pages/marcas#0-9">0-9</a>
                   </div>
                 {%- endif -%}
-              
+
                 {% for link in marcas_links %}
                   {%- assign first_letter = link.title | slice: 0, 1 | downcase -%}
-              
+
                   {%- if initials contains first_letter -%}
                     {%- continue -%}
                   {%- endif -%}
-              
+
                   {%- if first_letter < "0" or first_letter > "9" -%}
                     <div class="letter_container">
                       <a href="/pages/marcas#{{ first_letter | upcase }}">{{ first_letter | upcase }}</a>
                     </div>
-                    
+
                     {%- assign initials = initials | append: first_letter -%}
                   {%- endif -%}
                 {% endfor %}
-              
+
                 <div class="letter_container">
                   <a href="/pages/marcas" id="ver_todas">Ver todas</a>
                 </div>
               </div>
-  
+
               <div class="mega-menu-brands-container">
                 {% for link in sorted_brands limit: 10 %}
-                  <div class="mega-menu-brands-item"> 
-                    {% for collection in collections %}                      
-                      {% if collection.template_suffix contains "brand" %}      
+                  <div class="mega-menu-brands-item">
+                    {% for collection in collections %}
+                      {% if collection.template_suffix contains "brand" %}
                         {% if collection.title == link.title and link.url != blank %}
-                          <a href="{{ link.url }}">  
-                            {{ collection.image | image_url: width: '225px' | image_tag }}  
-                          </a>    
-                        {% endif %}                       
-                      {% endif %}                          
-                    {% endfor %}                 
+                          <a href="{{ link.url }}">
+                            {{ collection.image | image_url: width: '225px' | image_tag }}
+                          </a>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
                   </div>
                 {% endfor %}
               </div>
             </div>
-          {% else %} 
+          {% else %}
             <div class="mega-menu-tabs">
               <div class="mega-menu-tabs__titles">
                 {%- for link in mega_menu.links -%}
@@ -402,7 +414,7 @@
                   {% if section.settings.title_collection  %}
                     <h1>{{ section.settings.title_collection }}</h1>
                   {% endif %}
-                  
+
                   <img loading="lazy" src="{{ section.settings.image_1 | img_url: 'master' }}" alt="{{ section.settings.title_collection }}">
 
                   <span>Compra já</span>
@@ -422,7 +434,6 @@
       {%- endif -%}
     </div>
   {%- endcapture -%}
-
   {%- if is_condensed -%}
     {{- mega_menu_inner -}}
   {%- else -%}
