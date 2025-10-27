@@ -14,7 +14,8 @@
       "name": "Receitas rita headline",
       "settings": {
         "is_rita_page": true,
-        "selected_img": "shopify://shop_images/Ellipse_35_f260ff99-6feb-4dd6-b468-ea6f1e091847.png"
+        "selected_img": "shopify://shop_images/Ellipse_35_f260ff99-6feb-4dd6-b468-ea6f1e091847.png",
+        "imagem_height": "medium"
       }
     },
     "rita_article_main_custom_EpgrHR": {
@@ -29,6 +30,13 @@
         "btn_txt": "consulta de nutrição",
         "btn_link": "shopify://pages/servico-de-nutricao",
         "aviso_legal": "<p>Este artigo não tem a intenção de diagnosticar, tratar ou substituir aconselhamento médico sendo o seu conteúdo apenas para fins informativos. Consulta um médico ou profissional de saúde sobre qualquer diagnóstico médico relacionado com a tua saúde ou mesmo eventuais opções de tratamento. As afirmações feitas sobre produtos específicos neste artigo não são aprovadas para diagnosticar, tratar, curar ou prevenir doenças.</p>"
+      }
+    },
+    "sugestoes_products_custom_MqepfJ": {
+      "type": "sugestoes-products-custom",
+      "name": "Sugestões products",
+      "settings": {
+        "title": "Sugestões Bioself"
       }
     },
     "174715264411e0695e": {
@@ -133,6 +141,7 @@
   "order": [
     "blog_article_headline_rita_custom_Ra9EKF",
     "rita_article_main_custom_EpgrHR",
+    "sugestoes_products_custom_MqepfJ",
     "174715264411e0695e",
     "receitas_products_custom_PbtgCy",
     "receitas_article_like_UwVz8b",
