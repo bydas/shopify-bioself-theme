@@ -12,12 +12,21 @@
     "receitas_article_headline_dxqn7i": {
       "type": "receitas-article-headline",
       "name": "Receitas headline",
-      "settings": {}
+      "settings": {
+        "imagem_height": "medium"
+      }
     },
     "receitas_article_main_UEh8iY": {
       "type": "receitas-article-main",
       "name": "Receitas main",
       "settings": {}
+    },
+    "sugestoes_products_custom_XmreE3": {
+      "type": "sugestoes-products-custom",
+      "name": "Sugestões products",
+      "settings": {
+        "title": "Sugestões Bioself"
+      }
     },
     "174715264411e0695e": {
       "type": "apps",
@@ -121,6 +130,7 @@
   "order": [
     "receitas_article_headline_dxqn7i",
     "receitas_article_main_UEh8iY",
+    "sugestoes_products_custom_XmreE3",
     "174715264411e0695e",
     "receitas_article_like_HyfFtm",
     "receitas_products_custom_j96Pz3",
