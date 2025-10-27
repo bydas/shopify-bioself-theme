@@ -217,8 +217,8 @@
       "name": "Servico Nutricao Form",
       "settings": {
         "title": "Marcar consulta",
-        "first_text": "Primeira Consulta (50€)",
-        "second_text": "Consulta de seguimento (40€)"
+        "first_text": "Consulta Online",
+        "second_text": "Consulta Presencial (Porto)"
       }
     },
     "blog_collection_custom_xkhXGH": {
