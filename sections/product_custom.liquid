@@ -1031,6 +1031,7 @@
 
   .img_favorite_custom > .mobile_img_icon_wrapper {
     display: grid;
+    position: relative;
   }
 
   @media screen and (max-width: 1000px) {
@@ -1259,6 +1260,43 @@
     font-weight: 600;
     text-align: center;
   }
+
+  .pack_poupanca_badge {
+    display: grid;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #ffbb12;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  .pack_poupanca_badge > * {
+    color: black;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .pack_poupanca_badge > h4 {
+    font-size: 1.65rem;
+    line-height: 1.2rem;
+  }
+
+  .pack_poupanca_badge > h6 {
+    font-size: 0.85rem;
+    line-height: 1rem;
+  }
+
+  @media screen and (max-width: 1599px) {
+    .pack_poupanca_badge > h4 {
+      font-size: 1.35rem;
+    }
+
+    .pack_poupanca_badge > h6 {
+      font-size: 0.75rem;
+    }
+  }
 </style>
 
 {% assign has_tag = false %}
@@ -1350,6 +1388,13 @@
           {% endunless %}
 
           <div class="mobile_img_icon_wrapper">
+            {% if product.tags contains 'Pack Poupança' %}
+              <div class="pack_poupanca_badge">
+                <h4>Pack</h4>
+                <h6>Poupança</h6>
+              </div>
+            {% endif %}
+
             <img
               src="{{ product.featured_image | img_url: 'master' }}"
               alt="{{ product.title }} - imagem principal"
@@ -1708,6 +1753,13 @@
 <main id="product_page_custom_mobile">
   <section class="img_favorite_custom">
     <div class="mobile_img_icon_wrapper">
+      {% if product.tags contains 'Pack Poupança' %}
+        <div class="pack_poupanca_badge">
+          <h4>Pack</h4>
+          <h6>Poupança</h6>
+        </div>
+      {% endif %}
+
       <img
         src="{{ product.featured_image | img_url: 'master' }}"
         alt="{{ product.title }} - imagem principal"
