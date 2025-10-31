@@ -297,21 +297,26 @@
     {%- endif -%}
 
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const collectionLink = document.querySelector('.link_collection');
+      document.addEventListener('DOMContentLoaded', () => {
+        const linkEl = document.querySelector('.link_collection');
+        const canonical = document.createElement('link');
+        canonical.rel = 'canonical';
 
-        const canonicalTag = document.createElement('link');
-        canonicalTag.rel = 'canonical';
+        const shopUrl = '{{ shop.url }}';
+        const requestPath = '{{ request.path }}';
+        let href = shopUrl + requestPath;
 
-        if (collectionLink && collectionLink.href) {
-          const linkPart = collectionLink.href.split('pt')[1];
+        if (linkEl?.href) {
+          const [, linkPart] = linkEl.href.split('pt');
+          const tempHref = shopUrl + (linkPart || '') + requestPath;
 
-          canonicalTag.href = `{{ shop.url }}${linkPart}{{ request.path }}`;
-        } else {
-          canonicalTag.href = '{{ shop.url }}{{ request.path }}';
+          href = tempHref.includes('/collections/')
+            ? tempHref.replace(linkPart, '')
+            : tempHref;
         }
 
-        document.head.appendChild(canonicalTag);
+        canonical.href = href;
+        document.head.appendChild(canonical);
       });
     </script>
 
