@@ -22,6 +22,7 @@
         },
         "slide_jd8FqE": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
             "image_mobile": "shopify://shop_images/OutMobile25.png",
