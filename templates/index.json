@@ -31,6 +31,7 @@
         },
         "slide_dQTCBz": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_desktop": "shopify://shop_images/Biopoints_1920500_baa731c7-46be-4672-ac3c-9c524c39c10f.png",
             "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
