@@ -97,19 +97,6 @@
             "campaign_details": "Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 30 de Novembro, limitada ao stock disponível. Packs não estão incluídos na promoção."
           }
         },
-        "coupon_AGBKXA": {
-          "type": "coupon",
-          "settings": {
-            "title": "",
-            "selected_tags": "",
-            "collection_cupon_title": "",
-            "collection_cupon_boolean": false,
-            "collection_cupon_description": "",
-            "collection_cupon_text": "",
-            "collection_cupon_code": "",
-            "campaign_details": ""
-          }
-        },
         "coupon_WwbydV": {
           "type": "coupon",
           "settings": {
@@ -117,24 +104,10 @@
             "selected_tags": "Sovex",
             "collection_cupon_title": "Poupa 15% EXTRA ao comprar 2 ou mais produtos da marca Sovex 🥳",
             "collection_cupon_boolean": false,
-            "collection_cupon_description": "Campanha válida de 1 a 31 de Outubro de 2025",
+            "collection_cupon_description": "Campanha válida de 1 a 30 de Novembro de 2025",
             "collection_cupon_text": "Ver detalhes",
             "collection_cupon_code": "",
-            "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro. Acumulável com o desconto direto e limitada ao stock existente."
-          }
-        },
-        "coupon_JGgDtc": {
-          "type": "coupon",
-          "disabled": true,
-          "settings": {
-            "title": "Sovex",
-            "selected_tags": "Sovex",
-            "collection_cupon_title": "Poupa 15% EXTRA ao comprar 2 ou mais produtos da marca Sovex 🥳",
-            "collection_cupon_boolean": false,
-            "collection_cupon_description": "Campanha válida de 1 a 30 de Junho de 2025",
-            "collection_cupon_text": "Ver detalhes",
-            "collection_cupon_code": "",
-            "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Junho, limitada ao stock existente."
+            "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Novembro. Acumulável com o desconto direto e limitada ao stock existente."
           }
         },
         "coupon_3Pfb9d": {
@@ -144,18 +117,16 @@
             "selected_tags": "Soria Natural",
             "collection_cupon_title": "Poupa 10% EXTRA ao comprar 2 ou mais produtos da marca Soria Natural 🥳",
             "collection_cupon_boolean": false,
-            "collection_cupon_description": "Campanha válida de 1 a 31 de Outubro de 2025",
+            "collection_cupon_description": "Campanha válida de 1 a 30 de Novembro de 2025",
             "collection_cupon_text": "Ver detalhes",
             "collection_cupon_code": "",
-            "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Soria Natural — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro. Acumulável com o desconto direto e limitada ao stock existente."
+            "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Soria Natural — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Novembro. Acumulável com o desconto direto e limitada ao stock existente."
           }
         }
       },
       "block_order": [
         "coupon_bcxBan",
-        "coupon_AGBKXA",
         "coupon_WwbydV",
-        "coupon_JGgDtc",
         "coupon_3Pfb9d"
       ],
       "settings": {
