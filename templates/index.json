@@ -16,8 +16,8 @@
           "type": "slide",
           "disabled": true,
           "settings": {
-            "image_desktop": "shopify://shop_images/banner-bioself-setembro-2025-desktop.png",
-            "image_mobile": "shopify://shop_images/banner-bioself-mobile-setembro.jpg",
+            "image_desktop": "shopify://shop_images/Nov25_Desktop.png",
+            "image_mobile": "shopify://shop_images/Nov25_mobile.png",
             "link": "shopify://collections/shop"
           }
         },
