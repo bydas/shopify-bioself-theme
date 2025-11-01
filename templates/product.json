@@ -80,6 +80,7 @@
         },
         "coupon_WWtqpi": {
           "type": "coupon",
+          "disabled": true,
           "settings": {
             "title": "Vitalenzym",
             "background_color": "#c9cdcd",
