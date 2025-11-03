@@ -144,7 +144,7 @@
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
 
-  {% form 'contact' %}
+  <form>
     <div class="name default-container">
       <label for="name">Nome*</label>
       <input
@@ -211,7 +211,7 @@
     </div>
 
     <button type="submit">Enviar</button>
-  {% endform %}
+  </form>
 </section>
 
 <style>
@@ -315,18 +315,36 @@
 
       // Função de submissão com flag para evitar múltiplas chamadas
       let finalized = false;
-      const proceed = () => {
+      const proceed = async () => {
         if (finalized) return;
         finalized = true;
-        // Submete o formulário de forma programática
-        formServico.submit();
+
+        const formData = new FormData(formServico);
+        formData.append('action', 'send_servico_form_email');
+
+        await fetch('https://bioself.apps.bydas.com/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
       };
+
+      // Submete o formulário de forma programática
+      formServico.submit();
 
       // Chama o gtag com event_callback
       if (typeof gtag === 'function') {
         gtag('event', 'conversion', {
           'send_to': 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
-          'event_callback': proceed
+          'event_callback': function() {
+            proceed(); // Adicionando a chamada à função proceed dentro do callback
+          }
         });
 
         // Timeout de segurança para garantir a submissão
@@ -360,7 +378,6 @@
     }
   }
 </script>
-
 
 {% schema %}
   {
