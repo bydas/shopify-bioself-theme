@@ -505,34 +505,6 @@
         "show_only_mobile": false,
         "title": ""
       }
-    },
-    "slideshow_custom_WexpL6": {
-      "type": "slideshow-custom",
-      "blocks": {
-        "slide_PGMTVc": {
-          "type": "slide",
-          "settings": {
-            "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
-            "image_mobile": "shopify://shop_images/banner-mobile_72ee826d-7bf9-4c79-9eb0-6740c91eab24.png",
-            "link": ""
-          }
-        },
-        "slide_BEWmUa": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_PGMTVc",
-        "slide_BEWmUa"
-      ],
-      "name": "Slideshow Custom",
-      "settings": {
-        "slide_time": 5
-      }
     }
   },
   "order": [
@@ -555,7 +527,6 @@
     "image_text_custom_dtgXxx",
     "faq_2_izQty3",
     "icons_custom_tMbhUK",
-    "new_mosaic_2_K8DnV6",
-    "slideshow_custom_WexpL6"
+    "new_mosaic_2_K8DnV6"
   ]
 }
