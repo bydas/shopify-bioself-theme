@@ -19,7 +19,7 @@
 {% endif %}
 
 <style>
-  #custom_slideshow {
+  .custom_slideshow {
     display: grid;
     grid-auto-rows: max-content;
     grid-auto-flow: row;
@@ -52,7 +52,7 @@
   }
 
   @media screen and (max-width: 1000px) {
-    #custom_slideshow {
+    .custom_slideshow {
       margin: 0 var(--mobile-container-gutter) 1rem var(--mobile-container-gutter);
     }
 
@@ -147,14 +147,14 @@
   }
 </style>
 
-<section id="custom_slideshow">
+<section id="slideshow-{{ section.id }}" class="custom_slideshow">
   <div class="slideshow-container">
-    <div class="arrow arrow-left" onclick="changeSlide(-1)">
+    <div class="arrow arrow-left">
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
         <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
       </svg>
     </div>
-    <div class="arrow arrow-right" onclick="changeSlide(1)">
+    <div class="arrow arrow-right">
       <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
         <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
       </svg>
@@ -181,113 +181,125 @@
 
     <div class="dots">
       {% for slide in section.blocks %}
-        <span class="dot" onclick="currentSlide({{ forloop.index }})"></span>
+        <span class="dot" data-index="{{ forloop.index }}"></span>
       {% endfor %}
     </div>
   </div>
 </section>
 
 <script>
-  const slides = document.querySelectorAll('.slide');
-  const dots = document.querySelectorAll('.dot');
+  (function () {
+    const sectionEl = document.querySelector('#slideshow-{{ section.id }}') ?? document;
+    const slides = sectionEl.querySelectorAll('.slide');
+    const dots = sectionEl.querySelectorAll('.dot');
+    const leftArrow = sectionEl.querySelector('.arrow-left');
+    const rightArrow = sectionEl.querySelector('.arrow-right');
 
-  let slideIndex = 0;
-  let autoSlideInterval;
-  let slideTime = parseInt('{{ section.settings.slide_time | default: 5 }}', 10) * 1000; // Tempo de troca configurável
+    let slideIndex = 0;
+    let autoSlideInterval;
+    let slideTime = parseInt('{{ section.settings.slide_time | default: 5 }}', 10) * 1000;
 
-  function showSlides() {
-    slides.forEach((slide, index) => {
-      slide.style.display = index === slideIndex ? 'block' : 'none';
-    });
-    dots.forEach((dot, index) => {
-      dot.className = index === slideIndex ? 'dot active-slide' : 'dot';
-    });
-  }
-
-  function currentSlide(index) {
-    slideIndex = index - 1;
-    showSlides();
-    resetAutoSlide();
-  }
-
-  function autoSlide() {
-    slideIndex = (slideIndex + 1) % slides.length;
-    showSlides();
-  }
-
-  function resetAutoSlide() {
-    clearInterval(autoSlideInterval);
-    autoSlideInterval = setInterval(autoSlide, slideTime);
-  }
-
-  function changeSlide(direction) {
-    slideIndex = (slideIndex + direction + slides.length) % slides.length;
-    showSlides();
-    resetAutoSlide();
-  }
-
-  function handleDrag() {
-    let startX = 0;
-    let isDragging = false;
-
-    slides.forEach((slide) => {
-      slide.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        startX = e.clientX;
-        isDragging = true;
-        slide.style.cursor = 'grabbing';
+    function showSlides() {
+      slides.forEach((slide, index) => {
+        slide.style.display = index === slideIndex ? 'block' : 'none';
       });
-
-      slide.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-        slide.style.cursor = 'grabbing';
+      dots.forEach((dot, index) => {
+        dot.className = index === slideIndex ? 'dot active-slide' : 'dot';
       });
+    }
 
-      slide.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const currentX = e.clientX;
-        const diffX = startX - currentX;
-        if (Math.abs(diffX) > 50) {
-          if (diffX > 0) changeSlide(1);
-          else changeSlide(-1);
+    function currentSlide(index) {
+      slideIndex = index - 1;
+      showSlides();
+      resetAutoSlide();
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => currentSlide(Number(dot.dataset.index)));
+    });
+
+    function autoSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlides();
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = setInterval(autoSlide, slideTime);
+    }
+
+    function changeSlide(direction) {
+      slideIndex = (slideIndex + direction + slides.length) % slides.length;
+      showSlides();
+      resetAutoSlide();
+    }
+
+    leftArrow?.addEventListener('click', () => changeSlide(-1));
+    rightArrow?.addEventListener('click', () => changeSlide(1));
+
+    function handleDrag() {
+      let startX = 0;
+      let isDragging = false;
+
+      slides.forEach((slide) => {
+        slide.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          startX = e.clientX;
+          isDragging = true;
+          slide.style.cursor = 'grabbing';
+        });
+
+        slide.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].clientX;
+          isDragging = true;
+          slide.style.cursor = 'grabbing';
+        });
+
+        slide.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          const currentX = e.clientX;
+          const diffX = startX - currentX;
+          if (Math.abs(diffX) > 50) {
+            if (diffX > 0) changeSlide(1);
+            else changeSlide(-1);
+            isDragging = false;
+          }
+        });
+
+        slide.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          const currentX = e.touches[0].clientX;
+          const diffX = startX - currentX;
+          if (Math.abs(diffX) > 50) {
+            if (diffX > 0) changeSlide(1);
+            else changeSlide(-1);
+            isDragging = false;
+          }
+        });
+
+        slide.addEventListener('mouseup', () => {
           isDragging = false;
-        }
-      });
+          slide.style.cursor = 'grab';
+        });
 
-      slide.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const currentX = e.touches[0].clientX;
-        const diffX = startX - currentX;
-        if (Math.abs(diffX) > 50) {
-          if (diffX > 0) changeSlide(1);
-          else changeSlide(-1);
+        slide.addEventListener('mouseleave', () => {
           isDragging = false;
-        }
-      });
+          slide.style.cursor = 'grab';
+        });
 
-      slide.addEventListener('mouseup', () => {
-        isDragging = false;
-        slide.style.cursor = 'grab';
+        slide.addEventListener('touchend', () => {
+          isDragging = false;
+          slide.style.cursor = 'grab';
+        });
       });
+    }
 
-      slide.addEventListener('mouseleave', () => {
-        isDragging = false;
-        slide.style.cursor = 'grab';
-      });
-
-      slide.addEventListener('touchend', () => {
-        isDragging = false;
-        slide.style.cursor = 'grab';
-      });
+    document.addEventListener('DOMContentLoaded', () => {
+      showSlides();
+      autoSlideInterval = setInterval(autoSlide, slideTime);
+      handleDrag();
     });
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    showSlides();
-    autoSlideInterval = setInterval(autoSlide, slideTime);
-    handleDrag();
-  });
+  })();
 </script>
 
 {% schema %}
