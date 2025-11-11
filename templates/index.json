@@ -48,45 +48,6 @@
         "slide_time": 5
       }
     },
-    "slideshow_custom_TYHkfV": {
-      "type": "slideshow-custom",
-      "blocks": {
-        "slide_jbyiq9": {
-          "type": "slide",
-          "settings": {
-            "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
-            "image_mobile": "shopify://shop_images/banner-mobile.png",
-            "link": "shopify://pages/biopoints"
-          }
-        },
-        "slide_tUGPyT": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
-            "image_mobile": "shopify://shop_images/OutMobile25.png",
-            "link": "shopify://collections/shop"
-          }
-        },
-        "slide_HzWEMd": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_desktop": "shopify://shop_images/Biopoints_1920500_baa731c7-46be-4672-ac3c-9c524c39c10f.png",
-            "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
-            "link": "shopify://pages/biopoints"
-          }
-        }
-      },
-      "block_order": [
-        "slide_jbyiq9",
-        "slide_tUGPyT",
-        "slide_HzWEMd"
-      ],
-      "settings": {
-        "slide_time": 5
-      }
-    },
     "collection_images_slideshow_custom_KbWJmY": {
       "type": "collection-images-slideshow-custom",
       "blocks": {
@@ -201,6 +162,46 @@
         "image_4_desktop": "shopify://shop_images/Rectangle_1_a5cf56d1-86b4-42d2-a3dc-d84d9e6c6e91.webp",
         "image_4_mobile": "shopify://shop_images/image_ba16ccf5-c2d3-4c7c-93e1-9d69d0a6ac98.webp",
         "image_4_url": ""
+      }
+    },
+    "slideshow_custom_TYHkfV": {
+      "type": "slideshow-custom",
+      "blocks": {
+        "slide_jbyiq9": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
+            "image_mobile": "shopify://shop_images/banner-mobile.png",
+            "link": "shopify://pages/biopoints"
+          }
+        },
+        "slide_tUGPyT": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
+            "image_mobile": "shopify://shop_images/OutMobile25.png",
+            "link": "shopify://collections/shop"
+          }
+        },
+        "slide_HzWEMd": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_desktop": "shopify://shop_images/Biopoints_1920500_baa731c7-46be-4672-ac3c-9c524c39c10f.png",
+            "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
+            "link": "shopify://pages/biopoints"
+          }
+        }
+      },
+      "block_order": [
+        "slide_jbyiq9",
+        "slide_tUGPyT",
+        "slide_HzWEMd"
+      ],
+      "disabled": true,
+      "settings": {
+        "slide_time": 5
       }
     },
     "product_collection_list_custom_yfhcVR": {
@@ -504,6 +505,34 @@
         "show_only_mobile": false,
         "title": ""
       }
+    },
+    "slideshow_custom_WexpL6": {
+      "type": "slideshow-custom",
+      "blocks": {
+        "slide_PGMTVc": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
+            "image_mobile": "shopify://shop_images/banner-mobile_72ee826d-7bf9-4c79-9eb0-6740c91eab24.png",
+            "link": ""
+          }
+        },
+        "slide_BEWmUa": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_PGMTVc",
+        "slide_BEWmUa"
+      ],
+      "name": "Slideshow Custom",
+      "settings": {
+        "slide_time": 5
+      }
     }
   },
   "order": [
@@ -526,6 +555,7 @@
     "image_text_custom_dtgXxx",
     "faq_2_izQty3",
     "icons_custom_tMbhUK",
-    "new_mosaic_2_K8DnV6"
+    "new_mosaic_2_K8DnV6",
+    "slideshow_custom_WexpL6"
   ]
 }
