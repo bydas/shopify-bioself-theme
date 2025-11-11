@@ -48,6 +48,45 @@
         "slide_time": 5
       }
     },
+    "slideshow_custom_TYHkfV": {
+      "type": "slideshow-custom",
+      "blocks": {
+        "slide_jbyiq9": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
+            "image_mobile": "shopify://shop_images/banner-mobile.png",
+            "link": "shopify://pages/biopoints"
+          }
+        },
+        "slide_tUGPyT": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
+            "image_mobile": "shopify://shop_images/OutMobile25.png",
+            "link": "shopify://collections/shop"
+          }
+        },
+        "slide_HzWEMd": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_desktop": "shopify://shop_images/Biopoints_1920500_baa731c7-46be-4672-ac3c-9c524c39c10f.png",
+            "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
+            "link": "shopify://pages/biopoints"
+          }
+        }
+      },
+      "block_order": [
+        "slide_jbyiq9",
+        "slide_tUGPyT",
+        "slide_HzWEMd"
+      ],
+      "settings": {
+        "slide_time": 5
+      }
+    },
     "collection_images_slideshow_custom_KbWJmY": {
       "type": "collection-images-slideshow-custom",
       "blocks": {
@@ -473,6 +512,7 @@
     "collection_list_2_BYnyXr",
     "collection_campanhas_2_tndV7M",
     "collection_campanhas_1_iQwbFn",
+    "slideshow_custom_TYHkfV",
     "product_collection_list_custom_yfhcVR",
     "blog_consultas_nutricao_JDkWEd",
     "products_collection_with_image_AhgAw9",
