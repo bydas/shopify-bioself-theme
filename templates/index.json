@@ -218,6 +218,7 @@
     },
     "custom_banner_kmb4Yz": {
       "type": "custom-banner",
+      "disabled": true,
       "name": "Banner Customizado",
       "settings": {
         "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
