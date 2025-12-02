@@ -218,11 +218,10 @@
     },
     "custom_banner_kmb4Yz": {
       "type": "custom-banner",
-      "disabled": true,
       "name": "Banner Customizado",
       "settings": {
-        "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
-        "image_mobile": "shopify://shop_images/banner-mobile_72ee826d-7bf9-4c79-9eb0-6740c91eab24.png",
+        "image_desktop": "shopify://shop_images/banner-desktop_72ff2d60-dec0-44ec-b3c0-07836cc13740.png",
+        "image_mobile": "shopify://shop_images/banner-mobile_af6a3ec4-ce11-4122-9a67-766bd5a39957.png",
         "link": "shopify://pages/biopoints"
       }
     },
@@ -503,12 +502,12 @@
     "collection_list_2_BYnyXr",
     "collection_campanhas_2_tndV7M",
     "collection_campanhas_1_iQwbFn",
+    "custom_banner_kmb4Yz",
     "product_collection_list_custom_yfhcVR",
     "blog_consultas_nutricao_JDkWEd",
     "products_collection_with_image_AhgAw9",
     "collection_campanhas_3_t96Pgd",
     "product_collection_list_custom_Tb94AX",
-    "custom_banner_kmb4Yz",
     "slideshow_custom_TYHkfV",
     "bioself_blog_tnVbj3",
     "collection_categorias_custom_mUaHG8",
