@@ -216,6 +216,16 @@
         "title_collection": "HAWA PHARMA: NUTRACÊUTICOS PREMIUM!"
       }
     },
+    "custom_banner_kmb4Yz": {
+      "type": "custom-banner",
+      "disabled": true,
+      "name": "Banner Customizado",
+      "settings": {
+        "image_desktop": "shopify://shop_images/banner-desktop-biopoints.png",
+        "image_mobile": "shopify://shop_images/banner-mobile_72ee826d-7bf9-4c79-9eb0-6740c91eab24.png",
+        "link": "shopify://pages/biopoints"
+      }
+    },
     "slideshow_custom_TYHkfV": {
       "type": "slideshow-custom",
       "blocks": {
@@ -226,30 +236,10 @@
             "image_mobile": "shopify://shop_images/banner-mobile.png",
             "link": "shopify://pages/biopoints"
           }
-        },
-        "slide_tUGPyT": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
-            "image_mobile": "shopify://shop_images/OutMobile25.png",
-            "link": "shopify://collections/shop"
-          }
-        },
-        "slide_HzWEMd": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_desktop": "shopify://shop_images/Biopoints_1920500_baa731c7-46be-4672-ac3c-9c524c39c10f.png",
-            "image_mobile": "shopify://shop_images/Bioself-BioPoints-500x400.jpg",
-            "link": "shopify://pages/biopoints"
-          }
         }
       },
       "block_order": [
-        "slide_jbyiq9",
-        "slide_tUGPyT",
-        "slide_HzWEMd"
+        "slide_jbyiq9"
       ],
       "disabled": true,
       "settings": {
@@ -518,6 +508,7 @@
     "products_collection_with_image_AhgAw9",
     "collection_campanhas_3_t96Pgd",
     "product_collection_list_custom_Tb94AX",
+    "custom_banner_kmb4Yz",
     "slideshow_custom_TYHkfV",
     "bioself_blog_tnVbj3",
     "collection_categorias_custom_mUaHG8",
