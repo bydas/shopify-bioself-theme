@@ -12,6 +12,11 @@
       "id": "holidays",
       "label": "Feriados",
       "info": "Formato mês-dia, e separado por vírgulas, ex.: 01-01, 06-10, 12-25"
+    },
+    {
+      "type": "page",
+      "id": "shipping_policy_url",
+      "label": "Link para a política de envio"
     }
   ],
   "blocks": [
@@ -1228,7 +1233,8 @@
     line-height: normal;
   }
 
-  .product_delivery_time > div > span > b {
+  .product_delivery_time > div > span > b,
+  .product_delivery_time > div > span > b > a {
     color: #258439;
     font-weight: bold;
   }
@@ -1722,8 +1728,15 @@
 
           <div>
             <span style="font-weight: bold;">
-              Aproveita o <b style="color: #258439;">próximo envio</b> em
-              <b class="next_delivery_time"><span class="spinner_date"></span></b>!
+              Aproveita o
+              <b style="color: #258439">
+                {%- if section.settings.shipping_policy_url -%}
+                  <a href="{{ section.settings.shipping_policy_url }}">próximo envio</a>
+                {%- else -%}
+                  próximo envio
+                {%- endif -%}
+              </b>
+              em <b class="next_delivery_time"><span class="spinner_date"></span></b>!
             </span>
 
             <span style="font-weight: bold;">Entrega estimada no dia útil seguinte.</span>
@@ -2040,8 +2053,15 @@
 
         <div>
           <span style="font-weight: bold;">
-            Aproveita o <b style="color: #258439">próximo envio</b> em
-            <b class="next_delivery_time"><span class="spinner_date"></span></b>!
+            Aproveita o
+            <b style="color: #258439">
+              {%- if section.settings.shipping_policy_url -%}
+                <a href="{{ section.settings.shipping_policy_url }}">próximo envio</a>
+              {%- else -%}
+                próximo envio
+              {%- endif -%}
+            </b>
+            em <b class="next_delivery_time"><span class="spinner_date"></span></b>!
           </span>
 
           <span style="font-weight: bold;">Entrega estimada no dia útil seguinte.</span>
