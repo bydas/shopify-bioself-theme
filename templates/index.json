@@ -22,11 +22,10 @@
         },
         "slide_jd8FqE": {
           "type": "slide",
-          "disabled": true,
           "settings": {
-            "image_desktop": "shopify://shop_images/Outubro25_Desktop.png",
-            "image_mobile": "shopify://shop_images/OutMobile25.png",
-            "link": "shopify://collections/shop"
+            "image_desktop": "shopify://shop_images/PercaPeso-Bioself_desktop.png",
+            "image_mobile": "shopify://shop_images/PercaPeso-Bioself_800_x_1000_px.png",
+            "link": "shopify://products/chi-perca-peso-termogenico-500-ml"
           }
         },
         "slide_dQTCBz": {
@@ -164,6 +163,15 @@
         "image_4_url": ""
       }
     },
+    "custom_banner_kmb4Yz": {
+      "type": "custom-banner",
+      "name": "Banner Customizado",
+      "settings": {
+        "image_desktop": "shopify://shop_images/banner-desktop_72ff2d60-dec0-44ec-b3c0-07836cc13740.png",
+        "image_mobile": "shopify://shop_images/banner-mobile_af6a3ec4-ce11-4122-9a67-766bd5a39957.png",
+        "link": "shopify://pages/biopoints"
+      }
+    },
     "product_collection_list_custom_yfhcVR": {
       "type": "product-collection-list-custom",
       "settings": {
@@ -214,15 +222,6 @@
       "settings": {
         "selected_collection": "hawa",
         "title_collection": "HAWA PHARMA: NUTRACÊUTICOS PREMIUM!"
-      }
-    },
-    "custom_banner_kmb4Yz": {
-      "type": "custom-banner",
-      "name": "Banner Customizado",
-      "settings": {
-        "image_desktop": "shopify://shop_images/banner-desktop_72ff2d60-dec0-44ec-b3c0-07836cc13740.png",
-        "image_mobile": "shopify://shop_images/banner-mobile_af6a3ec4-ce11-4122-9a67-766bd5a39957.png",
-        "link": "shopify://pages/biopoints"
       }
     },
     "slideshow_custom_TYHkfV": {
