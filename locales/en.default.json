@@ -663,6 +663,9 @@
         },
         "discount_show_more_warnings": {
           "many": "Show more %{count}"
+        },
+        "discount_codes_removed_summary": {
+          "many": "The discount codes %{count} have been removed."
         }
       },
       "shipping_errors": {
@@ -671,6 +674,9 @@
         },
         "shipping_method_not_available_updated": {
           "many": "One or more items you added aren't shipping to your location. Remove them to checkout or contact the store."
+        },
+        "must_use_address_banner": {
+          "many": "Your order can only be sent to one of these addresses."
         }
       },
       "processing": {
