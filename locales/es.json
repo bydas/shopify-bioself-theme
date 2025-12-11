@@ -53,7 +53,9 @@
     "popup": {
       "success": "! Te has registrado a la newsletter !",
       "email_placeholder": "Tu email",
-      "subscribe": "Suscribir"
+      "subscribe": "Suscribir",
+      "success_heading": "Recibirás nuestro boletín pronto.",
+      "success_subheading": "Revisa tu correo electrónico para ver tu código de descuento."
     }
   },
   "header": {
@@ -97,7 +99,8 @@
     "newsletter": {
       "success": "¡ Te has registrado a la newsletter !",
       "input": "Tu email",
-      "submit": "Suscribir"
+      "submit": "Suscribir",
+      "input_name": "Nombre"
     }
   },
   "search": {
@@ -149,7 +152,9 @@
     "newsletter": {
       "success": "¡ Te has registrado a la newsletter !",
       "input": "Tu email",
-      "submit": "Suscribirse"
+      "submit": "Suscribirse",
+      "input_name": "Nombre",
+      "input_email": "Correo electrónico"
     }
   },
   "collection": {
@@ -179,7 +184,8 @@
         "one": "Mostrando {{offset}} - {{page_size}} de {{count}} producto",
         "other": "Mostrando {{offset}} - {{page_size}} de {{count}} productos"
       },
-      "page_size": "{{page_size}} por página"
+      "page_size": "{{page_size}} por página",
+      "all_brands": "Todas las marcas"
     },
     "filter": {
       "title": "Filtro",
@@ -190,7 +196,9 @@
       "clear": "Limpiar",
       "view_results": "Ver resultados"
     },
-    "sorting": { "title": "Ordenar por" },
+    "sorting": {
+      "title": "Ordenar por"
+    },
     "layout": {
       "title": "Ver",
       "grid": "Mostrar productos como cuadrícula",
@@ -321,7 +329,9 @@
       "password": "Contraseña",
       "submit": "Crear mi cuenta",
       "already_have_account": "¿ Ya tienes una cuenta ?",
-      "login": "Entrar aquí"
+      "login": "Entrar aquí",
+      "terms_html": "Al aceptar crear la cuenta, acepto los <a href=\"/policies/terms-of-service\" class=\"create_account-label-link\">Términos y Condiciones</a> y la <a href=\"/policies/privacy-policy\" class=\"create_account-label-link\">Política de Privacidad.</a>",
+      "accept_marketing": "Recibe contenidos exclusivos y promociones en tu email 😍"
     }
   },
   "cart": {
@@ -352,7 +362,9 @@
       "no_more_stock": "No queda stock",
       "remove": "Quitar"
     },
-    "gift_wrap": { "price_html": "Solo {{price}}" },
+    "gift_wrap": {
+      "price_html": "Solo {{price}}"
+    },
     "shipping_estimator": {
       "title": "Gasto estimado de envío",
       "country": "País",
@@ -385,9 +397,13 @@
       "estimate_shipping": "Gastos estimados de envío",
       "refund_policy": "Política de reembolso",
       "include_taxes": "Impuestos incluidos",
-      "shipping_policy_html": "<a href=\"{{ link }}\" class=\"link link--accented\">Gastos de envío</a> calculados en la caja"
+      "shipping_policy_html": "<a href=\"{{ link }}\" class=\"link link--accented\">Gastos de envío</a> calculados en la caja",
+      "promotionaltext": "Compra 4 y paga 3",
+      "disclaimer": "Bioself Natura Ltda. no se responsabiliza de ninguna discrepancia o modificación relacionada con la información del producto en el sitio web, proporcionada por el proveedor/fabricante y que aparece en las etiquetas. Por lo tanto, le recomendamos leer siempre la información obligatoria o voluntaria de las etiquetas antes de usarlos o consumirlos."
     },
-    "labels": { "sold_out": "Agotado" },
+    "labels": {
+      "sold_out": "Agotado"
+    },
     "form": {
       "variant": "Variante",
       "price": "Precio",
@@ -440,7 +456,9 @@
       "empty": "Este blog no tiene artículos.",
       "empty_button": "Ir a la página de inicio",
       "categories": "Categorías",
-      "all_tag": "Todas"
+      "all_tag": "Todas",
+      "back_to_blog_btn": "Volver al blog",
+      "references": "Referencias:"
     },
     "article": {
       "tags": "Tags :",
@@ -471,7 +489,9 @@
       "email": "Tu email",
       "message": "Tu mensaje",
       "submit": "Enviar mesaje",
-      "successfully_sent": "Tu mensaje ha sido enviado con éxito."
+      "successfully_sent": "Tu mensaje ha sido enviado con éxito.",
+      "phone": "Teléfono",
+      "subject": "Sujeto"
     }
   },
   "date_formats": {
