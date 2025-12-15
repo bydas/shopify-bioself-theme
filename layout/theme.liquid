@@ -320,6 +320,138 @@
       });
     </script>
 
+    <style>
+      .header_switch_language {
+        position: relative;
+        display: grid;
+        color: #308a36;
+        justify-self: right;
+      }
+
+      .lang_trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        user-select: none;
+        font-weight: 700 !important;
+        font-size: 16px;
+        text-transform: capitalize;
+      }
+
+      .lang_trigger svg {
+        transition: transform 0.2s ease;
+      }
+
+      .lang_trigger[aria-expanded="true"] svg {
+        transform: rotate(-180deg);
+      }
+
+      .lang_chev {
+        font-size: 0.9em;
+        line-height: 1;
+      }
+
+      .lang_dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        min-width: 190px;
+        padding: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 10px;
+        background: #fff;
+        z-index: 50;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      }
+      .lang_option {
+        display: block;
+        padding: 8px 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: inherit;
+        font-weight: 700 !important;
+        font-size: 16px;
+        text-transform: capitalize;
+      }
+      .lang_option:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      @media screen and (max-width: 1000px) {
+        .header_switch_language {
+          justify-self: left;
+        }
+
+        .lang_dropdown {
+          right: auto;
+          left: 0;
+        }
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const switchers = document.querySelectorAll('[data-lang-switcher]');
+        if (!switchers.length) return;
+
+        function closeAll() {
+          switchers.forEach((root) => {
+            const trigger = root.querySelector('.lang_trigger');
+            const dd = root.querySelector('.lang_dropdown');
+            if (!trigger || !dd) return;
+
+            dd.hidden = true;
+            trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+
+        switchers.forEach((root) => {
+          const trigger = root.querySelector('.lang_trigger');
+          const dd = root.querySelector('.lang_dropdown');
+          if (!trigger || !dd) return;
+
+          function open() {
+            closeAll(); // fecha os outros
+            dd.hidden = false;
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+
+          function close() {
+            dd.hidden = true;
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+
+          function toggle() {
+            dd.hidden ? open() : close();
+          }
+
+          trigger.addEventListener('click', function (e) {
+            e.preventDefault();
+            toggle();
+          });
+
+          trigger.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggle();
+            }
+            if (e.key === 'Escape') close();
+          });
+
+          document.addEventListener('click', function (e) {
+            if (!root.contains(e.target)) close();
+          });
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            closeAll();
+          }
+        });
+      });
+    </script>
+
     {%- comment -%}Few prefech to increase performance on commonly used third-parties{%- endcomment -%}
     <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
     <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
