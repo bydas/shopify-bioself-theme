@@ -174,33 +174,31 @@
     {% endunless %}
   {% endfor %}
 
-  {% paginate blog.articles by 50 %}
-    <ul>
-      {% assign shown = 0 %}
-      {%- for post in paginate.collection -%}
-        {%- if post.id == article.id -%}{% continue %}{%- endif -%}
-        {%- if post.tags contains post_tag -%}
-          <li>
-            <a href="{{ post.url }}">
-              <div style="background-size:cover;background-position:center center;background-image:url({{ post.image | img_url: 'master' }})">
-                <div>
-                  {% if post_tag != '' -%}
-                    <span>{{ post_tag }}</span>
-                  {%- endif %}
-                  {% if post.author == 'Rita Silva' %}
-                    {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
-                  {% endif %}
-                </div>
+  <ul>
+    {% assign shown = 0 %}
+    {%- for post in blog.articles -%}
+      {%- if post.id == article.id -%}{% continue %}{%- endif -%}
+      {%- if post_tag == '' or post.tags contains post_tag -%}
+        <li>
+          <a href="{{ post.url }}">
+            <div style="background-size:cover;background-position:center center;background-image:url({{ post.image | img_url: 'master' }})">
+              <div>
+                {% if post_tag != '' -%}
+                  <span>{{ post_tag }}</span>
+                {%- endif %}
+                {% if post.author == 'Rita Silva' %}
+                  {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
+                {% endif %}
               </div>
-              <h4>{{ post.title }}</h4>
-            </a>
-          </li>
-          {% assign shown = shown | plus: 1 %}
-          {% if shown == 4 %}{% break %}{% endif %}
-        {%- endif -%}
-      {%- endfor -%}
-    </ul>
-  {% endpaginate %}
+            </div>
+            <h4>{{ post.title }}</h4>
+          </a>
+        </li>
+        {% assign shown = shown | plus: 1 %}
+        {% if shown == 4 %}{% break %}{% endif %}
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
 </section>
 
 {% schema %}
