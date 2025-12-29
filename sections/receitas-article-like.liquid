@@ -173,11 +173,7 @@
     {% endunless %}
   {% endfor %}
 
-  <script>
-    console.log('{{ post_tag }}');
-  </script>
-
-  {% paginate blog.articles by 50 %}
+  {% paginate blog.articles by 250 %}
     <ul>
       {% assign shown = 0 %}
       {%- for post in blog.articles -%}
