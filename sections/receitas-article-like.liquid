@@ -168,7 +168,7 @@
   {%- comment -%} Determinar a primeira tag relevante do artigo atual {%- endcomment -%}
   {% assign post_tag = '' %}
   {% for t in article.tags %}
-    {% unless t contains 'author' or t contains 'dificuldade' or t contains 'doses' or t contains 'duracao' %}
+    {% unless t contains 'author' and t contains 'dificuldade' and t contains 'doses' and t contains 'duracao' %}
       {% assign post_tag = t %}
       {% break %}
     {% endunless %}
