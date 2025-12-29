@@ -178,7 +178,7 @@
     {% assign shown = 0 %}
     {%- for post in blog.articles -%}
       {%- if post.id == article.id -%}{% continue %}{%- endif -%}
-      {%- if post_tag == '' or post.tags contains post_tag -%}
+      {%- if post.tags contains post_tag -%}
         <li>
           <a href="{{ post.url }}">
             <div style="background-size:cover;background-position:center center;background-image:url({{ post.image | img_url: 'master' }})">
