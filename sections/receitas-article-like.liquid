@@ -165,7 +165,6 @@
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
 
-  {%- comment -%} Determinar a primeira tag relevante do artigo atual {%- endcomment -%}
   {% assign post_tag = '' %}
   {% for t in article.tags %}
     {% unless t contains 'author' or t contains 'dificuldade' or t contains 'doses' or t contains 'duracao' %}
@@ -174,31 +173,33 @@
     {% endunless %}
   {% endfor %}
 
-  <ul>
-    {% assign shown = 0 %}
-    {%- for post in blog.articles -%}
-      {%- if post.id == article.id -%}{% continue %}{%- endif -%}
-      {%- if post_tag == '' or post.tags contains post_tag -%}
-        <li>
-          <a href="{{ post.url }}">
-            <div style="background-size:cover;background-position:center center;background-image:url({{ post.image | img_url: 'master' }})">
-              <div>
-                {% if post_tag != '' -%}
-                  <span>{{ post_tag }}</span>
-                {%- endif %}
-                {% if post.author == 'Rita Silva' %}
-                  {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
-                {% endif %}
+  {% paginate blog.articles by 50 %}
+    <ul>
+      {% assign shown = 0 %}
+      {%- for post in blog.articles -%}
+        {%- if post.id == article.id -%}{% continue %}{%- endif -%}
+        {%- if post.tags contains post_tag -%}
+          <li>
+            <a href="{{ post.url }}">
+              <div style="background-size:cover;background-position:center center;background-image:url({{ post.image | img_url: 'master' }})">
+                <div>
+                  {% if post_tag != '' -%}
+                    <span>{{ post_tag }}</span>
+                  {%- endif %}
+                  {% if post.author == 'Rita Silva' %}
+                    {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
+                  {% endif %}
+                </div>
               </div>
-            </div>
-            <h4>{{ post.title }}</h4>
-          </a>
-        </li>
-        {% assign shown = shown | plus: 1 %}
-        {% if shown == 4 %}{% break %}{% endif %}
-      {%- endif -%}
-    {%- endfor -%}
-  </ul>
+              <h4>{{ post.title }}</h4>
+            </a>
+          </li>
+          {% assign shown = shown | plus: 1 %}
+          {% if shown == 4 %}{% break %}{% endif %}
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  {% endpaginate %}
 </section>
 
 {% schema %}
