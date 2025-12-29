@@ -160,7 +160,7 @@
   }
 </style>
 
-<section id="receitas_article_like_custom">
+<section id="receitas_article_like_custom" data-post-tag="{{ post_tag }}" data-current-article="{{ article.id }}">
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
@@ -173,19 +173,23 @@
     {% endunless %}
   {% endfor %}
 
-  {% paginate blog.articles by 250 %}
-    <ul>
+  {% paginate blog.articles by 50 %}
+    <ul
+      class="related-articles"
+      data-limit="4"
+      data-next-url="{% if paginate.next %}{{ paginate.next.url }}{% endif %}"
+    >
       {% assign shown = 0 %}
-      {%- for post in blog.articles -%}
+
+      {%- for post in paginate.collection -%}
         {%- if post.id == article.id -%}{% continue %}{%- endif -%}
-        {%- if post.tags contains post_tag -%}
-          <li>
+
+        {%- if post_tag != blank and post.tags contains post_tag -%}
+          <li data-related-item="1">
             <a href="{{ post.url }}">
               <div style="background-size:cover;background-position:center center;background-image:url({{ post.image | img_url: 'master' }})">
                 <div>
-                  {% if post_tag != '' -%}
-                    <span>{{ post_tag }}</span>
-                  {%- endif %}
+                  <span>{{ post_tag }}</span>
                   {% if post.author == 'Rita Silva' %}
                     {% render 'rita-silva-icon-custom-2', img: section.settings.selected_img %}
                   {% endif %}
@@ -194,11 +198,52 @@
               <h4>{{ post.title }}</h4>
             </a>
           </li>
+
           {% assign shown = shown | plus: 1 %}
           {% if shown == 4 %}{% break %}{% endif %}
         {%- endif -%}
       {%- endfor -%}
     </ul>
+
+    {% if shown < 4 and paginate.next %}
+      <script>
+        (async () => {
+          const list = document.querySelector('#receitas_article_like_custom .related-articles');
+          if (!list) return;
+
+          const limit = parseInt(list.dataset.limit || '4', 10);
+
+          // IMPORTANTE: no teu caso, queremos manter o mesmo post_tag e excluir o artigo atual,
+          // mas isso já vem “embutido” no HTML dos <li> que o Liquid gerou em cada página.
+          let nextUrl = list.dataset.nextUrl;
+
+          const currentCount = () => list.querySelectorAll('li[data-related-item="1"]').length;
+
+          // Vai buscar páginas até chegar ao limite ou acabar o paginate
+          while (currentCount() < limit && nextUrl) {
+            const res = await fetch(nextUrl, { credentials: 'same-origin' });
+            if (!res.ok) break;
+
+            const html = await res.text();
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+
+            // 1) Adiciona itens desta próxima página
+            const items = doc.querySelectorAll(
+              '#receitas_article_like_custom .related-articles li[data-related-item="1"]'
+            );
+            for (const li of items) {
+              if (currentCount() >= limit) break;
+              list.appendChild(li.cloneNode(true));
+            }
+
+            // 2) Descobre o próximo nextUrl a partir do HTML da página que acabaste de buscar
+            const nextList = doc.querySelector('#receitas_article_like_custom .related-articles');
+            nextUrl = nextList ? nextList.dataset.nextUrl || '' : '';
+            if (!nextUrl) nextUrl = null;
+          }
+        })();
+      </script>
+    {% endif %}
   {% endpaginate %}
 </section>
 
