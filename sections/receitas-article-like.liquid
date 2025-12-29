@@ -18,7 +18,7 @@
 
   #receitas_article_like_custom > ul {
     display: grid;
-    grid-template-columns: repeat(4, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     gap: 1.5rem;
     list-style-type: none;
     padding: 0;
@@ -121,9 +121,8 @@
     }
   }
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 415px) {
     #receitas_article_like_custom > ul {
-      grid-template-columns: unset;
       grid-auto-rows: max-content;
       grid-auto-flow: row;
       grid-template-columns: unset;
