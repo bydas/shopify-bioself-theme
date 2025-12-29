@@ -160,7 +160,7 @@
   }
 </style>
 
-<section id="receitas_article_like_custom">
+<section id="receitas_article_like_custom" data-post-tag="{{ post_tag }}" data-current-article="{{ article.id }}">
   {% unless section.settings.title == blank %}
     <h1>{{ section.settings.title }}</h1>
   {% endunless %}
@@ -173,10 +173,10 @@
     {% endunless %}
   {% endfor %}
 
-  {% paginate blog.articles by 250 %}
-    <ul>
+  {% paginate blog.articles by 50 %}
+    <ul class="related-articles">
       {% assign shown = 0 %}
-      {%- for post in blog.articles -%}
+      {%- for post in paginate.collection -%}
         {%- if post.id == article.id -%}{% continue %}{%- endif -%}
         {%- if post.tags contains post_tag -%}
           <li>
@@ -199,6 +199,29 @@
         {%- endif -%}
       {%- endfor -%}
     </ul>
+
+    {% if shown < 4 and paginate.next %}
+      <script>
+        // Carregar próxima página se ainda não temos 4 artigos
+        fetch('{{ paginate.next.url }}')
+          .then((response) => response.text())
+          .then((html) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const moreArticles = doc.querySelectorAll('.related-articles li');
+            const currentList = document.querySelector('.related-articles');
+            const currentCount = currentList.querySelectorAll('li').length;
+
+            let added = 0;
+            moreArticles.forEach((article) => {
+              if (currentCount + added < 4) {
+                currentList.appendChild(article.cloneNode(true));
+                added++;
+              }
+            });
+          });
+      </script>
+    {% endif %}
   {% endpaginate %}
 </section>
 
