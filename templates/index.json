@@ -168,8 +168,8 @@
       "type": "custom-banner",
       "name": "Banner Customizado",
       "settings": {
-        "image_desktop": "shopify://shop_images/banner-desktop_72ff2d60-dec0-44ec-b3c0-07836cc13740.png",
-        "image_mobile": "shopify://shop_images/banner-mobile_af6a3ec4-ce11-4122-9a67-766bd5a39957.png",
+        "image_desktop": "shopify://shop_images/banner-desktop_100.png",
+        "image_mobile": "shopify://shop_images/banner-mobile_100.png",
         "link": "shopify://pages/biopoints"
       }
     },
