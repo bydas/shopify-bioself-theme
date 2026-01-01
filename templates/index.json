@@ -15,13 +15,14 @@
         "slide_QxyQWn": {
           "type": "slide",
           "settings": {
-            "image_desktop": "shopify://shop_images/Dez25_Desktop_51caa7dc-3342-4123-ae3e-3093714800d3.png",
-            "image_mobile": "shopify://shop_images/Dez_Mobile_25.png",
+            "image_desktop": "shopify://shop_images/Jan26_Desktop.png",
+            "image_mobile": "shopify://shop_images/Jan26_mobile.png",
             "link": "shopify://collections/shop"
           }
         },
         "slide_jd8FqE": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_desktop": "shopify://shop_images/PercaPeso-Bioself_desktop.png",
             "image_mobile": "shopify://shop_images/PercaPeso-Bioself_800_x_1000_px.png",
