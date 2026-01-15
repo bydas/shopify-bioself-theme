@@ -204,11 +204,8 @@
   {% endunless %}
 
   {% form 'customer' %}
-    <input
-      type="hidden"
-      name="contact[tags]"
-      value="newsletter"
-    >
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <input type="hidden" name="contact[accepts_marketing]" value="true">
 
     <input
       id="newsletter-popup[email]"
@@ -225,7 +222,6 @@
         type="checkbox"
         required
       >
-
       <label for="aceitar_termos">{{ section.settings.termos }}</label>
     </div>
 
