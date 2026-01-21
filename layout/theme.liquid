@@ -1,6 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+    {% if request.locale.root_url contains '/en' or request.locale.root_url contains '/es' %}
+      <meta name="robots" content="noindex">
+    {% endif %}
+
     <script>
       window.dataLayer = window.dataLayer || [];
 
