@@ -151,7 +151,8 @@
         type="text"
         name="contact[first_name]"
         id="name"
-        required>
+        required
+      >
     </div>
 
     <div class="default-container">
@@ -159,7 +160,8 @@
       <input
         type="tel"
         name="contact[phone]"
-        id="phone">
+        id="phone"
+      >
     </div>
 
     <div class="default-container">
@@ -168,26 +170,29 @@
         type="email"
         name="contact[email]"
         id="email"
-        required>
+        required
+      >
     </div>
 
     <div class="contact_div_container">
       <div>
         <input
-          id="consulta_presencial"
+          id="consulta_online"
           type="checkbox"
-          name="contact[consulta_presencial]"
-          value="presencial">
-        <label for="consulta_presencial">{{ section.settings.first_text }}</label>
+          name="contact[consulta_online]"
+          value="online"
+        >
+        <label for="consulta_online">Consulta Online</label>
       </div>
 
       <div>
         <input
-          id="consulta_online"
+          id="consulta_presencial"
           type="checkbox"
-          name="contact[consulta_online]"
-          value="online">
-        <label for="consulta_online">{{ section.settings.second_text }}</label>
+          name="contact[consulta_presencial]"
+          value="presencial"
+        >
+        <label for="consulta_presencial">Consulta Presencial (Porto)</label>
       </div>
     </div>
 
@@ -196,7 +201,8 @@
       <textarea
         name="contact[body]"
         id="message"
-        required></textarea>
+        required
+      ></textarea>
     </div>
 
     <div class="terms_container">
@@ -204,8 +210,10 @@
         id="terms_agreed"
         type="checkbox"
         name="contact[terms_agreed]"
-        required>
-      <label for="terms_agreed">Li e aceito a
+        required
+      >
+      <label for="terms_agreed"
+        >Li e aceito a
         <a href="/policies/privacy-policy" target="_blank">Política de Privacidade</a>
       </label>
     </div>
@@ -277,7 +285,8 @@
     height="14"
     width="10.5"
     viewBox="0 0 384 512"
-    id="escape_servico_modal">
+    id="escape_servico_modal"
+  >
     <path fill="{{ section.settings.text_color }}" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
   </svg>
 
@@ -287,7 +296,8 @@
     height="55"
     viewBox="0 0 56 55"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M24.1644 40.0247L43.4836 20.7055L39.6472 16.8691L24.1644 32.3518L16.3545 24.5419L12.518 28.3784L24.1644 40.0247ZM28.0008 54.8224C24.21 54.8224 20.6476 54.1031 17.3136 52.6644C13.9795 51.2258 11.0794 49.2733 8.61308 46.807C6.1468 44.3407 4.19432 41.4406 2.75566 38.1065C1.31699 34.7725 0.597656 31.21 0.597656 27.4193C0.597656 23.6285 1.31699 20.0661 2.75566 16.732C4.19432 13.398 6.1468 10.4978 8.61308 8.03154C11.0794 5.56525 13.9795 3.61278 17.3136 2.17411C20.6476 0.735446 24.21 0.0161133 28.0008 0.0161133C31.7916 0.0161133 35.354 0.735446 38.688 2.17411C42.0221 3.61278 44.9223 5.56525 47.3886 8.03154C49.8548 10.4978 51.8073 13.398 53.246 16.732C54.6846 20.0661 55.404 23.6285 55.404 27.4193C55.404 31.21 54.6846 34.7725 53.246 38.1065C51.8073 41.4406 49.8548 44.3407 47.3886 46.807C44.9223 49.2733 42.0221 51.2258 38.688 52.6644C35.354 54.1031 31.7916 54.8224 28.0008 54.8224Z" fill="#88A44E" />
   </svg>
 
@@ -323,15 +333,8 @@
         formData.append('action', 'send_servico_form_email');
 
         await fetch('https://bioself.apps.bydas.com/', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+          method: 'POST',
+          body: formData,
         });
       };
 
@@ -341,10 +344,10 @@
       // Chama o gtag com event_callback
       if (typeof gtag === 'function') {
         gtag('event', 'conversion', {
-          'send_to': 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
-          'event_callback': function() {
+          send_to: 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
+          event_callback: function () {
             proceed(); // Adicionando a chamada à função proceed dentro do callback
-          }
+          },
         });
 
         // Timeout de segurança para garantir a submissão
@@ -380,30 +383,20 @@
 </script>
 
 {% schema %}
-  {
-    "name": "Servico Nutricao Form",
-    "settings": [
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Título"
-      }, {
-        "type": "text",
-        "id": "first_text",
-        "label": "Primeiro texto",
-        "default": "Consulta presencial (40€)"
-      }, {
-        "type": "text",
-        "id": "second_text",
-        "label": "Segundo texto",
-        "default": "Consulta online (40€)"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Servico Nutricao Form",
-        "category": "form"
-      }
-    ]
-  }
+{
+  "name": "Servico Nutricao Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Form",
+      "category": "form"
+    }
+  ]
+}
 {% endschema %}
