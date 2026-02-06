@@ -313,72 +313,138 @@
 
   if (sectionServico) {
     const formServico = sectionServico.querySelector('form');
+    let isSubmitting = false; // Prevenir múltiplos envios
 
     // --- INTERCEPTA SUBMISSÃO DO FORMULÁRIO ---
-    formServico?.addEventListener('submit', function (e) {
-      // Previne a submissão padrão
+    formServico?.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      // Marca que o formulário foi submetido
-      localStorage.setItem('servicoContactSubmitted', 'true');
-      localStorage.removeItem('not_show_sucess_servico_modal');
+      // Prevenir múltiplos envios
+      if (isSubmitting) return;
+      isSubmitting = true;
 
-      // Função de submissão com flag para evitar múltiplas chamadas
-      let finalized = false;
-      const proceed = async () => {
-        if (finalized) return;
-        finalized = true;
+      const submitButton = formServico.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
 
+      try {
+        // Feedback visual
+        submitButton.textContent = 'Enviando...';
+        submitButton.disabled = true;
+
+        // Criar FormData
         const formData = new FormData(formServico);
+
+        // Adicionar ação para o backend identificar
         formData.append('action', 'send_servico_form_email');
 
-        await fetch('https://bioself.apps.bydas.com/', {
+        // Primeiro: Enviar para seu endpoint
+        const response = await fetch('https://bioself.apps.bydas.com/', {
           method: 'POST',
           body: formData,
         });
-      };
 
-      // Submete o formulário de forma programática
-      formServico.submit();
+        // Verificar se o envio foi bem-sucedido
+        if (!response.ok) {
+          throw new Error('Falha no envio');
+        }
 
-      // Chama o gtag com event_callback
-      if (typeof gtag === 'function') {
-        gtag('event', 'conversion', {
-          send_to: 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
-          event_callback: function () {
-            proceed(); // Adicionando a chamada à função proceed dentro do callback
-          },
-        });
+        // Segundo: Disparar o gtag de conversão
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            send_to: 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
+          });
+        }
 
-        // Timeout de segurança para garantir a submissão
-        setTimeout(proceed, 1500);
-      } else {
-        // Se o gtag não estiver disponível, prossegue imediatamente
-        proceed();
+        // Terceiro: Mostrar modal imediatamente (não depender de localStorage)
+        showSuccessModal();
+
+        // Quarto: Opcionalmente fazer submit real do formulário Shopify
+        // Se você quiser que o Shopify também processe o formulário:
+        // formServico.submit();
+
+        // Resetar formulário após sucesso
+        setTimeout(() => {
+          formServico.reset();
+        }, 500);
+      } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+        alert('Erro ao enviar o formulário. Tente novamente.');
+      } finally {
+        // Restaurar botão
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        isSubmitting = false;
       }
     });
 
-    // --- MOSTRA MODAL APÓS SUBMISSÃO ---
-    if (localStorage.getItem('servicoContactSubmitted') && !localStorage.getItem('not_show_sucess_servico_modal')) {
+    // --- FUNÇÃO PARA MOSTRAR MODAL ---
+    function showSuccessModal() {
       const servicoModal = document.getElementById('servico_modal_post_submitted');
       const overlayModal = document.getElementById('modal_overlay');
 
-      if (servicoModal && overlayModal) {
+      // Criar overlay se não existir
+      if (!overlayModal) {
+        const newOverlay = document.createElement('div');
+        newOverlay.id = 'modal_overlay';
+        newOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1002;
+        display: block;
+      `;
+        document.body.appendChild(newOverlay);
+
+        // Fechar modal ao clicar no overlay
+        newOverlay.addEventListener('click', function () {
+          closeModal();
+        });
+      } else {
         overlayModal.style.display = 'block';
-        servicoModal.style.opacity = '1';
-        servicoModal.style.visibility = 'visible';
       }
 
-      sectionServico.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      history.replaceState(null, '', '#servico_form_custom');
+      // Mostrar modal
+      if (servicoModal) {
+        servicoModal.style.opacity = '1';
+        servicoModal.style.visibility = 'visible';
+        servicoModal.style.position = 'fixed';
+        servicoModal.style.zIndex = '1003';
 
-      const escapeIconModalServico = document.getElementById('escape_servico_modal');
-      escapeIconModalServico?.addEventListener('click', function () {
-        localStorage.setItem('not_show_sucess_servico_modal', 'true');
-        servicoModal?.remove();
-        if (overlayModal) overlayModal.style.display = 'none';
-      });
+        // Adicionar evento de fechar
+        const escapeIconModalServico = document.getElementById('escape_servico_modal');
+        if (escapeIconModalServico) {
+          // Remover event listeners antigos
+          const newEscapeIcon = escapeIconModalServico.cloneNode(true);
+          escapeIconModalServico.parentNode.replaceChild(newEscapeIcon, escapeIconModalServico);
+
+          newEscapeIcon.addEventListener('click', closeModal);
+        }
+      }
+
+      // Scroll para o formulário
+      sectionServico.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    function closeModal() {
+      const servicoModal = document.getElementById('servico_modal_post_submitted');
+      const overlayModal = document.getElementById('modal_overlay');
+
+      if (servicoModal) {
+        servicoModal.style.opacity = '0';
+        servicoModal.style.visibility = 'hidden';
+      }
+
+      if (overlayModal) {
+        overlayModal.style.display = 'none';
+      }
+    }
+
+    // --- VERIFICAR SE JÁ FOI ENVIADO (para quando a página recarrega) ---
+    // Esta parte só é necessária se você quiser mostrar o modal após recarregar a página
+    // Pode remover se não for necessário
   }
 </script>
 
