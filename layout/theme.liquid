@@ -30,6 +30,28 @@
         security_storage: 'granted',
       });
     </script>
+    {% comment %}
+     <script>
+      (function (w, d, t, r, u) {
+        var f, n, i;
+        (w[u] = w[u] || []),
+          (f = function () {
+            var o = { ti: '343146853', enableAutoSpaTracking: true };
+            (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
+          }),
+          (n = d.createElement(t)),
+          (n.src = r),
+          (n.async = 1),
+          (n.onload = n.onreadystatechange =
+            function () {
+              var s = this.readyState;
+              (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
+            }),
+          (i = d.getElementsByTagName(t)[0]),
+          i.parentNode.insertBefore(n, i);
+      })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
+    </script>
+{% endcomment %}
 
     {% style %}
       .shopify-pc__prefs__overlay {
@@ -264,27 +286,7 @@
       <meta name="robots" content="noindex">
     {% endif %}
 
-    <script>
-      (function (w, d, t, r, u) {
-        var f, n, i;
-        (w[u] = w[u] || []),
-          (f = function () {
-            var o = { ti: '343146853', enableAutoSpaTracking: true };
-            (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
-          }),
-          (n = d.createElement(t)),
-          (n.src = r),
-          (n.async = 1),
-          (n.onload = n.onreadystatechange =
-            function () {
-              var s = this.readyState;
-              (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
-            }),
-          (i = d.getElementsByTagName(t)[0]),
-          i.parentNode.insertBefore(n, i);
-      })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
-    </script>
-
+   
     {%- capture seo_page_title -%}
       {%- if request.page_type == 'search' and search.terms != blank -%}
         {{ search.terms | split: ' AND ' | last | split: 'product_type:' | last }} - {{ shop.name }}
