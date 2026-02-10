@@ -5,6 +5,22 @@
 ></script>
 
 <style>
+  .pvp_and_stars_row{
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .stars_wrap{
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+  }
+  .stars_wrap.mobile_stars {
+    display: none;
+  }
+
   .image_and_div_wrapper {
     display: grid;
     position: relative;
@@ -16,7 +32,7 @@
     align-items: end;
   }
 
-  .no_reviews_stars {
+  .stars_wrap:has(.netreviews_review_rate_and_stars) .no_reviews_stars {
     display: none;
   }
 
@@ -29,8 +45,8 @@
 
   .product_item_custom > .custom_link_product {
     display: grid;
-    grid-template-rows: max-content 1fr max-content max-content max-content max-content;
-    gap: 0.125rem;
+    grid-template-rows: max-content 1fr max-content max-content max-content;
+    gap: 0.25rem;
     padding: 1rem 1rem 0 1rem;
   }
 
@@ -41,6 +57,10 @@
     gap: 1rem;
     justify-content: space-between;
     align-items: center;
+  }
+
+  span#pvp_custom {
+    line-height: normal;
   }
 
   .product_header_custom > div {
@@ -237,6 +257,19 @@
       padding: 0.75rem 1rem !important;
       min-height: 41px;
     }
+
+    .pvp_and_stars_row{
+      grid-template-columns: unset;
+      grid-auto-rows: max-content;
+      grid-auto-flow: row;
+    }
+    .stars_wrap.mobile_stars {
+      display: block;
+      margin: 4px 0;
+    }
+    .stars_wrap:not(.mobile_stars) {
+      display: none;
+    }
   }
 
   .product_item_custom > form > button > svg {
@@ -272,19 +305,12 @@
       height: 16px;
     }
 
-    .product_item_custom > .custom_link_product > #pvp_custom,
-    .netreviews_bg_stars div,
-    .netreviews_review_rate_and_stars div,
     .product_item_custom > .custom_link_product > .product_header_custom > .label_custom {
       font-size: 12px;
     }
   }
 
   @media screen and (max-width: 500px) {
-    .netreviews_review_rate_and_stars {
-      margin-top: 1rem;
-    }
-
     .product_item_custom > .custom_link_product > .product_header_custom > .label_custom {
       padding: 0.25rem 1.5rem;
     }
@@ -367,17 +393,26 @@
 
     <h1>{{ product.title }}</h1>
 
-    <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
-    <div class="skeepers_product__stars" data-product-id="{{ product.id }}"></div>
+    <div class="stars_wrap mobile_stars">
+      <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
+      <div class="skeepers_product__stars" data-product-id="{{ product.id }}"></div>
 
-    <div id="no_reviews_stars">
-      <div>
-        <span class="nr-icon nr-star grey"></span>
-        <span class="nr-icon nr-star grey"></span>
-        <span class="nr-icon nr-star grey"></span>
-        <span class="nr-icon nr-star grey"></span>
-        <span class="nr-icon nr-star grey"></span>
-        <span class="no_reviews_label"> 0/5 - 0 Opiniões </span>
+      <div class="no_reviews_stars">
+        <div
+          style="
+            display: grid;
+            grid-auto-columns: max-content;
+            width: 100%;
+            grid-auto-flow: column;
+            gap: 0.025rem;
+          "
+        >
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+          <span class="nr-icon nr-star grey"></span>
+        </div>
       </div>
     </div>
 
@@ -393,9 +428,36 @@
     {%- assign pvp = product.price -%}
     {%- assign pvp_per_unit = pvp | divided_by: units | money -%}
 
-    {% unless units == blank or pvp_per_unit == blank or product.metafields.PHC['Unidade-Singular'] == blank %}
-      <span id="pvp_custom">€{{ pvp_per_unit | split: '€' }} por {{ product.metafields.PHC['Unidade-Singular'] }}</span>
-    {% endunless %}
+    <div class="pvp_and_stars_row">
+      {% unless units == blank or pvp_per_unit == blank or product.metafields.PHC['Unidade-Singular'] == blank %}
+        <span id="pvp_custom"
+          >€{{ pvp_per_unit | split: '€' }} por {{ product.metafields.PHC['Unidade-Singular'] -}}
+        </span>
+      {% endunless %}
+
+      <div class="stars_wrap">
+        <div class="NETREVIEWS_PRODUCT_STARS" data-product-id="{{ product.id }}"></div>
+        <div class="skeepers_product__stars" data-product-id="{{ product.id }}"></div>
+
+        <div class="no_reviews_stars">
+          <div
+            style="
+              display: grid;
+              grid-auto-columns: max-content;
+              width: 100%;
+              grid-auto-flow: column;
+              gap: 0.025rem;
+            "
+          >
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+            <span class="nr-icon nr-star grey"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </a>
 
   {%- if product.available -%}
@@ -534,7 +596,7 @@
     }
 
     function bindCartForms(root = document) {
-      const forms = root.querySelectorAll("form[action='/cart/add']:not([data-cart-bound='1'])");
+      const forms = root.querySelectorAll("form[action$='/cart/add']:not([data-cart-bound='1'])");
       forms.forEach((form) => {
         // Marca para impedir múltiplos listeners no mesmo form
         form.setAttribute('data-cart-bound', '1');
@@ -555,7 +617,7 @@
             const variantId = fd.get('id');
             if (!variantId) throw new Error('Sem variante selecionada (id em falta).');
 
-            showLoader();
+            // showLoader();
 
             const addOnce = () =>
               fetch('/cart/add.js', {

@@ -1,5 +1,31 @@
 @charset "utf-8";
 
+.netreviews_review_rate_and_stars div {
+    position: unset !important;
+    font-size: 15px;
+}
+
+.netreviews_review_rate_and_stars div:first-child {
+    display: none !important;
+}
+
+.netreviews_review_rate_and_stars {
+    height: unset !important;
+    min-height: unset !important;
+}
+
+.nr-icon.nr-star.coral {
+    width: unset !important;
+}
+
+.netreviews_review_rate_and_stars div:nth-child(2) {
+    display: grid;
+    grid-auto-columns: max-content;
+    width: 100%;
+    grid-auto-flow: column;
+    gap: 0.025rem;
+}
+
 input[type="checkbox"] {
     appearance: auto;
 }
@@ -9759,6 +9785,11 @@ body.template-collection .product-list .product-item,body.template-search .produ
     display: none
 }
 
+.netreviews_reviews_rate,
+.no_reviews_label {
+    display: none;
+}
+
 @media screen and (max-width:370px) {
     .featured-collection-section .netreviews_reviews_rate,.featured-collection-section .no_reviews_label {
         display: none
@@ -14493,10 +14524,6 @@ img.product-values-icon {
       font-size: 14px !important;
     }
 
-    .netreviews_review_rate_and_stars {
-        top: 7px
-    }
-
     .form__submit {
         margin-top: 10px
     }
@@ -14629,10 +14656,6 @@ img.product-values-icon {
     align-items: center
 }
 
-span.nr-icon.nr-star {
-    margin-top: 6px
-}
-
 .pvp_per_unit_catalog {
     font-size: 12px;
     font-weight: 600;
@@ -14669,8 +14692,6 @@ span.nr-icon.nr-star {
         width: 100%;
         padding: 0;
         margin: 0;
-        height: 20px!important;
-        min-height: 30px;
         top: 0
     }
 }
@@ -14727,10 +14748,6 @@ span.nr-icon.nr-star {
 
 .nr-icon {
     color: #ffcf00
-}
-
-#no_reviews_stars span {
-    margin-right: -3px
 }
 
 .no_reviews_label {
@@ -14860,10 +14877,6 @@ span.nr-icon.nr-star {
         margin: 0!important
     }
 
-    .product-list .netreviews_review_rate_and_stars {
-        margin-bottom: 20px!important
-    }
-
     .product-item .netreviews_reviews_rate {
         left: 0 !important;
         font-size: 11px !important;
@@ -14893,10 +14906,6 @@ span.nr-icon.nr-star {
     .netreviews_bg_stars div, .netreviews_review_rate_and_stars div {
         line-height: 1.25;
     }
-
-    .netreviews_review_rate_and_stars {
-        top: -5px!important;
-      }
 }
 
 .netreviews_review_rate_and_stars div {
@@ -15489,10 +15498,6 @@ button.product-item__action-button.button.button--small.button--primary span {
 }
 
 @media screen and (max-width:500px) {
-    #no_reviews_stars span {
-        margin-top: 15px;
-    }
-
     .product-item--vertical .product-item__action-button {
         font-size: 12px;
     }
