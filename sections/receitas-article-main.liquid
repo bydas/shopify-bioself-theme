@@ -1,5 +1,7 @@
 {%- comment -%} 1) Normalizar quebras e limpar HTML {%- endcomment -%}
 {%- assign norm = article.content
+  | replace: '<a ', '[[A '
+  | replace: '</a>', '[[/A]]'
   | replace: '</p>', '\n\n'
   | replace: '<p>', ''
   | replace: '<br />', '\n'
@@ -17,6 +19,7 @@
   | replace: '</h6>', '\n\n'
   | replace: '<h6>', ''
 -%}
+
 {%- assign text = norm | strip_html -%}
 
 {%- comment -%} 2) Uniformizar \r\n e partir por linhas em branco {%- endcomment -%}
@@ -39,6 +42,13 @@
   {%- assign first_clean_paragraph = cand -%}
   {%- break -%}
 {%- endfor -%}
+
+{%- if first_clean_paragraph != '' -%}
+  {%- assign first_clean_paragraph = first_clean_paragraph
+    | replace: '[[A ', '<a '
+    | replace: '[[/A]]', '</a>'
+  -%}
+{%- endif -%}
 
 {%- assign html = article.content -%}
 
@@ -252,6 +262,11 @@
     margin: 0;
     font-size: 1.25rem;
     line-height: 1.8rem;
+  }
+
+  #receitas_article_main_custom > p > a {
+    color: #258439;
+    text-decoration: underline;
   }
 
   #receitas_article_main_custom > main {
