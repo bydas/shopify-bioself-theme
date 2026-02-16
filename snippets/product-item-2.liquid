@@ -544,7 +544,7 @@
                 skeepersContainer.style.display = 'none';
               }
             } else {
-              noReviewsFallback.style.display = 'none';
+              if (noReviewsFallback) noReviewsFallback.style.display = 'none';
               starsContainer.style.display = 'block';
               if (skeepersContainer) {
                 skeepersContainer.style.display = 'block';
