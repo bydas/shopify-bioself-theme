@@ -1,3 +1,25 @@
+{%- liquid
+  assign path = request.path
+  assign base_path = path
+
+  if path == '/en' or path contains '/en/'
+    assign base_path = path | remove_first: '/en'
+  elsif path == '/es' or path contains '/es/'
+    assign base_path = path | remove_first: '/es'
+  endif
+
+  if base_path == ''
+    assign base_path = '/'
+  endif
+
+  assign current_prefix = 'pt'
+  if path == '/en' or path contains '/en/'
+    assign current_prefix = 'en'
+  elsif path == '/es' or path contains '/es/'
+    assign current_prefix = 'es'
+  endif
+-%}
+
 <style>
   #footer_nav_mobile {
     display: none;
@@ -714,6 +736,8 @@
     <button
       id="add-to-cart"
       data-product-id="{{ product.variants.first.id }}"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      data-inventory="{{ product.selected_or_first_available_variant.inventory_quantity }}"
     >
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.52975 17.136C8.52975 17.3274 8.47298 17.5146 8.36661 17.6738C8.26025 17.8329 8.10907 17.957 7.93219 18.0303C7.75531 18.1036 7.56068 18.1227 7.3729 18.0854C7.18513 18.048 7.01265 17.9558 6.87727 17.8204C6.74189 17.6851 6.6497 17.5126 6.61235 17.3248C6.575 17.137 6.59417 16.9424 6.66744 16.7655C6.7407 16.5887 6.86477 16.4375 7.02396 16.3311C7.18315 16.2247 7.3703 16.168 7.56175 16.168C7.81848 16.168 8.06469 16.27 8.24623 16.4515C8.42777 16.633 8.52975 16.8792 8.52975 17.136Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -748,7 +772,7 @@
 
 <nav id="footer_nav_mobile">
   <ul>
-    <a href="/">
+    <a href="{{ routes.root_url }}">
       <li>
         <svg
           stroke="#308a36"
@@ -914,79 +938,67 @@
       {% endfor %}
     </ul>
 
-    {%- liquid
-    assign path = request.path
-    assign base_path = path
-
-    if path == '/en' or path contains '/en/'
-      assign base_path = path | remove_first: '/en'
-    elsif path == '/es' or path contains '/es/'
-      assign base_path = path | remove_first: '/es'
-    endif
-
-    if base_path == ''
-      assign base_path = '/'
-    endif
-
-    assign current_prefix = 'pt'
-    if path == '/en' or path contains '/en/'
-      assign current_prefix = 'en'
-    elsif path == '/es' or path contains '/es/'
-      assign current_prefix = 'es'
-    endif-%}<div class="header_switch_language" data-lang-switcher>
-    <span
-      class="lang_trigger"
-      role="button"
-      tabindex="0"
-      aria-haspopup="listbox"
-      aria-expanded="false">
-      <span class="lang_current">
-        {%- if current_prefix == 'en' -%}English{%- elsif current_prefix == 'es' -%}Español{%- else -%}Português{%- endif -%}
+    <div class="header_switch_language" data-lang-switcher>
+      <span
+        class="lang_trigger"
+        role="button"
+        tabindex="0"
+        aria-haspopup="listbox"
+        aria-expanded="false">
+        <span class="lang_current">
+          {%- if current_prefix == 'en' -%}
+            <span class="fi fi-gb"></span>EN{%- elsif current_prefix == 'es' -%}
+            <span class="fi fi-es"></span>ES{%- else -%}
+            <span class="fi fi-pt"></span>PT{%- endif -%}
+        </span>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11 5.5L7 9.5L3 5.5"
+            stroke="currentColor"
+            stroke-width="var(--icon-stroke-width)"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
       </span>
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 14 14"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M11 5.5L7 9.5L3 5.5"
-          stroke="currentColor"
-          stroke-width="var(--icon-stroke-width)"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-    </span>
 
-    <div
-      class="lang_dropdown"
-      role="listbox"
-      aria-label="Selecionar idioma"
-      hidden>
-      {%- if current_prefix != 'pt' -%}
-        <a
-          class="lang_option"
-          role="option"
-          href="{{ base_path }}"
-          hreflang="pt">Português</a>
-      {%- endif -%}
+      <div
+        class="lang_dropdown"
+        role="listbox"
+        aria-label="Selecionar idioma"
+        hidden>
+        {%- if current_prefix != 'pt' -%}
+          <a
+            class="lang_option"
+            role="option"
+            href="{{ base_path }}"
+            hreflang="pt">
+            <span class="fi fi-pt"></span>PT</a>
+        {%- endif -%}
 
-      {%- if current_prefix != 'en' -%}
-        <a
-          class="lang_option"
-          role="option"
-          href="/en{{ base_path }}"
-          hreflang="en">English</a>
-      {%- endif -%}
+        {%- if current_prefix != 'en' -%}
+          <a
+            class="lang_option"
+            role="option"
+            href="/en{{ base_path }}"
+            hreflang="en">
+            <span class="fi fi-gb"></span>EN</a>
+        {%- endif -%}
 
-      {%- if current_prefix != 'es' -%}
-        <a
-          class="lang_option"
-          role="option"
-          href="/es{{ base_path }}"
-          hreflang="es">Español</a>
-      {%- endif -%}
-    </div></div>
+        {%- if current_prefix != 'es' -%}
+          <a
+            class="lang_option"
+            role="option"
+            href="/es{{ base_path }}"
+            hreflang="es">
+            <span class="fi fi-es"></span>ES</a>
+        {%- endif -%}
+      </div>
+    </div>
   </div>
 
   <ul id="mobile_nav_icons">

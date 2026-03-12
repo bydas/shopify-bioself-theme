@@ -83,7 +83,7 @@
     margin: 0;
   }
 
-  @media screen and (max-width: 1399px) {
+  @media screen and (max-width: 1699px) {
     .mega-menu-brands-container {
       grid-template-columns: repeat(3, max-content);
     }
@@ -94,10 +94,32 @@
     .mega-menu-brands-item > a > img {
       width: 200px;
     }
+
+    a:has(#favorites_custom) {
+      display: none !important;
+    }
   }
 
-  @media screen and (max-width: 1249px) {
-    #favorites_custom {
+  @media screen and (max-width: 1399px) {
+    a:has(#biopoints_custom) {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 1299px) {
+    #nav_header li:last-child {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 1199px) {
+    #nav_header li:nth-last-child(2) {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 1099px) {
+    #nav_header li:first-child {
       display: none !important;
     }
   }
@@ -280,9 +302,9 @@
     }
   }
 
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: 1190px) {
     .mega-menu__promo,
-    #biopoints_custom {
+    a:has(#biopoints_custom) {
       display: none !important;
     }
   }

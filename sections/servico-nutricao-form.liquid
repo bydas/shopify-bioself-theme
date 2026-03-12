@@ -178,20 +178,20 @@
       <div>
         <input
           id="consulta_online"
+          id="consulta_online"
           type="checkbox"
           name="contact[consulta_online]"
-          value="online"
-        >
+          value="online">
         <label for="consulta_online">Consulta Online</label>
       </div>
 
       <div>
         <input
           id="consulta_presencial"
+          id="consulta_presencial"
           type="checkbox"
           name="contact[consulta_presencial]"
-          value="presencial"
-        >
+          value="presencial">
         <label for="consulta_presencial">Consulta Presencial (Porto)</label>
       </div>
     </div>
@@ -314,8 +314,10 @@
   if (sectionServico) {
     const formServico = sectionServico.querySelector('form');
     let isSubmitting = false; // Prevenir múltiplos envios
+    let isSubmitting = false; // Prevenir múltiplos envios
 
     // --- INTERCEPTA SUBMISSÃO DO FORMULÁRIO ---
+    formServico?.addEventListener('submit', async function (e) {
     formServico?.addEventListener('submit', async function (e) {
       e.preventDefault();
 
@@ -332,11 +334,63 @@
         submitButton.disabled = true;
 
         // Criar FormData
+      // Prevenir múltiplos envios
+      if (isSubmitting) return;
+      isSubmitting = true;
+
+      const submitButton = formServico.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+
+      try {
+        // Feedback visual
+        submitButton.textContent = 'Enviando...';
+        submitButton.disabled = true;
+
+        // Criar FormData
         const formData = new FormData(formServico);
+
+        // Adicionar ação para o backend identificar
 
         // Adicionar ação para o backend identificar
         formData.append('action', 'send_servico_form_email');
 
+        // Primeiro: Enviar para seu endpoint
+        const response = await fetch('https://bioself.apps.bydas.com/', {
+          method: 'POST',
+          body: formData,
+        });
+
+        // Verificar se o envio foi bem-sucedido
+        if (!response.ok) {
+          throw new Error('Falha no envio');
+        }
+
+        // Segundo: Disparar o gtag de conversão
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            send_to: 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
+          });
+        }
+
+        // Terceiro: Mostrar modal imediatamente (não depender de localStorage)
+        showSuccessModal();
+
+        // Quarto: Opcionalmente fazer submit real do formulário Shopify
+        // Se você quiser que o Shopify também processe o formulário:
+        // formServico.submit();
+
+        // Resetar formulário após sucesso
+        setTimeout(() => {
+          formServico.reset();
+        }, 500);
+      } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+        alert('Erro ao enviar o formulário. Tente novamente.');
+      } finally {
+        // Restaurar botão
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        isSubmitting = false;
         // Primeiro: Enviar para seu endpoint
         const response = await fetch('https://bioself.apps.bydas.com/', {
           method: 'POST',
@@ -379,9 +433,32 @@
 
     // --- FUNÇÃO PARA MOSTRAR MODAL ---
     function showSuccessModal() {
+    // --- FUNÇÃO PARA MOSTRAR MODAL ---
+    function showSuccessModal() {
       const servicoModal = document.getElementById('servico_modal_post_submitted');
       const overlayModal = document.getElementById('modal_overlay');
 
+      // Criar overlay se não existir
+      if (!overlayModal) {
+        const newOverlay = document.createElement('div');
+        newOverlay.id = 'modal_overlay';
+        newOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1002;
+        display: block;
+      `;
+        document.body.appendChild(newOverlay);
+
+        // Fechar modal ao clicar no overlay
+        newOverlay.addEventListener('click', function () {
+          closeModal();
+        });
+      } else {
       // Criar overlay se não existir
       if (!overlayModal) {
         const newOverlay = document.createElement('div');
@@ -408,8 +485,27 @@
 
       // Mostrar modal
       if (servicoModal) {
+      }
+
+      // Mostrar modal
+      if (servicoModal) {
         servicoModal.style.opacity = '1';
         servicoModal.style.visibility = 'visible';
+        servicoModal.style.position = 'fixed';
+        servicoModal.style.zIndex = '1003';
+
+        // Adicionar evento de fechar
+        const escapeIconModalServico = document.getElementById('escape_servico_modal');
+        if (escapeIconModalServico) {
+          // Remover event listeners antigos
+          const newEscapeIcon = escapeIconModalServico.cloneNode(true);
+          escapeIconModalServico.parentNode.replaceChild(newEscapeIcon, escapeIconModalServico);
+
+          newEscapeIcon.addEventListener('click', closeModal);
+        }
+      }
+
+      // Scroll para o formulário
         servicoModal.style.position = 'fixed';
         servicoModal.style.zIndex = '1003';
 
@@ -442,6 +538,24 @@
       }
     }
 
+    function closeModal() {
+      const servicoModal = document.getElementById('servico_modal_post_submitted');
+      const overlayModal = document.getElementById('modal_overlay');
+
+      if (servicoModal) {
+        servicoModal.style.opacity = '0';
+        servicoModal.style.visibility = 'hidden';
+      }
+
+      if (overlayModal) {
+        overlayModal.style.display = 'none';
+      }
+    }
+
+    // --- VERIFICAR SE JÁ FOI ENVIADO (para quando a página recarrega) ---
+    // Esta parte só é necessária se você quiser mostrar o modal após recarregar a página
+    // Pode remover se não for necessário
+
     // --- VERIFICAR SE JÁ FOI ENVIADO (para quando a página recarrega) ---
     // Esta parte só é necessária se você quiser mostrar o modal após recarregar a página
     // Pode remover se não for necessário
@@ -449,20 +563,20 @@
 </script>
 
 {% schema %}
-{
-  "name": "Servico Nutricao Form",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Título"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Servico Nutricao Form",
-      "category": "form"
-    }
-  ]
-}
+  {
+    "name": "Servico Nutricao Form",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Servico Nutricao Form",
+        "category": "form"
+      }
+    ]
+  }
 {% endschema %}

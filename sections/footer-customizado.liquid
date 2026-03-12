@@ -1,120 +1,5 @@
-{% schema %}
-{
-  "name": "Footer Customizado",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "footer_image",
-      "label": "Selecionar imagem"
-    },
-    {
-      "type": "text",
-      "id": "footer_richtext",
-      "label": "Adicionar descrição"
-    },
-    {
-      "type": "text",
-      "id": "footer_text",
-      "label": "Adicionar texto"
-    },
-    {
-      "type": "url",
-      "id": "footer_link_1",
-      "label": "Link 1 URL"
-    },
-    {
-      "type": "url",
-      "id": "footer_link_2",
-      "label": "Link 2 URL"
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu_1",
-      "label": "Selecionar Menu 1"
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu_2",
-      "label": "Selecionar Menu 2"
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu_3",
-      "label": "Selecionar Menu 3"
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu_4",
-      "label": "Selecionar Menu 4"
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu_5",
-      "label": "Selecionar Menu 5"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Footer Customizado",
-      "category": "Footer"
-    }
-  ]
-}
-{% endschema %}
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const onResize = () => {
-      if (window.innerWidth < 1000) {
-        const mobileFooterDivs = document.querySelectorAll(".mobile_footer_additional_div");
-
-        mobileFooterDivs.forEach((div) => {
-          div.addEventListener("click", function () {
-            const currentSvg = div.querySelector("svg");
-            const currentMenu = div.nextElementSibling;
-
-            const previousMenu = document.getElementById("selected-menu");
-
-            if (previousMenu) {
-              const previousSvg = previousMenu.previousElementSibling.querySelector("svg");
-
-              previousMenu.removeAttribute("id");
-              previousMenu.style.display = 'none';
-              previousSvg.style.transform = 'rotate(0deg)';
-            }
-
-            if (!previousMenu || previousMenu !== currentMenu) {
-              currentMenu.style.display = 'grid';
-              currentMenu.setAttribute("id", "selected-menu");
-              currentSvg.style.transform = 'rotate(180deg)';
-            }
-          });
-        });
-      }
-    };
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.target.id === "selected-menu") {
-          console.log("Menu alterado")
-        }
-      });
-    });
-
-    document.querySelectorAll(".mobile_footer_additional_menu").forEach((menu) => {
-      observer.observe(menu, { attributes: true, attributeFilter: ["id"] });
-    });
-
-    onResize();
-
-    window.addEventListener("resize", function () {
-      onResize();
-    });
-  });
-</script>
-
 <style>
-  #custom_address  {
+  #custom_address {
     gap: 0.5rem;
   }
 
@@ -149,7 +34,7 @@
     text-decoration: underline;
   }
 
-  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+  @media screen and (max-width: 1599px) and(min-width: 1000px) {
     #custom_footer {
       gap: 2rem;
     }
@@ -262,7 +147,7 @@
     list-style-type: none;
   }
 
-  @media screen and (max-width: 1100px) and (min-width: 1000px) {
+  @media screen and (max-width: 1100px) and(min-width: 1000px) {
     #custom_footer > ul > li:nth-child(2) {
       display: none;
     }
@@ -434,8 +319,10 @@
       font-size: 16px;
     }
 
-    #custom_address > div > span, #custom_address > div > a,
-    #custom_address > div > a, #custom_address > div > span,
+    #custom_address > div > span,
+    #custom_address > div > a,
+    #custom_address > div > a,
+    #custom_address > div > span,
     .footer_additional_menu > li > a,
     #custom_footer_text > span {
       font-size: 15px;
@@ -471,8 +358,7 @@
           class="custom_footer_hero"
           alt="Bioself"
           width="100%"
-          height="100%"
-        >
+          height="100%">
       {% endif %}
 
       {% if section.settings.footer_richtext %}
@@ -491,9 +377,25 @@
     <ul id="custom_footer_links">
       {% if section.settings.footer_link_1 %}
         <li>
-          <a href="{{ section.settings.footer_link_1 }}" class="footer-custom-link" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16.532" height="26" viewBox="0 0 16.532 26">
-              <path id="Icon_feather-facebook" data-name="Icon feather-facebook" d="M25.032,3H21.069c-3.648,0-6.605,2.686-6.605,6v3.6H10.5v4.8h3.963V27h5.284V17.4h3.963l1.321-4.8H19.748V9a1.265,1.265,0,0,1,1.321-1.2h3.963Z" transform="translate(-9.5 -2)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          <a
+            href="{{ section.settings.footer_link_1 }}"
+            class="footer-custom-link"
+            aria-label="Facebook">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16.532"
+              height="26"
+              viewBox="0 0 16.532 26">
+              <path
+                id="Icon_feather-facebook"
+                data-name="Icon feather-facebook"
+                d="M25.032,3H21.069c-3.648,0-6.605,2.686-6.605,6v3.6H10.5v4.8h3.963V27h5.284V17.4h3.963l1.321-4.8H19.748V9a1.265,1.265,0,0,1,1.321-1.2h3.963Z"
+                transform="translate(-9.5 -2)"
+                fill="none"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
             </svg>
           </a>
         </li>
@@ -501,12 +403,49 @@
 
       {% if section.settings.footer_link_2 %}
         <li>
-          <a href="{{ section.settings.footer_link_2 }}" class="footer-custom-link" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
-              <g id="Icon_feather-instagram" data-name="Icon feather-instagram" transform="translate(1 1)">
-                <path id="Path_734" data-name="Path 734" d="M9,3H21a6,6,0,0,1,6,6V21a6,6,0,0,1-6,6H9a6,6,0,0,1-6-6V9A6,6,0,0,1,9,3Z" transform="translate(-3 -3)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                <path id="Path_735" data-name="Path 735" d="M22.577,16.444a5.284,5.284,0,1,1-4.452-4.452,5.284,5.284,0,0,1,4.452,4.452Z" transform="translate(-5.301 -5.268)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                <path id="Path_736" data-name="Path 736" d="M26.25,9.75h0" transform="translate(-7.65 -4.35)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          <a
+            href="{{ section.settings.footer_link_2 }}"
+            class="footer-custom-link"
+            aria-label="Instagram">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              viewBox="0 0 26 26">
+              <g
+                id="Icon_feather-instagram"
+                data-name="Icon feather-instagram"
+                transform="translate(1 1)">
+                <path
+                  id="Path_734"
+                  data-name="Path 734"
+                  d="M9,3H21a6,6,0,0,1,6,6V21a6,6,0,0,1-6,6H9a6,6,0,0,1-6-6V9A6,6,0,0,1,9,3Z"
+                  transform="translate(-3 -3)"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
+                <path
+                  id="Path_735"
+                  data-name="Path 735"
+                  d="M22.577,16.444a5.284,5.284,0,1,1-4.452-4.452,5.284,5.284,0,0,1,4.452,4.452Z"
+                  transform="translate(-5.301 -5.268)"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
+                <path
+                  id="Path_736"
+                  data-name="Path 736"
+                  d="M26.25,9.75h0"
+                  transform="translate(-7.65 -4.35)"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
               </g>
             </svg>
           </a>
@@ -612,16 +551,31 @@
         class="custom_footer_hero"
         alt="Bioself"
         width="100%"
-        height="100%"
-      >
+        height="100%">
     {% endif %}
 
     <ul id="custom_footer_links">
       {% if section.settings.footer_link_1 %}
         <li>
-          <a href="{{ section.settings.footer_link_1 }}" class="mobile_footer-custom-link" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16.532" height="26" viewBox="0 0 16.532 26">
-              <path id="Icon_feather-facebook" data-name="Icon feather-facebook" d="M25.032,3H21.069c-3.648,0-6.605,2.686-6.605,6v3.6H10.5v4.8h3.963V27h5.284V17.4h3.963l1.321-4.8H19.748V9a1.265,1.265,0,0,1,1.321-1.2h3.963Z" transform="translate(-9.5 -2)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          <a
+            href="{{ section.settings.footer_link_1 }}"
+            class="mobile_footer-custom-link"
+            aria-label="Facebook">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16.532"
+              height="26"
+              viewBox="0 0 16.532 26">
+              <path
+                id="Icon_feather-facebook"
+                data-name="Icon feather-facebook"
+                d="M25.032,3H21.069c-3.648,0-6.605,2.686-6.605,6v3.6H10.5v4.8h3.963V27h5.284V17.4h3.963l1.321-4.8H19.748V9a1.265,1.265,0,0,1,1.321-1.2h3.963Z"
+                transform="translate(-9.5 -2)"
+                fill="none"
+                stroke="#FFFFFF"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
             </svg>
           </a>
         </li>
@@ -629,12 +583,49 @@
 
       {% if section.settings.footer_link_2 %}
         <li>
-          <a href="{{ section.settings.footer_link_2 }}" class="mobile_footer-custom-link" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
-              <g id="Icon_feather-instagram" data-name="Icon feather-instagram" transform="translate(1 1)">
-                <path id="Path_734" data-name="Path 734" d="M9,3H21a6,6,0,0,1,6,6V21a6,6,0,0,1-6,6H9a6,6,0,0,1-6-6V9A6,6,0,0,1,9,3Z" transform="translate(-3 -3)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                <path id="Path_735" data-name="Path 735" d="M22.577,16.444a5.284,5.284,0,1,1-4.452-4.452,5.284,5.284,0,0,1,4.452,4.452Z" transform="translate(-5.301 -5.268)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                <path id="Path_736" data-name="Path 736" d="M26.25,9.75h0" transform="translate(-7.65 -4.35)" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          <a
+            href="{{ section.settings.footer_link_2 }}"
+            class="mobile_footer-custom-link"
+            aria-label="Instagram">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              viewBox="0 0 26 26">
+              <g
+                id="Icon_feather-instagram"
+                data-name="Icon feather-instagram"
+                transform="translate(1 1)">
+                <path
+                  id="Path_734"
+                  data-name="Path 734"
+                  d="M9,3H21a6,6,0,0,1,6,6V21a6,6,0,0,1-6,6H9a6,6,0,0,1-6-6V9A6,6,0,0,1,9,3Z"
+                  transform="translate(-3 -3)"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
+                <path
+                  id="Path_735"
+                  data-name="Path 735"
+                  d="M22.577,16.444a5.284,5.284,0,1,1-4.452-4.452,5.284,5.284,0,0,1,4.452,4.452Z"
+                  transform="translate(-5.301 -5.268)"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
+                <path
+                  id="Path_736"
+                  data-name="Path 736"
+                  d="M26.25,9.75h0"
+                  transform="translate(-7.65 -4.35)"
+                  fill="none"
+                  stroke="#FFFFFF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
               </g>
             </svg>
           </a>
@@ -674,12 +665,10 @@
       <li>
         <div class="mobile_footer_additional_div">
           <h6>{{ section.settings.footer_menu_1.title }}</h6>
-
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
           </svg>
         </div>
-
         <ul class="mobile_footer_additional_menu">
           {% for link in section.settings.footer_menu_1.links %}
             <li>
@@ -699,7 +688,6 @@
             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
           </svg>
         </div>
-
         <ul class="mobile_footer_additional_menu">
           {% for link in section.settings.footer_menu_2.links %}
             <li>
@@ -719,7 +707,6 @@
             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
           </svg>
         </div>
-
         <ul class="mobile_footer_additional_menu">
           {% for link in section.settings.footer_menu_3.links %}
             <li>
@@ -759,7 +746,6 @@
             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
           </svg>
         </div>
-
         <ul class="mobile_footer_additional_menu">
           {% for link in section.settings.footer_menu_5.links %}
             <li>
@@ -771,3 +757,138 @@
     {% endif %}
   </ul>
 </section>
+
+<script>
+  (function() {
+  'use strict';
+
+  let mobileFooterListenerAdded = false;
+
+  function setupMobileFooter() {
+    const footerMobile = document.getElementById('custom_footer_mobile');
+    if (!footerMobile) return;
+
+    if (mobileFooterListenerAdded) {
+      footerMobile.removeEventListener('click', handleMobileFooterClick);
+    }
+
+    footerMobile.addEventListener('click', handleMobileFooterClick);
+    mobileFooterListenerAdded = true;
+  }
+
+  function handleMobileFooterClick(e) {
+    const div = e.target.closest('.mobile_footer_additional_div');
+    if (!div) return;
+
+    const currentSvg = div.querySelector('svg');
+    const currentMenu = div.nextElementSibling;
+
+    if (!currentMenu || !currentMenu.classList.contains('mobile_footer_additional_menu')) return;
+
+    const previousMenu = document.getElementById('selected-menu');
+    if (previousMenu && previousMenu !== currentMenu) {
+      const previousSvg = previousMenu.previousElementSibling.querySelector('svg');
+      previousMenu.removeAttribute('id');
+      previousMenu.style.display = 'none';
+      if (previousSvg) previousSvg.style.transform = 'rotate(0deg)';
+    }
+
+    if (currentMenu.style.display === 'grid') {
+      currentMenu.style.display = 'none';
+      currentMenu.removeAttribute('id');
+      if (currentSvg) currentSvg.style.transform = 'rotate(0deg)';
+    } else {
+      currentMenu.style.display = 'grid';
+      currentMenu.setAttribute('id', 'selected-menu');
+      if (currentSvg) currentSvg.style.transform = 'rotate(180deg)';
+    }
+
+    e.preventDefault();
+  }
+
+  const mediaQuery = window.matchMedia('(max-width: 999px)');
+
+  function handleMediaChange(e) {
+    if (e.matches) {
+      setupMobileFooter();
+    } else {
+      const footerMobile = document.getElementById('custom_footer_mobile');
+      if (footerMobile && mobileFooterListenerAdded) {
+        footerMobile.removeEventListener('click', handleMobileFooterClick);
+        mobileFooterListenerAdded = false;
+      }
+      document.querySelectorAll('.mobile_footer_additional_menu').forEach(menu => {
+        menu.style.display = 'none';
+        menu.removeAttribute('id');
+      });
+      document.querySelectorAll('.mobile_footer_additional_div svg').forEach(svg => {
+        svg.style.transform = 'rotate(0deg)';
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    handleMediaChange(mediaQuery);
+  });
+
+  mediaQuery.addListener(handleMediaChange);
+  })();
+</script>
+
+{% schema %}
+  {
+    "name": "Footer Customizado",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "footer_image",
+        "label": "Selecionar imagem"
+      },
+      {
+        "type": "text",
+        "id": "footer_richtext",
+        "label": "Adicionar descrição"
+      },
+      {
+        "type": "text",
+        "id": "footer_text",
+        "label": "Adicionar texto"
+      },
+      {
+        "type": "url",
+        "id": "footer_link_1",
+        "label": "Link 1 URL"
+      }, {
+        "type": "url",
+        "id": "footer_link_2",
+        "label": "Link 2 URL"
+      }, {
+        "type": "link_list",
+        "id": "footer_menu_1",
+        "label": "Selecionar Menu 1"
+      }, {
+        "type": "link_list",
+        "id": "footer_menu_2",
+        "label": "Selecionar Menu 2"
+      }, {
+        "type": "link_list",
+        "id": "footer_menu_3",
+        "label": "Selecionar Menu 3"
+      }, {
+        "type": "link_list",
+        "id": "footer_menu_4",
+        "label": "Selecionar Menu 4"
+      }, {
+        "type": "link_list",
+        "id": "footer_menu_5",
+        "label": "Selecionar Menu 5"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Footer Customizado",
+        "category": "Footer"
+      }
+    ]
+  }
+{% endschema %}

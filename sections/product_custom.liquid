@@ -432,6 +432,56 @@
     grid-template-rows: repeat(2, max-content);
     gap: 0.5rem;
     margin-top: 1rem;
+    position: relative;
+  }
+
+  #related_products_custom > ul.related-track {
+    display: flex;
+    gap: 0.35rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    padding-inline: clamp(12px, 4vw, 48px);
+    padding-block: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    cursor: grab;
+    user-select: none;
+    scrollbar-width: none;
+    touch-action: pan-y;
+  }
+
+  #related_products_custom .related-track a,
+  #related_products_custom .related-track img {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+
+  #related_products_custom > ul.related-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #related_products_custom .related-track.is-dragging a {
+    pointer-events: none;
+  }
+
+  #related_products_custom > ul.related-track.is-dragging {
+    cursor: grabbing;
+  }
+
+  #related_products_custom > ul.related-track > li.product_item_custom {
+    flex: 0 0 auto;
+    width: clamp(220px, 23vw, 350px);
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+  }
+
+  #related_products_custom > ul.related-track > li:not(.product_item_custom) {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
   }
 
   #related_products_custom > h1 {
@@ -440,48 +490,40 @@
     margin: 0;
   }
 
-  #related_products_custom > ul {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    overflow: hidden;
-    list-style-type: none;
+  #related_products_custom img {
+    -webkit-user-drag: none;
+    user-drag: none;
   }
 
-  #related_products_custom > ul > li {
-    display: grid;
-  }
-
-  #related_products_custom > ul > li:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
-    margin-right: 0.35rem;
-  }
-
-  #related_products_custom > ul > .product_item_custom {
-    width: 350px;
-  }
-
-  #related_products_custom > ul > li > svg {
+  #related_products_custom::before,
+  #related_products_custom::after {
+    content: "";
     position: absolute;
-    padding: 0.5rem;
-    background-color: #258439;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    align-self: center;
-    visibility: hidden;
+    top: 0;
+    bottom: 0;
+    width: clamp(18px, 4vw, 56px);
+    pointer-events: none;
     opacity: 0;
     transition: opacity 0.15s ease;
+    z-index: 5;
   }
 
-  #related_products_custom > ul:hover > li > svg {
-    visibility: visible;
-    opacity: 1;
-    z-index: 10;
+  #related_products_custom::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
   }
 
-  #related_products_custom > ul > li > #right-button-svg {
-    right: var(--desktop-container-gutter);
+  #related_products_custom::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
+  }
+
+  #related_products_custom.can-scroll-left::before { opacity: 1; }
+  #related_products_custom.can-scroll-right::after { opacity: 1; }
+
+  #related_products_custom > ul.related-track.is-dragging > li {
+    transform: scale(0.985);
+    transition: transform 0.12s ease;
   }
 
   #product_page_custom > #product_page_breadcrumbs {
@@ -911,10 +953,6 @@
     .NETREVIEWS_PRODUCT_REVIEWS {
       margin: 2rem 9vw;
     }
-
-    #related_products_custom > ul > li > #right-button-svg {
-      right: 9vw;
-    }
   }
 
   @media screen and (min-width: 2559px) {
@@ -922,10 +960,6 @@
     #related_products_custom,
     .NETREVIEWS_PRODUCT_REVIEWS {
       margin: 2rem 18vw;
-    }
-
-    #related_products_custom > ul > li > #right-button-svg {
-      right: 18vw;
     }
   }
 
@@ -1141,6 +1175,12 @@
     .delivery_wrapper_custom > img {
       width: 1.125rem;
       height: 1.125rem;
+    }
+
+    #related_products_custom > ul.related-track {
+      touch-action: auto;
+      cursor: auto;
+      user-select: auto;
     }
   }
 
@@ -1645,6 +1685,7 @@
               value="1"
               min="1"
               max="16"
+              name="quantity"
             >
           {% else %}
             <span style="color: #C0C5CA;">-</span>
@@ -1684,6 +1725,9 @@
           <button
             id="add-to-cart"
             data-product-id="{{ product.variants.first.id }}"
+            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+            data-inventory="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+            class="product_add_to_cart_button"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.52975 17.136C8.52975 17.3274 8.47298 17.5146 8.36661 17.6738C8.26025 17.8329 8.10907 17.957 7.93219 18.0303C7.75531 18.1036 7.56068 18.1227 7.3729 18.0854C7.18513 18.048 7.01265 17.9558 6.87727 17.8204C6.74189 17.6851 6.6497 17.5126 6.61235 17.3248C6.575 17.137 6.59417 16.9424 6.66744 16.7655C6.7407 16.5887 6.86477 16.4375 7.02396 16.3311C7.18315 16.2247 7.3703 16.168 7.56175 16.168C7.81848 16.168 8.06469 16.27 8.24623 16.4515C8.42777 16.633 8.52975 16.8792 8.52975 17.136Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1970,6 +2014,7 @@
             value="1"
             min="1"
             max="16"
+            name="quantity"
           >
         {% else %}
           <span style="color: #C0C5CA;">-</span>
@@ -2009,6 +2054,9 @@
         <button
           id="add-to-cart"
           data-product-id="{{ product.variants.first.id }}"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          data-inventory="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+          class="product_add_to_cart_button"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.52975 17.136C8.52975 17.3274 8.47298 17.5146 8.36661 17.6738C8.26025 17.8329 8.10907 17.957 7.93219 18.0303C7.75531 18.1036 7.56068 18.1227 7.3729 18.0854C7.18513 18.048 7.01265 17.9558 6.87727 17.8204C6.74189 17.6851 6.6497 17.5126 6.61235 17.3248C6.575 17.137 6.59417 16.9424 6.66744 16.7655C6.7407 16.5887 6.86477 16.4375 7.02396 16.3311C7.18315 16.2247 7.3703 16.168 7.56175 16.168C7.81848 16.168 8.06469 16.27 8.24623 16.4515C8.42777 16.633 8.52975 16.8792 8.52975 17.136Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2154,13 +2202,7 @@
 <div id="related_products_custom">
   <h1>Também poderá gostar</h1>
 
-  <ul>
-    <li>
-      <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512">
-        <path fill="#ffffff" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
-      </svg>
-    </li>
-
+  <ul class="related-track">
     {% assign brand_related = collections[product.vendor] %}
     {% if brand_related.products.size > 0 %}
       {% for p in brand_related.products limit: 12 %}
@@ -2171,12 +2213,6 @@
         {% render 'product-item-2', product: p %}
       {% endfor %}
     {% endif %}
-
-    <li>
-      <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512" id="right-button-svg">
-        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-      </svg>
-    </li>
   </ul>
 </div>
 
@@ -2309,26 +2345,6 @@
     decreaseButton.forEach((input) => input.addEventListener('click', () => updateQuantity(-1)));
     increaseButton.forEach((input) => input.addEventListener('click', () => updateQuantity(1)));
 
-    const loader = document.getElementById('loader');
-
-    function showLoader() {
-      loader.style.display = 'block';
-      loader.style.width = '0%';
-
-      setTimeout(() => {
-        loader.style.width = '30%';
-      }, 100);
-    }
-
-    function hideLoader() {
-      loader.style.width = '100%';
-
-      setTimeout(() => {
-        loader.style.display = 'none';
-        loader.style.width = '0%';
-      }, 400);
-    }
-
     addToCartButton.forEach((cart) => {
       cart.addEventListener('click', () => {
         const productId = cart.getAttribute('data-product-id');
@@ -2337,8 +2353,6 @@
         if (!productId) {
           return;
         }
-
-        showLoader();
 
         fetch(`/cart/add.js`, {
           method: 'POST',
@@ -2363,45 +2377,6 @@
               .then((data) => {
                 if (data) {
                   const carts = document.querySelectorAll('#mini-cart');
-
-                  if (carts) {
-                    carts.forEach((cart) => (cart.innerHTML = data));
-
-                    if (innerWidth >= 2559) {
-                      carts.forEach((cart) => (cart.style.marginRight = '17vw'));
-                    }
-
-                    if (innerWidth < 2559 && innerWidth >= 1499) {
-                      carts.forEach((cart) => (cart.style.marginRight = '8vw'));
-                    }
-
-                    if (innerWidth < 1499 && innerWidth >= 1000) {
-                      carts.forEach((cart) => (cart.style.marginRight = '2vw'));
-                    }
-
-                    if (innerWidth >= 1000) {
-                      carts.forEach((cart) => (cart.style.top = '4.85rem'));
-                    }
-
-                    if (innerWidth < 1000) {
-                      carts.forEach((cart) => {
-                        cart.style.transform = 'scale(1)';
-                        cart.style.maxHeight = 'calc(100vh - 40px)';
-                        cart.style.padding = '1rem 1rem 2rem 1rem';
-                      });
-
-                      const as = carts.forEach((cart) => cart.querySelector('a'));
-
-                      if (as) {
-                        as.forEach((a) => (a.style.padding = '0 1rem'));
-                      }
-                    } else {
-                      carts.forEach((cart) => {
-                        cart.style.visibility = 'visible';
-                        cart.style.opacity = 1;
-                      });
-                    }
-                  }
 
                   return fetch('/cart.js');
                 }
@@ -2429,8 +2404,7 @@
           .catch((error) => {
             console.error('Erro ao adicionar ao carrinho:', error);
             alert(error.message || 'Erro ao adicionar ao carrinho.');
-          })
-          .finally(() => hideLoader());
+          });
       });
     });
   });
@@ -2438,37 +2412,144 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const productsContainer = document.querySelector('#related_products_custom ul');
-    const leftButton = document.querySelector('#related_products_custom ul li:first-child svg');
-    const rightButton = document.querySelector('#related_products_custom ul li:last-child svg');
+    const wrapper = document.getElementById('related_products_custom');
+    const track = wrapper?.querySelector(':scope > ul.related-track');
+    if (!wrapper || !track) return;
 
-    if (!productsContainer || !leftButton || !rightButton) return;
+    // Impede o arrasto nativo de imagens/links
+    track.addEventListener('dragstart', (e) => e.preventDefault());
 
-    const updateLayout = () => {
-      if (window.innerWidth > 1000) {
-        leftButton.style.display = 'block';
-        rightButton.style.display = 'block';
+    const IGNORE_SELECTOR = 'input, select, textarea, option, label, button, [data-no-drag]';
+    const DRAG_THRESHOLD = 10;
 
-        const productWidth = productsContainer.offsetWidth / 4;
-        const itemsPerPage = 4;
-        productsContainer.style.scrollBehavior = 'smooth';
+    const shouldIgnore = (el) => !!el.closest(IGNORE_SELECTOR);
 
-        leftButton.onclick = () => {
-          productsContainer.scrollLeft -= productWidth * itemsPerPage;
-        };
+    let isDown = false;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startScroll = 0;
+    let pointerId = null;
+    let blockClick = false;
 
-        rightButton.onclick = () => {
-          productsContainer.scrollLeft += productWidth * itemsPerPage;
-        };
-      } else {
-        leftButton.style.display = 'none';
-        rightButton.style.display = 'none';
-      }
+    // Funções de atualização das bordas (mantidas sempre ativas)
+    const updateEdges = () => {
+      const canLeft = track.scrollLeft > 2;
+      const canRight = track.scrollLeft + track.clientWidth < track.scrollWidth - 2;
+
+      wrapper.classList.toggle('can-scroll-left', canLeft);
+      wrapper.classList.toggle('can-scroll-right', canRight);
+
+      const scrollable = track.scrollWidth > track.clientWidth + 2;
+      wrapper.classList.toggle('is-scrollable', scrollable);
     };
 
-    updateLayout();
+    updateEdges();
+    track.addEventListener('scroll', updateEdges, { passive: true });
+    window.addEventListener('resize', updateEdges);
 
-    window.addEventListener('resize', updateLayout);
+    // --- Handlers do drag (usados apenas no desktop) ---
+    function onPointerDown(e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (shouldIgnore(e.target)) return;
+
+      isDown = true;
+      isDragging = false;
+      blockClick = false;
+
+      pointerId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+      startScroll = track.scrollLeft;
+    }
+
+    function onPointerMove(e) {
+      if (!isDown) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (!isDragging) {
+        if (Math.abs(dx) < DRAG_THRESHOLD) return;
+        if (Math.abs(dx) < Math.abs(dy)) return;
+
+        isDragging = true;
+        blockClick = true;
+
+        track.classList.add('is-dragging');
+        track.setPointerCapture?.(pointerId);
+      }
+
+      e.preventDefault();
+      track.scrollLeft = startScroll - dx;
+    }
+
+    function onPointerUp(e) {
+      if (!isDown) return;
+
+      isDown = false;
+
+      if (isDragging) {
+        track.classList.remove('is-dragging');
+        try {
+          track.releasePointerCapture?.(pointerId);
+        } catch (err) {}
+
+        setTimeout(() => (blockClick = false), 200);
+      }
+
+      pointerId = null;
+      isDragging = false;
+    }
+
+    function onPointerCancel(e) {
+      onPointerUp(e);
+    }
+
+    function onClick(e) {
+      if (!blockClick) return;
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // --- Ativação condicional via media query ---
+    function enableDrag() {
+      track.addEventListener('pointerdown', onPointerDown);
+      track.addEventListener('pointermove', onPointerMove);
+      track.addEventListener('pointerup', onPointerUp);
+      track.addEventListener('pointercancel', onPointerCancel);
+      track.addEventListener('click', onClick, true);
+    }
+
+    function disableDrag() {
+      track.removeEventListener('pointerdown', onPointerDown);
+      track.removeEventListener('pointermove', onPointerMove);
+      track.removeEventListener('pointerup', onPointerUp);
+      track.removeEventListener('pointercancel', onPointerCancel);
+      track.removeEventListener('click', onClick, true);
+    }
+
+    const mql = window.matchMedia('(min-width: 1001px)');
+
+    function handleMediaChange(e) {
+      if (e.matches) {
+        enableDrag();
+      } else {
+        disableDrag();
+      }
+    }
+
+    // Estado inicial
+    if (mql.matches) {
+      enableDrag();
+    }
+
+    // Observa mudanças (orientação/redimensionamento)
+    if (mql.addEventListener) {
+      mql.addEventListener('change', handleMediaChange);
+    } else {
+      mql.addListener(handleMediaChange); // fallback para navegadores antigos
+    }
   });
 </script>
 

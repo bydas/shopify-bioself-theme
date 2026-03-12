@@ -292,7 +292,6 @@
 
   #opinioes_verificadas_custom_mobile > a > #reviews_counting_wrapper_custom > span {
     font-size: 14px;
-    max-width: 12rem;
     line-height: normal;
     text-transform: uppercase;
     margin: 0.5rem 0 0.25rem 0;
@@ -607,7 +606,7 @@
 >
   document.addEventListener("DOMContentLoaded", async function() {
     const reviews = [];
-    
+
     let totalReviews = 0;
     let average = '';
 
@@ -639,12 +638,12 @@
 
       if (averageElement && averageElement.length > 0 && totalReviewsElement && totalReviewsElement.length > 0) {
         totalReviewsElement.forEach((element) => element.innerText = `${totalReviews} opiniões clientes`);
-        averageElement.forEach((element) => element.innerText = average); 
+        averageElement.forEach((element) => element.innerText = average);
       }
 
       reviews.slice(0, 14).map((review) => {
         const reviewRating = Number(review.rate);
-        
+
         if (!review.firstname.includes('anonymous') && reviewRating >= 3) {
           const reviewItem = document.createElement("li");
           const quotesIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -654,45 +653,45 @@
           quotesIcon.setAttribute("fill", "none");
           quotesIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
           quotesIcon.classList.add("quote_icon_custom")
-          
+
           const quotesPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
           quotesPath.setAttribute(
             "d",
             "M15.8549 0.249996L11.1099 18.71H0.254922L7.98992 0.249996H15.8549ZM29.7649 0.249996L25.0199 18.71H14.1649L21.8999 0.249996H29.7649Z"
           );
           quotesPath.setAttribute("fill", "white");
-          
+
           quotesIcon.appendChild(quotesPath);
-  
+
           const quotesIconWrapper = document.createElement("div");
           quotesIconWrapper.setAttribute("id", "quotes_wrapper_custom");
-  
+
           const reviewContentWrapper = document.createElement("div");
           reviewContentWrapper.setAttribute("id", "reviews_content_wrapper_custom");
-          
+
           const reviewDescription = document.createElement("span");
           reviewDescription.classList.add("main_description_review");
           reviewDescription.innerText = review.review;
-          
-          const starIconsWrapper = document.createElement("ul");        
+
+          const starIconsWrapper = document.createElement("ul");
           const reviewAuthor = document.createElement("span");
           reviewAuthor.innerText = `${review.firstname} ${review.lastname}.`
-          
+
           const reviewDate = document.createElement("span");
           reviewDate.classList.add("final_text_review");
           reviewAuthor.classList.add("final_text_review");
           reviewAuthor.style.marginBottom = '0.125rem';
-  
+
           const orderDate = review.publish_date.split(' ')[0].split('-').reverse();
           const dayAndMonth = orderDate.slice(0, 2).join('/');
           const year = orderDate[2].split('').slice(2, 4).join('');
-          
+
           reviewDate.innerText = `Experiência de compra no dia ${dayAndMonth}/${year}`;
-  
+
           quotesIconWrapper.appendChild(quotesIcon);
           reviewItem.appendChild(quotesIconWrapper);
           reviewContentWrapper.appendChild(reviewDescription);
-  
+
           for (let i = 0; i < reviewRating; i++) {
             const startIconsItem = document.createElement("li");
             const starIconClone = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -701,39 +700,39 @@
             starIconClone.setAttribute("viewBox", "0 0 17 16");
             starIconClone.setAttribute("fill", "none");
             starIconClone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-          
+
             const starPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
             starPath.setAttribute(
               "d",
               "M8.49414 12.8439L13.4381 15.8279L12.1261 10.2039L16.4941 6.41993L10.7421 5.92793L8.49414 0.62793L6.24614 5.92793L0.494141 6.41993L4.86214 10.2039L3.55014 15.8279L8.49414 12.8439Z"
             );
             starPath.setAttribute("fill", "#EDD200");
-          
+
             starIconClone.appendChild(starPath);
             startIconsItem.appendChild(starIconClone);
             starIconsWrapper.appendChild(startIconsItem);
           }
-  
+
           reviewContentWrapper.appendChild(starIconsWrapper);
           reviewContentWrapper.appendChild(reviewAuthor);
           reviewContentWrapper.appendChild(reviewDate);
-  
+
           reviewItem.appendChild(reviewContentWrapper);
 
           let displayContainers = false;
-          
+
           reviewsList.forEach((list) => {
             const listLis = list.querySelectorAll("li");
-            
+
             if (!displayContainers && listLis.length > 0) {
                 displayContainers = true;
             }
-            
+
             const clonedItem = reviewItem.cloneNode(true);
             list.appendChild(clonedItem);
           });
 
-          if (displayContainers && desktopContainer && mobileContainer) {            
+          if (displayContainers && desktopContainer && mobileContainer) {
             desktopContainer.classList.add("opinioes_verificadas_custom_display");
             mobileContainer.classList.add("opinioes_verificadas_custom_mobile_display");
           }
@@ -752,27 +751,27 @@
       "#opinioes_verificadas_custom > #opinioes_content_wrapper, #opinioes_verificadas_custom_mobile"
     );
     const reviewsLists = document.querySelectorAll("#reviews_list_custom_opinioes");
-  
+
     if (!wrappers.length || !reviewsLists.length) {
       return;
     }
-  
+
     const aplicarEstilos = () => {
       wrappers.forEach((wrapper, index) => {
         const container = containers[index];
         const reviewsList = reviewsLists[index];
-  
+
         if (!container || !reviewsList) return;
-  
+
         const gapBetweenElements = 31.2;
         const larguraWrapper = window.innerWidth <= 1000 ? wrapper.offsetWidth : wrapper.offsetWidth - container.offsetWidth - gapBetweenElements;
-  
+
         const howManyToShow =
           window.innerWidth <= 1000 ? 1 : larguraWrapper > 1100 ? 4 : larguraWrapper > 650 ? 3 : larguraWrapper > 400 ? 2 : 1;
-  
+
         const larguraFr = (larguraWrapper / howManyToShow).toFixed(2);
         reviewsList.style.gridAutoColumns = `${larguraFr}px`;
-  
+
         const listaElementos = reviewsList.querySelectorAll("li");
         listaElementos.forEach((li) => (li.style.width = `${larguraFr}px`));
       })
@@ -790,47 +789,47 @@
             behavior: "smooth",
           });
         };
-  
+
         const scrollLeftFn = () => {
           reviewsList.scrollBy({
             left: -ulElementWidth,
             behavior: "smooth",
           });
         };
-    
+
         if (window.innerWidth <= 1000) {
           reviewsList.addEventListener("touchstart", (e) => {
             isDragging = true;
             startX = e.touches[0].pageX;
           });
-  
+
           reviewsList.addEventListener("touchend", (e) => {
             if (!isDragging) return;
             isDragging = false;
-  
+
             const endX = e.changedTouches[0].pageX;
             const delta = endX - startX;
-  
+
             if (delta > 50) {
               scrollLeftFn();
             } else if (delta < -50) {
               scrollRight();
             }
           });
-  
+
           reviewsList.addEventListener("touchmove", (e) => {
             e.preventDefault();
           });
         } else {
           let scrollLeft = 0;
-  
+
           reviewsList.addEventListener("mousedown", (e) => {
             isDragging = true;
             startX = e.pageX - reviewsList.offsetLeft;
             scrollLeft = reviewsList.scrollLeft;
             reviewsList.style.cursor = "grabbing";
           });
-  
+
           reviewsList.addEventListener("mousemove", (e) => {
             if (!isDragging) return;
             e.preventDefault();
@@ -838,21 +837,21 @@
             const walk = x - startX;
             reviewsList.scrollLeft = scrollLeft - walk;
           });
-  
+
           reviewsList.addEventListener("mouseup", () => {
             isDragging = false;
             reviewsList.style.cursor = "grab";
           });
-  
+
           reviewsList.addEventListener("mouseleave", () => {
             isDragging = false;
           });
-  
+
           reviewsList.style.cursor = "grab";
         }
       });
     };
-  
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.addedNodes.length > 0) {
@@ -860,18 +859,18 @@
         }
       });
     });
-  
+
     reviewsLists.forEach((reviewsList) => {
       observer.observe(reviewsList, {
         childList: true,
         subtree: false,
       });
     });
-  
+
     aplicarEstilos();
     window.addEventListener("resize", aplicarEstilos);
   }
-  
+
   document.addEventListener("DOMContentLoaded", ajustarLarguraFr);
 </script>
 

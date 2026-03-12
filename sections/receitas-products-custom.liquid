@@ -1,204 +1,330 @@
-<style>
-  #receitas_products_custom {
-    display: grid;
-    grid-template-rows: repeat(2, max-content);
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  #receitas_products_custom > h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin: 0;
-    text-transform: uppercase;
-  }
-
-  #receitas_products_custom > ul {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    overflow: hidden;
-    list-style-type: none;
-  }
-
-  #receitas_products_custom > ul > li {
-    display: grid;
-  }
-
-  #receitas_products_custom > ul > .product_item_custom {
-    width: 350px;
-  }
-
-  #receitas_products_custom > ul > li:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
-    margin-right: 1.5rem;
-  }
-
-  #receitas_products_custom > ul > li > svg {
-    position: absolute;
-    padding: 0.5rem;
-    background-color: #258439;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    align-self: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-  }
-
-  #receitas_products_custom > ul:hover > li > svg {
-    visibility: visible;
-    opacity: 1;
-    z-index: 10;
-  }
-
-  #receitas_products_custom > ul > li > #right-button-svg {
-    right: var(--desktop-container-gutter);
-  }
-
-  #receitas_products_custom {
-    margin: 2rem var(--desktop-container-gutter);
-  }
-
-  @media screen and (min-width: 1499px) {
+{% if article.metafields.article.products.value %}
+  <style>
     #receitas_products_custom {
-      margin: 2rem 9vw;
+      display: grid;
+      grid-template-rows: repeat(2, max-content);
+      gap: 0.5rem;
+      margin-top: 1rem;
+      position: relative;
     }
 
-    #receitas_products_custom > ul > li > #right-button-svg {
-      right: 9vw;
-    }
-  }
-
-  @media screen and (min-width: 2559px) {
-    #receitas_products_custom {
-      margin: 2rem 18vw;
-    }
-
-    #receitas_products_custom > ul > li > #right-button-svg {
-      right: 18vw;
-    }
-  }
-
-  @media screen and (max-width: 1499px) {
-    #receitas_products_custom > ul > .product_item_custom {
-      width: 300px;
-    }
-  }
-
-  @media screen and (max-width: 1000px) {
-    #receitas_products_custom > ul {
-      overflow: auto;
+    #receitas_products_custom > ul.related-track {
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+      padding-inline: clamp(12px, 4vw, 48px);
+      padding-block: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      cursor: grab;
+      user-select: none;
+      scrollbar-width: none;
+      touch-action: pan-y;
     }
 
-    #receitas_products_custom > ul > .product_item_custom {
-      width: 250px;
+    #receitas_products_custom .related-track a,
+    #receitas_products_custom .related-track img {
+      -webkit-user-drag: none;
+      user-drag: none;
     }
 
-    #product-icons-block {
-      justify-content: center;
+    #receitas_products_custom > ul.related-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #receitas_products_custom .related-track.is-dragging a {
+      pointer-events: none;
+    }
+
+    #receitas_products_custom > ul.related-track.is-dragging {
+      cursor: grabbing;
+    }
+
+    #receitas_products_custom > ul.related-track > li.product_item_custom {
+      flex: 0 0 auto;
+      width: clamp(220px, 23vw, 350px);
+      scroll-snap-align: none;
+      scroll-snap-stop: normal;
+    }
+
+    #receitas_products_custom > ul.related-track > li:not(.product_item_custom) {
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
     }
 
     #receitas_products_custom > h1 {
-      font-size: 1.25rem;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    #receitas_products_custom img {
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
+
+    #receitas_products_custom::before,
+    #receitas_products_custom::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: clamp(18px, 4vw, 56px);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 5;
+    }
+
+    #receitas_products_custom::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+    }
+
+    #receitas_products_custom::after {
+      right: 0;
+      background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
+    }
+
+    #receitas_products_custom.can-scroll-left::before {
+      opacity: 1;
+    }
+    #receitas_products_custom.can-scroll-right::after {
+      opacity: 1;
+    }
+
+    #receitas_products_custom > ul.related-track.is-dragging > li {
+      transform: scale(0.985);
+      transition: transform 0.12s ease;
     }
 
     #receitas_products_custom {
-      margin: 1rem var(--mobile-container-gutter);
+      margin: 2rem var(--desktop-container-gutter);
     }
-  }
-</style>
 
-<div id="receitas_products_custom">
-  <h1>{{ section.settings.title }}</h1>
+    @media screen and (min-width: 1499px) {
+      #receitas_products_custom {
+        margin: 2rem 9vw;
+      }
+    }
 
-  <ul>
-    <li>
-      <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512">
-        <path fill="#ffffff" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
-      </svg>
-    </li>
+    @media screen and (min-width: 2559px) {
+      #receitas_products_custom {
+        margin: 2rem 18vw;
+      }
+    }
 
-    {% for p in section.settings.selected_c.products limit: 12 %}
-      {% render 'product-item-2', product: p %}
-    {% endfor %}
+    @media screen and (max-width: 1499px) {
+      #receitas_products_custom > ul > .product_item_custom {
+        width: 300px;
+      }
+    }
 
-    <li>
-      <svg xmlns="http://www.w3.org/2000/svg" height="12" width="7.5" viewBox="0 0 320 512" id="right-button-svg">
-        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-      </svg>
-    </li>
-  </ul>
-</div>
+    @media screen and (max-width: 1000px) {
+      #receitas_products_custom > ul {
+        overflow: auto;
+      }
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const productsContainer = document.querySelector('#receitas_products_custom ul');
-    const leftButton = document.querySelector('#receitas_products_custom ul li:first-child svg');
-    const rightButton = document.querySelector('#receitas_products_custom ul li:last-child svg');
+      #receitas_products_custom > ul > .product_item_custom {
+        width: 250px;
+      }
 
-    if (!productsContainer || !leftButton || !rightButton) return;
+      #receitas_products_custom > h1 {
+        font-size: 1.25rem;
+      }
 
-    const updateLayout = () => {
-      if (window.innerWidth > 1000) {
-        const contentWidth = productsContainer.scrollWidth;
-        const containerWidth = productsContainer.clientWidth;
+      #receitas_products_custom {
+        margin: 1rem var(--mobile-container-gutter);
+      }
 
-        // Se o conteúdo não ultrapassa a área visível, esconder setas
-        if (contentWidth <= containerWidth) {
-          leftButton.style.display = 'none';
-          rightButton.style.display = 'none';
-          return;
+      #receitas_products_custom > ul.related-track {
+        touch-action: auto;
+        cursor: auto;
+        user-select: auto;
+      }
+    }
+  </style>
+
+  <div id="receitas_products_custom">
+    <h1>{{ section.settings.title }}</h1>
+
+    <ul class="related-track">
+      {% for p in section.settings.selected_c.products limit: 12 %}
+        {% render 'product-item-2'
+          , product: p %}
+      {% endfor %}
+    </ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const wrapper = document.getElementById('receitas_products_custom');
+      const track = wrapper?.querySelector(':scope > ul.related-track');
+      if (!wrapper || !track) return;
+
+      // Bloqueia drag nativo (imagens/links) – inofensivo no mobile
+      track.addEventListener('dragstart', (e) => e.preventDefault());
+
+      const IGNORE_SELECTOR = 'input, select, textarea, option, label, button, [data-no-drag]';
+      const DRAG_THRESHOLD = 10;
+
+      const shouldIgnore = (el) => !!el.closest(IGNORE_SELECTOR);
+
+      // Atualização das bordas (gradientes laterais) – mantida sempre ativa
+      const updateEdges = () => {
+        const canLeft = track.scrollLeft > 2;
+        const canRight = track.scrollLeft + track.clientWidth < track.scrollWidth - 2;
+
+        wrapper.classList.toggle('can-scroll-left', canLeft);
+        wrapper.classList.toggle('can-scroll-right', canRight);
+
+        const scrollable = track.scrollWidth > track.clientWidth + 2;
+        wrapper.classList.toggle('is-scrollable', scrollable);
+      };
+
+      updateEdges();
+      track.addEventListener('scroll', updateEdges, { passive: true });
+      window.addEventListener('resize', updateEdges);
+
+      // ---- Handlers do drag personalizado (apenas desktop) ----
+      let isDown = false;
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let startScroll = 0;
+      let pointerId = null;
+      let blockClick = false;
+
+      function onPointerDown(e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        if (shouldIgnore(e.target)) return;
+
+        isDown = true;
+        isDragging = false;
+        blockClick = false;
+
+        pointerId = e.pointerId;
+        startX = e.clientX;
+        startY = e.clientY;
+        startScroll = track.scrollLeft;
+      }
+
+      function onPointerMove(e) {
+        if (!isDown) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (!isDragging) {
+          if (Math.abs(dx) < DRAG_THRESHOLD) return;
+          if (Math.abs(dx) < Math.abs(dy)) return;
+
+          isDragging = true;
+          blockClick = true;
+
+          track.classList.add('is-dragging');
+          track.setPointerCapture?.(pointerId);
         }
 
-        leftButton.style.display = 'block';
-        rightButton.style.display = 'block';
-
-        const productWidth = productsContainer.offsetWidth / 4;
-        const itemsPerPage = 4;
-        productsContainer.style.scrollBehavior = 'smooth';
-
-        leftButton.onclick = () => {
-          productsContainer.scrollLeft -= productWidth * itemsPerPage;
-        };
-
-        rightButton.onclick = () => {
-          productsContainer.scrollLeft += productWidth * itemsPerPage;
-        };
-      } else {
-        leftButton.style.display = 'none';
-        rightButton.style.display = 'none';
+        e.preventDefault();
+        track.scrollLeft = startScroll - dx;
       }
-    };
 
-    updateLayout();
+      function onPointerUp(e) {
+        if (!isDown) return;
 
-    window.addEventListener('resize', updateLayout);
-  });
-</script>
+        isDown = false;
+
+        if (isDragging) {
+          track.classList.remove('is-dragging');
+          try {
+            track.releasePointerCapture?.(pointerId);
+          } catch (err) {}
+
+          setTimeout(() => (blockClick = false), 200);
+        }
+
+        pointerId = null;
+        isDragging = false;
+      }
+
+      function onPointerCancel(e) {
+        onPointerUp(e);
+      }
+
+      function onClick(e) {
+        if (!blockClick) return;
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      // ---- Ativação condicional via media query ----
+      function enableDrag() {
+        track.addEventListener('pointerdown', onPointerDown);
+        track.addEventListener('pointermove', onPointerMove);
+        track.addEventListener('pointerup', onPointerUp);
+        track.addEventListener('pointercancel', onPointerCancel);
+        track.addEventListener('click', onClick, true);
+      }
+
+      function disableDrag() {
+        track.removeEventListener('pointerdown', onPointerDown);
+        track.removeEventListener('pointermove', onPointerMove);
+        track.removeEventListener('pointerup', onPointerUp);
+        track.removeEventListener('pointercancel', onPointerCancel);
+        track.removeEventListener('click', onClick, true);
+      }
+
+      const mql = window.matchMedia('(min-width: 1001px)');
+
+      function handleMediaChange(e) {
+        if (e.matches) {
+          enableDrag();
+        } else {
+          disableDrag();
+        }
+      }
+
+      // Estado inicial
+      if (mql.matches) {
+        enableDrag();
+      }
+
+      // Observa mudanças (redimensionamento/orientação)
+      if (mql.addEventListener) {
+        mql.addEventListener('change', handleMediaChange);
+      } else {
+        mql.addListener(handleMediaChange); // fallback
+      }
+    });
+  </script>
+{% endif %}
 
 {% schema %}
-{
-  "name": "Receitas products",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Titulo",
-      "default": "Loja Bioself Natura"
-    },
-    {
-      "type": "collection",
-      "id": "selected_c",
-      "label": "Selecione a colection"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Receitas products",
-      "category": "blog"
-    }
-  ]
-}
+  {
+    "name": "Receitas products",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Titulo",
+        "default": "Loja Bioself Natura"
+      }, {
+        "type": "collection",
+        "id": "selected_c",
+        "label": "Selecione a colection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Receitas products",
+        "category": "blog"
+      }
+    ]
+  }
 {% endschema %}

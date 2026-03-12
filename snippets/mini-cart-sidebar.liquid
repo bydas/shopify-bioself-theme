@@ -1,0 +1,355 @@
+<style>
+  #aside-mini-cart {
+    display: none;
+    width: 150px;
+    flex-shrink: 0;
+    height: 100dvh;
+  }
+
+  #mini-cart-sidebar {
+    background-color: white;
+    height: 100%;
+    position: fixed;
+    width: 150px;
+    top: 0;
+    right: 0;
+    z-index: 4000;
+    border-left: 1px solid #D0DCB6;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #aside-mini-cart.is-visible {
+    display: block;
+  }
+
+  #top-mini-cart {
+    display: flex;
+    flex-direction: column;
+    padding: 0.875rem;
+    border-bottom: 1px solid #D0DCB6;
+    flex-shrink: 0;
+  }
+
+  #mini-cart-content {
+    flex: 1;
+    overflow-y: auto;
+    height: auto;
+  }
+
+  #top-mini-cart div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+
+  #mini-cart-total,
+  #top-mini-cart div h5 {
+    font-weight: 900 !important;
+    font-size: 14px !important;
+    margin: 0;
+  }
+
+  #mini-cart-total {
+    color: #258439;
+  }
+
+  #top-mini-cart div span {
+    font-weight: 600;
+  }
+
+  #top-mini-cart button {
+    margin-top: 0.5rem;
+    background-color: #258439;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  #top-mini-cart button span {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  #mini-cart-items {
+    position: relative;
+    list-style: none;
+    margin: 0;
+  }
+
+  #mini-cart-items li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.875rem;
+    gap: 0.5rem;
+    border-bottom: 1px solid #D0DCB6;
+  }
+
+  #mini-cart-items li a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  #mini-cart-items li a img {
+    max-width: 80px;
+    max-height: 80px;
+  }
+
+  #mini-cart-items li a div {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  #mini-cart-items li a div h5 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 900 !important;
+    color: #258439;
+  }
+
+  .comparative-mini-cart-price {
+    font-size: 12px;
+    font-weight: 600 !important;
+    text-decoration: line-through;
+  }
+
+  .update-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.25rem 0.75rem;
+    border: 2px solid #FFBB12;
+    border-radius: 0.5rem;
+  }
+
+  .update-quantity svg {
+    cursor: pointer;
+  }
+
+  .update-quantity input {
+    font-weight: 700;
+    outline: none;
+    border: none;
+    width: 30px;
+    text-align: center;
+  }
+
+  .update-quantity input {
+    font-size: 1rem;
+  }
+
+  .update-quantity input:focus {
+    outline: none;
+  }
+
+  .update-quantity input::-webkit-outer-spin-button,
+  .update-quantity input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .update-quantity input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  #mini-cart-message {
+    display: none;
+    margin: 0.5rem;
+    padding: 0.6rem 0.7rem;
+    border-radius: 0.5rem;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.25;
+    max-height: 84px;
+    overflow-y: auto;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    border: 1px solid transparent;
+    flex-shrink: 0;
+  }
+  #mini-cart-message.is-visible {
+    display: block;
+  }
+  #mini-cart-message.is-error {
+    background: #fff1f1;
+    border-color: #ffb3b3;
+    color: #7a1111;
+  }
+  #mini-cart-message.is-info {
+    background: #f0fbff;
+    border-color: #a8e7ff;
+    color: #0b4a63;
+  }
+
+  #mini-cart-loading {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.65);
+    z-index: 5000;
+    align-items: center;
+    height: 100%;
+    backdrop-filter: blur(1px);
+  }
+  #mini-cart-sidebar.is-loading #mini-cart-loading {
+    display: flex;
+    justify-content: center;
+  }
+  .mini-cart-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-top-color: rgba(0, 0, 0, 0.55);
+    border-radius: 50%;
+    animation: miniCartSpin 0.7s linear infinite;
+  }
+  @keyframes miniCartSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .update-quantity svg.is-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 1249px) {
+    #aside-mini-cart {
+      display: none !important;
+    }
+  }
+</style>
+
+<aside id="aside-mini-cart">
+  <div id="mini-cart-sidebar">
+    <div id="top-mini-cart">
+      <div>
+        <h5>Total</h5>
+        <span id="mini-cart-total"></span>
+      </div>
+
+      <div>
+        <span>Poupou</span>
+        <span id="mini-cart-discount"></span>
+      </div>
+
+      <button>
+        <span>Carrinho</span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.125 6.75H0V5.25H9.125L4.9375 1.0625L6 0L12 6L6 12L4.9375 10.9375L9.125 6.75Z" fill="white" />
+        </svg>
+      </button>
+    </div>
+
+    <div
+      id="mini-cart-message"
+      role="alert"
+      aria-live="polite"></div>
+
+    <div id="mini-cart-content">
+      <div id="mini-cart-loading" aria-hidden="true">
+        <div class="mini-cart-spinner"></div>
+      </div>
+
+      <ul id="mini-cart-items">
+        {% for item in cart.items %}
+          <li
+            data-line="{{ forloop.index }}"
+            data-key="{{ item.key | escape }}"
+            data-variant-id="{{ item.variant_id }}"
+            data-max="{% if item.variant.inventory_management and item.variant.inventory_policy == 'deny' %}{{ item.variant.inventory_quantity }}{% else %}{% endif %}">
+            <a href="{{ item.url }}">
+              <img
+                src="{{ item.image | img_url: 'small' }}"
+                alt="{{ item.title }}"
+                width="auto"
+                height="auto">
+
+              <div>
+                <h5>{{ item.variant.price | money }}</h5>
+
+                {% if item.variant.compare_at_price %}
+                  <span class="comparative-mini-cart-price">{{ item.variant.compare_at_price | money }}</span>
+                {% endif %}
+              </div>
+            </a>
+
+            <div class="update-quantity">
+              <svg
+                width="14"
+                height="15"
+                viewBox="0 0 14 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.5 15C2.04167 15 1.64931 14.8368 1.32292 14.5104C0.996528 14.184 0.833333 13.7917 0.833333 13.3333V2.5H0V0.833333H4.16667V0H9.16667V0.833333H13.3333V2.5H12.5V13.3333C12.5 13.7917 12.3368 14.184 12.0104 14.5104C11.684 14.8368 11.2917 15 10.8333 15H2.5ZM10.8333 2.5H2.5V13.3333H10.8333V2.5ZM4.16667 11.6667H5.83333V4.16667H4.16667V11.6667ZM7.5 11.6667H9.16667V4.16667H7.5V11.6667Z" fill="#1C1B1F" />
+              </svg>
+
+              <input
+                id="mini-cart-sidebar-quantity-{{ forloop.index }}"
+                name="quantity"
+                type="number"
+                value="{{ item.quantity }}"
+                min="1"
+                step="1"
+                max="999">
+
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 6.66667H0V5H5V0H6.66667V5H11.6667V6.66667H6.66667V11.6667H5V6.66667Z" fill="black" />
+              </svg>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</aside>
+
+<script>
+  (function () {
+    function boot() {
+      if (!window.BYDasMiniCart) return;
+
+      window.BYDasMiniCart.mountSidebar({
+        asideId: 'aside-mini-cart',
+        sidebarId: 'mini-cart-sidebar',
+        totalId: 'mini-cart-total',
+        discountId: 'mini-cart-discount',
+        messageId: 'mini-cart-message',
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+  })();
+</script>

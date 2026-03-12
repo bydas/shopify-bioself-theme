@@ -201,42 +201,42 @@
     const selectedImg = sectionEl.dataset.selectedImg;
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     const blogPostsList = document.getElementById('blogPostsList');
-  
+
     if (!loadMoreBtn) return;
-  
+
     async function fetchArticles(afterCursor) {
       const params = new URLSearchParams({
         handle: blogHandle,
         pageSize: '8'
       });
-  
+
       if (afterCursor) {
         params.append('after', afterCursor);
       }
-  
+
       const res = await fetch(`https://bioself.apps.bydas.com/?action=get_next_blog_posts&${params.toString()}`);
-  
+
       if (!res.ok) throw new Error('Storefront API error: ' + res.status);
       const json = await res.json();
       if (json.errors) throw new Error(JSON.stringify(json.errors));
       return json.data.blogByHandle.articles;
     }
-  
+
     function firstEligibleTag(tags) {
       if (!tags || !tags.length) return '';
       const skip = ['author', 'dificuldade', 'doses', 'duracao'];
       const t = tags.find((tg) => !skip.some((s) => tg.toLowerCase().includes(s)));
       return t || tags[0] || '';
     }
-  
+
     function renderArticle(node) {
       const li = document.createElement('li');
       const url = node.onlineStoreUrl || `/blogs/${blogHandle}/${node.handle}`;
       const bg = node.image?.url || '';
-  
+
       const tag = firstEligibleTag(node.tags || []);
       const author = node.authorV2?.name || '';
-  
+
       li.innerHTML = `
       <a href="${url}">
         <div style="background-size:cover;background-position:center center;background-image:url(${bg})">
@@ -254,30 +254,30 @@
     `;
       return li;
     }
-  
+
     loadMoreBtn.addEventListener('click', async () => {
       if (sectionEl.dataset.hasNext === 'false') return;
-  
+
       loadMoreBtn.disabled = true;
       loadMoreBtn.textContent = 'A Carregar';
-  
+
       try {
         if (!sectionEl.dataset.nextCursor) {
           const firstPage = await fetchArticles(null);
           sectionEl.dataset.hasNext = firstPage.pageInfo.hasNextPage ? 'true' : 'false';
           sectionEl.dataset.nextCursor = firstPage.pageInfo.endCursor || '';
         }
-  
+
         const after = sectionEl.dataset.nextCursor || null;
         const articles = await fetchArticles(after);
-  
+
         const edges = articles.edges || [];
         edges.forEach((edge) => blogPostsList.appendChild(renderArticle(edge.node)));
-  
+
         const { hasNextPage, endCursor } = articles.pageInfo;
         sectionEl.dataset.hasNext = hasNextPage ? 'true' : 'false';
         sectionEl.dataset.nextCursor = hasNextPage ? endCursor : '';
-  
+
         if (hasNextPage) {
           loadMoreBtn.disabled = false;
           loadMoreBtn.textContent = '{{ section.settings.btn_text | escape }}';

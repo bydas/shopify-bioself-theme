@@ -1,43 +1,46 @@
 {%- comment -%} 1) Normalizar quebras e limpar HTML {%- endcomment -%}
 {%- assign norm = article.content
-  | replace: '<a ', '[[A '
-  | replace: '</a>', '[[/A]]'
-  | replace: '</p>', '\n\n'
-  | replace: '<p>', ''
-  | replace: '<br />', '\n'
-  | replace: '<br>', '\n'
-  | replace: '</h1>', '\n\n'
-  | replace: '<h1>', ''
-  | replace: '</h2>', '\n\n'
-  | replace: '<h2>', ''
-  | replace: '</h3>', '\n\n'
-  | replace: '<h3>', ''
-  | replace: '</h4>', '\n\n'
-  | replace: '<h4>', ''
-  | replace: '</h5>', '\n\n'
-  | replace: '<h5>', ''
-  | replace: '</h6>', '\n\n'
-  | replace: '<h6>', ''
--%}
-
-{%- assign text = norm | strip_html -%}
+ | replace: '<a ', '[[A '
+ | replace: '</a>', '[[/A]]'
+ | replace: '</p>', '\n\n'
+ | replace: '<p>', ''
+ | replace: '<br />', '\n'
+ | replace: '<br>', '\n'
+ | replace: '</h1>', '\n\n'
+ | replace: '<h1>', ''
+ | replace: '</h2>', '\n\n'
+ | replace: '<h2>', ''
+ | replace: '</h3>', '\n\n'
+ | replace: '<h3>', ''
+ | replace: '</h4>', '\n\n'
+ | replace: '<h4>', ''
+ | replace: '</h5>', '\n\n'
+ | replace: '<h5>', ''
+ | replace: '</h6>', '\n\n'
+ | replace: '<h6>', ''
+-%}{%- assign text = norm | strip_html -%}
 
 {%- comment -%} 2) Uniformizar \r\n e partir por linhas em branco {%- endcomment -%}
 {%- assign text = text | replace: '\r\n', '\n' -%}
 {%- assign blocks = text | split: '\n\n' -%}
 
 {%- assign first_clean_paragraph = '' -%}
-{%- for b in blocks -%}
+  {%- for b in blocks -%}
   {%- assign cand = b | strip -%}
-  {%- if cand == '' -%}{% continue %}{%- endif -%}
+  {%- if cand == '' -%}
+    {% continue %}
+{%- endif -%}
 
   {%- comment -%} Heurísticas de filtragem {%- endcomment -%}
   {%- assign up = cand | upcase -%}
 
-  {%- if up == cand -%}{% continue %}{%- endif -%}
+  {%- if up == cand -%}
+    {% continue %}{%- endif -%}
   {% assign cand_size = cand | size %}
-  {%- if cand_size < 60 -%}{% continue %}{%- endif -%}
-  {%- unless cand contains '. ' or cand contains '!' or cand contains '?' -%}{% continue %}{%- endunless -%}
+  {%- if cand_size < 60 -%}
+    {% continue %}{%- endif -%}
+  {%- unless cand contains '. ' or cand contains '!' or cand contains '?' -%}
+    {% continue %}{%- endunless -%}
 
   {%- assign first_clean_paragraph = cand -%}
   {%- break -%}
@@ -45,12 +48,10 @@
 
 {%- if first_clean_paragraph != '' -%}
   {%- assign first_clean_paragraph = first_clean_paragraph
-    | replace: '[[A ', '<a '
-    | replace: '[[/A]]', '</a>'
+ | replace: '[[A ', '<a '
+ | replace: '[[/A]]', '</a>'
   -%}
-{%- endif -%}
-
-{%- assign html = article.content -%}
+{%- endif -%}{%- assign html = article.content -%}
 
 {%- comment %} 1) Encontrar "Preparação"/"Preparacao" {%- endcomment %}
 {%- assign markers = 'Preparação|Preparacao' | split: '|' -%}
@@ -65,35 +66,36 @@
 
 {%- if after == '' -%}
   {%- assign prep_steps = '' | split: ',' -%}
-  {%- comment %} array vazio {%- endcomment %}
+{%- comment %} array vazio {%- endcomment %}
 {%- else -%}
   {%- comment %} 2) Corta o bloco da preparação antes de headings/labels seguintes {%- endcomment %}
   {%- assign block = after -%}
   {%- assign cut_markers = '<h2|<h3|INFORMAÇÃO NUTRICIONAL|Informação Nutricial|Informação Nutricional|INFORMACAO NUTRICIONAL|Informacao Nutricional|INGREDIENTES|Ingredientes|Lê Mais|Le Mais|LE MAIS'
-    | split: '|'
+ | split: '|'
   -%}
   {%- for cm in cut_markers -%}
     {%- assign block = block | split: cm | first -%}
-  {%- endfor -%}
+{%- endfor -%}
 
   {%- comment %} 3) Normaliza para separadores e remove HTML {%- endcomment %}
-  {%- assign SEP = '||__STEP__||' -%}
+  {%- assign sep = '||__STEP__||' -%}
   {%- assign normalized = block
-    | replace: '<li', SEP
-    | replace: '</li>', SEP
-    | replace: '<br />', SEP
-    | replace: '<br>', SEP
-    | replace: '</p>', SEP
-    | replace: '<p>', SEP
+ | replace: '<li', sep
+ | replace: '</li>', sep
+ | replace: '<br />', sep
+ | replace: '<br>', sep
+ | replace: '</p>', sep
+ | replace: '<p>', sep
   -%}
   {%- assign plain = normalized | strip_html -%}
-  {%- assign raw = plain | split: SEP -%}
+{%- assign raw = plain | split: sep -%}
 
   {%- comment %} 4) Limpeza: remove bolinha, numeração e linhas nutricionais {%- endcomment %}
   {%- assign joined = '' -%}
   {%- for s in raw -%}
     {%- assign t = s | strip -%}
-    {%- if t == '' -%}{% continue %}{%- endif -%}
+    {%- if t == '' -%}
+      {% continue %}{%- endif -%}
 
     {%- assign prefix2 = t | slice: 0, 2 -%}
     {%- if prefix2 == '● ' -%}
@@ -121,44 +123,51 @@
       {%- continue -%}
     {%- endif -%}
 
-    {%- if t == 'Preparação' or t == 'Preparacao' -%}{% continue %}{%- endif -%}
+    {%- if t == 'Preparação' or t == 'Preparacao' -%}
+      {% continue %}{%- endif -%}
 
-    {%- assign joined = joined | append: t | append: SEP -%}
+    {%- assign joined = joined | append: t | append: sep -%}
   {%- endfor -%}
 
-  {%- assign prep_steps = joined | split: SEP -%}
-{%- endif -%}
+  {%- assign prep_steps = joined | split: sep -%}{%- endif -%}
 
 {%- comment %} 1) Partir por <h3> para encontrar blocos "Ingredientes ..." {%- endcomment %}
 {%- assign chunks = html | split: '<h3>' -%}
 
-{%- assign GROUP_SEP = '||__GROUP__||' -%}
-{%- assign ITEM_SEP = '||' -%}
-{%- assign TITLE_SEP = '::' -%}
+{%- assign group_sep = '||__GROUP__||' -%}
+{%- assign item_sep = '||' -%}
+{%- assign title_sep = '::' -%}
 {%- assign groups_join = '' -%}
 
-{%- for c in chunks offset: 1 -%}
+  {%- for c in chunks offset: 1 -%}
   {%- comment %} c = "TITULO</h3>...resto..." {%- endcomment %}
   {%- assign title_part = c | split: '</h3>' | first | strip_html | strip -%}
-  {%- assign up = title_part | upcase -%}
+{%- assign up = title_part | upcase -%}
 
   {%- comment %} 2) Só processa se o <h3> começar por "INGREDIENTES" {%- endcomment %}
   {%- assign prefix = up | slice: 0, 12 -%}
-  {%- if prefix != 'INGREDIENTES' -%}{% continue %}{%- endif -%}
+  {%- if prefix != 'INGREDIENTES' -%}
+    {% continue %}
+{%- endif -%}
 
   {%- comment %} 3) Limpar título: remover "Ingredientes" + conectores iniciais comuns {%- endcomment %}
   {%- assign title_clean = title_part | remove_first: 'Ingredientes' | remove_first: 'INGREDIENTES' -%}
   {%- assign title_clean = title_clean | strip -%}
   {%- assign lead = title_clean | slice: 0, 2 -%}
-  {%- if lead == ': ' -%}{%- assign title_clean = title_clean | slice: 2, title_clean.size | strip -%}{%- endif -%}
+  {%- if lead == ': ' -%}
+    {%- assign title_clean = title_clean | slice: 2, title_clean.size | strip -%}{%- endif -%}
   {%- assign lead3 = title_clean | slice: 0, 3 -%}
-  {%- if lead3 == 'de ' -%}{%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
+  {%- if lead3 == 'de ' -%}
+    {%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
   {%- assign lead3b = title_clean | slice: 0, 3 -%}
-  {%- if lead3b == 'da ' -%}{%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
+  {%- if lead3b == 'da ' -%}
+    {%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
   {%- assign lead3c = title_clean | slice: 0, 3 -%}
-  {%- if lead3c == 'do ' -%}{%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
+  {%- if lead3c == 'do ' -%}
+    {%- assign title_clean = title_clean | slice: 3, title_clean.size | strip -%}{%- endif -%}
   {%- assign lead5 = title_clean | slice: 0, 5 -%}
-  {%- if lead5 == 'para ' -%}{%- assign title_clean = title_clean | slice: 5, title_clean.size | strip -%}{%- endif -%}
+  {%- if lead5 == 'para ' -%}
+    {%- assign title_clean = title_clean | slice: 5, title_clean.size | strip -%}{%- endif -%}
   {%- assign lead6a = title_clean | slice: 0, 6 -%}
   {%- if lead6a == 'para o' -%}
     {%- assign title_clean = title_clean | slice: 6, title_clean.size | strip -%}
@@ -168,54 +177,57 @@
     {%- assign title_clean = title_clean | slice: 6, title_clean.size | strip -%}
   {%- endif -%}
   {%- assign title_clean = title_clean | replace: ':', '' | replace: '—', '' | replace: '-', ' ' | strip -%}
-  {%- if title_clean == '' -%}{%- assign title_clean = 'ingredientes' -%}{%- endif -%}
-  {%- assign title_clean = title_clean | downcase -%}
+  {%- if title_clean == '' -%}
+    {%- assign title_clean = 'ingredientes' -%}{%- endif -%}
+{%- assign title_clean = title_clean | downcase -%}
 
   {%- comment %} 4) Bloco de conteúdo após o </h3>, cortado antes do próximo heading/etiqueta {%- endcomment %}
   {%- assign after_h3 = c | split: '</h3>' | last -%}
-  {%- assign block = after_h3
-    | split: '<h2'
-    | first
-    | split: '<h3'
-    | first
-    | split: '<h4'
-    | first
-    | split: 'Preparação'
-    | first
-    | split: 'Preparacao'
-    | first
-  -%}
+{%- assign block = after_h3
+ | split: '<h2'
+ | first
+ | split: '<h3'
+ | first
+ | split: '<h4'
+ | first
+ | split: 'Preparação'
+ | first
+ | split: 'Preparacao'
+ | first
+-%}
 
   {%- comment %} 5) Normalizar linhas em separadores e limpar HTML {%- endcomment %}
-  {%- assign SEP = '||__LINE__||' -%}
+  {%- assign sep = '||__LINE__||' -%}
   {%- assign normalized = block
-    | replace: '<li', SEP
-    | replace: '</li>', SEP
-    | replace: '<br />', SEP
-    | replace: '<br>', SEP
-    | replace: '</p>', SEP
-    | replace: '<p>', SEP
+ | replace: '<li', sep
+ | replace: '</li>', sep
+ | replace: '<br />', sep
+ | replace: '<br>', sep
+ | replace: '</p>', sep
+ | replace: '<p>', sep
   -%}
   {%- assign plain = normalized | strip_html -%}
-  {%- assign lines = plain | split: SEP -%}
+{%- assign lines = plain | split: sep -%}
 
   {%- comment %} 6) Extrair itens (remover bolinha e vazios) {%- endcomment %}
   {%- assign items_join = '' -%}
-  {%- for ln in lines -%}
+    {%- for ln in lines -%}
     {%- assign t = ln | strip -%}
-    {%- if t == '' -%}{% continue %}{%- endif -%}
+    {%- if t == '' -%}
+      {% continue %}{%- endif -%}
     {%- assign prefix2 = t | slice: 0, 2 -%}
     {%- if prefix2 == '• ' -%}
       {%- assign t = t | slice: 2, t.size | strip -%}
-    {%- endif -%}
+  {%- endif -%}
     {%- comment %} Evitar apanhar restos tipo "Ingredientes ..." novamente {%- endcomment %}
     {%- assign up2 = t | upcase -%}
-    {%- if up2 contains 'INGREDIENTES' -%}{% continue %}{%- endif -%}
+    {%- if up2 contains 'INGREDIENTES' -%}
+      {% continue %}{%- endif -%}
 
-    {%- assign items_join = items_join | append: t | append: ITEM_SEP -%}
+    {%- assign items_join = items_join | append: t | append: item_sep -%}
   {%- endfor -%}
 
-  {%- assign items_arr = items_join | split: ITEM_SEP -%}
+{%- assign items_arr = items_join | split: item_sep -%}
 
   {%- comment %} 7) Se há pelo menos 1 item, guarda o grupo {%- endcomment %}
   {%- assign has_item = false -%}
@@ -229,13 +241,12 @@
 
   {%- if has_item -%}
     {%- comment %} Grupo no formato: "titulo::item1||item2||..." {%- endcomment %}
-    {%- assign group_string = title_clean | append: TITLE_SEP | append: items_join -%}
-    {%- assign groups_join = groups_join | append: group_string | append: GROUP_SEP -%}
-  {%- endif -%}
-{%- endfor -%}
+    {%- assign group_string = title_clean | append: title_sep | append: items_join -%}
+    {%- assign groups_join = groups_join | append: group_string | append: group_sep -%}
+  {%- endif -%}{%- endfor -%}
 
 {%- comment %} 8) Array final de grupos {%- endcomment %}
-{%- assign ingredients_groups = groups_join | split: GROUP_SEP -%}
+{%- assign ingredients_groups = groups_join | split: group_sep -%}
 
 <style>
   #receitas_article_main_custom {
@@ -262,6 +273,11 @@
     margin: 0;
     font-size: 1.25rem;
     line-height: 1.8rem;
+  }
+
+  #receitas_article_main_custom > p > a {
+    color: #258439;
+    text-decoration: underline;
   }
 
   #receitas_article_main_custom > p > a {
@@ -478,7 +494,8 @@
         {%- for g in ingredients_groups -%}
           <div>
             {%- assign gtrim = g | strip -%}
-            {%- if gtrim == '' -%}{% continue %}{%- endif -%}
+            {%- if gtrim == '' -%}
+              {% continue %}{%- endif -%}
 
             {%- assign parts = gtrim | split: '::' -%}
             {%- assign ing_title = parts[0] | strip -%}
@@ -499,12 +516,28 @@
       </div>
 
       <button id="btn-print-receita">
-        <svg width="33" height="34" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <mask id="mask0_2043_10674" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="33" height="34">
-          <rect y="0.953125" width="33" height="33" fill="#D9D9D9"/>
+        <svg
+          width="33"
+          height="34"
+          viewBox="0 0 33 34"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <mask
+            id="mask0_2043_10674"
+            style="mask-type:alpha"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="33"
+            height="34">
+            <rect
+              y="0.953125"
+              width="33"
+              height="33"
+              fill="#D9D9D9" />
           </mask>
           <g mask="url(#mask0_2043_10674)">
-          <path d="M22.0018 12.375V8.25H11.0017V12.375H8.93925V6.1875H24.0643V12.375H22.0018ZM24.4874 17.875C24.877 17.875 25.2036 17.7432 25.4671 17.4797C25.7306 17.2161 25.8624 16.8896 25.8624 16.5C25.8624 16.1104 25.7306 15.7839 25.4671 15.5203C25.2036 15.2568 24.877 15.125 24.4874 15.125C24.0978 15.125 23.7713 15.2568 23.5077 15.5203C23.2442 15.7839 23.1124 16.1104 23.1124 16.5C23.1124 16.8896 23.2442 17.2161 23.5077 17.4797C23.7713 17.7432 24.0978 17.875 24.4874 17.875ZM22.0018 27.0768V21.2066H11.0017V27.0768H22.0018ZM24.0643 29.1393H8.93925V23.6393H3.83594V15.8125C3.83594 14.8385 4.16869 14.0221 4.83419 13.3633C5.49969 12.7044 6.31277 12.375 7.27344 12.375H25.7301C26.704 12.375 27.5204 12.7044 28.1793 13.3633C28.8381 14.0221 29.1676 14.8385 29.1676 15.8125V23.6393H24.0643V29.1393ZM27.1051 21.5768V15.8125C27.1051 15.4229 26.9733 15.0964 26.7098 14.8328C26.4462 14.5693 26.1196 14.4375 25.7301 14.4375H7.27344C6.88385 14.4375 6.55729 14.5693 6.29375 14.8328C6.03021 15.0964 5.89844 15.4229 5.89844 15.8125V21.5768H8.93925V19.1441H24.0643V21.5768H27.1051Z" fill="#258439"/>
+            <path d="M22.0018 12.375V8.25H11.0017V12.375H8.93925V6.1875H24.0643V12.375H22.0018ZM24.4874 17.875C24.877 17.875 25.2036 17.7432 25.4671 17.4797C25.7306 17.2161 25.8624 16.8896 25.8624 16.5C25.8624 16.1104 25.7306 15.7839 25.4671 15.5203C25.2036 15.2568 24.877 15.125 24.4874 15.125C24.0978 15.125 23.7713 15.2568 23.5077 15.5203C23.2442 15.7839 23.1124 16.1104 23.1124 16.5C23.1124 16.8896 23.2442 17.2161 23.5077 17.4797C23.7713 17.7432 24.0978 17.875 24.4874 17.875ZM22.0018 27.0768V21.2066H11.0017V27.0768H22.0018ZM24.0643 29.1393H8.93925V23.6393H3.83594V15.8125C3.83594 14.8385 4.16869 14.0221 4.83419 13.3633C5.49969 12.7044 6.31277 12.375 7.27344 12.375H25.7301C26.704 12.375 27.5204 12.7044 28.1793 13.3633C28.8381 14.0221 29.1676 14.8385 29.1676 15.8125V23.6393H24.0643V29.1393ZM27.1051 21.5768V15.8125C27.1051 15.4229 26.9733 15.0964 26.7098 14.8328C26.4462 14.5693 26.1196 14.4375 25.7301 14.4375H7.27344C6.88385 14.4375 6.55729 14.5693 6.29375 14.8328C6.03021 15.0964 5.89844 15.4229 5.89844 15.8125V21.5768H8.93925V19.1441H24.0643V21.5768H27.1051Z" fill="#258439" />
           </g>
         </svg>
 
@@ -531,12 +564,29 @@
 
       <div>
         <button id="btn-share-receita">
-          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="mask0_2043_10663" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="34" height="34">
-            <rect x="0.34375" y="0.953125" width="33" height="33" fill="#D9D9D9"/>
+          <svg
+            width="34"
+            height="34"
+            viewBox="0 0 34 34"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <mask
+              id="mask0_2043_10663"
+              style="mask-type:alpha"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="34"
+              height="34">
+              <rect
+                x="0.34375"
+                y="0.953125"
+                width="33"
+                height="33"
+                fill="#D9D9D9" />
             </mask>
             <g mask="url(#mask0_2043_10663)">
-            <path d="M9.01691 31.8911C8.3223 31.8911 7.73438 31.6505 7.25313 31.1692C6.77188 30.688 6.53125 30.1 6.53125 29.4054V15.1268C6.53125 14.4321 6.77188 13.8442 7.25313 13.363C7.73438 12.8817 8.3223 12.6411 9.01691 12.6411H12.5335V14.7036H9.01691C8.91103 14.7036 8.81409 14.7477 8.72609 14.8359C8.63787 14.9239 8.59375 15.0209 8.59375 15.1268V29.4054C8.59375 29.5113 8.63787 29.6083 8.72609 29.6963C8.81409 29.7845 8.91103 29.8286 9.01691 29.8286H24.6706C24.7765 29.8286 24.8734 29.7845 24.9614 29.6963C25.0496 29.6083 25.0938 29.5113 25.0938 29.4054V15.1268C25.0938 15.0209 25.0496 14.9239 24.9614 14.8359C24.8734 14.7477 24.7765 14.7036 24.6706 14.7036H21.154V12.6411H24.6706C25.3652 12.6411 25.9531 12.8817 26.4344 13.363C26.9156 13.8442 27.1563 14.4321 27.1563 15.1268V29.4054C27.1563 30.1 26.9156 30.688 26.4344 31.1692C25.9531 31.6505 25.3652 31.8911 24.6706 31.8911H9.01691ZM15.8125 22.6098V7.44256L13.2688 9.98631L11.8198 8.51609L16.8438 3.49219L21.8677 8.51609L20.4188 9.98631L17.875 7.44256V22.6098H15.8125Z" fill="#258439"/>
+              <path d="M9.01691 31.8911C8.3223 31.8911 7.73438 31.6505 7.25313 31.1692C6.77188 30.688 6.53125 30.1 6.53125 29.4054V15.1268C6.53125 14.4321 6.77188 13.8442 7.25313 13.363C7.73438 12.8817 8.3223 12.6411 9.01691 12.6411H12.5335V14.7036H9.01691C8.91103 14.7036 8.81409 14.7477 8.72609 14.8359C8.63787 14.9239 8.59375 15.0209 8.59375 15.1268V29.4054C8.59375 29.5113 8.63787 29.6083 8.72609 29.6963C8.81409 29.7845 8.91103 29.8286 9.01691 29.8286H24.6706C24.7765 29.8286 24.8734 29.7845 24.9614 29.6963C25.0496 29.6083 25.0938 29.5113 25.0938 29.4054V15.1268C25.0938 15.0209 25.0496 14.9239 24.9614 14.8359C24.8734 14.7477 24.7765 14.7036 24.6706 14.7036H21.154V12.6411H24.6706C25.3652 12.6411 25.9531 12.8817 26.4344 13.363C26.9156 13.8442 27.1563 14.4321 27.1563 15.1268V29.4054C27.1563 30.1 26.9156 30.688 26.4344 31.1692C25.9531 31.6505 25.3652 31.8911 24.6706 31.8911H9.01691ZM15.8125 22.6098V7.44256L13.2688 9.98631L11.8198 8.51609L16.8438 3.49219L21.8677 8.51609L20.4188 9.98631L17.875 7.44256V22.6098H15.8125Z" fill="#258439" />
             </g>
           </svg>
 
@@ -544,7 +594,7 @@
         </button>
 
         {% assign meses = 'Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
-          | split: ', '
+ | split: ', '
         %}
         {% assign mes_num = article.published_at | date: '%-m' | minus: 1 %}
         <span>
@@ -625,14 +675,14 @@
 </script>
 
 {% schema %}
-{
-  "name": "Receitas main",
-  "settings": [],
-  "presets": [
-    {
-      "name": "Receitas main",
-      "category": "blog"
-    }
-  ]
-}
+  {
+    "name": "Receitas main",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Receitas main",
+        "category": "blog"
+      }
+    ]
+  }
 {% endschema %}

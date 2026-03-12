@@ -1,40 +1,39 @@
 {% schema %}
-{
-  "name": "Newsletter Ebook custom",
-  "settings": [
-    {
-      "type": "text",
-      "label": "Título",
-      "id": "newsletter_title"
-    },
-    {
-      "type": "richtext",
-      "label": "Descrição",
-      "id": "newsletter_subtitle"
-    },
-    {
-      "type": "text",
-      "label": "Texto do botão",
-      "id": "newsletter_btn"
-    },
-    {
-      "type": "page",
-      "label": "Página de termos",
-      "id": "newsletter_page"
-    },
-    {
-      "type": "text",
-      "label": "Texto de termos",
-      "id": "newsletter_terms"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Newsletter Ebook custom",
-      "category": "custom"
-    }
-  ]
-}
+  {
+    "name": "Newsletter Ebook custom",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Título",
+        "id": "newsletter_title"
+      },
+      {
+        "type": "richtext",
+        "label": "Descrição",
+        "id": "newsletter_subtitle"
+      },
+      {
+        "type": "text",
+        "label": "Texto do botão",
+        "id": "newsletter_btn"
+      },
+      {
+        "type": "page",
+        "label": "Página de termos",
+        "id": "newsletter_page"
+      }, {
+        "type": "text",
+        "label": "Texto de termos",
+        "id": "newsletter_terms"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Newsletter Ebook custom",
+        "category": "custom"
+      }
+    ]
+  }
 {% endschema %}
 
 <style>
@@ -69,28 +68,32 @@
 
   #newsletter_custom > p {
     font-size: 16px;
-    margin: 0;
-    text-align: center;
     margin: 0 6rem;
+    text-align: center;
   }
 
   #newsletter_custom_mobile_1 > h1 {
     font-size: 16px;
-    margin: 0;
+    margin: 0 1rem;
     text-transform: uppercase;
     color: #308a36;
     text-align: center;
-    margin: 0 1rem;
   }
 
   #newsletter_custom_mobile_1 > p {
     font-size: 14px;
-    margin: 0;
-    text-align: center;
     margin: 0 1rem;
+    text-align: center;
   }
 
-  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+  #newsletter_checkbox > input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    appearance: auto;
+  }
+
+  @media screen and (max-width: 1599px) and(min-width: 1000px) {
     #newsletter_custom > h1 {
       font-size: 18px !important;
     }
@@ -116,6 +119,7 @@
   #newsletter_custom > form {
     display: grid;
     gap: 0.5rem;
+    margin: 0 6rem;
   }
 
   #newsletter_custom_mobile_1 > form {
@@ -129,8 +133,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr max-content;
     gap: 0.5rem;
-    margin: 0 6rem;
-    margin-top: 2rem !important;
+    margin: 2rem !important 6rem 0;
   }
 
   #newsletter_inputs > input,
@@ -260,25 +263,27 @@
     {{ section.settings.newsletter_subtitle }}
   {% endif %}
 
-  {% form 'customer', id: newsletter_id %}
+  {% form 'customer'
+    , id: newsletter_id %}
     <div id="newsletter_inputs">
-      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input
+        type="hidden"
+        name="contact[tags]"
+        value="newsletter">
 
       <input
         type="text"
         id="newsletter[contact][first_name]"
         name="contact[first_name]"
         placeholder="Nome"
-        required
-      >
+        required>
 
       <input
         type="email"
         id="newsletter[contact][email]"
         name="contact[email]"
         placeholder="E-mail"
-        required
-      >
+        required>
 
       {% if section.settings.newsletter_btn %}
         <button type="submit">{{ section.settings.newsletter_btn }}</button>
@@ -291,8 +296,7 @@
           type="checkbox"
           id="selected_terms"
           name="selected_terms"
-          required
-        >
+          required>
 
         <label for="selected_terms">
           {{ section.settings.newsletter_terms }}
@@ -310,24 +314,26 @@
     <h1>{{ section.settings.newsletter_title }}</h1>
   {% endif %}
 
-  {% form 'customer', id: newsletter_id %}
-    <input type="hidden" name="contact[tags]" value="newsletter">
+  {% form 'customer'
+    , id: newsletter_id %}
+    <input
+      type="hidden"
+      name="contact[tags]"
+      value="newsletter">
 
     <input
       type="text"
       id="newsletter[contact][first_name]"
       name="contact[first_name]"
       placeholder="Nome"
-      required
-    >
+      required>
 
     <input
       type="email"
       id="newsletter[contact][email]"
       name="contact[email]"
       placeholder="E-mail"
-      required
-    >
+      required>
 
     {% if section.settings.newsletter_page %}
       <div id="newsletter_checkbox">
@@ -335,8 +341,7 @@
           type="checkbox"
           id="selected_terms"
           name="selected_terms"
-          required
-        >
+          required>
 
         <label for="selected_terms">
           {{ section.settings.newsletter_terms }}

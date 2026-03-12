@@ -36,26 +36,21 @@
 
     window.Rivo.loy_config = {{shop.metafields.ba_loy.config | json}};
     window.Rivo.loy_config.api_endpoint = {{shop.metafields.ba_global.config.proxy_paths["loy"] | json}};
-
-
-
-
 </script>
 
-
 <script type="text/javascript">
-  
-
-  (function() {
+  (function () {
     //Global snippet for Rivo
     //this is updated automatically - do not edit manually.
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       function loadScript(src, defer, done) {
         var js = document.createElement('script');
         js.src = src;
         js.defer = defer;
-        js.onload = function(){done();};
-        js.onerror = function(){
+        js.onload = function () {
+          done();
+        };
+        js.onerror = function () {
           done(new Error('Failed to load script ' + src));
         };
         document.head.appendChild(js);
@@ -71,20 +66,20 @@
         loadScript('https://polyfill.io/v3/polyfill.min.js?features=Promise,fetch', true, main);
       }
 
-      function loadAppScripts(){
-        const revAppEmbedEnabled = document.getElementById("rev-app-embed-init");
-        const loyAppEmbedEnabled = document.getElementById("rivo-app-embed-init");
+      function loadAppScripts() {
+        const revAppEmbedEnabled = document.getElementById('rev-app-embed-init');
+        const loyAppEmbedEnabled = document.getElementById('rivo-app-embed-init');
 
-        if (window.Rivo.global_config.aat.includes("loy") && !loyAppEmbedEnabled){
-          loadScript(window.Rivo.global_config.asset_urls.loy.init_js, true, function(){});
+        if (window.Rivo.global_config.aat.includes('loy') && !loyAppEmbedEnabled) {
+          loadScript(window.Rivo.global_config.asset_urls.loy.init_js, true, function () {});
         }
 
-        if (window.Rivo.global_config.aat.includes("rev") && !revAppEmbedEnabled){
-          loadScript(window.Rivo.global_config.asset_urls.rev.init_js, true, function(){});
+        if (window.Rivo.global_config.aat.includes('rev') && !revAppEmbedEnabled) {
+          loadScript(window.Rivo.global_config.asset_urls.rev.init_js, true, function () {});
         }
 
-        if (window.Rivo.global_config.aat.includes("pop") || window.Rivo.global_config.aat.includes("pu")){
-          loadScript(window.Rivo.global_config.asset_urls.widgets.init_js, true, function(){});
+        if (window.Rivo.global_config.aat.includes('pop') || window.Rivo.global_config.aat.includes('pu')) {
+          loadScript(window.Rivo.global_config.asset_urls.widgets.init_js, true, function () {});
         }
       }
 

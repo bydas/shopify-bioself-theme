@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
     div.classList.add(CV_ELEMENT_CLASS)
 
     const img = document.createElement("img")
-    img.src = "{{ 'cruz_vermelha_portuguesa.png' | asset_img_url }}"
+    img.src = "//bioself.pt/cdn/shop/t/61/assets/cruz_vermelha_portuguesa_small.png?v=78682230481156708881772829291"
     img.alt = CV_TITLE
     img.title = CV_TITLE
 

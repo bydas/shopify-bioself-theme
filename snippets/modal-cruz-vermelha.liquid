@@ -1,0 +1,91 @@
+<style>
+  #mini-cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 4999;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  @keyframes mini-cart-overlay-fade-in {
+    from {
+      opacity: 0;
+      visibility: hidden;
+    }
+    to {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @keyframes mini-cart-overlay-fade-out {
+    from {
+      opacity: 1;
+      visibility: visible;
+    }
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  #mini-cart-overlay.active {
+    animation: mini-cart-overlay-fade-in 0.3s forwards;
+  }
+
+  #mini-cart-overlay.closing {
+    animation: mini-cart-overlay-fade-out 0.3s forwards;
+  }
+</style>
+
+<div id="mini-cart-overlay"></div>
+
+<div id="modal_cruz_vermelha">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="12"
+    width="12"
+    viewBox="0 0 384 512"
+    id="escape_cruz_modal"
+  >
+    <path fill="#308a36" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+  </svg>
+
+  <div id="modal_form_cruz">
+    <svg width="29" height="27" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26.2727 0.55475L36.0079 10.6563C37.9248 12.6443 39 15.3277 39 18.1241C39 20.9204 37.9248 23.6038 36.0079 25.5918L27.4791 34.4425C27.3106 34.6176 27.1101 34.757 26.8891 34.8526C26.6681 34.9483 26.4309 34.9983 26.1911 35C25.9512 35.0016 25.7134 34.9547 25.4912 34.862C25.2691 34.7694 25.0668 34.6327 24.8961 34.4599C24.5514 34.1108 24.3559 33.6355 24.3527 33.1386C24.3512 32.8925 24.3968 32.6486 24.4872 32.4206C24.5775 32.1927 24.7107 31.9852 24.8792 31.8101L33.4002 22.9595C34.6407 21.6732 35.3366 19.9368 35.3366 18.1274C35.3366 16.318 34.6407 14.5816 33.4002 13.2953L23.6755 3.19515C23.3352 2.84147 23.1458 2.36361 23.149 1.86669C23.1522 1.36977 23.3476 0.894493 23.6924 0.545415C24.0372 0.196338 24.503 0.00205499 24.9874 0.0053061C25.4718 0.00855722 25.9351 0.209076 26.2753 0.562751L26.2727 0.55475ZM1.11654e-05 15.429V3.7499C0.000355705 2.75547 0.385586 1.80188 1.07103 1.09871C1.75647 0.395544 2.68603 0.000353463 3.65539 1.45017e-08H15.0401C15.6809 -5.004e-05 16.3155 0.129478 16.9074 0.381178C17.4994 0.632878 18.0372 1.00181 18.4901 1.46689L31.2839 14.5915C32.1975 15.5288 32.7106 16.8 32.7106 18.1254C32.7106 19.4508 32.1975 20.722 31.2839 21.6593L21.1173 32.0848C20.2036 33.022 18.9645 33.5484 17.6725 33.5484C16.3804 33.5484 15.1413 33.022 14.2277 32.0848L1.42993 18.9602C0.975595 18.498 0.615247 17.9479 0.369786 17.3417C0.124324 16.7355 -0.00136413 16.0854 1.11654e-05 15.429ZM10.9662 8.74932C10.9662 8.25479 10.8232 7.77137 10.5554 7.36018C10.2876 6.949 9.90691 6.62852 9.46154 6.43927C9.01617 6.25002 8.5261 6.20051 8.0533 6.29698C7.5805 6.39346 7.1462 6.6316 6.80533 6.98128C6.46446 7.33097 6.23233 7.77649 6.13828 8.26152C6.04423 8.74654 6.0925 9.24928 6.27698 9.70617C6.46146 10.1631 6.77386 10.5536 7.17468 10.8283C7.5755 11.103 8.04674 11.2497 8.5288 11.2497C9.17523 11.2497 9.79518 10.9863 10.2523 10.5173C10.7094 10.0484 10.9662 9.41246 10.9662 8.74932Z" fill="#258439"/>
+    </svg>
+
+    <div>
+      <span class="cruz_title">
+        Se és subscritor do Cartão de Saúde da Cruz Vermelha Portuguesa, introduz o teu número do cartão abaixo para
+        usufruíres de
+        <strong>10% extra de desconto imediato.*</strong>
+      </span>
+
+      <form>
+        <label for="cruz_nif">Introduz o teu número do cartão</label>
+
+        <div>
+          <input name="cruz_nif" id="cruz_nif" required>
+
+          <button type="submit">Validar</button>
+        </div>
+
+        <span id="cruz_nif_message"></span>
+      </form>
+
+      <span>*Não acumulável com outras campanhas em vigor.</span>
+    </div>
+  </div>
+
+  <div id="modal_successful_cruz">
+    <img src="{{ 'check_circle.png' | asset_img_url }}" width="55" height="55" alt="Sucesso Ícone">
+
+    <span>Desconto Ativado com Sucesso. Redirecionando...</span>
+  </div>
+</div>

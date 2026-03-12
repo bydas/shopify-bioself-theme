@@ -1,54 +1,45 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   const bannerObserver = new MutationObserver(function (mutations, observer) {
-    const banner = document.getElementById("shopify-pc__banner")
+    const banner = document.getElementById('shopify-pc__banner')
 
     if (banner) {
-      const description = banner.querySelector("p")
+      const description = banner.querySelector('p')
 
-      if (description && !description.querySelector(".new-privacy-link")) {
-        const newLink = document.createElement("a")
-        newLink.classList.add("new-privacy-link")
-        newLink.innerText =
-          "Site da Política de Privacidade e Termos de Utilização da Google."
-        newLink.target = "_blank"
-        newLink.style.marginLeft = "0.5rem"
-        newLink.href = "https://business.safety.google/privacy"
+      if (description && !description.querySelector('.new-privacy-link')) {
+        const newLink = document.createElement('a')
+        newLink.classList.add('new-privacy-link')
+        newLink.innerText = 'Site da Política de Privacidade e Termos de Utilização da Google.'
+        newLink.target = '_blank'
+        newLink.style.marginLeft = '0.5rem'
+        newLink.href = 'https://business.safety.google/privacy'
         description.appendChild(newLink)
       }
 
-      const acceptBtn = banner.querySelector("#shopify-pc__banner__btn-accept")
+      const acceptBtn = banner.querySelector('#shopify-pc__banner__btn-accept')
 
       if (acceptBtn) {
-        acceptBtn.addEventListener("click", function (e) {
+        acceptBtn.addEventListener('click', function (e) {
           e.preventDefault()
 
-          const hidePrefsStyle = document.createElement("style")
-          hidePrefsStyle.innerHTML =
-            "#shopify-pc__prefs__dialog { display: none !important; }"
+          const hidePrefsStyle = document.createElement('style')
+          hidePrefsStyle.innerHTML = '#shopify-pc__prefs__dialog { display: none !important; }'
           document.head.appendChild(hidePrefsStyle)
 
-          const managePrefsBtn = banner.querySelector(
-            "#shopify-pc__banner__btn-manage-prefs"
-          )
+          const managePrefsBtn = banner.querySelector('#shopify-pc__banner__btn-manage-prefs')
 
           if (managePrefsBtn) {
             managePrefsBtn.click()
 
-            const prefsObserver = new MutationObserver(function (
-              mutations,
-              prefsObs
-            ) {
-              const prefsDialog = document.getElementById(
-                "shopify-pc__prefs__dialog"
-              )
+            const prefsObserver = new MutationObserver(function (mutations, prefsObs) {
+              const prefsDialog = document.getElementById('shopify-pc__prefs__dialog')
 
               if (prefsDialog) {
                 const dialogAcceptBtn = prefsDialog.querySelector(
-                  "#shopify-pc__prefs__header-accept"
+                  '#shopify-pc__prefs__header-accept'
                 )
 
                 if (dialogAcceptBtn) {
-                  dialogAcceptBtn.addEventListener("click", function (e) {
+                  dialogAcceptBtn.addEventListener('click', function (e) {
                     e.preventDefault()
                   })
 
@@ -72,29 +63,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   bannerObserver.observe(document.body, { childList: true, subtree: true })
 })
-
-
 ;(function (factory) {
-  typeof define === "function" && define.amd
-    ? define("index", factory)
-    : factory()
+  typeof define === 'function' && define.amd ? define('index', factory) : factory()
 })(function () {
-  "use strict"
+  'use strict'
 
   function _typeof(obj) {
-    "@babel/helpers - typeof"
+    '@babel/helpers - typeof'
 
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
       _typeof = function (obj) {
         return typeof obj
       }
     } else {
       _typeof = function (obj) {
         return obj &&
-          typeof Symbol === "function" &&
+          typeof Symbol === 'function' &&
           obj.constructor === Symbol &&
           obj !== Symbol.prototype
-          ? "symbol"
+          ? 'symbol'
           : typeof obj
       }
     }
@@ -104,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function")
+      throw new TypeError('Cannot call a class as a function')
     }
   }
 
@@ -113,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var descriptor = props[i]
       descriptor.enumerable = descriptor.enumerable || false
       descriptor.configurable = true
-      if ("value" in descriptor) descriptor.writable = true
+      if ('value' in descriptor) descriptor.writable = true
       Object.defineProperty(target, descriptor.key, descriptor)
     }
   }
@@ -126,11 +113,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function _unsupportedIterableToArray(o, minLen) {
     if (!o) return
-    if (typeof o === "string") return _arrayLikeToArray(o, minLen)
+    if (typeof o === 'string') return _arrayLikeToArray(o, minLen)
     var n = Object.prototype.toString.call(o).slice(8, -1)
-    if (n === "Object" && o.constructor) n = o.constructor.name
-    if (n === "Map" || n === "Set") return Array.from(o)
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+    if (n === 'Object' && o.constructor) n = o.constructor.name
+    if (n === 'Map' || n === 'Set') return Array.from(o)
+    if (n === 'Arguments' || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
       return _arrayLikeToArray(o, minLen)
   }
 
@@ -145,11 +132,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function _createForOfIteratorHelper(o, allowArrayLike) {
     var it
 
-    if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
       if (
         Array.isArray(o) ||
         (it = _unsupportedIterableToArray(o)) ||
-        (allowArrayLike && o && typeof o.length === "number")
+        (allowArrayLike && o && typeof o.length === 'number')
       ) {
         if (it) o = it
         var i = 0
@@ -176,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       throw new TypeError(
-        "Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
+        'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
       )
     }
 
@@ -215,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(Animation, null, [
       {
-        key: "slideUp",
+        key: 'slideUp',
 
         /**
          * Slide up aims to close an element. To do that, we take the height of the element, and set it to 0 to
@@ -223,34 +210,26 @@ document.addEventListener("DOMContentLoaded", function () {
          */
         value: function slideUp(element, callback) {
           var propertyToAnimate =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : "height"
-          element.style[propertyToAnimate] = "".concat(
-            element.scrollHeight,
-            "px"
-          ) // Force previous height to allow CSS transition
+            arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'height'
+          element.style[propertyToAnimate] = ''.concat(element.scrollHeight, 'px') // Force previous height to allow CSS transition
 
           element.offsetHeight // Force redraw
 
           element.style[propertyToAnimate] = 0
 
           if (animationQueue[element.id]) {
-            element.removeEventListener(
-              "transitionend",
-              animationQueue[element.id]
-            )
+            element.removeEventListener('transitionend', animationQueue[element.id])
             delete animationQueue[element.id]
           }
 
           var transitionEnded = function transitionEnded(event) {
-            if (event.propertyName === "height") {
-              element.removeEventListener("transitionend", transitionEnded)
+            if (event.propertyName === 'height') {
+              element.removeEventListener('transitionend', transitionEnded)
               ;(callback || function () {})()
             }
           }
 
-          element.addEventListener("transitionend", transitionEnded)
+          element.addEventListener('transitionend', transitionEnded)
         },
         /**
          * Slide down aims to open an element. To do that, you must make sure that the element you are trying to open
@@ -258,35 +237,30 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "slideDown",
+        key: 'slideDown',
         value: function slideDown(element, callback) {
           var propertyToAnimate =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : "height"
+            arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'height'
           // To do the animation we temporarily hide it, check the height, and transition to it
-          element.style[propertyToAnimate] = "".concat(
-            element.scrollHeight,
-            "px"
-          )
+          element.style[propertyToAnimate] = ''.concat(element.scrollHeight, 'px')
 
           var transitionEnded = function transitionEnded(event) {
             if (event.propertyName === propertyToAnimate) {
-              var defaultValue = "auto"
+              var defaultValue = 'auto'
 
-              if (propertyToAnimate === "max-height") {
-                defaultValue = "none"
+              if (propertyToAnimate === 'max-height') {
+                defaultValue = 'none'
               }
 
               element.style[propertyToAnimate] = defaultValue // Allows the content to grow normally
 
-              element.removeEventListener("transitionend", transitionEnded)
+              element.removeEventListener('transitionend', transitionEnded)
               delete animationQueue[element.id]
               ;(callback || function () {})()
             }
           }
 
-          element.addEventListener("transitionend", transitionEnded)
+          element.addEventListener('transitionend', transitionEnded)
           animationQueue[element.id] = transitionEnded
         },
       },
@@ -305,16 +279,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(Dom, null, [
       {
-        key: "getSiblings",
+        key: 'getSiblings',
 
         /**
          * Get all the previous and next siblings, optionally filtered by a selector
          */
         value: function getSiblings(element, filter) {
           var includeSelf =
-            arguments.length > 2 && arguments[2] !== undefined
-              ? arguments[2]
-              : false
+            arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false
           var siblings = []
           var currentElement = element // Do the previous first
 
@@ -345,21 +317,19 @@ document.addEventListener("DOMContentLoaded", function () {
   })()
 
   var commonjsGlobal =
-    typeof globalThis !== "undefined"
+    typeof globalThis !== 'undefined'
       ? globalThis
-      : typeof window !== "undefined"
-      ? window
-      : typeof global !== "undefined"
-      ? global
-      : typeof self !== "undefined"
-      ? self
-      : {}
+      : typeof window !== 'undefined'
+        ? window
+        : typeof global !== 'undefined'
+          ? global
+          : typeof self !== 'undefined'
+            ? self
+            : {}
 
   function getDefaultExportFromCjs(x) {
-    return x &&
-      x.__esModule &&
-      Object.prototype.hasOwnProperty.call(x, "default")
-      ? x["default"]
+    return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default')
+      ? x['default']
       : x
   }
 
@@ -369,10 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
         path: basedir,
         exports: {},
         require: function (path, base) {
-          return commonjsRequire(
-            path,
-            base === undefined || base === null ? module.path : base
-          )
+          return commonjsRequire(path, base === undefined || base === null ? module.path : base)
         },
       }),
       fn(module, module.exports),
@@ -381,16 +348,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function commonjsRequire() {
-    throw new Error(
-      "Dynamic requires are not currently supported by @rollup/plugin-commonjs"
-    )
+    throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs')
   }
 
   var browser = createCommonjsModule(function (module, exports) {
-    Object.defineProperty(exports, "__esModule", {
+    Object.defineProperty(exports, '__esModule', {
       value: true,
     })
-    exports["default"] = void 0
+    exports['default'] = void 0
     /**
      * DOM event delegator
      *
@@ -484,11 +449,7 @@ document.addEventListener("DOMContentLoaded", function () {
      */
 
     Delegate.prototype.captureForType = function (eventType) {
-      return (
-        ["blur", "error", "focus", "load", "resize", "scroll"].indexOf(
-          eventType
-        ) !== -1
-      )
+      return ['blur', 'error', 'focus', 'load', 'resize', 'scroll'].indexOf(eventType) !== -1
     }
     /**
      * Attach a handler to one
@@ -516,23 +477,18 @@ document.addEventListener("DOMContentLoaded", function () {
      * @returns {Delegate} This method is chainable
      */
 
-    Delegate.prototype.on = function (
-      eventType,
-      selector,
-      handler,
-      useCapture
-    ) {
+    Delegate.prototype.on = function (eventType, selector, handler, useCapture) {
       var root
       var listenerMap
       var matcher
       var matcherParam
 
       if (!eventType) {
-        throw new TypeError("Invalid event type: " + eventType)
+        throw new TypeError('Invalid event type: ' + eventType)
       } // handler can be passed as
       // the second or third argument
 
-      if (typeof selector === "function") {
+      if (typeof selector === 'function') {
         useCapture = handler
         handler = selector
         selector = null
@@ -543,8 +499,8 @@ document.addEventListener("DOMContentLoaded", function () {
         useCapture = this.captureForType(eventType)
       }
 
-      if (typeof handler !== "function") {
-        throw new TypeError("Handler must be a type of Function")
+      if (typeof handler !== 'function') {
+        throw new TypeError('Handler must be a type of Function')
       }
 
       root = this.rootElement
@@ -593,12 +549,7 @@ document.addEventListener("DOMContentLoaded", function () {
      * @returns {Delegate} This method is chainable
      */
 
-    Delegate.prototype.off = function (
-      eventType,
-      selector,
-      handler,
-      useCapture
-    ) {
+    Delegate.prototype.off = function (eventType, selector, handler, useCapture) {
       var i
       var listener
       var listenerMap
@@ -606,7 +557,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var singleEventType // Handler can be passed as
       // the second or third argument
 
-      if (typeof selector === "function") {
+      if (typeof selector === 'function') {
         useCapture = handler
         handler = selector
         selector = null
@@ -655,11 +606,7 @@ document.addEventListener("DOMContentLoaded", function () {
         delete listenerMap[eventType] // Remove the main handler
 
         if (this.rootElement) {
-          this.rootElement.removeEventListener(
-            eventType,
-            this.handle,
-            useCapture
-          )
+          this.rootElement.removeEventListener(eventType, this.handle, useCapture)
         }
       }
 
@@ -681,7 +628,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var returned
       var listenerList = []
       var target
-      var eventIgnore = "ftLabsDelegateIgnore"
+      var eventIgnore = 'ftLabsDelegateIgnore'
 
       if (event[eventIgnore] === true) {
         return
@@ -746,10 +693,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (
             target.tagName &&
-            ["button", "input", "select", "textarea"].indexOf(
-              target.tagName.toLowerCase()
-            ) > -1 &&
-            target.hasAttribute("disabled")
+            ['button', 'input', 'select', 'textarea'].indexOf(target.tagName.toLowerCase()) > -1 &&
+            target.hasAttribute('disabled')
           ) {
             // Remove things that have previously fired
             toFire = []
@@ -759,9 +704,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // TODO:MCG:20120117: Need a way
           // to check if event#stopImmediatePropagation
           // was called. If so, break both loops.
-          else if (
-            listener.matcher.call(target, listener.matcherParam, target)
-          ) {
+          else if (listener.matcher.call(target, listener.matcherParam, target)) {
             toFire.push([event, target, listener])
           }
         } // TODO:MCG:20120117: Need a way to
@@ -883,8 +826,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var _default = Delegate
-    exports["default"] = _default
-    module.exports = exports["default"]
+    exports['default'] = _default
+    module.exports = exports['default']
   })
   var Delegate = /*@__PURE__*/ getDefaultExportFromCjs(browser)
 
@@ -899,36 +842,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(CollapsibleManager, [
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.domDelegate.on(
-            "click",
+            'click',
             '[data-action="toggle-collapsible"]:not([disabled])',
             this._toggleCollapsible.bind(this)
           )
-          document.addEventListener(
-            "collapsible:toggle",
-            this._toggleCollapsible.bind(this)
-          )
+          document.addEventListener('collapsible:toggle', this._toggleCollapsible.bind(this))
         },
         /**
          * Toggle a given collapsible
          */
       },
       {
-        key: "_toggleCollapsible",
+        key: '_toggleCollapsible',
         value: function _toggleCollapsible(event, target) {
           var _this = this
 
           // If the target is null, it may be because someone has sent the global event "collapsible:toggle". If that the case
           // we can retrieve the toggle button by using the event.detail.id
           if (!target && event.detail) {
-            target = document.querySelector(
-              '[aria-controls="'.concat(event.detail.id, '"]')
-            )
+            target = document.querySelector('[aria-controls="'.concat(event.detail.id, '"]'))
           }
 
-          var isOpen = target.getAttribute("aria-expanded") === "true",
+          var isOpen = target.getAttribute('aria-expanded') === 'true',
             parentCollapsible = target.parentNode
 
           if (isOpen) {
@@ -937,10 +875,8 @@ document.addEventListener("DOMContentLoaded", function () {
             this._open(parentCollapsible)
           } // We make sure to close any siblings collapsible as well
 
-          if (target.getAttribute("data-close-siblings") !== "false") {
-            Dom.getSiblings(parentCollapsible).forEach(function (
-              collapsibleToClose
-            ) {
+          if (target.getAttribute('data-close-siblings') !== 'false') {
+            Dom.getSiblings(parentCollapsible).forEach(function (collapsibleToClose) {
               return _this._close(collapsibleToClose)
             })
           }
@@ -950,33 +886,29 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_open",
+        key: '_open',
         value: function _open(collapsible) {
-          var toggleButton = collapsible.querySelector("[aria-controls]")
+          var toggleButton = collapsible.querySelector('[aria-controls]')
 
-          if (
-            !toggleButton ||
-            toggleButton.getAttribute("aria-expanded") === "true"
-          ) {
+          if (!toggleButton || toggleButton.getAttribute('aria-expanded') === 'true') {
             return // It's already open
           }
 
           var collapsibleContent = collapsible.querySelector(
-            "#".concat(toggleButton.getAttribute("aria-controls"))
+            '#'.concat(toggleButton.getAttribute('aria-controls'))
           )
-          toggleButton.setAttribute("aria-expanded", "true")
+          toggleButton.setAttribute('aria-expanded', 'true')
 
-          if (collapsibleContent.hasAttribute("aria-hidden")) {
-            collapsibleContent.setAttribute("aria-hidden", "false")
+          if (collapsibleContent.hasAttribute('aria-hidden')) {
+            collapsibleContent.setAttribute('aria-hidden', 'false')
           }
 
           Animation.slideDown(collapsibleContent, function () {
-            if (toggleButton.hasAttribute("data-collapsible-force-overflow")) {
-              collapsibleContent.style.overflow = "visible"
+            if (toggleButton.hasAttribute('data-collapsible-force-overflow')) {
+              collapsibleContent.style.overflow = 'visible'
             } // If there is an autofocus field, we focus it
 
-            var autofocusElement =
-              collapsibleContent.querySelector("[autofocus]")
+            var autofocusElement = collapsibleContent.querySelector('[autofocus]')
 
             if (autofocusElement) {
               autofocusElement.focus()
@@ -988,30 +920,27 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_close",
+        key: '_close',
         value: function _close(collapsible) {
-          var toggleButton = collapsible.querySelector("[aria-controls]")
+          var toggleButton = collapsible.querySelector('[aria-controls]')
 
-          if (
-            !toggleButton ||
-            toggleButton.getAttribute("aria-expanded") === "false"
-          ) {
+          if (!toggleButton || toggleButton.getAttribute('aria-expanded') === 'false') {
             return // It's already closed
           }
 
           var collapsibleContent = collapsible.querySelector(
-            "#".concat(toggleButton.getAttribute("aria-controls"))
+            '#'.concat(toggleButton.getAttribute('aria-controls'))
           )
 
-          if (toggleButton.hasAttribute("data-collapsible-force-overflow")) {
-            collapsibleContent.style.overflow = "hidden"
+          if (toggleButton.hasAttribute('data-collapsible-force-overflow')) {
+            collapsibleContent.style.overflow = 'hidden'
           }
 
-          if (collapsibleContent.hasAttribute("aria-hidden")) {
-            collapsibleContent.setAttribute("aria-hidden", "true")
+          if (collapsibleContent.hasAttribute('aria-hidden')) {
+            collapsibleContent.setAttribute('aria-hidden', 'true')
           }
 
-          toggleButton.setAttribute("aria-expanded", "false")
+          toggleButton.setAttribute('aria-expanded', 'false')
           Animation.slideUp(collapsibleContent)
         },
       },
@@ -1036,21 +965,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(CountrySelector, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           if (this.countrySelect) {
-            this.countrySelect.removeEventListener(
-              "change",
-              this._onCountryChangedListener
-            )
+            this.countrySelect.removeEventListener('change', this._onCountryChangedListener)
           }
         },
       },
       {
-        key: "_initSelectors",
+        key: '_initSelectors',
         value: function _initSelectors() {
           // Check first the default value of country
-          var defaultCountry = this.countrySelect.getAttribute("data-default")
+          var defaultCountry = this.countrySelect.getAttribute('data-default')
 
           if (defaultCountry) {
             for (var i = 0; i !== this.countrySelect.options.length; ++i) {
@@ -1063,12 +989,12 @@ document.addEventListener("DOMContentLoaded", function () {
             this.countrySelect.selectedIndex = 0
           }
 
-          var event = new Event("change", {
+          var event = new Event('change', {
             bubbles: true,
           })
           this.countrySelect.dispatchEvent(event) // Then the province
 
-          var defaultProvince = this.provinceSelect.getAttribute("data-default")
+          var defaultProvince = this.provinceSelect.getAttribute('data-default')
 
           if (defaultProvince) {
             for (var _i = 0; _i !== this.provinceSelect.options.length; ++_i) {
@@ -1081,44 +1007,36 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._onCountryChangedListener = this._onCountryChanged.bind(this)
-          this.countrySelect.addEventListener(
-            "change",
-            this._onCountryChangedListener
-          )
+          this.countrySelect.addEventListener('change', this._onCountryChangedListener)
         },
       },
       {
-        key: "_onCountryChanged",
+        key: '_onCountryChanged',
         value: function _onCountryChanged() {
           var _this = this
 
-          var selectedOption =
-            this.countrySelect.options[this.countrySelect.selectedIndex]
+          var selectedOption = this.countrySelect.options[this.countrySelect.selectedIndex]
 
           if (!selectedOption) {
             return
           }
 
-          var provinces = JSON.parse(
-            selectedOption.getAttribute("data-provinces") || "[]"
-          ) // First remove all options
+          var provinces = JSON.parse(selectedOption.getAttribute('data-provinces') || '[]') // First remove all options
 
-          this.provinceSelect.innerHTML = ""
+          this.provinceSelect.innerHTML = ''
 
           if (provinces.length === 0) {
-            this.provinceSelect.closest(".form__input-wrapper").style.display =
-              "none"
+            this.provinceSelect.closest('.form__input-wrapper').style.display = 'none'
             return
           } // We need to build the provinces array
 
           provinces.forEach(function (data) {
             _this.provinceSelect.options.add(new Option(data[1], data[0]))
           })
-          this.provinceSelect.closest(".form__input-wrapper").style.display =
-            "block"
+          this.provinceSelect.closest('.form__input-wrapper').style.display = 'block'
         },
       },
     ])
@@ -1133,68 +1051,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(Responsive, null, [
       {
-        key: "matchesBreakpoint",
+        key: 'matchesBreakpoint',
         value: function matchesBreakpoint(breakpoint) {
           switch (breakpoint) {
-            case "phone":
-              return window.matchMedia("screen and (max-width: 640px)").matches
+            case 'phone':
+              return window.matchMedia('screen and (max-width: 640px)').matches
 
-            case "tablet":
-              return window.matchMedia(
-                "screen and (min-width: 641px) and (max-width: 1023px)"
-              ).matches
-
-            case "tablet-and-up":
-              return window.matchMedia("screen and (min-width: 641px)").matches
-
-            case "pocket":
-              return window.matchMedia("screen and (max-width: 1023px)").matches
-
-            case "lap":
-              return window.matchMedia(
-                "screen and (min-width: 1024px) and (max-width: 1279px)"
-              ).matches
-
-            case "lap-and-up":
-              return window.matchMedia("screen and (min-width: 1024px)").matches
-
-            case "desk":
-              return window.matchMedia("screen and (min-width: 1280px)").matches
-
-            case "widescreen":
-              return window.matchMedia("screen and (min-width: 1440px)").matches
-
-            case "supports-hover":
-              return window.matchMedia("(hover: hover) and (pointer: fine)")
+            case 'tablet':
+              return window.matchMedia('screen and (min-width: 641px) and (max-width: 1023px)')
                 .matches
+
+            case 'tablet-and-up':
+              return window.matchMedia('screen and (min-width: 641px)').matches
+
+            case 'pocket':
+              return window.matchMedia('screen and (max-width: 1023px)').matches
+
+            case 'lap':
+              return window.matchMedia('screen and (min-width: 1024px) and (max-width: 1279px)')
+                .matches
+
+            case 'lap-and-up':
+              return window.matchMedia('screen and (min-width: 1024px)').matches
+
+            case 'desk':
+              return window.matchMedia('screen and (min-width: 1280px)').matches
+
+            case 'widescreen':
+              return window.matchMedia('screen and (min-width: 1440px)').matches
+
+            case 'supports-hover':
+              return window.matchMedia('(hover: hover) and (pointer: fine)').matches
           }
         },
       },
       {
-        key: "getCurrentBreakpoint",
+        key: 'getCurrentBreakpoint',
         value: function getCurrentBreakpoint() {
-          if (window.matchMedia("screen and (max-width: 640px)").matches) {
-            return "phone"
+          if (window.matchMedia('screen and (max-width: 640px)').matches) {
+            return 'phone'
           }
 
-          if (
-            window.matchMedia(
-              "screen and (min-width: 641px) and (max-width: 1023px)"
-            ).matches
-          ) {
-            return "tablet"
+          if (window.matchMedia('screen and (min-width: 641px) and (max-width: 1023px)').matches) {
+            return 'tablet'
           }
 
-          if (
-            window.matchMedia(
-              "screen and (min-width: 1024px) and (max-width: 1279px)"
-            ).matches
-          ) {
-            return "lap"
+          if (window.matchMedia('screen and (min-width: 1024px) and (max-width: 1279px)').matches) {
+            return 'lap'
           }
 
-          if (window.matchMedia("screen and (min-width: 1280px)").matches) {
-            return "desk"
+          if (window.matchMedia('screen and (min-width: 1280px)').matches) {
+            return 'desk'
           }
         },
       },
@@ -1210,12 +1117,12 @@ document.addEventListener("DOMContentLoaded", function () {
       this.element = element
       this.delegateElement = new Delegate(this.element)
       this.delegateRoot = new Delegate(document.documentElement)
-      this.useInlineNavigation = navigationLayout === "inline"
+      this.useInlineNavigation = navigationLayout === 'inline'
       this.isNavigationVisible = this.useInlineNavigation
       this.openTrigger = openTrigger // If we use a device that does not support hover, we force the open trigger to be on click (for instance iPad)
 
-      if (!Responsive.matchesBreakpoint("supports-hover")) {
-        this.openTrigger = "click"
+      if (!Responsive.matchesBreakpoint('supports-hover')) {
+        this.openTrigger = 'click'
       }
 
       this.openItems = []
@@ -1232,14 +1139,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(DesktopNavigation, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateElement.off()
           this.delegateRoot.off()
         },
       },
       {
-        key: "onBlockSelect",
+        key: 'onBlockSelect',
         value: function onBlockSelect(event) {
           var _this = this
 
@@ -1248,7 +1155,7 @@ document.addEventListener("DOMContentLoaded", function () {
           } // We receive a reference to the mega-menu, but for simpler handling, we simulate as if the button was hovered. First, we must close
           // mega-menu if there is already one that is open
 
-          Dom.getSiblings(event.target.parentNode, ".is-dropdown-open").forEach(
+          Dom.getSiblings(event.target.parentNode, '.is-dropdown-open').forEach(
             function (openItem) {
               _this._deactivateDropdown(
                 event,
@@ -1261,7 +1168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "onBlockDeselect",
+        key: 'onBlockDeselect',
         value: function onBlockDeselect(event) {
           if (!this.useInlineNavigation) {
             this._closeNavigation()
@@ -1271,45 +1178,45 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
-          this.delegateElement.on("focusout", this._onFocusOut.bind(this))
-          this.delegateRoot.on("click", this._onClick.bind(this))
+          this.delegateElement.on('focusout', this._onFocusOut.bind(this))
+          this.delegateRoot.on('click', this._onClick.bind(this))
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="toggle-menu"]',
             this._toggleNavigation.bind(this)
           )
 
-          if (this.openTrigger === "hover") {
+          if (this.openTrigger === 'hover') {
             this.delegateElement.on(
-              "focusin",
+              'focusin',
               '[data-type="menuitem"][aria-haspopup]',
               this._activateDropdown.bind(this)
             )
             this.delegateElement.on(
-              "mouseover",
+              'mouseover',
               '[data-type="menuitem"][aria-haspopup]',
               this._activateDropdown.bind(this)
             )
             this.delegateElement.on(
-              "mouseover",
+              'mouseover',
               '[data-type="menu"][aria-hidden="false"]',
               this._blockDropdownDeactivation.bind(this)
             )
             this.delegateElement.on(
-              "focusout",
-              ".is-dropdown-open",
+              'focusout',
+              '.is-dropdown-open',
               this._deactivateDropdown.bind(this)
             )
             this.delegateElement.on(
-              "mouseout",
-              ".is-dropdown-open",
+              'mouseout',
+              '.is-dropdown-open',
               this._deactivateDropdown.bind(this)
             )
           } else {
             this.delegateElement.on(
-              "click",
+              'click',
               '[data-type="menuitem"][aria-haspopup]',
               this._toggleDropdown.bind(this)
             )
@@ -1320,13 +1227,10 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onFocusOut",
+        key: '_onFocusOut',
         value: function _onFocusOut(event) {
           // event.relatedTarget is the new target that receives focus
-          if (
-            event.relatedTarget !== null &&
-            !this.element.contains(event.relatedTarget)
-          ) {
+          if (event.relatedTarget !== null && !this.element.contains(event.relatedTarget)) {
             this._closeNavigation()
           }
         },
@@ -1335,7 +1239,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onClick",
+        key: '_onClick',
         value: function _onClick(event) {
           if (!this.element.contains(event.target)) {
             this._closeNavigation()
@@ -1346,7 +1250,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_openNavigation",
+        key: '_openNavigation',
         value: function _openNavigation() {
           // Inline navigation is always visible so there is nothing to open
           if (this.useInlineNavigation) {
@@ -1355,10 +1259,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           this.element
             .querySelector('[data-action="toggle-menu"]')
-            .setAttribute("aria-expanded", "true")
-          this.element
-            .querySelector('[data-type="menu"]')
-            .setAttribute("aria-hidden", "false")
+            .setAttribute('aria-expanded', 'true')
+          this.element.querySelector('[data-type="menu"]').setAttribute('aria-hidden', 'false')
           this.isNavigationVisible = true
         },
         /**
@@ -1366,22 +1268,20 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_closeNavigation",
+        key: '_closeNavigation',
         value: function _closeNavigation() {
           var _this2 = this
 
           if (!this.useInlineNavigation) {
             this.element
               .querySelector('[data-action="toggle-menu"]')
-              .setAttribute("aria-expanded", "false")
-            this.element
-              .querySelector('[data-type="menu"]')
-              .setAttribute("aria-hidden", "true")
+              .setAttribute('aria-expanded', 'false')
+            this.element.querySelector('[data-type="menu"]').setAttribute('aria-hidden', 'true')
           }
 
           this.isNavigationVisible = false
 
-          if (this.openTrigger === "click") {
+          if (this.openTrigger === 'click') {
             var cloneOpenItems = this.openItems.slice(0)
             cloneOpenItems.forEach(function (item) {
               _this2._deactivateDropdown(event, item)
@@ -1393,7 +1293,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_toggleNavigation",
+        key: '_toggleNavigation',
         value: function _toggleNavigation(event) {
           if (this.isNavigationVisible) {
             this._closeNavigation()
@@ -1406,22 +1306,19 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_toggleDropdown",
+        key: '_toggleDropdown',
         value: function _toggleDropdown(event, target) {
           // If the link is currently not expanded, we block the click
-          if (target.getAttribute("aria-expanded") === "false") {
+          if (target.getAttribute('aria-expanded') === 'false') {
             event.preventDefault()
           }
 
-          if (target.getAttribute("aria-expanded") === "true") {
+          if (target.getAttribute('aria-expanded') === 'true') {
             // If the link target is "#", by convention we close the dropdown, otherwise we just follow the link
-            if (target.getAttribute("href") === "#") {
+            if (target.getAttribute('href') === '#') {
               event.preventDefault()
 
-              this._deactivateDropdown(
-                event,
-                target.closest(".is-dropdown-open")
-              )
+              this._deactivateDropdown(event, target.closest('.is-dropdown-open'))
             }
           } else {
             this._activateDropdown(event, target)
@@ -1432,12 +1329,12 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_activateDropdown",
+        key: '_activateDropdown',
         value: function _activateDropdown(event, target) {
           var _this3 = this
 
           // If we are on click, we first need to close any other dropdown (if needed)
-          if (this.openTrigger === "click") {
+          if (this.openTrigger === 'click') {
             var cloneOpenItems = this.openItems.slice(0)
             cloneOpenItems.forEach(function (item) {
               if (!item.contains(target)) {
@@ -1446,15 +1343,15 @@ document.addEventListener("DOMContentLoaded", function () {
             })
           }
 
-          var menuToOpen = Dom.getSiblings(target, "[aria-hidden]")[0]
+          var menuToOpen = Dom.getSiblings(target, '[aria-hidden]')[0]
 
           var callback = function callback() {
-            target.setAttribute("aria-expanded", "true")
-            target.parentNode.classList.add("is-dropdown-open")
-            menuToOpen.setAttribute("aria-hidden", "false") // If this menu was scheduled for deactivation, we remove the scheduling as it is now meant to open
+            target.setAttribute('aria-expanded', 'true')
+            target.parentNode.classList.add('is-dropdown-open')
+            menuToOpen.setAttribute('aria-hidden', 'false') // If this menu was scheduled for deactivation, we remove the scheduling as it is now meant to open
 
             if (
-              _this3.openTrigger === "hover" &&
+              _this3.openTrigger === 'hover' &&
               _this3.dropdownDeactivationTimeouts[menuToOpen.id]
             ) {
               clearTimeout(_this3.dropdownDeactivationTimeouts[menuToOpen.id])
@@ -1465,42 +1362,36 @@ document.addEventListener("DOMContentLoaded", function () {
             if (_this3.useInlineNavigation) {
               var windowWidth = window.innerWidth,
                 shouldOpenLeft = false
-              menuToOpen
-                .querySelectorAll(".nav-dropdown")
-                .forEach(function (subSubMenu) {
-                  if (subSubMenu.getBoundingClientRect().right > windowWidth) {
-                    shouldOpenLeft = true
-                  }
-                })
+              menuToOpen.querySelectorAll('.nav-dropdown').forEach(function (subSubMenu) {
+                if (subSubMenu.getBoundingClientRect().right > windowWidth) {
+                  shouldOpenLeft = true
+                }
+              })
 
               if (shouldOpenLeft) {
-                menuToOpen.classList.add("nav-dropdown--inverse")
+                menuToOpen.classList.add('nav-dropdown--inverse')
               }
             }
 
-            target
-              .closest('[data-type="menu"]')
-              .classList.add("nav-dropdown--glued")
+            target.closest('[data-type="menu"]').classList.add('nav-dropdown--glued')
 
-            if (menuToOpen.classList.contains("mega-menu")) {
+            if (menuToOpen.classList.contains('mega-menu')) {
               _this3._setupMegaMenu(menuToOpen)
             }
 
-            if (_this3.openTrigger === "click") {
+            if (_this3.openTrigger === 'click') {
               _this3.openItems.push(target.parentNode)
             }
           } // If we are using on click, we can directly close, otherwise we apply a slight delay before closing the menu,
           // so that the deactivation could be cancelled if the mouse is back to the dropdown (which can happen when doing
           // horizontal movement)
 
-          if (this.openTrigger === "click") {
+          if (this.openTrigger === 'click') {
             callback()
           } else {
             // Any other menu that has been scheduled for activation must be deactivated as it's now this one that is supposed to open
             for (var toDeactivate in this.dropdownActivationTimeouts) {
-              if (
-                this.dropdownActivationTimeouts.hasOwnProperty(toDeactivate)
-              ) {
+              if (this.dropdownActivationTimeouts.hasOwnProperty(toDeactivate)) {
                 clearTimeout(this.dropdownActivationTimeouts[toDeactivate])
                 delete this.dropdownActivationTimeouts[toDeactivate]
               }
@@ -1518,43 +1409,34 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_deactivateDropdown",
+        key: '_deactivateDropdown',
         value: function _deactivateDropdown(event, target) {
           var _this4 = this
 
           // event.relatedTarget is the new target. This allows to make sure to only close the dropdown if we leave the containing div
-          if (
-            this.openTrigger === "hover" &&
-            target.contains(event.relatedTarget)
-          ) {
+          if (this.openTrigger === 'hover' && target.contains(event.relatedTarget)) {
             return
           }
 
-          var menuToClose = target.querySelector("[aria-hidden]")
+          var menuToClose = target.querySelector('[aria-hidden]')
 
           var callback = function callback() {
-            target.classList.remove("is-dropdown-open")
-            target
-              .querySelector('[data-type="menuitem"]')
-              .setAttribute("aria-expanded", "false")
-            var menuToClose = target.querySelector("[aria-hidden]")
-            menuToClose.setAttribute("aria-hidden", "true")
-            target
-              .closest('[data-type="menu"]')
-              .classList.remove("nav-dropdown--glued") // If on click, we also close all sub-menus that may be open
+            target.classList.remove('is-dropdown-open')
+            target.querySelector('[data-type="menuitem"]').setAttribute('aria-expanded', 'false')
+            var menuToClose = target.querySelector('[aria-hidden]')
+            menuToClose.setAttribute('aria-hidden', 'true')
+            target.closest('[data-type="menu"]').classList.remove('nav-dropdown--glued') // If on click, we also close all sub-menus that may be open
 
-            if (_this4.openTrigger === "click") {
-              target
-                .querySelectorAll(".is-dropdown-open")
-                .forEach(function (item) {
-                  _this4._deactivateDropdown(event, item)
+            if (_this4.openTrigger === 'click') {
+              target.querySelectorAll('.is-dropdown-open').forEach(function (item) {
+                _this4._deactivateDropdown(event, item)
 
-                  var index = _this4.openItems.indexOf(item)
+                var index = _this4.openItems.indexOf(item)
 
-                  if (index > -1) {
-                    _this4.openItems.splice(index, 1)
-                  }
-                }) // It has been deactivated so we also remove this one
+                if (index > -1) {
+                  _this4.openItems.splice(index, 1)
+                }
+              }) // It has been deactivated so we also remove this one
 
               var index = _this4.openItems.indexOf(target)
 
@@ -1566,16 +1448,13 @@ document.addEventListener("DOMContentLoaded", function () {
           // so that the deactivation could be cancelled if the mouse is back to the dropdown (which can happen when doing
           // horizontal movement)
 
-          if (this.openTrigger === "click") {
+          if (this.openTrigger === 'click') {
             callback()
           } else {
-            this.dropdownDeactivationTimeouts[menuToClose.id] = setTimeout(
-              function () {
-                callback()
-                delete _this4.dropdownDeactivationTimeouts[menuToClose.id]
-              },
-              this.DROPDOWN_TIMEOUT
-            )
+            this.dropdownDeactivationTimeouts[menuToClose.id] = setTimeout(function () {
+              callback()
+              delete _this4.dropdownDeactivationTimeouts[menuToClose.id]
+            }, this.DROPDOWN_TIMEOUT)
           }
         },
         /**
@@ -1585,16 +1464,14 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_blockDropdownDeactivation",
+        key: '_blockDropdownDeactivation',
         value: function _blockDropdownDeactivation(event, target) {
           if (this.dropdownDeactivationTimeouts[target.id] !== undefined) {
             clearTimeout(this.dropdownDeactivationTimeouts[target.id])
             delete this.dropdownDeactivationTimeouts[target.id] // If we blocked the deactivation, then we must also remove any pending menu that could have been scheduled to open
 
             for (var toDeactivate in this.dropdownActivationTimeouts) {
-              if (
-                this.dropdownActivationTimeouts.hasOwnProperty(toDeactivate)
-              ) {
+              if (this.dropdownActivationTimeouts.hasOwnProperty(toDeactivate)) {
                 clearTimeout(this.dropdownActivationTimeouts[toDeactivate])
                 delete this.dropdownActivationTimeouts[toDeactivate]
               }
@@ -1606,15 +1483,15 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_setupMegaMenu",
+        key: '_setupMegaMenu',
         value: function _setupMegaMenu(megaMenu) {
           if (!this.useInlineNavigation) {
-            var navDropdownWidth = megaMenu.closest(".nav-dropdown").clientWidth
+            var navDropdownWidth = megaMenu.closest('.nav-dropdown').clientWidth
             megaMenu.style.maxWidth =
               Math.min(
                 1400 - navDropdownWidth,
                 parseInt(window.innerWidth - navDropdownWidth - 80)
-              ) + "px"
+              ) + 'px'
           }
         },
         /**
@@ -1622,41 +1499,33 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_setupInlineNavigation",
+        key: '_setupInlineNavigation',
         value: function _setupInlineNavigation() {
           var _this5 = this
 
-          this.element
-            .querySelectorAll(".mega-menu")
-            .forEach(function (megaMenu) {
-              megaMenu
-                .closest(".nav-bar__item")
-                .classList.add("nav-bar__item--static")
-            }) // If using the inline navigation, we also set up a mutation observer whenever a sub-sub-dropdown is open, in order
+          this.element.querySelectorAll('.mega-menu').forEach(function (megaMenu) {
+            megaMenu.closest('.nav-bar__item').classList.add('nav-bar__item--static')
+          }) // If using the inline navigation, we also set up a mutation observer whenever a sub-sub-dropdown is open, in order
           // to calculate their distance from the top of the screen, so we can apply a max-height properly
 
-          if ("MutationObserver" in window) {
-            this.dropdownMenuObserver = new MutationObserver(function (
-              mutationList
-            ) {
+          if ('MutationObserver' in window) {
+            this.dropdownMenuObserver = new MutationObserver(function (mutationList) {
               mutationList.forEach(function (mutation) {
-                if (mutation.target.getAttribute("aria-hidden") === "false") {
+                if (mutation.target.getAttribute('aria-hidden') === 'false') {
                   // We set a CSS variable, so we can do various calculation in CSS
                   mutation.target.style.setProperty(
-                    "--distance-to-top",
-                    "".concat(mutation.target.getBoundingClientRect().top, "px")
+                    '--distance-to-top',
+                    ''.concat(mutation.target.getBoundingClientRect().top, 'px')
                   )
                 }
               })
             })
-            this.element
-              .querySelectorAll(".nav-dropdown .nav-dropdown")
-              .forEach(function (item) {
-                _this5.dropdownMenuObserver.observe(item, {
-                  attributes: true,
-                  attributeFilter: ["aria-hidden"],
-                })
+            this.element.querySelectorAll('.nav-dropdown .nav-dropdown').forEach(function (item) {
+              _this5.dropdownMenuObserver.observe(item, {
+                attributes: true,
+                attributeFilter: ['aria-hidden'],
               })
+            })
           }
         },
       },
@@ -1781,7 +1650,7 @@ document.addEventListener("DOMContentLoaded", function () {
          * @return {FastDom}
          */
         extend: function extend(props) {
-          if (_typeof(props) != "object") throw new Error("expected object")
+          if (_typeof(props) != 'object') throw new Error('expected object')
           var child = Object.create(this)
           mixin(child, props)
           child.fastdom = this // run optional creation hook
@@ -1823,9 +1692,9 @@ document.addEventListener("DOMContentLoaded", function () {
         var error
 
         try {
-          debug("flushing reads", reads.length)
+          debug('flushing reads', reads.length)
           runTasks(reads)
-          debug("flushing writes", writes.length)
+          debug('flushing writes', writes.length)
           runTasks(writes)
         } catch (e) {
           error = e
@@ -1836,8 +1705,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (reads.length || writes.length) scheduleFlush(fastdom)
 
         if (error) {
-          debug("task errored", error.message)
-          if (fastdom["catch"]) fastdom["catch"](error)
+          debug('task errored', error.message)
+          if (fastdom['catch']) fastdom['catch'](error)
           else throw error
         }
       }
@@ -1888,14 +1757,14 @@ document.addEventListener("DOMContentLoaded", function () {
       // Expose to CJS & AMD
 
       module.exports = exports
-    })(typeof window !== "undefined" ? window : commonjsGlobal)
+    })(typeof window !== 'undefined' ? window : commonjsGlobal)
   })
 
   var CollectionFilterDrawer = /*#__PURE__*/ (function () {
     function CollectionFilterDrawer(options) {
       _classCallCheck(this, CollectionFilterDrawer)
 
-      this.element = document.getElementById("mobile-collection-filters")
+      this.element = document.getElementById('mobile-collection-filters')
       this.delegateRoot = new Delegate(document.documentElement)
       this.options = options
       this.isOpen = false
@@ -1907,40 +1776,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(CollectionFilterDrawer, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateRoot.off()
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.delegateRoot.on(
-            "click",
+            'click',
             '[aria-controls="mobile-collection-filters"][data-action="open-drawer"]',
             this.open.bind(this)
           )
           this.delegateRoot.on(
-            "click",
+            'click',
             '#mobile-collection-filters [data-action="close-drawer"]',
             this.close.bind(this)
           )
-          document.addEventListener(
-            "collection-filter:close",
-            this.close.bind(this)
-          )
-          document.addEventListener(
-            "click",
-            this._detectOutsideClick.bind(this)
-          )
-          window.addEventListener(
-            "resize",
-            this._computeDrawerHeight.bind(this)
-          )
+          document.addEventListener('collection-filter:close', this.close.bind(this))
+          document.addEventListener('click', this._detectOutsideClick.bind(this))
+          window.addEventListener('resize', this._computeDrawerHeight.bind(this))
         },
       },
       {
-        key: "open",
+        key: 'open',
         value: function open(event) {
           if (event) {
             event.stopPropagation()
@@ -1951,15 +1811,13 @@ document.addEventListener("DOMContentLoaded", function () {
           this.isOpen = true
           document
             .querySelector('[aria-controls="mobile-collection-filters"]')
-            .setAttribute("aria-expanded", "true")
-          document
-            .getElementById("mobile-collection-filters")
-            .setAttribute("aria-hidden", "false")
-          document.body.classList.add("no-mobile-scroll")
+            .setAttribute('aria-expanded', 'true')
+          document.getElementById('mobile-collection-filters').setAttribute('aria-hidden', 'false')
+          document.body.classList.add('no-mobile-scroll')
         },
       },
       {
-        key: "close",
+        key: 'close',
         value: function close(event) {
           if (event) {
             event.stopPropagation()
@@ -1968,21 +1826,19 @@ document.addEventListener("DOMContentLoaded", function () {
           this.isOpen = false
           document
             .querySelector('[aria-controls="mobile-collection-filters"]')
-            .setAttribute("aria-expanded", "false")
-          document
-            .getElementById("mobile-collection-filters")
-            .setAttribute("aria-hidden", "true")
-          document.body.classList.remove("no-mobile-scroll")
+            .setAttribute('aria-expanded', 'false')
+          document.getElementById('mobile-collection-filters').setAttribute('aria-hidden', 'true')
+          document.body.classList.remove('no-mobile-scroll')
         },
       },
       {
-        key: "_computeDrawerHeight",
+        key: '_computeDrawerHeight',
         value: function _computeDrawerHeight() {
           document
-            .getElementById("mobile-collection-filters")
-            .querySelector(".collection-drawer").style.maxHeight = "".concat(
+            .getElementById('mobile-collection-filters')
+            .querySelector('.collection-drawer').style.maxHeight = ''.concat(
             window.innerHeight,
-            "px"
+            'px'
           )
         },
         /**
@@ -1990,7 +1846,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_filtersHaveChanged",
+        key: '_filtersHaveChanged',
         value: function _filtersHaveChanged(newFilters) {
           var _this = this
 
@@ -2000,34 +1856,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
           fastdom.mutate(function () {
             // First, we update the filters count
-            var filterCountElement = _this.element.querySelector(
-              ".collection-drawer__filter-count"
-            )
+            var filterCountElement = _this.element.querySelector('.collection-drawer__filter-count')
 
-            filterCountElement.innerText = "(".concat(newFilters.length, ")")
-            filterCountElement.style.display =
-              newFilters.length === 0 ? "none" : "inline" // Then we hide/display the clear tag button
+            filterCountElement.innerText = '('.concat(newFilters.length, ')')
+            filterCountElement.style.display = newFilters.length === 0 ? 'none' : 'inline' // Then we hide/display the clear tag button
 
-            _this.element.querySelector(
-              '[data-action="clear-tags"]'
-            ).style.display = newFilters.length === 0 ? "none" : "block" // Finally, we have to toggle on/off the active filter
+            _this.element.querySelector('[data-action="clear-tags"]').style.display =
+              newFilters.length === 0 ? 'none' : 'block' // Finally, we have to toggle on/off the active filter
 
-            if (_this.options["filterType"] === "group") {
+            if (_this.options['filterType'] === 'group') {
               _this.element
-                .querySelectorAll(".collection__filter-item-active")
+                .querySelectorAll('.collection__filter-item-active')
                 .forEach(function (item) {
                   // We check if this item has an active tag
-                  var parentList = item.closest(".collection__filter-group") // We find if there is associated active data-tag
+                  var parentList = item.closest('.collection__filter-group') // We find if there is associated active data-tag
 
-                  var activeDataTag = parentList.querySelector(
-                    ".is-selected[data-tag]"
-                  )
+                  var activeDataTag = parentList.querySelector('.is-selected[data-tag]')
 
                   if (activeDataTag) {
-                    item.style.display = "block"
-                    item.innerText = activeDataTag.getAttribute("data-tag-user")
+                    item.style.display = 'block'
+                    item.innerText = activeDataTag.getAttribute('data-tag-user')
                   } else {
-                    item.style.display = "none"
+                    item.style.display = 'none'
                   }
                 })
             }
@@ -2035,12 +1885,9 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_detectOutsideClick",
+        key: '_detectOutsideClick',
         value: function _detectOutsideClick(event) {
-          if (
-            this.isOpen &&
-            !event.target.closest(".collection-drawer__inner")
-          ) {
+          if (this.isOpen && !event.target.closest('.collection-drawer__inner')) {
             this.close()
           }
         },
@@ -2057,14 +1904,11 @@ document.addEventListener("DOMContentLoaded", function () {
       this.element = element
       this.delegateElement = new Delegate(this.element)
       this.rootDelegateElement = new Delegate(document.body)
-      this.options = JSON.parse(element.getAttribute("data-popup-settings"))
+      this.options = JSON.parse(element.getAttribute('data-popup-settings'))
       this.hasOpenOnceInCurrentPage = false // If the popup has been already displayed, we do not display it
 
       try {
-        if (
-          window.location.hash === "#exit-popup" &&
-          window.theme.pageType !== "captcha"
-        ) {
+        if (window.location.hash === '#exit-popup' && window.theme.pageType !== 'captcha') {
           this._openPopup()
         }
       } catch (error) {
@@ -2076,34 +1920,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ExitPopup, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateElement.off()
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           var _this = this
 
           this._onKeyPressedListener = this._onKeyPressed.bind(this)
           /* Some browsers like Android emit a mouseleave event when opening keyboard. This is too unreliable for touch devices */
 
-          if (!Responsive.matchesBreakpoint("supports-hover")) {
+          if (!Responsive.matchesBreakpoint('supports-hover')) {
             return
           }
 
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="close-popup"]',
             this._closePopup.bind(this)
           )
-          document.body.addEventListener("mouseleave", function () {
+          document.body.addEventListener('mouseleave', function () {
             if (!_this.hasOpenOnceInCurrentPage) {
               if (
-                !_this.options["showOnlyOnce"] ||
-                (_this.options["showOnlyOnce"] &&
-                  localStorage.getItem("themeExitPopup") === null)
+                !_this.options['showOnlyOnce'] ||
+                (_this.options['showOnlyOnce'] && localStorage.getItem('themeExitPopup') === null)
               ) {
                 _this._openPopup()
               }
@@ -2113,42 +1956,39 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_openPopup",
+        key: '_openPopup',
         value: function _openPopup() {
           if (!window.theme.isNewsletterPopupOpen) {
-            this.element.setAttribute("aria-hidden", "false")
-            localStorage.setItem("themeExitPopup", "true")
+            this.element.setAttribute('aria-hidden', 'false')
+            localStorage.setItem('themeExitPopup', 'true')
             this.hasOpenOnceInCurrentPage = true
             window.theme.isExitPopupOpen = true
-            this.delegateElement.on("click", this._clickOutsideListener)
-            this.rootDelegateElement.on("keyup", this._onKeyPressedListener)
+            this.delegateElement.on('click', this._clickOutsideListener)
+            this.rootDelegateElement.on('keyup', this._onKeyPressedListener)
           }
         },
       },
       {
-        key: "_closePopup",
+        key: '_closePopup',
         value: function _closePopup() {
-          this.element.setAttribute("aria-hidden", "true")
+          this.element.setAttribute('aria-hidden', 'true')
           window.theme.isExitPopupOpen = false
-          this.delegateElement.off("click", this._clickOutsideListener)
-          this.rootDelegateElement.off("keyup", this._onKeyPressedListener)
+          this.delegateElement.off('click', this._clickOutsideListener)
+          this.rootDelegateElement.off('keyup', this._onKeyPressedListener)
         },
       },
       {
-        key: "_checkClickOutside",
+        key: '_checkClickOutside',
         value: function _checkClickOutside(event) {
-          if (
-            !this.element.contains(event.target) ||
-            this.element === event.target
-          ) {
+          if (!this.element.contains(event.target) || this.element === event.target) {
             this._closePopup()
           }
         },
       },
       {
-        key: "_onKeyPressed",
+        key: '_onKeyPressed',
         value: function _onKeyPressed(event) {
-          if (event.key === "Escape") {
+          if (event.key === 'Escape') {
             this._closePopup()
           }
         },
@@ -2167,49 +2007,37 @@ document.addEventListener("DOMContentLoaded", function () {
     function LoadingBar() {
       _classCallCheck(this, LoadingBar)
 
-      this.element = document.querySelector(".loading-bar")
+      this.element = document.querySelector('.loading-bar')
 
       if (this.element) {
-        document.addEventListener(
-          "theme:loading:start",
-          this._onLoadingStart.bind(this)
-        )
-        document.addEventListener(
-          "theme:loading:end",
-          this._onLoadingEnd.bind(this)
-        )
-        this.element.addEventListener(
-          "transitionend",
-          this._onTransitionEnd.bind(this)
-        )
+        document.addEventListener('theme:loading:start', this._onLoadingStart.bind(this))
+        document.addEventListener('theme:loading:end', this._onLoadingEnd.bind(this))
+        this.element.addEventListener('transitionend', this._onTransitionEnd.bind(this))
       }
     }
 
     _createClass(LoadingBar, [
       {
-        key: "_onLoadingStart",
+        key: '_onLoadingStart',
         value: function _onLoadingStart() {
-          this.element.classList.add("is-visible")
-          this.element.style.width = "40%"
+          this.element.classList.add('is-visible')
+          this.element.style.width = '40%'
         },
       },
       {
-        key: "_onLoadingEnd",
+        key: '_onLoadingEnd',
         value: function _onLoadingEnd() {
-          this.element.style.width = "100%"
-          this.element.classList.add("is-finished")
+          this.element.style.width = '100%'
+          this.element.classList.add('is-finished')
         },
       },
       {
-        key: "_onTransitionEnd",
+        key: '_onTransitionEnd',
         value: function _onTransitionEnd(event) {
-          if (
-            event.propertyName === "width" &&
-            this.element.classList.contains("is-finished")
-          ) {
-            this.element.classList.remove("is-visible")
-            this.element.classList.remove("is-finished")
-            this.element.style.width = "0"
+          if (event.propertyName === 'width' && this.element.classList.contains('is-finished')) {
+            this.element.classList.remove('is-visible')
+            this.element.classList.remove('is-finished')
+            this.element.style.width = '0'
           }
         },
       },
@@ -2225,7 +2053,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(Accessibility, null, [
       {
-        key: "trapFocus",
+        key: 'trapFocus',
 
         /**
          * Traps the focus in a particular container
@@ -2233,45 +2061,41 @@ document.addEventListener("DOMContentLoaded", function () {
         value: function trapFocus(container, namespace) {
           this.listeners = this.listeners || {} // We check if there is an element with the attribute "autofocus"
 
-          var elementToFocus =
-            container.querySelector("[autofocus]") || container
-          container.setAttribute("tabindex", "-1")
+          var elementToFocus = container.querySelector('[autofocus]') || container
+          container.setAttribute('tabindex', '-1')
           elementToFocus.focus()
 
           this.listeners[namespace] = function (event) {
-            if (
-              container !== event.target &&
-              !container.contains(event.target)
-            ) {
+            if (container !== event.target && !container.contains(event.target)) {
               elementToFocus.focus()
             }
           }
 
-          document.addEventListener("focusin", this.listeners[namespace])
+          document.addEventListener('focusin', this.listeners[namespace])
         },
         /**
          * Removes the trap of focus in a particular container
          */
       },
       {
-        key: "removeTrapFocus",
+        key: 'removeTrapFocus',
         value: function removeTrapFocus(container, namespace) {
           if (container) {
-            container.removeAttribute("tabindex")
+            container.removeAttribute('tabindex')
           }
 
-          document.removeEventListener("focusin", this.listeners[namespace])
+          document.removeEventListener('focusin', this.listeners[namespace])
         },
         /**
          * Reset any previous trap focus
          */
       },
       {
-        key: "clearTrapFocus",
+        key: 'clearTrapFocus',
         value: function clearTrapFocus() {
           for (var key in this.listeners) {
             if (this.listeners.hasOwnProperty(key)) {
-              document.removeEventListener("focusin", this.listeners[key])
+              document.removeEventListener('focusin', this.listeners[key])
             }
           }
 
@@ -2300,10 +2124,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return
       }
 
-      this.miniCartElement = this.element.querySelector(".mini-cart")
+      this.miniCartElement = this.element.querySelector('.mini-cart')
       this.isMiniCartOpen = false
 
-      if (window.theme.pageType !== "cart" && this.miniCartElement) {
+      if (window.theme.pageType !== 'cart' && this.miniCartElement) {
         this.miniCartToggleElement = this.element.querySelector(
           '[aria-controls="'.concat(this.miniCartElement.id, '"]')
         )
@@ -2318,69 +2142,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(Cart, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateElement.off()
           this.delegateRoot.off()
-          window.removeEventListener(
-            "resize",
-            this._calculateMiniCartHeightListener
-          )
+          window.removeEventListener('resize', this._calculateMiniCartHeightListener)
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
-          this._calculateMiniCartHeightListener =
-            this._calculateMiniCartHeight.bind(this)
+          this._calculateMiniCartHeightListener = this._calculateMiniCartHeight.bind(this)
 
-          if (
-            window.theme.pageType !== "cart" &&
-            window.theme.cartType !== "page"
-          ) {
+          if (window.theme.pageType !== 'cart' && window.theme.cartType !== 'page') {
             this.delegateElement.on(
-              "click",
+              'click',
               '[data-action="toggle-mini-cart"]',
               this._toggleMiniCart.bind(this)
             )
-            this.delegateRoot.on("click", this._onWindowClick.bind(this))
-            window.addEventListener(
-              "resize",
-              this._calculateMiniCartHeightListener
-            )
+            this.delegateRoot.on('click', this._onWindowClick.bind(this))
+            window.addEventListener('resize', this._calculateMiniCartHeightListener)
           }
 
           this.delegateRoot.on(
-            "click",
+            'click',
             '[data-action="decrease-quantity"]',
             this._updateQuantity.bind(this)
           )
           this.delegateRoot.on(
-            "click",
+            'click',
             '[data-action="increase-quantity"]',
             this._updateQuantity.bind(this)
           )
           this.delegateRoot.on(
-            "change",
-            ".quantity-selector:not(.quantity-selector--product) .quantity-selector__value",
+            'change',
+            '.quantity-selector:not(.quantity-selector--product) .quantity-selector__value',
             this._updateQuantity.bind(this)
           )
           this.delegateRoot.on(
-            "keyup",
-            ".quantity-selector:not(.quantity-selector--product) .quantity-selector__value",
+            'keyup',
+            '.quantity-selector:not(.quantity-selector--product) .quantity-selector__value',
             this._updateQuantitySize.bind(this)
           )
           this.delegateRoot.on(
-            "keydown",
-            ".quantity-selector__value",
+            'keydown',
+            '.quantity-selector__value',
             this._blockEnterKey.bind(this)
           )
-          this.delegateRoot.on("product:added", this._onProductAdded.bind(this))
-          this.delegateRoot.on("cart:refresh", this._onCartRefresh.bind(this))
+          this.delegateRoot.on('product:added', this._onProductAdded.bind(this))
+          this.delegateRoot.on('cart:refresh', this._onCartRefresh.bind(this))
         },
       },
       {
-        key: "_toggleMiniCart",
+        key: '_toggleMiniCart',
         value: function _toggleMiniCart(event) {
           if (event) {
             event.preventDefault()
@@ -2394,75 +2208,69 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_openMiniCart",
+        key: '_openMiniCart',
         value: function _openMiniCart() {
-          this.miniCartToggleElement.setAttribute("aria-expanded", "true") // If we are on mobile phone we also set the aria-expanded attribute to true on the icon state holder
+          this.miniCartToggleElement.setAttribute('aria-expanded', 'true') // If we are on mobile phone we also set the aria-expanded attribute to true on the icon state holder
 
-          if (Responsive.getCurrentBreakpoint() === "phone") {
+          if (Responsive.getCurrentBreakpoint() === 'phone') {
             this.miniCartToggleElement
-              .querySelector(".header__cart-icon")
-              .setAttribute("aria-expanded", "true")
+              .querySelector('.header__cart-icon')
+              .setAttribute('aria-expanded', 'true')
           } // Finally also set aria-hidden to false on controlled element
 
-          this.miniCartElement.setAttribute("aria-hidden", "false")
+          this.miniCartElement.setAttribute('aria-hidden', 'false')
           this.isMiniCartOpen = true
 
           this._calculateMiniCartHeight() // Trap the focus
 
-          Accessibility.trapFocus(this.miniCartElement, "mini-cart")
-          document.body.classList.add("no-mobile-scroll")
+          Accessibility.trapFocus(this.miniCartElement, 'mini-cart')
+          document.body.classList.add('no-mobile-scroll')
         },
       },
       {
-        key: "_closeMiniCart",
+        key: '_closeMiniCart',
         value: function _closeMiniCart() {
-          this.miniCartToggleElement.setAttribute("aria-expanded", "false") // If we are on mobile phone we also set the aria-expanded attribute to true on the icon state holder
+          this.miniCartToggleElement.setAttribute('aria-expanded', 'false') // If we are on mobile phone we also set the aria-expanded attribute to true on the icon state holder
 
-          if (Responsive.getCurrentBreakpoint() === "phone") {
+          if (Responsive.getCurrentBreakpoint() === 'phone') {
             this.miniCartToggleElement
-              .querySelector(".header__cart-icon")
-              .setAttribute("aria-expanded", "false")
-            this.miniCartElement.style.maxHeight = ""
+              .querySelector('.header__cart-icon')
+              .setAttribute('aria-expanded', 'false')
+            this.miniCartElement.style.maxHeight = ''
           } // Finally also set aria-hidden to false on controlled element
 
-          this.miniCartElement.setAttribute("aria-hidden", "true")
+          this.miniCartElement.setAttribute('aria-hidden', 'true')
           this.isMiniCartOpen = false
-          document.body.classList.remove("no-mobile-scroll")
+          document.body.classList.remove('no-mobile-scroll')
         },
       },
       {
-        key: "_calculateMiniCartHeight",
+        key: '_calculateMiniCartHeight',
         value: function _calculateMiniCartHeight() {
-          if (Responsive.getCurrentBreakpoint() === "phone") {
+          if (Responsive.getCurrentBreakpoint() === 'phone') {
             if (this.isMiniCartOpen) {
               var maxHeight =
                 window.innerHeight -
-                document.querySelector(".header").getBoundingClientRect().bottom
-              this.miniCartElement.style.maxHeight = "".concat(maxHeight, "px") // We also need to calculate the content part height to avoid any issue on Chrome
+                document.querySelector('.header').getBoundingClientRect().bottom
+              this.miniCartElement.style.maxHeight = ''.concat(maxHeight, 'px') // We also need to calculate the content part height to avoid any issue on Chrome
 
-              var miniCartContentElement = this.miniCartElement.querySelector(
-                  ".mini-cart__content"
-                ),
-                miniCartRecapElement =
-                  this.miniCartElement.querySelector(".mini-cart__recap")
+              var miniCartContentElement =
+                  this.miniCartElement.querySelector('.mini-cart__content'),
+                miniCartRecapElement = this.miniCartElement.querySelector('.mini-cart__recap')
 
               if (miniCartRecapElement) {
-                miniCartContentElement.style.maxHeight = "".concat(
+                miniCartContentElement.style.maxHeight = ''.concat(
                   maxHeight - miniCartRecapElement.clientHeight,
-                  "px"
+                  'px'
                 )
               }
             } else {
-              this.miniCartElement.style.maxHeight = ""
-              this.miniCartElement.querySelector(
-                ".mini-cart__content"
-              ).style.maxHeight = ""
+              this.miniCartElement.style.maxHeight = ''
+              this.miniCartElement.querySelector('.mini-cart__content').style.maxHeight = ''
             }
           } else {
-            this.miniCartElement.style.maxHeight = ""
-            this.miniCartElement.querySelector(
-              ".mini-cart__content"
-            ).style.maxHeight = ""
+            this.miniCartElement.style.maxHeight = ''
+            this.miniCartElement.querySelector('.mini-cart__content').style.maxHeight = ''
           }
         },
         /**
@@ -2470,49 +2278,49 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_updateQuantity",
+        key: '_updateQuantity',
         value: function _updateQuantity(event, target) {
           var _this = this
 
           var parsedQuantity = 1
 
-          if (target.tagName === "INPUT") {
+          if (target.tagName === 'INPUT') {
             parsedQuantity = parseInt(target.value)
           } else {
-            parsedQuantity = parseInt(target.getAttribute("data-quantity"))
+            parsedQuantity = parseInt(target.getAttribute('data-quantity'))
           } // If we are in "page" mode, we reload the page instead of doing that in Ajax to have a better compatibility with apps
 
-          if (window.theme.cartType === "page") {
-            if (target.hasAttribute("data-href")) {
-              window.location.href = target.getAttribute("data-href")
+          if (window.theme.cartType === 'page') {
+            if (target.hasAttribute('data-href')) {
+              window.location.href = target.getAttribute('data-href')
             } else {
-              window.location.href = ""
-                .concat(window.routes.cartChangeUrl, "?id=")
-                .concat(target.getAttribute("data-line-id"), "&quantity=")
+              window.location.href = ''
+                .concat(window.routes.cartChangeUrl, '?id=')
+                .concat(target.getAttribute('data-line-id'), '&quantity=')
                 .concat(parsedQuantity)
             }
 
             return
           }
 
-          document.dispatchEvent(new CustomEvent("theme:loading:start"))
-          fetch("".concat(window.routes.cartChangeUrl, ".js"), {
+          document.dispatchEvent(new CustomEvent('theme:loading:start'))
+          fetch(''.concat(window.routes.cartChangeUrl, '.js'), {
             body: JSON.stringify({
-              id: target.getAttribute("data-line-id"),
+              id: target.getAttribute('data-line-id'),
               quantity: parsedQuantity,
             }),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (cart) {
             cart.json().then(function (content) {
-              _this.itemCount = content["item_count"]
+              _this.itemCount = content['item_count']
 
               _this._rerender(false).then(function () {
-                document.dispatchEvent(new CustomEvent("theme:loading:end"))
+                document.dispatchEvent(new CustomEvent('theme:loading:end'))
               })
             })
           })
@@ -2520,15 +2328,15 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_updateQuantitySize",
+        key: '_updateQuantitySize',
         value: function _updateQuantitySize(event, target) {
-          target.setAttribute("size", Math.max(target.value.length, 2))
+          target.setAttribute('size', Math.max(target.value.length, 2))
         },
       },
       {
-        key: "_blockEnterKey",
+        key: '_blockEnterKey',
         value: function _blockEnterKey(event) {
-          if (event.key === "Enter") {
+          if (event.key === 'Enter') {
             return false
           }
         },
@@ -2540,58 +2348,47 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_rerender",
+        key: '_rerender',
         value: function _rerender() {
           var _this2 = this
 
-          var scrollToTop =
-            arguments.length > 0 && arguments[0] !== undefined
-              ? arguments[0]
-              : true
+          var scrollToTop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true
           // Note: appending a timestamp is necessary as the polyfill on IE11 and lower does not support the "cache" property
-          var url = ""
+          var url = ''
 
-          if (window.theme.pageType !== "cart") {
-            url = ""
-              .concat(window.routes.cartUrl, "?view=mini-cart&timestamp=")
-              .concat(Date.now())
+          if (window.theme.pageType !== 'cart') {
+            url = ''.concat(window.routes.cartUrl, '?view=mini-cart&timestamp=').concat(Date.now())
           } else {
-            url = ""
-              .concat(window.routes.cartUrl, "?timestamp=")
-              .concat(Date.now())
+            url = ''.concat(window.routes.cartUrl, '?timestamp=').concat(Date.now())
           }
 
           return fetch(url, {
-            credentials: "same-origin",
-            method: "GET",
+            credentials: 'same-origin',
+            method: 'GET',
           }).then(function (content) {
             content.text().then(function (html) {
               // We extract the data-item-count from the returned element
-              var myDiv = document.createElement("div")
+              var myDiv = document.createElement('div')
               myDiv.innerHTML = html
 
               if (
                 myDiv.firstElementChild &&
-                myDiv.firstElementChild.hasAttribute("data-item-count")
+                myDiv.firstElementChild.hasAttribute('data-item-count')
               ) {
-                _this2.itemCount = parseInt(
-                  myDiv.firstElementChild.getAttribute("data-item-count")
-                )
+                _this2.itemCount = parseInt(myDiv.firstElementChild.getAttribute('data-item-count'))
               }
 
-              _this2.element.querySelector(".header__cart-count").textContent =
-                _this2.itemCount
+              _this2.element.querySelector('.header__cart-count').textContent = _this2.itemCount
 
-              if (window.theme.cartType !== "page") {
-                if (window.theme.pageType !== "cart") {
+              if (window.theme.cartType !== 'page') {
+                if (window.theme.pageType !== 'cart') {
                   // Note: we could use outerHTML here but outerHTML does not update the reference to new object
-                  var tempElement = document.createElement("div")
+                  var tempElement = document.createElement('div')
                   tempElement.innerHTML = html // When we re-render, we need to preserve the scroll position when content changes
 
-                  var miniCartItemListElement =
-                      _this2.miniCartElement.querySelector(
-                        ".mini-cart__line-item-list"
-                      ),
+                  var miniCartItemListElement = _this2.miniCartElement.querySelector(
+                      '.mini-cart__line-item-list'
+                    ),
                     scrollPosition = null
 
                   if (miniCartItemListElement) {
@@ -2599,12 +2396,11 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
 
                   _this2.miniCartElement.innerHTML =
-                    tempElement.querySelector(".mini-cart").innerHTML
+                    tempElement.querySelector('.mini-cart').innerHTML
 
-                  var newMiniCartItemListElement =
-                    _this2.miniCartElement.querySelector(
-                      ".mini-cart__line-item-list"
-                    )
+                  var newMiniCartItemListElement = _this2.miniCartElement.querySelector(
+                    '.mini-cart__line-item-list'
+                  )
 
                   if (newMiniCartItemListElement && scrollPosition !== null) {
                     newMiniCartItemListElement.scrollTop = scrollPosition
@@ -2614,17 +2410,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                   _this2._calculateMiniCartHeight()
 
-                  _this2.element.dispatchEvent(
-                    new CustomEvent("cart:rerendered")
-                  )
+                  _this2.element.dispatchEvent(new CustomEvent('cart:rerendered'))
                 } else {
                   // The replacement of the DOM here could be made better and more resilient (maybe exploring using a virtual DOM approach in future?)
-                  var _tempElement = document.createElement("div")
+                  var _tempElement = document.createElement('div')
 
                   _tempElement.innerHTML = html
-                  var originalCart = document.querySelector(
-                    '[data-section-type="cart"]'
-                  )
+                  var originalCart = document.querySelector('[data-section-type="cart"]')
                   originalCart.innerHTML = _tempElement.querySelector(
                     '[data-section-type="cart"]'
                   ).innerHTML
@@ -2632,7 +2424,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   if (scrollToTop) {
                     window.scrollTo({
                       top: 0,
-                      behavior: "smooth",
+                      behavior: 'smooth',
                     })
                   } // Reload the Shopify Review badges
 
@@ -2642,7 +2434,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
 
                   _this2.element.dispatchEvent(
-                    new CustomEvent("cart:rerendered", {
+                    new CustomEvent('cart:rerendered', {
                       bubbles: true,
                     })
                   )
@@ -2656,17 +2448,12 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_checkMiniCartScrollability",
+        key: '_checkMiniCartScrollability',
         value: function _checkMiniCartScrollability() {
-          var miniCartItemList = this.miniCartElement.querySelector(
-            ".mini-cart__line-item-list"
-          )
+          var miniCartItemList = this.miniCartElement.querySelector('.mini-cart__line-item-list')
 
-          if (
-            miniCartItemList &&
-            miniCartItemList.scrollHeight > miniCartItemList.clientHeight
-          ) {
-            miniCartItemList.classList.add("is-scrollable")
+          if (miniCartItemList && miniCartItemList.scrollHeight > miniCartItemList.clientHeight) {
+            miniCartItemList.classList.add('is-scrollable')
           }
         },
         /**
@@ -2674,7 +2461,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onProductAdded",
+        key: '_onProductAdded',
         value: function _onProductAdded(event) {
           var _this3 = this
 
@@ -2682,31 +2469,23 @@ document.addEventListener("DOMContentLoaded", function () {
           /* Add the quantity added */
 
           this._onCartRefresh().then(function () {
-            if (window.theme.pageType !== "cart") {
+            if (window.theme.pageType !== 'cart') {
               // If we don't have the sticky header enabled, we scroll to top to make sure it is visible
-              if (
-                window.theme.cartType === "drawer" &&
-                !_this3.options["useStickyHeader"]
-              ) {
+              if (window.theme.cartType === 'drawer' && !_this3.options['useStickyHeader']) {
                 window.scrollTo({
                   top: 0,
-                  behavior: "smooth",
+                  behavior: 'smooth',
                 })
               }
 
-              if (window.theme.cartType === "message" && event.detail.button) {
-                event.detail.button.innerHTML =
-                  window.languages.productAddedShort
+              if (window.theme.cartType === 'message' && event.detail.button) {
+                event.detail.button.innerHTML = window.languages.productAddedShort
                 setTimeout(function () {
-                  event.detail.button.innerHTML =
-                    window.languages.productFormAddToCart
+                  event.detail.button.innerHTML = window.languages.productFormAddToCart
                 }, 1500)
               }
 
-              if (
-                window.theme.pageType !== "cart" &&
-                window.theme.cartType === "drawer"
-              ) {
+              if (window.theme.pageType !== 'cart' && window.theme.cartType === 'drawer') {
                 _this3._openMiniCart()
               }
             }
@@ -2717,7 +2496,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onCartRefresh",
+        key: '_onCartRefresh',
         value: function _onCartRefresh(event) {
           var scrollToTop = true
 
@@ -2726,7 +2505,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           return this._rerender(scrollToTop).then(function () {
-            document.dispatchEvent(new CustomEvent("theme:loading:end"))
+            document.dispatchEvent(new CustomEvent('theme:loading:end'))
           })
         },
         /**
@@ -2734,13 +2513,9 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onWindowClick",
+        key: '_onWindowClick',
         value: function _onWindowClick(event) {
-          if (
-            this.miniCartElement &&
-            this.isMiniCartOpen &&
-            !this.element.contains(event.target)
-          ) {
+          if (this.miniCartElement && this.isMiniCartOpen && !this.element.contains(event.target)) {
             this._closeMiniCart()
           }
         },
@@ -2757,7 +2532,7 @@ document.addEventListener("DOMContentLoaded", function () {
       this.element = element
       this.delegateElement = new Delegate(this.element)
       this.delegateRoot = new Delegate(document.documentElement)
-      this.mobileMenuElement = this.element.querySelector(".mobile-menu")
+      this.mobileMenuElement = this.element.querySelector('.mobile-menu')
       this.mobileMenuToggleElement = this.element.querySelector(
         '[aria-controls="'.concat(this.mobileMenuElement.id, '"]')
       )
@@ -2768,102 +2543,88 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(MobileNavigation, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateElement.off()
           this.delegateRoot.off()
-          window.removeEventListener("resize", this._calculatMaxHeightListener)
+          window.removeEventListener('resize', this._calculatMaxHeightListener)
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._calculatMaxHeightListener = this._calculateMaxHeight.bind(this)
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="toggle-menu"]',
             this._toggleMenu.bind(this)
           )
+          this.delegateElement.on('click', '[data-action="open-panel"]', this._openPanel.bind(this))
           this.delegateElement.on(
-            "click",
-            '[data-action="open-panel"]',
-            this._openPanel.bind(this)
-          )
-          this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="close-panel"]',
             this._closePanel.bind(this)
           )
-          this.delegateRoot.on("click", this._onWindowClick.bind(this))
-          window.addEventListener("resize", this._calculatMaxHeightListener)
+          this.delegateRoot.on('click', this._onWindowClick.bind(this))
+          window.addEventListener('resize', this._calculatMaxHeightListener)
         },
       },
       {
-        key: "_toggleMenu",
+        key: '_toggleMenu',
         value: function _toggleMenu() {
           this.isOpen = !this.isOpen
-          this.mobileMenuToggleElement.setAttribute(
-            "aria-expanded",
-            this.isOpen ? "true" : "false"
-          )
-          this.mobileMenuElement.setAttribute(
-            "aria-hidden",
-            this.isOpen ? "false" : "true"
-          )
+          this.mobileMenuToggleElement.setAttribute('aria-expanded', this.isOpen ? 'true' : 'false')
+          this.mobileMenuElement.setAttribute('aria-hidden', this.isOpen ? 'false' : 'true')
 
           if (!this.isOpen) {
-            this.mobileMenuElement.style.maxHeight = "" // If closed, we need to close all sub-menus
+            this.mobileMenuElement.style.maxHeight = '' // If closed, we need to close all sub-menus
 
-            this.element
-              .querySelectorAll(".mobile-menu__panel.is-open")
-              .forEach(function (item) {
-                item.classList.remove("is-open")
-              })
-            document.body.classList.remove("no-mobile-scroll")
+            this.element.querySelectorAll('.mobile-menu__panel.is-open').forEach(function (item) {
+              item.classList.remove('is-open')
+            })
+            document.body.classList.remove('no-mobile-scroll')
           } else {
             // We need to restrict the height
             this._calculateMaxHeight()
 
-            document.body.classList.add("no-mobile-scroll")
+            document.body.classList.add('no-mobile-scroll')
           }
         },
       },
       {
-        key: "_openPanel",
+        key: '_openPanel',
         value: function _openPanel(event, target) {
-          target.setAttribute("aria-expanded", "true")
+          target.setAttribute('aria-expanded', 'true')
           this.element
-            .querySelector("#".concat(target.getAttribute("aria-controls")))
-            .classList.add("is-open")
+            .querySelector('#'.concat(target.getAttribute('aria-controls')))
+            .classList.add('is-open')
         },
       },
       {
-        key: "_closePanel",
+        key: '_closePanel',
         value: function _closePanel(event, target) {
           // We first get the panel to be closed
-          var panelToClose = target.closest(".mobile-menu__panel.is-open")
-          panelToClose.classList.remove("is-open") // Then update the ARIA attributes for button that control it
+          var panelToClose = target.closest('.mobile-menu__panel.is-open')
+          panelToClose.classList.remove('is-open') // Then update the ARIA attributes for button that control it
 
           this.element
             .querySelector('[aria-controls="'.concat(panelToClose.id, '"]'))
-            .setAttribute("aria-expanded", "false")
+            .setAttribute('aria-expanded', 'false')
         },
       },
       {
-        key: "_calculateMaxHeight",
+        key: '_calculateMaxHeight',
         value: function _calculateMaxHeight() {
           if (this.isOpen) {
-            this.mobileMenuElement.style.maxHeight = "".concat(
-              window.innerHeight -
-                document.querySelector(".header").getBoundingClientRect()
-                  .bottom,
-              "px"
+            this.mobileMenuElement.style.maxHeight = ''.concat(
+              window.innerHeight - document.querySelector('.header').getBoundingClientRect().bottom,
+              'px'
             )
           }
         },
       },
       {
-        key: "_onWindowClick",
+        key: '_onWindowClick',
         value: function _onWindowClick(event) {
           if (this.isOpen && !this.element.contains(event.target)) {
             this._toggleMenu()
@@ -2887,100 +2648,87 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ModalManager, [
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._onKeyPressedListener = this._onKeyPressed.bind(this)
-          this.domDelegate.on(
-            "click",
-            '[data-action="open-modal"]',
-            this._openModal.bind(this)
-          )
-          this.domDelegate.on(
-            "click",
-            '[data-action="close-modal"]',
-            this._closeModal.bind(this)
-          ) // We allow any other code to force closing a modal by listening to the "modal:close" event
+          this.domDelegate.on('click', '[data-action="open-modal"]', this._openModal.bind(this))
+          this.domDelegate.on('click', '[data-action="close-modal"]', this._closeModal.bind(this)) // We allow any other code to force closing a modal by listening to the "modal:close" event
 
-          document.addEventListener("modal:close", this._closeModal.bind(this))
+          document.addEventListener('modal:close', this._closeModal.bind(this))
           this._clickOutsideListener = this._checkClickOutside.bind(this) // If there is already an active modal when the page is loaded, we directly attach the listener on outside click
 
           if (this.activeModal) {
-            document.documentElement.classList.add("is-locked")
-            this.domDelegate.on("click", this._clickOutsideListener)
+            document.documentElement.classList.add('is-locked')
+            this.domDelegate.on('click', this._clickOutsideListener)
           }
         },
       },
       {
-        key: "_openModal",
+        key: '_openModal',
         value: function _openModal(event, target) {
           var _this = this
 
-          var modal = document.querySelector(
-            "#".concat(target.getAttribute("aria-controls"))
-          )
+          var modal = document.querySelector('#'.concat(target.getAttribute('aria-controls')))
 
           if (modal) {
             var onOpen = function onOpen(event) {
-              if (event.propertyName === "visibility") {
-                modal.removeEventListener("transitionend", onOpen)
-                Accessibility.trapFocus(modal, "modal")
+              if (event.propertyName === 'visibility') {
+                modal.removeEventListener('transitionend', onOpen)
+                Accessibility.trapFocus(modal, 'modal')
                 _this.activeModal = modal
               }
             }
 
-            modal.addEventListener("transitionend", onOpen)
-            modal.setAttribute("aria-hidden", "false")
-            document.documentElement.classList.add("is-locked")
-            this.domDelegate.on("click", this._clickOutsideListener)
-            this.domDelegate.on("keyup", this._onKeyPressedListener)
+            modal.addEventListener('transitionend', onOpen)
+            modal.setAttribute('aria-hidden', 'false')
+            document.documentElement.classList.add('is-locked')
+            this.domDelegate.on('click', this._clickOutsideListener)
+            this.domDelegate.on('keyup', this._onKeyPressedListener)
             return false // Prevent the event to be propagated to the clickOutsideListener immediately
           }
         },
       },
       {
-        key: "_closeModal",
+        key: '_closeModal',
         value: function _closeModal() {
           var _this2 = this
 
           if (this.activeModal) {
             var onClose = function onClose(event) {
-              if (event.propertyName === "visibility") {
-                _this2.activeModal.removeEventListener("transitionend", onClose)
+              if (event.propertyName === 'visibility') {
+                _this2.activeModal.removeEventListener('transitionend', onClose)
 
-                Accessibility.removeTrapFocus(_this2.activeModal, "modal") // We emit an event saying it has closed, which can give the option to do cleanup
+                Accessibility.removeTrapFocus(_this2.activeModal, 'modal') // We emit an event saying it has closed, which can give the option to do cleanup
 
-                _this2.activeModal.dispatchEvent(
-                  new CustomEvent("modal:closed")
-                )
+                _this2.activeModal.dispatchEvent(new CustomEvent('modal:closed'))
 
                 _this2.activeModal = null
               }
             }
 
-            this.activeModal.addEventListener("transitionend", onClose)
-            this.activeModal.setAttribute("aria-hidden", "true")
-            document.documentElement.classList.remove("is-locked")
-            this.domDelegate.off("click", this._clickOutsideListener)
-            this.domDelegate.off("keyup", this._onKeyPressedListener)
+            this.activeModal.addEventListener('transitionend', onClose)
+            this.activeModal.setAttribute('aria-hidden', 'true')
+            document.documentElement.classList.remove('is-locked')
+            this.domDelegate.off('click', this._clickOutsideListener)
+            this.domDelegate.off('keyup', this._onKeyPressedListener)
           }
         },
       },
       {
-        key: "_checkClickOutside",
+        key: '_checkClickOutside',
         value: function _checkClickOutside(event) {
           if (
             this.activeModal &&
-            (!this.activeModal.contains(event.target) ||
-              this.activeModal === event.target)
+            (!this.activeModal.contains(event.target) || this.activeModal === event.target)
           ) {
             this._closeModal()
           }
         },
       },
       {
-        key: "_onKeyPressed",
+        key: '_onKeyPressed',
         value: function _onKeyPressed(event) {
-          if (event.key === "Escape") {
+          if (event.key === 'Escape') {
             this._closeModal()
           }
         },
@@ -2997,23 +2745,16 @@ document.addEventListener("DOMContentLoaded", function () {
       this.element = element
       this.delegateElement = new Delegate(this.element)
       this.rootDelegateElement = new Delegate(document.body)
-      this.options = JSON.parse(element.getAttribute("data-popup-settings")) // If the popup has been already displayed, we do not display it
+      this.options = JSON.parse(element.getAttribute('data-popup-settings')) // If the popup has been already displayed, we do not display it
 
       try {
-        if (
-          window.location.hash === "#newsletter-popup" &&
-          window.theme.pageType !== "captcha"
-        ) {
+        if (window.location.hash === '#newsletter-popup' && window.theme.pageType !== 'captcha') {
           this._openPopup()
         } else if (
-          !this.options["showOnlyOnce"] ||
-          (this.options["showOnlyOnce"] &&
-            localStorage.getItem("themePopup") === null)
+          !this.options['showOnlyOnce'] ||
+          (this.options['showOnlyOnce'] && localStorage.getItem('themePopup') === null)
         ) {
-          setTimeout(
-            this._openPopup.bind(this),
-            this.options["apparitionDelay"] * 1000
-          )
+          setTimeout(this._openPopup.bind(this), this.options['apparitionDelay'] * 1000)
         }
       } catch (error) {
         // Some browsers (especially in private mode) throw an exception when trying to access local storage, so we protect ourselves here
@@ -3024,17 +2765,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(NewsletterPopup, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateElement.off()
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._onKeyPressedListener = this._onKeyPressed.bind(this)
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="close-popup"]',
             this._closePopup.bind(this)
           )
@@ -3042,41 +2783,38 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_openPopup",
+        key: '_openPopup',
         value: function _openPopup() {
           if (!window.theme.isExitPopupOpen) {
-            this.element.setAttribute("aria-hidden", "false")
-            localStorage.setItem("themePopup", "true")
+            this.element.setAttribute('aria-hidden', 'false')
+            localStorage.setItem('themePopup', 'true')
             window.theme.isNewsletterPopupOpen = true
-            this.delegateElement.on("click", this._clickOutsideListener)
-            this.rootDelegateElement.on("keyup", this._onKeyPressedListener)
+            this.delegateElement.on('click', this._clickOutsideListener)
+            this.rootDelegateElement.on('keyup', this._onKeyPressedListener)
           }
         },
       },
       {
-        key: "_closePopup",
+        key: '_closePopup',
         value: function _closePopup() {
-          this.element.setAttribute("aria-hidden", "true")
+          this.element.setAttribute('aria-hidden', 'true')
           window.theme.isNewsletterPopupOpen = false
-          this.delegateElement.off("click")
-          this.rootDelegateElement.off("keyup", this._onKeyPressedListener)
+          this.delegateElement.off('click')
+          this.rootDelegateElement.off('keyup', this._onKeyPressedListener)
         },
       },
       {
-        key: "_checkClickOutside",
+        key: '_checkClickOutside',
         value: function _checkClickOutside(event) {
-          if (
-            !this.element.contains(event.target) ||
-            this.element === event.target
-          ) {
+          if (!this.element.contains(event.target) || this.element === event.target) {
             this._closePopup()
           }
         },
       },
       {
-        key: "_onKeyPressed",
+        key: '_onKeyPressed',
         value: function _onKeyPressed(event) {
-          if (event.key === "Escape") {
+          if (event.key === 'Escape') {
             this._closePopup()
           }
         },
@@ -3099,42 +2837,38 @@ document.addEventListener("DOMContentLoaded", function () {
       this.lastKnownY = window.scrollY
       this.currentTop = 0
       this.initialTopOffset =
-        options["offsetTop"] ||
-        parseInt(window.getComputedStyle(this.element).top)
+        options['offsetTop'] || parseInt(window.getComputedStyle(this.element).top)
 
       this._attachListeners()
     }
 
     _createClass(OverflowScroller, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
-          window.removeEventListener("scroll", this._checkPositionListener)
+          window.removeEventListener('scroll', this._checkPositionListener)
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._checkPositionListener = this._checkPosition.bind(this)
-          window.addEventListener("scroll", this._checkPositionListener)
+          window.addEventListener('scroll', this._checkPositionListener)
         },
       },
       {
-        key: "_checkPosition",
+        key: '_checkPosition',
         value: function _checkPosition() {
           var _this = this
 
           fastdom.measure(function () {
             var bounds = _this.element.getBoundingClientRect(),
               maxTop =
-                bounds.top +
-                window.scrollY -
-                _this.element.offsetTop +
-                _this.initialTopOffset,
+                bounds.top + window.scrollY - _this.element.offsetTop + _this.initialTopOffset,
               minTop =
                 _this.element.clientHeight -
                 window.innerHeight +
-                (_this.options["offsetBottom"] || 0)
+                (_this.options['offsetBottom'] || 0)
 
             if (window.scrollY < _this.lastKnownY) {
               _this.currentTop -= window.scrollY - _this.lastKnownY
@@ -3150,7 +2884,7 @@ document.addEventListener("DOMContentLoaded", function () {
             _this.lastKnownY = window.scrollY
           })
           fastdom.mutate(function () {
-            _this.element.style.top = "".concat(_this.currentTop, "px")
+            _this.element.style.top = ''.concat(_this.currentTop, 'px')
           })
         },
       },
@@ -3172,40 +2906,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(PopoverManager, [
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._onLooseFocusListener = this._onLooseFocus.bind(this)
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="toggle-popover"]',
             this._togglePopover.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="show-popover-panel"]',
             this._showPanel.bind(this)
           )
-          this.delegateRoot.on("click", this._onWindowClick.bind(this))
-          document.addEventListener(
-            "popover:close",
-            this._closeActivePopover.bind(this)
-          )
-          window.addEventListener("resize", this._windowResized.bind(this))
+          this.delegateRoot.on('click', this._onWindowClick.bind(this))
+          document.addEventListener('popover:close', this._closeActivePopover.bind(this))
+          window.addEventListener('resize', this._windowResized.bind(this))
         },
       },
       {
-        key: "_togglePopover",
+        key: '_togglePopover',
         value: function _togglePopover(event, target) {
           var hasActivePopover = this.activePopover !== null,
-            previousActivePopoverId = this.activePopover
-              ? this.activePopover.id
-              : null // If the toggler has a "data-follow-link" attribute, we match against the breakpoint and redirect to the page
+            previousActivePopoverId = this.activePopover ? this.activePopover.id : null // If the toggler has a "data-follow-link" attribute, we match against the breakpoint and redirect to the page
 
           if (
-            target.hasAttribute("data-follow-link") &&
-            Responsive.matchesBreakpoint(
-              target.getAttribute("data-follow-link")
-            )
+            target.hasAttribute('data-follow-link') &&
+            Responsive.matchesBreakpoint(target.getAttribute('data-follow-link'))
           ) {
             return
           }
@@ -3216,8 +2943,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (
             !hasActivePopover ||
-            (hasActivePopover &&
-              target.getAttribute("aria-controls") !== previousActivePopoverId)
+            (hasActivePopover && target.getAttribute('aria-controls') !== previousActivePopoverId)
           ) {
             this._openPopover(target)
           }
@@ -3226,96 +2952,81 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_closeActivePopover",
+        key: '_closeActivePopover',
         value: function _closeActivePopover() {
-          this.activePopover.setAttribute("aria-hidden", "true")
+          this.activePopover.setAttribute('aria-hidden', 'true')
           document
-            .querySelector(
-              '[aria-controls="'.concat(this.activePopover.id, '"]')
-            )
-            .setAttribute("aria-expanded", "false")
-          this.activePopover.removeEventListener(
-            "focusout",
-            this._onLooseFocusListener
-          )
+            .querySelector('[aria-controls="'.concat(this.activePopover.id, '"]'))
+            .setAttribute('aria-expanded', 'false')
+          this.activePopover.removeEventListener('focusout', this._onLooseFocusListener)
           this.activePopover = null
         },
       },
       {
-        key: "_openPopover",
+        key: '_openPopover',
         value: function _openPopover(target) {
-          var element = document.getElementById(
-            target.getAttribute("aria-controls")
-          )
-          target.setAttribute("aria-expanded", "true")
-          element.setAttribute("aria-hidden", "false") // If we are on mobile phone we also set the aria-expanded attribute to true on the icon state holder
+          var element = document.getElementById(target.getAttribute('aria-controls'))
+          target.setAttribute('aria-expanded', 'true')
+          element.setAttribute('aria-hidden', 'false') // If we are on mobile phone we also set the aria-expanded attribute to true on the icon state holder
 
-          if (Responsive.getCurrentBreakpoint() === "phone") {
-            element.style.height = "".concat(
-              window.innerHeight -
-                document.querySelector(".header").getBoundingClientRect()
-                  .bottom,
-              "px"
+          if (Responsive.getCurrentBreakpoint() === 'phone') {
+            element.style.height = ''.concat(
+              window.innerHeight - document.querySelector('.header').getBoundingClientRect().bottom,
+              'px'
             )
           } else {
-            element.style.height = "" // If the popover contains a "panel-list", we set the height to the active panel
+            element.style.height = '' // If the popover contains a "panel-list", we set the height to the active panel
 
-            var panelList = element.querySelector(".popover__panel-list")
+            var panelList = element.querySelector('.popover__panel-list')
 
             if (panelList) {
-              panelList.style.height = "".concat(panelList.clientHeight, "px")
+              panelList.style.height = ''.concat(panelList.clientHeight, 'px')
             }
           }
 
           this.activePopover = element
-          this.activePopover.addEventListener(
-            "focusout",
-            this._onLooseFocusListener
-          )
+          this.activePopover.addEventListener('focusout', this._onLooseFocusListener)
         },
       },
       {
-        key: "_showPanel",
+        key: '_showPanel',
         value: function _showPanel(event, target) {
           // If no active popover, we do nothing
           if (!this.activePopover) {
             return
           } // Otherwise we get all the panels within the popover
 
-          var panels = this.activePopover.querySelectorAll(".popover__panel")
+          var panels = this.activePopover.querySelectorAll('.popover__panel')
           panels.forEach(function (panel) {
-            if (panel.id === target.getAttribute("aria-controls")) {
-              panel.classList.add("is-selected")
-              panel.closest(".popover__panel-list").style.height = "".concat(
+            if (panel.id === target.getAttribute('aria-controls')) {
+              panel.classList.add('is-selected')
+              panel.closest('.popover__panel-list').style.height = ''.concat(
                 panel.clientHeight,
-                "px"
+                'px'
               )
             } else {
-              panel.classList.remove("is-selected")
+              panel.classList.remove('is-selected')
             }
           })
         },
       },
       {
-        key: "_onWindowClick",
+        key: '_onWindowClick',
         value: function _onWindowClick(event) {
           if (
-            event.target.getAttribute("data-action") === "toggle-popover" ||
+            event.target.getAttribute('data-action') === 'toggle-popover' ||
             event.target.closest('[data-action="toggle-popover"]')
           ) {
             return
           }
 
-          if (
-            this.activePopover &&
-            !this.activePopover.contains(event.target)
-          ) {
+          if (this.activePopover && !this.activePopover.contains(event.target)) {
             this._closeActivePopover()
           }
         },
       },
       {
-        key: "_onLooseFocus",
+        key: '_onLooseFocus',
         value: function _onLooseFocus(event) {
           if (
             this.activePopover &&
@@ -3327,17 +3038,12 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_windowResized",
+        key: '_windowResized',
         value: function _windowResized() {
-          if (
-            Responsive.getCurrentBreakpoint() === "phone" &&
-            this.activePopover
-          ) {
-            this.activePopover.style.height = "".concat(
-              window.innerHeight -
-                document.querySelector(".header").getBoundingClientRect()
-                  .bottom,
-              "px"
+          if (Responsive.getCurrentBreakpoint() === 'phone' && this.activePopover) {
+            this.activePopover.style.height = ''.concat(
+              window.innerHeight - document.querySelector('.header').getBoundingClientRect().bottom,
+              'px'
             )
           }
         },
@@ -3361,17 +3067,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ProductItemColorSwatch, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateElement.off()
-          window.removeEventListener(
-            "resize",
-            this._recalculateSwatchesListener
-          )
+          window.removeEventListener('resize', this._recalculateSwatchesListener)
         },
       },
       {
-        key: "recalculateSwatches",
+        key: 'recalculateSwatches',
         value: function recalculateSwatches() {
           var _this = this
 
@@ -3381,7 +3084,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // For each swatch list we get the number of swatches, and make sure that we don't display more than 100% of
             // the width
             _this.element
-              .querySelectorAll(".product-item__swatch-list")
+              .querySelectorAll('.product-item__swatch-list')
               .forEach(function (swatchList) {
                 // Get the width of the swatch list (this is 100%)
                 var currentWidth = swatchList.clientWidth,
@@ -3390,17 +3093,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 var maxFit = Math.floor(maxAllowedWidth / 30) // Now, we add a special class to the one after "maxFit"
 
                 fastdom.mutate(function () {
-                  var colorSwatches =
-                    swatchList.querySelectorAll(".color-swatch") // For each, we reset the attributes if needed
+                  var colorSwatches = swatchList.querySelectorAll('.color-swatch') // For each, we reset the attributes if needed
 
                   colorSwatches.forEach(function (colorSwatch, index) {
-                    colorSwatch.classList.remove("color-swatch--view-more")
+                    colorSwatch.classList.remove('color-swatch--view-more')
 
-                    if (
-                      maxFit === index + 1 &&
-                      maxFit !== colorSwatches.length
-                    ) {
-                      colorSwatch.classList.add("color-swatch--view-more")
+                    if (maxFit === index + 1 && maxFit !== colorSwatches.length) {
+                      colorSwatch.classList.add('color-swatch--view-more')
                     }
                   })
                 })
@@ -3409,65 +3108,45 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
-          this._recalculateSwatchesListener =
-            this.recalculateSwatches.bind(this)
+          this._recalculateSwatchesListener = this.recalculateSwatches.bind(this)
           this.delegateElement.on(
-            "change",
-            ".product-item__swatch-list .color-swatch__radio",
+            'change',
+            '.product-item__swatch-list .color-swatch__radio',
             this._colorChanged.bind(this)
           )
-          window.addEventListener("resize", this._recalculateSwatchesListener)
+          window.addEventListener('resize', this._recalculateSwatchesListener)
         },
       },
       {
-        key: "_colorChanged",
+        key: '_colorChanged',
         value: function _colorChanged(event, target) {
           // We need to change the URL of the various links
-          var productItem = target.closest(".product-item"),
-            variantUrl = target.getAttribute("data-variant-url")
-          productItem
-            .querySelector(".product-item__image-wrapper")
-            .setAttribute("href", variantUrl)
-          productItem
-            .querySelector(".product-item__title")
-            .setAttribute("href", variantUrl) // If we have a custom image for the variant, we change it
+          var productItem = target.closest('.product-item'),
+            variantUrl = target.getAttribute('data-variant-url')
+          productItem.querySelector('.product-item__image-wrapper').setAttribute('href', variantUrl)
+          productItem.querySelector('.product-item__title').setAttribute('href', variantUrl) // If we have a custom image for the variant, we change it
 
-          var originalImageElement = productItem.querySelector(
-            ".product-item__primary-image"
-          )
+          var originalImageElement = productItem.querySelector('.product-item__primary-image')
 
           if (
-            target.hasAttribute("data-image-url") &&
-            target.getAttribute("data-media-id") !==
-              originalImageElement.getAttribute("data-media-id")
+            target.hasAttribute('data-image-url') &&
+            target.getAttribute('data-media-id') !==
+              originalImageElement.getAttribute('data-media-id')
           ) {
-            var newImageElement = document.createElement("img")
-            newImageElement.className =
-              "product-item__primary-image lazyload image--fade-in"
-            newImageElement.setAttribute(
-              "data-media-id",
-              target.getAttribute("data-media-id")
-            )
-            newImageElement.setAttribute(
-              "data-src",
-              target.getAttribute("data-image-url")
-            )
-            newImageElement.setAttribute(
-              "data-widths",
-              target.getAttribute("data-image-widths")
-            )
-            newImageElement.setAttribute("data-sizes", "auto") // Replace the original node
+            var newImageElement = document.createElement('img')
+            newImageElement.className = 'product-item__primary-image lazyload image--fade-in'
+            newImageElement.setAttribute('data-media-id', target.getAttribute('data-media-id'))
+            newImageElement.setAttribute('data-src', target.getAttribute('data-image-url'))
+            newImageElement.setAttribute('data-widths', target.getAttribute('data-image-widths'))
+            newImageElement.setAttribute('data-sizes', 'auto') // Replace the original node
 
-            originalImageElement.parentNode.style.paddingBottom = "".concat(
-              100.0 / newImageElement.getAttribute("data-image-aspect-ratio"),
-              "%"
+            originalImageElement.parentNode.style.paddingBottom = ''.concat(
+              100.0 / newImageElement.getAttribute('data-image-aspect-ratio'),
+              '%'
             )
-            originalImageElement.parentNode.replaceChild(
-              newImageElement,
-              originalImageElement
-            )
+            originalImageElement.parentNode.replaceChild(newImageElement, originalImageElement)
           }
         },
       },
@@ -3483,7 +3162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(Currency, null, [
       {
-        key: "formatMoney",
+        key: 'formatMoney',
 
         /**
          * Format money values based on your shop currency settings
@@ -3493,12 +3172,12 @@ document.addEventListener("DOMContentLoaded", function () {
          * @return {String} value - formatted value
          */
         value: function formatMoney(cents, format) {
-          if (typeof cents === "string") {
-            cents = cents.replace(".", "")
+          if (typeof cents === 'string') {
+            cents = cents.replace('.', '')
           }
 
           var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/,
-            formatString = format || "${{amount}}"
+            formatString = format || '${{amount}}'
 
           function defaultTo(value, defaultValue) {
             return value == null || value !== value ? defaultValue : value
@@ -3506,59 +3185,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
           function formatWithDelimiters(number, precision, thousands, decimal) {
             precision = defaultTo(precision, 2)
-            thousands = defaultTo(thousands, ",")
-            decimal = defaultTo(decimal, ".")
+            thousands = defaultTo(thousands, ',')
+            decimal = defaultTo(decimal, '.')
 
             if (isNaN(number) || number == null) {
               return 0
             }
 
             number = (number / 100.0).toFixed(precision)
-            var parts = number.split("."),
-              dollarsAmount = parts[0].replace(
-                /(\d)(?=(\d\d\d)+(?!\d))/g,
-                "$1" + thousands
-              ),
-              centsAmount = parts[1] ? decimal + parts[1] : ""
+            var parts = number.split('.'),
+              dollarsAmount = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+              centsAmount = parts[1] ? decimal + parts[1] : ''
             return dollarsAmount + centsAmount
           }
 
-          var value = ""
+          var value = ''
 
           switch (formatString.match(placeholderRegex)[1]) {
-            case "amount":
+            case 'amount':
               value = formatWithDelimiters(cents, 2)
               break
 
-            case "amount_no_decimals":
+            case 'amount_no_decimals':
               value = formatWithDelimiters(cents, 0)
               break
 
-            case "amount_with_space_separator":
-              value = formatWithDelimiters(cents, 2, " ", ".")
+            case 'amount_with_space_separator':
+              value = formatWithDelimiters(cents, 2, ' ', '.')
               break
 
-            case "amount_no_decimals_with_comma_separator":
-              value = formatWithDelimiters(cents, 0, ",", ".")
+            case 'amount_no_decimals_with_comma_separator':
+              value = formatWithDelimiters(cents, 0, ',', '.')
               break
 
-            case "amount_no_decimals_with_space_separator":
-              value = formatWithDelimiters(cents, 0, " ")
+            case 'amount_no_decimals_with_space_separator':
+              value = formatWithDelimiters(cents, 0, ' ')
               break
 
-            case "amount_with_comma_separator":
-              value = formatWithDelimiters(cents, 2, ".", ",")
+            case 'amount_with_comma_separator':
+              value = formatWithDelimiters(cents, 2, '.', ',')
               break
           }
 
-          if (formatString.indexOf("with_comma_separator") !== -1) {
-            return formatString
-              .replace(placeholderRegex, value)
-              .replace(",00", "")
+          if (formatString.indexOf('with_comma_separator') !== -1) {
+            return formatString.replace(placeholderRegex, value).replace(',00', '')
           } else {
-            return formatString
-              .replace(placeholderRegex, value)
-              .replace(".00", "")
+            return formatString.replace(placeholderRegex, value).replace('.00', '')
           }
         },
       },
@@ -3577,10 +3249,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(Form, null, [
       {
-        key: "serialize",
+        key: 'serialize',
         value: function serialize(form) {
           function stringKey(key, value) {
-            var beginBracket = key.lastIndexOf("[")
+            var beginBracket = key.lastIndexOf('[')
 
             if (beginBracket === -1) {
               var _hash = {}
@@ -3599,7 +3271,7 @@ document.addEventListener("DOMContentLoaded", function () {
           for (var i = 0, len = form.elements.length; i < len; i++) {
             var formElement = form.elements[i]
 
-            if (formElement.name === "" || formElement.disabled) {
+            if (formElement.name === '' || formElement.disabled) {
               continue
             }
 
@@ -3621,7 +3293,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "extend",
+        key: 'extend',
         value: function extend() {
           var extended = {}
           var i = 0 // Merge the object into the extended object
@@ -3630,10 +3302,7 @@ document.addEventListener("DOMContentLoaded", function () {
             for (var prop in obj) {
               if (obj.hasOwnProperty(prop)) {
                 // If property is an object, merge properties
-                if (
-                  Object.prototype.toString.call(obj[prop]) ===
-                  "[object Object]"
-                ) {
+                if (Object.prototype.toString.call(obj[prop]) === '[object Object]') {
                   extended[prop] = Form.extend(extended[prop], obj[prop])
                 } else {
                   extended[prop] = obj[prop]
@@ -3668,55 +3337,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(StoreAvailability, [
       {
-        key: "updateWithVariant",
+        key: 'updateWithVariant',
         value: function updateWithVariant(variant) {
           if (!this.element) {
             return // If the element to inject the store availability does not exist, we return immediately
           } // If the variant is null (for instance unavailable variant), we clear the container
 
           if (!variant) {
-            this.element.textContent = ""
+            this.element.textContent = ''
             return
           } // If we have a new variant we render the section
 
-          this._renderAvailabilitySection(variant["id"])
+          this._renderAvailabilitySection(variant['id'])
         },
       },
       {
-        key: "_renderAvailabilitySection",
+        key: '_renderAvailabilitySection',
         value: function _renderAvailabilitySection(id) {
           var _this = this
 
           // First we clear the previous content
-          this.element.innerHTML = "" // If there is already an element with the given modal we remove it first
+          this.element.innerHTML = '' // If there is already an element with the given modal we remove it first
 
-          var availabilityModal = document.getElementById(
-            "StoreAvailabilityModal-".concat(id)
-          )
+          var availabilityModal = document.getElementById('StoreAvailabilityModal-'.concat(id))
 
           if (availabilityModal) {
             availabilityModal.remove()
           }
 
           return fetch(
-            ""
-              .concat(window.routes.rootUrlWithoutSlash, "/variants/")
-              .concat(id, "?section_id=store-availability")
+            ''
+              .concat(window.routes.rootUrlWithoutSlash, '/variants/')
+              .concat(id, '?section_id=store-availability')
           ).then(function (response) {
             return response.text().then(function (content) {
               _this.element.innerHTML = content // The product title is not rendered so we have to render it manually
 
               var productTitle = _this.element.querySelector(
-                ".store-availabilities-modal__product-title"
+                '.store-availabilities-modal__product-title'
               )
 
               if (productTitle) {
                 productTitle.textContent = _this.productTitle
               } // In order for our modal system to work we have to append the modal to the body instead
 
-              var availabilityModal = document.getElementById(
-                "StoreAvailabilityModal-".concat(id)
-              )
+              var availabilityModal = document.getElementById('StoreAvailabilityModal-'.concat(id))
               document.body.appendChild(availabilityModal)
             })
           })
@@ -3736,35 +3401,33 @@ document.addEventListener("DOMContentLoaded", function () {
       this.element = element
       this.delegateElement = new Delegate(this.element)
       this.options = options
-      var productJsonElement = this.element.querySelector("[data-product-json]") // If we are using placeholder, there is no JSON so we wrap here!
+      var productJsonElement = this.element.querySelector('[data-product-json]') // If we are using placeholder, there is no JSON so we wrap here!
 
       if (productJsonElement) {
         var jsonData = JSON.parse(productJsonElement.innerHTML)
-        this.productData = jsonData["product"]
-        this.productOptionsWithValues = jsonData["options_with_values"]
-        this.variantsInventories = jsonData["inventories"] || {}
+        this.productData = jsonData['product']
+        this.productOptionsWithValues = jsonData['options_with_values']
+        this.variantsInventories = jsonData['inventories'] || {}
         this.variantSelectors = this.element.querySelectorAll(
-          ".product-form__option[data-selector-type]"
+          '.product-form__option[data-selector-type]'
         )
         this.masterSelector = this.element.querySelector(
-          "#product-select-".concat(this.productData["id"])
+          '#product-select-'.concat(this.productData['id'])
         ) // We init value with the first selected variant
 
-        this.productData["variants"].forEach(function (variant) {
-          if (variant["id"] === jsonData["selected_variant_id"]) {
+        this.productData['variants'].forEach(function (variant) {
+          if (variant['id'] === jsonData['selected_variant_id']) {
             _this.currentVariant = variant
-            _this.option1 = variant["option1"]
-            _this.option2 = variant["option2"]
-            _this.option3 = variant["option3"]
+            _this.option1 = variant['option1']
+            _this.option2 = variant['option2']
+            _this.option3 = variant['option3']
           }
         })
       }
 
       this.storeAvailability = new StoreAvailability(
-        this.element.querySelector(
-          ".product-meta__store-availability-container"
-        ),
-        this.productData["title"]
+        this.element.querySelector('.product-meta__store-availability-container'),
+        this.productData['title']
       )
       this.storeAvailability.updateWithVariant(this.currentVariant)
 
@@ -3777,21 +3440,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ProductVariants, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
-          this.delegateElement.off("click")
+          this.delegateElement.off('click')
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.delegateElement.on(
-            "change",
-            ".product-form__single-selector",
+            'change',
+            '.product-form__single-selector',
             this._onOptionChanged.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="add-to-cart"]',
             this._addToCart.bind(this)
           )
@@ -3810,7 +3473,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onVariantChanged",
+        key: '_onVariantChanged',
         value: function _onVariantChanged(previousVariant, newVariant) {
           // 1st: the prices
           this._updateProductPrices(newVariant, previousVariant) // 2th: update inventory
@@ -3830,7 +3493,7 @@ document.addEventListener("DOMContentLoaded", function () {
           this.storeAvailability.updateWithVariant(newVariant) // Finally, we send an event so that other system could hook and do their own logic
 
           this.element.dispatchEvent(
-            new CustomEvent("variant:changed", {
+            new CustomEvent('variant:changed', {
               bubbles: true,
               detail: {
                 variant: newVariant,
@@ -3844,63 +3507,52 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_updateProductPrices",
+        key: '_updateProductPrices',
         value: function _updateProductPrices(newVariant, previousVariant) {
-          var productPrices = this.element.querySelector(".price-list")
+          var productPrices = this.element.querySelector('.price-list')
 
           if (!productPrices) {
             return // Sometimes merchant remove element from the code without taking care of JS... so let's be defensive
           }
 
           if (!newVariant) {
-            productPrices.style.display = "none"
+            productPrices.style.display = 'none'
           } else {
             if (
               previousVariant &&
-              previousVariant["price"] === newVariant["price"] &&
-              previousVariant["compare_at_price"] ===
-                newVariant["compare_at_price"]
+              previousVariant['price'] === newVariant['price'] &&
+              previousVariant['compare_at_price'] === newVariant['compare_at_price']
             ) {
               return // The price do not have changed so let's return to avoid changing the DOM for nothing
             }
 
-            productPrices.innerHTML = ""
+            productPrices.innerHTML = ''
 
-            if (newVariant["compare_at_price"] > newVariant["price"]) {
+            if (newVariant['compare_at_price'] > newVariant['price']) {
               productPrices.innerHTML +=
                 '<span class="price price--highlight"><span class="visually-hidden">'
-                  .concat(window.languages.productSalePrice, "</span>")
+                  .concat(window.languages.productSalePrice, '</span>')
                   .concat(
-                    Currency.formatMoney(
-                      newVariant["price"],
-                      window.theme.moneyFormat
-                    ),
-                    "</span>"
+                    Currency.formatMoney(newVariant['price'], window.theme.moneyFormat),
+                    '</span>'
                   )
               productPrices.innerHTML +=
                 '<span class="price price--compare"><span class="visually-hidden">'
-                  .concat(window.languages.productRegularPrice, "</span>")
+                  .concat(window.languages.productRegularPrice, '</span>')
                   .concat(
-                    Currency.formatMoney(
-                      newVariant["compare_at_price"],
-                      window.theme.moneyFormat
-                    ),
-                    "</span>"
+                    Currency.formatMoney(newVariant['compare_at_price'], window.theme.moneyFormat),
+                    '</span>'
                   )
             } else {
-              productPrices.innerHTML +=
-                '<span class="price"><span class="visually-hidden">'
-                  .concat(window.languages.productSalePrice, "</span>")
-                  .concat(
-                    Currency.formatMoney(
-                      newVariant["price"],
-                      window.theme.moneyFormat
-                    ),
-                    "</span>"
-                  )
+              productPrices.innerHTML += '<span class="price"><span class="visually-hidden">'
+                .concat(window.languages.productSalePrice, '</span>')
+                .concat(
+                  Currency.formatMoney(newVariant['price'], window.theme.moneyFormat),
+                  '</span>'
+                )
             }
 
-            productPrices.style.display = ""
+            productPrices.style.display = ''
           }
         },
         /**
@@ -3908,74 +3560,58 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_updateInventory",
+        key: '_updateInventory',
         value: function _updateInventory(newVariant) {
-          if (!this.options["showInventoryQuantity"] || !newVariant) {
+          if (!this.options['showInventoryQuantity'] || !newVariant) {
             return
           }
 
-          var productFormInventoryElement = this.element.querySelector(
-              ".product-form__inventory"
-            ),
+          var productFormInventoryElement = this.element.querySelector('.product-form__inventory'),
             variantInventoryManagement =
-              this.variantsInventories[newVariant["id"]][
-                "inventory_management"
-              ],
-            variantInventoryPolicy =
-              this.variantsInventories[newVariant["id"]]["inventory_policy"],
+              this.variantsInventories[newVariant['id']]['inventory_management'],
+            variantInventoryPolicy = this.variantsInventories[newVariant['id']]['inventory_policy'],
             variantInventoryQuantity =
-              this.variantsInventories[newVariant["id"]]["inventory_quantity"],
+              this.variantsInventories[newVariant['id']]['inventory_quantity'],
             variantInventoryMessage =
-              this.variantsInventories[newVariant["id"]]["inventory_message"]
+              this.variantsInventories[newVariant['id']]['inventory_message']
 
           if (!productFormInventoryElement) {
             return // Sometimes merchant remove element from the code without taking care of JS... so let's be defensive
           }
 
-          productFormInventoryElement.classList.remove("inventory--high")
-          productFormInventoryElement.classList.remove("inventory--low")
+          productFormInventoryElement.classList.remove('inventory--high')
+          productFormInventoryElement.classList.remove('inventory--low')
 
-          if (newVariant["available"]) {
+          if (newVariant['available']) {
             if (
               null !== variantInventoryManagement &&
-              variantInventoryPolicy === "deny" &&
-              this.options["lowInventoryThreshold"] > 0
+              variantInventoryPolicy === 'deny' &&
+              this.options['lowInventoryThreshold'] > 0
             ) {
-              if (
-                variantInventoryQuantity <=
-                this.options["lowInventoryThreshold"]
-              ) {
-                productFormInventoryElement.classList.add("inventory--low")
+              if (variantInventoryQuantity <= this.options['lowInventoryThreshold']) {
+                productFormInventoryElement.classList.add('inventory--low')
               } else {
-                productFormInventoryElement.classList.add("inventory--high")
+                productFormInventoryElement.classList.add('inventory--high')
               }
             } else {
-              productFormInventoryElement.classList.add("inventory--high")
+              productFormInventoryElement.classList.add('inventory--high')
             }
           } // We also need to update the stock countdown if setup
 
-          var stockCountdown = this.element.querySelector(".inventory-bar")
+          var stockCountdown = this.element.querySelector('.inventory-bar')
 
           if (stockCountdown) {
             var stockCountdownProgress = Math.min(
               Math.max(
                 (variantInventoryQuantity /
-                  parseInt(
-                    stockCountdown.getAttribute("data-stock-countdown-max")
-                  )) *
+                  parseInt(stockCountdown.getAttribute('data-stock-countdown-max'))) *
                   100.0,
                 0
               ),
               100
             )
-            stockCountdown.classList.toggle(
-              "inventory-bar--hidden",
-              stockCountdownProgress === 0
-            )
-            stockCountdown.firstElementChild.style.width = "".concat(
-              stockCountdownProgress,
-              "%"
-            )
+            stockCountdown.classList.toggle('inventory-bar--hidden', stockCountdownProgress === 0)
+            stockCountdown.firstElementChild.style.width = ''.concat(stockCountdownProgress, '%')
           }
 
           productFormInventoryElement.innerHTML = variantInventoryMessage
@@ -3985,30 +3621,25 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_updateSku",
+        key: '_updateSku',
         value: function _updateSku(newVariant, previousVariant) {
-          var productSku = this.element.querySelector(".product-meta__sku")
+          var productSku = this.element.querySelector('.product-meta__sku')
 
           if (!productSku) {
             return
           }
 
-          var productSkuNumber = productSku.querySelector(
-            ".product-meta__sku-number"
-          )
+          var productSkuNumber = productSku.querySelector('.product-meta__sku-number')
 
-          if (!newVariant || newVariant["sku"] === "") {
-            productSku.style.display = "none"
+          if (!newVariant || newVariant['sku'] === '') {
+            productSku.style.display = 'none'
           } else {
-            if (
-              previousVariant &&
-              previousVariant["sku"] === newVariant["sku"]
-            ) {
+            if (previousVariant && previousVariant['sku'] === newVariant['sku']) {
               return // The SKU do not have changed so let's return to avoid changing the DOM for nothing
             }
 
-            productSkuNumber.innerHTML = newVariant["sku"]
-            productSku.style.display = ""
+            productSkuNumber.innerHTML = newVariant['sku']
+            productSku.style.display = ''
           }
         },
         /**
@@ -4016,91 +3647,74 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_updateDiscountLabel",
+        key: '_updateDiscountLabel',
         value: function _updateDiscountLabel(newVariant, previousVariant) {
           if (!window.theme.showDiscount) {
             return // Nothing to do if discount label is configured to be hidden
           }
 
-          var discountLabel = this.element.querySelector(
-            ".product-meta .product-label--on-sale"
-          ) // Some merchants have removed it from the code so we have to act defensive
+          var discountLabel = this.element.querySelector('.product-meta .product-label--on-sale') // Some merchants have removed it from the code so we have to act defensive
 
           if (!discountLabel) {
             return
           }
 
-          if (
-            !newVariant ||
-            !(newVariant["price"] < newVariant["compare_at_price"])
-          ) {
-            discountLabel.style.display = "none"
+          if (!newVariant || !(newVariant['price'] < newVariant['compare_at_price'])) {
+            discountLabel.style.display = 'none'
           } else {
             // We compute the savings based on the setting
             var savings = null
 
-            if (window.theme.discountMode === "percentage") {
-              savings = "".concat(
+            if (window.theme.discountMode === 'percentage') {
+              savings = ''.concat(
                 Math.round(
-                  ((newVariant["compare_at_price"] - newVariant["price"]) *
-                    100) /
-                    newVariant["compare_at_price"]
+                  ((newVariant['compare_at_price'] - newVariant['price']) * 100) /
+                    newVariant['compare_at_price']
                 ),
-                "%"
+                '%'
               )
             } else {
-              savings = "<span>".concat(
+              savings = '<span>'.concat(
                 Currency.formatMoney(
-                  newVariant["compare_at_price"] - newVariant["price"],
+                  newVariant['compare_at_price'] - newVariant['price'],
                   window.theme.moneyFormat
                 ),
-                "</span>"
+                '</span>'
               )
             }
 
-            discountLabel.innerHTML = "".concat(
-              window.languages.collectionOnSaleLabel.replace(
-                "{{savings}}",
-                savings
-              )
+            discountLabel.innerHTML = ''.concat(
+              window.languages.collectionOnSaleLabel.replace('{{savings}}', savings)
             )
-            discountLabel.style.display = "inline-block"
+            discountLabel.style.display = 'inline-block'
           }
         },
       },
       {
-        key: "_updateUnitPrice",
+        key: '_updateUnitPrice',
         value: function _updateUnitPrice(newVariant, previousVariant) {
-          var unitPriceMeasurement = this.element.querySelector(
-            ".unit-price-measurement"
-          )
+          var unitPriceMeasurement = this.element.querySelector('.unit-price-measurement')
 
           if (!unitPriceMeasurement) {
             return // Sometimes merchant remove element from the code without taking care of JS... so let's be defensive
           }
 
-          if (!newVariant || !newVariant["unit_price_measurement"]) {
-            unitPriceMeasurement.parentNode.style.display = "none"
+          if (!newVariant || !newVariant['unit_price_measurement']) {
+            unitPriceMeasurement.parentNode.style.display = 'none'
           } else {
-            unitPriceMeasurement.parentNode.style.display = "block"
+            unitPriceMeasurement.parentNode.style.display = 'block'
+            unitPriceMeasurement.querySelector('.unit-price-measurement__price').innerHTML =
+              Currency.formatMoney(newVariant['unit_price'], window.theme.moneyFormat)
             unitPriceMeasurement.querySelector(
-              ".unit-price-measurement__price"
-            ).innerHTML = Currency.formatMoney(
-              newVariant["unit_price"],
-              window.theme.moneyFormat
-            )
-            unitPriceMeasurement.querySelector(
-              ".unit-price-measurement__reference-unit"
-            ).innerHTML = newVariant["unit_price_measurement"]["reference_unit"]
+              '.unit-price-measurement__reference-unit'
+            ).innerHTML = newVariant['unit_price_measurement']['reference_unit']
             var unitPriceReferenceValue = unitPriceMeasurement.querySelector(
-              ".unit-price-measurement__reference-value"
+              '.unit-price-measurement__reference-value'
             )
             unitPriceReferenceValue.innerHTML =
-              newVariant["unit_price_measurement"]["reference_value"]
+              newVariant['unit_price_measurement']['reference_value']
             unitPriceReferenceValue.style.display =
-              newVariant["unit_price_measurement"]["reference_value"] === 1
-                ? "none"
-                : "inline"
+              newVariant['unit_price_measurement']['reference_value'] === 1 ? 'none' : 'inline'
           }
         },
         /**
@@ -4109,7 +3723,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_updateSelectors",
+        key: '_updateSelectors',
         value: function _updateSelectors(newVariant) {
           var _this2 = this
 
@@ -4121,80 +3735,66 @@ document.addEventListener("DOMContentLoaded", function () {
             valueIndex,
             available
           ) {
-            var selectorType = selector.getAttribute("data-selector-type")
+            var selectorType = selector.getAttribute('data-selector-type')
 
             switch (selectorType) {
-              case "color":
+              case 'color':
                 selector
-                  .querySelector(
-                    ".color-swatch:nth-child(".concat(valueIndex + 1, ")")
-                  )
-                  .classList.toggle("color-swatch--disabled", !available)
+                  .querySelector('.color-swatch:nth-child('.concat(valueIndex + 1, ')'))
+                  .classList.toggle('color-swatch--disabled', !available)
                 break
 
-              case "variant":
+              case 'variant':
                 selector
-                  .querySelector(
-                    ".variant-swatch:nth-child(".concat(valueIndex + 1, ")")
-                  )
-                  .classList.toggle("variant-swatch--disabled", !available)
+                  .querySelector('.variant-swatch:nth-child('.concat(valueIndex + 1, ')'))
+                  .classList.toggle('variant-swatch--disabled', !available)
                 break
 
-              case "block":
+              case 'block':
                 selector
-                  .querySelector(
-                    ".block-swatch:nth-child(".concat(valueIndex + 1, ")")
-                  )
-                  .classList.toggle("block-swatch--disabled", !available)
+                  .querySelector('.block-swatch:nth-child('.concat(valueIndex + 1, ')'))
+                  .classList.toggle('block-swatch--disabled', !available)
                 break
             }
           }
 
           if (this.variantSelectors && this.variantSelectors[0]) {
             // For the first option, the value is considered available if there is at least one variant available
-            this.productOptionsWithValues[0]["values"].forEach(function (
-              value,
-              valueIndex
-            ) {
+            this.productOptionsWithValues[0]['values'].forEach(function (value, valueIndex) {
               applyClassToSelector(
                 _this2.variantSelectors[0],
                 valueIndex,
-                _this2.productData["variants"].some(function (variant) {
-                  return variant["option1"] === value && variant["available"]
+                _this2.productData['variants'].some(function (variant) {
+                  return variant['option1'] === value && variant['available']
                 })
               ) // We now do the second level
 
               if (_this2.variantSelectors[1]) {
-                _this2.productOptionsWithValues[1]["values"].forEach(function (
-                  value,
-                  valueIndex
-                ) {
+                _this2.productOptionsWithValues[1]['values'].forEach(function (value, valueIndex) {
                   applyClassToSelector(
                     _this2.variantSelectors[1],
                     valueIndex,
-                    _this2.productData["variants"].some(function (variant) {
+                    _this2.productData['variants'].some(function (variant) {
                       return (
-                        variant["option2"] === value &&
-                        variant["option1"] === _this2.option1 &&
-                        variant["available"]
+                        variant['option2'] === value &&
+                        variant['option1'] === _this2.option1 &&
+                        variant['available']
                       )
                     })
                   ) // And finally the third level
 
                   if (_this2.variantSelectors[2]) {
-                    _this2.productOptionsWithValues[2]["values"].forEach(
+                    _this2.productOptionsWithValues[2]['values'].forEach(
                       function (value, valueIndex) {
                         applyClassToSelector(
                           _this2.variantSelectors[2],
                           valueIndex,
-                          _this2.productData["variants"].some(function (
-                            variant
-                          ) {
+                          _this2.productData['variants'].some(function (variant) {
                             return (
-                              variant["option3"] === value &&
-                              variant["option1"] === _this2.option1 &&
-                              variant["option2"] === _this2.option2 &&
-                              variant["available"]
+                              variant['option3'] === value &&
+                              variant['option1'] === _this2.option1 &&
+                              variant['option2'] === _this2.option2 &&
+                              variant['available']
                             )
                           })
                         )
@@ -4211,60 +3811,51 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_updateAddToCartButton",
+        key: '_updateAddToCartButton',
         value: function _updateAddToCartButton(newVariant) {
-          var addToCartButtonElement = this.element.querySelector(
-              ".product-form__add-button"
-            ),
-            infoListElement = this.element.querySelector(
-              ".product-form__info-list"
-            )
+          var addToCartButtonElement = this.element.querySelector('.product-form__add-button'),
+            infoListElement = this.element.querySelector('.product-form__info-list')
 
           if (!addToCartButtonElement) {
             return // Sometimes merchant remove element from the code without taking care of JS... so let's be defensive
           }
 
           if (!newVariant) {
-            addToCartButtonElement.setAttribute("disabled", "disabled")
-            addToCartButtonElement.classList.add("button--disabled")
-            addToCartButtonElement.classList.remove("button--primary")
-            addToCartButtonElement.removeAttribute("data-action")
-            addToCartButtonElement.innerHTML =
-              window.languages.productFormUnavailable
-            infoListElement.style.display = "none"
+            addToCartButtonElement.setAttribute('disabled', 'disabled')
+            addToCartButtonElement.classList.add('button--disabled')
+            addToCartButtonElement.classList.remove('button--primary')
+            addToCartButtonElement.removeAttribute('data-action')
+            addToCartButtonElement.innerHTML = window.languages.productFormUnavailable
+            infoListElement.style.display = 'none'
           } else {
-            infoListElement.style.display = "block"
+            infoListElement.style.display = 'block'
 
-            if (newVariant["available"]) {
-              addToCartButtonElement.removeAttribute("disabled")
-              addToCartButtonElement.classList.remove("button--disabled")
-              addToCartButtonElement.classList.add("button--primary")
-              addToCartButtonElement.setAttribute("data-action", "add-to-cart")
-              addToCartButtonElement.innerHTML =
-                window.languages.productFormAddToCart
+            if (newVariant['available']) {
+              addToCartButtonElement.removeAttribute('disabled')
+              addToCartButtonElement.classList.remove('button--disabled')
+              addToCartButtonElement.classList.add('button--primary')
+              addToCartButtonElement.setAttribute('data-action', 'add-to-cart')
+              addToCartButtonElement.innerHTML = window.languages.productFormAddToCart
             } else {
-              addToCartButtonElement.setAttribute("disabled", "disabled")
-              addToCartButtonElement.classList.add("button--disabled")
-              addToCartButtonElement.classList.remove("button--primary")
-              addToCartButtonElement.removeAttribute("data-action")
-              addToCartButtonElement.innerHTML =
-                window.languages.productFormSoldOut
+              addToCartButtonElement.setAttribute('disabled', 'disabled')
+              addToCartButtonElement.classList.add('button--disabled')
+              addToCartButtonElement.classList.remove('button--primary')
+              addToCartButtonElement.removeAttribute('data-action')
+              addToCartButtonElement.innerHTML = window.languages.productFormSoldOut
             }
           } // We handle the smart payment button
 
-          if (this.options["showPaymentButton"]) {
-            var paymentButtonElement = this.element.querySelector(
-              ".shopify-payment-button"
-            )
+          if (this.options['showPaymentButton']) {
+            var paymentButtonElement = this.element.querySelector('.shopify-payment-button')
 
             if (!paymentButtonElement) {
               return // Some apps dynamically remove the dynamic checkout button from the code, so we add a guard here
             }
 
-            if (!newVariant || !newVariant["available"]) {
-              paymentButtonElement.style.display = "none"
+            if (!newVariant || !newVariant['available']) {
+              paymentButtonElement.style.display = 'none'
             } else {
-              paymentButtonElement.style.display = "block"
+              paymentButtonElement.style.display = 'block'
             }
           }
         },
@@ -4279,14 +3870,13 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onOptionChanged",
+        key: '_onOptionChanged',
         value: function _onOptionChanged(event, target) {
-          this["option" + target.getAttribute("data-option-position")] =
-            target.value // We update the selected value
+          this['option' + target.getAttribute('data-option-position')] = target.value // We update the selected value
 
           var selectedValueElement = target
-            .closest(".product-form__option")
-            .querySelector(".product-form__selected-value")
+            .closest('.product-form__option')
+            .querySelector('.product-form__selected-value')
 
           if (selectedValueElement) {
             selectedValueElement.innerHTML = target.value
@@ -4298,27 +3888,25 @@ document.addEventListener("DOMContentLoaded", function () {
           this._onVariantChanged(previousVariant, this.currentVariant)
 
           if (this.currentVariant) {
-            if (this.options["enableHistoryState"] && history.replaceState) {
-              var newUrl = ""
-                .concat(window.location.protocol, "//")
+            if (this.options['enableHistoryState'] && history.replaceState) {
+              var newUrl = ''
+                .concat(window.location.protocol, '//')
                 .concat(window.location.host)
-                .concat(window.location.pathname, "?variant=")
+                .concat(window.location.pathname, '?variant=')
                 .concat(this.currentVariant.id)
               window.history.replaceState(
                 {
                   path: newUrl,
                 },
-                "",
+                '',
                 newUrl
               )
             } // We need to modify the hidden select that contain the id attribute as well
 
+            this.masterSelector.querySelector('[selected]').removeAttribute('selected')
             this.masterSelector
-              .querySelector("[selected]")
-              .removeAttribute("selected")
-            this.masterSelector
-              .querySelector('[value="'.concat(this.currentVariant["id"], '"]'))
-              .setAttribute("selected", "selected")
+              .querySelector('[value="'.concat(this.currentVariant['id'], '"]'))
+              .setAttribute('selected', 'selected')
           }
         },
         /**
@@ -4326,16 +3914,16 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_getCurrentVariantFromOptions",
+        key: '_getCurrentVariantFromOptions',
         value: function _getCurrentVariantFromOptions() {
           var _this3 = this
 
           var found = false
-          this.productData["variants"].forEach(function (variant) {
+          this.productData['variants'].forEach(function (variant) {
             if (
-              variant["option1"] === _this3.option1 &&
-              variant["option2"] === _this3.option2 &&
-              variant["option3"] === _this3.option3
+              variant['option1'] === _this3.option1 &&
+              variant['option2'] === _this3.option2 &&
+              variant['option3'] === _this3.option3
             ) {
               found = variant
             }
@@ -4349,11 +3937,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_addToCart",
+        key: '_addToCart',
         value: function _addToCart(event, target) {
           var _this4 = this
 
-          if (window.theme.cartType === "page") {
+          if (window.theme.cartType === 'page') {
             return // When using a cart type of page, we just simply redirect to the cart page
           }
 
@@ -4361,55 +3949,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
           event.stopPropagation() // First, we switch the status of the button
 
-          target.setAttribute("disabled", "disabled")
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // Then we add the product in Ajax
+          target.setAttribute('disabled', 'disabled')
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // Then we add the product in Ajax
 
-          var formElement = this.element.querySelector(
-            'form[action*="/cart/add"]'
-          )
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          var formElement = this.element.querySelector('form[action*="/cart/add"]')
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (response) {
-            document.dispatchEvent(new CustomEvent("theme:loading:end"))
+            document.dispatchEvent(new CustomEvent('theme:loading:end'))
 
             if (response.ok) {
-              target.removeAttribute("disabled") // We simply trigger an event so the mini-cart can re-render
+              target.removeAttribute('disabled') // We simply trigger an event so the mini-cart can re-render
 
               _this4.element.dispatchEvent(
-                new CustomEvent("product:added", {
+                new CustomEvent('product:added', {
                   bubbles: true,
                   detail: {
                     variant: _this4.currentVariant,
-                    quantity: parseInt(
-                      formElement.querySelector('[name="quantity"]').value
-                    ),
+                    quantity: parseInt(formElement.querySelector('[name="quantity"]').value),
                   },
                 })
               ) // If we are in the context of quick view, we also force closing the modal
 
-              if (
-                _this4.options["isQuickView"] &&
-                window.theme.cartType === "drawer"
-              ) {
-                document.dispatchEvent(new CustomEvent("modal:close"))
+              if (_this4.options['isQuickView'] && window.theme.cartType === 'drawer') {
+                document.dispatchEvent(new CustomEvent('modal:close'))
               }
 
-              if (window.theme.cartType === "message") {
-                _this4._showAlert(
-                  window.languages.productAdded,
-                  "success",
-                  target
-                )
+              if (window.theme.cartType === 'message') {
+                _this4._showAlert(window.languages.productAdded, 'success', target)
               }
             } else {
               response.json().then(function (content) {
-                _this4._showAlert(content["description"], "error", target)
+                _this4._showAlert(content['description'], 'error', target)
               })
             }
           })
@@ -4426,51 +4003,39 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_setupStockCountdown",
+        key: '_setupStockCountdown',
         value: function _setupStockCountdown() {
           var _this5 = this
 
           // If there is an inventory bar, we trigger an intersection observer to add an animation
-          var stockCountdown = this.element.querySelector(".inventory-bar")
+          var stockCountdown = this.element.querySelector('.inventory-bar')
 
           if (stockCountdown) {
             var onStockCountdownVisible = function onStockCountdownVisible() {
               var variantInventoryQuantity =
-                _this5.variantsInventories[_this5.currentVariant["id"]][
-                  "inventory_quantity"
-                ]
+                _this5.variantsInventories[_this5.currentVariant['id']]['inventory_quantity']
               var stockCountdownProgress = Math.min(
                 Math.max(
                   (variantInventoryQuantity /
-                    parseInt(
-                      stockCountdown.getAttribute("data-stock-countdown-max")
-                    )) *
+                    parseInt(stockCountdown.getAttribute('data-stock-countdown-max'))) *
                     100.0,
                   0
                 ),
                 100
               )
-              stockCountdown.classList.toggle(
-                "inventory-bar--hidden",
-                stockCountdownProgress === 0
-              )
-              stockCountdown.firstElementChild.style.width = "".concat(
-                stockCountdownProgress,
-                "%"
-              )
+              stockCountdown.classList.toggle('inventory-bar--hidden', stockCountdownProgress === 0)
+              stockCountdown.firstElementChild.style.width = ''.concat(stockCountdownProgress, '%')
             }
 
             if (window.IntersectionObserver) {
-              var stockCountdownIntersectionObserver = new IntersectionObserver(
-                function (entries) {
-                  entries.forEach(function (item) {
-                    if (item.isIntersecting) {
-                      onStockCountdownVisible()
-                      stockCountdownIntersectionObserver.disconnect()
-                    }
-                  })
-                }
-              )
+              var stockCountdownIntersectionObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (item) {
+                  if (item.isIntersecting) {
+                    onStockCountdownVisible()
+                    stockCountdownIntersectionObserver.disconnect()
+                  }
+                })
+              })
               stockCountdownIntersectionObserver.observe(stockCountdown)
             } else {
               onStockCountdownVisible()
@@ -4479,21 +4044,15 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_showAlert",
+        key: '_showAlert',
         value: function _showAlert(message, type, afterElement) {
-          var messageElement = document.createElement("div")
-          messageElement.className = "product-form__status-message"
+          var messageElement = document.createElement('div')
+          messageElement.className = 'product-form__status-message'
           messageElement.innerHTML = '<p class="alert '
-            .concat(
-              type === "success" ? "alert--success" : "alert--error",
-              '">'
-            )
-            .concat(message, "</p>")
-          afterElement.removeAttribute("disabled")
-          afterElement.parentNode.insertAdjacentElement(
-            "afterend",
-            messageElement
-          )
+            .concat(type === 'success' ? 'alert--success' : 'alert--error', '">')
+            .concat(message, '</p>')
+          afterElement.removeAttribute('disabled')
+          afterElement.parentNode.insertAdjacentElement('afterend', messageElement)
           Animation.slideDown(messageElement)
           setTimeout(function () {
             Animation.slideUp(messageElement, function () {
@@ -4517,84 +4076,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this._attachListeners()
 
-      var stylesheet = document.createElement("link")
-      stylesheet.rel = "stylesheet"
+      var stylesheet = document.createElement('link')
+      stylesheet.rel = 'stylesheet'
       stylesheet.href =
-        "https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+        'https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css'
       document.head.appendChild(stylesheet)
       window.Shopify.loadFeatures([
         {
-          name: "model-viewer-ui",
-          version: "1.0",
+          name: 'model-viewer-ui',
+          version: '1.0',
           onLoad: this._setupModelViewerUI.bind(this),
         },
         {
-          name: "shopify-xr",
-          version: "1.0",
+          name: 'shopify-xr',
+          version: '1.0',
         },
       ])
     }
 
     _createClass(ProductModel, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {},
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           var _this = this
 
           this.element
-            .querySelector("model-viewer")
-            .addEventListener(
-              "shopify_model_viewer_ui_toggle_play",
-              function () {
-                _this.element.dispatchEvent(
-                  new CustomEvent("model:played", {
-                    bubbles: true,
-                  })
-                )
-              }
-            )
+            .querySelector('model-viewer')
+            .addEventListener('shopify_model_viewer_ui_toggle_play', function () {
+              _this.element.dispatchEvent(
+                new CustomEvent('model:played', {
+                  bubbles: true,
+                })
+              )
+            })
           this.element
-            .querySelector("model-viewer")
-            .addEventListener(
-              "shopify_model_viewer_ui_toggle_pause",
-              function () {
-                _this.element.dispatchEvent(
-                  new CustomEvent("model:paused", {
-                    bubbles: true,
-                  })
-                )
-              }
-            )
+            .querySelector('model-viewer')
+            .addEventListener('shopify_model_viewer_ui_toggle_pause', function () {
+              _this.element.dispatchEvent(
+                new CustomEvent('model:paused', {
+                  bubbles: true,
+                })
+              )
+            })
         },
       },
       {
-        key: "hasBeenSelected",
+        key: 'hasBeenSelected',
         value: function hasBeenSelected(isInitialLoading) {
           // As per guidelines, we only need to autoplay when it's not a touch device, and on desktop only if it's not the
           // initial loading
-          if (
-            Responsive.matchesBreakpoint("supports-hover") &&
-            !isInitialLoading
-          ) {
+          if (Responsive.matchesBreakpoint('supports-hover') && !isInitialLoading) {
             this.modelUi.play()
           }
         },
       },
       {
-        key: "hasBeenDeselected",
+        key: 'hasBeenDeselected',
         value: function hasBeenDeselected() {
           // In all cases, we just turn it off
           this.modelUi.pause()
         },
       },
       {
-        key: "_setupModelViewerUI",
+        key: '_setupModelViewerUI',
         value: function _setupModelViewerUI() {
-          this.modelElement = this.element.querySelector("model-viewer")
+          this.modelElement = this.element.querySelector('model-viewer')
           this.modelUi = new window.Shopify.ModelViewerUI(this.modelElement)
         },
       },
@@ -4612,23 +4162,23 @@ document.addEventListener("DOMContentLoaded", function () {
       this.enableVideoLooping = enableVideoLooping
       this.player = null
 
-      switch (this.element.getAttribute("data-media-type")) {
-        case "video":
-          var stylesheet = document.createElement("link")
-          stylesheet.rel = "stylesheet"
+      switch (this.element.getAttribute('data-media-type')) {
+        case 'video':
+          var stylesheet = document.createElement('link')
+          stylesheet.rel = 'stylesheet'
           stylesheet.href =
-            "https://cdn.shopify.com/shopifycloud/shopify-plyr/v1.0/shopify-plyr.css"
+            'https://cdn.shopify.com/shopifycloud/shopify-plyr/v1.0/shopify-plyr.css'
           document.head.appendChild(stylesheet)
           window.Shopify.loadFeatures([
             {
-              name: "video-ui",
-              version: "1.0",
+              name: 'video-ui',
+              version: '1.0',
               onLoad: this._setupHtml5Video.bind(this),
             },
           ])
           break
 
-        case "external_video":
+        case 'external_video':
           this._setupExternalVideo()
 
           break
@@ -4637,7 +4187,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ProductVideo, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           if (this.player) {
             this.player.destroy() // Both Plyr and YouTube API use the same name
@@ -4645,33 +4195,30 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "hasBeenSelected",
+        key: 'hasBeenSelected',
         value: function hasBeenSelected(isInitialLoading) {
           // As per guidelines, we only need to autoplay when it's not a touch device, and on desktop only if it's not the
           // initial loading
-          if (
-            Responsive.matchesBreakpoint("supports-hover") &&
-            !isInitialLoading
-          ) {
+          if (Responsive.matchesBreakpoint('supports-hover') && !isInitialLoading) {
             this.play()
           }
         },
       },
       {
-        key: "hasBeenDeselected",
+        key: 'hasBeenDeselected',
         value: function hasBeenDeselected() {
           this.pause()
         },
       },
       {
-        key: "play",
+        key: 'play',
         value: function play() {
-          switch (this.element.getAttribute("data-media-type")) {
-            case "video":
+          switch (this.element.getAttribute('data-media-type')) {
+            case 'video':
               this.player.play()
               break
 
-            case "external_video":
+            case 'external_video':
               this.player.playVideo() // If we're using YouTube, we have to focus the parent div (as it's not possible to directly focus an iframe)
 
               this.element.focus()
@@ -4680,55 +4227,47 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "pause",
+        key: 'pause',
         value: function pause() {
-          switch (this.element.getAttribute("data-media-type")) {
-            case "video":
+          switch (this.element.getAttribute('data-media-type')) {
+            case 'video':
               this.player.pause()
               break
 
-            case "external_video":
+            case 'external_video':
               this.player.pauseVideo()
               break
           }
         },
       },
       {
-        key: "_setupHtml5Video",
+        key: '_setupHtml5Video',
         value: function _setupHtml5Video() {
           var _this = this
 
-          this.player = new Shopify.Plyr(this.element.querySelector("video"), {
-            controls: [
-              "play",
-              "progress",
-              "mute",
-              "volume",
-              "play-large",
-              "fullscreen",
-            ],
+          this.player = new Shopify.Plyr(this.element.querySelector('video'), {
+            controls: ['play', 'progress', 'mute', 'volume', 'play-large', 'fullscreen'],
             loop: {
               active: this.enableVideoLooping,
             },
             hideControlsOnPause: true,
             clickToPlay: true,
-            iconUrl:
-              "//cdn.shopify.com/shopifycloud/shopify-plyr/v1.0/shopify-plyr.svg",
+            iconUrl: '//cdn.shopify.com/shopifycloud/shopify-plyr/v1.0/shopify-plyr.svg',
             tooltips: {
               controls: false,
               seek: true,
             },
           })
-          this.player.on("play", function () {
+          this.player.on('play', function () {
             _this.element.dispatchEvent(
-              new CustomEvent("video:played", {
+              new CustomEvent('video:played', {
                 bubbles: true,
               })
             )
           })
-          this.player.on("pause", function () {
+          this.player.on('pause', function () {
             _this.element.dispatchEvent(
-              new CustomEvent("video:paused", {
+              new CustomEvent('video:paused', {
                 bubbles: true,
               })
             )
@@ -4736,48 +4275,45 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_setupExternalVideo",
+        key: '_setupExternalVideo',
         value: function _setupExternalVideo() {
-          if (this.element.getAttribute("data-media-host") === "youtube") {
+          if (this.element.getAttribute('data-media-host') === 'youtube') {
             this._loadYouTubeScript().then(this._setupYouTubePlayer.bind(this))
           }
         },
       },
       {
-        key: "_setupYouTubePlayer",
+        key: '_setupYouTubePlayer',
         value: function _setupYouTubePlayer() {
           var _this2 = this
 
           var playerLoadingInterval = setInterval(function () {
             if (window.YT !== undefined && window.YT.Player !== undefined) {
-              _this2.player = new YT.Player(
-                _this2.element.querySelector("iframe"),
-                {
-                  videoId: _this2.element.getAttribute("data-video-id"),
-                  events: {
-                    onStateChange: function onStateChange(event) {
-                      if (event.data === 0 && _this2.enableVideoLooping) {
-                        event.target.seekTo(0)
-                      }
-                    },
+              _this2.player = new YT.Player(_this2.element.querySelector('iframe'), {
+                videoId: _this2.element.getAttribute('data-video-id'),
+                events: {
+                  onStateChange: function onStateChange(event) {
+                    if (event.data === 0 && _this2.enableVideoLooping) {
+                      event.target.seekTo(0)
+                    }
                   },
-                }
-              )
+                },
+              })
               clearInterval(playerLoadingInterval)
             }
           }, 50)
         },
       },
       {
-        key: "_loadYouTubeScript",
+        key: '_loadYouTubeScript',
         value: function _loadYouTubeScript() {
           return new Promise(function (resolve, reject) {
-            var script = document.createElement("script")
+            var script = document.createElement('script')
             document.body.appendChild(script)
             script.onload = resolve
             script.onerror = reject
             script.async = true
-            script.src = "//www.youtube.com/iframe_api"
+            script.src = '//www.youtube.com/iframe_api'
           })
         },
       },
@@ -4807,7 +4343,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Browser globals
         global.EvEmitter = factory()
       }
-    })(typeof window != "undefined" ? window : commonjsGlobal, function () {
+    })(typeof window != 'undefined' ? window : commonjsGlobal, function () {
       function EvEmitter() {}
 
       var proto = EvEmitter.prototype
@@ -4838,8 +4374,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var onceEvents = (this._onceEvents = this._onceEvents || {}) // set onceListeners object
 
-        var onceListeners = (onceEvents[eventName] =
-          onceEvents[eventName] || {}) // set flag
+        var onceListeners = (onceEvents[eventName] = onceEvents[eventName] || {}) // set flag
 
         onceListeners[listener] = true
         return this
@@ -4927,32 +4462,32 @@ document.addEventListener("DOMContentLoaded", function () {
       function getStyleSize(value) {
         var num = parseFloat(value) // not a percent like '100%', and a number
 
-        var isValid = value.indexOf("%") == -1 && !isNaN(num)
+        var isValid = value.indexOf('%') == -1 && !isNaN(num)
         return isValid && num
       }
 
       function noop() {}
 
       var logError =
-        typeof console == "undefined"
+        typeof console == 'undefined'
           ? noop
           : function (message) {
               console.error(message)
             } // -------------------------- measurements -------------------------- //
 
       var measurements = [
-        "paddingLeft",
-        "paddingRight",
-        "paddingTop",
-        "paddingBottom",
-        "marginLeft",
-        "marginRight",
-        "marginTop",
-        "marginBottom",
-        "borderLeftWidth",
-        "borderRightWidth",
-        "borderTopWidth",
-        "borderBottomWidth",
+        'paddingLeft',
+        'paddingRight',
+        'paddingTop',
+        'paddingBottom',
+        'marginLeft',
+        'marginRight',
+        'marginTop',
+        'marginBottom',
+        'borderLeftWidth',
+        'borderRightWidth',
+        'borderTopWidth',
+        'borderBottomWidth',
       ]
       var measurementsLength = measurements.length
 
@@ -4984,10 +4519,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!style) {
           logError(
-            "Style returned " +
+            'Style returned ' +
               style +
-              ". Are you running this code in a hidden iframe on Firefox? " +
-              "See https://bit.ly/getsizebug1"
+              '. Are you running this code in a hidden iframe on Firefox? ' +
+              'See https://bit.ly/getsizebug1'
           )
         }
 
@@ -5015,12 +4550,12 @@ document.addEventListener("DOMContentLoaded", function () {
          * IE11 & Firefox<29 measures the inner-width
          */
 
-        var div = document.createElement("div")
-        div.style.width = "200px"
-        div.style.padding = "1px 2px 3px 4px"
-        div.style.borderStyle = "solid"
-        div.style.borderWidth = "1px 2px 3px 4px"
-        div.style.boxSizing = "border-box"
+        var div = document.createElement('div')
+        div.style.width = '200px'
+        div.style.padding = '1px 2px 3px 4px'
+        div.style.borderStyle = 'solid'
+        div.style.borderWidth = '1px 2px 3px 4px'
+        div.style.boxSizing = 'border-box'
         var body = document.body || document.documentElement
         body.appendChild(div)
         var style = getStyle(div) // round value for browser zoom. desandro/masonry#928
@@ -5033,24 +4568,24 @@ document.addEventListener("DOMContentLoaded", function () {
       function getSize(elem) {
         setup() // use querySeletor if elem is string
 
-        if (typeof elem == "string") {
+        if (typeof elem == 'string') {
           elem = document.querySelector(elem)
         } // do not proceed on non-objects
 
-        if (!elem || _typeof(elem) != "object" || !elem.nodeType) {
+        if (!elem || _typeof(elem) != 'object' || !elem.nodeType) {
           return
         }
 
         var style = getStyle(elem) // if hidden, everything is 0
 
-        if (style.display == "none") {
+        if (style.display == 'none') {
           return getZeroSize()
         }
 
         var size = {}
         size.width = elem.offsetWidth
         size.height = elem.offsetHeight
-        var isBorderBox = (size.isBorderBox = style.boxSizing == "border-box") // get all measurements
+        var isBorderBox = (size.isBorderBox = style.boxSizing == 'border-box') // get all measurements
 
         for (var i = 0; i < measurementsLength; i++) {
           var measurement = measurements[i]
@@ -5116,18 +4651,18 @@ document.addEventListener("DOMContentLoaded", function () {
         var ElemProto = window.Element.prototype // check for the standard method name first
 
         if (ElemProto.matches) {
-          return "matches"
+          return 'matches'
         } // check un-prefixed
 
         if (ElemProto.matchesSelector) {
-          return "matchesSelector"
+          return 'matchesSelector'
         } // check vendor prefixes
 
-        var prefixes = ["webkit", "moz", "ms", "o"]
+        var prefixes = ['webkit', 'moz', 'ms', 'o']
 
         for (var i = 0; i < prefixes.length; i++) {
           var prefix = prefixes[i]
-          var method = prefix + "MatchesSelector"
+          var method = prefix + 'MatchesSelector'
 
           if (ElemProto[method]) {
             return method
@@ -5189,8 +4724,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return []
         }
 
-        var isArrayLike =
-          _typeof(obj) == "object" && typeof obj.length == "number"
+        var isArrayLike = _typeof(obj) == 'object' && typeof obj.length == 'number'
 
         if (isArrayLike) {
           // convert nodeList to array
@@ -5220,7 +4754,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // use element as selector string
 
       utils.getQueryElement = function (elem) {
-        if (typeof elem == "string") {
+        if (typeof elem == 'string') {
           return document.querySelector(elem)
         }
 
@@ -5229,7 +4763,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // enable .ontype to trigger from .addEventListener( elem, 'type' )
 
       utils.handleEvent = function (event) {
-        var method = "on" + event.type
+        var method = 'on' + event.type
 
         if (this[method]) {
           this[method](event)
@@ -5269,7 +4803,7 @@ document.addEventListener("DOMContentLoaded", function () {
         threshold = threshold || 100 // original method
 
         var method = _class.prototype[methodName]
-        var timeoutName = methodName + "Timeout"
+        var timeoutName = methodName + 'Timeout'
 
         _class.prototype[methodName] = function () {
           var timeout = this[timeoutName]
@@ -5288,11 +4822,11 @@ document.addEventListener("DOMContentLoaded", function () {
       utils.docReady = function (callback) {
         var readyState = document.readyState
 
-        if (readyState == "complete" || readyState == "interactive") {
+        if (readyState == 'complete' || readyState == 'interactive') {
           // do async to allow for other scripts to run. metafizzy/flickity#441
           setTimeout(callback)
         } else {
-          document.addEventListener("DOMContentLoaded", callback)
+          document.addEventListener('DOMContentLoaded', callback)
         }
       } // ----- htmlInit ----- //
       // http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
@@ -5300,7 +4834,7 @@ document.addEventListener("DOMContentLoaded", function () {
       utils.toDashed = function (str) {
         return str
           .replace(/(.)([A-Z])/g, function (match, $1, $2) {
-            return $1 + "-" + $2
+            return $1 + '-' + $2
           })
           .toLowerCase()
       }
@@ -5315,17 +4849,14 @@ document.addEventListener("DOMContentLoaded", function () {
       utils.htmlInit = function (WidgetClass, namespace) {
         utils.docReady(function () {
           var dashedNamespace = utils.toDashed(namespace)
-          var dataAttr = "data-" + dashedNamespace
-          var dataAttrElems = document.querySelectorAll("[" + dataAttr + "]")
-          var jsDashElems = document.querySelectorAll(".js-" + dashedNamespace)
-          var elems = utils
-            .makeArray(dataAttrElems)
-            .concat(utils.makeArray(jsDashElems))
-          var dataOptionsAttr = dataAttr + "-options"
+          var dataAttr = 'data-' + dashedNamespace
+          var dataAttrElems = document.querySelectorAll('[' + dataAttr + ']')
+          var jsDashElems = document.querySelectorAll('.js-' + dashedNamespace)
+          var elems = utils.makeArray(dataAttrElems).concat(utils.makeArray(jsDashElems))
+          var dataOptionsAttr = dataAttr + '-options'
           var jQuery = window.jQuery
           elems.forEach(function (elem) {
-            var attr =
-              elem.getAttribute(dataAttr) || elem.getAttribute(dataOptionsAttr)
+            var attr = elem.getAttribute(dataAttr) || elem.getAttribute(dataOptionsAttr)
             var options
 
             try {
@@ -5333,14 +4864,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (error) {
               // log error, do not initialize
               if (console) {
-                console.error(
-                  "Error parsing " +
-                    dataAttr +
-                    " on " +
-                    elem.className +
-                    ": " +
-                    error
-                )
+                console.error('Error parsing ' + dataAttr + ' on ' + elem.className + ': ' + error)
               }
 
               return
@@ -5383,8 +4907,8 @@ document.addEventListener("DOMContentLoaded", function () {
       var proto = Cell.prototype
 
       proto.create = function () {
-        this.element.style.position = "absolute"
-        this.element.setAttribute("aria-hidden", "true")
+        this.element.style.position = 'absolute'
+        this.element.setAttribute('aria-hidden', 'true')
         this.x = 0
         this.shift = 0
       }
@@ -5392,9 +4916,9 @@ document.addEventListener("DOMContentLoaded", function () {
       proto.destroy = function () {
         // reset style
         this.unselect()
-        this.element.style.position = ""
+        this.element.style.position = ''
         var side = this.parent.originSide
-        this.element.style[side] = ""
+        this.element.style[side] = ''
       }
 
       proto.getSize = function () {
@@ -5408,12 +4932,8 @@ document.addEventListener("DOMContentLoaded", function () {
       } // setDefaultTarget v1 method, backwards compatibility, remove in v3
 
       proto.updateTarget = proto.setDefaultTarget = function () {
-        var marginProperty =
-          this.parent.originSide == "left" ? "marginLeft" : "marginRight"
-        this.target =
-          this.x +
-          this.size[marginProperty] +
-          this.size.width * this.parent.cellAlign
+        var marginProperty = this.parent.originSide == 'left' ? 'marginLeft' : 'marginRight'
+        this.target = this.x + this.size[marginProperty] + this.size.width * this.parent.cellAlign
       }
 
       proto.renderPosition = function (x) {
@@ -5423,13 +4943,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       proto.select = function () {
-        this.element.classList.add("is-selected")
-        this.element.removeAttribute("aria-hidden")
+        this.element.classList.add('is-selected')
+        this.element.removeAttribute('aria-hidden')
       }
 
       proto.unselect = function () {
-        this.element.classList.remove("is-selected")
-        this.element.setAttribute("aria-hidden", "true")
+        this.element.classList.remove('is-selected')
+        this.element.setAttribute('aria-hidden', 'true')
       }
       /**
        * @param {Integer} factor - 0, 1, or -1
@@ -5465,7 +4985,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })(window, function factory() {
       function Slide(parent) {
         this.parent = parent
-        this.isOriginLeft = parent.originSide == "left"
+        this.isOriginLeft = parent.originSide == 'left'
         this.cells = []
         this.outerWidth = 0
         this.height = 0
@@ -5481,18 +5001,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (this.cells.length == 1) {
           this.x = cell.x // x comes from first cell
 
-          var beginMargin = this.isOriginLeft ? "marginLeft" : "marginRight"
+          var beginMargin = this.isOriginLeft ? 'marginLeft' : 'marginRight'
           this.firstMargin = cell.size[beginMargin]
         }
       }
 
       proto.updateTarget = function () {
-        var endMargin = this.isOriginLeft ? "marginRight" : "marginLeft"
+        var endMargin = this.isOriginLeft ? 'marginRight' : 'marginLeft'
         var lastCell = this.getLastCell()
         var lastMargin = lastCell ? lastCell.size[endMargin] : 0
         var slideWidth = this.outerWidth - (this.firstMargin + lastMargin)
-        this.target =
-          this.x + this.firstMargin + slideWidth * this.parent.cellAlign
+        this.target = this.x + this.firstMargin + slideWidth * this.parent.cellAlign
       }
 
       proto.getLastCell = function () {
@@ -5586,8 +5105,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // but use 2D when settled, for better font-rendering
 
         this.slider.style.transform = is3d
-          ? "translate3d(" + translateX + ",0,0)"
-          : "translateX(" + translateX + ")"
+          ? 'translate3d(' + translateX + ',0,0)'
+          : 'translateX(' + translateX + ')'
       }
 
       proto.dispatchScrollEvent = function () {
@@ -5599,7 +5118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var positionX = -this.x - firstSlide.target
         var progress = positionX / this.slidesWidth
-        this.dispatchEvent("scroll", null, [progress, positionX])
+        this.dispatchEvent('scroll', null, [progress, positionX])
       }
 
       proto.positionSliderAtSelected = function () {
@@ -5616,21 +5135,16 @@ document.addEventListener("DOMContentLoaded", function () {
       proto.getPositionValue = function (position) {
         if (this.options.percentPosition) {
           // percent position, round to 2 digits, like 12.34%
-          return (
-            Math.round((position / this.size.innerWidth) * 10000) * 0.01 + "%"
-          )
+          return Math.round((position / this.size.innerWidth) * 10000) * 0.01 + '%'
         } else {
           // pixel positioning
-          return Math.round(position) + "px"
+          return Math.round(position) + 'px'
         }
       }
 
       proto.settle = function (previousX) {
         // keep track of frames where x hasn't moved
-        if (
-          !this.isPointerDown &&
-          Math.round(this.x * 100) == Math.round(previousX * 100)
-        ) {
+        if (!this.isPointerDown && Math.round(this.x * 100) == Math.round(previousX * 100)) {
           this.restingFrames++
         } // stop animating if resting for 3 or more frames
 
@@ -5639,7 +5153,7 @@ document.addEventListener("DOMContentLoaded", function () {
           delete this.isFreeScrolling // render position with translateX when settled
 
           this.positionSlider()
-          this.dispatchEvent("settle", null, [this.selectedIndex])
+          this.dispatchEvent('settle', null, [this.selectedIndex])
         }
       }
 
@@ -5649,8 +5163,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         this._shiftCells(this.beforeShiftCells, beforeGap, -1) // shift after cells
 
-        var afterGap =
-          this.size.innerWidth - (x + this.slideableWidth + this.cursorPosition)
+        var afterGap = this.size.innerWidth - (x + this.slideableWidth + this.cursorPosition)
 
         this._shiftCells(this.afterShiftCells, afterGap, 1)
       }
@@ -5684,10 +5197,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       proto.getFrictionFactor = function () {
-        return (
-          1 -
-          this.options[this.isFreeScrolling ? "freeScrollFriction" : "friction"]
-        )
+        return 1 - this.options[this.isFreeScrolling ? 'freeScrollFriction' : 'friction']
       }
 
       proto.getRestingPosition = function () {
@@ -5730,15 +5240,7 @@ document.addEventListener("DOMContentLoaded", function () {
       /* jshint strict: false */
       if (module.exports) {
         // CommonJS
-        module.exports = factory(
-          window,
-          evEmitter,
-          getSize,
-          utils,
-          cell,
-          slide,
-          animate
-        )
+        module.exports = factory(window, evEmitter, getSize, utils, cell, slide, animate)
       } else {
         // browser global
         var _Flickity = window.Flickity
@@ -5752,936 +5254,905 @@ document.addEventListener("DOMContentLoaded", function () {
           _Flickity.animatePrototype
         )
       }
-    })(
-      window,
-      function factory(
-        window,
-        EvEmitter,
-        getSize,
-        utils,
-        Cell,
-        Slide,
-        animatePrototype
-      ) {
-        var jQuery = window.jQuery
-        var getComputedStyle = window.getComputedStyle
-        var console = window.console
+    })(window, function factory(window, EvEmitter, getSize, utils, Cell, Slide, animatePrototype) {
+      var jQuery = window.jQuery
+      var getComputedStyle = window.getComputedStyle
+      var console = window.console
 
-        function moveElements(elems, toElem) {
-          elems = utils.makeArray(elems)
+      function moveElements(elems, toElem) {
+        elems = utils.makeArray(elems)
 
-          while (elems.length) {
-            toElem.appendChild(elems.shift())
+        while (elems.length) {
+          toElem.appendChild(elems.shift())
+        }
+      } // -------------------------- Flickity -------------------------- //
+      // globally unique identifiers
+
+      var GUID = 0 // internal store of all Flickity intances
+
+      var instances = {}
+
+      function Flickity(element, options) {
+        var queryElement = utils.getQueryElement(element)
+
+        if (!queryElement) {
+          if (console) {
+            console.error('Bad element for Flickity: ' + (queryElement || element))
           }
-        } // -------------------------- Flickity -------------------------- //
-        // globally unique identifiers
 
-        var GUID = 0 // internal store of all Flickity intances
+          return
+        }
 
-        var instances = {}
+        this.element = queryElement // do not initialize twice on same element
 
-        function Flickity(element, options) {
-          var queryElement = utils.getQueryElement(element)
+        if (this.element.flickityGUID) {
+          var instance = instances[this.element.flickityGUID]
+          instance.option(options)
+          return instance
+        } // add jQuery
 
-          if (!queryElement) {
-            if (console) {
-              console.error(
-                "Bad element for Flickity: " + (queryElement || element)
-              )
-            }
+        if (jQuery) {
+          this.$element = jQuery(this.element)
+        } // options
 
+        this.options = utils.extend({}, this.constructor.defaults)
+        this.option(options) // kick things off
+
+        this._create()
+      }
+
+      Flickity.defaults = {
+        accessibility: true,
+        // adaptiveHeight: false,
+        cellAlign: 'center',
+        // cellSelector: undefined,
+        // contain: false,
+        freeScrollFriction: 0.075,
+        // friction when free-scrolling
+        friction: 0.28,
+        // friction when selecting
+        namespaceJQueryEvents: true,
+        // initialIndex: 0,
+        percentPosition: true,
+        resize: true,
+        selectedAttraction: 0.025,
+        setGallerySize: true, // watchCSS: false,
+        // wrapAround: false
+      } // hash of methods triggered on _create()
+
+      Flickity.createMethods = []
+      var proto = Flickity.prototype // inherit EventEmitter
+
+      utils.extend(proto, EvEmitter.prototype)
+
+      proto._create = function () {
+        // add id for Flickity.data
+        var id = (this.guid = ++GUID)
+        this.element.flickityGUID = id // expando
+
+        instances[id] = this // associate via id
+        // initial properties
+
+        this.selectedIndex = 0 // how many frames slider has been in same position
+
+        this.restingFrames = 0 // initial physics properties
+
+        this.x = 0
+        this.velocity = 0
+        this.originSide = this.options.rightToLeft ? 'right' : 'left' // create viewport & slider
+
+        this.viewport = document.createElement('div')
+        this.viewport.className = 'flickity-viewport'
+
+        this._createSlider()
+
+        if (this.options.resize || this.options.watchCSS) {
+          window.addEventListener('resize', this)
+        } // add listeners from on option
+
+        for (var eventName in this.options.on) {
+          var listener = this.options.on[eventName]
+          this.on(eventName, listener)
+        }
+
+        Flickity.createMethods.forEach(function (method) {
+          this[method]()
+        }, this)
+
+        if (this.options.watchCSS) {
+          this.watchCSS()
+        } else {
+          this.activate()
+        }
+      }
+      /**
+       * set options
+       * @param {Object} opts
+       */
+
+      proto.option = function (opts) {
+        utils.extend(this.options, opts)
+      }
+
+      proto.activate = function () {
+        if (this.isActive) {
+          return
+        }
+
+        this.isActive = true
+        this.element.classList.add('flickity-enabled')
+
+        if (this.options.rightToLeft) {
+          this.element.classList.add('flickity-rtl')
+        }
+
+        this.getSize() // move initial cell elements so they can be loaded as cells
+
+        var cellElems = this._filterFindCellElements(this.element.children)
+
+        moveElements(cellElems, this.slider)
+        this.viewport.appendChild(this.slider)
+        this.element.appendChild(this.viewport) // get cells from children
+
+        this.reloadCells()
+
+        if (this.options.accessibility) {
+          // allow element to focusable
+          this.element.tabIndex = 0 // listen for key presses
+
+          this.element.addEventListener('keydown', this)
+        }
+
+        this.emitEvent('activate')
+        this.selectInitialIndex() // flag for initial activation, for using initialIndex
+
+        this.isInitActivated = true // ready event. #493
+
+        this.dispatchEvent('ready')
+      } // slider positions the cells
+
+      proto._createSlider = function () {
+        // slider element does all the positioning
+        var slider = document.createElement('div')
+        slider.className = 'flickity-slider'
+        slider.style[this.originSide] = 0
+        this.slider = slider
+      }
+
+      proto._filterFindCellElements = function (elems) {
+        return utils.filterFindElements(elems, this.options.cellSelector)
+      } // goes through all children
+
+      proto.reloadCells = function () {
+        // collection of item elements
+        this.cells = this._makeCells(this.slider.children)
+        this.positionCells()
+
+        this._getWrapShiftCells()
+
+        this.setGallerySize()
+      }
+      /**
+       * turn elements into Flickity.Cells
+       * @param {Array or NodeList or HTMLElement} elems
+       * @returns {Array} items - collection of new Flickity Cells
+       */
+
+      proto._makeCells = function (elems) {
+        var cellElems = this._filterFindCellElements(elems) // create new Flickity for collection
+
+        var cells = cellElems.map(function (cellElem) {
+          return new Cell(cellElem, this)
+        }, this)
+        return cells
+      }
+
+      proto.getLastCell = function () {
+        return this.cells[this.cells.length - 1]
+      }
+
+      proto.getLastSlide = function () {
+        return this.slides[this.slides.length - 1]
+      } // positions all cells
+
+      proto.positionCells = function () {
+        // size all cells
+        this._sizeCells(this.cells) // position all cells
+
+        this._positionCells(0)
+      }
+      /**
+       * position certain cells
+       * @param {Integer} index - which cell to start with
+       */
+
+      proto._positionCells = function (index) {
+        index = index || 0 // also measure maxCellHeight
+        // start 0 if positioning all cells
+
+        this.maxCellHeight = index ? this.maxCellHeight || 0 : 0
+        var cellX = 0 // get cellX
+
+        if (index > 0) {
+          var startCell = this.cells[index - 1]
+          cellX = startCell.x + startCell.size.outerWidth
+        }
+
+        var len = this.cells.length
+
+        for (var i = index; i < len; i++) {
+          var cell = this.cells[i]
+          cell.setPosition(cellX)
+          cellX += cell.size.outerWidth
+          this.maxCellHeight = Math.max(cell.size.outerHeight, this.maxCellHeight)
+        } // keep track of cellX for wrap-around
+
+        this.slideableWidth = cellX // slides
+
+        this.updateSlides() // contain slides target
+
+        this._containSlides() // update slidesWidth
+
+        this.slidesWidth = len ? this.getLastSlide().target - this.slides[0].target : 0
+      }
+      /**
+       * cell.getSize() on multiple cells
+       * @param {Array} cells
+       */
+
+      proto._sizeCells = function (cells) {
+        cells.forEach(function (cell) {
+          cell.getSize()
+        })
+      } // --------------------------  -------------------------- //
+
+      proto.updateSlides = function () {
+        this.slides = []
+
+        if (!this.cells.length) {
+          return
+        }
+
+        var slide = new Slide(this)
+        this.slides.push(slide)
+        var isOriginLeft = this.originSide == 'left'
+        var nextMargin = isOriginLeft ? 'marginRight' : 'marginLeft'
+
+        var canCellFit = this._getCanCellFit()
+
+        this.cells.forEach(function (cell, i) {
+          // just add cell if first cell in slide
+          if (!slide.cells.length) {
+            slide.addCell(cell)
             return
           }
 
-          this.element = queryElement // do not initialize twice on same element
+          var slideWidth =
+            slide.outerWidth - slide.firstMargin + (cell.size.outerWidth - cell.size[nextMargin])
 
-          if (this.element.flickityGUID) {
-            var instance = instances[this.element.flickityGUID]
-            instance.option(options)
-            return instance
-          } // add jQuery
-
-          if (jQuery) {
-            this.$element = jQuery(this.element)
-          } // options
-
-          this.options = utils.extend({}, this.constructor.defaults)
-          this.option(options) // kick things off
-
-          this._create()
-        }
-
-        Flickity.defaults = {
-          accessibility: true,
-          // adaptiveHeight: false,
-          cellAlign: "center",
-          // cellSelector: undefined,
-          // contain: false,
-          freeScrollFriction: 0.075,
-          // friction when free-scrolling
-          friction: 0.28,
-          // friction when selecting
-          namespaceJQueryEvents: true,
-          // initialIndex: 0,
-          percentPosition: true,
-          resize: true,
-          selectedAttraction: 0.025,
-          setGallerySize: true, // watchCSS: false,
-          // wrapAround: false
-        } // hash of methods triggered on _create()
-
-        Flickity.createMethods = []
-        var proto = Flickity.prototype // inherit EventEmitter
-
-        utils.extend(proto, EvEmitter.prototype)
-
-        proto._create = function () {
-          // add id for Flickity.data
-          var id = (this.guid = ++GUID)
-          this.element.flickityGUID = id // expando
-
-          instances[id] = this // associate via id
-          // initial properties
-
-          this.selectedIndex = 0 // how many frames slider has been in same position
-
-          this.restingFrames = 0 // initial physics properties
-
-          this.x = 0
-          this.velocity = 0
-          this.originSide = this.options.rightToLeft ? "right" : "left" // create viewport & slider
-
-          this.viewport = document.createElement("div")
-          this.viewport.className = "flickity-viewport"
-
-          this._createSlider()
-
-          if (this.options.resize || this.options.watchCSS) {
-            window.addEventListener("resize", this)
-          } // add listeners from on option
-
-          for (var eventName in this.options.on) {
-            var listener = this.options.on[eventName]
-            this.on(eventName, listener)
-          }
-
-          Flickity.createMethods.forEach(function (method) {
-            this[method]()
-          }, this)
-
-          if (this.options.watchCSS) {
-            this.watchCSS()
+          if (canCellFit.call(this, i, slideWidth)) {
+            slide.addCell(cell)
           } else {
-            this.activate()
+            // doesn't fit, new slide
+            slide.updateTarget()
+            slide = new Slide(this)
+            this.slides.push(slide)
+            slide.addCell(cell)
           }
-        }
-        /**
-         * set options
-         * @param {Object} opts
-         */
+        }, this) // last slide
 
-        proto.option = function (opts) {
-          utils.extend(this.options, opts)
-        }
+        slide.updateTarget() // update .selectedSlide
 
-        proto.activate = function () {
-          if (this.isActive) {
-            return
+        this.updateSelectedSlide()
+      }
+
+      proto._getCanCellFit = function () {
+        var groupCells = this.options.groupCells
+
+        if (!groupCells) {
+          return function () {
+            return false
           }
-
-          this.isActive = true
-          this.element.classList.add("flickity-enabled")
-
-          if (this.options.rightToLeft) {
-            this.element.classList.add("flickity-rtl")
+        } else if (typeof groupCells == 'number') {
+          // group by number. 3 -> [0,1,2], [3,4,5], ...
+          var number = parseInt(groupCells, 10)
+          return function (i) {
+            return i % number !== 0
           }
+        } // default, group by width of slide
+        // parse '75%
 
-          this.getSize() // move initial cell elements so they can be loaded as cells
-
-          var cellElems = this._filterFindCellElements(this.element.children)
-
-          moveElements(cellElems, this.slider)
-          this.viewport.appendChild(this.slider)
-          this.element.appendChild(this.viewport) // get cells from children
-
-          this.reloadCells()
-
-          if (this.options.accessibility) {
-            // allow element to focusable
-            this.element.tabIndex = 0 // listen for key presses
-
-            this.element.addEventListener("keydown", this)
-          }
-
-          this.emitEvent("activate")
-          this.selectInitialIndex() // flag for initial activation, for using initialIndex
-
-          this.isInitActivated = true // ready event. #493
-
-          this.dispatchEvent("ready")
-        } // slider positions the cells
-
-        proto._createSlider = function () {
-          // slider element does all the positioning
-          var slider = document.createElement("div")
-          slider.className = "flickity-slider"
-          slider.style[this.originSide] = 0
-          this.slider = slider
+        var percentMatch = typeof groupCells == 'string' && groupCells.match(/^(\d+)%$/)
+        var percent = percentMatch ? parseInt(percentMatch[1], 10) / 100 : 1
+        return function (i, slideWidth) {
+          return slideWidth <= (this.size.innerWidth + 1) * percent
         }
+      } // alias _init for jQuery plugin .flickity()
 
-        proto._filterFindCellElements = function (elems) {
-          return utils.filterFindElements(elems, this.options.cellSelector)
-        } // goes through all children
+      proto._init = proto.reposition = function () {
+        this.positionCells()
+        this.positionSliderAtSelected()
+      }
 
-        proto.reloadCells = function () {
-          // collection of item elements
-          this.cells = this._makeCells(this.slider.children)
-          this.positionCells()
+      proto.getSize = function () {
+        this.size = getSize(this.element)
+        this.setCellAlign()
+        this.cursorPosition = this.size.innerWidth * this.cellAlign
+      }
 
-          this._getWrapShiftCells()
+      var cellAlignShorthands = {
+        // cell align, then based on origin side
+        center: {
+          left: 0.5,
+          right: 0.5,
+        },
+        left: {
+          left: 0,
+          right: 1,
+        },
+        right: {
+          right: 0,
+          left: 1,
+        },
+      }
 
-          this.setGallerySize()
+      proto.setCellAlign = function () {
+        var shorthand = cellAlignShorthands[this.options.cellAlign]
+        this.cellAlign = shorthand ? shorthand[this.originSide] : this.options.cellAlign
+      }
+
+      proto.setGallerySize = function () {
+        if (this.options.setGallerySize) {
+          var height =
+            this.options.adaptiveHeight && this.selectedSlide
+              ? this.selectedSlide.height
+              : this.maxCellHeight
+          this.viewport.style.height = height + 'px'
         }
-        /**
-         * turn elements into Flickity.Cells
-         * @param {Array or NodeList or HTMLElement} elems
-         * @returns {Array} items - collection of new Flickity Cells
-         */
+      }
 
-        proto._makeCells = function (elems) {
-          var cellElems = this._filterFindCellElements(elems) // create new Flickity for collection
+      proto._getWrapShiftCells = function () {
+        // only for wrap-around
+        if (!this.options.wrapAround) {
+          return
+        } // unshift previous cells
 
-          var cells = cellElems.map(function (cellElem) {
-            return new Cell(cellElem, this)
-          }, this)
-          return cells
-        }
+        this._unshiftCells(this.beforeShiftCells)
 
-        proto.getLastCell = function () {
-          return this.cells[this.cells.length - 1]
-        }
+        this._unshiftCells(this.afterShiftCells) // get before cells
+        // initial gap
 
-        proto.getLastSlide = function () {
-          return this.slides[this.slides.length - 1]
-        } // positions all cells
+        var gapX = this.cursorPosition
+        var cellIndex = this.cells.length - 1
+        this.beforeShiftCells = this._getGapCells(gapX, cellIndex, -1) // get after cells
+        // ending gap between last cell and end of gallery viewport
 
-        proto.positionCells = function () {
-          // size all cells
-          this._sizeCells(this.cells) // position all cells
+        gapX = this.size.innerWidth - this.cursorPosition // start cloning at first cell, working forwards
 
-          this._positionCells(0)
-        }
-        /**
-         * position certain cells
-         * @param {Integer} index - which cell to start with
-         */
+        this.afterShiftCells = this._getGapCells(gapX, 0, 1)
+      }
 
-        proto._positionCells = function (index) {
-          index = index || 0 // also measure maxCellHeight
-          // start 0 if positioning all cells
+      proto._getGapCells = function (gapX, cellIndex, increment) {
+        // keep adding cells until the cover the initial gap
+        var cells = []
 
-          this.maxCellHeight = index ? this.maxCellHeight || 0 : 0
-          var cellX = 0 // get cellX
-
-          if (index > 0) {
-            var startCell = this.cells[index - 1]
-            cellX = startCell.x + startCell.size.outerWidth
-          }
-
-          var len = this.cells.length
-
-          for (var i = index; i < len; i++) {
-            var cell = this.cells[i]
-            cell.setPosition(cellX)
-            cellX += cell.size.outerWidth
-            this.maxCellHeight = Math.max(
-              cell.size.outerHeight,
-              this.maxCellHeight
-            )
-          } // keep track of cellX for wrap-around
-
-          this.slideableWidth = cellX // slides
-
-          this.updateSlides() // contain slides target
-
-          this._containSlides() // update slidesWidth
-
-          this.slidesWidth = len
-            ? this.getLastSlide().target - this.slides[0].target
-            : 0
-        }
-        /**
-         * cell.getSize() on multiple cells
-         * @param {Array} cells
-         */
-
-        proto._sizeCells = function (cells) {
-          cells.forEach(function (cell) {
-            cell.getSize()
-          })
-        } // --------------------------  -------------------------- //
-
-        proto.updateSlides = function () {
-          this.slides = []
-
-          if (!this.cells.length) {
-            return
-          }
-
-          var slide = new Slide(this)
-          this.slides.push(slide)
-          var isOriginLeft = this.originSide == "left"
-          var nextMargin = isOriginLeft ? "marginRight" : "marginLeft"
-
-          var canCellFit = this._getCanCellFit()
-
-          this.cells.forEach(function (cell, i) {
-            // just add cell if first cell in slide
-            if (!slide.cells.length) {
-              slide.addCell(cell)
-              return
-            }
-
-            var slideWidth =
-              slide.outerWidth -
-              slide.firstMargin +
-              (cell.size.outerWidth - cell.size[nextMargin])
-
-            if (canCellFit.call(this, i, slideWidth)) {
-              slide.addCell(cell)
-            } else {
-              // doesn't fit, new slide
-              slide.updateTarget()
-              slide = new Slide(this)
-              this.slides.push(slide)
-              slide.addCell(cell)
-            }
-          }, this) // last slide
-
-          slide.updateTarget() // update .selectedSlide
-
-          this.updateSelectedSlide()
-        }
-
-        proto._getCanCellFit = function () {
-          var groupCells = this.options.groupCells
-
-          if (!groupCells) {
-            return function () {
-              return false
-            }
-          } else if (typeof groupCells == "number") {
-            // group by number. 3 -> [0,1,2], [3,4,5], ...
-            var number = parseInt(groupCells, 10)
-            return function (i) {
-              return i % number !== 0
-            }
-          } // default, group by width of slide
-          // parse '75%
-
-          var percentMatch =
-            typeof groupCells == "string" && groupCells.match(/^(\d+)%$/)
-          var percent = percentMatch ? parseInt(percentMatch[1], 10) / 100 : 1
-          return function (i, slideWidth) {
-            return slideWidth <= (this.size.innerWidth + 1) * percent
-          }
-        } // alias _init for jQuery plugin .flickity()
-
-        proto._init = proto.reposition = function () {
-          this.positionCells()
-          this.positionSliderAtSelected()
-        }
-
-        proto.getSize = function () {
-          this.size = getSize(this.element)
-          this.setCellAlign()
-          this.cursorPosition = this.size.innerWidth * this.cellAlign
-        }
-
-        var cellAlignShorthands = {
-          // cell align, then based on origin side
-          center: {
-            left: 0.5,
-            right: 0.5,
-          },
-          left: {
-            left: 0,
-            right: 1,
-          },
-          right: {
-            right: 0,
-            left: 1,
-          },
-        }
-
-        proto.setCellAlign = function () {
-          var shorthand = cellAlignShorthands[this.options.cellAlign]
-          this.cellAlign = shorthand
-            ? shorthand[this.originSide]
-            : this.options.cellAlign
-        }
-
-        proto.setGallerySize = function () {
-          if (this.options.setGallerySize) {
-            var height =
-              this.options.adaptiveHeight && this.selectedSlide
-                ? this.selectedSlide.height
-                : this.maxCellHeight
-            this.viewport.style.height = height + "px"
-          }
-        }
-
-        proto._getWrapShiftCells = function () {
-          // only for wrap-around
-          if (!this.options.wrapAround) {
-            return
-          } // unshift previous cells
-
-          this._unshiftCells(this.beforeShiftCells)
-
-          this._unshiftCells(this.afterShiftCells) // get before cells
-          // initial gap
-
-          var gapX = this.cursorPosition
-          var cellIndex = this.cells.length - 1
-          this.beforeShiftCells = this._getGapCells(gapX, cellIndex, -1) // get after cells
-          // ending gap between last cell and end of gallery viewport
-
-          gapX = this.size.innerWidth - this.cursorPosition // start cloning at first cell, working forwards
-
-          this.afterShiftCells = this._getGapCells(gapX, 0, 1)
-        }
-
-        proto._getGapCells = function (gapX, cellIndex, increment) {
-          // keep adding cells until the cover the initial gap
-          var cells = []
-
-          while (gapX > 0) {
-            var cell = this.cells[cellIndex]
-
-            if (!cell) {
-              break
-            }
-
-            cells.push(cell)
-            cellIndex += increment
-            gapX -= cell.size.outerWidth
-          }
-
-          return cells
-        } // ----- contain ----- //
-        // contain cell targets so no excess sliding
-
-        proto._containSlides = function () {
-          if (
-            !this.options.contain ||
-            this.options.wrapAround ||
-            !this.cells.length
-          ) {
-            return
-          }
-
-          var isRightToLeft = this.options.rightToLeft
-          var beginMargin = isRightToLeft ? "marginRight" : "marginLeft"
-          var endMargin = isRightToLeft ? "marginLeft" : "marginRight"
-          var contentWidth =
-            this.slideableWidth - this.getLastCell().size[endMargin] // content is less than gallery size
-
-          var isContentSmaller = contentWidth < this.size.innerWidth // bounds
-
-          var beginBound = this.cursorPosition + this.cells[0].size[beginMargin]
-          var endBound =
-            contentWidth - this.size.innerWidth * (1 - this.cellAlign) // contain each cell target
-
-          this.slides.forEach(function (slide) {
-            if (isContentSmaller) {
-              // all cells fit inside gallery
-              slide.target = contentWidth * this.cellAlign
-            } else {
-              // contain to bounds
-              slide.target = Math.max(slide.target, beginBound)
-              slide.target = Math.min(slide.target, endBound)
-            }
-          }, this)
-        } // -----  ----- //
-
-        /**
-         * emits events via eventEmitter and jQuery events
-         * @param {String} type - name of event
-         * @param {Event} event - original event
-         * @param {Array} args - extra arguments
-         */
-
-        proto.dispatchEvent = function (type, event, args) {
-          var emitArgs = event ? [event].concat(args) : args
-          this.emitEvent(type, emitArgs)
-
-          if (jQuery && this.$element) {
-            // default trigger with type if no event
-            type += this.options.namespaceJQueryEvents ? ".flickity" : ""
-            var $event = type
-
-            if (event) {
-              // create jQuery event
-              var jQEvent = jQuery.Event(event)
-              jQEvent.type = type
-              $event = jQEvent
-            }
-
-            this.$element.trigger($event, args)
-          }
-        } // -------------------------- select -------------------------- //
-
-        /**
-         * @param {Integer} index - index of the slide
-         * @param {Boolean} isWrap - will wrap-around to last/first if at the end
-         * @param {Boolean} isInstant - will immediately set position at selected cell
-         */
-
-        proto.select = function (index, isWrap, isInstant) {
-          if (!this.isActive) {
-            return
-          }
-
-          index = parseInt(index, 10)
-
-          this._wrapSelect(index)
-
-          if (this.options.wrapAround || isWrap) {
-            index = utils.modulo(index, this.slides.length)
-          } // bail if invalid index
-
-          if (!this.slides[index]) {
-            return
-          }
-
-          var prevIndex = this.selectedIndex
-          this.selectedIndex = index
-          this.updateSelectedSlide()
-
-          if (isInstant) {
-            this.positionSliderAtSelected()
-          } else {
-            this.startAnimation()
-          }
-
-          if (this.options.adaptiveHeight) {
-            this.setGallerySize()
-          } // events
-
-          this.dispatchEvent("select", null, [index]) // change event if new index
-
-          if (index != prevIndex) {
-            this.dispatchEvent("change", null, [index])
-          } // old v1 event name, remove in v3
-
-          this.dispatchEvent("cellSelect")
-        } // wraps position for wrapAround, to move to closest slide. #113
-
-        proto._wrapSelect = function (index) {
-          var len = this.slides.length
-          var isWrapping = this.options.wrapAround && len > 1
-
-          if (!isWrapping) {
-            return index
-          }
-
-          var wrapIndex = utils.modulo(index, len) // go to shortest
-
-          var delta = Math.abs(wrapIndex - this.selectedIndex)
-          var backWrapDelta = Math.abs(wrapIndex + len - this.selectedIndex)
-          var forewardWrapDelta = Math.abs(wrapIndex - len - this.selectedIndex)
-
-          if (!this.isDragSelect && backWrapDelta < delta) {
-            index += len
-          } else if (!this.isDragSelect && forewardWrapDelta < delta) {
-            index -= len
-          } // wrap position so slider is within normal area
-
-          if (index < 0) {
-            this.x -= this.slideableWidth
-          } else if (index >= len) {
-            this.x += this.slideableWidth
-          }
-        }
-
-        proto.previous = function (isWrap, isInstant) {
-          this.select(this.selectedIndex - 1, isWrap, isInstant)
-        }
-
-        proto.next = function (isWrap, isInstant) {
-          this.select(this.selectedIndex + 1, isWrap, isInstant)
-        }
-
-        proto.updateSelectedSlide = function () {
-          var slide = this.slides[this.selectedIndex] // selectedIndex could be outside of slides, if triggered before resize()
-
-          if (!slide) {
-            return
-          } // unselect previous selected slide
-
-          this.unselectSelectedSlide() // update new selected slide
-
-          this.selectedSlide = slide
-          slide.select()
-          this.selectedCells = slide.cells
-          this.selectedElements = slide.getCellElements() // HACK: selectedCell & selectedElement is first cell in slide, backwards compatibility
-          // Remove in v3?
-
-          this.selectedCell = slide.cells[0]
-          this.selectedElement = this.selectedElements[0]
-        }
-
-        proto.unselectSelectedSlide = function () {
-          if (this.selectedSlide) {
-            this.selectedSlide.unselect()
-          }
-        }
-
-        proto.selectInitialIndex = function () {
-          var initialIndex = this.options.initialIndex // already activated, select previous selectedIndex
-
-          if (this.isInitActivated) {
-            this.select(this.selectedIndex, false, true)
-            return
-          } // select with selector string
-
-          if (initialIndex && typeof initialIndex == "string") {
-            var cell = this.queryCell(initialIndex)
-
-            if (cell) {
-              this.selectCell(initialIndex, false, true)
-              return
-            }
-          }
-
-          var index = 0 // select with number
-
-          if (initialIndex && this.slides[initialIndex]) {
-            index = initialIndex
-          } // select instantly
-
-          this.select(index, false, true)
-        }
-        /**
-         * select slide from number or cell element
-         * @param {Element or Number} elem
-         */
-
-        proto.selectCell = function (value, isWrap, isInstant) {
-          // get cell
-          var cell = this.queryCell(value)
+        while (gapX > 0) {
+          var cell = this.cells[cellIndex]
 
           if (!cell) {
+            break
+          }
+
+          cells.push(cell)
+          cellIndex += increment
+          gapX -= cell.size.outerWidth
+        }
+
+        return cells
+      } // ----- contain ----- //
+      // contain cell targets so no excess sliding
+
+      proto._containSlides = function () {
+        if (!this.options.contain || this.options.wrapAround || !this.cells.length) {
+          return
+        }
+
+        var isRightToLeft = this.options.rightToLeft
+        var beginMargin = isRightToLeft ? 'marginRight' : 'marginLeft'
+        var endMargin = isRightToLeft ? 'marginLeft' : 'marginRight'
+        var contentWidth = this.slideableWidth - this.getLastCell().size[endMargin] // content is less than gallery size
+
+        var isContentSmaller = contentWidth < this.size.innerWidth // bounds
+
+        var beginBound = this.cursorPosition + this.cells[0].size[beginMargin]
+        var endBound = contentWidth - this.size.innerWidth * (1 - this.cellAlign) // contain each cell target
+
+        this.slides.forEach(function (slide) {
+          if (isContentSmaller) {
+            // all cells fit inside gallery
+            slide.target = contentWidth * this.cellAlign
+          } else {
+            // contain to bounds
+            slide.target = Math.max(slide.target, beginBound)
+            slide.target = Math.min(slide.target, endBound)
+          }
+        }, this)
+      } // -----  ----- //
+
+      /**
+       * emits events via eventEmitter and jQuery events
+       * @param {String} type - name of event
+       * @param {Event} event - original event
+       * @param {Array} args - extra arguments
+       */
+
+      proto.dispatchEvent = function (type, event, args) {
+        var emitArgs = event ? [event].concat(args) : args
+        this.emitEvent(type, emitArgs)
+
+        if (jQuery && this.$element) {
+          // default trigger with type if no event
+          type += this.options.namespaceJQueryEvents ? '.flickity' : ''
+          var $event = type
+
+          if (event) {
+            // create jQuery event
+            var jQEvent = jQuery.Event(event)
+            jQEvent.type = type
+            $event = jQEvent
+          }
+
+          this.$element.trigger($event, args)
+        }
+      } // -------------------------- select -------------------------- //
+
+      /**
+       * @param {Integer} index - index of the slide
+       * @param {Boolean} isWrap - will wrap-around to last/first if at the end
+       * @param {Boolean} isInstant - will immediately set position at selected cell
+       */
+
+      proto.select = function (index, isWrap, isInstant) {
+        if (!this.isActive) {
+          return
+        }
+
+        index = parseInt(index, 10)
+
+        this._wrapSelect(index)
+
+        if (this.options.wrapAround || isWrap) {
+          index = utils.modulo(index, this.slides.length)
+        } // bail if invalid index
+
+        if (!this.slides[index]) {
+          return
+        }
+
+        var prevIndex = this.selectedIndex
+        this.selectedIndex = index
+        this.updateSelectedSlide()
+
+        if (isInstant) {
+          this.positionSliderAtSelected()
+        } else {
+          this.startAnimation()
+        }
+
+        if (this.options.adaptiveHeight) {
+          this.setGallerySize()
+        } // events
+
+        this.dispatchEvent('select', null, [index]) // change event if new index
+
+        if (index != prevIndex) {
+          this.dispatchEvent('change', null, [index])
+        } // old v1 event name, remove in v3
+
+        this.dispatchEvent('cellSelect')
+      } // wraps position for wrapAround, to move to closest slide. #113
+
+      proto._wrapSelect = function (index) {
+        var len = this.slides.length
+        var isWrapping = this.options.wrapAround && len > 1
+
+        if (!isWrapping) {
+          return index
+        }
+
+        var wrapIndex = utils.modulo(index, len) // go to shortest
+
+        var delta = Math.abs(wrapIndex - this.selectedIndex)
+        var backWrapDelta = Math.abs(wrapIndex + len - this.selectedIndex)
+        var forewardWrapDelta = Math.abs(wrapIndex - len - this.selectedIndex)
+
+        if (!this.isDragSelect && backWrapDelta < delta) {
+          index += len
+        } else if (!this.isDragSelect && forewardWrapDelta < delta) {
+          index -= len
+        } // wrap position so slider is within normal area
+
+        if (index < 0) {
+          this.x -= this.slideableWidth
+        } else if (index >= len) {
+          this.x += this.slideableWidth
+        }
+      }
+
+      proto.previous = function (isWrap, isInstant) {
+        this.select(this.selectedIndex - 1, isWrap, isInstant)
+      }
+
+      proto.next = function (isWrap, isInstant) {
+        this.select(this.selectedIndex + 1, isWrap, isInstant)
+      }
+
+      proto.updateSelectedSlide = function () {
+        var slide = this.slides[this.selectedIndex] // selectedIndex could be outside of slides, if triggered before resize()
+
+        if (!slide) {
+          return
+        } // unselect previous selected slide
+
+        this.unselectSelectedSlide() // update new selected slide
+
+        this.selectedSlide = slide
+        slide.select()
+        this.selectedCells = slide.cells
+        this.selectedElements = slide.getCellElements() // HACK: selectedCell & selectedElement is first cell in slide, backwards compatibility
+        // Remove in v3?
+
+        this.selectedCell = slide.cells[0]
+        this.selectedElement = this.selectedElements[0]
+      }
+
+      proto.unselectSelectedSlide = function () {
+        if (this.selectedSlide) {
+          this.selectedSlide.unselect()
+        }
+      }
+
+      proto.selectInitialIndex = function () {
+        var initialIndex = this.options.initialIndex // already activated, select previous selectedIndex
+
+        if (this.isInitActivated) {
+          this.select(this.selectedIndex, false, true)
+          return
+        } // select with selector string
+
+        if (initialIndex && typeof initialIndex == 'string') {
+          var cell = this.queryCell(initialIndex)
+
+          if (cell) {
+            this.selectCell(initialIndex, false, true)
             return
           }
-
-          var index = this.getCellSlideIndex(cell)
-          this.select(index, isWrap, isInstant)
         }
 
-        proto.getCellSlideIndex = function (cell) {
-          // get index of slides that has cell
-          for (var i = 0; i < this.slides.length; i++) {
-            var slide = this.slides[i]
-            var index = slide.cells.indexOf(cell)
+        var index = 0 // select with number
 
-            if (index != -1) {
-              return i
-            }
+        if (initialIndex && this.slides[initialIndex]) {
+          index = initialIndex
+        } // select instantly
+
+        this.select(index, false, true)
+      }
+      /**
+       * select slide from number or cell element
+       * @param {Element or Number} elem
+       */
+
+      proto.selectCell = function (value, isWrap, isInstant) {
+        // get cell
+        var cell = this.queryCell(value)
+
+        if (!cell) {
+          return
+        }
+
+        var index = this.getCellSlideIndex(cell)
+        this.select(index, isWrap, isInstant)
+      }
+
+      proto.getCellSlideIndex = function (cell) {
+        // get index of slides that has cell
+        for (var i = 0; i < this.slides.length; i++) {
+          var slide = this.slides[i]
+          var index = slide.cells.indexOf(cell)
+
+          if (index != -1) {
+            return i
           }
-        } // -------------------------- get cells -------------------------- //
+        }
+      } // -------------------------- get cells -------------------------- //
 
-        /**
-         * get Flickity.Cell, given an Element
-         * @param {Element} elem
-         * @returns {Flickity.Cell} item
-         */
+      /**
+       * get Flickity.Cell, given an Element
+       * @param {Element} elem
+       * @returns {Flickity.Cell} item
+       */
 
-        proto.getCell = function (elem) {
-          // loop through cells to get the one that matches
-          for (var i = 0; i < this.cells.length; i++) {
-            var cell = this.cells[i]
+      proto.getCell = function (elem) {
+        // loop through cells to get the one that matches
+        for (var i = 0; i < this.cells.length; i++) {
+          var cell = this.cells[i]
 
-            if (cell.element == elem) {
-              return cell
-            }
+          if (cell.element == elem) {
+            return cell
           }
         }
-        /**
-         * get collection of Flickity.Cells, given Elements
-         * @param {Element, Array, NodeList} elems
-         * @returns {Array} cells - Flickity.Cells
-         */
+      }
+      /**
+       * get collection of Flickity.Cells, given Elements
+       * @param {Element, Array, NodeList} elems
+       * @returns {Array} cells - Flickity.Cells
+       */
 
-        proto.getCells = function (elems) {
-          elems = utils.makeArray(elems)
-          var cells = []
-          elems.forEach(function (elem) {
-            var cell = this.getCell(elem)
-
-            if (cell) {
-              cells.push(cell)
-            }
-          }, this)
-          return cells
-        }
-        /**
-         * get cell elements
-         * @returns {Array} cellElems
-         */
-
-        proto.getCellElements = function () {
-          return this.cells.map(function (cell) {
-            return cell.element
-          })
-        }
-        /**
-         * get parent cell from an element
-         * @param {Element} elem
-         * @returns {Flickit.Cell} cell
-         */
-
-        proto.getParentCell = function (elem) {
-          // first check if elem is cell
+      proto.getCells = function (elems) {
+        elems = utils.makeArray(elems)
+        var cells = []
+        elems.forEach(function (elem) {
           var cell = this.getCell(elem)
 
           if (cell) {
-            return cell
-          } // try to get parent cell elem
-
-          elem = utils.getParent(elem, ".flickity-slider > *")
-          return this.getCell(elem)
-        }
-        /**
-         * get cells adjacent to a slide
-         * @param {Integer} adjCount - number of adjacent slides
-         * @param {Integer} index - index of slide to start
-         * @returns {Array} cells - array of Flickity.Cells
-         */
-
-        proto.getAdjacentCellElements = function (adjCount, index) {
-          if (!adjCount) {
-            return this.selectedSlide.getCellElements()
+            cells.push(cell)
           }
-
-          index = index === undefined ? this.selectedIndex : index
-          var len = this.slides.length
-
-          if (1 + adjCount * 2 >= len) {
-            return this.getCellElements()
-          }
-
-          var cellElems = []
-
-          for (var i = index - adjCount; i <= index + adjCount; i++) {
-            var slideIndex = this.options.wrapAround ? utils.modulo(i, len) : i
-            var slide = this.slides[slideIndex]
-
-            if (slide) {
-              cellElems = cellElems.concat(slide.getCellElements())
-            }
-          }
-
-          return cellElems
-        }
-        /**
-         * select slide from number or cell element
-         * @param {Element, Selector String, or Number} selector
-         */
-
-        proto.queryCell = function (selector) {
-          if (typeof selector == "number") {
-            // use number as index
-            return this.cells[selector]
-          }
-
-          if (typeof selector == "string") {
-            // do not select invalid selectors from hash: #123, #/. #791
-            if (selector.match(/^[#\.]?[\d\/]/)) {
-              return
-            } // use string as selector, get element
-
-            selector = this.element.querySelector(selector)
-          } // get cell from element
-
-          return this.getCell(selector)
-        } // -------------------------- events -------------------------- //
-
-        proto.uiChange = function () {
-          this.emitEvent("uiChange")
-        } // keep focus on element when child UI elements are clicked
-
-        proto.childUIPointerDown = function (event) {
-          // HACK iOS does not allow touch events to bubble up?!
-          if (event.type != "touchstart") {
-            event.preventDefault()
-          }
-
-          this.focus()
-        } // ----- resize ----- //
-
-        proto.onresize = function () {
-          this.watchCSS()
-          this.resize()
-        }
-
-        utils.debounceMethod(Flickity, "onresize", 150)
-
-        proto.resize = function () {
-          if (!this.isActive) {
-            return
-          }
-
-          this.getSize() // wrap values
-
-          if (this.options.wrapAround) {
-            this.x = utils.modulo(this.x, this.slideableWidth)
-          }
-
-          this.positionCells()
-
-          this._getWrapShiftCells()
-
-          this.setGallerySize()
-          this.emitEvent("resize") // update selected index for group slides, instant
-          // TODO: position can be lost between groups of various numbers
-
-          var selectedElement =
-            this.selectedElements && this.selectedElements[0]
-          this.selectCell(selectedElement, false, true)
-        } // watches the :after property, activates/deactivates
-
-        proto.watchCSS = function () {
-          var watchOption = this.options.watchCSS
-
-          if (!watchOption) {
-            return
-          }
-
-          var afterContent = getComputedStyle(this.element, ":after").content // activate if :after { content: 'flickity' }
-
-          if (afterContent.indexOf("flickity") != -1) {
-            this.activate()
-          } else {
-            this.deactivate()
-          }
-        } // ----- keydown ----- //
-        // go previous/next if left/right keys pressed
-
-        proto.onkeydown = function (event) {
-          // only work if element is in focus
-          var isNotFocused =
-            document.activeElement && document.activeElement != this.element
-
-          if (!this.options.accessibility || isNotFocused) {
-            return
-          }
-
-          var handler = Flickity.keyboardHandlers[event.keyCode]
-
-          if (handler) {
-            handler.call(this)
-          }
-        }
-
-        Flickity.keyboardHandlers = {
-          // left arrow
-          37: function _() {
-            var leftMethod = this.options.rightToLeft ? "next" : "previous"
-            this.uiChange()
-            this[leftMethod]()
-          },
-          // right arrow
-          39: function _() {
-            var rightMethod = this.options.rightToLeft ? "previous" : "next"
-            this.uiChange()
-            this[rightMethod]()
-          },
-        } // ----- focus ----- //
-
-        proto.focus = function () {
-          // TODO remove scrollTo once focus options gets more support
-          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#Browser_compatibility
-          var prevScrollY = window.pageYOffset
-          this.element.focus({
-            preventScroll: true,
-          }) // hack to fix scroll jump after focus, #76
-
-          if (window.pageYOffset != prevScrollY) {
-            window.scrollTo(window.pageXOffset, prevScrollY)
-          }
-        } // -------------------------- destroy -------------------------- //
-        // deactivate all Flickity functionality, but keep stuff available
-
-        proto.deactivate = function () {
-          if (!this.isActive) {
-            return
-          }
-
-          this.element.classList.remove("flickity-enabled")
-          this.element.classList.remove("flickity-rtl")
-          this.unselectSelectedSlide() // destroy cells
-
-          this.cells.forEach(function (cell) {
-            cell.destroy()
-          })
-          this.element.removeChild(this.viewport) // move child elements back into element
-
-          moveElements(this.slider.children, this.element)
-
-          if (this.options.accessibility) {
-            this.element.removeAttribute("tabIndex")
-            this.element.removeEventListener("keydown", this)
-          } // set flags
-
-          this.isActive = false
-          this.emitEvent("deactivate")
-        }
-
-        proto.destroy = function () {
-          this.deactivate()
-          window.removeEventListener("resize", this)
-          this.allOff()
-          this.emitEvent("destroy")
-
-          if (jQuery && this.$element) {
-            jQuery.removeData(this.element, "flickity")
-          }
-
-          delete this.element.flickityGUID
-          delete instances[this.guid]
-        } // -------------------------- prototype -------------------------- //
-
-        utils.extend(proto, animatePrototype) // -------------------------- extras -------------------------- //
-
-        /**
-         * get Flickity instance from element
-         * @param {Element} elem
-         * @returns {Flickity}
-         */
-
-        Flickity.data = function (elem) {
-          elem = utils.getQueryElement(elem)
-          var id = elem && elem.flickityGUID
-          return id && instances[id]
-        }
-
-        utils.htmlInit(Flickity, "flickity")
-
-        if (jQuery && jQuery.bridget) {
-          jQuery.bridget("flickity", Flickity)
-        } // set internal jQuery, for Webpack + jQuery v3, #478
-
-        Flickity.setJQuery = function (jq) {
-          jQuery = jq
-        }
-
-        Flickity.Cell = Cell
-        Flickity.Slide = Slide
-        return Flickity
+        }, this)
+        return cells
       }
-    )
+      /**
+       * get cell elements
+       * @returns {Array} cellElems
+       */
+
+      proto.getCellElements = function () {
+        return this.cells.map(function (cell) {
+          return cell.element
+        })
+      }
+      /**
+       * get parent cell from an element
+       * @param {Element} elem
+       * @returns {Flickit.Cell} cell
+       */
+
+      proto.getParentCell = function (elem) {
+        // first check if elem is cell
+        var cell = this.getCell(elem)
+
+        if (cell) {
+          return cell
+        } // try to get parent cell elem
+
+        elem = utils.getParent(elem, '.flickity-slider > *')
+        return this.getCell(elem)
+      }
+      /**
+       * get cells adjacent to a slide
+       * @param {Integer} adjCount - number of adjacent slides
+       * @param {Integer} index - index of slide to start
+       * @returns {Array} cells - array of Flickity.Cells
+       */
+
+      proto.getAdjacentCellElements = function (adjCount, index) {
+        if (!adjCount) {
+          return this.selectedSlide.getCellElements()
+        }
+
+        index = index === undefined ? this.selectedIndex : index
+        var len = this.slides.length
+
+        if (1 + adjCount * 2 >= len) {
+          return this.getCellElements()
+        }
+
+        var cellElems = []
+
+        for (var i = index - adjCount; i <= index + adjCount; i++) {
+          var slideIndex = this.options.wrapAround ? utils.modulo(i, len) : i
+          var slide = this.slides[slideIndex]
+
+          if (slide) {
+            cellElems = cellElems.concat(slide.getCellElements())
+          }
+        }
+
+        return cellElems
+      }
+      /**
+       * select slide from number or cell element
+       * @param {Element, Selector String, or Number} selector
+       */
+
+      proto.queryCell = function (selector) {
+        if (typeof selector == 'number') {
+          // use number as index
+          return this.cells[selector]
+        }
+
+        if (typeof selector == 'string') {
+          // do not select invalid selectors from hash: #123, #/. #791
+          if (selector.match(/^[#\.]?[\d\/]/)) {
+            return
+          } // use string as selector, get element
+
+          selector = this.element.querySelector(selector)
+        } // get cell from element
+
+        return this.getCell(selector)
+      } // -------------------------- events -------------------------- //
+
+      proto.uiChange = function () {
+        this.emitEvent('uiChange')
+      } // keep focus on element when child UI elements are clicked
+
+      proto.childUIPointerDown = function (event) {
+        // HACK iOS does not allow touch events to bubble up?!
+        if (event.type != 'touchstart') {
+          event.preventDefault()
+        }
+
+        this.focus()
+      } // ----- resize ----- //
+
+      proto.onresize = function () {
+        this.watchCSS()
+        this.resize()
+      }
+
+      utils.debounceMethod(Flickity, 'onresize', 150)
+
+      proto.resize = function () {
+        if (!this.isActive) {
+          return
+        }
+
+        this.getSize() // wrap values
+
+        if (this.options.wrapAround) {
+          this.x = utils.modulo(this.x, this.slideableWidth)
+        }
+
+        this.positionCells()
+
+        this._getWrapShiftCells()
+
+        this.setGallerySize()
+        this.emitEvent('resize') // update selected index for group slides, instant
+        // TODO: position can be lost between groups of various numbers
+
+        var selectedElement = this.selectedElements && this.selectedElements[0]
+        this.selectCell(selectedElement, false, true)
+      } // watches the :after property, activates/deactivates
+
+      proto.watchCSS = function () {
+        var watchOption = this.options.watchCSS
+
+        if (!watchOption) {
+          return
+        }
+
+        var afterContent = getComputedStyle(this.element, ':after').content // activate if :after { content: 'flickity' }
+
+        if (afterContent.indexOf('flickity') != -1) {
+          this.activate()
+        } else {
+          this.deactivate()
+        }
+      } // ----- keydown ----- //
+      // go previous/next if left/right keys pressed
+
+      proto.onkeydown = function (event) {
+        // only work if element is in focus
+        var isNotFocused = document.activeElement && document.activeElement != this.element
+
+        if (!this.options.accessibility || isNotFocused) {
+          return
+        }
+
+        var handler = Flickity.keyboardHandlers[event.keyCode]
+
+        if (handler) {
+          handler.call(this)
+        }
+      }
+
+      Flickity.keyboardHandlers = {
+        // left arrow
+        37: function _() {
+          var leftMethod = this.options.rightToLeft ? 'next' : 'previous'
+          this.uiChange()
+          this[leftMethod]()
+        },
+        // right arrow
+        39: function _() {
+          var rightMethod = this.options.rightToLeft ? 'previous' : 'next'
+          this.uiChange()
+          this[rightMethod]()
+        },
+      } // ----- focus ----- //
+
+      proto.focus = function () {
+        // TODO remove scrollTo once focus options gets more support
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#Browser_compatibility
+        var prevScrollY = window.pageYOffset
+        this.element.focus({
+          preventScroll: true,
+        }) // hack to fix scroll jump after focus, #76
+
+        if (window.pageYOffset != prevScrollY) {
+          window.scrollTo(window.pageXOffset, prevScrollY)
+        }
+      } // -------------------------- destroy -------------------------- //
+      // deactivate all Flickity functionality, but keep stuff available
+
+      proto.deactivate = function () {
+        if (!this.isActive) {
+          return
+        }
+
+        this.element.classList.remove('flickity-enabled')
+        this.element.classList.remove('flickity-rtl')
+        this.unselectSelectedSlide() // destroy cells
+
+        this.cells.forEach(function (cell) {
+          cell.destroy()
+        })
+        this.element.removeChild(this.viewport) // move child elements back into element
+
+        moveElements(this.slider.children, this.element)
+
+        if (this.options.accessibility) {
+          this.element.removeAttribute('tabIndex')
+          this.element.removeEventListener('keydown', this)
+        } // set flags
+
+        this.isActive = false
+        this.emitEvent('deactivate')
+      }
+
+      proto.destroy = function () {
+        this.deactivate()
+        window.removeEventListener('resize', this)
+        this.allOff()
+        this.emitEvent('destroy')
+
+        if (jQuery && this.$element) {
+          jQuery.removeData(this.element, 'flickity')
+        }
+
+        delete this.element.flickityGUID
+        delete instances[this.guid]
+      } // -------------------------- prototype -------------------------- //
+
+      utils.extend(proto, animatePrototype) // -------------------------- extras -------------------------- //
+
+      /**
+       * get Flickity instance from element
+       * @param {Element} elem
+       * @returns {Flickity}
+       */
+
+      Flickity.data = function (elem) {
+        elem = utils.getQueryElement(elem)
+        var id = elem && elem.flickityGUID
+        return id && instances[id]
+      }
+
+      utils.htmlInit(Flickity, 'flickity')
+
+      if (jQuery && jQuery.bridget) {
+        jQuery.bridget('flickity', Flickity)
+      } // set internal jQuery, for Webpack + jQuery v3, #478
+
+      Flickity.setJQuery = function (jq) {
+        jQuery = jq
+      }
+
+      Flickity.Cell = Cell
+      Flickity.Slide = Slide
+      return Flickity
+    })
   })
 
   var unipointer = createCommonjsModule(function (module) {
@@ -6727,23 +6198,23 @@ document.addEventListener("DOMContentLoaded", function () {
       proto._bindStartEvent = function (elem, isAdd) {
         // munge isAdd, default to true
         isAdd = isAdd === undefined ? true : isAdd
-        var bindMethod = isAdd ? "addEventListener" : "removeEventListener" // default to mouse events
+        var bindMethod = isAdd ? 'addEventListener' : 'removeEventListener' // default to mouse events
 
-        var startEvent = "mousedown"
+        var startEvent = 'mousedown'
 
         if (window.PointerEvent) {
           // Pointer Events
-          startEvent = "pointerdown"
-        } else if ("ontouchstart" in window) {
+          startEvent = 'pointerdown'
+        } else if ('ontouchstart' in window) {
           // Touch Events. iOS Safari
-          startEvent = "touchstart"
+          startEvent = 'touchstart'
         }
 
         elem[bindMethod](startEvent, this)
       } // trigger handler methods for events
 
       proto.handleEvent = function (event) {
-        var method = "on" + event.type
+        var method = 'on' + event.type
 
         if (this[method]) {
           this[method](event)
@@ -6803,13 +6274,13 @@ document.addEventListener("DOMContentLoaded", function () {
       proto.pointerDown = function (event, pointer) {
         this._bindPostStartEvents(event)
 
-        this.emitEvent("pointerDown", [event, pointer])
+        this.emitEvent('pointerDown', [event, pointer])
       } // hash of events to be bound after start event
 
       var postStartEvents = {
-        mousedown: ["mousemove", "mouseup"],
-        touchstart: ["touchmove", "touchend", "touchcancel"],
-        pointerdown: ["pointermove", "pointerup", "pointercancel"],
+        mousedown: ['mousemove', 'mouseup'],
+        touchstart: ['touchmove', 'touchend', 'touchcancel'],
+        pointerdown: ['pointermove', 'pointerup', 'pointercancel'],
       }
 
       proto._bindPostStartEvents = function (event) {
@@ -6868,7 +6339,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } // public
 
       proto.pointerMove = function (event, pointer) {
-        this.emitEvent("pointerMove", [event, pointer])
+        this.emitEvent('pointerMove', [event, pointer])
       } // ----- end event ----- //
 
       proto.onmouseup = function (event) {
@@ -6902,7 +6373,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } // public
 
       proto.pointerUp = function (event, pointer) {
-        this.emitEvent("pointerUp", [event, pointer])
+        this.emitEvent('pointerUp', [event, pointer])
       } // ----- pointer done ----- //
       // triggered on pointer up & pointer cancel
 
@@ -6949,7 +6420,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } // public
 
       proto.pointerCancel = function (event, pointer) {
-        this.emitEvent("pointerCancel", [event, pointer])
+        this.emitEvent('pointerCancel', [event, pointer])
       } // -----  ----- //
       // utility function for getting x/y coords from event
 
@@ -7006,15 +6477,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // munge isAdd, default to true
         isAdd = isAdd === undefined ? true : isAdd // bind each handle
 
-        var bindMethod = isAdd ? "addEventListener" : "removeEventListener"
-        var touchAction = isAdd ? this._touchActionValue : ""
+        var bindMethod = isAdd ? 'addEventListener' : 'removeEventListener'
+        var touchAction = isAdd ? this._touchActionValue : ''
 
         for (var i = 0; i < this.handles.length; i++) {
           var handle = this.handles[i]
 
           this._bindStartEvent(handle, isAdd)
 
-          handle[bindMethod]("click", this) // touch-action: none to override browser touch gestures. metafizzy/flickity#540
+          handle[bindMethod]('click', this) // touch-action: none to override browser touch gestures. metafizzy/flickity#540
 
           if (window.PointerEvent) {
             handle.style.touchAction = touchAction
@@ -7022,7 +6493,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       } // prototype so it can be overwriteable by Flickity
 
-      proto._touchActionValue = "none" // ----- start event ----- //
+      proto._touchActionValue = 'none' // ----- start event ----- //
 
       /**
        * pointer start
@@ -7047,7 +6518,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         this._bindPostStartEvents(event)
 
-        this.emitEvent("pointerDown", [event, pointer])
+        this.emitEvent('pointerDown', [event, pointer])
       } // nodes that have text fields
 
       var cursorNodes = {
@@ -7097,7 +6568,7 @@ document.addEventListener("DOMContentLoaded", function () {
       proto.pointerMove = function (event, pointer) {
         var moveVector = this._dragPointerMove(event, pointer)
 
-        this.emitEvent("pointerMove", [event, pointer, moveVector])
+        this.emitEvent('pointerMove', [event, pointer, moveVector])
 
         this._dragMove(event, pointer, moveVector)
       } // base pointer move logic
@@ -7126,7 +6597,7 @@ document.addEventListener("DOMContentLoaded", function () {
        */
 
       proto.pointerUp = function (event, pointer) {
-        this.emitEvent("pointerUp", [event, pointer])
+        this.emitEvent('pointerUp', [event, pointer])
 
         this._dragPointerUp(event, pointer)
       }
@@ -7149,7 +6620,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       proto.dragStart = function (event, pointer) {
-        this.emitEvent("dragStart", [event, pointer])
+        this.emitEvent('dragStart', [event, pointer])
       } // dragMove
 
       proto._dragMove = function (event, pointer, moveVector) {
@@ -7163,7 +6634,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       proto.dragMove = function (event, pointer, moveVector) {
         event.preventDefault()
-        this.emitEvent("dragMove", [event, pointer, moveVector])
+        this.emitEvent('dragMove', [event, pointer, moveVector])
       } // dragEnd
 
       proto._dragEnd = function (event, pointer) {
@@ -7179,7 +6650,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       proto.dragEnd = function (event, pointer) {
-        this.emitEvent("dragEnd", [event, pointer])
+        this.emitEvent('dragEnd', [event, pointer])
       } // ----- onclick ----- //
       // handle all clicks and prevent clicks when dragging
 
@@ -7192,13 +6663,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       proto._staticClick = function (event, pointer) {
         // ignore emulated mouse up clicks
-        if (this.isIgnoringMouseUp && event.type == "mouseup") {
+        if (this.isIgnoringMouseUp && event.type == 'mouseup') {
           return
         }
 
         this.staticClick(event, pointer) // set flag for emulated clicks 300ms after touchend
 
-        if (event.type != "mouseup") {
+        if (event.type != 'mouseup') {
           this.isIgnoringMouseUp = true // reset flag after 300ms
 
           setTimeout(
@@ -7211,7 +6682,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       proto.staticClick = function (event, pointer) {
-        this.emitEvent("staticClick", [event, pointer])
+        this.emitEvent('staticClick', [event, pointer])
       } // ----- utils ----- //
 
       Unidragger.getPointerPoint = Unipointer.getPointerPoint // -----  ----- //
@@ -7231,38 +6702,33 @@ document.addEventListener("DOMContentLoaded", function () {
         module.exports = factory(window, flickity, unidragger, utils)
       } else {
         // browser global
-        window.Flickity = factory(
-          window,
-          window.Flickity,
-          window.Unidragger,
-          window.fizzyUIUtils
-        )
+        window.Flickity = factory(window, window.Flickity, window.Unidragger, window.fizzyUIUtils)
       }
     })(window, function factory(window, Flickity, Unidragger, utils) {
       utils.extend(Flickity.defaults, {
-        draggable: ">1",
+        draggable: '>1',
         dragThreshold: 3,
       }) // ----- create ----- //
 
-      Flickity.createMethods.push("_createDrag") // -------------------------- drag prototype -------------------------- //
+      Flickity.createMethods.push('_createDrag') // -------------------------- drag prototype -------------------------- //
 
       var proto = Flickity.prototype
       utils.extend(proto, Unidragger.prototype)
-      proto._touchActionValue = "pan-y" // --------------------------  -------------------------- //
+      proto._touchActionValue = 'pan-y' // --------------------------  -------------------------- //
 
-      var isTouch = "createTouch" in document
+      var isTouch = 'createTouch' in document
       var isTouchmoveScrollCanceled = false
 
       proto._createDrag = function () {
-        this.on("activate", this.onActivateDrag)
-        this.on("uiChange", this._uiChangeDrag)
-        this.on("deactivate", this.onDeactivateDrag)
-        this.on("cellChange", this.updateDraggable) // TODO updateDraggable on resize? if groupCells & slides change
+        this.on('activate', this.onActivateDrag)
+        this.on('uiChange', this._uiChangeDrag)
+        this.on('deactivate', this.onDeactivateDrag)
+        this.on('cellChange', this.updateDraggable) // TODO updateDraggable on resize? if groupCells & slides change
         // HACK - add seemingly innocuous handler to fix iOS 10 scroll behavior
         // #457, RubaXa/Sortable#973
 
         if (isTouch && !isTouchmoveScrollCanceled) {
-          window.addEventListener("touchmove", function () {})
+          window.addEventListener('touchmove', function () {})
           isTouchmoveScrollCanceled = true
         }
       }
@@ -7275,21 +6741,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
       proto.onDeactivateDrag = function () {
         this.unbindHandles()
-        this.element.classList.remove("is-draggable")
+        this.element.classList.remove('is-draggable')
       }
 
       proto.updateDraggable = function () {
         // disable dragging if less than 2 slides. #278
-        if (this.options.draggable == ">1") {
+        if (this.options.draggable == '>1') {
           this.isDraggable = this.slides.length > 1
         } else {
           this.isDraggable = this.options.draggable
         }
 
         if (this.isDraggable) {
-          this.element.classList.add("is-draggable")
+          this.element.classList.add('is-draggable')
         } else {
-          this.element.classList.remove("is-draggable")
+          this.element.classList.remove('is-draggable')
         }
       } // backwards compatibility
 
@@ -7330,10 +6796,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } // stop if it was moving
 
         this.dragX = this.x
-        this.viewport.classList.add("is-pointer-down") // track scrolling
+        this.viewport.classList.add('is-pointer-down') // track scrolling
 
         this.pointerDownScroll = getScrollPosition()
-        window.addEventListener("scroll", this)
+        window.addEventListener('scroll', this)
 
         this._pointerDownDefault(event, pointer)
       } // default pointerDown logic, used for staticClick
@@ -7348,7 +6814,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         this._bindPostStartEvents(event)
 
-        this.dispatchEvent("pointerDown", event, [pointer])
+        this.dispatchEvent('pointerDown', event, [pointer])
       }
 
       var focusNodes = {
@@ -7366,8 +6832,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       proto._pointerDownPreventDefault = function (event) {
-        var isTouchStart = event.type == "touchstart"
-        var isTouchPointer = event.pointerType == "touch"
+        var isTouchStart = event.type == 'touchstart'
+        var isTouchPointer = event.pointerType == 'touch'
         var isFocusNode = focusNodes[event.target.nodeName]
 
         if (!isTouchStart && !isTouchPointer && !isFocusNode) {
@@ -7381,14 +6847,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       proto.pointerUp = function (event, pointer) {
         delete this.isTouchScrolling
-        this.viewport.classList.remove("is-pointer-down")
-        this.dispatchEvent("pointerUp", event, [pointer])
+        this.viewport.classList.remove('is-pointer-down')
+        this.dispatchEvent('pointerUp', event, [pointer])
 
         this._dragPointerUp(event, pointer)
       }
 
       proto.pointerDone = function () {
-        window.removeEventListener("scroll", this)
+        window.removeEventListener('scroll', this)
         delete this.pointerDownScroll
       } // -------------------------- dragging -------------------------- //
 
@@ -7399,14 +6865,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         this.dragStartPosition = this.x
         this.startAnimation()
-        window.removeEventListener("scroll", this)
-        this.dispatchEvent("dragStart", event, [pointer])
+        window.removeEventListener('scroll', this)
+        this.dispatchEvent('dragStart', event, [pointer])
       }
 
       proto.pointerMove = function (event, pointer) {
         var moveVector = this._dragPointerMove(event, pointer)
 
-        this.dispatchEvent("pointerMove", event, [pointer, moveVector])
+        this.dispatchEvent('pointerMove', event, [pointer, moveVector])
 
         this._dragMove(event, pointer, moveVector)
       }
@@ -7430,21 +6896,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!this.options.wrapAround && this.slides.length) {
           // slow drag
-          var originBound = Math.max(
-            -this.slides[0].target,
-            this.dragStartPosition
-          )
+          var originBound = Math.max(-this.slides[0].target, this.dragStartPosition)
           dragX = dragX > originBound ? (dragX + originBound) * 0.5 : dragX
-          var endBound = Math.min(
-            -this.getLastSlide().target,
-            this.dragStartPosition
-          )
+          var endBound = Math.min(-this.getLastSlide().target, this.dragStartPosition)
           dragX = dragX < endBound ? (dragX + endBound) * 0.5 : dragX
         }
 
         this.dragX = dragX
         this.dragMoveTime = new Date()
-        this.dispatchEvent("dragMove", event, [pointer, moveVector])
+        this.dispatchEvent('dragMove', event, [pointer, moveVector])
       }
 
       proto.dragEnd = function (event, pointer) {
@@ -7464,8 +6924,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // so bounding slides can attract slider, and keep it in bounds
           var restingX = this.getRestingPosition()
           this.isFreeScrolling =
-            -restingX > this.slides[0].target &&
-            -restingX < this.getLastSlide().target
+            -restingX > this.slides[0].target && -restingX < this.getLastSlide().target
         } else if (!this.options.freeScroll && index == this.selectedIndex) {
           // boost selection if selected index has not changed
           index += this.dragEndBoostSelect()
@@ -7478,15 +6937,13 @@ document.addEventListener("DOMContentLoaded", function () {
         this.isDragSelect = this.options.wrapAround
         this.select(index)
         delete this.isDragSelect
-        this.dispatchEvent("dragEnd", event, [pointer])
+        this.dispatchEvent('dragEnd', event, [pointer])
       }
 
       proto.dragEndRestingSelect = function () {
         var restingX = this.getRestingPosition() // how far away from selected slide
 
-        var distance = Math.abs(
-          this.getSlideDistance(-restingX, this.selectedIndex)
-        ) // get closet resting going up and going down
+        var distance = Math.abs(this.getSlideDistance(-restingX, this.selectedIndex)) // get closet resting going up and going down
 
         var positiveResting = this._getClosestResting(restingX, distance, 1)
 
@@ -7555,9 +7012,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return null
         } // add distance for wrap-around slides
 
-        var wrap = isWrapAround
-          ? this.slideableWidth * Math.floor(index / len)
-          : 0
+        var wrap = isWrapAround ? this.slideableWidth * Math.floor(index / len) : 0
         return x - (slide.target + wrap)
       }
 
@@ -7590,7 +7045,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var clickedCell = this.getParentCell(event.target)
         var cellElem = clickedCell && clickedCell.element
         var cellIndex = clickedCell && this.cells.indexOf(clickedCell)
-        this.dispatchEvent("staticClick", event, [pointer, cellElem, cellIndex])
+        this.dispatchEvent('staticClick', event, [pointer, cellElem, cellIndex])
       } // ----- scroll ----- //
 
       proto.onscroll = function () {
@@ -7628,7 +7083,7 @@ document.addEventListener("DOMContentLoaded", function () {
         factory(window, window.Flickity, window.Unipointer, window.fizzyUIUtils)
       }
     })(window, function factory(window, Flickity, Unipointer, utils) {
-      var svgURI = "http://www.w3.org/2000/svg" // -------------------------- PrevNextButton -------------------------- //
+      var svgURI = 'http://www.w3.org/2000/svg' // -------------------------- PrevNextButton -------------------------- //
 
       function PrevNextButton(direction, parent) {
         this.direction = direction
@@ -7645,28 +7100,25 @@ document.addEventListener("DOMContentLoaded", function () {
         this.isPrevious = this.direction == -1
         var leftDirection = this.parent.options.rightToLeft ? 1 : -1
         this.isLeft = this.direction == leftDirection
-        var element = (this.element = document.createElement("button"))
-        element.className = "flickity-button flickity-prev-next-button"
-        element.className += this.isPrevious ? " previous" : " next" // prevent button from submitting form http://stackoverflow.com/a/10836076/182183
+        var element = (this.element = document.createElement('button'))
+        element.className = 'flickity-button flickity-prev-next-button'
+        element.className += this.isPrevious ? ' previous' : ' next' // prevent button from submitting form http://stackoverflow.com/a/10836076/182183
 
-        element.setAttribute("type", "button") // init as disabled
+        element.setAttribute('type', 'button') // init as disabled
 
         this.disable()
-        element.setAttribute(
-          "aria-label",
-          this.isPrevious ? "Previous" : "Next"
-        ) // create arrow
+        element.setAttribute('aria-label', this.isPrevious ? 'Previous' : 'Next') // create arrow
 
         var svg = this.createSVG()
         element.appendChild(svg) // events
 
-        this.parent.on("select", this.update.bind(this))
-        this.on("pointerDown", this.parent.childUIPointerDown.bind(this.parent))
+        this.parent.on('select', this.update.bind(this))
+        this.on('pointerDown', this.parent.childUIPointerDown.bind(this.parent))
       }
 
       PrevNextButton.prototype.activate = function () {
         this.bindStartEvent(this.element)
-        this.element.addEventListener("click", this) // add to DOM
+        this.element.addEventListener('click', this) // add to DOM
 
         this.parent.element.appendChild(this.element)
       }
@@ -7676,20 +7128,20 @@ document.addEventListener("DOMContentLoaded", function () {
         this.parent.element.removeChild(this.element) // click events
 
         this.unbindStartEvent(this.element)
-        this.element.removeEventListener("click", this)
+        this.element.removeEventListener('click', this)
       }
 
       PrevNextButton.prototype.createSVG = function () {
-        var svg = document.createElementNS(svgURI, "svg")
-        svg.setAttribute("class", "flickity-button-icon")
-        svg.setAttribute("viewBox", "0 0 100 100")
-        var path = document.createElementNS(svgURI, "path")
+        var svg = document.createElementNS(svgURI, 'svg')
+        svg.setAttribute('class', 'flickity-button-icon')
+        svg.setAttribute('viewBox', '0 0 100 100')
+        var path = document.createElementNS(svgURI, 'path')
         var pathMovements = getArrowMovements(this.parent.options.arrowShape)
-        path.setAttribute("d", pathMovements)
-        path.setAttribute("class", "arrow") // rotate arrow
+        path.setAttribute('d', pathMovements)
+        path.setAttribute('class', 'arrow') // rotate arrow
 
         if (!this.isLeft) {
-          path.setAttribute("transform", "translate(100, 100) rotate(180) ")
+          path.setAttribute('transform', 'translate(100, 100) rotate(180) ')
         }
 
         svg.appendChild(path)
@@ -7698,34 +7150,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
       function getArrowMovements(shape) {
         // use shape as movement if string
-        if (typeof shape == "string") {
+        if (typeof shape == 'string') {
           return shape
         } // create movement string
 
         return (
-          "M " +
+          'M ' +
           shape.x0 +
-          ",50" +
-          " L " +
+          ',50' +
+          ' L ' +
           shape.x1 +
-          "," +
+          ',' +
           (shape.y1 + 50) +
-          " L " +
+          ' L ' +
           shape.x2 +
-          "," +
+          ',' +
           (shape.y2 + 50) +
-          " L " +
+          ' L ' +
           shape.x3 +
-          ",50 " +
-          " L " +
+          ',50 ' +
+          ' L ' +
           shape.x2 +
-          "," +
+          ',' +
           (50 - shape.y2) +
-          " L " +
+          ' L ' +
           shape.x1 +
-          "," +
+          ',' +
           (50 - shape.y1) +
-          " Z"
+          ' Z'
         )
       }
 
@@ -7737,7 +7189,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         this.parent.uiChange()
-        var method = this.isPrevious ? "previous" : "next"
+        var method = this.isPrevious ? 'previous' : 'next'
         this.parent[method]()
       } // -----  ----- //
 
@@ -7770,8 +7222,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var lastIndex = slides.length ? slides.length - 1 : 0
         var boundIndex = this.isPrevious ? 0 : lastIndex
-        var method =
-          this.parent.selectedIndex == boundIndex ? "disable" : "enable"
+        var method = this.parent.selectedIndex == boundIndex ? 'disable' : 'enable'
         this[method]()
       }
 
@@ -7791,7 +7242,7 @@ document.addEventListener("DOMContentLoaded", function () {
           x3: 30,
         },
       })
-      Flickity.createMethods.push("_createPrevNextButtons")
+      Flickity.createMethods.push('_createPrevNextButtons')
       var proto = Flickity.prototype
 
       proto._createPrevNextButtons = function () {
@@ -7801,19 +7252,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         this.prevButton = new PrevNextButton(-1, this)
         this.nextButton = new PrevNextButton(1, this)
-        this.on("activate", this.activatePrevNextButtons)
+        this.on('activate', this.activatePrevNextButtons)
       }
 
       proto.activatePrevNextButtons = function () {
         this.prevButton.activate()
         this.nextButton.activate()
-        this.on("deactivate", this.deactivatePrevNextButtons)
+        this.on('deactivate', this.deactivatePrevNextButtons)
       }
 
       proto.deactivatePrevNextButtons = function () {
         this.prevButton.deactivate()
         this.nextButton.deactivate()
-        this.off("deactivate", this.deactivatePrevNextButtons)
+        this.off('deactivate', this.deactivatePrevNextButtons)
       } // --------------------------  -------------------------- //
 
       Flickity.PrevNextButton = PrevNextButton
@@ -7845,25 +7296,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
       PageDots.prototype._create = function () {
         // create holder element
-        this.holder = document.createElement("ol")
-        this.holder.className = "flickity-page-dots" // create dots, array of elements
+        this.holder = document.createElement('ol')
+        this.holder.className = 'flickity-page-dots' // create dots, array of elements
 
         this.dots = [] // events
 
         this.handleClick = this.onClick.bind(this)
-        this.on("pointerDown", this.parent.childUIPointerDown.bind(this.parent))
+        this.on('pointerDown', this.parent.childUIPointerDown.bind(this.parent))
       }
 
       PageDots.prototype.activate = function () {
         this.setDots()
-        this.holder.addEventListener("click", this.handleClick)
+        this.holder.addEventListener('click', this.handleClick)
         this.bindStartEvent(this.holder) // add to DOM
 
         this.parent.element.appendChild(this.holder)
       }
 
       PageDots.prototype.deactivate = function () {
-        this.holder.removeEventListener("click", this.handleClick)
+        this.holder.removeEventListener('click', this.handleClick)
         this.unbindStartEvent(this.holder) // remove from DOM
 
         this.parent.element.removeChild(this.holder)
@@ -7887,9 +7338,9 @@ document.addEventListener("DOMContentLoaded", function () {
         var max = length + count
 
         for (var i = length; i < max; i++) {
-          var dot = document.createElement("li")
-          dot.className = "dot"
-          dot.setAttribute("aria-label", "Page dot " + (i + 1))
+          var dot = document.createElement('li')
+          dot.className = 'dot'
+          dot.setAttribute('aria-label', 'Page dot ' + (i + 1))
           fragment.appendChild(dot)
           newDots.push(dot)
         }
@@ -7910,8 +7361,8 @@ document.addEventListener("DOMContentLoaded", function () {
       PageDots.prototype.updateSelected = function () {
         // remove selected class on previous
         if (this.selectedDot) {
-          this.selectedDot.className = "dot"
-          this.selectedDot.removeAttribute("aria-current")
+          this.selectedDot.className = 'dot'
+          this.selectedDot.removeAttribute('aria-current')
         } // don't proceed if no dots
 
         if (!this.dots.length) {
@@ -7919,15 +7370,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         this.selectedDot = this.dots[this.parent.selectedIndex]
-        this.selectedDot.className = "dot is-selected"
-        this.selectedDot.setAttribute("aria-current", "step")
+        this.selectedDot.className = 'dot is-selected'
+        this.selectedDot.setAttribute('aria-current', 'step')
       }
 
       PageDots.prototype.onTap = // old method name, backwards-compatible
         PageDots.prototype.onClick = function (event) {
           var target = event.target // only care about dot clicks
 
-          if (target.nodeName != "LI") {
+          if (target.nodeName != 'LI') {
             return
           }
 
@@ -7946,7 +7397,7 @@ document.addEventListener("DOMContentLoaded", function () {
       utils.extend(Flickity.defaults, {
         pageDots: true,
       })
-      Flickity.createMethods.push("_createPageDots")
+      Flickity.createMethods.push('_createPageDots')
       var proto = Flickity.prototype
 
       proto._createPageDots = function () {
@@ -7956,11 +7407,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         this.pageDots = new PageDots(this) // events
 
-        this.on("activate", this.activatePageDots)
-        this.on("select", this.updateSelectedPageDots)
-        this.on("cellChange", this.updatePageDots)
-        this.on("resize", this.updatePageDots)
-        this.on("deactivate", this.deactivatePageDots)
+        this.on('activate', this.activatePageDots)
+        this.on('select', this.updateSelectedPageDots)
+        this.on('cellChange', this.updatePageDots)
+        this.on('resize', this.updatePageDots)
+        this.on('deactivate', this.deactivatePageDots)
       }
 
       proto.activatePageDots = function () {
@@ -8000,7 +7451,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })(window, function factory(EvEmitter, utils, Flickity) {
       function Player(parent) {
         this.parent = parent
-        this.state = "stopped" // visibility change event handler
+        this.state = 'stopped' // visibility change event handler
 
         this.onVisibilityChange = this.visibilityChange.bind(this)
         this.onVisibilityPlay = this.visibilityPlay.bind(this)
@@ -8009,33 +7460,33 @@ document.addEventListener("DOMContentLoaded", function () {
       Player.prototype = Object.create(EvEmitter.prototype) // start play
 
       Player.prototype.play = function () {
-        if (this.state == "playing") {
+        if (this.state == 'playing') {
           return
         } // do not play if page is hidden, start playing when page is visible
 
         var isPageHidden = document.hidden
 
         if (isPageHidden) {
-          document.addEventListener("visibilitychange", this.onVisibilityPlay)
+          document.addEventListener('visibilitychange', this.onVisibilityPlay)
           return
         }
 
-        this.state = "playing" // listen to visibility change
+        this.state = 'playing' // listen to visibility change
 
-        document.addEventListener("visibilitychange", this.onVisibilityChange) // start ticking
+        document.addEventListener('visibilitychange', this.onVisibilityChange) // start ticking
 
         this.tick()
       }
 
       Player.prototype.tick = function () {
         // do not tick if not playing
-        if (this.state != "playing") {
+        if (this.state != 'playing') {
           return
         }
 
         var time = this.parent.options.autoPlay // default to 3 seconds
 
-        time = typeof time == "number" ? time : 3000
+        time = typeof time == 'number' ? time : 3000
 
         var _this = this // HACK: reset ticks if stopped and started within interval
 
@@ -8048,13 +7499,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       Player.prototype.stop = function () {
-        this.state = "stopped"
+        this.state = 'stopped'
         this.clear() // remove visibility change event
 
-        document.removeEventListener(
-          "visibilitychange",
-          this.onVisibilityChange
-        )
+        document.removeEventListener('visibilitychange', this.onVisibilityChange)
       }
 
       Player.prototype.clear = function () {
@@ -8062,41 +7510,41 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       Player.prototype.pause = function () {
-        if (this.state == "playing") {
-          this.state = "paused"
+        if (this.state == 'playing') {
+          this.state = 'paused'
           this.clear()
         }
       }
 
       Player.prototype.unpause = function () {
         // re-start play if paused
-        if (this.state == "paused") {
+        if (this.state == 'paused') {
           this.play()
         }
       } // pause if page visibility is hidden, unpause if visible
 
       Player.prototype.visibilityChange = function () {
         var isPageHidden = document.hidden
-        this[isPageHidden ? "pause" : "unpause"]()
+        this[isPageHidden ? 'pause' : 'unpause']()
       }
 
       Player.prototype.visibilityPlay = function () {
         this.play()
-        document.removeEventListener("visibilitychange", this.onVisibilityPlay)
+        document.removeEventListener('visibilitychange', this.onVisibilityPlay)
       } // -------------------------- Flickity -------------------------- //
 
       utils.extend(Flickity.defaults, {
         pauseAutoPlayOnHover: true,
       })
-      Flickity.createMethods.push("_createPlayer")
+      Flickity.createMethods.push('_createPlayer')
       var proto = Flickity.prototype
 
       proto._createPlayer = function () {
         this.player = new Player(this)
-        this.on("activate", this.activatePlayer)
-        this.on("uiChange", this.stopPlayer)
-        this.on("pointerDown", this.stopPlayer)
-        this.on("deactivate", this.deactivatePlayer)
+        this.on('activate', this.activatePlayer)
+        this.on('uiChange', this.stopPlayer)
+        this.on('pointerDown', this.stopPlayer)
+        this.on('deactivate', this.deactivatePlayer)
       }
 
       proto.activatePlayer = function () {
@@ -8105,7 +7553,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         this.player.play()
-        this.element.addEventListener("mouseenter", this)
+        this.element.addEventListener('mouseenter', this)
       } // Player API, don't hate the ... thanks I know where the door is
 
       proto.playPlayer = function () {
@@ -8126,7 +7574,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       proto.deactivatePlayer = function () {
         this.player.stop()
-        this.element.removeEventListener("mouseenter", this)
+        this.element.removeEventListener('mouseenter', this)
       } // ----- mouseenter/leave ----- //
       // pause auto-play on hover
 
@@ -8136,12 +7584,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         this.player.pause()
-        this.element.addEventListener("mouseleave", this)
+        this.element.addEventListener('mouseleave', this)
       } // resume auto-play on hover off
 
       proto.onmouseleave = function () {
         this.player.unpause()
-        this.element.removeEventListener("mouseleave", this)
+        this.element.removeEventListener('mouseleave', this)
       } // -----  ----- //
 
       Flickity.Player = Player
@@ -8283,11 +7731,8 @@ document.addEventListener("DOMContentLoaded", function () {
           this.selectedIndex = this.getCellSlideIndex(cell)
         }
 
-        this.selectedIndex = Math.min(
-          this.slides.length - 1,
-          this.selectedIndex
-        )
-        this.emitEvent("cellChange", [changedCellIndex]) // position slider
+        this.selectedIndex = Math.min(this.slides.length - 1, this.selectedIndex)
+        this.emitEvent('cellChange', [changedCellIndex]) // position slider
 
         this.select(this.selectedIndex) // do not position slider after lazy load
 
@@ -8314,11 +7759,11 @@ document.addEventListener("DOMContentLoaded", function () {
         factory(window, window.Flickity, window.fizzyUIUtils)
       }
     })(window, function factory(window, Flickity, utils) {
-      Flickity.createMethods.push("_createLazyload")
+      Flickity.createMethods.push('_createLazyload')
       var proto = Flickity.prototype
 
       proto._createLazyload = function () {
-        this.on("select", this.lazyLoad)
+        this.on('select', this.lazyLoad)
       }
 
       proto.lazyLoad = function () {
@@ -8328,7 +7773,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return
         } // get adjacent cells, use lazyLoad option for adjacent count
 
-        var adjCount = typeof lazyLoad == "number" ? lazyLoad : 0
+        var adjCount = typeof lazyLoad == 'number' ? lazyLoad : 0
         var cellElems = this.getAdjacentCellElements(adjCount) // get lazy images in those cells
 
         var lazyImages = []
@@ -8344,12 +7789,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       function getCellLazyImages(cellElem) {
         // check if cell element is lazy image
-        if (cellElem.nodeName == "IMG") {
-          var lazyloadAttr = cellElem.getAttribute("data-flickity-lazyload")
-          var srcAttr = cellElem.getAttribute("data-flickity-lazyload-src")
-          var srcsetAttr = cellElem.getAttribute(
-            "data-flickity-lazyload-srcset"
-          )
+        if (cellElem.nodeName == 'IMG') {
+          var lazyloadAttr = cellElem.getAttribute('data-flickity-lazyload')
+          var srcAttr = cellElem.getAttribute('data-flickity-lazyload-src')
+          var srcsetAttr = cellElem.getAttribute('data-flickity-lazyload-srcset')
 
           if (lazyloadAttr || srcAttr || srcsetAttr) {
             return [cellElem]
@@ -8357,8 +7800,8 @@ document.addEventListener("DOMContentLoaded", function () {
         } // select lazy images in cell
 
         var lazySelector =
-          "img[data-flickity-lazyload], " +
-          "img[data-flickity-lazyload-src], img[data-flickity-lazyload-srcset]"
+          'img[data-flickity-lazyload], ' +
+          'img[data-flickity-lazyload-src], img[data-flickity-lazyload-srcset]'
         var imgs = cellElem.querySelectorAll(lazySelector)
         return utils.makeArray(imgs)
       } // -------------------------- LazyLoader -------------------------- //
@@ -8376,42 +7819,42 @@ document.addEventListener("DOMContentLoaded", function () {
       LazyLoader.prototype.handleEvent = utils.handleEvent
 
       LazyLoader.prototype.load = function () {
-        this.img.addEventListener("load", this)
-        this.img.addEventListener("error", this) // get src & srcset
+        this.img.addEventListener('load', this)
+        this.img.addEventListener('error', this) // get src & srcset
 
         var src =
-          this.img.getAttribute("data-flickity-lazyload") ||
-          this.img.getAttribute("data-flickity-lazyload-src")
-        var srcset = this.img.getAttribute("data-flickity-lazyload-srcset") // set src & serset
+          this.img.getAttribute('data-flickity-lazyload') ||
+          this.img.getAttribute('data-flickity-lazyload-src')
+        var srcset = this.img.getAttribute('data-flickity-lazyload-srcset') // set src & serset
 
         this.img.src = src
 
         if (srcset) {
-          this.img.setAttribute("srcset", srcset)
+          this.img.setAttribute('srcset', srcset)
         } // remove attr
 
-        this.img.removeAttribute("data-flickity-lazyload")
-        this.img.removeAttribute("data-flickity-lazyload-src")
-        this.img.removeAttribute("data-flickity-lazyload-srcset")
+        this.img.removeAttribute('data-flickity-lazyload')
+        this.img.removeAttribute('data-flickity-lazyload-src')
+        this.img.removeAttribute('data-flickity-lazyload-srcset')
       }
 
       LazyLoader.prototype.onload = function (event) {
-        this.complete(event, "flickity-lazyloaded")
+        this.complete(event, 'flickity-lazyloaded')
       }
 
       LazyLoader.prototype.onerror = function (event) {
-        this.complete(event, "flickity-lazyerror")
+        this.complete(event, 'flickity-lazyerror')
       }
 
       LazyLoader.prototype.complete = function (event, className) {
         // unbind events
-        this.img.removeEventListener("load", this)
-        this.img.removeEventListener("error", this)
+        this.img.removeEventListener('load', this)
+        this.img.removeEventListener('error', this)
         var cell = this.flickity.getParentCell(this.img)
         var cellElem = cell && cell.element
         this.flickity.cellSizeChange(cellElem)
         this.img.classList.add(className)
-        this.flickity.dispatchEvent("lazyLoad", event, cellElem)
+        this.flickity.dispatchEvent('lazyLoad', event, cellElem)
       } // -----  ----- //
 
       Flickity.LazyLoader = LazyLoader
@@ -8497,16 +7940,16 @@ document.addEventListener("DOMContentLoaded", function () {
       } // ---- Flickity ---- //
 
       var proto = Flickity.prototype
-      Flickity.createMethods.push("_createFade")
+      Flickity.createMethods.push('_createFade')
 
       proto._createFade = function () {
         this.fadeIndex = this.selectedIndex
         this.prevSelectedIndex = this.selectedIndex
-        this.on("select", this.onSelectFade)
-        this.on("dragEnd", this.onDragEndFade)
-        this.on("settle", this.onSettleFade)
-        this.on("activate", this.onActivateFade)
-        this.on("deactivate", this.onDeactivateFade)
+        this.on('select', this.onSelectFade)
+        this.on('dragEnd', this.onDragEndFade)
+        this.on('settle', this.onSettleFade)
+        this.on('activate', this.onActivateFade)
+        this.on('deactivate', this.onDeactivateFade)
       }
 
       var updateSlides = proto.updateSlides
@@ -8527,10 +7970,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       proto.onSelectFade = function () {
         // in case of resize, keep fadeIndex within current count
-        this.fadeIndex = Math.min(
-          this.prevSelectedIndex,
-          this.slides.length - 1
-        )
+        this.fadeIndex = Math.min(this.prevSelectedIndex, this.slides.length - 1)
         this.prevSelectedIndex = this.selectedIndex
       }
 
@@ -8556,7 +7996,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       proto.onActivateFade = function () {
         if (this.options.fade) {
-          this.element.classList.add("is-fade")
+          this.element.classList.add('is-fade')
         }
       }
 
@@ -8565,10 +8005,10 @@ document.addEventListener("DOMContentLoaded", function () {
           return
         }
 
-        this.element.classList.remove("is-fade") // reset opacity
+        this.element.classList.remove('is-fade') // reset opacity
 
         this.slides.forEach(function (slide) {
-          slide.setOpacity("")
+          slide.setOpacity('')
         })
       }
       /* ---- position & fading ---- */
@@ -8746,8 +8186,8 @@ document.addEventListener("DOMContentLoaded", function () {
         var framework = {
           features: null,
           bind: function bind(target, type, listener, unbind) {
-            var methodName = (unbind ? "remove" : "add") + "EventListener"
-            type = type.split(" ")
+            var methodName = (unbind ? 'remove' : 'add') + 'EventListener'
+            type = type.split(' ')
 
             for (var i = 0; i < type.length; i++) {
               if (type[i]) {
@@ -8759,7 +8199,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return obj instanceof Array
           },
           createEl: function createEl(classes, tag) {
-            var el = document.createElement(tag || "div")
+            var el = document.createElement(tag || 'div')
 
             if (classes) {
               el.className = classes
@@ -8769,30 +8209,25 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           getScrollY: function getScrollY() {
             var yOffset = window.pageYOffset
-            return yOffset !== undefined
-              ? yOffset
-              : document.documentElement.scrollTop
+            return yOffset !== undefined ? yOffset : document.documentElement.scrollTop
           },
           unbind: function unbind(target, type, listener) {
             framework.bind(target, type, listener, true)
           },
           removeClass: function removeClass(el, className) {
-            var reg = new RegExp("(\\s|^)" + className + "(\\s|$)")
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
             el.className = el.className
-              .replace(reg, " ")
-              .replace(/^\s\s*/, "")
-              .replace(/\s\s*$/, "")
+              .replace(reg, ' ')
+              .replace(/^\s\s*/, '')
+              .replace(/\s\s*$/, '')
           },
           addClass: function addClass(el, className) {
             if (!framework.hasClass(el, className)) {
-              el.className += (el.className ? " " : "") + className
+              el.className += (el.className ? ' ' : '') + className
             }
           },
           hasClass: function hasClass(el, className) {
-            return (
-              el.className &&
-              new RegExp("(^|\\s)" + className + "(\\s|$)").test(el.className)
-            )
+            return el.className && new RegExp('(^|\\s)' + className + '(\\s|$)').test(el.className)
           },
           getChildByClass: function getChildByClass(parentEl, childClassName) {
             var node = parentEl.firstChild
@@ -8880,19 +8315,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var helperEl = framework.createEl(),
               helperStyle = helperEl.style,
-              vendor = "",
+              vendor = '',
               features = {} // IE8 and below
 
             features.oldIE = document.all && !document.addEventListener
-            features.touch = "ontouchstart" in window
+            features.touch = 'ontouchstart' in window
 
             if (window.requestAnimationFrame) {
               features.raf = window.requestAnimationFrame
               features.caf = window.cancelAnimationFrame
             }
 
-            features.pointerEvent =
-              !!window.PointerEvent || navigator.msPointerEnabled // fix false-positive detection of old Android in new IE
+            features.pointerEvent = !!window.PointerEvent || navigator.msPointerEnabled // fix false-positive detection of old Android in new IE
             // (IE11 ua string contains "Android 4.0")
 
             if (!features.pointerEvent) {
@@ -8932,8 +8366,8 @@ document.addEventListener("DOMContentLoaded", function () {
               features.isMobileOpera = /opera mini|opera mobi/i.test(ua) // p.s. yes, yes, UA sniffing is bad, propose your solution for above bugs.
             }
 
-            var styleChecks = ["transform", "perspective", "animationName"],
-              vendors = ["", "webkit", "Moz", "ms", "O"],
+            var styleChecks = ['transform', 'perspective', 'animationName'],
+              vendors = ['', 'webkit', 'Moz', 'ms', 'O'],
               styleCheckItem,
               styleName
 
@@ -8946,8 +8380,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 styleName =
                   vendor +
                   (vendor
-                    ? styleCheckItem.charAt(0).toUpperCase() +
-                      styleCheckItem.slice(1)
+                    ? styleCheckItem.charAt(0).toUpperCase() + styleCheckItem.slice(1)
                     : styleCheckItem)
 
                 if (!features[styleCheckItem] && styleName in helperStyle) {
@@ -8957,12 +8390,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
               if (vendor && !features.raf) {
                 vendor = vendor.toLowerCase()
-                features.raf = window[vendor + "RequestAnimationFrame"]
+                features.raf = window[vendor + 'RequestAnimationFrame']
 
                 if (features.raf) {
                   features.caf =
-                    window[vendor + "CancelAnimationFrame"] ||
-                    window[vendor + "CancelRequestAnimationFrame"]
+                    window[vendor + 'CancelAnimationFrame'] ||
+                    window[vendor + 'CancelRequestAnimationFrame']
                 }
               }
             }
@@ -8987,8 +8420,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             features.svg =
               !!document.createElementNS &&
-              !!document.createElementNS("http://www.w3.org/2000/svg", "svg")
-                .createSVGRect
+              !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect
             framework.features = features
             return features
           },
@@ -8997,9 +8429,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (framework.features.oldIE) {
           framework.bind = function (target, type, listener, unbind) {
-            type = type.split(" ")
+            type = type.split(' ')
 
-            var methodName = (unbind ? "detach" : "attach") + "Event",
+            var methodName = (unbind ? 'detach' : 'attach') + 'Event',
               evName,
               _handleEv = function _handleEv() {
                 listener.handleEvent.call(listener)
@@ -9009,18 +8441,18 @@ document.addEventListener("DOMContentLoaded", function () {
               evName = type[i]
 
               if (evName) {
-                if (_typeof(listener) === "object" && listener.handleEvent) {
+                if (_typeof(listener) === 'object' && listener.handleEvent) {
                   if (!unbind) {
-                    listener["oldIE" + evName] = _handleEv
+                    listener['oldIE' + evName] = _handleEv
                   } else {
-                    if (!listener["oldIE" + evName]) {
+                    if (!listener['oldIE' + evName]) {
                       return false
                     }
                   }
 
-                  target[methodName]("on" + evName, listener["oldIE" + evName])
+                  target[methodName]('on' + evName, listener['oldIE' + evName])
                 } else {
-                  target[methodName]("on" + evName, listener)
+                  target[methodName]('on' + evName, listener)
                 }
               }
             }
@@ -9061,7 +8493,7 @@ document.addEventListener("DOMContentLoaded", function () {
           mainScrollEndFriction: 0.35,
           panEndFriction: 0.35,
           isClickableElement: function isClickableElement(el) {
-            return el.tagName === "A"
+            return el.tagName === 'A'
           },
           getDoubleTapZoom: function getDoubleTapZoom(isMouseClick, item) {
             if (isMouseClick) {
@@ -9073,7 +8505,7 @@ document.addEventListener("DOMContentLoaded", function () {
           maxSpreadZoom: 1.33,
           modal: true,
           // not fully implemented yet
-          scaleMode: "fit", // TODO
+          scaleMode: 'fit', // TODO
         }
         framework.extend(_options, options)
         /**
@@ -9180,31 +8612,15 @@ document.addEventListener("DOMContentLoaded", function () {
             _bgOpacity = opacity
             self.bg.style.opacity = opacity * _options.bgOpacity
           },
-          _applyZoomTransform = function _applyZoomTransform(
-            styleObj,
-            x,
-            y,
-            zoom,
-            item
-          ) {
+          _applyZoomTransform = function _applyZoomTransform(styleObj, x, y, zoom, item) {
             if (!_renderMaxResolution || (item && item !== self.currItem)) {
               zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio)
             }
 
             styleObj[_transformKey] =
-              _translatePrefix +
-              x +
-              "px, " +
-              y +
-              "px" +
-              _translateSufix +
-              " scale(" +
-              zoom +
-              ")"
+              _translatePrefix + x + 'px, ' + y + 'px' + _translateSufix + ' scale(' + zoom + ')'
           },
-          _applyCurrentZoomPan = function _applyCurrentZoomPan(
-            allowRenderResolution
-          ) {
+          _applyCurrentZoomPan = function _applyCurrentZoomPan(allowRenderResolution) {
             if (_currZoomElementStyle) {
               if (allowRenderResolution) {
                 if (_currZoomLevel > self.currItem.fitRatio) {
@@ -9222,12 +8638,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
               }
 
-              _applyZoomTransform(
-                _currZoomElementStyle,
-                _panOffset.x,
-                _panOffset.y,
-                _currZoomLevel
-              )
+              _applyZoomTransform(_currZoomElementStyle, _panOffset.x, _panOffset.y, _currZoomLevel)
             }
           },
           _applyZoomPanToItem = function _applyZoomPanToItem(item) {
@@ -9242,14 +8653,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           },
           _setTranslateX = function _setTranslateX(x, elStyle) {
-            elStyle[_transformKey] =
-              _translatePrefix + x + "px, 0px" + _translateSufix
+            elStyle[_transformKey] = _translatePrefix + x + 'px, 0px' + _translateSufix
           },
           _moveMainScroll = function _moveMainScroll(x, dragging) {
             if (!_options.loop && dragging) {
               var newSlideIndexOffset =
-                  _currentItemIndex +
-                  (_slideSize.x * _currPositionIndex - x) / _slideSize.x,
+                  _currentItemIndex + (_slideSize.x * _currPositionIndex - x) / _slideSize.x,
                 delta = Math.round(x - _mainScrollPos.x)
 
               if (
@@ -9267,10 +8676,7 @@ document.addEventListener("DOMContentLoaded", function () {
           _calculatePanOffset = function _calculatePanOffset(axis, zoomLevel) {
             var m = _midZoomPoint[axis] - _offset[axis]
             return (
-              _startPanOffset[axis] +
-              _currPanDist[axis] +
-              m -
-              m * (zoomLevel / _startZoomLevel)
+              _startPanOffset[axis] + _currPanDist[axis] + m - m * (zoomLevel / _startZoomLevel)
             )
           },
           _equalizePoints = function _equalizePoints(p1, p2) {
@@ -9290,11 +8696,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // Wait until mouse move event is fired at least twice during 100ms
             // We do this, because some mobile browsers trigger it on touchstart
             if (_mouseMoveTimeout) {
-              framework.unbind(document, "mousemove", _onFirstMouseMove)
-              framework.addClass(template, "pswp--has_mouse")
+              framework.unbind(document, 'mousemove', _onFirstMouseMove)
+              framework.addClass(template, 'pswp--has_mouse')
               _options.mouseUsed = true
 
-              _shout("mouseUsed")
+              _shout('mouseUsed')
             }
 
             _mouseMoveTimeout = setTimeout(function () {
@@ -9302,29 +8708,29 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 100)
           },
           _bindEvents = function _bindEvents() {
-            framework.bind(document, "keydown", self)
+            framework.bind(document, 'keydown', self)
 
             if (_features.transform) {
               // don't bind click event in browsers that don't support transform (mostly IE8)
-              framework.bind(self.scrollWrap, "click", self)
+              framework.bind(self.scrollWrap, 'click', self)
             }
 
             if (!_options.mouseUsed) {
-              framework.bind(document, "mousemove", _onFirstMouseMove)
+              framework.bind(document, 'mousemove', _onFirstMouseMove)
             }
 
-            framework.bind(window, "resize scroll orientationchange", self)
+            framework.bind(window, 'resize scroll orientationchange', self)
 
-            _shout("bindEvents")
+            _shout('bindEvents')
           },
           _unbindEvents = function _unbindEvents() {
-            framework.unbind(window, "resize scroll orientationchange", self)
-            framework.unbind(window, "scroll", _globalEventHandlers.scroll)
-            framework.unbind(document, "keydown", self)
-            framework.unbind(document, "mousemove", _onFirstMouseMove)
+            framework.unbind(window, 'resize scroll orientationchange', self)
+            framework.unbind(window, 'scroll', _globalEventHandlers.scroll)
+            framework.unbind(document, 'keydown', self)
+            framework.unbind(document, 'mousemove', _onFirstMouseMove)
 
             if (_features.transform) {
-              framework.unbind(self.scrollWrap, "click", self)
+              framework.unbind(self.scrollWrap, 'click', self)
             }
 
             if (_isDragging) {
@@ -9333,17 +8739,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             clearTimeout(_orientationChangeTimeout)
 
-            _shout("unbindEvents")
+            _shout('unbindEvents')
           },
-          _calculatePanBounds = function _calculatePanBounds(
-            zoomLevel,
-            update
-          ) {
-            var bounds = _calculateItemSize(
-              self.currItem,
-              _viewportSize,
-              zoomLevel
-            )
+          _calculatePanBounds = function _calculatePanBounds(zoomLevel, update) {
+            var bounds = _calculateItemSize(self.currItem, _viewportSize, zoomLevel)
 
             if (update) {
               _currPanBounds = bounds
@@ -9392,19 +8791,18 @@ document.addEventListener("DOMContentLoaded", function () {
           _setupTransforms = function _setupTransforms() {
             if (_transformKey) {
               // setup 3d transforms
-              var allow3dTransform =
-                _features.perspective && !_likelyTouchDevice
-              _translatePrefix = "translate" + (allow3dTransform ? "3d(" : "(")
-              _translateSufix = _features.perspective ? ", 0px)" : ")"
+              var allow3dTransform = _features.perspective && !_likelyTouchDevice
+              _translatePrefix = 'translate' + (allow3dTransform ? '3d(' : '(')
+              _translateSufix = _features.perspective ? ', 0px)' : ')'
               return
             } // Override zoom/pan/move functions in case old browser is used (most likely IE)
             // (so they use left/top/width/height, instead of CSS transform)
 
-            _transformKey = "left"
-            framework.addClass(template, "pswp--ie")
+            _transformKey = 'left'
+            framework.addClass(template, 'pswp--ie')
 
             _setTranslateX = function _setTranslateX(x, elStyle) {
-              elStyle.left = x + "px"
+              elStyle.left = x + 'px'
             }
 
             _applyZoomPanToItem = function _applyZoomPanToItem(item) {
@@ -9412,10 +8810,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 s = item.container.style,
                 w = zoomRatio * item.w,
                 h = zoomRatio * item.h
-              s.width = w + "px"
-              s.height = h + "px"
-              s.left = item.initialPosition.x + "px"
-              s.top = item.initialPosition.y + "px"
+              s.width = w + 'px'
+              s.height = h + 'px'
+              s.left = item.initialPosition.x + 'px'
+              s.top = item.initialPosition.y + 'px'
             }
 
             _applyCurrentZoomPan = function _applyCurrentZoomPan() {
@@ -9425,23 +8823,23 @@ document.addEventListener("DOMContentLoaded", function () {
                   zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio,
                   w = zoomRatio * item.w,
                   h = zoomRatio * item.h
-                s.width = w + "px"
-                s.height = h + "px"
-                s.left = _panOffset.x + "px"
-                s.top = _panOffset.y + "px"
+                s.width = w + 'px'
+                s.height = h + 'px'
+                s.left = _panOffset.x + 'px'
+                s.top = _panOffset.y + 'px'
               }
             }
           },
           _onKeyDown = function _onKeyDown(e) {
-            var keydownAction = ""
+            var keydownAction = ''
 
             if (_options.escKey && e.keyCode === 27) {
-              keydownAction = "close"
+              keydownAction = 'close'
             } else if (_options.arrowKeys) {
               if (e.keyCode === 37) {
-                keydownAction = "prev"
+                keydownAction = 'prev'
               } else if (e.keyCode === 39) {
-                keydownAction = "next"
+                keydownAction = 'next'
               }
             }
 
@@ -9464,12 +8862,7 @@ document.addEventListener("DOMContentLoaded", function () {
               return
             } // don't allow click event to pass through when triggering after drag or some other gesture
 
-            if (
-              _moved ||
-              _zoomStarted ||
-              _mainScrollAnimating ||
-              _verticalDragInitiated
-            ) {
+            if (_moved || _zoomStarted || _mainScrollAnimating || _verticalDragInitiated) {
               e.preventDefault()
               e.stopPropagation()
             }
@@ -9572,14 +8965,9 @@ document.addEventListener("DOMContentLoaded", function () {
             _offset.x = x
             _currentWindowScrollY = _offset.y = y
 
-            _shout("updateScrollOffset", _offset)
+            _shout('updateScrollOffset', _offset)
           },
-          applyZoomPan: function applyZoomPan(
-            zoomLevel,
-            panX,
-            panY,
-            allowRenderResolution
-          ) {
+          applyZoomPan: function applyZoomPan(zoomLevel, panX, panY, allowRenderResolution) {
             _panOffset.x = panX
             _panOffset.y = panY
             _currZoomLevel = zoomLevel
@@ -9596,7 +8984,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             self.template = template // root DOM element of PhotoSwipe
 
-            self.bg = framework.getChildByClass(template, "pswp__bg")
+            self.bg = framework.getChildByClass(template, 'pswp__bg')
             _initalClassName = template.className
             _isOpen = true
             _features = framework.detectFeatures()
@@ -9604,14 +8992,8 @@ document.addEventListener("DOMContentLoaded", function () {
             _cancelAF = _features.caf
             _transformKey = _features.transform
             _oldIE = _features.oldIE
-            self.scrollWrap = framework.getChildByClass(
-              template,
-              "pswp__scroll-wrap"
-            )
-            self.container = framework.getChildByClass(
-              self.scrollWrap,
-              "pswp__container"
-            )
+            self.scrollWrap = framework.getChildByClass(template, 'pswp__scroll-wrap')
+            self.container = framework.getChildByClass(self.scrollWrap, 'pswp__container')
             _containerStyle = self.container.style // for fast access
             // Objects that hold slides (there are only 3 in DOM)
 
@@ -9633,8 +9015,7 @@ document.addEventListener("DOMContentLoaded", function () {
               },
             ] // hide nearby item holders until initial zoom animation finishes (to avoid extra Paints)
 
-            _itemHolders[0].el.style.display =
-              _itemHolders[2].el.style.display = "none"
+            _itemHolders[0].el.style.display = _itemHolders[2].el.style.display = 'none'
 
             _setupTransforms() // Setup global events
 
@@ -9658,17 +9039,14 @@ document.addEventListener("DOMContentLoaded", function () {
             // old IOS, Android and Opera mobile. Blackberry seems to work fine, even older models.
 
             var oldPhone =
-              _features.isOldIOSPhone ||
-              _features.isOldAndroid ||
-              _features.isMobileOpera
+              _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera
 
             if (!_features.animationName || !_features.transform || oldPhone) {
-              _options.showAnimationDuration =
-                _options.hideAnimationDuration = 0
+              _options.showAnimationDuration = _options.hideAnimationDuration = 0
             } // init modules
 
             for (i = 0; i < _modules.length; i++) {
-              self["init" + _modules[i]]()
+              self['init' + _modules[i]]()
             } // init
 
             if (UiClass) {
@@ -9676,7 +9054,7 @@ document.addEventListener("DOMContentLoaded", function () {
               ui.init()
             }
 
-            _shout("firstUpdate")
+            _shout('firstUpdate')
 
             _currentItemIndex = _currentItemIndex || _options.index || 0 // validate index
 
@@ -9694,37 +9072,36 @@ document.addEventListener("DOMContentLoaded", function () {
               _isFixedPosition = false
             }
 
-            template.setAttribute("aria-hidden", "false")
+            template.setAttribute('aria-hidden', 'false')
 
             if (_options.modal) {
               if (!_isFixedPosition) {
-                template.style.position = "absolute"
-                template.style.top = framework.getScrollY() + "px"
+                template.style.position = 'absolute'
+                template.style.top = framework.getScrollY() + 'px'
               } else {
-                template.style.position = "fixed"
+                template.style.position = 'fixed'
               }
             }
 
             if (_currentWindowScrollY === undefined) {
-              _shout("initialLayout")
+              _shout('initialLayout')
 
-              _currentWindowScrollY = _initalWindowScrollY =
-                framework.getScrollY()
+              _currentWindowScrollY = _initalWindowScrollY = framework.getScrollY()
             } // add classes to root element of PhotoSwipe
 
-            var rootClasses = "pswp--open "
+            var rootClasses = 'pswp--open '
 
             if (_options.mainClass) {
-              rootClasses += _options.mainClass + " "
+              rootClasses += _options.mainClass + ' '
             }
 
             if (_options.showHideOpacity) {
-              rootClasses += "pswp--animate_opacity "
+              rootClasses += 'pswp--animate_opacity '
             }
 
-            rootClasses += _likelyTouchDevice ? "pswp--touch" : "pswp--notouch"
-            rootClasses += _features.animationName ? " pswp--css_animation" : ""
-            rootClasses += _features.svg ? " pswp--svg" : ""
+            rootClasses += _likelyTouchDevice ? 'pswp--touch' : 'pswp--notouch'
+            rootClasses += _features.animationName ? ' pswp--css_animation' : ''
+            rootClasses += _features.svg ? ' pswp--svg' : ''
             framework.addClass(template, rootClasses)
             self.updateSize() // initial update
 
@@ -9732,21 +9109,17 @@ document.addEventListener("DOMContentLoaded", function () {
             _indexDiff = null
 
             for (i = 0; i < NUM_HOLDERS; i++) {
-              _setTranslateX(
-                (i + _containerShiftIndex) * _slideSize.x,
-                _itemHolders[i].el.style
-              )
+              _setTranslateX((i + _containerShiftIndex) * _slideSize.x, _itemHolders[i].el.style)
             }
 
             if (!_oldIE) {
               framework.bind(self.scrollWrap, _downEvents, self) // no dragging for old IE
             }
 
-            _listen("initialZoomInEnd", function () {
+            _listen('initialZoomInEnd', function () {
               self.setContent(_itemHolders[0], _currentItemIndex - 1)
               self.setContent(_itemHolders[2], _currentItemIndex + 1)
-              _itemHolders[0].el.style.display =
-                _itemHolders[2].el.style.display = "block"
+              _itemHolders[0].el.style.display = _itemHolders[2].el.style.display = 'block'
 
               if (_options.focus) {
                 // focus causes layout,
@@ -9761,7 +9134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             self.setContent(_itemHolders[1], _currentItemIndex)
             self.updateCurrItem()
 
-            _shout("afterInit")
+            _shout('afterInit')
 
             if (!_isFixedPosition) {
               // On all versions of iOS lower than 8.0, we check size of viewport every second.
@@ -9784,7 +9157,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }, 1000)
             }
 
-            framework.addClass(template, "pswp--visible")
+            framework.addClass(template, 'pswp--visible')
           },
           // Close the gallery, then destroy it
           close: function close() {
@@ -9795,7 +9168,7 @@ document.addEventListener("DOMContentLoaded", function () {
             _isOpen = false
             _isDestroying = true
 
-            _shout("close")
+            _shout('close')
 
             _unbindEvents()
 
@@ -9803,13 +9176,13 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           // destroys the gallery (unbinds events, cleans up intervals and timeouts to avoid memory leaks)
           destroy: function destroy() {
-            _shout("destroy")
+            _shout('destroy')
 
             if (_showOrHideTimeout) {
               clearTimeout(_showOrHideTimeout)
             }
 
-            template.setAttribute("aria-hidden", "true")
+            template.setAttribute('aria-hidden', 'true')
             template.className = _initalClassName
 
             if (_updateSizeInterval) {
@@ -9818,7 +9191,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             framework.unbind(self.scrollWrap, _downEvents, self) // we unbind scroll event at the end, as closing animation may depend on it
 
-            framework.unbind(window, "scroll", self)
+            framework.unbind(window, 'scroll', self)
 
             _stopDragUpdateLoop()
 
@@ -9884,13 +9257,13 @@ document.addEventListener("DOMContentLoaded", function () {
           // update current zoom/pan objects
           updateCurrZoomItem: function updateCurrZoomItem(emulateSetContent) {
             if (emulateSetContent) {
-              _shout("beforeChange", 0)
+              _shout('beforeChange', 0)
             } // itemHolder[1] is middle (current) item
 
             if (_itemHolders[1].el.children.length) {
               var zoomElement = _itemHolders[1].el.children[0]
 
-              if (framework.hasClass(zoomElement, "pswp__zoom-wrap")) {
+              if (framework.hasClass(zoomElement, 'pswp__zoom-wrap')) {
                 _currZoomElementStyle = zoomElement.style
               } else {
                 _currZoomElementStyle = null
@@ -9905,7 +9278,7 @@ document.addEventListener("DOMContentLoaded", function () {
             _panOffset.y = _currPanBounds.center.y
 
             if (emulateSetContent) {
-              _shout("afterChange")
+              _shout('afterChange')
             }
           },
           invalidateCurrItems: function invalidateCurrItems() {
@@ -9932,11 +9305,10 @@ document.addEventListener("DOMContentLoaded", function () {
             self.currItem = _getItemAt(_currentItemIndex)
             _renderMaxResolution = false
 
-            _shout("beforeChange", _indexDiff)
+            _shout('beforeChange', _indexDiff)
 
             if (diffAbs >= NUM_HOLDERS) {
-              _containerShiftIndex +=
-                _indexDiff + (_indexDiff > 0 ? -NUM_HOLDERS : NUM_HOLDERS)
+              _containerShiftIndex += _indexDiff + (_indexDiff > 0 ? -NUM_HOLDERS : NUM_HOLDERS)
               diffAbs = NUM_HOLDERS
             }
 
@@ -9947,15 +9319,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 _containerShiftIndex++
 
-                _setTranslateX(
-                  (_containerShiftIndex + 2) * _slideSize.x,
-                  tempHolder.el.style
-                )
+                _setTranslateX((_containerShiftIndex + 2) * _slideSize.x, tempHolder.el.style)
 
-                self.setContent(
-                  tempHolder,
-                  _currentItemIndex - diffAbs + i + 1 + 1
-                )
+                self.setContent(tempHolder, _currentItemIndex - diffAbs + i + 1 + 1)
               } else {
                 tempHolder = _itemHolders.pop()
 
@@ -9963,15 +9329,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 _containerShiftIndex--
 
-                _setTranslateX(
-                  _containerShiftIndex * _slideSize.x,
-                  tempHolder.el.style
-                )
+                _setTranslateX(_containerShiftIndex * _slideSize.x, tempHolder.el.style)
 
-                self.setContent(
-                  tempHolder,
-                  _currentItemIndex + diffAbs - i - 1 - 1
-                )
+                self.setContent(tempHolder, _currentItemIndex + diffAbs - i - 1 - 1)
               }
             } // reset zoom/pan on previous item
 
@@ -9991,14 +9351,14 @@ document.addEventListener("DOMContentLoaded", function () {
             self.updateCurrZoomItem()
             _prevItemIndex = _currentItemIndex
 
-            _shout("afterChange")
+            _shout('afterChange')
           },
           updateSize: function updateSize(force) {
             if (!_isFixedPosition && _options.modal) {
               var windowScrollY = framework.getScrollY()
 
               if (_currentWindowScrollY !== windowScrollY) {
-                template.style.top = windowScrollY + "px"
+                template.style.top = windowScrollY + 'px'
                 _currentWindowScrollY = windowScrollY
               }
 
@@ -10013,7 +9373,7 @@ document.addEventListener("DOMContentLoaded", function () {
               _windowVisibleSize.x = window.innerWidth
               _windowVisibleSize.y = window.innerHeight //template.style.width = _windowVisibleSize.x + 'px';
 
-              template.style.height = _windowVisibleSize.y + "px"
+              template.style.height = _windowVisibleSize.y + 'px'
             }
 
             _viewportSize.x = self.scrollWrap.clientWidth
@@ -10021,13 +9381,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             _updatePageScrollOffset()
 
-            _slideSize.x =
-              _viewportSize.x + Math.round(_viewportSize.x * _options.spacing)
+            _slideSize.x = _viewportSize.x + Math.round(_viewportSize.x * _options.spacing)
             _slideSize.y = _viewportSize.y
 
             _moveMainScroll(_slideSize.x * _currPositionIndex)
 
-            _shout("beforeResize") // even may be used for example to switch image sources
+            _shout('beforeResize') // even may be used for example to switch image sources
             // don't re-calculate size on inital size update
 
             if (_containerShiftIndex !== undefined) {
@@ -10036,10 +9395,7 @@ document.addEventListener("DOMContentLoaded", function () {
               for (var i = 0; i < NUM_HOLDERS; i++) {
                 holder = _itemHolders[i]
 
-                _setTranslateX(
-                  (i + _containerShiftIndex) * _slideSize.x,
-                  holder.el.style
-                )
+                _setTranslateX((i + _containerShiftIndex) * _slideSize.x, holder.el.style)
 
                 hIndex = _currentItemIndex + i - 1
 
@@ -10050,10 +9406,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 item = _getItemAt(hIndex) // re-render gallery item if `needsUpdate`,
                 // or doesn't have `bounds` (entirely new slide object)
 
-                if (
-                  item &&
-                  (_itemsNeedUpdate || item.needsUpdate || !item.bounds)
-                ) {
+                if (item && (_itemsNeedUpdate || item.needsUpdate || !item.bounds)) {
                   self.cleanSlide(item)
                   self.setContent(holder, hIndex) // if "center" slide
 
@@ -10090,16 +9443,10 @@ document.addEventListener("DOMContentLoaded", function () {
               _applyCurrentZoomPan(true)
             }
 
-            _shout("resize")
+            _shout('resize')
           },
           // Zoom current item to
-          zoomTo: function zoomTo(
-            destZoomLevel,
-            centerPoint,
-            speed,
-            easingFn,
-            updateFn
-          ) {
+          zoomTo: function zoomTo(destZoomLevel, centerPoint, speed, easingFn, updateFn) {
             /*
             	if(destZoomLevel === 'fit') {
             		destZoomLevel = self.currItem.fitRatio;
@@ -10118,19 +9465,9 @@ document.addEventListener("DOMContentLoaded", function () {
             var destPanBounds = _calculatePanBounds(destZoomLevel, false),
               destPanOffset = {}
 
-            _modifyDestPanOffset(
-              "x",
-              destPanBounds,
-              destPanOffset,
-              destZoomLevel
-            )
+            _modifyDestPanOffset('x', destPanBounds, destPanOffset, destZoomLevel)
 
-            _modifyDestPanOffset(
-              "y",
-              destPanBounds,
-              destPanOffset,
-              destZoomLevel
-            )
+            _modifyDestPanOffset('y', destPanBounds, destPanOffset, destZoomLevel)
 
             var initialZoomLevel = _currZoomLevel
             var initialPanOffset = {
@@ -10146,14 +9483,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 _panOffset.x = destPanOffset.x
                 _panOffset.y = destPanOffset.y
               } else {
-                _currZoomLevel =
-                  (destZoomLevel - initialZoomLevel) * now + initialZoomLevel
-                _panOffset.x =
-                  (destPanOffset.x - initialPanOffset.x) * now +
-                  initialPanOffset.x
-                _panOffset.y =
-                  (destPanOffset.y - initialPanOffset.y) * now +
-                  initialPanOffset.y
+                _currZoomLevel = (destZoomLevel - initialZoomLevel) * now + initialZoomLevel
+                _panOffset.x = (destPanOffset.x - initialPanOffset.x) * now + initialPanOffset.x
+                _panOffset.y = (destPanOffset.y - initialPanOffset.y) * now + initialPanOffset.y
               }
 
               if (updateFn) {
@@ -10165,7 +9497,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (speed) {
               _animateProp(
-                "customZoomTo",
+                'customZoomTo',
                 0,
                 1,
                 speed,
@@ -10250,9 +9582,7 @@ document.addEventListener("DOMContentLoaded", function () {
           _calculatePointsDistance = function _calculatePointsDistance(p1, p2) {
             _tempPoint.x = Math.abs(p1.x - p2.x)
             _tempPoint.y = Math.abs(p1.y - p2.y)
-            return Math.sqrt(
-              _tempPoint.x * _tempPoint.x + _tempPoint.y * _tempPoint.y
-            )
+            return Math.sqrt(_tempPoint.x * _tempPoint.x + _tempPoint.y * _tempPoint.y)
           },
           _stopDragUpdateLoop = function _stopDragUpdateLoop() {
             if (_dragAnimFrame) {
@@ -10270,8 +9600,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           _canPan = function _canPan() {
             return !(
-              _options.scaleMode === "fit" &&
-              _currZoomLevel === self.currItem.initialZoomLevel
+              _options.scaleMode === 'fit' && _currZoomLevel === self.currItem.initialZoomLevel
             )
           },
           // find the closest parent DOM element
@@ -10281,8 +9610,8 @@ document.addEventListener("DOMContentLoaded", function () {
             } // don't search elements above pswp__scroll-wrap
 
             if (
-              el.getAttribute("class") &&
-              el.getAttribute("class").indexOf("pswp__scroll-wrap") > -1
+              el.getAttribute('class') &&
+              el.getAttribute('class').indexOf('pswp__scroll-wrap') > -1
             ) {
               return false
             }
@@ -10294,17 +9623,13 @@ document.addEventListener("DOMContentLoaded", function () {
             return _closestElement(el.parentNode, fn)
           },
           _preventObj = {},
-          _preventDefaultEventBehaviour =
-            function _preventDefaultEventBehaviour(e, isDown) {
-              _preventObj.prevent = !_closestElement(
-                e.target,
-                _options.isClickableElement
-              )
+          _preventDefaultEventBehaviour = function _preventDefaultEventBehaviour(e, isDown) {
+            _preventObj.prevent = !_closestElement(e.target, _options.isClickableElement)
 
-              _shout("preventDragEvent", e, isDown, _preventObj)
+            _shout('preventDragEvent', e, isDown, _preventObj)
 
-              return _preventObj.prevent
-            },
+            return _preventObj.prevent
+          },
           _convertTouchToPoint = function _convertTouchToPoint(touch, p) {
             p.x = touch.pageX
             p.y = touch.pageY
@@ -10326,12 +9651,11 @@ document.addEventListener("DOMContentLoaded", function () {
               _gestureCheckSpeedTime = time
             }
           },
-          _calculateVerticalDragOpacityRatio =
-            function _calculateVerticalDragOpacityRatio() {
-              var yOffset = _panOffset.y - self.currItem.initialPosition.y // difference between initial and current position
+          _calculateVerticalDragOpacityRatio = function _calculateVerticalDragOpacityRatio() {
+            var yOffset = _panOffset.y - self.currItem.initialPosition.y // difference between initial and current position
 
-              return 1 - Math.abs(yOffset / (_viewportSize.y / 2))
-            },
+            return 1 - Math.abs(yOffset / (_viewportSize.y / 2))
+          },
           // points pool, reused during touch events
           _ePoint1 = {},
           _ePoint2 = {},
@@ -10344,24 +9668,18 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (!_pointerEventEnabled) {
-              if (e.type.indexOf("touch") > -1) {
+              if (e.type.indexOf('touch') > -1) {
                 if (e.touches && e.touches.length > 0) {
-                  _tempPointsArr[0] = _convertTouchToPoint(
-                    e.touches[0],
-                    _ePoint1
-                  )
+                  _tempPointsArr[0] = _convertTouchToPoint(e.touches[0], _ePoint1)
 
                   if (e.touches.length > 1) {
-                    _tempPointsArr[1] = _convertTouchToPoint(
-                      e.touches[1],
-                      _ePoint2
-                    )
+                    _tempPointsArr[1] = _convertTouchToPoint(e.touches[1], _ePoint2)
                   }
                 }
               } else {
                 _ePoint1.x = e.pageX
                 _ePoint1.y = e.pageY
-                _ePoint1.id = ""
+                _ePoint1.id = ''
                 _tempPointsArr[0] = _ePoint1 //_ePoint1;
               }
             } else {
@@ -10391,10 +9709,7 @@ document.addEventListener("DOMContentLoaded", function () {
               newPanPos,
               newMainScrollPos // calculate fdistance over the bounds and friction
 
-            if (
-              newOffset > _currPanBounds.min[axis] ||
-              newOffset < _currPanBounds.max[axis]
-            ) {
+            if (newOffset > _currPanBounds.min[axis] || newOffset < _currPanBounds.max[axis]) {
               panFriction = _options.panEndFriction // Linear increasing of friction, so at 1/4 of viewport it's at max value.
               // Looks not as nice as was expected. Left for history.
               // panFriction = (1 - (_panOffset[axis] + delta[axis] + panBounds.min[axis]) / (_viewportSize[axis] / 4) );
@@ -10404,31 +9719,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
             newOffset = _panOffset[axis] + delta[axis] * panFriction // move main scroll or start panning
 
-            if (
-              _options.allowPanToNext ||
-              _currZoomLevel === self.currItem.initialZoomLevel
-            ) {
+            if (_options.allowPanToNext || _currZoomLevel === self.currItem.initialZoomLevel) {
               if (!_currZoomElementStyle) {
                 newMainScrollPos = newMainScrollPosition
-              } else if (_direction === "h" && axis === "x" && !_zoomStarted) {
+              } else if (_direction === 'h' && axis === 'x' && !_zoomStarted) {
                 if (dir) {
                   if (newOffset > _currPanBounds.min[axis]) {
                     panFriction = _options.panEndFriction
                     overDiff = _currPanBounds.min[axis] - newOffset
-                    startOverDiff =
-                      _currPanBounds.min[axis] - _startPanOffset[axis]
+                    startOverDiff = _currPanBounds.min[axis] - _startPanOffset[axis]
                   } // drag right
 
-                  if (
-                    (startOverDiff <= 0 || mainScrollDiff < 0) &&
-                    _getNumItems() > 1
-                  ) {
+                  if ((startOverDiff <= 0 || mainScrollDiff < 0) && _getNumItems() > 1) {
                     newMainScrollPos = newMainScrollPosition
 
-                    if (
-                      mainScrollDiff < 0 &&
-                      newMainScrollPosition > _startMainScrollPos.x
-                    ) {
+                    if (mainScrollDiff < 0 && newMainScrollPosition > _startMainScrollPos.x) {
                       newMainScrollPos = _startMainScrollPos.x
                     }
                   } else {
@@ -10440,20 +9745,13 @@ document.addEventListener("DOMContentLoaded", function () {
                   if (newOffset < _currPanBounds.max[axis]) {
                     panFriction = _options.panEndFriction
                     overDiff = newOffset - _currPanBounds.max[axis]
-                    startOverDiff =
-                      _startPanOffset[axis] - _currPanBounds.max[axis]
+                    startOverDiff = _startPanOffset[axis] - _currPanBounds.max[axis]
                   }
 
-                  if (
-                    (startOverDiff <= 0 || mainScrollDiff > 0) &&
-                    _getNumItems() > 1
-                  ) {
+                  if ((startOverDiff <= 0 || mainScrollDiff > 0) && _getNumItems() > 1) {
                     newMainScrollPos = newMainScrollPosition
 
-                    if (
-                      mainScrollDiff > 0 &&
-                      newMainScrollPosition < _startMainScrollPos.x
-                    ) {
+                    if (mainScrollDiff > 0 && newMainScrollPosition < _startMainScrollPos.x) {
                       newMainScrollPos = _startMainScrollPos.x
                     }
                   } else {
@@ -10464,7 +9762,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 } //
               }
 
-              if (axis === "x") {
+              if (axis === 'x') {
                 if (newMainScrollPos !== undefined) {
                   _moveMainScroll(newMainScrollPos, true)
 
@@ -10502,7 +9800,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //
             // http://www.quirksmode.org/js/events_properties.html
             // https://developer.mozilla.org/en-US/docs/Web/API/event.button
-            if (e.type === "mousedown" && e.button > 0) {
+            if (e.type === 'mousedown' && e.button > 0) {
               return
             }
 
@@ -10511,7 +9809,7 @@ document.addEventListener("DOMContentLoaded", function () {
               return
             }
 
-            if (_oldAndroidTouchEndTimeout && e.type === "mousedown") {
+            if (_oldAndroidTouchEndTimeout && e.type === 'mousedown') {
               return
             }
 
@@ -10519,14 +9817,10 @@ document.addEventListener("DOMContentLoaded", function () {
               e.preventDefault()
             }
 
-            _shout("pointerDown")
+            _shout('pointerDown')
 
             if (_pointerEventEnabled) {
-              var pointerIndex = framework.arraySearch(
-                _currPointers,
-                e.pointerId,
-                "id"
-              )
+              var pointerIndex = framework.arraySearch(_currPointers, e.pointerId, 'id')
 
               if (pointerIndex < 0) {
                 pointerIndex = _currPointers.length
@@ -10560,7 +9854,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   false
               _direction = null
 
-              _shout("firstTouchStart", startPointsList)
+              _shout('firstTouchStart', startPointsList)
 
               _equalizePoints(_startPanOffset, _panOffset)
 
@@ -10586,12 +9880,7 @@ document.addEventListener("DOMContentLoaded", function () {
               _dragUpdateLoop()
             } // init zoom
 
-            if (
-              !_isZooming &&
-              numPoints > 1 &&
-              !_mainScrollAnimating &&
-              !_mainScrollShifted
-            ) {
+            if (!_isZooming && numPoints > 1 && !_mainScrollAnimating && !_mainScrollShifted) {
               _startZoomLevel = _currZoomLevel
               _zoomStarted = false // true if zoom changed at least once
 
@@ -10608,8 +9897,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               _midZoomPoint.x = Math.abs(_currCenterPoint.x) - _panOffset.x
               _midZoomPoint.y = Math.abs(_currCenterPoint.y) - _panOffset.y
-              _currPointsDistance = _startPointsDistance =
-                _calculatePointsDistance(p, p2)
+              _currPointsDistance = _startPointsDistance = _calculatePointsDistance(p, p2)
             }
           },
           // Pointermove/touchmove/mousemove handler
@@ -10617,11 +9905,7 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault()
 
             if (_pointerEventEnabled) {
-              var pointerIndex = framework.arraySearch(
-                _currPointers,
-                e.pointerId,
-                "id"
-              )
+              var pointerIndex = framework.arraySearch(_currPointers, e.pointerId, 'id')
 
               if (pointerIndex > -1) {
                 var p = _currPointers[pointerIndex]
@@ -10636,14 +9920,14 @@ document.addEventListener("DOMContentLoaded", function () {
               if (!_direction && !_moved && !_isZooming) {
                 if (_mainScrollPos.x !== _slideSize.x * _currPositionIndex) {
                   // if main scroll position is shifted – direction is always horizontal
-                  _direction = "h"
+                  _direction = 'h'
                 } else {
                   var diff =
                     Math.abs(touchesList[0].x - _currPoint.x) -
                     Math.abs(touchesList[0].y - _currPoint.y) // check the direction of movement
 
                   if (Math.abs(diff) >= DIRECTION_CHECK_OFFSET) {
-                    _direction = diff > 0 ? "h" : "v"
+                    _direction = diff > 0 ? 'h' : 'v'
                     _currentPoints = touchesList
                   }
                 }
@@ -10674,11 +9958,7 @@ document.addEventListener("DOMContentLoaded", function () {
               _currPoint.x = p.x
               _currPoint.y = p.y // check if one of two points changed
 
-              if (
-                !delta.x &&
-                !delta.y &&
-                _isEqualPoints(_currentPoints[1], p2)
-              ) {
+              if (!delta.x && !delta.y && _isEqualPoints(_currentPoints[1], p2)) {
                 return
               }
 
@@ -10687,7 +9967,7 @@ document.addEventListener("DOMContentLoaded", function () {
               if (!_zoomStarted) {
                 _zoomStarted = true
 
-                _shout("zoomGestureStarted")
+                _shout('zoomGestureStarted')
               } // Distance between two points
 
               var pointsDistance = _calculatePointsDistance(p, p2)
@@ -10696,8 +9976,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               if (
                 zoomLevel >
-                self.currItem.initialZoomLevel +
-                  self.currItem.initialZoomLevel / 15
+                self.currItem.initialZoomLevel + self.currItem.initialZoomLevel / 15
               ) {
                 _wasOverInitialZoom = true
               } // Apply the friction if zoom level is out of the bounds
@@ -10718,7 +9997,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                   _applyBgOpacity(percent)
 
-                  _shout("onPinchClose", percent)
+                  _shout('onPinchClose', percent)
 
                   _opacityChanged = true
                 } else {
@@ -10754,8 +10033,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
               _equalizePoints(_currCenterPoint, _centerPoint)
 
-              _panOffset.x = _calculatePanOffset("x", zoomLevel)
-              _panOffset.y = _calculatePanOffset("y", zoomLevel)
+              _panOffset.x = _calculatePanOffset('x', zoomLevel)
+              _panOffset.y = _calculatePanOffset('y', zoomLevel)
               _isZoomingIn = zoomLevel > _currZoomLevel
               _currZoomLevel = zoomLevel
 
@@ -10785,7 +10064,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return
               }
 
-              if (_direction === "v" && _options.closeOnVerticalDrag) {
+              if (_direction === 'v' && _options.closeOnVerticalDrag) {
                 if (!_canPan()) {
                   _currPanDist.y += delta.y
                   _panOffset.y += delta.y
@@ -10794,7 +10073,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                   _verticalDragInitiated = true
 
-                  _shout("onVerticalDrag", opacityRatio)
+                  _shout('onVerticalDrag', opacityRatio)
 
                   _applyBgOpacity(opacityRatio)
 
@@ -10809,10 +10088,10 @@ document.addEventListener("DOMContentLoaded", function () {
               _moved = true
               _currPanBounds = self.currItem.bounds
 
-              var mainScrollChanged = _panOrMoveMainScroll("x", delta)
+              var mainScrollChanged = _panOrMoveMainScroll('x', delta)
 
               if (!mainScrollChanged) {
-                _panOrMoveMainScroll("y", delta)
+                _panOrMoveMainScroll('y', delta)
 
                 _roundPoint(_panOffset)
 
@@ -10823,14 +10102,14 @@ document.addEventListener("DOMContentLoaded", function () {
           // Pointerup/pointercancel/touchend/touchcancel/mouseup event handler
           _onDragRelease = function _onDragRelease(e) {
             if (_features.isOldAndroid) {
-              if (_oldAndroidTouchEndTimeout && e.type === "mouseup") {
+              if (_oldAndroidTouchEndTimeout && e.type === 'mouseup') {
                 return
               } // on Android (v4.1, 4.2, 4.3 & possibly older)
               // ghost mousedown/up event isn't preventable via e.preventDefault,
               // which causes fake mousedown event
               // so we block mousedown/up for 600ms
 
-              if (e.type.indexOf("touch") > -1) {
+              if (e.type.indexOf('touch') > -1) {
                 clearTimeout(_oldAndroidTouchEndTimeout)
                 _oldAndroidTouchEndTimeout = setTimeout(function () {
                   _oldAndroidTouchEndTimeout = 0
@@ -10838,7 +10117,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             }
 
-            _shout("pointerUp")
+            _shout('pointerUp')
 
             if (_preventDefaultEventBehaviour(e, false)) {
               e.preventDefault()
@@ -10847,30 +10126,26 @@ document.addEventListener("DOMContentLoaded", function () {
             var releasePoint
 
             if (_pointerEventEnabled) {
-              var pointerIndex = framework.arraySearch(
-                _currPointers,
-                e.pointerId,
-                "id"
-              )
+              var pointerIndex = framework.arraySearch(_currPointers, e.pointerId, 'id')
 
               if (pointerIndex > -1) {
                 releasePoint = _currPointers.splice(pointerIndex, 1)[0]
 
                 if (navigator.msPointerEnabled) {
                   var MSPOINTER_TYPES = {
-                    4: "mouse",
+                    4: 'mouse',
                     // event.MSPOINTER_TYPE_MOUSE
-                    2: "touch",
+                    2: 'touch',
                     // event.MSPOINTER_TYPE_TOUCH
-                    3: "pen", // event.MSPOINTER_TYPE_PEN
+                    3: 'pen', // event.MSPOINTER_TYPE_PEN
                   }
                   releasePoint.type = MSPOINTER_TYPES[e.pointerType]
 
                   if (!releasePoint.type) {
-                    releasePoint.type = e.pointerType || "mouse"
+                    releasePoint.type = e.pointerType || 'mouse'
                   }
                 } else {
-                  releasePoint.type = e.pointerType || "mouse"
+                  releasePoint.type = e.pointerType || 'mouse'
                 }
               }
             }
@@ -10879,7 +10154,7 @@ document.addEventListener("DOMContentLoaded", function () {
               gestureType,
               numPoints = touchList.length
 
-            if (e.type === "mouseup") {
+            if (e.type === 'mouseup') {
               numPoints = 0
             } // Do nothing if there were 3 touch points or more
 
@@ -10894,22 +10169,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (numPoints === 0 && !_direction && !_mainScrollAnimating) {
               if (!releasePoint) {
-                if (e.type === "mouseup") {
+                if (e.type === 'mouseup') {
                   releasePoint = {
                     x: e.pageX,
                     y: e.pageY,
-                    type: "mouse",
+                    type: 'mouse',
                   }
                 } else if (e.changedTouches && e.changedTouches[0]) {
                   releasePoint = {
                     x: e.changedTouches[0].pageX,
                     y: e.changedTouches[0].pageY,
-                    type: "touch",
+                    type: 'touch',
                   }
                 }
               }
 
-              _shout("touchRelease", e, releasePoint)
+              _shout('touchRelease', e, releasePoint)
             } // Difference in time between releasing of two last touch points (zoom gesture)
 
             var releaseTimeDiff = -1 // Gesture completed, no pointers left
@@ -10931,29 +10206,24 @@ document.addEventListener("DOMContentLoaded", function () {
             _lastReleaseTime = numPoints === 1 ? _getCurrentTime() : -1
 
             if (releaseTimeDiff !== -1 && releaseTimeDiff < 150) {
-              gestureType = "zoom"
+              gestureType = 'zoom'
             } else {
-              gestureType = "swipe"
+              gestureType = 'swipe'
             }
 
             if (_isZooming && numPoints < 2) {
               _isZooming = false // Only second point released
 
               if (numPoints === 1) {
-                gestureType = "zoomPointerUp"
+                gestureType = 'zoomPointerUp'
               }
 
-              _shout("zoomGestureEnded")
+              _shout('zoomGestureEnded')
             }
 
             _currentPoints = null
 
-            if (
-              !_moved &&
-              !_zoomStarted &&
-              !_mainScrollAnimating &&
-              !_verticalDragInitiated
-            ) {
+            if (!_moved && !_zoomStarted && !_mainScrollAnimating && !_verticalDragInitiated) {
               // nothing to animate
               return
             }
@@ -10964,7 +10234,7 @@ document.addEventListener("DOMContentLoaded", function () {
               _releaseAnimData = _initDragReleaseAnimationData()
             }
 
-            _releaseAnimData.calculateSwipeSpeed("x")
+            _releaseAnimData.calculateSwipeSpeed('x')
 
             if (_verticalDragInitiated) {
               var opacityRatio = _calculateVerticalDragOpacityRatio()
@@ -10975,198 +10245,172 @@ document.addEventListener("DOMContentLoaded", function () {
                 var initalPanY = _panOffset.y,
                   initialBgOpacity = _bgOpacity
 
-                _animateProp(
-                  "verticalDrag",
-                  0,
-                  1,
-                  300,
-                  framework.easing.cubic.out,
-                  function (now) {
-                    _panOffset.y =
-                      (self.currItem.initialPosition.y - initalPanY) * now +
-                      initalPanY
+                _animateProp('verticalDrag', 0, 1, 300, framework.easing.cubic.out, function (now) {
+                  _panOffset.y = (self.currItem.initialPosition.y - initalPanY) * now + initalPanY
 
-                    _applyBgOpacity(
-                      (1 - initialBgOpacity) * now + initialBgOpacity
-                    )
+                  _applyBgOpacity((1 - initialBgOpacity) * now + initialBgOpacity)
 
-                    _applyCurrentZoomPan()
-                  }
-                )
+                  _applyCurrentZoomPan()
+                })
 
-                _shout("onVerticalDrag", 1)
+                _shout('onVerticalDrag', 1)
               }
 
               return
             } // main scroll
 
-            if (
-              (_mainScrollShifted || _mainScrollAnimating) &&
-              numPoints === 0
-            ) {
-              var itemChanged = _finishSwipeMainScrollGesture(
-                gestureType,
-                _releaseAnimData
-              )
+            if ((_mainScrollShifted || _mainScrollAnimating) && numPoints === 0) {
+              var itemChanged = _finishSwipeMainScrollGesture(gestureType, _releaseAnimData)
 
               if (itemChanged) {
                 return
               }
 
-              gestureType = "zoomPointerUp"
+              gestureType = 'zoomPointerUp'
             } // prevent zoom/pan animation when main scroll animation runs
 
             if (_mainScrollAnimating) {
               return
             } // Complete simple zoom gesture (reset zoom level if it's out of the bounds)
 
-            if (gestureType !== "swipe") {
+            if (gestureType !== 'swipe') {
               _completeZoomGesture()
 
               return
             } // Complete pan gesture if main scroll is not shifted, and it's possible to pan current image
 
-            if (
-              !_mainScrollShifted &&
-              _currZoomLevel > self.currItem.fitRatio
-            ) {
+            if (!_mainScrollShifted && _currZoomLevel > self.currItem.fitRatio) {
               _completePanGesture(_releaseAnimData)
             }
           },
           // Returns object with data about gesture
           // It's created only once and then reused
-          _initDragReleaseAnimationData =
-            function _initDragReleaseAnimationData() {
-              // temp local vars
-              var lastFlickDuration, tempReleasePos // s = this
+          _initDragReleaseAnimationData = function _initDragReleaseAnimationData() {
+            // temp local vars
+            var lastFlickDuration, tempReleasePos // s = this
 
-              var s = {
-                lastFlickOffset: {},
-                lastFlickDist: {},
-                lastFlickSpeed: {},
-                slowDownRatio: {},
-                slowDownRatioReverse: {},
-                speedDecelerationRatio: {},
-                speedDecelerationRatioAbs: {},
-                distanceOffset: {},
-                backAnimDestination: {},
-                backAnimStarted: {},
-                calculateSwipeSpeed: function calculateSwipeSpeed(axis) {
-                  if (_posPoints.length > 1) {
-                    lastFlickDuration =
-                      _getCurrentTime() - _gestureCheckSpeedTime + 50
-                    tempReleasePos = _posPoints[_posPoints.length - 2][axis]
-                  } else {
-                    lastFlickDuration = _getCurrentTime() - _gestureStartTime // total gesture duration
+            var s = {
+              lastFlickOffset: {},
+              lastFlickDist: {},
+              lastFlickSpeed: {},
+              slowDownRatio: {},
+              slowDownRatioReverse: {},
+              speedDecelerationRatio: {},
+              speedDecelerationRatioAbs: {},
+              distanceOffset: {},
+              backAnimDestination: {},
+              backAnimStarted: {},
+              calculateSwipeSpeed: function calculateSwipeSpeed(axis) {
+                if (_posPoints.length > 1) {
+                  lastFlickDuration = _getCurrentTime() - _gestureCheckSpeedTime + 50
+                  tempReleasePos = _posPoints[_posPoints.length - 2][axis]
+                } else {
+                  lastFlickDuration = _getCurrentTime() - _gestureStartTime // total gesture duration
 
-                    tempReleasePos = _startPoint[axis]
+                  tempReleasePos = _startPoint[axis]
+                }
+
+                s.lastFlickOffset[axis] = _currPoint[axis] - tempReleasePos
+                s.lastFlickDist[axis] = Math.abs(s.lastFlickOffset[axis])
+
+                if (s.lastFlickDist[axis] > 20) {
+                  s.lastFlickSpeed[axis] = s.lastFlickOffset[axis] / lastFlickDuration
+                } else {
+                  s.lastFlickSpeed[axis] = 0
+                }
+
+                if (Math.abs(s.lastFlickSpeed[axis]) < 0.1) {
+                  s.lastFlickSpeed[axis] = 0
+                }
+
+                s.slowDownRatio[axis] = 0.95
+                s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis]
+                s.speedDecelerationRatio[axis] = 1
+              },
+              calculateOverBoundsAnimOffset: function calculateOverBoundsAnimOffset(axis, speed) {
+                if (!s.backAnimStarted[axis]) {
+                  if (_panOffset[axis] > _currPanBounds.min[axis]) {
+                    s.backAnimDestination[axis] = _currPanBounds.min[axis]
+                  } else if (_panOffset[axis] < _currPanBounds.max[axis]) {
+                    s.backAnimDestination[axis] = _currPanBounds.max[axis]
                   }
 
-                  s.lastFlickOffset[axis] = _currPoint[axis] - tempReleasePos
-                  s.lastFlickDist[axis] = Math.abs(s.lastFlickOffset[axis])
+                  if (s.backAnimDestination[axis] !== undefined) {
+                    s.slowDownRatio[axis] = 0.7
+                    s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis]
 
-                  if (s.lastFlickDist[axis] > 20) {
-                    s.lastFlickSpeed[axis] =
-                      s.lastFlickOffset[axis] / lastFlickDuration
-                  } else {
-                    s.lastFlickSpeed[axis] = 0
-                  }
+                    if (s.speedDecelerationRatioAbs[axis] < 0.05) {
+                      s.lastFlickSpeed[axis] = 0
+                      s.backAnimStarted[axis] = true
 
-                  if (Math.abs(s.lastFlickSpeed[axis]) < 0.1) {
-                    s.lastFlickSpeed[axis] = 0
-                  }
+                      _animateProp(
+                        'bounceZoomPan' + axis,
+                        _panOffset[axis],
+                        s.backAnimDestination[axis],
+                        speed || 300,
+                        framework.easing.sine.out,
+                        function (pos) {
+                          _panOffset[axis] = pos
 
-                  s.slowDownRatio[axis] = 0.95
-                  s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis]
-                  s.speedDecelerationRatio[axis] = 1
-                },
-                calculateOverBoundsAnimOffset:
-                  function calculateOverBoundsAnimOffset(axis, speed) {
-                    if (!s.backAnimStarted[axis]) {
-                      if (_panOffset[axis] > _currPanBounds.min[axis]) {
-                        s.backAnimDestination[axis] = _currPanBounds.min[axis]
-                      } else if (_panOffset[axis] < _currPanBounds.max[axis]) {
-                        s.backAnimDestination[axis] = _currPanBounds.max[axis]
-                      }
-
-                      if (s.backAnimDestination[axis] !== undefined) {
-                        s.slowDownRatio[axis] = 0.7
-                        s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis]
-
-                        if (s.speedDecelerationRatioAbs[axis] < 0.05) {
-                          s.lastFlickSpeed[axis] = 0
-                          s.backAnimStarted[axis] = true
-
-                          _animateProp(
-                            "bounceZoomPan" + axis,
-                            _panOffset[axis],
-                            s.backAnimDestination[axis],
-                            speed || 300,
-                            framework.easing.sine.out,
-                            function (pos) {
-                              _panOffset[axis] = pos
-
-                              _applyCurrentZoomPan()
-                            }
-                          )
+                          _applyCurrentZoomPan()
                         }
-                      }
+                      )
                     }
-                  },
-                // Reduces the speed by slowDownRatio (per 10ms)
-                calculateAnimOffset: function calculateAnimOffset(axis) {
-                  if (!s.backAnimStarted[axis]) {
-                    s.speedDecelerationRatio[axis] =
-                      s.speedDecelerationRatio[axis] *
-                      (s.slowDownRatio[axis] +
-                        s.slowDownRatioReverse[axis] -
-                        (s.slowDownRatioReverse[axis] * s.timeDiff) / 10)
-                    s.speedDecelerationRatioAbs[axis] = Math.abs(
-                      s.lastFlickSpeed[axis] * s.speedDecelerationRatio[axis]
-                    )
-                    s.distanceOffset[axis] =
-                      s.lastFlickSpeed[axis] *
-                      s.speedDecelerationRatio[axis] *
-                      s.timeDiff
-                    _panOffset[axis] += s.distanceOffset[axis]
                   }
-                },
-                panAnimLoop: function panAnimLoop() {
-                  if (_animations.zoomPan) {
-                    _animations.zoomPan.raf = _requestAF(s.panAnimLoop)
-                    s.now = _getCurrentTime()
-                    s.timeDiff = s.now - s.lastNow
-                    s.lastNow = s.now
-                    s.calculateAnimOffset("x")
-                    s.calculateAnimOffset("y")
+                }
+              },
+              // Reduces the speed by slowDownRatio (per 10ms)
+              calculateAnimOffset: function calculateAnimOffset(axis) {
+                if (!s.backAnimStarted[axis]) {
+                  s.speedDecelerationRatio[axis] =
+                    s.speedDecelerationRatio[axis] *
+                    (s.slowDownRatio[axis] +
+                      s.slowDownRatioReverse[axis] -
+                      (s.slowDownRatioReverse[axis] * s.timeDiff) / 10)
+                  s.speedDecelerationRatioAbs[axis] = Math.abs(
+                    s.lastFlickSpeed[axis] * s.speedDecelerationRatio[axis]
+                  )
+                  s.distanceOffset[axis] =
+                    s.lastFlickSpeed[axis] * s.speedDecelerationRatio[axis] * s.timeDiff
+                  _panOffset[axis] += s.distanceOffset[axis]
+                }
+              },
+              panAnimLoop: function panAnimLoop() {
+                if (_animations.zoomPan) {
+                  _animations.zoomPan.raf = _requestAF(s.panAnimLoop)
+                  s.now = _getCurrentTime()
+                  s.timeDiff = s.now - s.lastNow
+                  s.lastNow = s.now
+                  s.calculateAnimOffset('x')
+                  s.calculateAnimOffset('y')
+
+                  _applyCurrentZoomPan()
+
+                  s.calculateOverBoundsAnimOffset('x')
+                  s.calculateOverBoundsAnimOffset('y')
+
+                  if (
+                    s.speedDecelerationRatioAbs.x < 0.05 &&
+                    s.speedDecelerationRatioAbs.y < 0.05
+                  ) {
+                    // round pan position
+                    _panOffset.x = Math.round(_panOffset.x)
+                    _panOffset.y = Math.round(_panOffset.y)
 
                     _applyCurrentZoomPan()
 
-                    s.calculateOverBoundsAnimOffset("x")
-                    s.calculateOverBoundsAnimOffset("y")
+                    _stopAnimation('zoomPan')
 
-                    if (
-                      s.speedDecelerationRatioAbs.x < 0.05 &&
-                      s.speedDecelerationRatioAbs.y < 0.05
-                    ) {
-                      // round pan position
-                      _panOffset.x = Math.round(_panOffset.x)
-                      _panOffset.y = Math.round(_panOffset.y)
-
-                      _applyCurrentZoomPan()
-
-                      _stopAnimation("zoomPan")
-
-                      return
-                    }
+                    return
                   }
-                },
-              }
-              return s
-            },
+                }
+              },
+            }
+            return s
+          },
           _completePanGesture = function _completePanGesture(animData) {
             // calculate swipe speed for Y axis (paanning)
-            animData.calculateSwipeSpeed("y")
+            animData.calculateSwipeSpeed('y')
             _currPanBounds = self.currItem.bounds
             animData.backAnimDestination = {}
             animData.backAnimStarted = {} // Avoid acceleration animation if speed is too low
@@ -11175,135 +10419,126 @@ document.addEventListener("DOMContentLoaded", function () {
               Math.abs(animData.lastFlickSpeed.x) <= 0.05 &&
               Math.abs(animData.lastFlickSpeed.y) <= 0.05
             ) {
-              animData.speedDecelerationRatioAbs.x =
-                animData.speedDecelerationRatioAbs.y = 0 // Run pan drag release animation. E.g. if you drag image and release finger without momentum.
+              animData.speedDecelerationRatioAbs.x = animData.speedDecelerationRatioAbs.y = 0 // Run pan drag release animation. E.g. if you drag image and release finger without momentum.
 
-              animData.calculateOverBoundsAnimOffset("x")
-              animData.calculateOverBoundsAnimOffset("y")
+              animData.calculateOverBoundsAnimOffset('x')
+              animData.calculateOverBoundsAnimOffset('y')
               return true
             } // Animation loop that controls the acceleration after pan gesture ends
 
-            _registerStartAnimation("zoomPan")
+            _registerStartAnimation('zoomPan')
 
             animData.lastNow = _getCurrentTime()
             animData.panAnimLoop()
           },
-          _finishSwipeMainScrollGesture =
-            function _finishSwipeMainScrollGesture(
-              gestureType,
-              _releaseAnimData
-            ) {
-              var itemChanged
+          _finishSwipeMainScrollGesture = function _finishSwipeMainScrollGesture(
+            gestureType,
+            _releaseAnimData
+          ) {
+            var itemChanged
 
-              if (!_mainScrollAnimating) {
-                _currZoomedItemIndex = _currentItemIndex
-              }
+            if (!_mainScrollAnimating) {
+              _currZoomedItemIndex = _currentItemIndex
+            }
 
-              var itemsDiff
+            var itemsDiff
 
-              if (gestureType === "swipe") {
-                var totalShiftDist = _currPoint.x - _startPoint.x,
-                  isFastLastFlick = _releaseAnimData.lastFlickDist.x < 10 // if container is shifted for more than MIN_SWIPE_DISTANCE,
-                // and last flick gesture was in right direction
-
-                if (
-                  totalShiftDist > MIN_SWIPE_DISTANCE &&
-                  (isFastLastFlick || _releaseAnimData.lastFlickOffset.x > 20)
-                ) {
-                  // go to prev item
-                  itemsDiff = -1
-                } else if (
-                  totalShiftDist < -MIN_SWIPE_DISTANCE &&
-                  (isFastLastFlick || _releaseAnimData.lastFlickOffset.x < -20)
-                ) {
-                  // go to next item
-                  itemsDiff = 1
-                }
-              }
-
-              var nextCircle
-
-              if (itemsDiff) {
-                _currentItemIndex += itemsDiff
-
-                if (_currentItemIndex < 0) {
-                  _currentItemIndex = _options.loop ? _getNumItems() - 1 : 0
-                  nextCircle = true
-                } else if (_currentItemIndex >= _getNumItems()) {
-                  _currentItemIndex = _options.loop ? 0 : _getNumItems() - 1
-                  nextCircle = true
-                }
-
-                if (!nextCircle || _options.loop) {
-                  _indexDiff += itemsDiff
-                  _currPositionIndex -= itemsDiff
-                  itemChanged = true
-                }
-              }
-
-              var animateToX = _slideSize.x * _currPositionIndex
-              var animateToDist = Math.abs(animateToX - _mainScrollPos.x)
-              var finishAnimDuration
+            if (gestureType === 'swipe') {
+              var totalShiftDist = _currPoint.x - _startPoint.x,
+                isFastLastFlick = _releaseAnimData.lastFlickDist.x < 10 // if container is shifted for more than MIN_SWIPE_DISTANCE,
+              // and last flick gesture was in right direction
 
               if (
-                !itemChanged &&
-                animateToX > _mainScrollPos.x !==
-                  _releaseAnimData.lastFlickSpeed.x > 0
+                totalShiftDist > MIN_SWIPE_DISTANCE &&
+                (isFastLastFlick || _releaseAnimData.lastFlickOffset.x > 20)
               ) {
-                // "return to current" duration, e.g. when dragging from slide 0 to -1
-                finishAnimDuration = 333
-              } else {
-                finishAnimDuration =
-                  Math.abs(_releaseAnimData.lastFlickSpeed.x) > 0
-                    ? animateToDist /
-                      Math.abs(_releaseAnimData.lastFlickSpeed.x)
-                    : 333
-                finishAnimDuration = Math.min(finishAnimDuration, 400)
-                finishAnimDuration = Math.max(finishAnimDuration, 250)
+                // go to prev item
+                itemsDiff = -1
+              } else if (
+                totalShiftDist < -MIN_SWIPE_DISTANCE &&
+                (isFastLastFlick || _releaseAnimData.lastFlickOffset.x < -20)
+              ) {
+                // go to next item
+                itemsDiff = 1
+              }
+            }
+
+            var nextCircle
+
+            if (itemsDiff) {
+              _currentItemIndex += itemsDiff
+
+              if (_currentItemIndex < 0) {
+                _currentItemIndex = _options.loop ? _getNumItems() - 1 : 0
+                nextCircle = true
+              } else if (_currentItemIndex >= _getNumItems()) {
+                _currentItemIndex = _options.loop ? 0 : _getNumItems() - 1
+                nextCircle = true
               }
 
-              if (_currZoomedItemIndex === _currentItemIndex) {
-                itemChanged = false
+              if (!nextCircle || _options.loop) {
+                _indexDiff += itemsDiff
+                _currPositionIndex -= itemsDiff
+                itemChanged = true
               }
+            }
 
-              _mainScrollAnimating = true
+            var animateToX = _slideSize.x * _currPositionIndex
+            var animateToDist = Math.abs(animateToX - _mainScrollPos.x)
+            var finishAnimDuration
 
-              _shout("mainScrollAnimStart")
+            if (
+              !itemChanged &&
+              animateToX > _mainScrollPos.x !== _releaseAnimData.lastFlickSpeed.x > 0
+            ) {
+              // "return to current" duration, e.g. when dragging from slide 0 to -1
+              finishAnimDuration = 333
+            } else {
+              finishAnimDuration =
+                Math.abs(_releaseAnimData.lastFlickSpeed.x) > 0
+                  ? animateToDist / Math.abs(_releaseAnimData.lastFlickSpeed.x)
+                  : 333
+              finishAnimDuration = Math.min(finishAnimDuration, 400)
+              finishAnimDuration = Math.max(finishAnimDuration, 250)
+            }
 
-              _animateProp(
-                "mainScroll",
-                _mainScrollPos.x,
-                animateToX,
-                finishAnimDuration,
-                framework.easing.cubic.out,
-                _moveMainScroll,
-                function () {
-                  _stopAllAnimations()
+            if (_currZoomedItemIndex === _currentItemIndex) {
+              itemChanged = false
+            }
 
-                  _mainScrollAnimating = false
-                  _currZoomedItemIndex = -1
+            _mainScrollAnimating = true
 
-                  if (
-                    itemChanged ||
-                    _currZoomedItemIndex !== _currentItemIndex
-                  ) {
-                    self.updateCurrItem()
-                  }
+            _shout('mainScrollAnimStart')
 
-                  _shout("mainScrollAnimComplete")
+            _animateProp(
+              'mainScroll',
+              _mainScrollPos.x,
+              animateToX,
+              finishAnimDuration,
+              framework.easing.cubic.out,
+              _moveMainScroll,
+              function () {
+                _stopAllAnimations()
+
+                _mainScrollAnimating = false
+                _currZoomedItemIndex = -1
+
+                if (itemChanged || _currZoomedItemIndex !== _currentItemIndex) {
+                  self.updateCurrItem()
                 }
-              )
 
-              if (itemChanged) {
-                self.updateCurrItem(true)
+                _shout('mainScrollAnimComplete')
               }
-
-              return itemChanged
-            },
-          _calculateZoomLevel = function _calculateZoomLevel(touchesDistance) {
-            return (
-              (1 / _startPointsDistance) * touchesDistance * _startZoomLevel
             )
+
+            if (itemChanged) {
+              self.updateCurrItem(true)
+            }
+
+            return itemChanged
+          },
+          _calculateZoomLevel = function _calculateZoomLevel(touchesDistance) {
+            return (1 / _startPointsDistance) * touchesDistance * _startZoomLevel
           },
           // Resets zoom if it's out of bounds
           _completeZoomGesture = function _completeZoomGesture() {
@@ -11334,33 +10569,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (_opacityChanged) {
               onUpdate = function onUpdate(now) {
-                _applyBgOpacity(
-                  (destOpacity - initialOpacity) * now + initialOpacity
-                )
+                _applyBgOpacity((destOpacity - initialOpacity) * now + initialOpacity)
               }
             }
 
-            self.zoomTo(
-              destZoomLevel,
-              0,
-              200,
-              framework.easing.cubic.out,
-              onUpdate
-            )
+            self.zoomTo(destZoomLevel, 0, 200, framework.easing.cubic.out, onUpdate)
             return true
           }
 
-        _registerModule("Gestures", {
+        _registerModule('Gestures', {
           publicMethods: {
             initGestures: function initGestures() {
               // helper function that builds touch/pointer/mouse events
-              var addEventNames = function addEventNames(
-                pref,
-                down,
-                move,
-                up,
-                cancel
-              ) {
+              var addEventNames = function addEventNames(pref, down, move, up, cancel) {
                 _dragStartEvent = pref + down
                 _dragMoveEvent = pref + move
                 _dragEndEvent = pref + up
@@ -11368,7 +10589,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (cancel) {
                   _dragCancelEvent = pref + cancel
                 } else {
-                  _dragCancelEvent = ""
+                  _dragCancelEvent = ''
                 }
               }
 
@@ -11382,24 +10603,22 @@ document.addEventListener("DOMContentLoaded", function () {
               if (_pointerEventEnabled) {
                 if (navigator.msPointerEnabled) {
                   // IE10 pointer events are case-sensitive
-                  addEventNames("MSPointer", "Down", "Move", "Up", "Cancel")
+                  addEventNames('MSPointer', 'Down', 'Move', 'Up', 'Cancel')
                 } else {
-                  addEventNames("pointer", "down", "move", "up", "cancel")
+                  addEventNames('pointer', 'down', 'move', 'up', 'cancel')
                 }
               } else if (_features.touch) {
-                addEventNames("touch", "start", "move", "end", "cancel")
+                addEventNames('touch', 'start', 'move', 'end', 'cancel')
                 _likelyTouchDevice = true
               } else {
-                addEventNames("mouse", "down", "move", "up")
+                addEventNames('mouse', 'down', 'move', 'up')
               }
 
-              _upMoveEvents =
-                _dragMoveEvent + " " + _dragEndEvent + " " + _dragCancelEvent
+              _upMoveEvents = _dragMoveEvent + ' ' + _dragEndEvent + ' ' + _dragCancelEvent
               _downEvents = _dragStartEvent
 
               if (_pointerEventEnabled && !_likelyTouchDevice) {
-                _likelyTouchDevice =
-                  navigator.maxTouchPoints > 1 || navigator.msMaxTouchPoints > 1
+                _likelyTouchDevice = navigator.maxTouchPoints > 1 || navigator.msMaxTouchPoints > 1
               } // make variable public
 
               self.likelyTouchDevice = _likelyTouchDevice
@@ -11408,19 +10627,15 @@ document.addEventListener("DOMContentLoaded", function () {
               _globalEventHandlers[_dragEndEvent] = _onDragRelease // the Kraken
 
               if (_dragCancelEvent) {
-                _globalEventHandlers[_dragCancelEvent] =
-                  _globalEventHandlers[_dragEndEvent]
+                _globalEventHandlers[_dragCancelEvent] = _globalEventHandlers[_dragEndEvent]
               } // Bind mouse events on device with detected hardware touch support, in case it supports multiple types of input.
 
               if (_features.touch) {
-                _downEvents += " mousedown"
-                _upMoveEvents += " mousemove mouseup"
-                _globalEventHandlers.mousedown =
-                  _globalEventHandlers[_dragStartEvent]
-                _globalEventHandlers.mousemove =
-                  _globalEventHandlers[_dragMoveEvent]
-                _globalEventHandlers.mouseup =
-                  _globalEventHandlers[_dragEndEvent]
+                _downEvents += ' mousedown'
+                _upMoveEvents += ' mousemove mouseup'
+                _globalEventHandlers.mousedown = _globalEventHandlers[_dragStartEvent]
+                _globalEventHandlers.mousemove = _globalEventHandlers[_dragMoveEvent]
+                _globalEventHandlers.mouseup = _globalEventHandlers[_dragEndEvent]
               }
 
               if (!_likelyTouchDevice) {
@@ -11462,30 +10677,27 @@ document.addEventListener("DOMContentLoaded", function () {
               item.initialLayout = null
             } else {
               thumbBounds =
-                _options.getThumbBoundsFn &&
-                _options.getThumbBoundsFn(_currentItemIndex)
+                _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex)
             }
 
-            var duration = out
-              ? _options.hideAnimationDuration
-              : _options.showAnimationDuration
+            var duration = out ? _options.hideAnimationDuration : _options.showAnimationDuration
 
             var onComplete = function onComplete() {
-              _stopAnimation("initialZoom")
+              _stopAnimation('initialZoom')
 
               if (!out) {
                 _applyBgOpacity(1)
 
                 if (img) {
-                  img.style.display = "block"
+                  img.style.display = 'block'
                 }
 
-                framework.addClass(template, "pswp--animated-in")
+                framework.addClass(template, 'pswp--animated-in')
 
-                _shout("initialZoom" + (out ? "OutEnd" : "InEnd"))
+                _shout('initialZoom' + (out ? 'OutEnd' : 'InEnd'))
               } else {
-                self.template.removeAttribute("style")
-                self.bg.removeAttribute("style")
+                self.template.removeAttribute('style')
+                self.bg.removeAttribute('style')
               }
 
               if (completeFn) {
@@ -11496,7 +10708,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } // if bounds aren't provided, just open gallery without animation
 
             if (!duration || !thumbBounds || thumbBounds.x === undefined) {
-              _shout("initialZoom" + (out ? "Out" : "In"))
+              _shout('initialZoom' + (out ? 'Out' : 'In'))
 
               _currZoomLevel = item.initialZoomLevel
 
@@ -11522,45 +10734,43 @@ document.addEventListener("DOMContentLoaded", function () {
             var startAnimation = function startAnimation() {
               var closeWithRaf = _closedByScroll,
                 fadeEverything =
-                  !self.currItem.src ||
-                  self.currItem.loadError ||
-                  _options.showHideOpacity // apply hw-acceleration to image
+                  !self.currItem.src || self.currItem.loadError || _options.showHideOpacity // apply hw-acceleration to image
 
               if (item.miniImg) {
-                item.miniImg.style.webkitBackfaceVisibility = "hidden"
+                item.miniImg.style.webkitBackfaceVisibility = 'hidden'
               }
 
               if (!out) {
                 _currZoomLevel = thumbBounds.w / item.w
                 _panOffset.x = thumbBounds.x
                 _panOffset.y = thumbBounds.y - _initalWindowScrollY
-                self[fadeEverything ? "template" : "bg"].style.opacity = 0.001
+                self[fadeEverything ? 'template' : 'bg'].style.opacity = 0.001
 
                 _applyCurrentZoomPan()
               }
 
-              _registerStartAnimation("initialZoom")
+              _registerStartAnimation('initialZoom')
 
               if (out && !closeWithRaf) {
-                framework.removeClass(template, "pswp--animated-in")
+                framework.removeClass(template, 'pswp--animated-in')
               }
 
               if (fadeEverything) {
                 if (out) {
-                  framework[(closeWithRaf ? "remove" : "add") + "Class"](
+                  framework[(closeWithRaf ? 'remove' : 'add') + 'Class'](
                     template,
-                    "pswp--animate_opacity"
+                    'pswp--animate_opacity'
                   )
                 } else {
                   setTimeout(function () {
-                    framework.addClass(template, "pswp--animate_opacity")
+                    framework.addClass(template, 'pswp--animate_opacity')
                   }, 30)
                 }
               }
 
               _showOrHideTimeout = setTimeout(
                 function () {
-                  _shout("initialZoom" + (out ? "Out" : "In"))
+                  _shout('initialZoom' + (out ? 'Out' : 'In'))
 
                   if (!out) {
                     // "in" animation always uses CSS transitions (instead of rAF).
@@ -11598,16 +10808,11 @@ document.addEventListener("DOMContentLoaded", function () {
                           _panOffset.y = thumbBounds.y - _currentWindowScrollY
                         } else {
                           _currZoomLevel =
-                            (destZoomLevel - initialZoomLevel) * now +
-                            initialZoomLevel
+                            (destZoomLevel - initialZoomLevel) * now + initialZoomLevel
                           _panOffset.x =
-                            (thumbBounds.x - initialPanOffset.x) * now +
-                            initialPanOffset.x
+                            (thumbBounds.x - initialPanOffset.x) * now + initialPanOffset.x
                           _panOffset.y =
-                            (thumbBounds.y -
-                              _currentWindowScrollY -
-                              initialPanOffset.y) *
-                              now +
+                            (thumbBounds.y - _currentWindowScrollY - initialPanOffset.y) * now +
                             initialPanOffset.y
                         }
 
@@ -11616,15 +10821,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (fadeEverything) {
                           template.style.opacity = 1 - now
                         } else {
-                          _applyBgOpacity(
-                            initalBgOpacity - now * initalBgOpacity
-                          )
+                          _applyBgOpacity(initalBgOpacity - now * initalBgOpacity)
                         }
                       }
 
                     if (closeWithRaf) {
                       _animateProp(
-                        "initialZoom",
+                        'initialZoom',
                         0,
                         1,
                         duration,
@@ -11691,43 +10894,29 @@ document.addEventListener("DOMContentLoaded", function () {
               },
             }
           },
-          _calculateSingleItemPanBounds =
-            function _calculateSingleItemPanBounds(
-              item,
-              realPanElementW,
-              realPanElementH
-            ) {
-              var bounds = item.bounds // position of element when it's centered
-
-              bounds.center.x = Math.round(
-                (_tempPanAreaSize.x - realPanElementW) / 2
-              )
-              bounds.center.y =
-                Math.round((_tempPanAreaSize.y - realPanElementH) / 2) +
-                item.vGap.top // maximum pan position
-
-              bounds.max.x =
-                realPanElementW > _tempPanAreaSize.x
-                  ? Math.round(_tempPanAreaSize.x - realPanElementW)
-                  : bounds.center.x
-              bounds.max.y =
-                realPanElementH > _tempPanAreaSize.y
-                  ? Math.round(_tempPanAreaSize.y - realPanElementH) +
-                    item.vGap.top
-                  : bounds.center.y // minimum pan position
-
-              bounds.min.x =
-                realPanElementW > _tempPanAreaSize.x ? 0 : bounds.center.x
-              bounds.min.y =
-                realPanElementH > _tempPanAreaSize.y
-                  ? item.vGap.top
-                  : bounds.center.y
-            },
-          _calculateItemSize = function _calculateItemSize(
+          _calculateSingleItemPanBounds = function _calculateSingleItemPanBounds(
             item,
-            viewportSize,
-            zoomLevel
+            realPanElementW,
+            realPanElementH
           ) {
+            var bounds = item.bounds // position of element when it's centered
+
+            bounds.center.x = Math.round((_tempPanAreaSize.x - realPanElementW) / 2)
+            bounds.center.y = Math.round((_tempPanAreaSize.y - realPanElementH) / 2) + item.vGap.top // maximum pan position
+
+            bounds.max.x =
+              realPanElementW > _tempPanAreaSize.x
+                ? Math.round(_tempPanAreaSize.x - realPanElementW)
+                : bounds.center.x
+            bounds.max.y =
+              realPanElementH > _tempPanAreaSize.y
+                ? Math.round(_tempPanAreaSize.y - realPanElementH) + item.vGap.top
+                : bounds.center.y // minimum pan position
+
+            bounds.min.x = realPanElementW > _tempPanAreaSize.x ? 0 : bounds.center.x
+            bounds.min.y = realPanElementH > _tempPanAreaSize.y ? item.vGap.top : bounds.center.y
+          },
+          _calculateItemSize = function _calculateItemSize(item, viewportSize, zoomLevel) {
             if (item.src && !item.loadError) {
               var isInitial = !zoomLevel
 
@@ -11739,12 +10928,11 @@ document.addEventListener("DOMContentLoaded", function () {
                   }
                 } // allows overriding vertical margin for individual items
 
-                _shout("parseVerticalMargin", item)
+                _shout('parseVerticalMargin', item)
               }
 
               _tempPanAreaSize.x = viewportSize.x
-              _tempPanAreaSize.y =
-                viewportSize.y - item.vGap.top - item.vGap.bottom
+              _tempPanAreaSize.y = viewportSize.y - item.vGap.top - item.vGap.bottom
 
               if (isInitial) {
                 var hRatio = _tempPanAreaSize.x / item.w
@@ -11753,9 +10941,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 var scaleMode = _options.scaleMode
 
-                if (scaleMode === "orig") {
+                if (scaleMode === 'orig') {
                   zoomLevel = 1
-                } else if (scaleMode === "fit") {
+                } else if (scaleMode === 'fit') {
                   zoomLevel = item.fitRatio
                 }
 
@@ -11775,11 +10963,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return
               }
 
-              _calculateSingleItemPanBounds(
-                item,
-                item.w * zoomLevel,
-                item.h * zoomLevel
-              )
+              _calculateSingleItemPanBounds(item, item.w * zoomLevel, item.h * zoomLevel)
 
               if (isInitial && zoomLevel === item.initialZoomLevel) {
                 item.initialPosition = item.bounds.center
@@ -11810,18 +10994,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (img) {
               item.imageAppended = true
 
-              _setImageSize(
-                item,
-                img,
-                item === self.currItem && _renderMaxResolution
-              )
+              _setImageSize(item, img, item === self.currItem && _renderMaxResolution)
 
               baseDiv.appendChild(img)
 
               if (keepPlaceholder) {
                 setTimeout(function () {
                   if (item && item.loaded && item.placeholder) {
-                    item.placeholder.style.display = "none"
+                    item.placeholder.style.display = 'none'
                     item.placeholder = null
                   }
                 }, 500)
@@ -11831,7 +11011,7 @@ document.addEventListener("DOMContentLoaded", function () {
           _preloadImage = function _preloadImage(item) {
             item.loading = true
             item.loaded = false
-            var img = (item.img = framework.createEl("pswp__img", "img"))
+            var img = (item.img = framework.createEl('pswp__img', 'img'))
 
             var onComplete = function onComplete() {
               item.loading = false
@@ -11861,13 +11041,10 @@ document.addEventListener("DOMContentLoaded", function () {
           _checkForError = function _checkForError(item, cleanUp) {
             if (item.src && item.loadError && item.container) {
               if (cleanUp) {
-                item.container.innerHTML = ""
+                item.container.innerHTML = ''
               }
 
-              item.container.innerHTML = _options.errorMsg.replace(
-                "%url%",
-                item.src
-              )
+              item.container.innerHTML = _options.errorMsg.replace('%url%', item.src)
               return true
             }
           },
@@ -11884,12 +11061,12 @@ document.addEventListener("DOMContentLoaded", function () {
               h = maxRes ? item.h : Math.round(item.h * item.fitRatio)
 
             if (item.placeholder && !item.loaded) {
-              item.placeholder.style.width = w + "px"
-              item.placeholder.style.height = h + "px"
+              item.placeholder.style.width = w + 'px'
+              item.placeholder.style.height = h + 'px'
             }
 
-            img.style.width = w + "px"
-            img.style.height = h + "px"
+            img.style.width = w + 'px'
+            img.style.height = h + 'px'
           },
           _appendImagesPool = function _appendImagesPool() {
             if (_imagesToAppendPool.length) {
@@ -11914,21 +11091,18 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
 
-        _registerModule("Controller", {
+        _registerModule('Controller', {
           publicMethods: {
             lazyLoadItem: function lazyLoadItem(index) {
               index = _getLoopedId(index)
 
               var item = _getItemAt(index)
 
-              if (
-                !item ||
-                ((item.loaded || item.loading) && !_itemsNeedUpdate)
-              ) {
+              if (!item || ((item.loaded || item.loading) && !_itemsNeedUpdate)) {
                 return
               }
 
-              _shout("gettingData", index, item)
+              _shout('gettingData', index, item)
 
               if (!item.src) {
                 return
@@ -11946,7 +11120,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 _options.loop = false // disable loop if less then 3 items
               }
 
-              _listen("beforeChange", function (diff) {
+              _listen('beforeChange', function (diff) {
                 var p = _options.preload,
                   isNext = diff === null ? true : diff >= 0,
                   preloadBefore = Math.min(p[0], _getNumItems()),
@@ -11962,17 +11136,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
               })
 
-              _listen("initialLayout", function () {
+              _listen('initialLayout', function () {
                 self.currItem.initialLayout =
-                  _options.getThumbBoundsFn &&
-                  _options.getThumbBoundsFn(_currentItemIndex)
+                  _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex)
               })
 
-              _listen("mainScrollAnimComplete", _appendImagesPool)
+              _listen('mainScrollAnimComplete', _appendImagesPool)
 
-              _listen("initialZoomInEnd", _appendImagesPool)
+              _listen('initialZoomInEnd', _appendImagesPool)
 
-              _listen("destroy", function () {
+              _listen('destroy', function () {
                 var item
 
                 for (var i = 0; i < _items.length; i++) {
@@ -12041,17 +11214,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 img
 
               if (!item) {
-                holder.el.innerHTML = ""
+                holder.el.innerHTML = ''
                 return
               } // allow to override data
 
-              _shout("gettingData", index, item)
+              _shout('gettingData', index, item)
 
               holder.index = index
               holder.item = item // base container DIV is created only once for each of 3 holders
 
-              var baseDiv = (item.container =
-                framework.createEl("pswp__zoom-wrap"))
+              var baseDiv = (item.container = framework.createEl('pswp__zoom-wrap'))
 
               if (!item.src && item.html) {
                 if (item.html.tagName) {
@@ -12089,10 +11261,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     if (!item.imageAppended) {
-                      if (
-                        _features.transform &&
-                        (_mainScrollAnimating || _initialZoomRunning)
-                      ) {
+                      if (_features.transform && (_mainScrollAnimating || _initialZoomRunning)) {
                         _imagesToAppendPool.push({
                           item: item,
                           baseDiv: baseDiv,
@@ -12114,7 +11283,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else {
                       // remove preloader & mini-img
                       if (!_initialZoomRunning && item.placeholder) {
-                        item.placeholder.style.display = "none"
+                        item.placeholder.style.display = 'none'
                         item.placeholder = null
                       }
                     }
@@ -12123,18 +11292,13 @@ document.addEventListener("DOMContentLoaded", function () {
                   item.loadComplete = null
                   item.img = null // no need to store image element after it's added
 
-                  _shout("imageLoadComplete", index, item)
+                  _shout('imageLoadComplete', index, item)
                 }
 
                 if (framework.features.transform) {
-                  var placeholderClassName = "pswp__img pswp__img--placeholder"
-                  placeholderClassName += item.msrc
-                    ? ""
-                    : " pswp__img--placeholder--blank"
-                  var placeholder = framework.createEl(
-                    placeholderClassName,
-                    item.msrc ? "img" : ""
-                  )
+                  var placeholderClassName = 'pswp__img pswp__img--placeholder'
+                  placeholderClassName += item.msrc ? '' : ' pswp__img--placeholder--blank'
+                  var placeholder = framework.createEl(placeholderClassName, item.msrc ? 'img' : '')
 
                   if (item.msrc) {
                     placeholder.src = item.msrc
@@ -12166,7 +11330,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
               } else if (item.src && !item.loadError) {
                 // image object is created every time, due to bugs of image loading & delay when switching images
-                img = framework.createEl("pswp__img", "img")
+                img = framework.createEl('pswp__img', 'img')
                 img.style.opacity = 1
                 img.src = item.src
 
@@ -12183,7 +11347,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 _applyZoomPanToItem(item)
               }
 
-              holder.el.innerHTML = ""
+              holder.el.innerHTML = ''
               holder.el.appendChild(baseDiv)
             },
             cleanSlide: function cleanSlide(item) {
@@ -12208,30 +11372,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var tapTimer,
           tapReleasePoint = {},
-          _dispatchTapEvent = function _dispatchTapEvent(
-            origEvent,
-            releasePoint,
-            pointerType
-          ) {
-            var e = document.createEvent("CustomEvent"),
+          _dispatchTapEvent = function _dispatchTapEvent(origEvent, releasePoint, pointerType) {
+            var e = document.createEvent('CustomEvent'),
               eDetail = {
                 origEvent: origEvent,
                 target: origEvent.target,
                 releasePoint: releasePoint,
-                pointerType: pointerType || "touch",
+                pointerType: pointerType || 'touch',
               }
-            e.initCustomEvent("pswpTap", true, true, eDetail)
+            e.initCustomEvent('pswpTap', true, true, eDetail)
             origEvent.target.dispatchEvent(e)
           }
 
-        _registerModule("Tap", {
+        _registerModule('Tap', {
           publicMethods: {
             initTap: function initTap() {
-              _listen("firstTouchStart", self.onTapStart)
+              _listen('firstTouchStart', self.onTapStart)
 
-              _listen("touchRelease", self.onTapRelease)
+              _listen('touchRelease', self.onTapRelease)
 
-              _listen("destroy", function () {
+              _listen('destroy', function () {
                 tapReleasePoint = {}
                 tapTimer = null
               })
@@ -12255,14 +11415,14 @@ document.addEventListener("DOMContentLoaded", function () {
                   tapTimer = null // Check if taped on the same place
 
                   if (_isNearbyPoints(p0, tapReleasePoint)) {
-                    _shout("doubleTap", p0)
+                    _shout('doubleTap', p0)
 
                     return
                   }
                 }
 
-                if (releasePoint.type === "mouse") {
-                  _dispatchTapEvent(e, releasePoint, "mouse")
+                if (releasePoint.type === 'mouse') {
+                  _dispatchTapEvent(e, releasePoint, 'mouse')
 
                   return
                 }
@@ -12270,8 +11430,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 var clickedTagName = e.target.tagName.toUpperCase() // avoid double tap delay on buttons and elements that have class pswp__single-tap
 
                 if (
-                  clickedTagName === "BUTTON" ||
-                  framework.hasClass(e.target, "pswp__single-tap")
+                  clickedTagName === 'BUTTON' ||
+                  framework.hasClass(e.target, 'pswp__single-tap')
                 ) {
                   _dispatchTapEvent(e, releasePoint)
 
@@ -12306,7 +11466,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var _wheelDelta
 
-        _registerModule("DesktopZoom", {
+        _registerModule('DesktopZoom', {
           publicMethods: {
             initDesktopZoom: function initDesktopZoom() {
               if (_oldIE) {
@@ -12317,7 +11477,7 @@ document.addEventListener("DOMContentLoaded", function () {
               if (_likelyTouchDevice) {
                 // if detected hardware touch support, we wait until mouse is used,
                 // and only then apply desktop-zoom features
-                _listen("mouseUsed", function () {
+                _listen('mouseUsed', function () {
                   self.setupDesktopZoom()
                 })
               } else {
@@ -12326,13 +11486,13 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             setupDesktopZoom: function setupDesktopZoom(onInit) {
               _wheelDelta = {}
-              var events = "wheel mousewheel DOMMouseScroll"
+              var events = 'wheel mousewheel DOMMouseScroll'
 
-              _listen("bindEvents", function () {
+              _listen('bindEvents', function () {
                 framework.bind(template, events, self.handleMouseWheel)
               })
 
-              _listen("unbindEvents", function () {
+              _listen('unbindEvents', function () {
                 if (_wheelDelta) {
                   framework.unbind(template, events, self.handleMouseWheel)
                 }
@@ -12343,37 +11503,37 @@ document.addEventListener("DOMContentLoaded", function () {
               var hasDraggingClass,
                 updateZoomable = function updateZoomable() {
                   if (self.mouseZoomedIn) {
-                    framework.removeClass(template, "pswp--zoomed-in")
+                    framework.removeClass(template, 'pswp--zoomed-in')
                     self.mouseZoomedIn = false
                   }
 
                   if (_currZoomLevel < 1) {
-                    framework.addClass(template, "pswp--zoom-allowed")
+                    framework.addClass(template, 'pswp--zoom-allowed')
                   } else {
-                    framework.removeClass(template, "pswp--zoom-allowed")
+                    framework.removeClass(template, 'pswp--zoom-allowed')
                   }
 
                   removeDraggingClass()
                 },
                 removeDraggingClass = function removeDraggingClass() {
                   if (hasDraggingClass) {
-                    framework.removeClass(template, "pswp--dragging")
+                    framework.removeClass(template, 'pswp--dragging')
                     hasDraggingClass = false
                   }
                 }
 
-              _listen("resize", updateZoomable)
+              _listen('resize', updateZoomable)
 
-              _listen("afterChange", updateZoomable)
+              _listen('afterChange', updateZoomable)
 
-              _listen("pointerDown", function () {
+              _listen('pointerDown', function () {
                 if (self.mouseZoomedIn) {
                   hasDraggingClass = true
-                  framework.addClass(template, "pswp--dragging")
+                  framework.addClass(template, 'pswp--dragging')
                 }
               })
 
-              _listen("pointerUp", removeDraggingClass)
+              _listen('pointerUp', removeDraggingClass)
 
               if (!onInit) {
                 updateZoomable()
@@ -12382,11 +11542,7 @@ document.addEventListener("DOMContentLoaded", function () {
             handleMouseWheel: function handleMouseWheel(e) {
               if (_currZoomLevel <= self.currItem.fitRatio) {
                 if (_options.modal) {
-                  if (
-                    !_options.closeOnScroll ||
-                    _numAnimations ||
-                    _isDragging
-                  ) {
+                  if (!_options.closeOnScroll || _numAnimations || _isDragging) {
                     e.preventDefault()
                   } else if (_transformKey && Math.abs(e.deltaY) > 2) {
                     // close PhotoSwipe
@@ -12403,7 +11559,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               _wheelDelta.x = 0
 
-              if ("deltaX" in e) {
+              if ('deltaX' in e) {
                 if (
                   e.deltaMode === 1
                   /* DOM_DELTA_LINE */
@@ -12415,7 +11571,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   _wheelDelta.x = e.deltaX
                   _wheelDelta.y = e.deltaY
                 }
-              } else if ("wheelDelta" in e) {
+              } else if ('wheelDelta' in e) {
                 if (e.wheelDeltaX) {
                   _wheelDelta.x = -0.16 * e.wheelDeltaX
                 }
@@ -12425,7 +11581,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                   _wheelDelta.y = -0.16 * e.wheelDelta
                 }
-              } else if ("detail" in e) {
+              } else if ('detail' in e) {
                 _wheelDelta.y = e.detail
               } else {
                 return
@@ -12454,10 +11610,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 y: _viewportSize.y / 2 + _offset.y,
               }
 
-              var doubleTapZoomLevel = _options.getDoubleTapZoom(
-                true,
-                self.currItem
-              )
+              var doubleTapZoomLevel = _options.getDoubleTapZoom(true, self.currItem)
 
               var zoomOut = _currZoomLevel === doubleTapZoomLevel
               self.mouseZoomedIn = !zoomOut
@@ -12466,10 +11619,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 centerPoint,
                 333
               )
-              framework[(!zoomOut ? "add" : "remove") + "Class"](
-                template,
-                "pswp--zoomed-in"
-              )
+              framework[(!zoomOut ? 'add' : 'remove') + 'Class'](template, 'pswp--zoomed-in')
             },
           },
         })
@@ -12531,14 +11681,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             var i,
-              vars = hash.split("&")
+              vars = hash.split('&')
 
             for (i = 0; i < vars.length; i++) {
               if (!vars[i]) {
                 continue
               }
 
-              var pair = vars[i].split("=")
+              var pair = vars[i].split('=')
 
               if (pair.length < 2) {
                 continue
@@ -12590,19 +11740,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var item = _getItemAt(_currentItemIndex)
 
-            if (item.hasOwnProperty("pid")) {
+            if (item.hasOwnProperty('pid')) {
               // carry forward any custom pid assigned to the item
               pid = item.pid
             }
 
-            var newHash =
-              _initialHash +
-              "&" +
-              "gid=" +
-              _options.galleryUID +
-              "&" +
-              "pid=" +
-              pid
+            var newHash = _initialHash + '&' + 'gid=' + _options.galleryUID + '&' + 'pid=' + pid
 
             if (!_historyChanged) {
               if (_windowLoc.hash.indexOf(newHash) === -1) {
@@ -12610,15 +11753,11 @@ document.addEventListener("DOMContentLoaded", function () {
               } // first time - add new hisory record, then just replace
             }
 
-            var newURL = _windowLoc.href.split("#")[0] + "#" + newHash
+            var newURL = _windowLoc.href.split('#')[0] + '#' + newHash
 
             if (_supportsPushState) {
-              if ("#" + newHash !== window.location.hash) {
-                history[_historyChanged ? "replaceState" : "pushState"](
-                  "",
-                  document.title,
-                  newURL
-                )
+              if ('#' + newHash !== window.location.hash) {
+                history[_historyChanged ? 'replaceState' : 'pushState']('', document.title, newURL)
               }
             } else {
               if (_historyChanged) {
@@ -12634,7 +11773,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 60)
           }
 
-        _registerModule("History", {
+        _registerModule('History', {
           publicMethods: {
             initHistory: function initHistory() {
               framework.extend(_options, _historyDefaultOptions, true)
@@ -12648,17 +11787,17 @@ document.addEventListener("DOMContentLoaded", function () {
               _closedFromURL = false
               _historyChanged = false
               _initialHash = _getHash()
-              _supportsPushState = "pushState" in history
+              _supportsPushState = 'pushState' in history
 
-              if (_initialHash.indexOf("gid=") > -1) {
-                _initialHash = _initialHash.split("&gid=")[0]
-                _initialHash = _initialHash.split("?gid=")[0]
+              if (_initialHash.indexOf('gid=') > -1) {
+                _initialHash = _initialHash.split('&gid=')[0]
+                _initialHash = _initialHash.split('?gid=')[0]
               }
 
-              _listen("afterChange", self.updateURL)
+              _listen('afterChange', self.updateURL)
 
-              _listen("unbindEvents", function () {
-                framework.unbind(window, "hashchange", self.onHashChange)
+              _listen('unbindEvents', function () {
+                framework.unbind(window, 'hashchange', self.onHashChange)
               })
 
               var returnToOriginal = function returnToOriginal() {
@@ -12674,12 +11813,12 @@ document.addEventListener("DOMContentLoaded", function () {
                       if (_supportsPushState) {
                         // remove hash from url without refreshing it or scrolling to top
                         history.pushState(
-                          "",
+                          '',
                           document.title,
                           _windowLoc.pathname + _windowLoc.search
                         )
                       } else {
-                        _windowLoc.hash = ""
+                        _windowLoc.hash = ''
                       }
                     }
                   }
@@ -12688,7 +11827,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 _cleanHistoryTimeouts()
               }
 
-              _listen("unbindEvents", function () {
+              _listen('unbindEvents', function () {
                 if (_closedByScroll) {
                   // if PhotoSwipe is closed by scroll, we go "back" before the closing animation starts
                   // this is done to keep the scroll position
@@ -12696,22 +11835,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
               })
 
-              _listen("destroy", function () {
+              _listen('destroy', function () {
                 if (!_hashReseted) {
                   returnToOriginal()
                 }
               })
 
-              _listen("firstUpdate", function () {
+              _listen('firstUpdate', function () {
                 _currentItemIndex = _parseItemIndexFromURL().pid
               })
 
-              var index = _initialHash.indexOf("pid=")
+              var index = _initialHash.indexOf('pid=')
 
               if (index > -1) {
                 _initialHash = _initialHash.substring(0, index)
 
-                if (_initialHash.slice(-1) === "&") {
+                if (_initialHash.slice(-1) === '&') {
                   _initialHash = _initialHash.slice(0, -1)
                 }
               }
@@ -12719,7 +11858,7 @@ document.addEventListener("DOMContentLoaded", function () {
               setTimeout(function () {
                 if (_isOpen) {
                   // hasn't destroyed yet
-                  framework.bind(window, "hashchange", self.onHashChange)
+                  framework.bind(window, 'hashchange', self.onHashChange)
                 }
               }, 40)
             },
@@ -12763,17 +11902,17 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 
   function _typeof$1(obj) {
-    if (typeof Symbol === "function" && _typeof(Symbol.iterator) === "symbol") {
+    if (typeof Symbol === 'function' && _typeof(Symbol.iterator) === 'symbol') {
       _typeof$1 = function _typeof$1(obj) {
         return _typeof(obj)
       }
     } else {
       _typeof$1 = function _typeof$1(obj) {
         return obj &&
-          typeof Symbol === "function" &&
+          typeof Symbol === 'function' &&
           obj.constructor === Symbol &&
           obj !== Symbol.prototype
-          ? "symbol"
+          ? 'symbol'
           : _typeof(obj)
       }
     }
@@ -12783,17 +11922,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // From http://stackoverflow.com/questions/384286
 
   var HAS_DOM_2 =
-    (typeof HTMLElement === "undefined"
-      ? "undefined"
-      : _typeof$1(HTMLElement)) === "object"
+    (typeof HTMLElement === 'undefined' ? 'undefined' : _typeof$1(HTMLElement)) === 'object'
   function isDOMElement(obj) {
     return HAS_DOM_2
       ? obj instanceof HTMLElement
       : obj &&
-          _typeof$1(obj) === "object" &&
+          _typeof$1(obj) === 'object' &&
           obj !== null &&
           obj.nodeType === 1 &&
-          typeof obj.nodeName === "string"
+          typeof obj.nodeName === 'string'
   }
   function addClasses(el, classNames) {
     classNames.forEach(function (className) {
@@ -12855,27 +11992,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   */
   var RULES =
-    ".drift-bounding-box,.drift-zoom-pane{position:absolute;pointer-events:none}@keyframes noop{0%{zoom:1}}@-webkit-keyframes noop{0%{zoom:1}}.drift-zoom-pane.drift-open{display:block}.drift-zoom-pane.drift-closing,.drift-zoom-pane.drift-opening{animation:noop 1ms;-webkit-animation:noop 1ms}.drift-zoom-pane{overflow:hidden;width:100%;height:100%;top:0;left:0}.drift-zoom-pane-loader{display:none}.drift-zoom-pane img{position:absolute;display:block;max-width:none;max-height:none}"
+    '.drift-bounding-box,.drift-zoom-pane{position:absolute;pointer-events:none}@keyframes noop{0%{zoom:1}}@-webkit-keyframes noop{0%{zoom:1}}.drift-zoom-pane.drift-open{display:block}.drift-zoom-pane.drift-closing,.drift-zoom-pane.drift-opening{animation:noop 1ms;-webkit-animation:noop 1ms}.drift-zoom-pane{overflow:hidden;width:100%;height:100%;top:0;left:0}.drift-zoom-pane-loader{display:none}.drift-zoom-pane img{position:absolute;display:block;max-width:none;max-height:none}'
   function injectBaseStylesheet() {
-    if (document.querySelector(".drift-base-styles")) {
+    if (document.querySelector('.drift-base-styles')) {
       return
     }
 
-    var styleEl = document.createElement("style")
-    styleEl.type = "text/css"
-    styleEl.classList.add("drift-base-styles")
+    var styleEl = document.createElement('style')
+    styleEl.type = 'text/css'
+    styleEl.classList.add('drift-base-styles')
     styleEl.appendChild(document.createTextNode(RULES))
     var head = document.head
     head.insertBefore(styleEl, head.firstChild)
   }
 
   function throwIfMissing() {
-    throw new Error("Missing parameter")
+    throw new Error('Missing parameter')
   }
 
   function _classCallCheck$1(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function")
+      throw new TypeError('Cannot call a class as a function')
     }
   }
 
@@ -12884,7 +12021,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var descriptor = props[i]
       descriptor.enumerable = descriptor.enumerable || false
       descriptor.configurable = true
-      if ("value" in descriptor) descriptor.writable = true
+      if ('value' in descriptor) descriptor.writable = true
       Object.defineProperty(target, descriptor.key, descriptor)
     }
   }
@@ -12903,65 +12040,53 @@ document.addEventListener("DOMContentLoaded", function () {
       var _options$namespace = options.namespace,
         namespace = _options$namespace === void 0 ? null : _options$namespace,
         _options$zoomFactor = options.zoomFactor,
-        zoomFactor =
-          _options$zoomFactor === void 0
-            ? throwIfMissing()
-            : _options$zoomFactor,
+        zoomFactor = _options$zoomFactor === void 0 ? throwIfMissing() : _options$zoomFactor,
         _options$containerEl = options.containerEl,
-        containerEl =
-          _options$containerEl === void 0
-            ? throwIfMissing()
-            : _options$containerEl
+        containerEl = _options$containerEl === void 0 ? throwIfMissing() : _options$containerEl
       this.settings = {
         namespace: namespace,
         zoomFactor: zoomFactor,
         containerEl: containerEl,
       }
-      this.openClasses = this._buildClasses("open")
+      this.openClasses = this._buildClasses('open')
 
       this._buildElement()
     }
 
     _createClass$1(BoundingBox, [
       {
-        key: "_buildClasses",
+        key: '_buildClasses',
         value: function _buildClasses(suffix) {
-          var classes = ["drift-".concat(suffix)]
+          var classes = ['drift-'.concat(suffix)]
           var ns = this.settings.namespace
 
           if (ns) {
-            classes.push("".concat(ns, "-").concat(suffix))
+            classes.push(''.concat(ns, '-').concat(suffix))
           }
 
           return classes
         },
       },
       {
-        key: "_buildElement",
+        key: '_buildElement',
         value: function _buildElement() {
-          this.el = document.createElement("div")
-          addClasses(this.el, this._buildClasses("bounding-box"))
+          this.el = document.createElement('div')
+          addClasses(this.el, this._buildClasses('bounding-box'))
         },
       },
       {
-        key: "show",
+        key: 'show',
         value: function show(zoomPaneWidth, zoomPaneHeight) {
           this.isShowing = true
           this.settings.containerEl.appendChild(this.el)
           var style = this.el.style
-          style.width = "".concat(
-            Math.round(zoomPaneWidth / this.settings.zoomFactor),
-            "px"
-          )
-          style.height = "".concat(
-            Math.round(zoomPaneHeight / this.settings.zoomFactor),
-            "px"
-          )
+          style.width = ''.concat(Math.round(zoomPaneWidth / this.settings.zoomFactor), 'px')
+          style.height = ''.concat(Math.round(zoomPaneHeight / this.settings.zoomFactor), 'px')
           addClasses(this.el, this.openClasses)
         },
       },
       {
-        key: "hide",
+        key: 'hide',
         value: function hide() {
           if (this.isShowing) {
             this.settings.containerEl.removeChild(this.el)
@@ -12972,12 +12097,8 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "setPosition",
-        value: function setPosition(
-          percentageOffsetX,
-          percentageOffsetY,
-          triggerRect
-        ) {
+        key: 'setPosition',
+        value: function setPosition(percentageOffsetX, percentageOffsetY, triggerRect) {
           var pageXOffset = window.pageXOffset
           var pageYOffset = window.pageYOffset
           var inlineLeft =
@@ -12997,11 +12118,7 @@ document.addEventListener("DOMContentLoaded", function () {
             inlineLeft + this.el.clientWidth >
             triggerRect.left + triggerRect.width + pageXOffset
           ) {
-            inlineLeft =
-              triggerRect.left +
-              triggerRect.width -
-              this.el.clientWidth +
-              pageXOffset
+            inlineLeft = triggerRect.left + triggerRect.width - this.el.clientWidth + pageXOffset
           }
 
           if (inlineTop < triggerRect.top + pageYOffset) {
@@ -13010,15 +12127,11 @@ document.addEventListener("DOMContentLoaded", function () {
             inlineTop + this.el.clientHeight >
             triggerRect.top + triggerRect.height + pageYOffset
           ) {
-            inlineTop =
-              triggerRect.top +
-              triggerRect.height -
-              this.el.clientHeight +
-              pageYOffset
+            inlineTop = triggerRect.top + triggerRect.height - this.el.clientHeight + pageYOffset
           }
 
-          this.el.style.left = "".concat(inlineLeft, "px")
-          this.el.style.top = "".concat(inlineTop, "px")
+          this.el.style.left = ''.concat(inlineLeft, 'px')
+          this.el.style.top = ''.concat(inlineTop, 'px')
         },
       },
     ])
@@ -13028,7 +12141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function _classCallCheck$2(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function")
+      throw new TypeError('Cannot call a class as a function')
     }
   }
 
@@ -13037,7 +12150,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var descriptor = props[i]
       descriptor.enumerable = descriptor.enumerable || false
       descriptor.configurable = true
-      if ("value" in descriptor) descriptor.writable = true
+      if ('value' in descriptor) descriptor.writable = true
       Object.defineProperty(target, descriptor.key, descriptor)
     }
   }
@@ -13050,8 +12163,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var Trigger = /*#__PURE__*/ (function () {
     function Trigger() {
-      var options =
-        arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
 
       _classCallCheck$2(this, Trigger)
 
@@ -13062,18 +12174,12 @@ document.addEventListener("DOMContentLoaded", function () {
       var _options$el = options.el,
         el = _options$el === void 0 ? throwIfMissing() : _options$el,
         _options$zoomPane = options.zoomPane,
-        zoomPane =
-          _options$zoomPane === void 0 ? throwIfMissing() : _options$zoomPane,
+        zoomPane = _options$zoomPane === void 0 ? throwIfMissing() : _options$zoomPane,
         _options$sourceAttrib = options.sourceAttribute,
         sourceAttribute =
-          _options$sourceAttrib === void 0
-            ? throwIfMissing()
-            : _options$sourceAttrib,
+          _options$sourceAttrib === void 0 ? throwIfMissing() : _options$sourceAttrib,
         _options$handleTouch = options.handleTouch,
-        handleTouch =
-          _options$handleTouch === void 0
-            ? throwIfMissing()
-            : _options$handleTouch,
+        handleTouch = _options$handleTouch === void 0 ? throwIfMissing() : _options$handleTouch,
         _options$onShow = options.onShow,
         onShow = _options$onShow === void 0 ? null : _options$onShow,
         _options$onHide = options.onHide,
@@ -13084,26 +12190,17 @@ document.addEventListener("DOMContentLoaded", function () {
         touchDelay = _options$touchDelay === void 0 ? 0 : _options$touchDelay,
         _options$hoverBoundin = options.hoverBoundingBox,
         hoverBoundingBox =
-          _options$hoverBoundin === void 0
-            ? throwIfMissing()
-            : _options$hoverBoundin,
+          _options$hoverBoundin === void 0 ? throwIfMissing() : _options$hoverBoundin,
         _options$touchBoundin = options.touchBoundingBox,
         touchBoundingBox =
-          _options$touchBoundin === void 0
-            ? throwIfMissing()
-            : _options$touchBoundin,
+          _options$touchBoundin === void 0 ? throwIfMissing() : _options$touchBoundin,
         _options$namespace = options.namespace,
         namespace = _options$namespace === void 0 ? null : _options$namespace,
         _options$zoomFactor = options.zoomFactor,
-        zoomFactor =
-          _options$zoomFactor === void 0
-            ? throwIfMissing()
-            : _options$zoomFactor,
+        zoomFactor = _options$zoomFactor === void 0 ? throwIfMissing() : _options$zoomFactor,
         _options$boundingBoxC = options.boundingBoxContainer,
         boundingBoxContainer =
-          _options$boundingBoxC === void 0
-            ? throwIfMissing()
-            : _options$boundingBoxC
+          _options$boundingBoxC === void 0 ? throwIfMissing() : _options$boundingBoxC
       this.settings = {
         el: el,
         zoomPane: zoomPane,
@@ -13135,129 +12232,69 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass$2(Trigger, [
       {
-        key: "_preventDefault",
+        key: '_preventDefault',
         value: function _preventDefault(event) {
           event.preventDefault()
         },
       },
       {
-        key: "_preventDefaultAllowTouchScroll",
+        key: '_preventDefaultAllowTouchScroll',
         value: function _preventDefaultAllowTouchScroll(event) {
-          if (
-            !this.settings.touchDelay ||
-            !this._isTouchEvent(event) ||
-            this.isShowing
-          ) {
+          if (!this.settings.touchDelay || !this._isTouchEvent(event) || this.isShowing) {
             event.preventDefault()
           }
         },
       },
       {
-        key: "_isTouchEvent",
+        key: '_isTouchEvent',
         value: function _isTouchEvent(event) {
           return !!event.touches
         },
       },
       {
-        key: "_bindEvents",
+        key: '_bindEvents',
         value: function _bindEvents() {
-          this.settings.el.addEventListener(
-            "mouseenter",
-            this._handleEntry,
-            false
-          )
-          this.settings.el.addEventListener("mouseleave", this._hide, false)
-          this.settings.el.addEventListener(
-            "mousemove",
-            this._handleMovement,
-            false
-          )
+          this.settings.el.addEventListener('mouseenter', this._handleEntry, false)
+          this.settings.el.addEventListener('mouseleave', this._hide, false)
+          this.settings.el.addEventListener('mousemove', this._handleMovement, false)
 
           if (this.settings.handleTouch) {
-            this.settings.el.addEventListener(
-              "touchstart",
-              this._handleEntry,
-              false
-            )
-            this.settings.el.addEventListener("touchend", this._hide, false)
-            this.settings.el.addEventListener(
-              "touchmove",
-              this._handleMovement,
-              false
-            )
+            this.settings.el.addEventListener('touchstart', this._handleEntry, false)
+            this.settings.el.addEventListener('touchend', this._hide, false)
+            this.settings.el.addEventListener('touchmove', this._handleMovement, false)
           } else {
-            this.settings.el.addEventListener(
-              "touchstart",
-              this._preventDefault,
-              false
-            )
-            this.settings.el.addEventListener(
-              "touchend",
-              this._preventDefault,
-              false
-            )
-            this.settings.el.addEventListener(
-              "touchmove",
-              this._preventDefault,
-              false
-            )
+            this.settings.el.addEventListener('touchstart', this._preventDefault, false)
+            this.settings.el.addEventListener('touchend', this._preventDefault, false)
+            this.settings.el.addEventListener('touchmove', this._preventDefault, false)
           }
         },
       },
       {
-        key: "_unbindEvents",
+        key: '_unbindEvents',
         value: function _unbindEvents() {
-          this.settings.el.removeEventListener(
-            "mouseenter",
-            this._handleEntry,
-            false
-          )
-          this.settings.el.removeEventListener("mouseleave", this._hide, false)
-          this.settings.el.removeEventListener(
-            "mousemove",
-            this._handleMovement,
-            false
-          )
+          this.settings.el.removeEventListener('mouseenter', this._handleEntry, false)
+          this.settings.el.removeEventListener('mouseleave', this._hide, false)
+          this.settings.el.removeEventListener('mousemove', this._handleMovement, false)
 
           if (this.settings.handleTouch) {
-            this.settings.el.removeEventListener(
-              "touchstart",
-              this._handleEntry,
-              false
-            )
-            this.settings.el.removeEventListener("touchend", this._hide, false)
-            this.settings.el.removeEventListener(
-              "touchmove",
-              this._handleMovement,
-              false
-            )
+            this.settings.el.removeEventListener('touchstart', this._handleEntry, false)
+            this.settings.el.removeEventListener('touchend', this._hide, false)
+            this.settings.el.removeEventListener('touchmove', this._handleMovement, false)
           } else {
-            this.settings.el.removeEventListener(
-              "touchstart",
-              this._preventDefault,
-              false
-            )
-            this.settings.el.removeEventListener(
-              "touchend",
-              this._preventDefault,
-              false
-            )
-            this.settings.el.removeEventListener(
-              "touchmove",
-              this._preventDefault,
-              false
-            )
+            this.settings.el.removeEventListener('touchstart', this._preventDefault, false)
+            this.settings.el.removeEventListener('touchend', this._preventDefault, false)
+            this.settings.el.removeEventListener('touchmove', this._preventDefault, false)
           }
         },
       },
       {
-        key: "_handleEntry",
+        key: '_handleEntry',
         value: function _handleEntry(e) {
           this._preventDefaultAllowTouchScroll(e)
 
           this._lastMovement = e
 
-          if (e.type == "mouseenter" && this.settings.hoverDelay) {
+          if (e.type == 'mouseenter' && this.settings.hoverDelay) {
             this.entryTimeout = setTimeout(this._show, this.settings.hoverDelay)
           } else if (this.settings.touchDelay) {
             this.entryTimeout = setTimeout(this._show, this.settings.touchDelay)
@@ -13267,7 +12304,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_show",
+        key: '_show',
         value: function _show() {
           if (!this.enabled) {
             return
@@ -13275,7 +12312,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           var onShow = this.settings.onShow
 
-          if (onShow && typeof onShow === "function") {
+          if (onShow && typeof onShow === 'function') {
             onShow()
           }
 
@@ -13303,7 +12340,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_hide",
+        key: '_hide',
         value: function _hide(e) {
           if (e) {
             this._preventDefaultAllowTouchScroll(e)
@@ -13321,7 +12358,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           var onHide = this.settings.onHide
 
-          if (onHide && typeof onHide === "function") {
+          if (onHide && typeof onHide === 'function') {
             onHide()
           }
 
@@ -13329,7 +12366,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_handleMovement",
+        key: '_handleMovement',
         value: function _handleMovement(e) {
           if (e) {
             this._preventDefaultAllowTouchScroll(e)
@@ -13361,22 +12398,14 @@ document.addEventListener("DOMContentLoaded", function () {
           var percentageOffsetY = offsetY / this.settings.el.clientHeight
 
           if (this.boundingBox) {
-            this.boundingBox.setPosition(
-              percentageOffsetX,
-              percentageOffsetY,
-              rect
-            )
+            this.boundingBox.setPosition(percentageOffsetX, percentageOffsetY, rect)
           }
 
-          this.settings.zoomPane.setPosition(
-            percentageOffsetX,
-            percentageOffsetY,
-            rect
-          )
+          this.settings.zoomPane.setPosition(percentageOffsetX, percentageOffsetY, rect)
         },
       },
       {
-        key: "isShowing",
+        key: 'isShowing',
         get: function get() {
           return this.settings.zoomPane.isShowing
         },
@@ -13388,7 +12417,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function _classCallCheck$3(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function")
+      throw new TypeError('Cannot call a class as a function')
     }
   }
 
@@ -13397,7 +12426,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var descriptor = props[i]
       descriptor.enumerable = descriptor.enumerable || false
       descriptor.configurable = true
-      if ("value" in descriptor) descriptor.writable = true
+      if ('value' in descriptor) descriptor.writable = true
       Object.defineProperty(target, descriptor.key, descriptor)
     }
   }
@@ -13409,16 +12438,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // account for, just in case.
 
-  var divStyle = document.createElement("div").style
+  var divStyle = document.createElement('div').style
   var HAS_ANIMATION =
-    typeof document === "undefined"
+    typeof document === 'undefined'
       ? false
-      : "animation" in divStyle || "webkitAnimation" in divStyle
+      : 'animation' in divStyle || 'webkitAnimation' in divStyle
 
   var ZoomPane = /*#__PURE__*/ (function () {
     function ZoomPane() {
-      var options =
-        arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
 
       _classCallCheck$3(this, ZoomPane)
 
@@ -13429,36 +12457,22 @@ document.addEventListener("DOMContentLoaded", function () {
       var _options$container = options.container,
         container = _options$container === void 0 ? null : _options$container,
         _options$zoomFactor = options.zoomFactor,
-        zoomFactor =
-          _options$zoomFactor === void 0
-            ? throwIfMissing()
-            : _options$zoomFactor,
+        zoomFactor = _options$zoomFactor === void 0 ? throwIfMissing() : _options$zoomFactor,
         _options$inline = options.inline,
-        inline =
-          _options$inline === void 0 ? throwIfMissing() : _options$inline,
+        inline = _options$inline === void 0 ? throwIfMissing() : _options$inline,
         _options$namespace = options.namespace,
         namespace = _options$namespace === void 0 ? null : _options$namespace,
         _options$showWhitespa = options.showWhitespaceAtEdges,
         showWhitespaceAtEdges =
-          _options$showWhitespa === void 0
-            ? throwIfMissing()
-            : _options$showWhitespa,
+          _options$showWhitespa === void 0 ? throwIfMissing() : _options$showWhitespa,
         _options$containInlin = options.containInline,
-        containInline =
-          _options$containInlin === void 0
-            ? throwIfMissing()
-            : _options$containInlin,
+        containInline = _options$containInlin === void 0 ? throwIfMissing() : _options$containInlin,
         _options$inlineOffset = options.inlineOffsetX,
-        inlineOffsetX =
-          _options$inlineOffset === void 0 ? 0 : _options$inlineOffset,
+        inlineOffsetX = _options$inlineOffset === void 0 ? 0 : _options$inlineOffset,
         _options$inlineOffset2 = options.inlineOffsetY,
-        inlineOffsetY =
-          _options$inlineOffset2 === void 0 ? 0 : _options$inlineOffset2,
+        inlineOffsetY = _options$inlineOffset2 === void 0 ? 0 : _options$inlineOffset2,
         _options$inlineContai = options.inlineContainer,
-        inlineContainer =
-          _options$inlineContai === void 0
-            ? document.body
-            : _options$inlineContai
+        inlineContainer = _options$inlineContai === void 0 ? document.body : _options$inlineContai
       this.settings = {
         container: container,
         zoomFactor: zoomFactor,
@@ -13470,68 +12484,58 @@ document.addEventListener("DOMContentLoaded", function () {
         inlineOffsetY: inlineOffsetY,
         inlineContainer: inlineContainer,
       }
-      this.openClasses = this._buildClasses("open")
-      this.openingClasses = this._buildClasses("opening")
-      this.closingClasses = this._buildClasses("closing")
-      this.inlineClasses = this._buildClasses("inline")
-      this.loadingClasses = this._buildClasses("loading")
+      this.openClasses = this._buildClasses('open')
+      this.openingClasses = this._buildClasses('opening')
+      this.closingClasses = this._buildClasses('closing')
+      this.inlineClasses = this._buildClasses('inline')
+      this.loadingClasses = this._buildClasses('loading')
 
       this._buildElement()
     }
 
     _createClass$3(ZoomPane, [
       {
-        key: "_buildClasses",
+        key: '_buildClasses',
         value: function _buildClasses(suffix) {
-          var classes = ["drift-".concat(suffix)]
+          var classes = ['drift-'.concat(suffix)]
           var ns = this.settings.namespace
 
           if (ns) {
-            classes.push("".concat(ns, "-").concat(suffix))
+            classes.push(''.concat(ns, '-').concat(suffix))
           }
 
           return classes
         },
       },
       {
-        key: "_buildElement",
+        key: '_buildElement',
         value: function _buildElement() {
-          this.el = document.createElement("div")
-          addClasses(this.el, this._buildClasses("zoom-pane"))
-          var loaderEl = document.createElement("div")
-          addClasses(loaderEl, this._buildClasses("zoom-pane-loader"))
+          this.el = document.createElement('div')
+          addClasses(this.el, this._buildClasses('zoom-pane'))
+          var loaderEl = document.createElement('div')
+          addClasses(loaderEl, this._buildClasses('zoom-pane-loader'))
           this.el.appendChild(loaderEl)
-          this.imgEl = document.createElement("img")
+          this.imgEl = document.createElement('img')
           this.el.appendChild(this.imgEl)
         },
       },
       {
-        key: "_setImageURL",
+        key: '_setImageURL',
         value: function _setImageURL(imageURL) {
-          this.imgEl.setAttribute("src", imageURL)
+          this.imgEl.setAttribute('src', imageURL)
         },
       },
       {
-        key: "_setImageSize",
+        key: '_setImageSize',
         value: function _setImageSize(triggerWidth, triggerHeight) {
-          this.imgEl.style.width = "".concat(
-            triggerWidth * this.settings.zoomFactor,
-            "px"
-          )
-          this.imgEl.style.height = "".concat(
-            triggerHeight * this.settings.zoomFactor,
-            "px"
-          )
+          this.imgEl.style.width = ''.concat(triggerWidth * this.settings.zoomFactor, 'px')
+          this.imgEl.style.height = ''.concat(triggerHeight * this.settings.zoomFactor, 'px')
         }, // `percentageOffsetX` and `percentageOffsetY` must be percentages
         // expressed as floats between `0' and `1`.
       },
       {
-        key: "setPosition",
-        value: function setPosition(
-          percentageOffsetX,
-          percentageOffsetY,
-          triggerRect
-        ) {
+        key: 'setPosition',
+        value: function setPosition(percentageOffsetX, percentageOffsetY, triggerRect) {
           var imgElWidth = this.imgEl.offsetWidth
           var imgElHeight = this.imgEl.offsetHeight
           var elWidth = this.el.offsetWidth
@@ -13543,12 +12547,9 @@ document.addEventListener("DOMContentLoaded", function () {
           var left = centreOfContainerX - targetImgXToBeCentre
           var top = centreOfContainerY - targetImgYToBeCentre
           var differenceBetweenContainerWidthAndImgWidth = elWidth - imgElWidth
-          var differenceBetweenContainerHeightAndImgHeight =
-            elHeight - imgElHeight
-          var isContainerLargerThanImgX =
-            differenceBetweenContainerWidthAndImgWidth > 0
-          var isContainerLargerThanImgY =
-            differenceBetweenContainerHeightAndImgHeight > 0
+          var differenceBetweenContainerHeightAndImgHeight = elHeight - imgElHeight
+          var isContainerLargerThanImgX = differenceBetweenContainerWidthAndImgWidth > 0
+          var isContainerLargerThanImgY = differenceBetweenContainerHeightAndImgHeight > 0
           var minLeft = isContainerLargerThanImgX
             ? differenceBetweenContainerWidthAndImgWidth / 2
             : 0
@@ -13585,27 +12586,19 @@ document.addEventListener("DOMContentLoaded", function () {
             if (this.settings.containInline) {
               if (inlineLeft < triggerRect.left + scrollX) {
                 inlineLeft = triggerRect.left + scrollX
-              } else if (
-                inlineLeft + elWidth >
-                triggerRect.left + triggerRect.width + scrollX
-              ) {
-                inlineLeft =
-                  triggerRect.left + triggerRect.width - elWidth + scrollX
+              } else if (inlineLeft + elWidth > triggerRect.left + triggerRect.width + scrollX) {
+                inlineLeft = triggerRect.left + triggerRect.width - elWidth + scrollX
               }
 
               if (inlineTop < triggerRect.top + scrollY) {
                 inlineTop = triggerRect.top + scrollY
-              } else if (
-                inlineTop + elHeight >
-                triggerRect.top + triggerRect.height + scrollY
-              ) {
-                inlineTop =
-                  triggerRect.top + triggerRect.height - elHeight + scrollY
+              } else if (inlineTop + elHeight > triggerRect.top + triggerRect.height + scrollY) {
+                inlineTop = triggerRect.top + triggerRect.height - elHeight + scrollY
               }
             }
 
-            this.el.style.left = "".concat(inlineLeft, "px")
-            this.el.style.top = "".concat(inlineTop, "px")
+            this.el.style.left = ''.concat(inlineLeft, 'px')
+            this.el.style.top = ''.concat(inlineTop, 'px')
           }
 
           if (!this.settings.showWhitespaceAtEdges) {
@@ -13622,44 +12615,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
 
-          this.imgEl.style.transform = "translate("
-            .concat(left, "px, ")
-            .concat(top, "px)")
-          this.imgEl.style.webkitTransform = "translate("
-            .concat(left, "px, ")
-            .concat(top, "px)")
+          this.imgEl.style.transform = 'translate('.concat(left, 'px, ').concat(top, 'px)')
+          this.imgEl.style.webkitTransform = 'translate('.concat(left, 'px, ').concat(top, 'px)')
         },
       },
       {
-        key: "_removeListenersAndResetClasses",
+        key: '_removeListenersAndResetClasses',
         value: function _removeListenersAndResetClasses() {
-          this.el.removeEventListener("animationend", this._completeShow, false)
-          this.el.removeEventListener("animationend", this._completeHide, false)
-          this.el.removeEventListener(
-            "webkitAnimationEnd",
-            this._completeShow,
-            false
-          )
-          this.el.removeEventListener(
-            "webkitAnimationEnd",
-            this._completeHide,
-            false
-          )
+          this.el.removeEventListener('animationend', this._completeShow, false)
+          this.el.removeEventListener('animationend', this._completeHide, false)
+          this.el.removeEventListener('webkitAnimationEnd', this._completeShow, false)
+          this.el.removeEventListener('webkitAnimationEnd', this._completeHide, false)
           removeClasses(this.el, this.openClasses)
           removeClasses(this.el, this.closingClasses)
         },
       },
       {
-        key: "show",
+        key: 'show',
         value: function show(imageURL, triggerWidth, triggerHeight) {
           this._removeListenersAndResetClasses()
 
           this.isShowing = true
           addClasses(this.el, this.openClasses)
 
-          if (this.imgEl.getAttribute("src") != imageURL) {
+          if (this.imgEl.getAttribute('src') != imageURL) {
             addClasses(this.el, this.loadingClasses)
-            this.imgEl.addEventListener("load", this._handleLoad, false)
+            this.imgEl.addEventListener('load', this._handleLoad, false)
 
             this._setImageURL(imageURL)
           }
@@ -13673,43 +12654,35 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           if (HAS_ANIMATION) {
-            this.el.addEventListener("animationend", this._completeShow, false)
-            this.el.addEventListener(
-              "webkitAnimationEnd",
-              this._completeShow,
-              false
-            )
+            this.el.addEventListener('animationend', this._completeShow, false)
+            this.el.addEventListener('webkitAnimationEnd', this._completeShow, false)
             addClasses(this.el, this.openingClasses)
           }
         },
       },
       {
-        key: "_showInline",
+        key: '_showInline',
         value: function _showInline() {
           this.settings.inlineContainer.appendChild(this.el)
           addClasses(this.el, this.inlineClasses)
         },
       },
       {
-        key: "_showInContainer",
+        key: '_showInContainer',
         value: function _showInContainer() {
           this.settings.container.appendChild(this.el)
         },
       },
       {
-        key: "hide",
+        key: 'hide',
         value: function hide() {
           this._removeListenersAndResetClasses()
 
           this.isShowing = false
 
           if (HAS_ANIMATION) {
-            this.el.addEventListener("animationend", this._completeHide, false)
-            this.el.addEventListener(
-              "webkitAnimationEnd",
-              this._completeHide,
-              false
-            )
+            this.el.addEventListener('animationend', this._completeHide, false)
+            this.el.addEventListener('webkitAnimationEnd', this._completeHide, false)
             addClasses(this.el, this.closingClasses)
           } else {
             removeClasses(this.el, this.openClasses)
@@ -13718,30 +12691,22 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_completeShow",
+        key: '_completeShow',
         value: function _completeShow() {
-          this.el.removeEventListener("animationend", this._completeShow, false)
-          this.el.removeEventListener(
-            "webkitAnimationEnd",
-            this._completeShow,
-            false
-          )
+          this.el.removeEventListener('animationend', this._completeShow, false)
+          this.el.removeEventListener('webkitAnimationEnd', this._completeShow, false)
           removeClasses(this.el, this.openingClasses)
         },
       },
       {
-        key: "_completeHide",
+        key: '_completeHide',
         value: function _completeHide() {
-          this.el.removeEventListener("animationend", this._completeHide, false)
-          this.el.removeEventListener(
-            "webkitAnimationEnd",
-            this._completeHide,
-            false
-          )
+          this.el.removeEventListener('animationend', this._completeHide, false)
+          this.el.removeEventListener('webkitAnimationEnd', this._completeHide, false)
           removeClasses(this.el, this.openClasses)
           removeClasses(this.el, this.closingClasses)
           removeClasses(this.el, this.inlineClasses)
-          this.el.setAttribute("style", "") // The window could have been resized above or below `inline`
+          this.el.setAttribute('style', '') // The window could have been resized above or below `inline`
           // limits since the ZoomPane was shown. Because of this, we
           // can't rely on `this._isInline` here.
 
@@ -13753,20 +12718,17 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_handleLoad",
+        key: '_handleLoad',
         value: function _handleLoad() {
-          this.imgEl.removeEventListener("load", this._handleLoad, false)
+          this.imgEl.removeEventListener('load', this._handleLoad, false)
           removeClasses(this.el, this.loadingClasses)
         },
       },
       {
-        key: "_isInline",
+        key: '_isInline',
         get: function get() {
           var inline = this.settings.inline
-          return (
-            inline === true ||
-            (typeof inline === "number" && window.innerWidth <= inline)
-          )
+          return inline === true || (typeof inline === 'number' && window.innerWidth <= inline)
         },
       },
     ])
@@ -13776,7 +12738,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function _classCallCheck$4(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function")
+      throw new TypeError('Cannot call a class as a function')
     }
   }
 
@@ -13785,7 +12747,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var descriptor = props[i]
       descriptor.enumerable = descriptor.enumerable || false
       descriptor.configurable = true
-      if ("value" in descriptor) descriptor.writable = true
+      if ('value' in descriptor) descriptor.writable = true
       Object.defineProperty(target, descriptor.key, descriptor)
     }
   }
@@ -13798,90 +12760,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var Drift = /*#__PURE__*/ (function () {
     function Drift(triggerEl) {
-      var options =
-        arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
 
       _classCallCheck$4(this, Drift)
 
-      this.VERSION = "1.4.0"
+      this.VERSION = '1.4.0'
       this.triggerEl = triggerEl
       this.destroy = this.destroy.bind(this)
 
       if (!isDOMElement(this.triggerEl)) {
-        throw new TypeError(
-          "`new Drift` requires a DOM element as its first argument."
-        )
+        throw new TypeError('`new Drift` requires a DOM element as its first argument.')
       } // Prefix for generated element class names (e.g. `my-ns` will
       // result in classes such as `my-ns-pane`. Default `drift-`
       // prefixed classes will always be added as well.
 
-      var namespace = options["namespace"] || null // Whether the ZoomPane should show whitespace when near the edges.
+      var namespace = options['namespace'] || null // Whether the ZoomPane should show whitespace when near the edges.
 
-      var showWhitespaceAtEdges = options["showWhitespaceAtEdges"] || false // Whether the inline ZoomPane should stay inside
+      var showWhitespaceAtEdges = options['showWhitespaceAtEdges'] || false // Whether the inline ZoomPane should stay inside
       // the bounds of its image.
 
-      var containInline = options["containInline"] || false // How much to offset the ZoomPane from the
+      var containInline = options['containInline'] || false // How much to offset the ZoomPane from the
       // interaction point when inline.
 
-      var inlineOffsetX = options["inlineOffsetX"] || 0
-      var inlineOffsetY = options["inlineOffsetY"] || 0 // A DOM element to append the inline ZoomPane to
+      var inlineOffsetX = options['inlineOffsetX'] || 0
+      var inlineOffsetY = options['inlineOffsetY'] || 0 // A DOM element to append the inline ZoomPane to
 
-      var inlineContainer = options["inlineContainer"] || document.body // Which trigger attribute to pull the ZoomPane image source from.
+      var inlineContainer = options['inlineContainer'] || document.body // Which trigger attribute to pull the ZoomPane image source from.
 
-      var sourceAttribute = options["sourceAttribute"] || "data-zoom" // How much to magnify the trigger by in the ZoomPane.
+      var sourceAttribute = options['sourceAttribute'] || 'data-zoom' // How much to magnify the trigger by in the ZoomPane.
       // (e.g., `zoomFactor: 3` will result in a 900 px wide ZoomPane imag
       // if the trigger is displayed at 300 px wide)
 
-      var zoomFactor = options["zoomFactor"] || 3 // A DOM element to append the non-inline ZoomPane to.
+      var zoomFactor = options['zoomFactor'] || 3 // A DOM element to append the non-inline ZoomPane to.
       // Required if `inlinePane !== true`.
 
       var paneContainer =
-        options["paneContainer"] === undefined
-          ? document.body
-          : options["paneContainer"] // When to switch to an inline ZoomPane. This can be a boolean or
+        options['paneContainer'] === undefined ? document.body : options['paneContainer'] // When to switch to an inline ZoomPane. This can be a boolean or
       // an integer. If `true`, the ZoomPane will always be inline,
       // if `false`, it will switch to inline when `windowWidth <= inlinePane`
 
-      var inlinePane = options["inlinePane"] || 375 // If `true`, touch events will trigger the zoom, like mouse events.
+      var inlinePane = options['inlinePane'] || 375 // If `true`, touch events will trigger the zoom, like mouse events.
 
-      var handleTouch =
-        "handleTouch" in options ? !!options["handleTouch"] : true // If present (and a function), this will be called
+      var handleTouch = 'handleTouch' in options ? !!options['handleTouch'] : true // If present (and a function), this will be called
       // whenever the ZoomPane is shown.
 
-      var onShow = options["onShow"] || null // If present (and a function), this will be called
+      var onShow = options['onShow'] || null // If present (and a function), this will be called
       // whenever the ZoomPane is hidden.
 
-      var onHide = options["onHide"] || null // Add base styles to the page. See the "Theming"
+      var onHide = options['onHide'] || null // Add base styles to the page. See the "Theming"
       // section of README.md for more information.
 
-      var injectBaseStyles =
-        "injectBaseStyles" in options ? !!options["injectBaseStyles"] : true // An optional number that determines how long to wait before
+      var injectBaseStyles = 'injectBaseStyles' in options ? !!options['injectBaseStyles'] : true // An optional number that determines how long to wait before
       // showing the ZoomPane because of a `mouseenter` event.
 
-      var hoverDelay = options["hoverDelay"] || 0 // An optional number that determines how long to wait before
+      var hoverDelay = options['hoverDelay'] || 0 // An optional number that determines how long to wait before
       // showing the ZoomPane because of a `touchstart` event.
       // It's unlikely that you would want to use this option, since
       // "tap and hold" is much more intentional than a hover event.
 
-      var touchDelay = options["touchDelay"] || 0 // If true, a bounding box will show the area currently being previewed
+      var touchDelay = options['touchDelay'] || 0 // If true, a bounding box will show the area currently being previewed
       // during mouse hover
 
-      var hoverBoundingBox = options["hoverBoundingBox"] || false // If true, a bounding box will show the area currently being previewed
+      var hoverBoundingBox = options['hoverBoundingBox'] || false // If true, a bounding box will show the area currently being previewed
       // during touch events
 
-      var touchBoundingBox = options["touchBoundingBox"] || false // A DOM element to append the bounding box to.
+      var touchBoundingBox = options['touchBoundingBox'] || false // A DOM element to append the bounding box to.
 
-      var boundingBoxContainer =
-        options["boundingBoxContainer"] || document.body
+      var boundingBoxContainer = options['boundingBoxContainer'] || document.body
 
       if (inlinePane !== true && !isDOMElement(paneContainer)) {
-        throw new TypeError(
-          "`paneContainer` must be a DOM element when `inlinePane !== true`"
-        )
+        throw new TypeError('`paneContainer` must be a DOM element when `inlinePane !== true`')
       }
 
       if (!isDOMElement(inlineContainer)) {
-        throw new TypeError("`inlineContainer` must be a DOM element")
+        throw new TypeError('`inlineContainer` must be a DOM element')
       }
 
       this.settings = {
@@ -13917,7 +12869,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass$4(Drift, [
       {
-        key: "_buildZoomPane",
+        key: '_buildZoomPane',
         value: function _buildZoomPane() {
           this.zoomPane = new ZoomPane({
             container: this.settings.paneContainer,
@@ -13933,7 +12885,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_buildTrigger",
+        key: '_buildTrigger',
         value: function _buildTrigger() {
           this.trigger = new Trigger({
             el: this.triggerEl,
@@ -13953,25 +12905,25 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "setZoomImageURL",
+        key: 'setZoomImageURL',
         value: function setZoomImageURL(imageURL) {
           this.zoomPane._setImageURL(imageURL)
         },
       },
       {
-        key: "disable",
+        key: 'disable',
         value: function disable() {
           this.trigger.enabled = false
         },
       },
       {
-        key: "enable",
+        key: 'enable',
         value: function enable() {
           this.trigger.enabled = true
         },
       },
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.trigger._hide()
 
@@ -13979,13 +12931,13 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "isShowing",
+        key: 'isShowing',
         get: function get() {
           return this.zoomPane.isShowing
         },
       },
       {
-        key: "zoomFactor",
+        key: 'zoomFactor',
         get: function get() {
           return this.settings.zoomFactor
         },
@@ -14000,12 +12952,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     return Drift
   })() // Public API
-  Object.defineProperty(Drift.prototype, "isShowing", {
+  Object.defineProperty(Drift.prototype, 'isShowing', {
     get: function get() {
       return this.isShowing
     },
   })
-  Object.defineProperty(Drift.prototype, "zoomFactor", {
+  Object.defineProperty(Drift.prototype, 'zoomFactor', {
     get: function get() {
       return this.zoomFactor
     },
@@ -14013,10 +12965,10 @@ document.addEventListener("DOMContentLoaded", function () {
       this.zoomFactor = value
     },
   })
-  Drift.prototype["setZoomImageURL"] = Drift.prototype.setZoomImageURL
-  Drift.prototype["disable"] = Drift.prototype.disable
-  Drift.prototype["enable"] = Drift.prototype.enable
-  Drift.prototype["destroy"] = Drift.prototype.destroy
+  Drift.prototype['setZoomImageURL'] = Drift.prototype.setZoomImageURL
+  Drift.prototype['disable'] = Drift.prototype.disable
+  Drift.prototype['enable'] = Drift.prototype.enable
+  Drift.prototype['destroy'] = Drift.prototype.destroy
   /* eslint-enable no-self-assign */
 
   var ProductGallery = /*#__PURE__*/ (function () {
@@ -14025,7 +12977,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.viewInSpaceElement = this.element.querySelector("[data-shopify-xr]")
+      this.viewInSpaceElement = this.element.querySelector('[data-shopify-xr]')
       this.options = options // The media property will hold all the media manages by the gallery so we can easily turn them off. They are
       // indexed by the media ID
 
@@ -14041,7 +12993,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ProductGallery, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           if (this.flickityInstance) {
             this.flickityInstance.destroy()
@@ -14055,28 +13007,21 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
-          this.delegateElement.on("model:played", this._disableDrag.bind(this))
-          this.delegateElement.on("video:played", this._disableDrag.bind(this))
-          this.delegateElement.on("model:paused", this._enableDrag.bind(this))
-          this.delegateElement.on("video:paused", this._enableDrag.bind(this))
+          this.delegateElement.on('model:played', this._disableDrag.bind(this))
+          this.delegateElement.on('video:played', this._disableDrag.bind(this))
+          this.delegateElement.on('model:paused', this._enableDrag.bind(this))
+          this.delegateElement.on('video:paused', this._enableDrag.bind(this))
 
-          if (this.options["enableImageZoom"]) {
-            window.addEventListener(
-              "resize",
-              this._handleZoomForMediaQuery.bind(this)
-            )
+          if (this.options['enableImageZoom']) {
+            window.addEventListener('resize', this._handleZoomForMediaQuery.bind(this))
             this.delegateElement.on(
-              "click",
-              ".product-gallery__image",
+              'click',
+              '.product-gallery__image',
               this._openMobileZoom.bind(this)
             )
-            this.delegateElement.on(
-              "click",
-              ".pswp__button",
-              this._doPswpAction.bind(this)
-            )
+            this.delegateElement.on('click', '.pswp__button', this._doPswpAction.bind(this))
           }
         },
         /**
@@ -14084,7 +13029,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "variantHasChanged",
+        key: 'variantHasChanged',
         value: function variantHasChanged(newVariant) {
           var _this = this
 
@@ -14092,41 +13037,31 @@ document.addEventListener("DOMContentLoaded", function () {
           // check for the attribute "data-group-name" and verify if some images need to be filtered or not
           var shouldReload = false
           fastdom.mutate(function () {
-            _this.productGalleryCellsElements.forEach(function (
-              cell,
-              imageIndex
-            ) {
-              if (cell.hasAttribute("data-group-name")) {
+            _this.productGalleryCellsElements.forEach(function (cell, imageIndex) {
+              if (cell.hasAttribute('data-group-name')) {
                 // If it has an attribute, we get the group name, and match it against the option
-                var groupName = cell.getAttribute("data-group-name")
+                var groupName = cell.getAttribute('data-group-name')
 
-                _this.options["productOptions"].forEach(function (
-                  option,
-                  optionIndex
-                ) {
+                _this.options['productOptions'].forEach(function (option, optionIndex) {
                   if (option.toLowerCase() === groupName) {
                     // groupName from attribute is already lowercased in Liquid
                     // Now we compare the value: if it's the same or that the image is part of the variant we keep it, otherwise we filter it
                     if (
-                      newVariant[
-                        "option".concat(optionIndex + 1)
-                      ].toLowerCase() ===
-                        cell.getAttribute("data-group-value") ||
-                      (newVariant["featured_media"] &&
-                        newVariant["featured_media"]["id"] ===
-                          parseInt(cell.getAttribute("data-media-id")))
+                      newVariant['option'.concat(optionIndex + 1)].toLowerCase() ===
+                        cell.getAttribute('data-group-value') ||
+                      (newVariant['featured_media'] &&
+                        newVariant['featured_media']['id'] ===
+                          parseInt(cell.getAttribute('data-media-id')))
                     ) {
-                      cell.classList.remove("is-filtered")
+                      cell.classList.remove('is-filtered')
 
-                      _this.productThumbnailsCellsElements[
-                        imageIndex
-                      ].classList.remove("is-filtered")
+                      _this.productThumbnailsCellsElements[imageIndex].classList.remove(
+                        'is-filtered'
+                      )
                     } else {
-                      cell.classList.add("is-filtered")
+                      cell.classList.add('is-filtered')
 
-                      _this.productThumbnailsCellsElements[
-                        imageIndex
-                      ].classList.add("is-filtered")
+                      _this.productThumbnailsCellsElements[imageIndex].classList.add('is-filtered')
                     }
                   }
                 })
@@ -14141,76 +13076,62 @@ document.addEventListener("DOMContentLoaded", function () {
               _this.flickityInstance.activate()
             }
 
-            if (Responsive.matchesBreakpoint("lap-and-up")) {
-              var slides = _this.element.querySelectorAll(
-                ".product-gallery__carousel-item"
-              )
+            if (Responsive.matchesBreakpoint('lap-and-up')) {
+              var slides = _this.element.querySelectorAll('.product-gallery__carousel-item')
 
               slides.forEach(function (slide) {
-                slide.classList.remove("product-gallery__carousel-item--hidden")
+                slide.classList.remove('product-gallery__carousel-item--hidden')
               })
             }
 
-            if (newVariant && newVariant["featured_media"]) {
+            if (newVariant && newVariant['featured_media']) {
               _this.flickityInstance.selectCell(
-                '[data-media-id="'.concat(
-                  newVariant["featured_media"]["id"],
-                  '"]'
-                )
+                '[data-media-id="'.concat(newVariant['featured_media']['id'], '"]')
               )
             }
           })
         },
       },
       {
-        key: "_createCarousel",
+        key: '_createCarousel',
         value: function _createCarousel() {
           var _this2 = this
 
-          this.productGalleryElement = this.element.querySelector(
-            ".product-gallery__carousel"
-          )
+          this.productGalleryElement = this.element.querySelector('.product-gallery__carousel')
           this.productGalleryCellsElements = this.productGalleryElement
-            ? this.productGalleryElement.querySelectorAll(
-                ".product-gallery__carousel-item"
-              )
+            ? this.productGalleryElement.querySelectorAll('.product-gallery__carousel-item')
             : []
 
           if (this.productGalleryElement) {
             // We need to create a list of media (for now we only handle video and model a bit differently)
             this.productGalleryCellsElements.forEach(function (item) {
-              switch (item.getAttribute("data-media-type")) {
-                case "external_video":
-                case "video":
-                  _this2.media[item.getAttribute("data-media-id")] =
-                    new ProductVideo(item, _this2.options["enableVideoLooping"])
+              switch (item.getAttribute('data-media-type')) {
+                case 'external_video':
+                case 'video':
+                  _this2.media[item.getAttribute('data-media-id')] = new ProductVideo(
+                    item,
+                    _this2.options['enableVideoLooping']
+                  )
                   break
 
-                case "model":
-                  _this2.media[item.getAttribute("data-media-id")] =
-                    new ProductModel(item)
+                case 'model':
+                  _this2.media[item.getAttribute('data-media-id')] = new ProductModel(item)
                   break
               }
             })
 
-            if (
-              parseInt(
-                this.productGalleryElement.getAttribute("data-media-count")
-              ) > 1
-            ) {
+            if (parseInt(this.productGalleryElement.getAttribute('data-media-count')) > 1) {
               // Due to the fact that some images may be filtered, we have to do additional logic to compute the initial index
               var filteredCells = [].slice
                 .call(this.productGalleryCellsElements)
                 .filter(function (item) {
-                  return !item.classList.contains("is-filtered")
+                  return !item.classList.contains('is-filtered')
                 })
               var initialIndex = 0
               filteredCells.forEach(function (item, index) {
                 if (
-                  item.getAttribute("data-media-id") ===
-                  _this2.productGalleryElement.getAttribute(
-                    "data-initial-media-id"
-                  )
+                  item.getAttribute('data-media-id') ===
+                  _this2.productGalleryElement.getAttribute('data-initial-media-id')
                 ) {
                   initialIndex = index
                 }
@@ -14219,66 +13140,48 @@ document.addEventListener("DOMContentLoaded", function () {
               // to both user experience and PageSpeed score. As a consequence, I am pre-setting the height
 
               var firstSlide = filteredCells[initialIndex]
-              firstSlide.classList.add("is-selected")
-              this.productGalleryElement.style.height = "".concat(
-                firstSlide.clientHeight,
-                "px"
-              )
-              this.flickityInstance = new flickityFade(
-                this.productGalleryElement,
-                {
-                  accessibility: false,
-                  prevNextButtons: false,
-                  pageDots: false,
-                  adaptiveHeight: true,
-                  draggable: !Responsive.matchesBreakpoint("supports-hover"),
-                  fade: this.options["galleryTransitionEffect"] === "fade",
-                  cellSelector:
-                    ".product-gallery__carousel-item:not(.is-filtered)",
-                  initialIndex: initialIndex,
-                  on: {
-                    ready: function ready() {
-                      // Remove the pre-set height (that was used to pre-allocate the space) so that it can react properly to
-                      // changes of height.
-                      setTimeout(function () {
-                        _this2.productGalleryElement.style.height = null
-                      }, 1000)
-                    },
+              firstSlide.classList.add('is-selected')
+              this.productGalleryElement.style.height = ''.concat(firstSlide.clientHeight, 'px')
+              this.flickityInstance = new flickityFade(this.productGalleryElement, {
+                accessibility: false,
+                prevNextButtons: false,
+                pageDots: false,
+                adaptiveHeight: true,
+                draggable: !Responsive.matchesBreakpoint('supports-hover'),
+                fade: this.options['galleryTransitionEffect'] === 'fade',
+                cellSelector: '.product-gallery__carousel-item:not(.is-filtered)',
+                initialIndex: initialIndex,
+                on: {
+                  ready: function ready() {
+                    // Remove the pre-set height (that was used to pre-allocate the space) so that it can react properly to
+                    // changes of height.
+                    setTimeout(function () {
+                      _this2.productGalleryElement.style.height = null
+                    }, 1000)
                   },
-                }
-              )
+                },
+              })
             }
           } // If there are thumbnails, we need to synchronize the thumbnails
 
           this.productThumbnailsListElement = this.element.querySelector(
-            ".product-gallery__thumbnail-list"
+            '.product-gallery__thumbnail-list'
           )
           this.delegateElement.on(
-            "click",
-            ".product-gallery__thumbnail",
+            'click',
+            '.product-gallery__thumbnail',
             this._onThumbnailClicked.bind(this)
           )
 
           if (this.productThumbnailsListElement && this.flickityInstance) {
             this.productThumbnailsCellsElements =
-              this.productThumbnailsListElement.querySelectorAll(
-                ".product-gallery__thumbnail"
-              )
-            this.flickityInstance.on(
-              "select",
-              this._onGallerySlideChanged.bind(this)
-            )
+              this.productThumbnailsListElement.querySelectorAll('.product-gallery__thumbnail')
+            this.flickityInstance.on('select', this._onGallerySlideChanged.bind(this))
 
-            if (this.options["galleryTransitionEffect"] === "fade") {
-              this.flickityInstance.on(
-                "select",
-                this._onGallerySlideSettled.bind(this)
-              )
+            if (this.options['galleryTransitionEffect'] === 'fade') {
+              this.flickityInstance.on('select', this._onGallerySlideSettled.bind(this))
             } else {
-              this.flickityInstance.on(
-                "settle",
-                this._onGallerySlideSettled.bind(this)
-              )
+              this.flickityInstance.on('settle', this._onGallerySlideSettled.bind(this))
             }
 
             this._onGallerySlideChanged(false) // We call it once initially to force adjust the thumbnails
@@ -14288,49 +13191,42 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_createZoom",
+        key: '_createZoom',
         value: function _createZoom() {
           var _this3 = this
 
-          if (!this.options["enableImageZoom"]) {
+          if (!this.options['enableImageZoom']) {
             return
           } // On desktop, we uses Drift to power the zoom
 
-          if (Responsive.matchesBreakpoint("lap-and-up")) {
+          if (Responsive.matchesBreakpoint('lap-and-up')) {
             this.driftObjects = []
-            var zoomWrapper = this.element.querySelector(
-              ".product__zoom-wrapper"
-            )
-            this.element
-              .querySelectorAll(".product-gallery__image")
-              .forEach(function (image) {
-                _this3.driftObjects.push(
-                  new Drift(image, {
-                    containInline: _this3.options["zoomEffect"] === "outside",
-                    inlinePane:
-                      window.innerWidth < 1024
-                        ? true
-                        : _this3.options["zoomEffect"] !== "outside",
-                    hoverBoundingBox:
-                      _this3.options["zoomEffect"] === "outside",
-                    handleTouch: false,
-                    inlineOffsetY: window.innerWidth < 1024 ? -85 : 0,
-                    paneContainer: zoomWrapper,
-                  })
-                )
-              })
+            var zoomWrapper = this.element.querySelector('.product__zoom-wrapper')
+            this.element.querySelectorAll('.product-gallery__image').forEach(function (image) {
+              _this3.driftObjects.push(
+                new Drift(image, {
+                  containInline: _this3.options['zoomEffect'] === 'outside',
+                  inlinePane:
+                    window.innerWidth < 1024 ? true : _this3.options['zoomEffect'] !== 'outside',
+                  hoverBoundingBox: _this3.options['zoomEffect'] === 'outside',
+                  handleTouch: false,
+                  inlineOffsetY: window.innerWidth < 1024 ? -85 : 0,
+                  paneContainer: zoomWrapper,
+                })
+              )
+            })
           }
         },
       },
       {
-        key: "_openMobileZoom",
+        key: '_openMobileZoom',
         value: function _openMobileZoom() {
           var _this4 = this
 
           // On mobile, we use instead PhotoSwipe
-          var pswpElement = this.element.querySelector(".pswp")
+          var pswpElement = this.element.querySelector('.pswp')
 
-          if (!pswpElement || !Responsive.matchesBreakpoint("pocket")) {
+          if (!pswpElement || !Responsive.matchesBreakpoint('pocket')) {
             return
           }
 
@@ -14340,17 +13236,15 @@ document.addEventListener("DOMContentLoaded", function () {
             defaultIndex = 0,
             items = []
           filteredItems.forEach(function (filteredItem, index) {
-            var image = filteredItem.querySelector(".product-gallery__image")
+            var image = filteredItem.querySelector('.product-gallery__image')
             items.push({
-              src: image.getAttribute("data-zoom"),
-              w: parseInt(image.getAttribute("data-zoom-width")),
-              h:
-                parseInt(image.getAttribute("data-zoom-width")) *
-                (image.height / image.width),
+              src: image.getAttribute('data-zoom'),
+              w: parseInt(image.getAttribute('data-zoom-width')),
+              h: parseInt(image.getAttribute('data-zoom-width')) * (image.height / image.width),
               msrc: image.currentSrc,
             })
 
-            if (filteredItem.classList.contains("is-selected")) {
+            if (filteredItem.classList.contains('is-selected')) {
               defaultIndex = index
             }
           }) // Initializes and opens PhotoSwipe
@@ -14366,82 +13260,68 @@ document.addEventListener("DOMContentLoaded", function () {
             showAnimationDuration: false,
             allowPanToNext: false,
           })
-          this.photoSwipeInstance.listen("destroy", function () {
+          this.photoSwipeInstance.listen('destroy', function () {
             _this4.photoSwipeInstance = null
           })
-          this.photoSwipeInstance.listen("beforeChange", function () {
-            var currentItem = _this4.element.querySelector(
-                ".pswp__pagination-current"
-              ),
-              paginationCount = _this4.element.querySelector(
-                ".pswp__pagination-count"
-              )
+          this.photoSwipeInstance.listen('beforeChange', function () {
+            var currentItem = _this4.element.querySelector('.pswp__pagination-current'),
+              paginationCount = _this4.element.querySelector('.pswp__pagination-count')
 
-            currentItem.textContent =
-              _this4.photoSwipeInstance.getCurrentIndex() + 1
-            paginationCount.textContent =
-              _this4.photoSwipeInstance.options.getNumItemsFn()
+            currentItem.textContent = _this4.photoSwipeInstance.getCurrentIndex() + 1
+            paginationCount.textContent = _this4.photoSwipeInstance.options.getNumItemsFn()
           })
           this.photoSwipeInstance.init()
         },
       },
       {
-        key: "_doPswpAction",
+        key: '_doPswpAction',
         value: function _doPswpAction(event, element) {
           if (!this.photoSwipeInstance) {
             return
           }
 
-          if (element.classList.contains("pswp__button--close")) {
+          if (element.classList.contains('pswp__button--close')) {
             this.photoSwipeInstance.close()
-          } else if (element.classList.contains("pswp__button--arrow--left")) {
+          } else if (element.classList.contains('pswp__button--arrow--left')) {
             this.photoSwipeInstance.prev()
-          } else if (element.classList.contains("pswp__button--arrow--right")) {
+          } else if (element.classList.contains('pswp__button--arrow--right')) {
             this.photoSwipeInstance.next()
           }
         },
       },
       {
-        key: "_handleZoomForMediaQuery",
+        key: '_handleZoomForMediaQuery',
         value: function _handleZoomForMediaQuery() {
-          if (
-            Responsive.matchesBreakpoint("lap-and-up") &&
-            this.photoSwipeInstance
-          ) {
+          if (Responsive.matchesBreakpoint('lap-and-up') && this.photoSwipeInstance) {
             this.photoSwipeInstance.close()
             this.photoSwipeInstance = null
           }
         },
       },
       {
-        key: "_onGallerySlideChanged",
+        key: '_onGallerySlideChanged',
         value: function _onGallerySlideChanged() {
           var _this5 = this
 
-          var animate =
-            arguments.length > 0 && arguments[0] !== undefined
-              ? arguments[0]
-              : true
+          var animate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true
           var previousNavElement = null,
             newNavElement = null
           this.productThumbnailsCellsElements.forEach(function (item) {
-            if (item.classList.contains("is-nav-selected")) {
+            if (item.classList.contains('is-nav-selected')) {
               previousNavElement = item
             }
 
             if (
-              item.getAttribute("data-media-id") ===
-              _this5.flickityInstance.selectedElement.getAttribute(
-                "data-media-id"
-              )
+              item.getAttribute('data-media-id') ===
+              _this5.flickityInstance.selectedElement.getAttribute('data-media-id')
             ) {
               newNavElement = item
             }
           })
-          previousNavElement.classList.remove("is-nav-selected")
-          newNavElement.classList.add("is-nav-selected") // We animate to move the selected nav item
+          previousNavElement.classList.remove('is-nav-selected')
+          newNavElement.classList.add('is-nav-selected') // We animate to move the selected nav item
 
-          if (Responsive.matchesBreakpoint("pocket")) {
+          if (Responsive.matchesBreakpoint('pocket')) {
             var scrollX =
               newNavElement.offsetLeft -
               (this.productThumbnailsListElement.parentNode.clientWidth -
@@ -14449,17 +13329,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 2
             this.productThumbnailsListElement.parentNode.scrollTo({
               left: scrollX,
-              behavior: animate ? "smooth" : "auto",
+              behavior: animate ? 'smooth' : 'auto',
             })
           } else {
             var scrollY =
               newNavElement.offsetTop -
-              (this.productThumbnailsListElement.clientHeight -
-                newNavElement.clientHeight) /
-                2
+              (this.productThumbnailsListElement.clientHeight - newNavElement.clientHeight) / 2
             this.productThumbnailsListElement.scrollTo({
               top: scrollY,
-              behavior: animate ? "smooth" : "auto",
+              behavior: animate ? 'smooth' : 'auto',
             })
           }
         },
@@ -14468,56 +13346,50 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onGallerySlideSettled",
+        key: '_onGallerySlideSettled',
         value: function _onGallerySlideSettled() {
           this._handleMedia(this.flickityInstance.selectedElement)
 
-          if (Responsive.matchesBreakpoint("lap-and-up")) {
+          if (Responsive.matchesBreakpoint('lap-and-up')) {
             var slides = this.element.querySelectorAll(
-              ".product-gallery__carousel-item:not(.is-selected)"
+              '.product-gallery__carousel-item:not(.is-selected)'
             )
             slides.forEach(function (slide) {
-              slide.classList.add("product-gallery__carousel-item--hidden")
+              slide.classList.add('product-gallery__carousel-item--hidden')
             })
           }
         },
       },
       {
-        key: "_onThumbnailClicked",
+        key: '_onThumbnailClicked',
         value: function _onThumbnailClicked(event, target) {
           event.preventDefault()
 
           if (this.flickityInstance) {
             this.flickityInstance.selectCell(
-              '[data-media-id="'.concat(
-                target.getAttribute("data-media-id"),
-                '"]'
-              )
+              '[data-media-id="'.concat(target.getAttribute('data-media-id'), '"]')
             )
 
-            if (Responsive.matchesBreakpoint("lap-and-up")) {
-              var slides = this.element.querySelectorAll(
-                ".product-gallery__carousel-item"
-              )
+            if (Responsive.matchesBreakpoint('lap-and-up')) {
+              var slides = this.element.querySelectorAll('.product-gallery__carousel-item')
               slides.forEach(function (slide) {
-                slide.classList.remove("product-gallery__carousel-item--hidden")
+                slide.classList.remove('product-gallery__carousel-item--hidden')
               })
             }
           }
         },
       },
       {
-        key: "_disableDrag",
+        key: '_disableDrag',
         value: function _disableDrag() {
           this.flickityInstance.options.draggable = false
           this.flickityInstance.updateDraggable()
         },
       },
       {
-        key: "_enableDrag",
+        key: '_enableDrag',
         value: function _enableDrag() {
-          this.flickityInstance.options.draggable =
-            !Responsive.matchesBreakpoint("supports-hover")
+          this.flickityInstance.options.draggable = !Responsive.matchesBreakpoint('supports-hover')
           this.flickityInstance.updateDraggable()
         },
         /**
@@ -14526,65 +13398,52 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_handleMedia",
+        key: '_handleMedia',
         value: function _handleMedia(item) {
           var isInitialLoading = this.previouslySelectedMedia === null // First, we need to turn off the previous media (if any)
 
-          if (
-            this.previouslySelectedMedia &&
-            this.previouslySelectedMedia !== item
-          ) {
-            switch (
-              this.previouslySelectedMedia.getAttribute("data-media-type")
-            ) {
-              case "video":
-              case "external_video":
-              case "model":
+          if (this.previouslySelectedMedia && this.previouslySelectedMedia !== item) {
+            switch (this.previouslySelectedMedia.getAttribute('data-media-type')) {
+              case 'video':
+              case 'external_video':
+              case 'model':
                 this.media[
-                  this.previouslySelectedMedia.getAttribute("data-media-id")
+                  this.previouslySelectedMedia.getAttribute('data-media-id')
                 ].hasBeenDeselected()
             } // If the previous media was a model, we need to adjust the "view in space" button to go back to initial value
 
             if (
-              this.previouslySelectedMedia.getAttribute("data-media-type") ===
-                "model" &&
+              this.previouslySelectedMedia.getAttribute('data-media-type') === 'model' &&
               this.viewInSpaceElement
             ) {
               this.viewInSpaceElement.setAttribute(
-                "data-shopify-model3d-id",
-                this.viewInSpaceElement.getAttribute(
-                  "data-shopify-model3d-default-id"
-                )
+                'data-shopify-model3d-id',
+                this.viewInSpaceElement.getAttribute('data-shopify-model3d-default-id')
               )
             }
           } // Then, we have to handle the currently selected media
 
-          switch (item.getAttribute("data-media-type")) {
-            case "video":
-            case "external_video":
-            case "model":
-              this.media[item.getAttribute("data-media-id")].hasBeenSelected(
-                isInitialLoading
-              )
+          switch (item.getAttribute('data-media-type')) {
+            case 'video':
+            case 'external_video':
+            case 'model':
+              this.media[item.getAttribute('data-media-id')].hasBeenSelected(isInitialLoading)
               this.element
-                .querySelector(".product-gallery__carousel")
-                .classList.remove("product-gallery__carousel--zoomable")
+                .querySelector('.product-gallery__carousel')
+                .classList.remove('product-gallery__carousel--zoomable')
               break
 
-            case "image":
+            case 'image':
               this.element
-                .querySelector(".product-gallery__carousel")
-                .classList.add("product-gallery__carousel--zoomable")
+                .querySelector('.product-gallery__carousel')
+                .classList.add('product-gallery__carousel--zoomable')
               break
           } // If the media is a model, we need to adjust the "view in space" button
 
-          if (
-            item.getAttribute("data-media-type") === "model" &&
-            this.viewInSpaceElement
-          ) {
+          if (item.getAttribute('data-media-type') === 'model' && this.viewInSpaceElement) {
             this.viewInSpaceElement.setAttribute(
-              "data-shopify-model3d-id",
-              item.getAttribute("data-media-id")
+              'data-shopify-model3d-id',
+              item.getAttribute('data-media-id')
             )
           } // We set the previously selected media to the currently new one, so that when it changes it can be properly accounted
 
@@ -14613,49 +13472,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(QuantityPicker, [
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="decrease-picker-quantity"]',
             this._onDecrease.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="increase-picker-quantity"]',
             this._onIncrease.bind(this)
           )
-          this.delegateElement.on("keyup", this._onInputValueChanged.bind(this))
-          this.delegateElement.on("focusout", this._onInputFocusOut.bind(this))
+          this.delegateElement.on('keyup', this._onInputValueChanged.bind(this))
+          this.delegateElement.on('focusout', this._onInputFocusOut.bind(this))
         },
       },
       {
-        key: "_onDecrease",
+        key: '_onDecrease',
         value: function _onDecrease() {
-          this.inputElement.value = Math.max(
-            1,
-            parseInt(this.inputElement.value) - 1
-          )
+          this.inputElement.value = Math.max(1, parseInt(this.inputElement.value) - 1)
         },
       },
       {
-        key: "_onIncrease",
+        key: '_onIncrease',
         value: function _onIncrease() {
           this.inputElement.value = parseInt(this.inputElement.value) + 1
         },
       },
       {
-        key: "_onInputValueChanged",
+        key: '_onInputValueChanged',
         value: function _onInputValueChanged(event) {
           var value = event.target.value
 
-          if (value !== "" && isNaN(value)) {
+          if (value !== '' && isNaN(value)) {
             event.target.value = Math.max(1, parseInt(value) || 1)
           }
         },
       },
       {
-        key: "_onInputFocusOut",
+        key: '_onInputFocusOut',
         value: function _onInputFocusOut(event) {
           event.target.value = Math.max(1, parseInt(event.target.value) || 1)
         },
@@ -14682,28 +13538,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ShippingEstimator, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
-          this.delegateElement.off("click")
+          this.delegateElement.off('click')
           this.countrySelector.destroy()
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="estimate-shipping"]',
             this._fetchRates.bind(this)
           )
         },
       },
       {
-        key: "_fetchRates",
+        key: '_fetchRates',
         value: function _fetchRates() {
-          document.dispatchEvent(new CustomEvent("theme:loading:start"))
+          document.dispatchEvent(new CustomEvent('theme:loading:start'))
 
-          if (this.options["singleProduct"]) {
+          if (this.options['singleProduct']) {
             this._fetchRatesForProduct()
           } else {
             this._fetchRatesForCart()
@@ -14711,7 +13567,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_fetchRatesForCart",
+        key: '_fetchRatesForCart',
         value: function _fetchRatesForCart() {
           var _this = this
 
@@ -14719,20 +13575,17 @@ document.addEventListener("DOMContentLoaded", function () {
             province = this.element.querySelector('[name="province"]').value,
             zip = this.element.querySelector('[name="zip"]').value
           fetch(
-            ""
-              .concat(
-                window.routes.cartUrl,
-                "/shipping_rates.json?shipping_address[zip]="
-              )
-              .concat(zip, "&shipping_address[country]=")
-              .concat(country, "&shipping_address[province]=")
+            ''
+              .concat(window.routes.cartUrl, '/shipping_rates.json?shipping_address[zip]=')
+              .concat(zip, '&shipping_address[country]=')
+              .concat(country, '&shipping_address[province]=')
               .concat(province),
             {
-              credentials: "same-origin",
-              method: "GET",
+              credentials: 'same-origin',
+              method: 'GET',
             }
           ).then(function (response) {
-            document.dispatchEvent(new CustomEvent("theme:loading:end"))
+            document.dispatchEvent(new CustomEvent('theme:loading:end'))
             response.json().then(function (result) {
               _this._formatResults(response.ok, result)
             })
@@ -14743,25 +13596,19 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_fetchRatesForProduct",
+        key: '_fetchRatesForProduct',
         value: function _fetchRatesForProduct() {
           var _this2 = this
 
           // grab the current cookie for the cart and we store it
-          var cartCookie = this._getCookie("cart"),
-            tempCookieValue =
-              "temp-cart-cookie___" +
-              Date.now() +
-              parseInt(Math.random() * 1000),
-            fakeCookieValue =
-              "fake-cart-cookie___" +
-              Date.now() +
-              parseInt(Math.random() * 1000) // if not found, make a new temp cookie
+          var cartCookie = this._getCookie('cart'),
+            tempCookieValue = 'temp-cart-cookie___' + Date.now() + parseInt(Math.random() * 1000),
+            fakeCookieValue = 'fake-cart-cookie___' + Date.now() + parseInt(Math.random() * 1000) // if not found, make a new temp cookie
 
           if (!cartCookie) {
             this._updateCartCookie(tempCookieValue)
 
-            cartCookie = this._getCookie("cart")
+            cartCookie = this._getCookie('cart')
           } // if found but has a weird length, bail
 
           if (cartCookie.length < 32) {
@@ -14771,141 +13618,128 @@ document.addEventListener("DOMContentLoaded", function () {
           this._updateCartCookie(fakeCookieValue) // add the product to our fake cart
 
           var formElement = document.querySelector('form[action*="/cart/add"]')
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
+            credentials: 'same-origin',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
-            method: "POST",
+            method: 'POST',
           }).then(function (response) {
             response
               .json()
               .then(function () {
-                var country =
-                    _this2.element.querySelector('[name="country"]').value,
-                  province =
-                    _this2.element.querySelector('[name="province"]').value,
+                var country = _this2.element.querySelector('[name="country"]').value,
+                  province = _this2.element.querySelector('[name="province"]').value,
                   zip = _this2.element.querySelector('[name="zip"]').value
 
                 fetch(
-                  ""
-                    .concat(
-                      window.routes.cartUrl,
-                      "/shipping_rates.json?shipping_address[zip]="
-                    )
-                    .concat(zip, "&shipping_address[country]=")
-                    .concat(country, "&shipping_address[province]=")
+                  ''
+                    .concat(window.routes.cartUrl, '/shipping_rates.json?shipping_address[zip]=')
+                    .concat(zip, '&shipping_address[country]=')
+                    .concat(country, '&shipping_address[province]=')
                     .concat(province),
                   {
-                    credentials: "same-origin",
-                    method: "GET",
+                    credentials: 'same-origin',
+                    method: 'GET',
                   }
                 )
                   .then(function (response) {
-                    document.dispatchEvent(new CustomEvent("theme:loading:end"))
+                    document.dispatchEvent(new CustomEvent('theme:loading:end'))
                     response.json().then(function (result) {
                       _this2._formatResults(response.ok, result)
                     })
 
                     _this2._updateCartCookie(cartCookie) // We can restore the cookie
                   })
-                  ["catch"](function () {
+                  ['catch'](function () {
                     _this2._updateCartCookie(cartCookie)
                   })
               })
-              ["catch"](function () {
+              ['catch'](function () {
                 // We have error so we have to reset cookie
                 _this2._updateCartCookie(cartCookie)
 
-                document.dispatchEvent(new CustomEvent("theme:loading:end"))
+                document.dispatchEvent(new CustomEvent('theme:loading:end'))
               })
           })
         },
       },
       {
-        key: "_formatResults",
+        key: '_formatResults',
         value: function _formatResults(isOk, results) {
-          var resultsElement = this.element.querySelector(
-            ".shipping-estimator__results"
-          )
-          resultsElement.innerHTML = ""
+          var resultsElement = this.element.querySelector('.shipping-estimator__results')
+          resultsElement.innerHTML = ''
 
           if (isOk) {
-            var shippingRates = results["shipping_rates"]
+            var shippingRates = results['shipping_rates']
 
             if (shippingRates.length === 0) {
-              resultsElement.innerHTML = "<p>".concat(
+              resultsElement.innerHTML = '<p>'.concat(
                 window.languages.shippingEstimatorNoResults,
-                "</p>"
+                '</p>'
               )
             } else {
               if (shippingRates.length === 1) {
-                resultsElement.innerHTML = "<p>".concat(
+                resultsElement.innerHTML = '<p>'.concat(
                   window.languages.shippingEstimatorOneResult,
-                  "</p>"
+                  '</p>'
                 )
               } else {
-                resultsElement.innerHTML = "<p>".concat(
+                resultsElement.innerHTML = '<p>'.concat(
                   window.languages.shippingEstimatorMultipleResults.replace(
-                    "{{count}}",
+                    '{{count}}',
                     shippingRates.length
                   ),
-                  "</p>"
+                  '</p>'
                 )
               }
 
-              var listRatesHtml = ""
+              var listRatesHtml = ''
               shippingRates.forEach(function (item) {
-                listRatesHtml += "<li>"
-                  .concat(item["name"], ": ")
-                  .concat(
-                    Currency.formatMoney(
-                      item["price"],
-                      window.theme.moneyFormat
-                    ),
-                    "</li>"
-                  )
+                listRatesHtml += '<li>'
+                  .concat(item['name'], ': ')
+                  .concat(Currency.formatMoney(item['price'], window.theme.moneyFormat), '</li>')
               })
-              resultsElement.innerHTML += "<ul>".concat(listRatesHtml, "</ul>")
+              resultsElement.innerHTML += '<ul>'.concat(listRatesHtml, '</ul>')
             }
           } else {
-            resultsElement.innerHTML = "<p>".concat(
+            resultsElement.innerHTML = '<p>'.concat(
               window.languages.shippingEstimatorErrors,
-              "</p>"
+              '</p>'
             )
-            var errorHtml = ""
+            var errorHtml = ''
             Object.keys(results).forEach(function (key) {
               errorHtml += '<li class="alert__list-item">'
-                .concat(key, " ")
-                .concat(results[key], "</li>")
+                .concat(key, ' ')
+                .concat(results[key], '</li>')
             })
-            resultsElement.innerHTML += "<ul>".concat(errorHtml, "</ul>")
+            resultsElement.innerHTML += '<ul>'.concat(errorHtml, '</ul>')
           }
 
-          resultsElement.style.display = "block"
+          resultsElement.style.display = 'block'
         },
       },
       {
-        key: "_getCookie",
+        key: '_getCookie',
         value: function _getCookie(name) {
-          var value = "; ".concat(document.cookie),
-            parts = value.split("; " + name + "=")
+          var value = '; '.concat(document.cookie),
+            parts = value.split('; ' + name + '=')
 
           if (parts.length === 2) {
-            return parts.pop().split(";").shift()
+            return parts.pop().split(';').shift()
           }
         },
       },
       {
-        key: "_updateCartCookie",
+        key: '_updateCartCookie',
         value: function _updateCartCookie(value) {
           var date = new Date()
           date.setTime(date.getTime() + 14 * 86400000)
-          document.cookie = "cart="
-            .concat(value, "; expires=")
-            .concat(date.toUTCString(), "; path=/")
+          document.cookie = 'cart='
+            .concat(value, '; expires=')
+            .concat(date.toUTCString(), '; path=/')
         },
       },
     ])
@@ -14919,8 +13753,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var ValuePicker = /*#__PURE__*/ (function () {
     function ValuePicker(id) {
-      var options =
-        arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
 
       _classCallCheck(this, ValuePicker)
 
@@ -14928,62 +13761,45 @@ document.addEventListener("DOMContentLoaded", function () {
       this.delegateRoot = new Delegate(document.documentElement)
       this.isOpen = false
       this.togglerElement = document.querySelector(
-        '[data-action="open-value-picker"][aria-controls="'.concat(
-          this.id,
-          '"]'
-        )
+        '[data-action="open-value-picker"][aria-controls="'.concat(this.id, '"]')
       )
 
-      this.onSelect = options["onValueSelect"] || function () {}
+      this.onSelect = options['onValueSelect'] || function () {}
 
       this._attachListeners()
     }
 
     _createClass(ValuePicker, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateRoot.off()
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.delegateRoot.on(
-            "click",
-            '[data-action="open-value-picker"][aria-controls="'.concat(
-              this.id,
-              '"]'
-            ),
+            'click',
+            '[data-action="open-value-picker"][aria-controls="'.concat(this.id, '"]'),
             this._toggle.bind(this)
           )
           this.delegateRoot.on(
-            "click",
-            '[data-action="close-value-picker"][aria-controls="'.concat(
-              this.id,
-              '"]'
-            ),
+            'click',
+            '[data-action="close-value-picker"][aria-controls="'.concat(this.id, '"]'),
             this._toggle.bind(this)
           )
           this.delegateRoot.on(
-            "click",
-            "#".concat(this.id, ' [data-action="select-value"]'),
+            'click',
+            '#'.concat(this.id, ' [data-action="select-value"]'),
             this._selectValue.bind(this)
           )
-          this.delegateRoot.on(
-            "click",
-            this._detectOutsideClick.bind(this),
-            true
-          )
-          this.delegateRoot.on(
-            "focusout",
-            "#".concat(this.id),
-            this._onFocusOut.bind(this)
-          )
+          this.delegateRoot.on('click', this._detectOutsideClick.bind(this), true)
+          this.delegateRoot.on('focusout', '#'.concat(this.id), this._onFocusOut.bind(this))
         },
       },
       {
-        key: "_toggle",
+        key: '_toggle',
         value: function _toggle(event) {
           if (this.isOpen) {
             this._close(event)
@@ -14993,60 +13809,52 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_open",
+        key: '_open',
         value: function _open() {
           document
             .querySelector(
-              '[data-action="open-value-picker"][aria-controls="'.concat(
-                this.id,
-                '"]'
-              )
+              '[data-action="open-value-picker"][aria-controls="'.concat(this.id, '"]')
             )
-            .setAttribute("aria-expanded", "true")
-          document.getElementById(this.id).setAttribute("aria-hidden", "false") // This is quite ugly, but in order to avoid an issue with the header that has a higher z-index, we have to temporarily reduce
+            .setAttribute('aria-expanded', 'true')
+          document.getElementById(this.id).setAttribute('aria-hidden', 'false') // This is quite ugly, but in order to avoid an issue with the header that has a higher z-index, we have to temporarily reduce
           // it while we have the element open
 
-          if (Responsive.matchesBreakpoint("phone")) {
-            var headerElement = document.querySelector(
-              ".shopify-section__header"
-            )
-            headerElement.style.zIndex = "3"
+          if (Responsive.matchesBreakpoint('phone')) {
+            var headerElement = document.querySelector('.shopify-section__header')
+            headerElement.style.zIndex = '3'
           }
 
           this.isOpen = true
-          document.body.classList.add("no-mobile-scroll")
+          document.body.classList.add('no-mobile-scroll')
         },
       },
       {
-        key: "_close",
+        key: '_close',
         value: function _close() {
           document
             .querySelector(
-              '[data-action="open-value-picker"][aria-controls="'.concat(
-                this.id,
-                '"]'
-              )
+              '[data-action="open-value-picker"][aria-controls="'.concat(this.id, '"]')
             )
-            .setAttribute("aria-expanded", "false")
-          document.getElementById(this.id).setAttribute("aria-hidden", "true") // This is quite ugly, but in order to avoid an issue with the header that has a higher z-index, we have to temporarily reduce
+            .setAttribute('aria-expanded', 'false')
+          document.getElementById(this.id).setAttribute('aria-hidden', 'true') // This is quite ugly, but in order to avoid an issue with the header that has a higher z-index, we have to temporarily reduce
           // it while we have the element open
 
-          var headerElement = document.querySelector(".shopify-section__header")
-          headerElement.style.zIndex = ""
+          var headerElement = document.querySelector('.shopify-section__header')
+          headerElement.style.zIndex = ''
           this.isOpen = false
-          document.body.classList.remove("no-mobile-scroll")
+          document.body.classList.remove('no-mobile-scroll')
         },
       },
       {
-        key: "_selectValue",
+        key: '_selectValue',
         value: function _selectValue(event, target) {
-          this.onSelect(target.getAttribute("data-value"))
+          this.onSelect(target.getAttribute('data-value'))
 
           this._close()
         },
       },
       {
-        key: "_onFocusOut",
+        key: '_onFocusOut',
         value: function _onFocusOut(event) {
           var container = document.getElementById(this.id) // If the element that get the new focus is not contains within the value picker, we close it
 
@@ -15056,7 +13864,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_detectOutsideClick",
+        key: '_detectOutsideClick',
         value: function _detectOutsideClick(event) {
           // If already closed, nothing to do
           if (
@@ -15067,7 +13875,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return
           }
 
-          if (!event.target.closest(".value-picker__inner") && this.isOpen) {
+          if (!event.target.closest('.value-picker__inner') && this.isOpen) {
             this._close(event)
           }
         },
@@ -15091,12 +13899,12 @@ document.addEventListener("DOMContentLoaded", function () {
             addressForm.querySelector('[name="address[province]"]')
           )
         })
-      this.pageSelector = new ValuePicker("account-selector")
+      this.pageSelector = new ValuePicker('account-selector')
     }
 
     _createClass(AccountSection, [
       {
-        key: "_onUnload",
+        key: '_onUnload',
         value: function _onUnload() {
           this.pageSelector.destroy()
         },
@@ -15112,21 +13920,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.domDelegate = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
       this.isOpen = false // We set the new width of the announcement bar button if any
 
-      if (this.options["showNewsletter"]) {
+      if (this.options['showNewsletter']) {
         document.documentElement.style.setProperty(
-          "--announcement-bar-button-width",
-          this.element.querySelector(".announcement-bar__button").clientWidth +
-            "px"
+          '--announcement-bar-button-width',
+          this.element.querySelector('.announcement-bar__button').clientWidth + 'px'
         )
       } else {
-        document.documentElement.style.removeProperty(
-          "--announcement-bar-button-width"
-        )
+        document.documentElement.style.removeProperty('--announcement-bar-button-width')
       }
 
       this._attachListeners()
@@ -15134,68 +13937,64 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(AnnouncementBarSection, [
       {
-        key: "onSelect",
+        key: 'onSelect',
         value: function onSelect() {
-          if (this.options["showNewsletter"] && !this.isOpen) {
+          if (this.options['showNewsletter'] && !this.isOpen) {
             this._toggleNewsletter()
           }
         },
       },
       {
-        key: "onDeselect",
+        key: 'onDeselect',
         value: function onDeselect() {
-          if (this.options["showNewsletter"] && this.isOpen) {
+          if (this.options['showNewsletter'] && this.isOpen) {
             this._toggleNewsletter()
           }
         },
       },
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.domDelegate.off()
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.domDelegate.on(
-            "click",
+            'click',
             '[data-action="toggle-newsletter"]',
             this._toggleNewsletter.bind(this)
           )
-          this.domDelegate.on("keyup", this._handleKey.bind(this))
+          this.domDelegate.on('keyup', this._handleKey.bind(this))
         },
       },
       {
-        key: "_toggleNewsletter",
+        key: '_toggleNewsletter',
         value: function _toggleNewsletter() {
-          var togglerElement = this.element.querySelector(
-              ".announcement-bar__button"
-            ),
-            newsletterElement = this.element.querySelector(
-              ".announcement-bar__newsletter"
-            )
+          var togglerElement = this.element.querySelector('.announcement-bar__button'),
+            newsletterElement = this.element.querySelector('.announcement-bar__newsletter')
 
-          if (togglerElement.getAttribute("aria-expanded") === "false") {
-            togglerElement.setAttribute("aria-expanded", "true")
-            newsletterElement.setAttribute("aria-hidden", "false")
+          if (togglerElement.getAttribute('aria-expanded') === 'false') {
+            togglerElement.setAttribute('aria-expanded', 'true')
+            newsletterElement.setAttribute('aria-hidden', 'false')
             Animation.slideDown(newsletterElement, function () {
-              Accessibility.trapFocus(newsletterElement, "announcement-bar")
+              Accessibility.trapFocus(newsletterElement, 'announcement-bar')
             })
           } else {
-            togglerElement.setAttribute("aria-expanded", "false")
-            newsletterElement.setAttribute("aria-hidden", "true")
+            togglerElement.setAttribute('aria-expanded', 'false')
+            newsletterElement.setAttribute('aria-hidden', 'true')
             Animation.slideUp(newsletterElement)
-            Accessibility.removeTrapFocus(newsletterElement, "announcement-bar")
+            Accessibility.removeTrapFocus(newsletterElement, 'announcement-bar')
           }
 
           this.isOpen = !this.isOpen
         },
       },
       {
-        key: "_handleKey",
+        key: '_handleKey',
         value: function _handleKey(event) {
-          if (event.key === "Escape" && this.isOpen) {
+          if (event.key === 'Escape' && this.isOpen) {
             this._toggleNewsletter()
           }
         },
@@ -15210,25 +14009,23 @@ document.addEventListener("DOMContentLoaded", function () {
       _classCallCheck(this, BlogSection)
 
       this.element = element
-      this.blogTagSelector = new ValuePicker("blog-tag-selector")
+      this.blogTagSelector = new ValuePicker('blog-tag-selector')
 
       if (Shopify.designMode) {
-        var elementToAdd = this.element.querySelector(".page__header")
+        var elementToAdd = this.element.querySelector('.page__header')
 
         if (elementToAdd) {
+          document.querySelector('.blog-container').previousElementSibling.remove()
           document
-            .querySelector(".blog-container")
-            .previousElementSibling.remove()
-          document
-            .querySelector(".blog-container")
-            .insertAdjacentElement("beforebegin", elementToAdd)
+            .querySelector('.blog-container')
+            .insertAdjacentElement('beforebegin', elementToAdd)
         }
       }
     }
 
     _createClass(BlogSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.blogTagSelector.destroy()
         },
@@ -15244,15 +14041,11 @@ document.addEventListener("DOMContentLoaded", function () {
     this.element = element
 
     if (Shopify.designMode) {
-      var elementToAdd = this.element.querySelector(".page__header")
+      var elementToAdd = this.element.querySelector('.page__header')
 
       if (elementToAdd) {
-        document
-          .querySelector(".blog-container")
-          .previousElementSibling.remove()
-        document
-          .querySelector(".blog-container")
-          .insertAdjacentElement("beforebegin", elementToAdd)
+        document.querySelector('.blog-container').previousElementSibling.remove()
+        document.querySelector('.blog-container').insertAdjacentElement('beforebegin', elementToAdd)
       }
     }
   }
@@ -15268,7 +14061,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.SPR.loadBadges()
       }
 
-      if (window.theme.pageType === "blog") {
+      if (window.theme.pageType === 'blog') {
         this._fixItemsPerRow()
       }
     }
@@ -15279,36 +14072,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(BlogSidebarSection, [
       {
-        key: "_fixItemsPerRow",
+        key: '_fixItemsPerRow',
         value: function _fixItemsPerRow() {
-          var blocks = this.element.querySelectorAll(".blog-sidebar__item")
+          var blocks = this.element.querySelectorAll('.blog-sidebar__item')
 
           if (blocks.length === 0) {
             document
-              .querySelector(".blog-container")
-              .classList.add("blog-container--without-sidebar")
+              .querySelector('.blog-container')
+              .classList.add('blog-container--without-sidebar')
             document
-              .querySelectorAll(
-                ".shopify-section__blog-posts .block-list__item"
-              )
+              .querySelectorAll('.shopify-section__blog-posts .block-list__item')
               .forEach(function (item) {
-                if (item.classList.contains("1/2--lap-and-up")) {
-                  item.classList.remove("1/2--lap-and-up")
-                  item.classList.add("1/3--lap-and-up")
+                if (item.classList.contains('1/2--lap-and-up')) {
+                  item.classList.remove('1/2--lap-and-up')
+                  item.classList.add('1/3--lap-and-up')
                 }
               })
           } else {
             document
-              .querySelector(".blog-container")
-              .classList.remove("blog-container--without-sidebar")
+              .querySelector('.blog-container')
+              .classList.remove('blog-container--without-sidebar')
             document
-              .querySelectorAll(
-                ".shopify-section__blog-posts .block-list__item"
-              )
+              .querySelectorAll('.shopify-section__blog-posts .block-list__item')
               .forEach(function (item) {
-                if (item.classList.contains("1/3--lap-and-up")) {
-                  item.classList.remove("1/3--lap-and-up")
-                  item.classList.add("1/2--lap-and-up")
+                if (item.classList.contains('1/3--lap-and-up')) {
+                  item.classList.remove('1/3--lap-and-up')
+                  item.classList.add('1/2--lap-and-up')
                 }
               })
           }
@@ -15327,16 +14116,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
       this.productGallery = new ProductGallery(this.element, this.options)
 
       this._initShopifyReviews() // If loaded by quick view, we need to do various initialization stuff
 
       if (
-        this.options["isQuickView"] &&
-        this.options["showPaymentButton"] &&
+        this.options['isQuickView'] &&
+        this.options['showPaymentButton'] &&
         window.Shopify.PaymentButton
       ) {
         Shopify.PaymentButton.init()
@@ -15344,63 +14131,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.productVariants = new ProductVariants(this.element, this.options)
 
-      if (this.options["showShippingEstimator"]) {
+      if (this.options['showShippingEstimator']) {
         this.shippingEstimator = new ShippingEstimator(
-          this.element.querySelector(".shipping-estimator"),
+          this.element.querySelector('.shipping-estimator'),
           {
             singleProduct: true,
           }
         )
       }
 
-      if (this.options["showQuantitySelector"]) {
-        var quantityPickerElement = this.element.querySelector(
-          ".quantity-selector--product"
-        )
+      if (this.options['showQuantitySelector']) {
+        var quantityPickerElement = this.element.querySelector('.quantity-selector--product')
 
         if (quantityPickerElement) {
           this.quantityPicker = new QuantityPicker(quantityPickerElement)
         }
       }
 
-      var productInfoElement = this.element.querySelector(
-        ".product-block-list__item--info .card"
-      )
+      var productInfoElement = this.element.querySelector('.product-block-list__item--info .card')
 
       if (productInfoElement) {
-        this.element.querySelector(
-          ".product-block-list__wrapper"
-        ).style.minHeight = "".concat(productInfoElement.clientHeight, "px")
+        this.element.querySelector('.product-block-list__wrapper').style.minHeight = ''.concat(
+          productInfoElement.clientHeight,
+          'px'
+        )
 
         if (window.ResizeObserver) {
           this.productInfoResizeObserver = new ResizeObserver(function (event) {
             if (event[0].contentBoxSize) {
-              _this.element.querySelector(
-                ".product-block-list__wrapper"
-              ).style.minHeight = "".concat(
-                event[0].contentBoxSize.blockSize,
-                "px"
-              )
+              _this.element.querySelector('.product-block-list__wrapper').style.minHeight =
+                ''.concat(event[0].contentBoxSize.blockSize, 'px')
             } else {
-              _this.element.querySelector(
-                ".product-block-list__wrapper"
-              ).style.minHeight = "".concat(event[0].contentRect.height, "px")
+              _this.element.querySelector('.product-block-list__wrapper').style.minHeight =
+                ''.concat(event[0].contentRect.height, 'px')
             }
           })
           this.productInfoResizeObserver.observe(productInfoElement)
         }
 
-        if (this.options["infoOverflowScroll"]) {
+        if (this.options['infoOverflowScroll']) {
           this.infoOverflowScroller = new OverflowScroller(productInfoElement, {
             offsetTop:
-              document.documentElement.style.getPropertyValue(
-                "--header-is-sticky"
-              ) *
-              parseInt(
-                document.documentElement.style.getPropertyValue(
-                  "--header-height"
-                ) + 30
-              ),
+              document.documentElement.style.getPropertyValue('--header-is-sticky') *
+              parseInt(document.documentElement.style.getPropertyValue('--header-height') + 30),
             offsetBottom: 30,
           })
         }
@@ -15411,16 +14184,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ProductSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.productVariants.destroy()
           this.productGallery.destroy()
 
-          if (this.options["showShippingEstimator"]) {
+          if (this.options['showShippingEstimator']) {
             this.shippingEstimator.destroy()
           }
 
-          if (this.options["infoOverflowScroll"]) {
+          if (this.options['infoOverflowScroll']) {
             this.infoOverflowScroller.destroy()
           }
 
@@ -15429,27 +14202,21 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           this.delegateElement.off()
-          this.element.removeEventListener(
-            "variant:changed",
-            this._onVariantChangedListener
-          )
+          this.element.removeEventListener('variant:changed', this._onVariantChangedListener)
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._onVariantChangedListener = this._onVariantChanged.bind(this)
-          this.element.addEventListener(
-            "variant:changed",
-            this._onVariantChangedListener
-          )
+          this.element.addEventListener('variant:changed', this._onVariantChangedListener)
         },
         /**
          * Shopify Reviews app is quite funky and hard to extend... excuse this code
          */
       },
       {
-        key: "_initShopifyReviews",
+        key: '_initShopifyReviews',
         value: function _initShopifyReviews() {
           var _this2 = this
 
@@ -15463,18 +14230,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
           window.SPRCallbacks.onFormSuccess = function () {
             _this2.element
-              .querySelector("#shopify-product-reviews .spr-form")
-              .classList.add("spr-form-submitted")
+              .querySelector('#shopify-product-reviews .spr-form')
+              .classList.add('spr-form-submitted')
           } // If loaded by quick view, we need to do various initialization stuff
 
-          if (this.options["isQuickView"] && window.SPR) {
+          if (this.options['isQuickView'] && window.SPR) {
             window.SPR.initDomEls()
             window.SPR.loadBadges()
 
-            if (
-              this.options["showPaymentButton"] &&
-              window.Shopify.PaymentButton
-            ) {
+            if (this.options['showPaymentButton'] && window.Shopify.PaymentButton) {
               Shopify.PaymentButton.init()
             }
           }
@@ -15484,7 +14248,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onVariantChanged",
+        key: '_onVariantChanged',
         value: function _onVariantChanged(event) {
           this.productGallery.variantHasChanged(event.detail.variant)
         },
@@ -15501,13 +14265,11 @@ document.addEventListener("DOMContentLoaded", function () {
       this.element = element
       this.domDelegate = new Delegate(this.element)
       this.delegateRoot = new Delegate(document.documentElement)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
 
-      if (this.options["showShippingEstimator"]) {
+      if (this.options['showShippingEstimator']) {
         this.shippingEstimator = new ShippingEstimator(
-          this.element.querySelector(".shipping-estimator"),
+          this.element.querySelector('.shipping-estimator'),
           {
             singleProduct: false,
           }
@@ -15521,72 +14283,61 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(CartSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
-          if (this.options["showShippingEstimator"]) {
+          if (this.options['showShippingEstimator']) {
             this.shippingEstimator.destroy()
           }
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
+          this.domDelegate.on('click', '[data-action="add-to-cart"]', this._addToCart.bind(this))
+          this.domDelegate.on('click', '[data-action="save-note"]', this._saveNote.bind(this))
           this.domDelegate.on(
-            "click",
-            '[data-action="add-to-cart"]',
-            this._addToCart.bind(this)
-          )
-          this.domDelegate.on(
-            "click",
-            '[data-action="save-note"]',
-            this._saveNote.bind(this)
-          )
-          this.domDelegate.on(
-            "click",
+            'click',
             '[data-secondary-action="open-quick-view"]',
             this._openQuickView.bind(this)
           )
-          this.delegateRoot.on(
-            "cart:rerendered",
-            this._onCartRerendered.bind(this)
-          )
+          this.delegateRoot.on('cart:rerendered', this._onCartRerendered.bind(this))
         },
       },
       {
-        key: "_saveNote",
+        key: '_saveNote',
         value: function _saveNote() {
           var noteValue = this.element.querySelector('[name="note"]').value
-          fetch("".concat(window.routes.cartUrl, "/update.js"), {
+          fetch(''.concat(window.routes.cartUrl, '/update.js'), {
             body: JSON.stringify({
               note: noteValue,
             }),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }) // Hide or show the note edit button depending on content
 
           this.element
-            .querySelector(".cart-recap__note-edit")
-            .classList.toggle("is-visible", noteValue !== "") // Close the button by sending a global event
+            .querySelector('.cart-recap__note-edit')
+            .classList.toggle('is-visible', noteValue !== '') // Close the button by sending a global event
 
           document.dispatchEvent(
-            new CustomEvent("collapsible:toggle", {
+            new CustomEvent('collapsible:toggle', {
               detail: {
-                id: "order-note",
+                id: 'order-note',
               },
             })
           )
         },
       },
       {
-        key: "_addToCart",
+        key: '_addToCart',
         value: function _addToCart(event, target) {
           var _this = this
 
-          if (window.theme.cartType === "page") {
+          if (window.theme.cartType === 'page') {
             return // When using a cart type of page, we just simply redirect to the cart page
           }
 
@@ -15594,60 +14345,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
           event.stopPropagation() // First, we switch the status of the button
 
-          target.setAttribute("disabled", "disabled")
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // Then we add the product in Ajax
+          target.setAttribute('disabled', 'disabled')
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // Then we add the product in Ajax
 
           var formElement = target.closest('form[action*="/cart/add"]')
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (response) {
             if (response.ok) {
-              target.removeAttribute("disabled") // We simply trigger an event so the mini-cart can re-render
+              target.removeAttribute('disabled') // We simply trigger an event so the mini-cart can re-render
 
               _this.element.dispatchEvent(
-                new CustomEvent("product:added", {
+                new CustomEvent('product:added', {
                   bubbles: true,
                   detail: {
                     variant: null,
-                    quantity: parseInt(
-                      formElement.querySelector('[name="quantity"]').value
-                    ),
+                    quantity: parseInt(formElement.querySelector('[name="quantity"]').value),
                   },
                 })
               )
             } else {
-              target.removeAttribute("disabled")
+              target.removeAttribute('disabled')
             }
           })
           event.preventDefault()
         },
       },
       {
-        key: "_openQuickView",
+        key: '_openQuickView',
         value: function _openQuickView(event, target) {
-          var modal = document.getElementById(
-            target.getAttribute("aria-controls")
-          )
-          modal.classList.add("is-loading")
-          fetch(
-            "".concat(
-              target.getAttribute("data-product-url"),
-              "?view=quick-view"
-            ),
-            {
-              credentials: "same-origin",
-              method: "GET",
-            }
-          ).then(function (response) {
+          var modal = document.getElementById(target.getAttribute('aria-controls'))
+          modal.classList.add('is-loading')
+          fetch(''.concat(target.getAttribute('data-product-url'), '?view=quick-view'), {
+            credentials: 'same-origin',
+            method: 'GET',
+          }).then(function (response) {
             response.text().then(function (content) {
-              modal.querySelector(".modal__inner").innerHTML = content
-              modal.classList.remove("is-loading") // Register a new section to power the JS
+              modal.querySelector('.modal__inner').innerHTML = content
+              modal.classList.remove('is-loading') // Register a new section to power the JS
 
               var modalProductSection = new ProductSection(
                 modal.querySelector('[data-section-type="product"]')
@@ -15655,10 +14396,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
               var doCleanUp = function doCleanUp() {
                 modalProductSection.onUnload()
-                modal.removeEventListener("modal:closed", doCleanUp)
+                modal.removeEventListener('modal:closed', doCleanUp)
               }
 
-              modal.addEventListener("modal:closed", doCleanUp)
+              modal.addEventListener('modal:closed', doCleanUp)
             })
           })
         },
@@ -15667,17 +14408,15 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_enforceMinimumHeight",
+        key: '_enforceMinimumHeight',
         value: function _enforceMinimumHeight() {
-          var cartWrapperElement = this.element.querySelector(".cart-wrapper"),
-            cartRecapScrollerElement = this.element.querySelector(
-              ".cart-recap__scroller"
-            )
+          var cartWrapperElement = this.element.querySelector('.cart-wrapper'),
+            cartRecapScrollerElement = this.element.querySelector('.cart-recap__scroller')
 
           if (cartWrapperElement && cartRecapScrollerElement) {
-            cartWrapperElement.style.minHeight = "".concat(
+            cartWrapperElement.style.minHeight = ''.concat(
               cartRecapScrollerElement.clientHeight,
-              "px"
+              'px'
             )
 
             if (window.ResizeObserver) {
@@ -15688,9 +14427,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 try {
                   for (_iterator.s(); !(_step = _iterator.n()).done; ) {
                     var entry = _step.value
-                    cartWrapperElement.style.minHeight = "".concat(
+                    cartWrapperElement.style.minHeight = ''.concat(
                       parseInt(entry.contentRect.height),
-                      "px"
+                      'px'
                     )
                   }
                 } catch (err) {
@@ -15706,13 +14445,13 @@ document.addEventListener("DOMContentLoaded", function () {
         /* When the cart re-render, we have some operations to do */
       },
       {
-        key: "_onCartRerendered",
+        key: '_onCartRerendered',
         value: function _onCartRerendered() {
           // For now the only thing we have to do is re-create the shipping estimator
-          if (this.options["showShippingEstimator"]) {
+          if (this.options['showShippingEstimator']) {
             this.shippingEstimator.destroy()
             this.shippingEstimator = new ShippingEstimator(
-              this.element.querySelector(".shipping-estimator"),
+              this.element.querySelector('.shipping-estimator'),
               {
                 singleProduct: false,
               }
@@ -15732,35 +14471,30 @@ document.addEventListener("DOMContentLoaded", function () {
       _classCallCheck(this, CollectionListSection)
 
       this.element = element
-      this.flickityInstance = new js(
-        this.element.querySelector(".collection-list"),
-        {
-          watchCSS: true,
-          prevNextButtons: true,
-          draggable: !window.matchMedia(
-            "(-moz-touch-enabled: 0), (hover: hover)"
-          ).matches,
-          pageDots: false,
-          cellAlign: "left",
-          contain: true,
-          groupCells: true,
-        }
-      )
+      this.flickityInstance = new js(this.element.querySelector('.collection-list'), {
+        watchCSS: true,
+        prevNextButtons: true,
+        draggable: !window.matchMedia('(-moz-touch-enabled: 0), (hover: hover)').matches,
+        pageDots: false,
+        cellAlign: 'left',
+        contain: true,
+        groupCells: true,
+      })
     }
 
     _createClass(CollectionListSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.flickityInstance.destroy()
         },
       },
       {
-        key: "onBlockSelect",
+        key: 'onBlockSelect',
         value: function onBlockSelect(event) {
           if (this.flickityInstance.isActive) {
             this.flickityInstance.selectCell(
-              parseInt(event.target.getAttribute("data-collection-index")),
+              parseInt(event.target.getAttribute('data-collection-index')),
               null,
               event.detail.load
             )
@@ -15778,13 +14512,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
-      this.collectionFilterTagElements =
-        this.element.querySelectorAll("[data-tag]")
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
+      this.collectionFilterTagElements = this.element.querySelectorAll('[data-tag]')
       this.currentUrl = new URL(window.location.href)
-      this.currentTags = this.options["currentTags"]
+      this.currentTags = this.options['currentTags']
 
       if (Shopify.designMode && window.SPR) {
         window.SPR.initDomEls()
@@ -15792,18 +14523,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       this.mobileFilterDrawer = new CollectionFilterDrawer(this.options)
-      this.displayByValuePicker = new ValuePicker("display-by-selector", {
+      this.displayByValuePicker = new ValuePicker('display-by-selector', {
         onValueSelect: this._showingCountChanged.bind(this),
       })
-      this.sortByValuePicker = new ValuePicker("sort-by-selector", {
+      this.sortByValuePicker = new ValuePicker('sort-by-selector', {
         onValueSelect: this._sortByChanged.bind(this),
       })
       this.productItemColorSwatch = new ProductItemColorSwatch(this.element) // If we are in the template search and that we are supposed to show pages and blog posts, we do more work
 
-      if (
-        window.theme.pageType === "search" &&
-        window.theme.searchMode !== "product"
-      ) {
+      if (window.theme.pageType === 'search' && window.theme.searchMode !== 'product') {
         this._loadContentResults()
       }
 
@@ -15812,7 +14540,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(CollectionSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.delegateElement.off()
           this.mobileFilterDrawer.destroy()
@@ -15822,69 +14550,61 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "onSelect",
+        key: 'onSelect',
         value: function onSelect(event) {
           if (Shopify.designMode && event.detail.load) {
             // We also force the layout and number of items per page in the editor, no matter if you have choose an explicit mode
             this.element
               .querySelector(
                 '.collection__layout-button[data-layout-mode="'.concat(
-                  this.options["defaultLayout"],
+                  this.options['defaultLayout'],
                   '"]'
                 )
               )
               .click()
 
-            this._showingCountChanged(this.options["defaultProductsPerPage"])
+            this._showingCountChanged(this.options['defaultProductsPerPage'])
           }
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           var _this = this
 
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="change-layout"]',
             this._changeLayout.bind(this)
           )
           this.delegateElement.on(
-            "change",
-            "#mobile-sort-by, #desktop-sort-by",
+            'change',
+            '#mobile-sort-by, #desktop-sort-by',
             this._sortByChanged.bind(this)
           )
+          this.delegateElement.on('change', '#showing-count', this._showingCountChanged.bind(this))
           this.delegateElement.on(
-            "change",
-            "#showing-count",
-            this._showingCountChanged.bind(this)
-          )
-          this.delegateElement.on(
-            "click",
-            ".pagination [data-page]",
+            'click',
+            '.pagination [data-page]',
             this._paginationPageChanged.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="toggle-tag"]',
             this._tagToggled.bind(this)
           )
+          this.delegateElement.on('click', '[data-action="clear-tags"]', this._clearTags.bind(this))
           this.delegateElement.on(
-            "click",
-            '[data-action="clear-tags"]',
-            this._clearTags.bind(this)
-          )
-          this.delegateElement.on(
-            "click",
+            'click',
             '[data-secondary-action="open-quick-view"]',
             this._openQuickView.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="add-to-cart"]',
             this._addToCart.bind(this)
           )
-          window.addEventListener("popstate", function (event) {
+          window.addEventListener('popstate', function (event) {
             if (event.state.path) {
               _this.currentUrl = new URL(event.state.path)
 
@@ -15894,34 +14614,27 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_openQuickView",
+        key: '_openQuickView',
         value: function _openQuickView(event, target) {
           var productUrl = new URL(
-            ""
-              .concat(window.location.origin)
-              .concat(target.getAttribute("data-product-url"))
+            ''.concat(window.location.origin).concat(target.getAttribute('data-product-url'))
           ) // If we are on mobile or tablet, we redirect to product page directly
 
-          if (
-            Responsive.matchesBreakpoint("phone") ||
-            Responsive.matchesBreakpoint("tablet")
-          ) {
+          if (Responsive.matchesBreakpoint('phone') || Responsive.matchesBreakpoint('tablet')) {
             window.location.href = productUrl.href
             return false
           }
 
-          var modal = document.getElementById(
-            target.getAttribute("aria-controls")
-          )
-          modal.classList.add("is-loading")
-          productUrl.searchParams.set("view", "quick-view")
+          var modal = document.getElementById(target.getAttribute('aria-controls'))
+          modal.classList.add('is-loading')
+          productUrl.searchParams.set('view', 'quick-view')
           fetch(productUrl.href, {
-            credentials: "same-origin",
-            method: "GET",
+            credentials: 'same-origin',
+            method: 'GET',
           }).then(function (response) {
             response.text().then(function (content) {
-              modal.querySelector(".modal__inner").innerHTML = content
-              modal.classList.remove("is-loading") // Register a new section to power the JS
+              modal.querySelector('.modal__inner').innerHTML = content
+              modal.classList.remove('is-loading') // Register a new section to power the JS
 
               var modalProductSection = new ProductSection(
                 modal.querySelector('[data-section-type="product"]')
@@ -15929,10 +14642,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
               var doCleanUp = function doCleanUp() {
                 modalProductSection.onUnload()
-                modal.removeEventListener("modal:closed", doCleanUp)
+                modal.removeEventListener('modal:closed', doCleanUp)
               }
 
-              modal.addEventListener("modal:closed", doCleanUp)
+              modal.addEventListener('modal:closed', doCleanUp)
             })
           })
         },
@@ -15941,48 +14654,45 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_changeLayout",
+        key: '_changeLayout',
         value: function _changeLayout(event, target) {
           var _this2 = this
 
-          if (target.classList.contains("is-selected")) {
+          if (target.classList.contains('is-selected')) {
             return
           }
 
-          var newLayoutMode = target.getAttribute("data-layout-mode") // We save the new attribute so that we can select the appropriate mode without causing reflow
+          var newLayoutMode = target.getAttribute('data-layout-mode') // We save the new attribute so that we can select the appropriate mode without causing reflow
 
-          fetch("".concat(window.routes.cartUrl, "/update.js"), {
+          fetch(''.concat(window.routes.cartUrl, '/update.js'), {
             body: JSON.stringify({
               attributes: {
                 collection_layout: newLayoutMode,
               },
             }),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }) // Finally, we change everything!
 
           fastdom.mutate(function () {
-            Dom.getSiblings(target, ".is-selected").forEach(function (button) {
-              return button.classList.remove("is-selected")
+            Dom.getSiblings(target, '.is-selected').forEach(function (button) {
+              return button.classList.remove('is-selected')
             })
-            target.classList.add("is-selected")
+            target.classList.add('is-selected')
 
-            _this2.element
-              .querySelectorAll(".product-item")
-              .forEach(function (item) {
-                if (newLayoutMode === "grid") {
-                  item.className =
-                    "product-item product-item--vertical ".concat(
-                      _this2.options["gridClasses"]
-                    )
-                } else {
-                  item.className = "product-item product-item--list"
-                }
-              }) // Reload the swatches
+            _this2.element.querySelectorAll('.product-item').forEach(function (item) {
+              if (newLayoutMode === 'grid') {
+                item.className = 'product-item product-item--vertical '.concat(
+                  _this2.options['gridClasses']
+                )
+              } else {
+                item.className = 'product-item product-item--list'
+              }
+            }) // Reload the swatches
 
             _this2.productItemColorSwatch.recalculateSwatches()
           })
@@ -15992,10 +14702,10 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_sortByChanged",
+        key: '_sortByChanged',
         value: function _sortByChanged(value) {
-          this.currentUrl.searchParams.set("sort_by", value)
-          this.currentUrl.searchParams["delete"]("page")
+          this.currentUrl.searchParams.set('sort_by', value)
+          this.currentUrl.searchParams['delete']('page')
 
           this._reload(true)
         },
@@ -16004,23 +14714,23 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_showingCountChanged",
+        key: '_showingCountChanged',
         value: function _showingCountChanged(value) {
           var _this3 = this
 
-          this.currentUrl.searchParams["delete"]("page") // We save the new value as a cart attribute, so it can be retrieved in Liquid easily :)
+          this.currentUrl.searchParams['delete']('page') // We save the new value as a cart attribute, so it can be retrieved in Liquid easily :)
 
-          fetch("".concat(window.routes.cartUrl, "/update.js"), {
+          fetch(''.concat(window.routes.cartUrl, '/update.js'), {
             body: JSON.stringify({
               attributes: {
                 collection_products_per_page: value,
               },
             }),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function () {
             _this3._reload(true)
@@ -16031,13 +14741,10 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_paginationPageChanged",
+        key: '_paginationPageChanged',
         value: function _paginationPageChanged(event, target) {
           event.preventDefault()
-          this.currentUrl.searchParams.set(
-            "page",
-            parseInt(target.getAttribute("data-page"))
-          )
+          this.currentUrl.searchParams.set('page', parseInt(target.getAttribute('data-page')))
 
           this._reload(true)
         },
@@ -16046,11 +14753,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_tagToggled",
+        key: '_tagToggled',
         value: function _tagToggled(event, target) {
           var _this4 = this
 
-          var newTag = target.getAttribute("data-tag"),
+          var newTag = target.getAttribute('data-tag'),
             hadTags = this.currentTags.length > 0
 
           if (this.currentTags.includes(newTag)) {
@@ -16058,16 +14765,14 @@ document.addEventListener("DOMContentLoaded", function () {
               return value !== newTag
             })
           } else {
-            if (this.options["filterType"] === "tag") {
+            if (this.options['filterType'] === 'tag') {
               this.currentTags = [newTag] // When using tag mode, we only allow one tag at maximum
             } else {
               // In the group mode, we need to make sure to remove the other tags that are matching the given group
-              var tagGroup = newTag.split("_")[0]
+              var tagGroup = newTag.split('_')[0]
               this.currentTags.forEach(function (existingTag) {
-                if (existingTag.split("_")[0] === tagGroup) {
-                  _this4.currentTags = _this4.currentTags.filter(function (
-                    value
-                  ) {
+                if (existingTag.split('_')[0] === tagGroup) {
+                  _this4.currentTags = _this4.currentTags.filter(function (value) {
                     return value !== existingTag
                   })
                 }
@@ -16076,7 +14781,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
 
-          this.currentUrl.searchParams["delete"]("page")
+          this.currentUrl.searchParams['delete']('page')
 
           this._updateTagUrl(hadTags) // Finally, we can reload!
 
@@ -16084,39 +14789,37 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_clearTags",
+        key: '_clearTags',
         value: function _clearTags() {
           var hadTags = this.currentTags.length > 0
           this.currentTags = []
-          this.currentUrl.searchParams["delete"]("page")
+          this.currentUrl.searchParams['delete']('page')
 
           this._updateTagUrl(hadTags) // Finally, we can reload!
 
           this._reload(true).then(function () {
-            document.dispatchEvent(new CustomEvent("collection-filter:close"))
+            document.dispatchEvent(new CustomEvent('collection-filter:close'))
           })
         },
       },
       {
-        key: "_updateTagUrl",
+        key: '_updateTagUrl',
         value: function _updateTagUrl(hadTags) {
           var _this5 = this
 
           // Then, we update the DOM
           fastdom.mutate(function () {
             _this5.collectionFilterTagElements.forEach(function (tagElement) {
-              if (
-                _this5.currentTags.includes(tagElement.getAttribute("data-tag"))
-              ) {
-                tagElement.classList.add("is-selected")
+              if (_this5.currentTags.includes(tagElement.getAttribute('data-tag'))) {
+                tagElement.classList.add('is-selected')
 
-                if (tagElement.tagName === "INPUT") {
+                if (tagElement.tagName === 'INPUT') {
                   tagElement.checked = true
                 }
               } else {
-                tagElement.classList.remove("is-selected")
+                tagElement.classList.remove('is-selected')
 
-                if (tagElement.tagName === "INPUT") {
+                if (tagElement.tagName === 'INPUT') {
                   tagElement.checked = false
                 }
               }
@@ -16124,35 +14827,25 @@ document.addEventListener("DOMContentLoaded", function () {
           }) // Then, update the URL. When the collection is automatic (such as vendors and types collections), tags must be added
           // within a constraint query parameter, otherwise they must be appended to the path
 
-          if (this.options["isAutomatic"]) {
+          if (this.options['isAutomatic']) {
             if (this.currentTags.length === 0) {
-              this.currentUrl.searchParams["delete"]("constraint")
+              this.currentUrl.searchParams['delete']('constraint')
             } else {
-              this.currentUrl.searchParams.set(
-                "constraint",
-                this.currentTags.join("+")
-              )
+              this.currentUrl.searchParams.set('constraint', this.currentTags.join('+'))
             }
           } else {
-            var tagPath = this.currentTags.join("+"),
+            var tagPath = this.currentTags.join('+'),
               currentPathName =
-                this.currentUrl.pathname.substr(-1) === "/"
-                  ? this.currentUrl.pathname.substr(
-                      0,
-                      this.currentUrl.pathname.length - 1
-                    )
+                this.currentUrl.pathname.substr(-1) === '/'
+                  ? this.currentUrl.pathname.substr(0, this.currentUrl.pathname.length - 1)
                   : this.currentUrl.pathname
 
             if (hadTags) {
-              var pathParts = currentPathName.split("/")
+              var pathParts = currentPathName.split('/')
               pathParts.pop()
-              this.currentUrl.pathname = ""
-                .concat(pathParts.join("/"), "/")
-                .concat(tagPath)
+              this.currentUrl.pathname = ''.concat(pathParts.join('/'), '/').concat(tagPath)
             } else {
-              this.currentUrl.pathname = ""
-                .concat(currentPathName, "/")
-                .concat(tagPath)
+              this.currentUrl.pathname = ''.concat(currentPathName, '/').concat(tagPath)
             }
           }
         },
@@ -16163,7 +14856,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_reload",
+        key: '_reload',
         value: function _reload(pushState) {
           var _this6 = this
 
@@ -16173,50 +14866,45 @@ document.addEventListener("DOMContentLoaded", function () {
               {
                 path: this.currentUrl.toString(),
               },
-              "",
+              '',
               this.currentUrl.toString()
             )
           }
 
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // We notify the mobile collection drawer that it has changed
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // We notify the mobile collection drawer that it has changed
 
           this.mobileFilterDrawer._filtersHaveChanged(this.currentTags) // We scroll to the top
 
           var computedStyles = window.getComputedStyle(document.documentElement) // To load the content we use the newly introduced "Sections API", which also to get data much more efficiently
 
-          var sectionUrl = ""
+          var sectionUrl = ''
 
           if (this.currentUrl.search) {
-            sectionUrl = ""
-              .concat(this.currentUrl.pathname, "/")
-              .concat(this.currentUrl.search, "&section_id=")
-              .concat(this.element.getAttribute("data-section-id"))
+            sectionUrl = ''
+              .concat(this.currentUrl.pathname, '/')
+              .concat(this.currentUrl.search, '&section_id=')
+              .concat(this.element.getAttribute('data-section-id'))
           } else {
-            sectionUrl = ""
-              .concat(this.currentUrl.pathname, "?section_id=")
-              .concat(this.element.getAttribute("data-section-id"))
+            sectionUrl = ''
+              .concat(this.currentUrl.pathname, '?section_id=')
+              .concat(this.element.getAttribute('data-section-id'))
           }
 
           return fetch(sectionUrl, {
-            credentials: "same-origin",
-            method: "GET",
+            credentials: 'same-origin',
+            method: 'GET',
           }).then(function (response) {
             response.text().then(function (content) {
-              var tempElement = document.createElement("div")
+              var tempElement = document.createElement('div')
               tempElement.innerHTML = content
-              _this6.element.querySelector(
-                ".collection__dynamic-part"
-              ).innerHTML = tempElement.querySelector(
-                ".collection__dynamic-part"
-              ).innerHTML
+              _this6.element.querySelector('.collection__dynamic-part').innerHTML =
+                tempElement.querySelector('.collection__dynamic-part').innerHTML
 
-              var activeFilters = _this6.element.querySelector(
-                ".collection__active-filters"
-              ) // A given collection may not have any filters
+              var activeFilters = _this6.element.querySelector('.collection__active-filters') // A given collection may not have any filters
 
               if (activeFilters) {
                 activeFilters.innerHTML = tempElement.querySelector(
-                  ".collection__active-filters"
+                  '.collection__active-filters'
                 ).innerHTML
               } // Reload the Shopify Review badges
 
@@ -16228,23 +14916,19 @@ document.addEventListener("DOMContentLoaded", function () {
               _this6.productItemColorSwatch.recalculateSwatches()
 
               var elementOffset =
-                _this6.element
-                  .querySelector(".collection")
-                  .getBoundingClientRect().top -
+                _this6.element.querySelector('.collection').getBoundingClientRect().top -
                 25 -
-                parseInt(
-                  computedStyles.getPropertyValue("--header-is-sticky")
-                ) *
-                  parseInt(computedStyles.getPropertyValue("--header-height"))
+                parseInt(computedStyles.getPropertyValue('--header-is-sticky')) *
+                  parseInt(computedStyles.getPropertyValue('--header-height'))
 
               if (elementOffset < 0) {
                 window.scrollBy({
                   top: elementOffset,
-                  behavior: "smooth",
+                  behavior: 'smooth',
                 })
               } // Finally, we scroll to the element
 
-              document.dispatchEvent(new CustomEvent("theme:loading:end"))
+              document.dispatchEvent(new CustomEvent('theme:loading:end'))
             })
           })
         },
@@ -16255,28 +14939,26 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_loadContentResults",
+        key: '_loadContentResults',
         value: function _loadContentResults() {
           var _this7 = this
 
           var currentUrl = new URL(window.location.href)
           fetch(
-            ""
-              .concat(window.routes.searchUrl, "?view=content&q=")
-              .concat(currentUrl.searchParams.get("q"), "&type=")
-              .concat(window.theme.searchMode.replace("product,", "")),
+            ''
+              .concat(window.routes.searchUrl, '?view=content&q=')
+              .concat(currentUrl.searchParams.get('q'), '&type=')
+              .concat(window.theme.searchMode.replace('product,', '')),
             {
-              credentials: "same-origin",
+              credentials: 'same-origin',
             }
           ).then(function (response) {
             response.text().then(function (content) {
-              var linkSearchResults = _this7.element.querySelector(
-                ".link-search-results"
-              )
+              var linkSearchResults = _this7.element.querySelector('.link-search-results')
 
-              if (linkSearchResults && content.trim() !== "") {
+              if (linkSearchResults && content.trim() !== '') {
                 linkSearchResults.innerHTML = content
-                linkSearchResults.style.display = "block"
+                linkSearchResults.style.display = 'block'
               }
             })
           })
@@ -16288,11 +14970,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_addToCart",
+        key: '_addToCart',
         value: function _addToCart(event, target) {
           var _this8 = this
 
-          if (window.theme.cartType === "page") {
+          if (window.theme.cartType === 'page') {
             return // When using a cart type of page, we just simply redirect to the cart page
           }
 
@@ -16300,37 +14982,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
           event.stopPropagation() // First, we switch the status of the button
 
-          target.setAttribute("disabled", "disabled")
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // Then we add the product in Ajax
+          target.setAttribute('disabled', 'disabled')
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // Then we add the product in Ajax
 
           var formElement = target.closest('form[action*="/cart/add"]')
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (response) {
-            target.removeAttribute("disabled")
+            target.removeAttribute('disabled')
 
             if (response.ok) {
               // We simply trigger an event so the mini-cart can re-render
               _this8.element.dispatchEvent(
-                new CustomEvent("product:added", {
+                new CustomEvent('product:added', {
                   bubbles: true,
                   detail: {
                     button: target,
                     variant: null,
-                    quantity: parseInt(
-                      formElement.querySelector('[name="quantity"]').value
-                    ),
+                    quantity: parseInt(formElement.querySelector('[name="quantity"]').value),
                   },
                 })
               )
             } else {
-              document.dispatchEvent(new CustomEvent("theme:loading:end"))
+              document.dispatchEvent(new CustomEvent('theme:loading:end'))
             }
           })
           event.preventDefault()
@@ -16347,25 +15027,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
 
-      if (!this.options["stackable"]) {
-        this.flickityInstance = new js(
-          this.element.querySelector(".product-list"),
-          {
-            watchCSS: true,
-            pageDots: true,
-            prevNextButtons: true,
-            contain: true,
-            groupCells: true,
-            cellAlign: "left",
-            draggable: !window.matchMedia(
-              "(-moz-touch-enabled: 0), (hover: hover)"
-            ).matches,
-          }
-        )
+      if (!this.options['stackable']) {
+        this.flickityInstance = new js(this.element.querySelector('.product-list'), {
+          watchCSS: true,
+          pageDots: true,
+          prevNextButtons: true,
+          contain: true,
+          groupCells: true,
+          cellAlign: 'left',
+          draggable: !window.matchMedia('(-moz-touch-enabled: 0), (hover: hover)').matches,
+        })
       }
 
       if (Shopify.designMode && window.SPR) {
@@ -16382,14 +15055,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(FeaturedCollectionSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
-          if (!this.options["stackable"]) {
+          if (!this.options['stackable']) {
             this.flickityInstance.destroy()
           }
 
-          window.removeEventListener("resize", this._fixSafariListener)
-          this.delegateElement.off("change")
+          window.removeEventListener('resize', this._fixSafariListener)
+          this.delegateElement.off('change')
           this.productItemColorSwatch.destroy()
 
           if (this.resizeObserver) {
@@ -16398,19 +15071,19 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           var _this = this
 
           this._fixSafariListener = this._fixSafari.bind(this)
-          window.addEventListener("resize", this._fixSafariListener)
+          window.addEventListener('resize', this._fixSafariListener)
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="add-to-cart"]',
             this._addToCart.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-secondary-action="open-quick-view"]',
             this._openQuickView.bind(this)
           ) // If the browser supports ResizeObserver we use it to detect when the size of the items in the carousel change,
@@ -16420,11 +15093,9 @@ document.addEventListener("DOMContentLoaded", function () {
             this.resizeObserver = new ResizeObserver(function () {
               _this.flickityInstance.resize()
             })
-            this.element
-              .querySelectorAll(".product-item")
-              .forEach(function (item) {
-                _this.resizeObserver.observe(item)
-              })
+            this.element.querySelectorAll('.product-item').forEach(function (item) {
+              _this.resizeObserver.observe(item)
+            })
           }
         },
         /**
@@ -16437,63 +15108,53 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_fixSafari",
+        key: '_fixSafari',
         value: function _fixSafari() {
           var userAgent = window.navigator.userAgent.toLowerCase()
 
           if (
-            userAgent.includes("safari") &&
-            (userAgent.includes("version/10.1") ||
-              userAgent.includes("version/10.3") ||
-              userAgent.includes("version/11.0"))
+            userAgent.includes('safari') &&
+            (userAgent.includes('version/10.1') ||
+              userAgent.includes('version/10.3') ||
+              userAgent.includes('version/11.0'))
           ) {
-            var isPhone = Responsive.matchesBreakpoint("phone")
+            var isPhone = Responsive.matchesBreakpoint('phone')
             this.element
               .querySelectorAll(
-                ".product-item__image-wrapper .aspect-ratio, .product-item__image-wrapper .placeholder-svg"
+                '.product-item__image-wrapper .aspect-ratio, .product-item__image-wrapper .placeholder-svg'
               )
               .forEach(function (image) {
                 if (isPhone) {
                   image.parentNode.style.height = null
                 } else {
-                  image.parentNode.style.height = "".concat(
-                    image.clientHeight,
-                    "px"
-                  )
+                  image.parentNode.style.height = ''.concat(image.clientHeight, 'px')
                 }
               })
           }
         },
       },
       {
-        key: "_openQuickView",
+        key: '_openQuickView',
         value: function _openQuickView(event, target) {
           var productUrl = new URL(
-            ""
-              .concat(window.location.origin)
-              .concat(target.getAttribute("data-product-url"))
+            ''.concat(window.location.origin).concat(target.getAttribute('data-product-url'))
           ) // If we are on mobile or tablet, we redirect to product page directly
 
-          if (
-            Responsive.matchesBreakpoint("phone") ||
-            Responsive.matchesBreakpoint("tablet")
-          ) {
+          if (Responsive.matchesBreakpoint('phone') || Responsive.matchesBreakpoint('tablet')) {
             window.location.href = productUrl.href
             return false
           }
 
-          var modal = document.getElementById(
-            target.getAttribute("aria-controls")
-          )
-          modal.classList.add("is-loading")
-          productUrl.searchParams.set("view", "quick-view")
+          var modal = document.getElementById(target.getAttribute('aria-controls'))
+          modal.classList.add('is-loading')
+          productUrl.searchParams.set('view', 'quick-view')
           fetch(productUrl.href, {
-            credentials: "same-origin",
-            method: "GET",
+            credentials: 'same-origin',
+            method: 'GET',
           }).then(function (response) {
             response.text().then(function (content) {
-              modal.querySelector(".modal__inner").innerHTML = content
-              modal.classList.remove("is-loading") // Register a new section to power the JS
+              modal.querySelector('.modal__inner').innerHTML = content
+              modal.classList.remove('is-loading') // Register a new section to power the JS
 
               var modalProductSection = new ProductSection(
                 modal.querySelector('[data-section-type="product"]')
@@ -16501,10 +15162,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
               var doCleanUp = function doCleanUp() {
                 modalProductSection.onUnload()
-                modal.removeEventListener("modal:closed", doCleanUp)
+                modal.removeEventListener('modal:closed', doCleanUp)
               }
 
-              modal.addEventListener("modal:closed", doCleanUp)
+              modal.addEventListener('modal:closed', doCleanUp)
             })
           })
         },
@@ -16515,11 +15176,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_addToCart",
+        key: '_addToCart',
         value: function _addToCart(event, target) {
           var _this2 = this
 
-          if (window.theme.cartType === "page") {
+          if (window.theme.cartType === 'page') {
             return // When using a cart type of page, we just simply redirect to the cart page
           }
 
@@ -16527,37 +15188,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
           event.stopPropagation() // First, we switch the status of the button
 
-          target.setAttribute("disabled", "disabled")
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // Then we add the product in Ajax
+          target.setAttribute('disabled', 'disabled')
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // Then we add the product in Ajax
 
           var formElement = target.closest('form[action*="/cart/add"]')
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (response) {
-            target.removeAttribute("disabled")
+            target.removeAttribute('disabled')
 
             if (response.ok) {
               // We simply trigger an event so the mini-cart can re-render
               _this2.element.dispatchEvent(
-                new CustomEvent("product:added", {
+                new CustomEvent('product:added', {
                   bubbles: true,
                   detail: {
                     button: target,
                     variant: null,
-                    quantity: parseInt(
-                      formElement.querySelector('[name="quantity"]').value
-                    ),
+                    quantity: parseInt(formElement.querySelector('[name="quantity"]').value),
                   },
                 })
               )
             } else {
-              document.dispatchEvent(new CustomEvent("theme:loading:end"))
+              document.dispatchEvent(new CustomEvent('theme:loading:end'))
             }
           })
           event.preventDefault()
@@ -16582,18 +15241,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(GiftCardSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.delegateElement.off()
         },
       },
       {
-        key: "_createQrCode",
+        key: '_createQrCode',
         value: function _createQrCode() {
-          var qrCodeElements = document.querySelectorAll(".gift-card__qr")
+          var qrCodeElements = document.querySelectorAll('.gift-card__qr')
           qrCodeElements.forEach(function (qrCodeElement) {
             new QRCode(qrCodeElement, {
-              text: qrCodeElement.getAttribute("data-identifier"),
+              text: qrCodeElement.getAttribute('data-identifier'),
               width: 200,
               height: 200,
             })
@@ -16601,28 +15260,24 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
+          this.delegateElement.on('click', '[data-action="print"]', this._print.bind(this))
           this.delegateElement.on(
-            "click",
-            '[data-action="print"]',
-            this._print.bind(this)
-          )
-          this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="select-code"]',
             this._selectCode.bind(this)
           )
         },
       },
       {
-        key: "_print",
+        key: '_print',
         value: function _print() {
           window.print()
         },
       },
       {
-        key: "_selectCode",
+        key: '_selectCode',
         value: function _selectCode(event, element) {
           element.select()
         },
@@ -16638,9 +15293,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.domDelegate = new Delegate(this.element)
-      this.localeValuePicker = new ValuePicker("footer-locale-picker")
-      this.currencyValuePicker = new ValuePicker("footer-currency-picker")
-      this.cookieBarElement = this.element.querySelector(".cookie-bar")
+      this.localeValuePicker = new ValuePicker('footer-locale-picker')
+      this.currencyValuePicker = new ValuePicker('footer-currency-picker')
+      this.cookieBarElement = this.element.querySelector('.cookie-bar')
 
       if (this.cookieBarElement) {
         this._setupCookieBar()
@@ -16653,37 +15308,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(FooterSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
-          window.removeEventListener("resize", this._setupCollapsiblesListener)
+          window.removeEventListener('resize', this._setupCollapsiblesListener)
           this.domDelegate.off()
           this.localeValuePicker.destroy()
           this.currencyValuePicker.destroy()
         },
       },
       {
-        key: "onSelect",
+        key: 'onSelect',
         value: function onSelect() {
           if (this.cookieBarElement) {
-            this.cookieBarElement.setAttribute("aria-hidden", "false")
+            this.cookieBarElement.setAttribute('aria-hidden', 'false')
           }
         },
       },
       {
-        key: "onDeselect",
+        key: 'onDeselect',
         value: function onDeselect() {
           if (this.cookieBarElement) {
-            this.cookieBarElement.setAttribute("aria-hidden", "true")
+            this.cookieBarElement.setAttribute('aria-hidden', 'true')
           }
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._setupCollapsiblesListener = this._setupCollapsibles.bind(this)
-          window.addEventListener("resize", this._setupCollapsiblesListener)
+          window.addEventListener('resize', this._setupCollapsiblesListener)
           this.domDelegate.on(
-            "click",
+            'click',
             '[data-action="accept-terms"]',
             this._acceptCookieBarTerms.bind(this)
           )
@@ -16693,31 +15348,31 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_setupCollapsibles",
+        key: '_setupCollapsibles',
         value: function _setupCollapsibles() {
           var collapsibleToggles = this.element.querySelectorAll(
               '[data-action="toggle-collapsible"]'
             ),
-            isPhone = Responsive.matchesBreakpoint("phone")
+            isPhone = Responsive.matchesBreakpoint('phone')
           collapsibleToggles.forEach(function (collapsibleToggle) {
             if (isPhone) {
-              collapsibleToggle.removeAttribute("disabled")
+              collapsibleToggle.removeAttribute('disabled')
             } else {
-              collapsibleToggle.setAttribute("disabled", "disabled")
+              collapsibleToggle.setAttribute('disabled', 'disabled')
               document.getElementById(
-                collapsibleToggle.getAttribute("aria-controls")
-              ).style.height = ""
+                collapsibleToggle.getAttribute('aria-controls')
+              ).style.height = ''
             }
           })
         },
       },
       {
-        key: "_setupCookieBar",
+        key: '_setupCookieBar',
         value: function _setupCookieBar() {
           // We check if we should make it visible
           try {
-            if (localStorage.getItem("cookieWasAccepted") === null) {
-              this.cookieBarElement.setAttribute("aria-hidden", "false")
+            if (localStorage.getItem('cookieWasAccepted') === null) {
+              this.cookieBarElement.setAttribute('aria-hidden', 'false')
             }
           } catch (exception) {
             // Some browser may throw an exception when trying to access the local storage in private mode for instance, so we just ignore it
@@ -16725,13 +15380,13 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_acceptCookieBarTerms",
+        key: '_acceptCookieBarTerms',
         value: function _acceptCookieBarTerms() {
           // We close the cookie bar and we set a value in local storage to not show it again
-          this.cookieBarElement.setAttribute("aria-hidden", "true")
+          this.cookieBarElement.setAttribute('aria-hidden', 'true')
 
           try {
-            localStorage.setItem("cookieWasAccepted", "true")
+            localStorage.setItem('cookieWasAccepted', 'true')
           } catch (exception) {}
         },
       },
@@ -16746,19 +15401,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.headerElement = this.element.closest(".header")
-      this.searchBarElement = this.element.querySelector(".search-bar")
+      this.headerElement = this.element.closest('.header')
+      this.searchBarElement = this.element.querySelector('.search-bar')
       this.inputElement = this.element.querySelector('[name="q"]')
-      this.searchMenuElement = this.element.querySelector(
-        ".search-bar__menu-wrapper"
-      )
-      this.searchResultsElement = this.element.querySelector(
-        ".search-bar__results"
-      )
-      this.closeButtonElement = this.element.querySelector(
-        ".search-bar__close-button"
-      )
-      this.productTypeFilter = ""
+      this.searchMenuElement = this.element.querySelector('.search-bar__menu-wrapper')
+      this.searchResultsElement = this.element.querySelector('.search-bar__results')
+      this.closeButtonElement = this.element.querySelector('.search-bar__close-button')
+      this.productTypeFilter = ''
       this.isSearchOpen = false
 
       this._attachListeners()
@@ -16766,48 +15415,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(SearchBar, [
       {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {
           this.delegateElement.off()
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="clear-input"]',
             this._clearInput.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="unfix-search"]',
             this._unfixMobileSearch.bind(this)
           )
+          this.delegateElement.on('focusin', '[name="q"]', this._onInputFocus.bind(this))
+          this.delegateElement.on('focusout', this._onFocusOut.bind(this))
+          this.delegateElement.on('keydown', '[name="q"]', this._handleTab.bind(this))
           this.delegateElement.on(
-            "focusin",
-            '[name="q"]',
-            this._onInputFocus.bind(this)
-          )
-          this.delegateElement.on("focusout", this._onFocusOut.bind(this))
-          this.delegateElement.on(
-            "keydown",
-            '[name="q"]',
-            this._handleTab.bind(this)
-          )
-          this.delegateElement.on(
-            "input",
+            'input',
             '[name="q"]',
             this._debounce(this._doSearch.bind(this), 250)
           )
           this.delegateElement.on(
-            "change",
-            "#search-product-type",
+            'change',
+            '#search-product-type',
             this._productTypeChanged.bind(this)
           )
-          this.delegateElement.on("submit", this._onFormSubmit.bind(this))
+          this.delegateElement.on('submit', this._onFormSubmit.bind(this))
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="add-to-cart"]',
             this._addToCart.bind(this)
           )
@@ -16817,38 +15458,36 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_addToCart",
+        key: '_addToCart',
         value: function _addToCart(event, target) {
           var _this9 = this
-          if (window.theme.cartType === "page") {
+          if (window.theme.cartType === 'page') {
             return // When using a cart type of page, we just simply redirect to the cart page
           }
           event.preventDefault() // Prevent form to be submitted
           event.stopPropagation() // First, we switch the status of the button
-          target.setAttribute("disabled", "disabled")
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // Then we add the product in Ajax
+          target.setAttribute('disabled', 'disabled')
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // Then we add the product in Ajax
           var formElement = target.form
 
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (response) {
-            document.dispatchEvent(new CustomEvent("theme:loading:end"))
+            document.dispatchEvent(new CustomEvent('theme:loading:end'))
             if (response.ok) {
-              target.removeAttribute("disabled") // We simply trigger an event so the mini-cart can re-render
+              target.removeAttribute('disabled') // We simply trigger an event so the mini-cart can re-render
               _this9.element.dispatchEvent(
-                new CustomEvent("product:added", {
+                new CustomEvent('product:added', {
                   bubbles: true,
                   detail: {
                     variant: _this9.currentVariant,
-                    quantity: parseInt(
-                      formElement.querySelector('[name="quantity"]').value
-                    ),
+                    quantity: parseInt(formElement.querySelector('[name="quantity"]').value),
                   },
                 })
               ) // If we are in the context of quick view, we also force closing the modal
@@ -16859,31 +15498,31 @@ document.addEventListener("DOMContentLoaded", function () {
       },
 
       {
-        key: "toggleMobileSearch",
+        key: 'toggleMobileSearch',
         value: function toggleMobileSearch() {
           if (this.isSearchOpen) {
-            this.headerElement.classList.remove("header--search-expanded")
-            this.element.classList.remove("is-visible")
+            this.headerElement.classList.remove('header--search-expanded')
+            this.element.classList.remove('is-visible')
           } else {
-            this.headerElement.classList.add("header--search-expanded")
-            this.element.classList.add("is-visible")
+            this.headerElement.classList.add('header--search-expanded')
+            this.element.classList.add('is-visible')
           }
 
           this.isSearchOpen = !this.isSearchOpen
         },
       },
       {
-        key: "_unfixMobileSearch",
+        key: '_unfixMobileSearch',
         value: function _unfixMobileSearch() {
-          this.element.classList.remove("is-fixed")
-          this.closeButtonElement.style.width = ""
-          this.searchBarElement.classList.remove("is-expanded")
-          this.searchResultsElement.setAttribute("aria-hidden", "true")
-          this.inputElement.classList.remove("is-filled")
-          document.body.classList.remove("no-mobile-scroll")
+          this.element.classList.remove('is-fixed')
+          this.closeButtonElement.style.width = ''
+          this.searchBarElement.classList.remove('is-expanded')
+          this.searchResultsElement.setAttribute('aria-hidden', 'true')
+          this.inputElement.classList.remove('is-filled')
+          document.body.classList.remove('no-mobile-scroll')
 
           if (this.searchMenuElement) {
-            this.searchMenuElement.setAttribute("aria-hidden", "true")
+            this.searchMenuElement.setAttribute('aria-hidden', 'true')
           }
         },
         /**
@@ -16891,14 +15530,14 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_clearInput",
+        key: '_clearInput',
         value: function _clearInput() {
-          this.inputElement.value = ""
-          this.inputElement.classList.remove("is-filled")
-          this.searchResultsElement.setAttribute("aria-hidden", "true")
+          this.inputElement.value = ''
+          this.inputElement.classList.remove('is-filled')
+          this.searchResultsElement.setAttribute('aria-hidden', 'true')
 
           if (this.searchMenuElement) {
-            this.searchMenuElement.setAttribute("aria-hidden", "false")
+            this.searchMenuElement.setAttribute('aria-hidden', 'false')
           }
         },
         /**
@@ -16907,33 +15546,33 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onInputFocus",
+        key: '_onInputFocus',
         value: function _onInputFocus() {
-          this.element.classList.add("is-fixed")
-          this.closeButtonElement.style.width = "".concat(
+          this.element.classList.add('is-fixed')
+          this.closeButtonElement.style.width = ''.concat(
             this.closeButtonElement.firstElementChild.offsetWidth,
-            "px"
+            'px'
           )
-          document.body.classList.add("no-mobile-scroll")
+          document.body.classList.add('no-mobile-scroll')
 
-          if (this.inputElement.value === "") {
+          if (this.inputElement.value === '') {
             if (this.searchMenuElement) {
-              this.searchMenuElement.setAttribute("aria-hidden", "false")
+              this.searchMenuElement.setAttribute('aria-hidden', 'false')
             }
 
-            this.searchResultsElement.setAttribute("aria-hidden", "true")
+            this.searchResultsElement.setAttribute('aria-hidden', 'true')
           } else {
             if (this.searchMenuElement) {
-              this.searchMenuElement.setAttribute("aria-hidden", "true")
+              this.searchMenuElement.setAttribute('aria-hidden', 'true')
             }
 
-            this.searchResultsElement.setAttribute("aria-hidden", "false")
-            this.inputElement.classList.add("is-filled")
-            this.searchBarElement.classList.add("is-expanded")
+            this.searchResultsElement.setAttribute('aria-hidden', 'false')
+            this.inputElement.classList.add('is-filled')
+            this.searchBarElement.classList.add('is-expanded')
           }
 
           if (this.searchMenuElement) {
-            this.searchBarElement.classList.add("is-expanded")
+            this.searchBarElement.classList.add('is-expanded')
           }
         },
         /**
@@ -16941,23 +15580,23 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onFocusOut",
+        key: '_onFocusOut',
         value: function _onFocusOut(event) {
           // On phone, nothing happens on focus out
-          if (Responsive.matchesBreakpoint("phone")) {
+          if (Responsive.matchesBreakpoint('phone')) {
             return
           }
 
-          this.element.classList.remove("is-fixed")
-          document.body.classList.remove("no-mobile-scroll") // event.relatedTarget allows to get the new element that get focus. If it's outside the div that contains the search, we close it
+          this.element.classList.remove('is-fixed')
+          document.body.classList.remove('no-mobile-scroll') // event.relatedTarget allows to get the new element that get focus. If it's outside the div that contains the search, we close it
 
           if (!this.element.contains(event.relatedTarget)) {
             if (this.searchMenuElement) {
-              this.searchMenuElement.setAttribute("aria-hidden", "true")
+              this.searchMenuElement.setAttribute('aria-hidden', 'true')
             }
 
-            this.searchResultsElement.setAttribute("aria-hidden", "true")
-            this.searchBarElement.classList.remove("is-expanded")
+            this.searchResultsElement.setAttribute('aria-hidden', 'true')
+            this.searchBarElement.classList.remove('is-expanded')
           }
         },
         /**
@@ -16965,14 +15604,13 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_handleTab",
+        key: '_handleTab',
         value: function _handleTab(event) {
-          if (event.key !== "Tab") {
+          if (event.key !== 'Tab') {
             return
           } // Try to get the first link into the results to give focus to this element
 
-          var firstFocusableElement =
-            this.searchResultsElement.querySelector("a")
+          var firstFocusableElement = this.searchResultsElement.querySelector('a')
 
           if (firstFocusableElement) {
             firstFocusableElement.focus()
@@ -16984,7 +15622,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_doSearch",
+        key: '_doSearch',
         value: function _doSearch() {
           var _this = this
 
@@ -16993,51 +15631,48 @@ document.addEventListener("DOMContentLoaded", function () {
           var currentInput = this.inputElement.value
           this.lastInputValue = currentInput
 
-          if (currentInput === "") {
+          if (currentInput === '') {
             if (this.searchMenuElement) {
-              this.searchMenuElement.setAttribute("aria-hidden", "false")
+              this.searchMenuElement.setAttribute('aria-hidden', 'false')
             } else {
-              this.searchBarElement.classList.remove("is-expanded")
+              this.searchBarElement.classList.remove('is-expanded')
             }
 
-            this.searchResultsElement.setAttribute("aria-hidden", "true")
+            this.searchResultsElement.setAttribute('aria-hidden', 'true')
           } else {
             if (this.searchMenuElement) {
-              this.searchMenuElement.setAttribute("aria-hidden", "true")
+              this.searchMenuElement.setAttribute('aria-hidden', 'true')
             }
 
-            this.searchResultsElement.setAttribute("aria-hidden", "false")
-            this.searchBarElement.classList.add("is-expanded", "is-loading")
+            this.searchResultsElement.setAttribute('aria-hidden', 'false')
+            this.searchBarElement.classList.add('is-expanded', 'is-loading')
             var queryOptions = {
-                method: "GET",
-                credentials: "same-origin",
+                method: 'GET',
+                credentials: 'same-origin',
               },
-              productQuery = ""
+              productQuery = ''
                 .concat(
-                  this.productTypeFilter !== ""
-                    ? "product_type:".concat(this.productTypeFilter, " AND ")
-                    : ""
+                  this.productTypeFilter !== ''
+                    ? 'product_type:'.concat(this.productTypeFilter, ' AND ')
+                    : ''
                 )
                 .concat(encodeURIComponent(this.lastInputValue)),
               queries = [
                 fetch(
-                  ""
-                    .concat(window.routes.searchUrl, "?view=ajax&q=")
-                    .concat(productQuery, "&options[prefix]=last&type=product"),
+                  ''
+                    .concat(window.routes.searchUrl, '?view=ajax&q=')
+                    .concat(productQuery, '&options[prefix]=last&type=product'),
                   queryOptions
                 ),
               ]
 
-            if (window.theme.searchMode !== "product") {
+            if (window.theme.searchMode !== 'product') {
               queries.push(
                 fetch(
-                  ""
-                    .concat(window.routes.searchUrl, "?view=ajax&q=")
-                    .concat(
-                      encodeURIComponent(this.lastInputValue),
-                      "&options[prefix]=last&type="
-                    )
-                    .concat(window.theme.searchMode.replace("product,", "")),
+                  ''
+                    .concat(window.routes.searchUrl, '?view=ajax&q=')
+                    .concat(encodeURIComponent(this.lastInputValue), '&options[prefix]=last&type=')
+                    .concat(window.theme.searchMode.replace('product,', '')),
                   queryOptions
                 )
               )
@@ -17054,22 +15689,19 @@ document.addEventListener("DOMContentLoaded", function () {
                   return response.text()
                 })
               ).then(function (contents) {
-                _this.searchBarElement.classList.remove("is-loading")
+                _this.searchBarElement.classList.remove('is-loading')
 
-                var searchContent = document.createElement("div")
-                searchContent.innerHTML = contents.join("").trim() // If there is a "view all" button, we move it at the end of the results
+                var searchContent = document.createElement('div')
+                searchContent.innerHTML = contents.join('').trim() // If there is a "view all" button, we move it at the end of the results
 
-                var viewAll = searchContent.querySelector(
-                  ".search-bar__view-all"
-                )
+                var viewAll = searchContent.querySelector('.search-bar__view-all')
 
                 if (viewAll) {
-                  searchContent.insertAdjacentElement("beforeend", viewAll)
+                  searchContent.insertAdjacentElement('beforeend', viewAll)
                 }
 
-                _this.searchBarElement.querySelector(
-                  ".search-bar__results-inner"
-                ).innerHTML = searchContent.innerHTML
+                _this.searchBarElement.querySelector('.search-bar__results-inner').innerHTML =
+                  searchContent.innerHTML
               })
             })
           }
@@ -17079,15 +15711,15 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_productTypeChanged",
+        key: '_productTypeChanged',
         value: function _productTypeChanged(event, target) {
           target
-            .closest(".search-bar__filter")
-            .querySelector(".search-bar__filter-active").innerText =
+            .closest('.search-bar__filter')
+            .querySelector('.search-bar__filter-active').innerText =
             target.options[target.selectedIndex].innerText
           this.productTypeFilter = target.value
 
-          if (this.inputElement.value !== "") {
+          if (this.inputElement.value !== '') {
             this._doSearch()
           }
         },
@@ -17096,33 +15728,33 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_onFormSubmit",
+        key: '_onFormSubmit',
         value: function _onFormSubmit(event) {
           // To prevent for the value to temporarily shows the "*", we clone the input as a hidden field
           var cloneNode = this.inputElement.cloneNode()
-          cloneNode.setAttribute("type", "hidden")
-          cloneNode.value = ""
+          cloneNode.setAttribute('type', 'hidden')
+          cloneNode.value = ''
 
-          if (this.productTypeFilter !== "") {
-            cloneNode.value += "product_type:".concat(this.productTypeFilter)
+          if (this.productTypeFilter !== '') {
+            cloneNode.value += 'product_type:'.concat(this.productTypeFilter)
 
-            if (this.inputElement.value !== "") {
-              cloneNode.value += " AND "
+            if (this.inputElement.value !== '') {
+              cloneNode.value += ' AND '
             }
           }
 
           cloneNode.value += this.inputElement.value // We remove the "q" attribute on existing node so it's not submitted
 
-          this.inputElement.removeAttribute("name") // And we insert it into the DOM
+          this.inputElement.removeAttribute('name') // And we insert it into the DOM
 
-          this.inputElement.insertAdjacentElement("afterend", cloneNode)
+          this.inputElement.insertAdjacentElement('afterend', cloneNode)
         },
         /**
          * Simple function that allows to debounce
          */
       },
       {
-        key: "_debounce",
+        key: '_debounce',
         value: function _debounce(fn, delay) {
           var _this2 = this
 
@@ -17154,36 +15786,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
-      this.searchBar = new SearchBar(
-        this.element.querySelector(".header__search-bar-wrapper")
-      )
-      this.cart = new Cart(
-        this.element.querySelector(".header__action-item--cart"),
-        {
-          useStickyHeader: this.options["useStickyHeader"],
-        }
-      ) // We create the desktop and mobile navigation conditionally as we've found that some merchants may have no menu
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
+      this.searchBar = new SearchBar(this.element.querySelector('.header__search-bar-wrapper'))
+      this.cart = new Cart(this.element.querySelector('.header__action-item--cart'), {
+        useStickyHeader: this.options['useStickyHeader'],
+      }) // We create the desktop and mobile navigation conditionally as we've found that some merchants may have no menu
 
       var desktopNavigationElement = this.element.querySelector(
-        this.options["navigationLayout"] === "inline"
-          ? ".nav-bar"
-          : ".header__desktop-nav"
+        this.options['navigationLayout'] === 'inline' ? '.nav-bar' : '.header__desktop-nav'
       )
 
       if (desktopNavigationElement) {
         this.desktopNavigation = new DesktopNavigation(
           desktopNavigationElement,
-          this.options["navigationLayout"],
-          this.options["desktopOpenTrigger"]
+          this.options['navigationLayout'],
+          this.options['desktopOpenTrigger']
         )
       }
 
-      var mobileNavigationElement = this.element.querySelector(
-        ".header__mobile-nav"
-      )
+      var mobileNavigationElement = this.element.querySelector('.header__mobile-nav')
 
       if (mobileNavigationElement) {
         this.mobileNavigation = new MobileNavigation(mobileNavigationElement)
@@ -17196,7 +15817,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(HeaderSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.searchBar.destroy()
           this.cart.destroy()
@@ -17209,11 +15830,11 @@ document.addEventListener("DOMContentLoaded", function () {
             this.mobileNavigation.destroy()
           }
 
-          window.removeEventListener("resize", this._setupCssVariablesListener)
+          window.removeEventListener('resize', this._setupCssVariablesListener)
         },
       },
       {
-        key: "onBlockSelect",
+        key: 'onBlockSelect',
         value: function onBlockSelect(event) {
           if (this.desktopNavigation) {
             this.desktopNavigation.onBlockSelect(event)
@@ -17221,7 +15842,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "onBlockDeselect",
+        key: 'onBlockDeselect',
         value: function onBlockDeselect(event) {
           if (this.desktopNavigation) {
             this.desktopNavigation.onBlockDeselect(event)
@@ -17229,12 +15850,12 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._setupCssVariablesListener = this._setupCssVariables.bind(this)
-          window.addEventListener("resize", this._setupCssVariablesListener)
+          window.addEventListener('resize', this._setupCssVariablesListener)
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="toggle-search"]',
             this._toggleMobileSearch.bind(this)
           )
@@ -17245,11 +15866,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_setupCssVariables",
+        key: '_setupCssVariables',
         value: function _setupCssVariables() {
           document.documentElement.style.setProperty(
-            "--header-height",
-            this.element.parentNode.clientHeight + "px"
+            '--header-height',
+            this.element.parentNode.clientHeight + 'px'
           )
         },
         /**
@@ -17257,7 +15878,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_toggleMobileSearch",
+        key: '_toggleMobileSearch',
         value: function _toggleMobileSearch(event) {
           this.searchBar.toggleMobileSearch()
           event.preventDefault()
@@ -17274,12 +15895,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.domDelegate = new Delegate(this.element)
-      this.customerLoginForm = this.element.querySelector("#customer_login")
-      this.recoverPasswordForm = this.element.querySelector(
-        "#recover_customer_password"
-      )
+      this.customerLoginForm = this.element.querySelector('#customer_login')
+      this.recoverPasswordForm = this.element.querySelector('#recover_customer_password')
       this.domDelegate.on(
-        "click",
+        'click',
         '[data-action="toggle-login-form"]',
         this._showRecoverPassword.bind(this)
       )
@@ -17287,16 +15906,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(LoginSection, [
       {
-        key: "_showRecoverPassword",
+        key: '_showRecoverPassword',
         value: function _showRecoverPassword() {
-          var isLoginActive = this.customerLoginForm.style.display === "block"
+          var isLoginActive = this.customerLoginForm.style.display === 'block'
 
           if (isLoginActive) {
-            this.customerLoginForm.style.display = "none"
-            this.recoverPasswordForm.style.display = "block"
+            this.customerLoginForm.style.display = 'none'
+            this.recoverPasswordForm.style.display = 'block'
           } else {
-            this.customerLoginForm.style.display = "block"
-            this.recoverPasswordForm.style.display = "none"
+            this.customerLoginForm.style.display = 'block'
+            this.recoverPasswordForm.style.display = 'none'
           }
         },
       },
@@ -17311,14 +15930,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.options = JSON.parse(element.getAttribute("data-section-settings"))
+      this.options = JSON.parse(element.getAttribute('data-section-settings'))
       this.mapPositions = []
       this.desktopMarkers = []
       this.desktopMapElement = null
       this.mobileMarkers = []
       this.mobileMapElements = []
 
-      if (this.options["apiKey"] && this.options["mapAddresses"].length > 0) {
+      if (this.options['apiKey'] && this.options['mapAddresses'].length > 0) {
         this._loadScript().then(this._initMaps.bind(this))
       }
 
@@ -17327,172 +15946,151 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(MapSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
-          this.delegateElement.off("click")
+          this.delegateElement.off('click')
 
-          if (
-            this.options["apiKey"] &&
-            this.options["mapAddresses"].length > 0
-          ) {
+          if (this.options['apiKey'] && this.options['mapAddresses'].length > 0) {
             google.maps.event.clearInstanceListeners(window)
           }
         },
       },
       {
-        key: "onBlockSelect",
+        key: 'onBlockSelect',
         value: function onBlockSelect(event) {
           this._showStore(event.target)
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           var _this = this
 
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="toggle-store"]',
             function (event, target) {
-              _this._showStore(target.closest(".map__store-item"))
+              _this._showStore(target.closest('.map__store-item'))
             }
           )
         },
       },
       {
-        key: "_showStore",
+        key: '_showStore',
         value: function _showStore(storeItem) {
           var _this2 = this
 
-          var toggleButton = storeItem.querySelector(
-            '[data-action="toggle-store"]'
-          ) // If already open, we do nothing unless we are on mobile (as we need at least one store visible on desktop)
+          var toggleButton = storeItem.querySelector('[data-action="toggle-store"]') // If already open, we do nothing unless we are on mobile (as we need at least one store visible on desktop)
 
           if (
-            Responsive.getCurrentBreakpoint() !== "phone" &&
-            toggleButton.getAttribute("aria-expanded") === "true"
+            Responsive.getCurrentBreakpoint() !== 'phone' &&
+            toggleButton.getAttribute('aria-expanded') === 'true'
           ) {
             return
           } // Otherwise, we activate it
 
-          if (toggleButton.getAttribute("aria-expanded") === "true") {
-            toggleButton.setAttribute("aria-expanded", "false")
-            Animation.slideUp(
-              storeItem.querySelector(".map__store-collapsible")
-            )
+          if (toggleButton.getAttribute('aria-expanded') === 'true') {
+            toggleButton.setAttribute('aria-expanded', 'false')
+            Animation.slideUp(storeItem.querySelector('.map__store-collapsible'))
           } else {
-            toggleButton.setAttribute("aria-expanded", "true")
-            Animation.slideDown(
-              storeItem.querySelector(".map__store-collapsible")
-            )
+            toggleButton.setAttribute('aria-expanded', 'true')
+            Animation.slideDown(storeItem.querySelector('.map__store-collapsible'))
           } // Finally, we close the other ones (if any is open)
 
           Dom.getSiblings(storeItem).forEach(function (storeItemToClose) {
             storeItemToClose
               .querySelector('[data-action="toggle-store"]')
-              .setAttribute("aria-expanded", "false")
-            Animation.slideUp(
-              storeItemToClose.querySelector(".map__store-collapsible")
-            )
+              .setAttribute('aria-expanded', 'false')
+            Animation.slideUp(storeItemToClose.querySelector('.map__store-collapsible'))
           }) // We need to move the map to the new center, and we need to change its color to make it active
 
-          var storeIndex = parseInt(storeItem.getAttribute("data-store-index"))
+          var storeIndex = parseInt(storeItem.getAttribute('data-store-index'))
           this.desktopMapElement.panTo(this.mapPositions[storeIndex])
           this.desktopMarkers.forEach(function (marker, index) {
             marker.setMap(_this2.desktopMapElement)
 
             if (index === storeIndex) {
-              marker.icon.fillColor = _this2.options["markerActiveColor"]
+              marker.icon.fillColor = _this2.options['markerActiveColor']
             } else {
-              marker.icon.fillColor = _this2.options["markerColor"]
+              marker.icon.fillColor = _this2.options['markerColor']
             }
           })
         },
       },
       {
-        key: "_loadScript",
+        key: '_loadScript',
         value: function _loadScript() {
           var _this3 = this
 
           return new Promise(function (resolve, reject) {
-            var script = document.createElement("script")
+            var script = document.createElement('script')
             document.body.appendChild(script)
             script.onload = resolve
             script.onerror = reject
             script.async = true
-            script.src = "https://maps.googleapis.com/maps/api/js?key=".concat(
-              _this3.options["apiKey"]
+            script.src = 'https://maps.googleapis.com/maps/api/js?key='.concat(
+              _this3.options['apiKey']
             )
           })
         },
       },
       {
-        key: "_initMaps",
+        key: '_initMaps',
         value: function _initMaps() {
           var _this4 = this
 
           // First, we gather all the maps (desktop and mobile)
           var mapOptions = {
-            zoom: this.options["zoom"],
-            draggable: this.options["draggableMap"],
+            zoom: this.options['zoom'],
+            draggable: this.options['draggableMap'],
             clickableIcons: false,
-            scrollwheel: this.options["draggableMap"],
+            scrollwheel: this.options['draggableMap'],
             disableDoubleClickZoom: true,
-            disableDefaultUI: !this.options["showMapControls"],
-            styles: JSON.parse(
-              this.element.querySelector("[data-gmap-style]").innerHTML
-            ),
+            disableDefaultUI: !this.options['showMapControls'],
+            styles: JSON.parse(this.element.querySelector('[data-gmap-style]').innerHTML),
           }
           this.desktopMapElement = new google.maps.Map(
-            this.element.querySelector(
-              ".map__map-container--desktop .map__gmap"
-            ),
+            this.element.querySelector('.map__map-container--desktop .map__gmap'),
             mapOptions
           )
           this.mobileMapElements = []
           this.element
-            .querySelectorAll(".map__map-container--mobile .map__gmap")
+            .querySelectorAll('.map__map-container--mobile .map__gmap')
             .forEach(function (item, index) {
-              _this4.mobileMapElements[index] = new google.maps.Map(
-                item,
-                mapOptions
-              )
+              _this4.mobileMapElements[index] = new google.maps.Map(item, mapOptions)
             }) // Then we geocode all addresses
 
           this._geocodeAddresses() // Make sure we attach the listeners so that it's properly resized
 
-          google.maps.event.addDomListener(window, "resize", function () {
+          google.maps.event.addDomListener(window, 'resize', function () {
             var desktopCenter = _this4.desktopMapElement.getCenter()
 
-            google.maps.event.trigger(_this4.desktopMapElement, "resize")
+            google.maps.event.trigger(_this4.desktopMapElement, 'resize')
 
             _this4.desktopMapElement.setCenter(desktopCenter)
 
             _this4.mobileMapElements.forEach(function (mobileMap) {
               var mobileCenter = mobileMap.getCenter()
-              google.maps.event.trigger(mobileMap, "resize")
+              google.maps.event.trigger(mobileMap, 'resize')
               mobileMap.setCenter(mobileCenter)
             })
           })
         },
       },
       {
-        key: "_onMarkerClicked",
+        key: '_onMarkerClicked',
         value: function _onMarkerClicked(address) {
-          window.open(
-            "https://www.google.com/maps/search/?api=1&query=".concat(address),
-            "_blank"
-          )
+          window.open('https://www.google.com/maps/search/?api=1&query='.concat(address), '_blank')
         },
       },
       {
-        key: "_geocodeAddresses",
+        key: '_geocodeAddresses',
         value: function _geocodeAddresses() {
           var _this5 = this
 
           // Then, we geocode all the addresses, and place them on the map
           var geocoder = new google.maps.Geocoder()
-          this.options["mapAddresses"].forEach(function (address, index) {
+          this.options['mapAddresses'].forEach(function (address, index) {
             geocoder.geocode(
               {
                 address: address,
@@ -17508,11 +16106,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     map: index === 0 ? _this5.desktopMapElement : null,
                     position: position,
                     icon: {
-                      path: "M12.5,0 C6.388889,0 0,4.7304348 0,12.5217391 C0,19.8956522 11.111111,31.1652174 11.527778,31.5826087 C11.805556,31.8608696 12.083333,32 12.5,32 C12.916667,32 13.194444,31.8608696 13.472222,31.5826087 C13.888889,31.1652174 25,19.8956522 25,12.5217391 C25,4.7304348 18.611111,0 12.5,0 Z M12,16 C9.733333,16 8,14.2666667 8,12 C8,9.7333333 9.733333,8 12,8 C14.266667,8 16,9.7333333 16,12 C16,14.2666667 14.266667,16 12,16 Z",
+                      path: 'M12.5,0 C6.388889,0 0,4.7304348 0,12.5217391 C0,19.8956522 11.111111,31.1652174 11.527778,31.5826087 C11.805556,31.8608696 12.083333,32 12.5,32 C12.916667,32 13.194444,31.8608696 13.472222,31.5826087 C13.888889,31.1652174 25,19.8956522 25,12.5217391 C25,4.7304348 18.611111,0 12.5,0 Z M12,16 C9.733333,16 8,14.2666667 8,12 C8,9.7333333 9.733333,8 12,8 C14.266667,8 16,9.7333333 16,12 C16,14.2666667 14.266667,16 12,16 Z',
                       fillColor:
                         index === 0
-                          ? _this5.options["markerActiveColor"]
-                          : _this5.options["markerColor"],
+                          ? _this5.options['markerActiveColor']
+                          : _this5.options['markerColor'],
                       fillOpacity: 1,
                       anchor: new google.maps.Point(12, 30),
                       strokeWeight: 0,
@@ -17523,8 +16121,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     map: _this5.mobileMapElements[index],
                     position: position,
                     icon: {
-                      path: "M12.5,0 C6.388889,0 0,4.7304348 0,12.5217391 C0,19.8956522 11.111111,31.1652174 11.527778,31.5826087 C11.805556,31.8608696 12.083333,32 12.5,32 C12.916667,32 13.194444,31.8608696 13.472222,31.5826087 C13.888889,31.1652174 25,19.8956522 25,12.5217391 C25,4.7304348 18.611111,0 12.5,0 Z M12,16 C9.733333,16 8,14.2666667 8,12 C8,9.7333333 9.733333,8 12,8 C14.266667,8 16,9.7333333 16,12 C16,14.2666667 14.266667,16 12,16 Z",
-                      fillColor: _this5.options["markerActiveColor"],
+                      path: 'M12.5,0 C6.388889,0 0,4.7304348 0,12.5217391 C0,19.8956522 11.111111,31.1652174 11.527778,31.5826087 C11.805556,31.8608696 12.083333,32 12.5,32 C12.916667,32 13.194444,31.8608696 13.472222,31.5826087 C13.888889,31.1652174 25,19.8956522 25,12.5217391 C25,4.7304348 18.611111,0 12.5,0 Z M12,16 C9.733333,16 8,14.2666667 8,12 C8,9.7333333 9.733333,8 12,8 C14.266667,8 16,9.7333333 16,12 C16,14.2666667 14.266667,16 12,16 Z',
+                      fillColor: _this5.options['markerActiveColor'],
                       fillOpacity: 1,
                       anchor: new google.maps.Point(12, 30),
                       strokeWeight: 0,
@@ -17532,12 +16130,12 @@ document.addEventListener("DOMContentLoaded", function () {
                   })
 
                   _this5.desktopMarkers[index].addListener(
-                    "click",
+                    'click',
                     _this5._onMarkerClicked.bind(_this5, address)
                   )
 
                   _this5.mobileMarkers[index].addListener(
-                    "click",
+                    'click',
                     _this5._onMarkerClicked.bind(_this5, address)
                   )
 
@@ -17570,16 +16168,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(MinimalHeaderSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
-          window.removeEventListener("resize", this._setupCssVariablesListener)
+          window.removeEventListener('resize', this._setupCssVariablesListener)
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._setupCssVariablesListener = this._setupCssVariables.bind(this)
-          window.addEventListener("resize", this._setupCssVariablesListener)
+          window.addEventListener('resize', this._setupCssVariablesListener)
         },
         /**
          * We have some positioning that is based on the CSS variables, so we must make sure to update them whenever
@@ -17587,11 +16185,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_setupCssVariables",
+        key: '_setupCssVariables',
         value: function _setupCssVariables() {
           document.documentElement.style.setProperty(
-            "--header-height",
-            this.element.parentNode.clientHeight + "px"
+            '--header-height',
+            this.element.parentNode.clientHeight + 'px'
           )
         },
       },
@@ -17606,7 +16204,7 @@ document.addEventListener("DOMContentLoaded", function () {
     this.element = element // Make sure that the section is always visible in the editor, even if the option to hide it on desktop is checked
 
     if (Shopify.designMode) {
-      this.element.classList.remove("hidden-lap-and-up")
+      this.element.classList.remove('hidden-lap-and-up')
     }
   }
 
@@ -17620,10 +16218,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       _classCallCheck(this, PopupsSection)
 
-      element.querySelectorAll("[data-popup-type]").forEach(function (popup) {
-        if (popup.getAttribute("data-popup-type") === "exit") {
+      element.querySelectorAll('[data-popup-type]').forEach(function (popup) {
+        if (popup.getAttribute('data-popup-type') === 'exit') {
           _this.exitPopup = new ExitPopup(popup)
-        } else if (popup.getAttribute("data-popup-type") === "newsletter") {
+        } else if (popup.getAttribute('data-popup-type') === 'newsletter') {
           _this.newsletterPopup = new NewsletterPopup(popup)
         }
       })
@@ -17631,7 +16229,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(PopupsSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           if (this.exitPopup) {
             this.exitPopup.destroy()
@@ -17643,15 +16241,12 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "onBlockSelect",
+        key: 'onBlockSelect',
         value: function onBlockSelect(event) {
-          if (
-            event.target.getAttribute("data-popup-type") === "exit" &&
-            this.exitPopup
-          ) {
+          if (event.target.getAttribute('data-popup-type') === 'exit' && this.exitPopup) {
             this.exitPopup._openPopup()
           } else if (
-            event.target.getAttribute("data-popup-type") === "newsletter" &&
+            event.target.getAttribute('data-popup-type') === 'newsletter' &&
             this.newsletterPopup
           ) {
             this.newsletterPopup._openPopup()
@@ -17659,7 +16254,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "onBlockDeselect",
+        key: 'onBlockDeselect',
         value: function onBlockDeselect() {
           if (this.exitPopup) {
             this.exitPopup._closePopup()
@@ -17681,11 +16276,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
 
-      if (this.options["useRecommendations"]) {
+      if (this.options['useRecommendations']) {
         this._loadRecommendations().then(this._createSlideshow.bind(this))
       } else {
         this._createSlideshow()
@@ -17700,14 +16293,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(ProductRecommendationsSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
-          if (!this.options["stackable"]) {
+          if (!this.options['stackable']) {
             this.flickityInstance.destroy()
           }
 
-          window.removeEventListener("resize", this._fixSafariListener)
-          this.delegateElement.off("change")
+          window.removeEventListener('resize', this._fixSafariListener)
+          this.delegateElement.off('change')
           this.productItemColorSwatch.destroy()
 
           if (this.resizeObserver) {
@@ -17716,17 +16309,17 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this._fixSafariListener = this._fixSafari.bind(this)
-          window.addEventListener("resize", this._fixSafariListener)
+          window.addEventListener('resize', this._fixSafariListener)
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="add-to-cart"]',
             this._addToCart.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-secondary-action="open-quick-view"]',
             this._openQuickView.bind(this)
           )
@@ -17741,29 +16334,26 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_fixSafari",
+        key: '_fixSafari',
         value: function _fixSafari() {
           var userAgent = window.navigator.userAgent.toLowerCase()
 
           if (
-            userAgent.includes("safari") &&
-            (userAgent.includes("version/10.1") ||
-              userAgent.includes("version/10.3") ||
-              userAgent.includes("version/11.0"))
+            userAgent.includes('safari') &&
+            (userAgent.includes('version/10.1') ||
+              userAgent.includes('version/10.3') ||
+              userAgent.includes('version/11.0'))
           ) {
-            var isPhone = Responsive.matchesBreakpoint("phone")
+            var isPhone = Responsive.matchesBreakpoint('phone')
             this.element
               .querySelectorAll(
-                ".product-item__image-wrapper .aspect-ratio, .product-item__image-wrapper .placeholder-svg"
+                '.product-item__image-wrapper .aspect-ratio, .product-item__image-wrapper .placeholder-svg'
               )
               .forEach(function (image) {
                 if (isPhone) {
                   image.parentNode.style.height = null
                 } else {
-                  image.parentNode.style.height = "".concat(
-                    image.clientHeight,
-                    "px"
-                  )
+                  image.parentNode.style.height = ''.concat(image.clientHeight, 'px')
                 }
               })
           }
@@ -17773,26 +16363,23 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_loadRecommendations",
+        key: '_loadRecommendations',
         value: function _loadRecommendations() {
           var _this = this
 
-          var url = ""
+          var url = ''
             .concat(
               window.routes.productRecommendationsUrl,
-              "?section_id=product-recommendations&product_id="
+              '?section_id=product-recommendations&product_id='
             )
-            .concat(this.options["productId"], "&limit=")
-            .concat(this.options["recommendationsCount"])
+            .concat(this.options['productId'], '&limit=')
+            .concat(this.options['recommendationsCount'])
           return fetch(url).then(function (response) {
             return response.text().then(function (content) {
-              var container = document.createElement("div")
+              var container = document.createElement('div')
               container.innerHTML = content
-              _this.element.querySelector(
-                ".product-recommendations"
-              ).innerHTML = container.querySelector(
-                ".product-recommendations"
-              ).innerHTML
+              _this.element.querySelector('.product-recommendations').innerHTML =
+                container.querySelector('.product-recommendations').innerHTML
 
               _this.productItemColorSwatch.recalculateSwatches()
             })
@@ -17800,25 +16387,20 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_createSlideshow",
+        key: '_createSlideshow',
         value: function _createSlideshow() {
           var _this2 = this
 
-          if (!this.options["stackable"]) {
-            this.flickityInstance = new js(
-              this.element.querySelector(".product-list"),
-              {
-                watchCSS: true,
-                pageDots: true,
-                prevNextButtons: true,
-                contain: true,
-                groupCells: true,
-                cellAlign: "left",
-                draggable: !window.matchMedia(
-                  "(-moz-touch-enabled: 0), (hover: hover)"
-                ).matches,
-              }
-            )
+          if (!this.options['stackable']) {
+            this.flickityInstance = new js(this.element.querySelector('.product-list'), {
+              watchCSS: true,
+              pageDots: true,
+              prevNextButtons: true,
+              contain: true,
+              groupCells: true,
+              cellAlign: 'left',
+              draggable: !window.matchMedia('(-moz-touch-enabled: 0), (hover: hover)').matches,
+            })
           }
 
           if (window.SPR) {
@@ -17831,43 +16413,34 @@ document.addEventListener("DOMContentLoaded", function () {
             this.resizeObserver = new ResizeObserver(function () {
               _this2.flickityInstance.resize()
             })
-            this.element
-              .querySelectorAll(".product-item")
-              .forEach(function (item) {
-                _this2.resizeObserver.observe(item)
-              })
+            this.element.querySelectorAll('.product-item').forEach(function (item) {
+              _this2.resizeObserver.observe(item)
+            })
           }
         },
       },
       {
-        key: "_openQuickView",
+        key: '_openQuickView',
         value: function _openQuickView(event, target) {
           var productUrl = new URL(
-            ""
-              .concat(window.location.origin)
-              .concat(target.getAttribute("data-product-url"))
+            ''.concat(window.location.origin).concat(target.getAttribute('data-product-url'))
           ) // If we are on mobile or tablet, we redirect to product page directly
 
-          if (
-            Responsive.matchesBreakpoint("phone") ||
-            Responsive.matchesBreakpoint("tablet")
-          ) {
+          if (Responsive.matchesBreakpoint('phone') || Responsive.matchesBreakpoint('tablet')) {
             window.location.href = productUrl.href
             return false
           }
 
-          var modal = document.getElementById(
-            target.getAttribute("aria-controls")
-          )
-          modal.classList.add("is-loading")
-          productUrl.searchParams.set("view", "quick-view")
+          var modal = document.getElementById(target.getAttribute('aria-controls'))
+          modal.classList.add('is-loading')
+          productUrl.searchParams.set('view', 'quick-view')
           fetch(productUrl.href, {
-            credentials: "same-origin",
-            method: "GET",
+            credentials: 'same-origin',
+            method: 'GET',
           }).then(function (response) {
             response.text().then(function (content) {
-              modal.querySelector(".modal__inner").innerHTML = content
-              modal.classList.remove("is-loading") // Register a new section to power the JS
+              modal.querySelector('.modal__inner').innerHTML = content
+              modal.classList.remove('is-loading') // Register a new section to power the JS
 
               var modalProductSection = new ProductSection(
                 modal.querySelector('[data-section-type="product"]')
@@ -17875,10 +16448,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
               var doCleanUp = function doCleanUp() {
                 modalProductSection.onUnload()
-                modal.removeEventListener("modal:closed", doCleanUp)
+                modal.removeEventListener('modal:closed', doCleanUp)
               }
 
-              modal.addEventListener("modal:closed", doCleanUp)
+              modal.addEventListener('modal:closed', doCleanUp)
             })
           })
         },
@@ -17889,11 +16462,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_addToCart",
+        key: '_addToCart',
         value: function _addToCart(event, target) {
           var _this3 = this
 
-          if (window.theme.cartType === "page") {
+          if (window.theme.cartType === 'page') {
             return // When using a cart type of page, we just simply redirect to the cart page
           }
 
@@ -17901,37 +16474,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
           event.stopPropagation() // First, we switch the status of the button
 
-          target.setAttribute("disabled", "disabled")
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // Then we add the product in Ajax
+          target.setAttribute('disabled', 'disabled')
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // Then we add the product in Ajax
 
           var formElement = target.closest('form[action*="/cart/add"]')
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (response) {
-            target.removeAttribute("disabled")
+            target.removeAttribute('disabled')
 
             if (response.ok) {
               // We simply trigger an event so the mini-cart can re-render
               _this3.element.dispatchEvent(
-                new CustomEvent("product:added", {
+                new CustomEvent('product:added', {
                   bubbles: true,
                   detail: {
                     button: target,
                     variant: null,
-                    quantity: parseInt(
-                      formElement.querySelector('[name="quantity"]').value
-                    ),
+                    quantity: parseInt(formElement.querySelector('[name="quantity"]').value),
                   },
                 })
               )
             } else {
-              document.dispatchEvent(new CustomEvent("theme:loading:end"))
+              document.dispatchEvent(new CustomEvent('theme:loading:end'))
             }
           })
           event.preventDefault()
@@ -17948,11 +16519,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.delegateElement = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
 
-      if (this.options["currentProductId"]) {
+      if (this.options['currentProductId']) {
         this._saveCurrentProduct()
       }
 
@@ -17965,7 +16534,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(RecentlyViewedProductsSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           if (this.flickityInstance) {
             this.flickityInstance.destroy()
@@ -17979,15 +16548,15 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-action="add-to-cart"]',
             this._addToCart.bind(this)
           )
           this.delegateElement.on(
-            "click",
+            'click',
             '[data-secondary-action="open-quick-view"]',
             this._openQuickView.bind(this)
           )
@@ -17997,22 +16566,17 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_saveCurrentProduct",
+        key: '_saveCurrentProduct',
         value: function _saveCurrentProduct() {
-          var items = JSON.parse(
-              localStorage.getItem("recentlyViewedProducts") || "[]"
-            ),
-            currentProductId = this.options["currentProductId"] // We check if the current product already exists, and if it does not, we add it at the start
+          var items = JSON.parse(localStorage.getItem('recentlyViewedProducts') || '[]'),
+            currentProductId = this.options['currentProductId'] // We check if the current product already exists, and if it does not, we add it at the start
 
           if (!items.includes(currentProductId)) {
             items.unshift(currentProductId)
           } // Then, we save the current product into the local storage, by keeping only the 18 most recent
 
           try {
-            localStorage.setItem(
-              "recentlyViewedProducts",
-              JSON.stringify(items.slice(0, 18))
-            )
+            localStorage.setItem('recentlyViewedProducts', JSON.stringify(items.slice(0, 18)))
           } catch (error) {
             // Do nothing, this may happen in Safari in incognito mode
           }
@@ -18022,41 +16586,40 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_fetchProducts",
+        key: '_fetchProducts',
         value: function _fetchProducts() {
           var _this = this
 
           var queryString = this._getSearchQueryString()
 
-          if (queryString === "") {
+          if (queryString === '') {
             return
           }
 
           var template =
-            window.theme.pageType === "index"
-              ? "recently-viewed-products"
-              : "static-recently-viewed-products"
+            window.theme.pageType === 'index'
+              ? 'recently-viewed-products'
+              : 'static-recently-viewed-products'
           fetch(
-            ""
-              .concat(window.routes.searchUrl, "?view=")
-              .concat(template, "&type=product&q=")
+            ''
+              .concat(window.routes.searchUrl, '?view=')
+              .concat(template, '&type=product&q=')
               .concat(queryString),
             {
-              credentials: "same-origin",
-              method: "GET",
+              credentials: 'same-origin',
+              method: 'GET',
             }
           ).then(function (response) {
             response.text().then(function (content) {
-              var tempElement = document.createElement("div")
+              var tempElement = document.createElement('div')
               tempElement.innerHTML = content // Set the content
 
-              _this.element.querySelector(
-                ".recently-viewed-products-placeholder"
-              ).innerHTML = tempElement.querySelector(
-                '[data-section-type="recently-viewed-products"] .recently-viewed-products-placeholder'
-              ).innerHTML // By default the section hide the products, so we force the section to be visible
+              _this.element.querySelector('.recently-viewed-products-placeholder').innerHTML =
+                tempElement.querySelector(
+                  '[data-section-type="recently-viewed-products"] .recently-viewed-products-placeholder'
+                ).innerHTML // By default the section hide the products, so we force the section to be visible
 
-              _this.element.parentNode.style.display = "block"
+              _this.element.parentNode.style.display = 'block'
 
               _this.productItemColorSwatch.recalculateSwatches()
 
@@ -18065,20 +16628,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.SPR.loadBadges()
               } // Create the slideshow
 
-              _this.flickityInstance = new js(
-                _this.element.querySelector(".product-list"),
-                {
-                  watchCSS: true,
-                  pageDots: true,
-                  prevNextButtons: true,
-                  contain: true,
-                  groupCells: true,
-                  cellAlign: "left",
-                  draggable: !window.matchMedia(
-                    "(-moz-touch-enabled: 0), (hover: hover)"
-                  ).matches,
-                }
-              ) // If the browser supports ResizeObserver we use it to detect when the size of the items in the carousel change,
+              _this.flickityInstance = new js(_this.element.querySelector('.product-list'), {
+                watchCSS: true,
+                pageDots: true,
+                prevNextButtons: true,
+                contain: true,
+                groupCells: true,
+                cellAlign: 'left',
+                draggable: !window.matchMedia('(-moz-touch-enabled: 0), (hover: hover)').matches,
+              }) // If the browser supports ResizeObserver we use it to detect when the size of the items in the carousel change,
               // and if that's the case we force Flickity to resize
 
               if (window.ResizeObserver && _this.flickityInstance) {
@@ -18086,63 +16644,52 @@ document.addEventListener("DOMContentLoaded", function () {
                   _this.flickityInstance.resize()
                 })
 
-                _this.element
-                  .querySelectorAll(".product-item")
-                  .forEach(function (item) {
-                    _this.resizeObserver.observe(item)
-                  })
+                _this.element.querySelectorAll('.product-item').forEach(function (item) {
+                  _this.resizeObserver.observe(item)
+                })
               }
             })
           })
         },
       },
       {
-        key: "_getSearchQueryString",
+        key: '_getSearchQueryString',
         value: function _getSearchQueryString() {
-          var items = JSON.parse(
-            localStorage.getItem("recentlyViewedProducts") || "[]"
-          ) // If we are on a product template, we make sure to remove the main product from the related product
+          var items = JSON.parse(localStorage.getItem('recentlyViewedProducts') || '[]') // If we are on a product template, we make sure to remove the main product from the related product
 
-          if (items.includes(this.options["currentProductId"])) {
-            items.splice(items.indexOf(this.options["currentProductId"]), 1)
+          if (items.includes(this.options['currentProductId'])) {
+            items.splice(items.indexOf(this.options['currentProductId']), 1)
           }
 
           return items
             .map(function (item) {
-              return "id:" + item
+              return 'id:' + item
             })
-            .join(" OR ")
+            .join(' OR ')
         },
       },
       {
-        key: "_openQuickView",
+        key: '_openQuickView',
         value: function _openQuickView(event, target) {
           var productUrl = new URL(
-            ""
-              .concat(window.location.origin)
-              .concat(target.getAttribute("data-product-url"))
+            ''.concat(window.location.origin).concat(target.getAttribute('data-product-url'))
           ) // If we are on mobile or tablet, we redirect to product page directly
 
-          if (
-            Responsive.matchesBreakpoint("phone") ||
-            Responsive.matchesBreakpoint("tablet")
-          ) {
+          if (Responsive.matchesBreakpoint('phone') || Responsive.matchesBreakpoint('tablet')) {
             window.location.href = productUrl.href
             return false
           }
 
-          var modal = document.getElementById(
-            target.getAttribute("aria-controls")
-          )
-          modal.classList.add("is-loading")
-          productUrl.searchParams.set("view", "quick-view")
+          var modal = document.getElementById(target.getAttribute('aria-controls'))
+          modal.classList.add('is-loading')
+          productUrl.searchParams.set('view', 'quick-view')
           fetch(productUrl.href, {
-            credentials: "same-origin",
-            method: "GET",
+            credentials: 'same-origin',
+            method: 'GET',
           }).then(function (response) {
             response.text().then(function (content) {
-              modal.querySelector(".modal__inner").innerHTML = content
-              modal.classList.remove("is-loading") // Register a new section to power the JS
+              modal.querySelector('.modal__inner').innerHTML = content
+              modal.classList.remove('is-loading') // Register a new section to power the JS
 
               var modalProductSection = new ProductSection(
                 modal.querySelector('[data-section-type="product"]')
@@ -18150,10 +16697,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
               var doCleanUp = function doCleanUp() {
                 modalProductSection.onUnload()
-                modal.removeEventListener("modal:closed", doCleanUp)
+                modal.removeEventListener('modal:closed', doCleanUp)
               }
 
-              modal.addEventListener("modal:closed", doCleanUp)
+              modal.addEventListener('modal:closed', doCleanUp)
             })
           })
         },
@@ -18164,11 +16711,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_addToCart",
+        key: '_addToCart',
         value: function _addToCart(event, target) {
           var _this2 = this
 
-          if (window.theme.cartType === "page") {
+          if (window.theme.cartType === 'page') {
             return // When using a cart type of page, we just simply redirect to the cart page
           }
 
@@ -18176,37 +16723,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
           event.stopPropagation() // First, we switch the status of the button
 
-          target.setAttribute("disabled", "disabled")
-          document.dispatchEvent(new CustomEvent("theme:loading:start")) // Then we add the product in Ajax
+          target.setAttribute('disabled', 'disabled')
+          document.dispatchEvent(new CustomEvent('theme:loading:start')) // Then we add the product in Ajax
 
           var formElement = target.closest('form[action*="/cart/add"]')
-          fetch("".concat(window.routes.cartAddUrl, ".js"), {
+          fetch(''.concat(window.routes.cartAddUrl, '.js'), {
             body: JSON.stringify(Form.serialize(formElement)),
-            credentials: "same-origin",
-            method: "POST",
+            credentials: 'same-origin',
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "X-Requested-With": "XMLHttpRequest", // This is needed as currently there is a bug in Shopify that assumes this header
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest', // This is needed as currently there is a bug in Shopify that assumes this header
             },
           }).then(function (response) {
-            target.removeAttribute("disabled")
+            target.removeAttribute('disabled')
 
             if (response.ok) {
               // We simply trigger an event so the mini-cart can re-render
               _this2.element.dispatchEvent(
-                new CustomEvent("product:added", {
+                new CustomEvent('product:added', {
                   bubbles: true,
                   detail: {
                     button: target,
                     variant: null,
-                    quantity: parseInt(
-                      formElement.querySelector('[name="quantity"]').value
-                    ),
+                    quantity: parseInt(formElement.querySelector('[name="quantity"]').value),
                   },
                 })
               )
             } else {
-              document.dispatchEvent(new CustomEvent("theme:loading:end"))
+              document.dispatchEvent(new CustomEvent('theme:loading:end'))
             }
           })
           event.preventDefault()
@@ -18232,46 +16777,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     _createClass(SectionContainer, [
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
-          document.addEventListener(
-            "shopify:section:load",
-            this._onSectionLoad.bind(this)
-          )
-          document.addEventListener(
-            "shopify:section:unload",
-            this._onSectionUnload.bind(this)
-          )
-          document.addEventListener(
-            "shopify:section:select",
-            this._onSelect.bind(this)
-          )
-          document.addEventListener(
-            "shopify:section:deselect",
-            this._onDeselect.bind(this)
-          )
-          document.addEventListener(
-            "shopify:section:reorder",
-            this._onReorder.bind(this)
-          )
-          document.addEventListener(
-            "shopify:block:select",
-            this._onBlockSelect.bind(this)
-          )
-          document.addEventListener(
-            "shopify:block:deselect",
-            this._onBlockDeselect.bind(this)
-          )
+          document.addEventListener('shopify:section:load', this._onSectionLoad.bind(this))
+          document.addEventListener('shopify:section:unload', this._onSectionUnload.bind(this))
+          document.addEventListener('shopify:section:select', this._onSelect.bind(this))
+          document.addEventListener('shopify:section:deselect', this._onDeselect.bind(this))
+          document.addEventListener('shopify:section:reorder', this._onReorder.bind(this))
+          document.addEventListener('shopify:block:select', this._onBlockSelect.bind(this))
+          document.addEventListener('shopify:block:deselect', this._onBlockDeselect.bind(this))
         },
       },
       {
-        key: "register",
+        key: 'register',
         value: function register(type, constructor) {
           var _this = this
 
           this.constructors[type] = constructor
           document
-            .querySelectorAll("[data-section-type=".concat(type, "]"))
+            .querySelectorAll('[data-section-type='.concat(type, ']'))
             .forEach(function (container) {
               _this._createInstance(container, constructor)
             })
@@ -18281,7 +16805,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_findInstance",
+        key: '_findInstance',
         value: function _findInstance(array, key, value) {
           for (var i = 0; i < array.length; i++) {
             if (array[i][key] === value) {
@@ -18294,7 +16818,7 @@ document.addEventListener("DOMContentLoaded", function () {
          */
       },
       {
-        key: "_removeInstance",
+        key: '_removeInstance',
         value: function _removeInstance(array, key, value) {
           var i = array.length
 
@@ -18309,9 +16833,9 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_onSectionLoad",
+        key: '_onSectionLoad',
         value: function _onSectionLoad(event) {
-          var container = event.target.querySelector("[data-section-id]")
+          var container = event.target.querySelector('[data-section-id]')
 
           if (container) {
             this._createInstance(container)
@@ -18319,107 +16843,79 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "_onSectionUnload",
+        key: '_onSectionUnload',
         value: function _onSectionUnload(event) {
-          var instance = this._findInstance(
-            this.instances,
-            "id",
-            event.detail.sectionId
-          )
+          var instance = this._findInstance(this.instances, 'id', event.detail.sectionId)
 
           if (!instance) {
             return
           }
 
-          if (typeof instance.onUnload === "function") {
+          if (typeof instance.onUnload === 'function') {
             instance.onUnload(event)
           }
 
-          this.instances = this._removeInstance(
-            this.instances,
-            "id",
-            event.detail.sectionId
-          )
+          this.instances = this._removeInstance(this.instances, 'id', event.detail.sectionId)
         },
       },
       {
-        key: "_onSelect",
+        key: '_onSelect',
         value: function _onSelect(event) {
-          var instance = this._findInstance(
-            this.instances,
-            "id",
-            event.detail.sectionId
-          )
+          var instance = this._findInstance(this.instances, 'id', event.detail.sectionId)
 
-          if (instance && typeof instance.onSelect === "function") {
+          if (instance && typeof instance.onSelect === 'function') {
             instance.onSelect(event)
           }
         },
       },
       {
-        key: "_onDeselect",
+        key: '_onDeselect',
         value: function _onDeselect(event) {
-          var instance = this._findInstance(
-            this.instances,
-            "id",
-            event.detail.sectionId
-          )
+          var instance = this._findInstance(this.instances, 'id', event.detail.sectionId)
 
-          if (instance && typeof instance.onDeselect === "function") {
+          if (instance && typeof instance.onDeselect === 'function') {
             instance.onDeselect(event)
           }
         },
       },
       {
-        key: "_onReorder",
+        key: '_onReorder',
         value: function _onReorder(event) {
-          var instance = this._findInstance(
-            this.instances,
-            "id",
-            event.detail.sectionId
-          )
+          var instance = this._findInstance(this.instances, 'id', event.detail.sectionId)
 
-          if (instance && typeof instance.onReorder === "function") {
+          if (instance && typeof instance.onReorder === 'function') {
             instance.onReorder(event)
           }
         },
       },
       {
-        key: "_onBlockSelect",
+        key: '_onBlockSelect',
         value: function _onBlockSelect(event) {
-          var instance = this._findInstance(
-            this.instances,
-            "id",
-            event.detail.sectionId
-          )
+          var instance = this._findInstance(this.instances, 'id', event.detail.sectionId)
 
-          if (instance && typeof instance.onBlockSelect === "function") {
+          if (instance && typeof instance.onBlockSelect === 'function') {
             instance.onBlockSelect(event)
           }
         },
       },
       {
-        key: "_onBlockDeselect",
+        key: '_onBlockDeselect',
         value: function _onBlockDeselect(event) {
-          var instance = this._findInstance(
-            this.instances,
-            "id",
-            event.detail.sectionId
-          )
+          var instance = this._findInstance(this.instances, 'id', event.detail.sectionId)
 
-          if (instance && typeof instance.onBlockDeselect === "function") {
+          if (instance && typeof instance.onBlockDeselect === 'function') {
             instance.onBlockDeselect(event)
           }
         },
       },
       {
-        key: "_createInstance",
+        key: '_createInstance',
         value: function _createInstance(container, constructor) {
-          var id = container.getAttribute("data-section-id"),
-            type = container.getAttribute("data-section-type")
+          var id = container.getAttribute('data-section-id'),
+            type = container.getAttribute('data-section-type')
           constructor = constructor || this.constructors[type]
 
-          if (typeof constructor === "undefined") {
+          if (typeof constructor === 'undefined') {
             return
           }
 
@@ -18444,63 +16940,49 @@ document.addEventListener("DOMContentLoaded", function () {
     function SlideshowSection(element) {
       if (window.innerWidth <= 767) {
         this.element = element
-        this.options = JSON.parse(
-          this.element.getAttribute("data-section-settings")
-        )
-        this.flickityInstance = new flickityFade(
-          element.querySelector(".slideshow"),
-          {
-            groupCells: 1, // Change groupCells to 1 for screens smaller than or equal to 767px
-            pageDots: this.options["pageDots"],
-            prevNextButtons: this.options["prevNextButtons"],
-            wrapAround: true,
-            dragThreshold: 12,
-            draggable: ">1",
-            fade: this.options["transitionEffect"] === "fade",
-            setGallerySize: this.options["setGallerySize"],
-            adaptiveHeight: this.options["adaptiveHeight"],
-            autoPlay: this.options["autoPlay"]
-              ? this.options["cycleSpeed"]
-              : false,
-          }
-        )
+        this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
+        this.flickityInstance = new flickityFade(element.querySelector('.slideshow'), {
+          groupCells: 1, // Change groupCells to 1 for screens smaller than or equal to 767px
+          pageDots: this.options['pageDots'],
+          prevNextButtons: this.options['prevNextButtons'],
+          wrapAround: true,
+          dragThreshold: 12,
+          draggable: '>1',
+          fade: this.options['transitionEffect'] === 'fade',
+          setGallerySize: this.options['setGallerySize'],
+          adaptiveHeight: this.options['adaptiveHeight'],
+          autoPlay: this.options['autoPlay'] ? this.options['cycleSpeed'] : false,
+        })
       } else if (window.innerWidth > 768) {
         this.element = element
-        this.options = JSON.parse(
-          this.element.getAttribute("data-section-settings")
-        )
-        this.flickityInstance = new flickityFade(
-          element.querySelector(".slideshow"),
-          {
-            groupCells: this.options["groupCells"], // Change groupCells to 3 for screens larger than 768px
-            pageDots: this.options["pageDots"],
-            prevNextButtons: this.options["prevNextButtons"],
-            wrapAround: true,
-            dragThreshold: 12,
-            draggable: ">1",
-            fade: this.options["transitionEffect"] === "fade",
-            setGallerySize: this.options["setGallerySize"],
-            adaptiveHeight: this.options["adaptiveHeight"],
-            autoPlay: this.options["autoPlay"]
-              ? this.options["cycleSpeed"]
-              : false,
-          }
-        )
+        this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
+        this.flickityInstance = new flickityFade(element.querySelector('.slideshow'), {
+          groupCells: this.options['groupCells'], // Change groupCells to 3 for screens larger than 768px
+          pageDots: this.options['pageDots'],
+          prevNextButtons: this.options['prevNextButtons'],
+          wrapAround: true,
+          dragThreshold: 12,
+          draggable: '>1',
+          fade: this.options['transitionEffect'] === 'fade',
+          setGallerySize: this.options['setGallerySize'],
+          adaptiveHeight: this.options['adaptiveHeight'],
+          autoPlay: this.options['autoPlay'] ? this.options['cycleSpeed'] : false,
+        })
       }
     }
     _createClass(SlideshowSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.flickityInstance.destroy()
         },
       },
       {
-        key: "onBlockSelect",
+        key: 'onBlockSelect',
         value: function onBlockSelect(event) {
           if (this.flickityInstance.isActive) {
             this.flickityInstance.selectCell(
-              parseInt(event.target.getAttribute("data-block-index")),
+              parseInt(event.target.getAttribute('data-block-index')),
               false,
               event.detail.load
             )
@@ -18509,7 +16991,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "onBlockDeselect",
+        key: 'onBlockDeselect',
         value: function onBlockDeselect() {
           if (this.flickityInstance.isActive) {
             this.flickityInstance.unpausePlayer()
@@ -18525,31 +17007,28 @@ document.addEventListener("DOMContentLoaded", function () {
     function TextWithIconsSection(element) {
       _classCallCheck(this, TextWithIconsSection)
 
-      this.flickityInstance = new js(
-        element.querySelector(".text-with-icons"),
-        {
-          pageDots: true,
-          prevNextButtons: false,
-          wrapAround: true,
-          autoPlay: 5000,
-          watchCSS: true,
-        }
-      )
+      this.flickityInstance = new js(element.querySelector('.text-with-icons'), {
+        pageDots: true,
+        prevNextButtons: false,
+        wrapAround: true,
+        autoPlay: 5000,
+        watchCSS: true,
+      })
     }
 
     _createClass(TextWithIconsSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
           this.flickityInstance.destroy()
         },
       },
       {
-        key: "onBlockSelect",
+        key: 'onBlockSelect',
         value: function onBlockSelect(event) {
           if (this.flickityInstance.isActive) {
             this.flickityInstance.selectCell(
-              parseInt(event.target.getAttribute("data-block-index")),
+              parseInt(event.target.getAttribute('data-block-index')),
               false,
               event.detail.load
             )
@@ -18558,7 +17037,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       },
       {
-        key: "onBlockDeselect",
+        key: 'onBlockDeselect',
         value: function onBlockDeselect() {
           if (this.flickityInstance.isActive) {
             this.flickityInstance.unpausePlayer()
@@ -18576,37 +17055,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
       this.element = element
       this.domDelegate = new Delegate(this.element)
-      this.options = JSON.parse(
-        this.element.getAttribute("data-section-settings")
-      )
+      this.options = JSON.parse(this.element.getAttribute('data-section-settings'))
 
       this._attachListeners()
     }
 
     _createClass(VideoSection, [
       {
-        key: "onUnload",
+        key: 'onUnload',
         value: function onUnload() {
-          this.domDelegate.off("click")
+          this.domDelegate.off('click')
         },
       },
       {
-        key: "_attachListeners",
+        key: '_attachListeners',
         value: function _attachListeners() {
-          this.domDelegate.on(
-            "click",
-            '[data-action="play-video"]',
-            this._playVideo.bind(this)
-          )
+          this.domDelegate.on('click', '[data-action="play-video"]', this._playVideo.bind(this))
         },
       },
       {
-        key: "_playVideo",
+        key: '_playVideo',
         value: function _playVideo(event, target) {
           // To start the video, we simply replace the iframe source
-          var iframe = target.querySelector("iframe")
-          iframe.src = iframe.getAttribute("data-src")
-          target.classList.add("is-playing")
+          var iframe = target.querySelector('iframe')
+          iframe.src = iframe.getAttribute('data-src')
+          target.classList.add('is-playing')
         },
       },
     ])
@@ -18623,7 +17096,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var d = document // return if scroll behavior is supported and polyfill is not forced
 
         if (
-          "scrollBehavior" in d.documentElement.style &&
+          'scrollBehavior' in d.documentElement.style &&
           w.__forceSmoothScrollPolyfill__ !== true
         ) {
           return
@@ -18640,9 +17113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } // define timing method
 
         var now =
-          w.performance && w.performance.now
-            ? w.performance.now.bind(w.performance)
-            : Date.now
+          w.performance && w.performance.now ? w.performance.now.bind(w.performance) : Date.now
         /**
          * indicates if a the current browser is made by Microsoft
          * @method isMicrosoftBrowser
@@ -18651,8 +17122,8 @@ document.addEventListener("DOMContentLoaded", function () {
          */
 
         function isMicrosoftBrowser(userAgent) {
-          var userAgentPatterns = ["MSIE ", "Trident/", "Edge/"]
-          return new RegExp(userAgentPatterns.join("|")).test(userAgent)
+          var userAgentPatterns = ['MSIE ', 'Trident/', 'Edge/']
+          return new RegExp(userAgentPatterns.join('|')).test(userAgent)
         }
         /*
          * IE has rounding bug rounding down clientHeight and clientWidth and
@@ -18660,9 +17131,7 @@ document.addEventListener("DOMContentLoaded", function () {
          * on hasScrollableSpace
          */
 
-        var ROUNDING_TOLERANCE = isMicrosoftBrowser(w.navigator.userAgent)
-          ? 1
-          : 0
+        var ROUNDING_TOLERANCE = isMicrosoftBrowser(w.navigator.userAgent) ? 1 : 0
         /**
          * changes scroll position inside an element
          * @method scrollElement
@@ -18695,28 +17164,25 @@ document.addEventListener("DOMContentLoaded", function () {
         function shouldBailOut(firstArg) {
           if (
             firstArg === null ||
-            _typeof(firstArg) !== "object" ||
+            _typeof(firstArg) !== 'object' ||
             firstArg.behavior === undefined ||
-            firstArg.behavior === "auto" ||
-            firstArg.behavior === "instant"
+            firstArg.behavior === 'auto' ||
+            firstArg.behavior === 'instant'
           ) {
             // first argument is not an object/null
             // or behavior is auto, instant or undefined
             return true
           }
 
-          if (
-            _typeof(firstArg) === "object" &&
-            firstArg.behavior === "smooth"
-          ) {
+          if (_typeof(firstArg) === 'object' && firstArg.behavior === 'smooth') {
             // first argument is an object and behavior is smooth
             return false
           } // throw error when behavior is not supported
 
           throw new TypeError(
-            "behavior member of ScrollOptions " +
+            'behavior member of ScrollOptions ' +
               firstArg.behavior +
-              " is not a valid value for enumeration ScrollBehavior."
+              ' is not a valid value for enumeration ScrollBehavior.'
           )
         }
         /**
@@ -18728,11 +17194,11 @@ document.addEventListener("DOMContentLoaded", function () {
          */
 
         function hasScrollableSpace(el, axis) {
-          if (axis === "Y") {
+          if (axis === 'Y') {
             return el.clientHeight + ROUNDING_TOLERANCE < el.scrollHeight
           }
 
-          if (axis === "X") {
+          if (axis === 'X') {
             return el.clientWidth + ROUNDING_TOLERANCE < el.scrollWidth
           }
         }
@@ -18745,8 +17211,8 @@ document.addEventListener("DOMContentLoaded", function () {
          */
 
         function canOverflow(el, axis) {
-          var overflowValue = w.getComputedStyle(el, null)["overflow" + axis]
-          return overflowValue === "auto" || overflowValue === "scroll"
+          var overflowValue = w.getComputedStyle(el, null)['overflow' + axis]
+          return overflowValue === 'auto' || overflowValue === 'scroll'
         }
         /**
          * indicates if an element can be scrolled in either axis
@@ -18757,10 +17223,8 @@ document.addEventListener("DOMContentLoaded", function () {
          */
 
         function isScrollable(el) {
-          var isScrollableY =
-            hasScrollableSpace(el, "Y") && canOverflow(el, "Y")
-          var isScrollableX =
-            hasScrollableSpace(el, "X") && canOverflow(el, "X")
+          var isScrollableY = hasScrollableSpace(el, 'Y') && canOverflow(el, 'Y')
+          var isScrollableX = hasScrollableSpace(el, 'X') && canOverflow(el, 'X')
           return isScrollableY || isScrollableX
         }
         /**
@@ -18853,14 +17317,14 @@ document.addEventListener("DOMContentLoaded", function () {
               w,
               arguments[0].left !== undefined
                 ? arguments[0].left
-                : _typeof(arguments[0]) !== "object"
-                ? arguments[0]
-                : w.scrollX || w.pageXOffset, // use top prop, second argument if present or fallback to scrollY
+                : _typeof(arguments[0]) !== 'object'
+                  ? arguments[0]
+                  : w.scrollX || w.pageXOffset, // use top prop, second argument if present or fallback to scrollY
               arguments[0].top !== undefined
                 ? arguments[0].top
                 : arguments[1] !== undefined
-                ? arguments[1]
-                : w.scrollY || w.pageYOffset
+                  ? arguments[1]
+                  : w.scrollY || w.pageYOffset
             )
             return
           } // LET THE SMOOTHNESS BEGIN!
@@ -18868,12 +17332,8 @@ document.addEventListener("DOMContentLoaded", function () {
           smoothScroll.call(
             w,
             d.body,
-            arguments[0].left !== undefined
-              ? ~~arguments[0].left
-              : w.scrollX || w.pageXOffset,
-            arguments[0].top !== undefined
-              ? ~~arguments[0].top
-              : w.scrollY || w.pageYOffset
+            arguments[0].left !== undefined ? ~~arguments[0].left : w.scrollX || w.pageXOffset,
+            arguments[0].top !== undefined ? ~~arguments[0].top : w.scrollY || w.pageYOffset
           )
         } // w.scrollBy
 
@@ -18888,14 +17348,14 @@ document.addEventListener("DOMContentLoaded", function () {
               w,
               arguments[0].left !== undefined
                 ? arguments[0].left
-                : _typeof(arguments[0]) !== "object"
-                ? arguments[0]
-                : 0,
+                : _typeof(arguments[0]) !== 'object'
+                  ? arguments[0]
+                  : 0,
               arguments[0].top !== undefined
                 ? arguments[0].top
                 : arguments[1] !== undefined
-                ? arguments[1]
-                : 0
+                  ? arguments[1]
+                  : 0
             )
             return
           } // LET THE SMOOTHNESS BEGIN!
@@ -18916,25 +17376,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (shouldBailOut(arguments[0]) === true) {
             // if one number is passed, throw error to match Firefox implementation
-            if (
-              typeof arguments[0] === "number" &&
-              arguments[1] === undefined
-            ) {
-              throw new SyntaxError("Value could not be converted")
+            if (typeof arguments[0] === 'number' && arguments[1] === undefined) {
+              throw new SyntaxError('Value could not be converted')
             }
 
             original.elementScroll.call(
               this, // use left prop, first number argument or fallback to scrollLeft
               arguments[0].left !== undefined
                 ? ~~arguments[0].left
-                : _typeof(arguments[0]) !== "object"
-                ? ~~arguments[0]
-                : this.scrollLeft, // use top prop, second argument or fallback to scrollTop
+                : _typeof(arguments[0]) !== 'object'
+                  ? ~~arguments[0]
+                  : this.scrollLeft, // use top prop, second argument or fallback to scrollTop
               arguments[0].top !== undefined
                 ? ~~arguments[0].top
                 : arguments[1] !== undefined
-                ? ~~arguments[1]
-                : this.scrollTop
+                  ? ~~arguments[1]
+                  : this.scrollTop
             )
             return
           }
@@ -18945,8 +17402,8 @@ document.addEventListener("DOMContentLoaded", function () {
           smoothScroll.call(
             this,
             this,
-            typeof left === "undefined" ? this.scrollLeft : ~~left,
-            typeof top === "undefined" ? this.scrollTop : ~~top
+            typeof left === 'undefined' ? this.scrollLeft : ~~left,
+            typeof top === 'undefined' ? this.scrollTop : ~~top
           )
         } // Element.prototype.scrollBy
 
@@ -18979,10 +17436,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Element.prototype.scrollIntoView = function () {
           // avoid smooth behavior if not required
           if (shouldBailOut(arguments[0]) === true) {
-            original.scrollIntoView.call(
-              this,
-              arguments[0] === undefined ? true : arguments[0]
-            )
+            original.scrollIntoView.call(this, arguments[0] === undefined ? true : arguments[0])
             return
           } // LET THE SMOOTHNESS BEGIN!
 
@@ -18999,11 +17453,11 @@ document.addEventListener("DOMContentLoaded", function () {
               scrollableParent.scrollTop + clientRects.top - parentRects.top
             ) // reveal parent in viewport unless is fixed
 
-            if (w.getComputedStyle(scrollableParent).position !== "fixed") {
+            if (w.getComputedStyle(scrollableParent).position !== 'fixed') {
               w.scrollBy({
                 left: parentRects.left,
                 top: parentRects.top,
-                behavior: "smooth",
+                behavior: 'smooth',
               })
             }
           } else {
@@ -19011,7 +17465,7 @@ document.addEventListener("DOMContentLoaded", function () {
             w.scrollBy({
               left: clientRects.left,
               top: clientRects.top,
-              behavior: "smooth",
+              behavior: 'smooth',
             })
           }
         }
@@ -19030,53 +17484,52 @@ document.addEventListener("DOMContentLoaded", function () {
   var mouseoverTimer
   var lastTouchTimestamp
   var prefetches = new Set()
-  var prefetchElement = document.createElement("link")
+  var prefetchElement = document.createElement('link')
   var isSupported =
     prefetchElement.relList &&
     prefetchElement.relList.supports &&
-    prefetchElement.relList.supports("prefetch") &&
+    prefetchElement.relList.supports('prefetch') &&
     window.IntersectionObserver &&
-    "isIntersecting" in IntersectionObserverEntry.prototype
-  var allowQueryString = "instantAllowQueryString" in document.body.dataset
-  var allowExternalLinks = "instantAllowExternalLinks" in document.body.dataset
-  var useWhitelist = "instantWhitelist" in document.body.dataset
-  var mousedownShortcut = "instantMousedownShortcut" in document.body.dataset
+    'isIntersecting' in IntersectionObserverEntry.prototype
+  var allowQueryString = 'instantAllowQueryString' in document.body.dataset
+  var allowExternalLinks = 'instantAllowExternalLinks' in document.body.dataset
+  var useWhitelist = 'instantWhitelist' in document.body.dataset
+  var mousedownShortcut = 'instantMousedownShortcut' in document.body.dataset
   var DELAY_TO_NOT_BE_CONSIDERED_A_TOUCH_INITIATED_ACTION = 1111
   var delayOnHover = 65
   var useMousedown = false
   var useMousedownOnly = false
   var useViewport = false
 
-  if ("instantIntensity" in document.body.dataset) {
+  if ('instantIntensity' in document.body.dataset) {
     var intensity = document.body.dataset.instantIntensity
 
-    if (intensity.substr(0, "mousedown".length) == "mousedown") {
+    if (intensity.substr(0, 'mousedown'.length) == 'mousedown') {
       useMousedown = true
 
-      if (intensity == "mousedown-only") {
+      if (intensity == 'mousedown-only') {
         useMousedownOnly = true
       }
-    } else if (intensity.substr(0, "viewport".length) == "viewport") {
+    } else if (intensity.substr(0, 'viewport'.length) == 'viewport') {
       if (
         !(
           navigator.connection &&
           (navigator.connection.saveData ||
             (navigator.connection.effectiveType &&
-              navigator.connection.effectiveType.includes("2g")))
+              navigator.connection.effectiveType.includes('2g')))
         )
       ) {
-        if (intensity == "viewport") {
+        if (intensity == 'viewport') {
           /* Biggest iPhone resolution (which we want): 414 × 896 = 370944
            * Small 7" tablet resolution (which we don’t want): 600 × 1024 = 614400
            * Note that the viewport (which we check here) is smaller than the resolution due to the UI’s chrome */
           if (
-            document.documentElement.clientWidth *
-              document.documentElement.clientHeight <
+            document.documentElement.clientWidth * document.documentElement.clientHeight <
             450000
           ) {
             useViewport = true
           }
-        } else if (intensity == "viewport-all") {
+        } else if (intensity == 'viewport-all') {
           useViewport = true
         }
       }
@@ -19096,33 +17549,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (!useMousedownOnly) {
-      document.addEventListener(
-        "touchstart",
-        touchstartListener,
-        eventListenersOptions
-      )
+      document.addEventListener('touchstart', touchstartListener, eventListenersOptions)
     }
 
     if (!useMousedown) {
-      document.addEventListener(
-        "mouseover",
-        mouseoverListener,
-        eventListenersOptions
-      )
+      document.addEventListener('mouseover', mouseoverListener, eventListenersOptions)
     } else if (!mousedownShortcut) {
-      document.addEventListener(
-        "mousedown",
-        mousedownListener,
-        eventListenersOptions
-      )
+      document.addEventListener('mousedown', mousedownListener, eventListenersOptions)
     }
 
     if (mousedownShortcut) {
-      document.addEventListener(
-        "mousedown",
-        mousedownShortcutListener,
-        eventListenersOptions
-      )
+      document.addEventListener('mousedown', mousedownShortcutListener, eventListenersOptions)
     }
 
     if (useViewport) {
@@ -19150,7 +17587,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           })
         })
-        document.querySelectorAll("a").forEach(function (linkElement) {
+        document.querySelectorAll('a').forEach(function (linkElement) {
           if (isPreloadable(linkElement)) {
             intersectionObserver.observe(linkElement)
           }
@@ -19163,7 +17600,7 @@ document.addEventListener("DOMContentLoaded", function () {
     /* Chrome on Android calls mouseover before touchcancel so `lastTouchTimestamp`
      * must be assigned on touchstart to be measured on mouseover. */
     lastTouchTimestamp = performance.now()
-    var linkElement = event.target.closest("a")
+    var linkElement = event.target.closest('a')
 
     if (!isPreloadable(linkElement)) {
       return
@@ -19180,13 +17617,13 @@ document.addEventListener("DOMContentLoaded", function () {
       return
     }
 
-    var linkElement = event.target.closest("a")
+    var linkElement = event.target.closest('a')
 
     if (!isPreloadable(linkElement)) {
       return
     }
 
-    linkElement.addEventListener("mouseout", mouseoutListener, {
+    linkElement.addEventListener('mouseout', mouseoutListener, {
       passive: true,
     })
     mouseoverTimer = setTimeout(function () {
@@ -19196,7 +17633,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mousedownListener(event) {
-    var linkElement = event.target.closest("a")
+    var linkElement = event.target.closest('a')
 
     if (!isPreloadable(linkElement)) {
       return
@@ -19206,10 +17643,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mouseoutListener(event) {
-    if (
-      event.relatedTarget &&
-      event.target.closest("a") == event.relatedTarget.closest("a")
-    ) {
+    if (event.relatedTarget && event.target.closest('a') == event.relatedTarget.closest('a')) {
       return
     }
 
@@ -19227,7 +17661,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return
     }
 
-    var linkElement = event.target.closest("a")
+    var linkElement = event.target.closest('a')
 
     if (event.which > 1 || event.metaKey || event.ctrlKey) {
       return
@@ -19238,7 +17672,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     linkElement.addEventListener(
-      "click",
+      'click',
       function (event) {
         if (event.detail == 1337) {
           return
@@ -19252,7 +17686,7 @@ document.addEventListener("DOMContentLoaded", function () {
         once: true,
       }
     )
-    var customEvent = new MouseEvent("click", {
+    var customEvent = new MouseEvent('click', {
       view: window,
       bubbles: true,
       cancelable: false,
@@ -19266,43 +17700,38 @@ document.addEventListener("DOMContentLoaded", function () {
       return
     }
 
-    if (useWhitelist && !("instant" in linkElement.dataset)) {
+    if (useWhitelist && !('instant' in linkElement.dataset)) {
       return
     }
 
     if (
       !allowExternalLinks &&
       linkElement.origin != location.origin &&
-      !("instant" in linkElement.dataset)
+      !('instant' in linkElement.dataset)
     ) {
       return
     }
 
-    if (!["http:", "https:"].includes(linkElement.protocol)) {
+    if (!['http:', 'https:'].includes(linkElement.protocol)) {
       return
     }
 
-    if (linkElement.protocol == "http:" && location.protocol == "https:") {
+    if (linkElement.protocol == 'http:' && location.protocol == 'https:') {
       return
     }
 
-    if (
-      !allowQueryString &&
-      linkElement.search &&
-      !("instant" in linkElement.dataset)
-    ) {
+    if (!allowQueryString && linkElement.search && !('instant' in linkElement.dataset)) {
       return
     }
 
     if (
       linkElement.hash &&
-      linkElement.pathname + linkElement.search ==
-        location.pathname + location.search
+      linkElement.pathname + linkElement.search == location.pathname + location.search
     ) {
       return
     }
 
-    if ("noInstant" in linkElement.dataset) {
+    if ('noInstant' in linkElement.dataset) {
       return
     }
 
@@ -19314,8 +17743,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return
     }
 
-    var prefetcher = document.createElement("link")
-    prefetcher.rel = "prefetch"
+    var prefetcher = document.createElement('link')
+    prefetcher.rel = 'prefetch'
     prefetcher.href = url
     document.head.appendChild(prefetcher)
     prefetches.add(url)
@@ -19329,902 +17758,839 @@ document.addEventListener("DOMContentLoaded", function () {
       if (module.exports) {
         module.exports = lazySizes
       }
-    })(
-      typeof window != "undefined" ? window : {},
-      function l(window, document, Date) {
-        /*jshint eqnull:true */
+    })(typeof window != 'undefined' ? window : {}, function l(window, document, Date) {
+      /*jshint eqnull:true */
 
-        var lazysizes, lazySizesCfg
-        ;(function () {
-          var prop
-          var lazySizesDefaults = {
-            lazyClass: "lazyload",
-            loadedClass: "lazyloaded",
-            loadingClass: "lazyloading",
-            preloadClass: "lazypreload",
-            errorClass: "lazyerror",
-            //strictClass: 'lazystrict',
-            autosizesClass: "lazyautosizes",
-            srcAttr: "data-src",
-            srcsetAttr: "data-srcset",
-            sizesAttr: "data-sizes",
-            //preloadAfterLoad: false,
-            minSize: 40,
-            customMedia: {},
-            init: true,
-            expFactor: 1.5,
-            hFac: 0.8,
-            loadMode: 2,
-            loadHidden: true,
-            ricTimeout: 0,
-            throttleDelay: 125,
+      var lazysizes, lazySizesCfg
+      ;(function () {
+        var prop
+        var lazySizesDefaults = {
+          lazyClass: 'lazyload',
+          loadedClass: 'lazyloaded',
+          loadingClass: 'lazyloading',
+          preloadClass: 'lazypreload',
+          errorClass: 'lazyerror',
+          //strictClass: 'lazystrict',
+          autosizesClass: 'lazyautosizes',
+          srcAttr: 'data-src',
+          srcsetAttr: 'data-srcset',
+          sizesAttr: 'data-sizes',
+          //preloadAfterLoad: false,
+          minSize: 40,
+          customMedia: {},
+          init: true,
+          expFactor: 1.5,
+          hFac: 0.8,
+          loadMode: 2,
+          loadHidden: true,
+          ricTimeout: 0,
+          throttleDelay: 125,
+        }
+        lazySizesCfg = window.lazySizesConfig || window.lazysizesConfig || {}
+
+        for (prop in lazySizesDefaults) {
+          if (!(prop in lazySizesCfg)) {
+            lazySizesCfg[prop] = lazySizesDefaults[prop]
           }
-          lazySizesCfg = window.lazySizesConfig || window.lazysizesConfig || {}
+        }
+      })()
 
-          for (prop in lazySizesDefaults) {
-            if (!(prop in lazySizesCfg)) {
-              lazySizesCfg[prop] = lazySizesDefaults[prop]
+      if (!document || !document.getElementsByClassName) {
+        return {
+          init: function init() {},
+          cfg: lazySizesCfg,
+          noSupport: true,
+        }
+      }
+
+      var docElem = document.documentElement
+      var supportPicture = window.HTMLPictureElement
+      var _addEventListener = 'addEventListener'
+      var _getAttribute = 'getAttribute'
+      /**
+       * Update to bind to window because 'this' becomes null during SSR
+       * builds.
+       */
+
+      var addEventListener = window[_addEventListener].bind(window)
+
+      var setTimeout = window.setTimeout
+      var requestAnimationFrame = window.requestAnimationFrame || setTimeout
+      var requestIdleCallback = window.requestIdleCallback
+      var regPicture = /^picture$/i
+      var loadEvents = ['load', 'error', 'lazyincluded', '_lazyloaded']
+      var regClassCache = {}
+      var forEach = Array.prototype.forEach
+
+      var hasClass = function hasClass(ele, cls) {
+        if (!regClassCache[cls]) {
+          regClassCache[cls] = new RegExp('(\\s|^)' + cls + '(\\s|$)')
+        }
+
+        return regClassCache[cls].test(ele[_getAttribute]('class') || '') && regClassCache[cls]
+      }
+
+      var addClass = function addClass(ele, cls) {
+        if (!hasClass(ele, cls)) {
+          ele.setAttribute('class', (ele[_getAttribute]('class') || '').trim() + ' ' + cls)
+        }
+      }
+
+      var removeClass = function removeClass(ele, cls) {
+        var reg
+
+        if ((reg = hasClass(ele, cls))) {
+          ele.setAttribute('class', (ele[_getAttribute]('class') || '').replace(reg, ' '))
+        }
+      }
+
+      var addRemoveLoadEvents = function addRemoveLoadEvents(dom, fn, add) {
+        var action = add ? _addEventListener : 'removeEventListener'
+
+        if (add) {
+          addRemoveLoadEvents(dom, fn)
+        }
+
+        loadEvents.forEach(function (evt) {
+          dom[action](evt, fn)
+        })
+      }
+
+      var triggerEvent = function triggerEvent(elem, name, detail, noBubbles, noCancelable) {
+        var event = document.createEvent('Event')
+
+        if (!detail) {
+          detail = {}
+        }
+
+        detail.instance = lazysizes
+        event.initEvent(name, !noBubbles, !noCancelable)
+        event.detail = detail
+        elem.dispatchEvent(event)
+        return event
+      }
+
+      var updatePolyfill = function updatePolyfill(el, full) {
+        var polyfill
+
+        if (!supportPicture && (polyfill = window.picturefill || lazySizesCfg.pf)) {
+          if (full && full.src && !el[_getAttribute]('srcset')) {
+            el.setAttribute('srcset', full.src)
+          }
+
+          polyfill({
+            reevaluate: true,
+            elements: [el],
+          })
+        } else if (full && full.src) {
+          el.src = full.src
+        }
+      }
+
+      var getCSS = function getCSS(elem, style) {
+        return (getComputedStyle(elem, null) || {})[style]
+      }
+
+      var getWidth = function getWidth(elem, parent, width) {
+        width = width || elem.offsetWidth
+
+        while (width < lazySizesCfg.minSize && parent && !elem._lazysizesWidth) {
+          width = parent.offsetWidth
+          parent = parent.parentNode
+        }
+
+        return width
+      }
+
+      var rAF = (function () {
+        var running, waiting
+        var firstFns = []
+        var secondFns = []
+        var fns = firstFns
+
+        var run = function run() {
+          var runFns = fns
+          fns = firstFns.length ? secondFns : firstFns
+          running = true
+          waiting = false
+
+          while (runFns.length) {
+            runFns.shift()()
+          }
+
+          running = false
+        }
+
+        var rafBatch = function rafBatch(fn, queue) {
+          if (running && !queue) {
+            fn.apply(this, arguments)
+          } else {
+            fns.push(fn)
+
+            if (!waiting) {
+              waiting = true
+              ;(document.hidden ? setTimeout : requestAnimationFrame)(run)
             }
-          }
-        })()
-
-        if (!document || !document.getElementsByClassName) {
-          return {
-            init: function init() {},
-            cfg: lazySizesCfg,
-            noSupport: true,
           }
         }
 
-        var docElem = document.documentElement
-        var supportPicture = window.HTMLPictureElement
-        var _addEventListener = "addEventListener"
-        var _getAttribute = "getAttribute"
-        /**
-         * Update to bind to window because 'this' becomes null during SSR
-         * builds.
-         */
+        rafBatch._lsFlush = run
+        return rafBatch
+      })()
 
-        var addEventListener = window[_addEventListener].bind(window)
+      var rAFIt = function rAFIt(fn, simple) {
+        return simple
+          ? function () {
+              rAF(fn)
+            }
+          : function () {
+              var that = this
+              var args = arguments
+              rAF(function () {
+                fn.apply(that, args)
+              })
+            }
+      }
 
-        var setTimeout = window.setTimeout
-        var requestAnimationFrame = window.requestAnimationFrame || setTimeout
-        var requestIdleCallback = window.requestIdleCallback
-        var regPicture = /^picture$/i
-        var loadEvents = ["load", "error", "lazyincluded", "_lazyloaded"]
-        var regClassCache = {}
-        var forEach = Array.prototype.forEach
+      var throttle = function throttle(fn) {
+        var running
+        var lastTime = 0
+        var gDelay = lazySizesCfg.throttleDelay
+        var rICTimeout = lazySizesCfg.ricTimeout
 
-        var hasClass = function hasClass(ele, cls) {
-          if (!regClassCache[cls]) {
-            regClassCache[cls] = new RegExp("(\\s|^)" + cls + "(\\s|$)")
+        var run = function run() {
+          running = false
+          lastTime = Date.now()
+          fn()
+        }
+
+        var idleCallback =
+          requestIdleCallback && rICTimeout > 49
+            ? function () {
+                requestIdleCallback(run, {
+                  timeout: rICTimeout,
+                })
+
+                if (rICTimeout !== lazySizesCfg.ricTimeout) {
+                  rICTimeout = lazySizesCfg.ricTimeout
+                }
+              }
+            : rAFIt(function () {
+                setTimeout(run)
+              }, true)
+        return function (isPriority) {
+          var delay
+
+          if ((isPriority = isPriority === true)) {
+            rICTimeout = 33
+          }
+
+          if (running) {
+            return
+          }
+
+          running = true
+          delay = gDelay - (Date.now() - lastTime)
+
+          if (delay < 0) {
+            delay = 0
+          }
+
+          if (isPriority || delay < 9) {
+            idleCallback()
+          } else {
+            setTimeout(idleCallback, delay)
+          }
+        }
+      } //based on http://modernjavascript.blogspot.de/2013/08/building-better-debounce.html
+
+      var debounce = function debounce(func) {
+        var timeout, timestamp
+        var wait = 99
+
+        var run = function run() {
+          timeout = null
+          func()
+        }
+
+        var later = function later() {
+          var last = Date.now() - timestamp
+
+          if (last < wait) {
+            setTimeout(later, wait - last)
+          } else {
+            ;(requestIdleCallback || run)(run)
+          }
+        }
+
+        return function () {
+          timestamp = Date.now()
+
+          if (!timeout) {
+            timeout = setTimeout(later, wait)
+          }
+        }
+      }
+
+      var loader = (function () {
+        var preloadElems, isCompleted, resetPreloadingTimer, loadMode, started
+        var eLvW, elvH, eLtop, eLleft, eLright, eLbottom, isBodyHidden
+        var regImg = /^img$/i
+        var regIframe = /^iframe$/i
+        var supportScroll = 'onscroll' in window && !/(gle|ing)bot/.test(navigator.userAgent)
+        var shrinkExpand = 0
+        var currentExpand = 0
+        var isLoading = 0
+        var lowRuns = -1
+
+        var resetPreloading = function resetPreloading(e) {
+          isLoading--
+
+          if (!e || isLoading < 0 || !e.target) {
+            isLoading = 0
+          }
+        }
+
+        var isVisible = function isVisible(elem) {
+          if (isBodyHidden == null) {
+            isBodyHidden = getCSS(document.body, 'visibility') == 'hidden'
           }
 
           return (
-            regClassCache[cls].test(ele[_getAttribute]("class") || "") &&
-            regClassCache[cls]
+            isBodyHidden ||
+            !(
+              getCSS(elem.parentNode, 'visibility') == 'hidden' &&
+              getCSS(elem, 'visibility') == 'hidden'
+            )
           )
         }
 
-        var addClass = function addClass(ele, cls) {
-          if (!hasClass(ele, cls)) {
-            ele.setAttribute(
-              "class",
-              (ele[_getAttribute]("class") || "").trim() + " " + cls
-            )
-          }
-        }
-
-        var removeClass = function removeClass(ele, cls) {
-          var reg
-
-          if ((reg = hasClass(ele, cls))) {
-            ele.setAttribute(
-              "class",
-              (ele[_getAttribute]("class") || "").replace(reg, " ")
-            )
-          }
-        }
-
-        var addRemoveLoadEvents = function addRemoveLoadEvents(dom, fn, add) {
-          var action = add ? _addEventListener : "removeEventListener"
-
-          if (add) {
-            addRemoveLoadEvents(dom, fn)
-          }
-
-          loadEvents.forEach(function (evt) {
-            dom[action](evt, fn)
-          })
-        }
-
-        var triggerEvent = function triggerEvent(
-          elem,
-          name,
-          detail,
-          noBubbles,
-          noCancelable
-        ) {
-          var event = document.createEvent("Event")
-
-          if (!detail) {
-            detail = {}
-          }
-
-          detail.instance = lazysizes
-          event.initEvent(name, !noBubbles, !noCancelable)
-          event.detail = detail
-          elem.dispatchEvent(event)
-          return event
-        }
-
-        var updatePolyfill = function updatePolyfill(el, full) {
-          var polyfill
-
-          if (
-            !supportPicture &&
-            (polyfill = window.picturefill || lazySizesCfg.pf)
-          ) {
-            if (full && full.src && !el[_getAttribute]("srcset")) {
-              el.setAttribute("srcset", full.src)
-            }
-
-            polyfill({
-              reevaluate: true,
-              elements: [el],
-            })
-          } else if (full && full.src) {
-            el.src = full.src
-          }
-        }
-
-        var getCSS = function getCSS(elem, style) {
-          return (getComputedStyle(elem, null) || {})[style]
-        }
-
-        var getWidth = function getWidth(elem, parent, width) {
-          width = width || elem.offsetWidth
+        var isNestedVisible = function isNestedVisible(elem, elemExpand) {
+          var outerRect
+          var parent = elem
+          var visible = isVisible(elem)
+          eLtop -= elemExpand
+          eLbottom += elemExpand
+          eLleft -= elemExpand
+          eLright += elemExpand
 
           while (
-            width < lazySizesCfg.minSize &&
-            parent &&
-            !elem._lazysizesWidth
+            visible &&
+            (parent = parent.offsetParent) &&
+            parent != document.body &&
+            parent != docElem
           ) {
-            width = parent.offsetWidth
-            parent = parent.parentNode
+            visible = (getCSS(parent, 'opacity') || 1) > 0
+
+            if (visible && getCSS(parent, 'overflow') != 'visible') {
+              outerRect = parent.getBoundingClientRect()
+              visible =
+                eLright > outerRect.left &&
+                eLleft < outerRect.right &&
+                eLbottom > outerRect.top - 1 &&
+                eLtop < outerRect.bottom + 1
+            }
           }
 
-          return width
+          return visible
         }
 
-        var rAF = (function () {
-          var running, waiting
-          var firstFns = []
-          var secondFns = []
-          var fns = firstFns
+        var checkElements = function checkElements() {
+          var eLlen,
+            i,
+            rect,
+            autoLoadElem,
+            loadedSomething,
+            elemExpand,
+            elemNegativeExpand,
+            elemExpandVal,
+            beforeExpandVal,
+            defaultExpand,
+            preloadExpand,
+            hFac
+          var lazyloadElems = lazysizes.elements
 
-          var run = function run() {
-            var runFns = fns
-            fns = firstFns.length ? secondFns : firstFns
-            running = true
-            waiting = false
+          if (
+            (loadMode = lazySizesCfg.loadMode) &&
+            isLoading < 8 &&
+            (eLlen = lazyloadElems.length)
+          ) {
+            i = 0
+            lowRuns++
 
-            while (runFns.length) {
-              runFns.shift()()
-            }
-
-            running = false
-          }
-
-          var rafBatch = function rafBatch(fn, queue) {
-            if (running && !queue) {
-              fn.apply(this, arguments)
-            } else {
-              fns.push(fn)
-
-              if (!waiting) {
-                waiting = true
-                ;(document.hidden ? setTimeout : requestAnimationFrame)(run)
+            for (; i < eLlen; i++) {
+              if (!lazyloadElems[i] || lazyloadElems[i]._lazyRace) {
+                continue
               }
-            }
-          }
 
-          rafBatch._lsFlush = run
-          return rafBatch
-        })()
-
-        var rAFIt = function rAFIt(fn, simple) {
-          return simple
-            ? function () {
-                rAF(fn)
+              if (
+                !supportScroll ||
+                (lazysizes.prematureUnveil && lazysizes.prematureUnveil(lazyloadElems[i]))
+              ) {
+                unveilElement(lazyloadElems[i])
+                continue
               }
-            : function () {
-                var that = this
-                var args = arguments
-                rAF(function () {
-                  fn.apply(that, args)
-                })
+
+              if (
+                !(elemExpandVal = lazyloadElems[i][_getAttribute]('data-expand')) ||
+                !(elemExpand = elemExpandVal * 1)
+              ) {
+                elemExpand = currentExpand
               }
-        }
 
-        var throttle = function throttle(fn) {
-          var running
-          var lastTime = 0
-          var gDelay = lazySizesCfg.throttleDelay
-          var rICTimeout = lazySizesCfg.ricTimeout
-
-          var run = function run() {
-            running = false
-            lastTime = Date.now()
-            fn()
-          }
-
-          var idleCallback =
-            requestIdleCallback && rICTimeout > 49
-              ? function () {
-                  requestIdleCallback(run, {
-                    timeout: rICTimeout,
-                  })
-
-                  if (rICTimeout !== lazySizesCfg.ricTimeout) {
-                    rICTimeout = lazySizesCfg.ricTimeout
-                  }
-                }
-              : rAFIt(function () {
-                  setTimeout(run)
-                }, true)
-          return function (isPriority) {
-            var delay
-
-            if ((isPriority = isPriority === true)) {
-              rICTimeout = 33
-            }
-
-            if (running) {
-              return
-            }
-
-            running = true
-            delay = gDelay - (Date.now() - lastTime)
-
-            if (delay < 0) {
-              delay = 0
-            }
-
-            if (isPriority || delay < 9) {
-              idleCallback()
-            } else {
-              setTimeout(idleCallback, delay)
-            }
-          }
-        } //based on http://modernjavascript.blogspot.de/2013/08/building-better-debounce.html
-
-        var debounce = function debounce(func) {
-          var timeout, timestamp
-          var wait = 99
-
-          var run = function run() {
-            timeout = null
-            func()
-          }
-
-          var later = function later() {
-            var last = Date.now() - timestamp
-
-            if (last < wait) {
-              setTimeout(later, wait - last)
-            } else {
-              ;(requestIdleCallback || run)(run)
-            }
-          }
-
-          return function () {
-            timestamp = Date.now()
-
-            if (!timeout) {
-              timeout = setTimeout(later, wait)
-            }
-          }
-        }
-
-        var loader = (function () {
-          var preloadElems, isCompleted, resetPreloadingTimer, loadMode, started
-          var eLvW, elvH, eLtop, eLleft, eLright, eLbottom, isBodyHidden
-          var regImg = /^img$/i
-          var regIframe = /^iframe$/i
-          var supportScroll =
-            "onscroll" in window && !/(gle|ing)bot/.test(navigator.userAgent)
-          var shrinkExpand = 0
-          var currentExpand = 0
-          var isLoading = 0
-          var lowRuns = -1
-
-          var resetPreloading = function resetPreloading(e) {
-            isLoading--
-
-            if (!e || isLoading < 0 || !e.target) {
-              isLoading = 0
-            }
-          }
-
-          var isVisible = function isVisible(elem) {
-            if (isBodyHidden == null) {
-              isBodyHidden = getCSS(document.body, "visibility") == "hidden"
-            }
-
-            return (
-              isBodyHidden ||
-              !(
-                getCSS(elem.parentNode, "visibility") == "hidden" &&
-                getCSS(elem, "visibility") == "hidden"
-              )
-            )
-          }
-
-          var isNestedVisible = function isNestedVisible(elem, elemExpand) {
-            var outerRect
-            var parent = elem
-            var visible = isVisible(elem)
-            eLtop -= elemExpand
-            eLbottom += elemExpand
-            eLleft -= elemExpand
-            eLright += elemExpand
-
-            while (
-              visible &&
-              (parent = parent.offsetParent) &&
-              parent != document.body &&
-              parent != docElem
-            ) {
-              visible = (getCSS(parent, "opacity") || 1) > 0
-
-              if (visible && getCSS(parent, "overflow") != "visible") {
-                outerRect = parent.getBoundingClientRect()
-                visible =
-                  eLright > outerRect.left &&
-                  eLleft < outerRect.right &&
-                  eLbottom > outerRect.top - 1 &&
-                  eLtop < outerRect.bottom + 1
-              }
-            }
-
-            return visible
-          }
-
-          var checkElements = function checkElements() {
-            var eLlen,
-              i,
-              rect,
-              autoLoadElem,
-              loadedSomething,
-              elemExpand,
-              elemNegativeExpand,
-              elemExpandVal,
-              beforeExpandVal,
-              defaultExpand,
-              preloadExpand,
-              hFac
-            var lazyloadElems = lazysizes.elements
-
-            if (
-              (loadMode = lazySizesCfg.loadMode) &&
-              isLoading < 8 &&
-              (eLlen = lazyloadElems.length)
-            ) {
-              i = 0
-              lowRuns++
-
-              for (; i < eLlen; i++) {
-                if (!lazyloadElems[i] || lazyloadElems[i]._lazyRace) {
-                  continue
-                }
+              if (!defaultExpand) {
+                defaultExpand =
+                  !lazySizesCfg.expand || lazySizesCfg.expand < 1
+                    ? docElem.clientHeight > 500 && docElem.clientWidth > 500
+                      ? 500
+                      : 370
+                    : lazySizesCfg.expand
+                lazysizes._defEx = defaultExpand
+                preloadExpand = defaultExpand * lazySizesCfg.expFactor
+                hFac = lazySizesCfg.hFac
+                isBodyHidden = null
 
                 if (
-                  !supportScroll ||
-                  (lazysizes.prematureUnveil &&
-                    lazysizes.prematureUnveil(lazyloadElems[i]))
-                ) {
-                  unveilElement(lazyloadElems[i])
-                  continue
-                }
-
-                if (
-                  !(elemExpandVal =
-                    lazyloadElems[i][_getAttribute]("data-expand")) ||
-                  !(elemExpand = elemExpandVal * 1)
-                ) {
-                  elemExpand = currentExpand
-                }
-
-                if (!defaultExpand) {
-                  defaultExpand =
-                    !lazySizesCfg.expand || lazySizesCfg.expand < 1
-                      ? docElem.clientHeight > 500 && docElem.clientWidth > 500
-                        ? 500
-                        : 370
-                      : lazySizesCfg.expand
-                  lazysizes._defEx = defaultExpand
-                  preloadExpand = defaultExpand * lazySizesCfg.expFactor
-                  hFac = lazySizesCfg.hFac
-                  isBodyHidden = null
-
-                  if (
-                    currentExpand < preloadExpand &&
-                    isLoading < 1 &&
-                    lowRuns > 2 &&
-                    loadMode > 2 &&
-                    !document.hidden
-                  ) {
-                    currentExpand = preloadExpand
-                    lowRuns = 0
-                  } else if (loadMode > 1 && lowRuns > 1 && isLoading < 6) {
-                    currentExpand = defaultExpand
-                  } else {
-                    currentExpand = shrinkExpand
-                  }
-                }
-
-                if (beforeExpandVal !== elemExpand) {
-                  eLvW = innerWidth + elemExpand * hFac
-                  elvH = innerHeight + elemExpand
-                  elemNegativeExpand = elemExpand * -1
-                  beforeExpandVal = elemExpand
-                }
-
-                rect = lazyloadElems[i].getBoundingClientRect()
-
-                if (
-                  (eLbottom = rect.bottom) >= elemNegativeExpand &&
-                  (eLtop = rect.top) <= elvH &&
-                  (eLright = rect.right) >= elemNegativeExpand * hFac &&
-                  (eLleft = rect.left) <= eLvW &&
-                  (eLbottom || eLright || eLleft || eLtop) &&
-                  (lazySizesCfg.loadHidden || isVisible(lazyloadElems[i])) &&
-                  ((isCompleted &&
-                    isLoading < 3 &&
-                    !elemExpandVal &&
-                    (loadMode < 3 || lowRuns < 4)) ||
-                    isNestedVisible(lazyloadElems[i], elemExpand))
-                ) {
-                  unveilElement(lazyloadElems[i])
-                  loadedSomething = true
-
-                  if (isLoading > 9) {
-                    break
-                  }
-                } else if (
-                  !loadedSomething &&
-                  isCompleted &&
-                  !autoLoadElem &&
-                  isLoading < 4 &&
-                  lowRuns < 4 &&
+                  currentExpand < preloadExpand &&
+                  isLoading < 1 &&
+                  lowRuns > 2 &&
                   loadMode > 2 &&
-                  (preloadElems[0] || lazySizesCfg.preloadAfterLoad) &&
-                  (preloadElems[0] ||
-                    (!elemExpandVal &&
-                      (eLbottom ||
-                        eLright ||
-                        eLleft ||
-                        eLtop ||
-                        lazyloadElems[i][_getAttribute](
-                          lazySizesCfg.sizesAttr
-                        ) != "auto")))
+                  !document.hidden
                 ) {
-                  autoLoadElem = preloadElems[0] || lazyloadElems[i]
-                }
-              }
-
-              if (autoLoadElem && !loadedSomething) {
-                unveilElement(autoLoadElem)
-              }
-            }
-          }
-
-          var throttledCheckElements = throttle(checkElements)
-
-          var switchLoadingClass = function switchLoadingClass(e) {
-            var elem = e.target
-
-            if (elem._lazyCache) {
-              delete elem._lazyCache
-              return
-            }
-
-            resetPreloading(e)
-            addClass(elem, lazySizesCfg.loadedClass)
-            removeClass(elem, lazySizesCfg.loadingClass)
-            addRemoveLoadEvents(elem, rafSwitchLoadingClass)
-            triggerEvent(elem, "lazyloaded")
-          }
-
-          var rafedSwitchLoadingClass = rAFIt(switchLoadingClass)
-
-          var rafSwitchLoadingClass = function rafSwitchLoadingClass(e) {
-            rafedSwitchLoadingClass({
-              target: e.target,
-            })
-          }
-
-          var changeIframeSrc = function changeIframeSrc(elem, src) {
-            try {
-              elem.contentWindow.location.replace(src)
-            } catch (e) {
-              elem.src = src
-            }
-          }
-
-          var handleSources = function handleSources(source) {
-            var customMedia
-
-            var sourceSrcset = source[_getAttribute](lazySizesCfg.srcsetAttr)
-
-            if (
-              (customMedia =
-                lazySizesCfg.customMedia[
-                  source[_getAttribute]("data-media") ||
-                    source[_getAttribute]("media")
-                ])
-            ) {
-              source.setAttribute("media", customMedia)
-            }
-
-            if (sourceSrcset) {
-              source.setAttribute("srcset", sourceSrcset)
-            }
-          }
-
-          var lazyUnveil = rAFIt(function (elem, detail, isAuto, sizes, isImg) {
-            var src, srcset, parent, isPicture, event, firesLoad
-
-            if (
-              !(event = triggerEvent(elem, "lazybeforeunveil", detail))
-                .defaultPrevented
-            ) {
-              if (sizes) {
-                if (isAuto) {
-                  addClass(elem, lazySizesCfg.autosizesClass)
+                  currentExpand = preloadExpand
+                  lowRuns = 0
+                } else if (loadMode > 1 && lowRuns > 1 && isLoading < 6) {
+                  currentExpand = defaultExpand
                 } else {
-                  elem.setAttribute("sizes", sizes)
+                  currentExpand = shrinkExpand
                 }
               }
 
-              srcset = elem[_getAttribute](lazySizesCfg.srcsetAttr)
-              src = elem[_getAttribute](lazySizesCfg.srcAttr)
-
-              if (isImg) {
-                parent = elem.parentNode
-                isPicture = parent && regPicture.test(parent.nodeName || "")
+              if (beforeExpandVal !== elemExpand) {
+                eLvW = innerWidth + elemExpand * hFac
+                elvH = innerHeight + elemExpand
+                elemNegativeExpand = elemExpand * -1
+                beforeExpandVal = elemExpand
               }
 
-              firesLoad =
-                detail.firesLoad ||
-                ("src" in elem && (srcset || src || isPicture))
-              event = {
-                target: elem,
-              }
-              addClass(elem, lazySizesCfg.loadingClass)
+              rect = lazyloadElems[i].getBoundingClientRect()
 
-              if (firesLoad) {
-                clearTimeout(resetPreloadingTimer)
-                resetPreloadingTimer = setTimeout(resetPreloading, 2500)
-                addRemoveLoadEvents(elem, rafSwitchLoadingClass, true)
-              }
+              if (
+                (eLbottom = rect.bottom) >= elemNegativeExpand &&
+                (eLtop = rect.top) <= elvH &&
+                (eLright = rect.right) >= elemNegativeExpand * hFac &&
+                (eLleft = rect.left) <= eLvW &&
+                (eLbottom || eLright || eLleft || eLtop) &&
+                (lazySizesCfg.loadHidden || isVisible(lazyloadElems[i])) &&
+                ((isCompleted &&
+                  isLoading < 3 &&
+                  !elemExpandVal &&
+                  (loadMode < 3 || lowRuns < 4)) ||
+                  isNestedVisible(lazyloadElems[i], elemExpand))
+              ) {
+                unveilElement(lazyloadElems[i])
+                loadedSomething = true
 
-              if (isPicture) {
-                forEach.call(
-                  parent.getElementsByTagName("source"),
-                  handleSources
-                )
-              }
-
-              if (srcset) {
-                elem.setAttribute("srcset", srcset)
-              } else if (src && !isPicture) {
-                if (regIframe.test(elem.nodeName)) {
-                  changeIframeSrc(elem, src)
-                } else {
-                  elem.src = src
+                if (isLoading > 9) {
+                  break
                 }
-              }
-
-              if (isImg && (srcset || isPicture)) {
-                updatePolyfill(elem, {
-                  src: src,
-                })
-              }
-            }
-
-            if (elem._lazyRace) {
-              delete elem._lazyRace
-            }
-
-            removeClass(elem, lazySizesCfg.lazyClass)
-            rAF(function () {
-              // Part of this can be removed as soon as this fix is older: https://bugs.chromium.org/p/chromium/issues/detail?id=7731 (2015)
-              var isLoaded = elem.complete && elem.naturalWidth > 1
-
-              if (!firesLoad || isLoaded) {
-                if (isLoaded) {
-                  addClass(elem, "ls-is-cached")
-                }
-
-                switchLoadingClass(event)
-                elem._lazyCache = true
-                setTimeout(function () {
-                  if ("_lazyCache" in elem) {
-                    delete elem._lazyCache
-                  }
-                }, 9)
-              }
-
-              if (elem.loading == "lazy") {
-                isLoading--
-              }
-            }, true)
-          })
-
-          var unveilElement = function unveilElement(elem) {
-            if (elem._lazyRace) {
-              return
-            }
-
-            var detail
-            var isImg = regImg.test(elem.nodeName) //allow using sizes="auto", but don't use. it's invalid. Use data-sizes="auto" or a valid value for sizes instead (i.e.: sizes="80vw")
-
-            var sizes =
-              isImg &&
-              (elem[_getAttribute](lazySizesCfg.sizesAttr) ||
-                elem[_getAttribute]("sizes"))
-
-            var isAuto = sizes == "auto"
-
-            if (
-              (isAuto || !isCompleted) &&
-              isImg &&
-              (elem[_getAttribute]("src") || elem.srcset) &&
-              !elem.complete &&
-              !hasClass(elem, lazySizesCfg.errorClass) &&
-              hasClass(elem, lazySizesCfg.lazyClass)
-            ) {
-              return
-            }
-
-            detail = triggerEvent(elem, "lazyunveilread").detail
-
-            if (isAuto) {
-              autoSizer.updateElem(elem, true, elem.offsetWidth)
-            }
-
-            elem._lazyRace = true
-            isLoading++
-            lazyUnveil(elem, detail, isAuto, sizes, isImg)
-          }
-
-          var afterScroll = debounce(function () {
-            lazySizesCfg.loadMode = 3
-            throttledCheckElements()
-          })
-
-          var altLoadmodeScrollListner = function altLoadmodeScrollListner() {
-            if (lazySizesCfg.loadMode == 3) {
-              lazySizesCfg.loadMode = 2
-            }
-
-            afterScroll()
-          }
-
-          var onload = function onload() {
-            if (isCompleted) {
-              return
-            }
-
-            if (Date.now() - started < 999) {
-              setTimeout(onload, 999)
-              return
-            }
-
-            isCompleted = true
-            lazySizesCfg.loadMode = 3
-            throttledCheckElements()
-            addEventListener("scroll", altLoadmodeScrollListner, true)
-          }
-
-          return {
-            _: function _() {
-              started = Date.now()
-              lazysizes.elements = document.getElementsByClassName(
-                lazySizesCfg.lazyClass
-              )
-              preloadElems = document.getElementsByClassName(
-                lazySizesCfg.lazyClass + " " + lazySizesCfg.preloadClass
-              )
-              addEventListener("scroll", throttledCheckElements, true)
-              addEventListener("resize", throttledCheckElements, true)
-              addEventListener("pageshow", function (e) {
-                if (e.persisted) {
-                  var loadingElements = document.querySelectorAll(
-                    "." + lazySizesCfg.loadingClass
-                  )
-
-                  if (loadingElements.length && loadingElements.forEach) {
-                    requestAnimationFrame(function () {
-                      loadingElements.forEach(function (img) {
-                        if (img.complete) {
-                          unveilElement(img)
-                        }
-                      })
-                    })
-                  }
-                }
-              })
-
-              if (window.MutationObserver) {
-                new MutationObserver(throttledCheckElements).observe(docElem, {
-                  childList: true,
-                  subtree: true,
-                  attributes: true,
-                })
-              } else {
-                docElem[_addEventListener](
-                  "DOMNodeInserted",
-                  throttledCheckElements,
-                  true
-                )
-
-                docElem[_addEventListener](
-                  "DOMAttrModified",
-                  throttledCheckElements,
-                  true
-                )
-
-                setInterval(throttledCheckElements, 999)
-              }
-
-              addEventListener("hashchange", throttledCheckElements, true) //, 'fullscreenchange'
-              ;[
-                "focus",
-                "mouseover",
-                "click",
-                "load",
-                "transitionend",
-                "animationend",
-              ].forEach(function (name) {
-                document[_addEventListener](name, throttledCheckElements, true)
-              })
-
-              if (/d$|^c/.test(document.readyState)) {
-                onload()
-              } else {
-                addEventListener("load", onload)
-
-                document[_addEventListener](
-                  "DOMContentLoaded",
-                  throttledCheckElements
-                )
-
-                setTimeout(onload, 20000)
-              }
-
-              if (lazysizes.elements.length) {
-                checkElements()
-
-                rAF._lsFlush()
-              } else {
-                throttledCheckElements()
-              }
-            },
-            checkElems: throttledCheckElements,
-            unveil: unveilElement,
-            _aLSL: altLoadmodeScrollListner,
-          }
-        })()
-
-        var autoSizer = (function () {
-          var autosizesElems
-          var sizeElement = rAFIt(function (elem, parent, event, width) {
-            var sources, i, len
-            elem._lazysizesWidth = width
-            width += "px"
-            elem.setAttribute("sizes", width)
-
-            if (regPicture.test(parent.nodeName || "")) {
-              sources = parent.getElementsByTagName("source")
-
-              for (i = 0, len = sources.length; i < len; i++) {
-                sources[i].setAttribute("sizes", width)
+              } else if (
+                !loadedSomething &&
+                isCompleted &&
+                !autoLoadElem &&
+                isLoading < 4 &&
+                lowRuns < 4 &&
+                loadMode > 2 &&
+                (preloadElems[0] || lazySizesCfg.preloadAfterLoad) &&
+                (preloadElems[0] ||
+                  (!elemExpandVal &&
+                    (eLbottom ||
+                      eLright ||
+                      eLleft ||
+                      eLtop ||
+                      lazyloadElems[i][_getAttribute](lazySizesCfg.sizesAttr) != 'auto')))
+              ) {
+                autoLoadElem = preloadElems[0] || lazyloadElems[i]
               }
             }
 
-            if (!event.detail.dataAttr) {
-              updatePolyfill(elem, event.detail)
+            if (autoLoadElem && !loadedSomething) {
+              unveilElement(autoLoadElem)
             }
-          })
-
-          var getSizeElement = function getSizeElement(elem, dataAttr, width) {
-            var event
-            var parent = elem.parentNode
-
-            if (parent) {
-              width = getWidth(elem, parent, width)
-              event = triggerEvent(elem, "lazybeforesizes", {
-                width: width,
-                dataAttr: !!dataAttr,
-              })
-
-              if (!event.defaultPrevented) {
-                width = event.detail.width
-
-                if (width && width !== elem._lazysizesWidth) {
-                  sizeElement(elem, parent, event, width)
-                }
-              }
-            }
-          }
-
-          var updateElementsSizes = function updateElementsSizes() {
-            var i
-            var len = autosizesElems.length
-
-            if (len) {
-              i = 0
-
-              for (; i < len; i++) {
-                getSizeElement(autosizesElems[i])
-              }
-            }
-          }
-
-          var debouncedUpdateElementsSizes = debounce(updateElementsSizes)
-          return {
-            _: function _() {
-              autosizesElems = document.getElementsByClassName(
-                lazySizesCfg.autosizesClass
-              )
-              addEventListener("resize", debouncedUpdateElementsSizes)
-            },
-            checkElems: debouncedUpdateElementsSizes,
-            updateElem: getSizeElement,
-          }
-        })()
-
-        var init = function init() {
-          if (!init.i && document.getElementsByClassName) {
-            init.i = true
-
-            autoSizer._()
-
-            loader._()
           }
         }
 
-        setTimeout(function () {
-          if (lazySizesCfg.init) {
-            init()
+        var throttledCheckElements = throttle(checkElements)
+
+        var switchLoadingClass = function switchLoadingClass(e) {
+          var elem = e.target
+
+          if (elem._lazyCache) {
+            delete elem._lazyCache
+            return
+          }
+
+          resetPreloading(e)
+          addClass(elem, lazySizesCfg.loadedClass)
+          removeClass(elem, lazySizesCfg.loadingClass)
+          addRemoveLoadEvents(elem, rafSwitchLoadingClass)
+          triggerEvent(elem, 'lazyloaded')
+        }
+
+        var rafedSwitchLoadingClass = rAFIt(switchLoadingClass)
+
+        var rafSwitchLoadingClass = function rafSwitchLoadingClass(e) {
+          rafedSwitchLoadingClass({
+            target: e.target,
+          })
+        }
+
+        var changeIframeSrc = function changeIframeSrc(elem, src) {
+          try {
+            elem.contentWindow.location.replace(src)
+          } catch (e) {
+            elem.src = src
+          }
+        }
+
+        var handleSources = function handleSources(source) {
+          var customMedia
+
+          var sourceSrcset = source[_getAttribute](lazySizesCfg.srcsetAttr)
+
+          if (
+            (customMedia =
+              lazySizesCfg.customMedia[
+                source[_getAttribute]('data-media') || source[_getAttribute]('media')
+              ])
+          ) {
+            source.setAttribute('media', customMedia)
+          }
+
+          if (sourceSrcset) {
+            source.setAttribute('srcset', sourceSrcset)
+          }
+        }
+
+        var lazyUnveil = rAFIt(function (elem, detail, isAuto, sizes, isImg) {
+          var src, srcset, parent, isPicture, event, firesLoad
+
+          if (!(event = triggerEvent(elem, 'lazybeforeunveil', detail)).defaultPrevented) {
+            if (sizes) {
+              if (isAuto) {
+                addClass(elem, lazySizesCfg.autosizesClass)
+              } else {
+                elem.setAttribute('sizes', sizes)
+              }
+            }
+
+            srcset = elem[_getAttribute](lazySizesCfg.srcsetAttr)
+            src = elem[_getAttribute](lazySizesCfg.srcAttr)
+
+            if (isImg) {
+              parent = elem.parentNode
+              isPicture = parent && regPicture.test(parent.nodeName || '')
+            }
+
+            firesLoad = detail.firesLoad || ('src' in elem && (srcset || src || isPicture))
+            event = {
+              target: elem,
+            }
+            addClass(elem, lazySizesCfg.loadingClass)
+
+            if (firesLoad) {
+              clearTimeout(resetPreloadingTimer)
+              resetPreloadingTimer = setTimeout(resetPreloading, 2500)
+              addRemoveLoadEvents(elem, rafSwitchLoadingClass, true)
+            }
+
+            if (isPicture) {
+              forEach.call(parent.getElementsByTagName('source'), handleSources)
+            }
+
+            if (srcset) {
+              elem.setAttribute('srcset', srcset)
+            } else if (src && !isPicture) {
+              if (regIframe.test(elem.nodeName)) {
+                changeIframeSrc(elem, src)
+              } else {
+                elem.src = src
+              }
+            }
+
+            if (isImg && (srcset || isPicture)) {
+              updatePolyfill(elem, {
+                src: src,
+              })
+            }
+          }
+
+          if (elem._lazyRace) {
+            delete elem._lazyRace
+          }
+
+          removeClass(elem, lazySizesCfg.lazyClass)
+          rAF(function () {
+            // Part of this can be removed as soon as this fix is older: https://bugs.chromium.org/p/chromium/issues/detail?id=7731 (2015)
+            var isLoaded = elem.complete && elem.naturalWidth > 1
+
+            if (!firesLoad || isLoaded) {
+              if (isLoaded) {
+                addClass(elem, 'ls-is-cached')
+              }
+
+              switchLoadingClass(event)
+              elem._lazyCache = true
+              setTimeout(function () {
+                if ('_lazyCache' in elem) {
+                  delete elem._lazyCache
+                }
+              }, 9)
+            }
+
+            if (elem.loading == 'lazy') {
+              isLoading--
+            }
+          }, true)
+        })
+
+        var unveilElement = function unveilElement(elem) {
+          if (elem._lazyRace) {
+            return
+          }
+
+          var detail
+          var isImg = regImg.test(elem.nodeName) //allow using sizes="auto", but don't use. it's invalid. Use data-sizes="auto" or a valid value for sizes instead (i.e.: sizes="80vw")
+
+          var sizes =
+            isImg && (elem[_getAttribute](lazySizesCfg.sizesAttr) || elem[_getAttribute]('sizes'))
+
+          var isAuto = sizes == 'auto'
+
+          if (
+            (isAuto || !isCompleted) &&
+            isImg &&
+            (elem[_getAttribute]('src') || elem.srcset) &&
+            !elem.complete &&
+            !hasClass(elem, lazySizesCfg.errorClass) &&
+            hasClass(elem, lazySizesCfg.lazyClass)
+          ) {
+            return
+          }
+
+          detail = triggerEvent(elem, 'lazyunveilread').detail
+
+          if (isAuto) {
+            autoSizer.updateElem(elem, true, elem.offsetWidth)
+          }
+
+          elem._lazyRace = true
+          isLoading++
+          lazyUnveil(elem, detail, isAuto, sizes, isImg)
+        }
+
+        var afterScroll = debounce(function () {
+          lazySizesCfg.loadMode = 3
+          throttledCheckElements()
+        })
+
+        var altLoadmodeScrollListner = function altLoadmodeScrollListner() {
+          if (lazySizesCfg.loadMode == 3) {
+            lazySizesCfg.loadMode = 2
+          }
+
+          afterScroll()
+        }
+
+        var onload = function onload() {
+          if (isCompleted) {
+            return
+          }
+
+          if (Date.now() - started < 999) {
+            setTimeout(onload, 999)
+            return
+          }
+
+          isCompleted = true
+          lazySizesCfg.loadMode = 3
+          throttledCheckElements()
+          addEventListener('scroll', altLoadmodeScrollListner, true)
+        }
+
+        return {
+          _: function _() {
+            started = Date.now()
+            lazysizes.elements = document.getElementsByClassName(lazySizesCfg.lazyClass)
+            preloadElems = document.getElementsByClassName(
+              lazySizesCfg.lazyClass + ' ' + lazySizesCfg.preloadClass
+            )
+            addEventListener('scroll', throttledCheckElements, true)
+            addEventListener('resize', throttledCheckElements, true)
+            addEventListener('pageshow', function (e) {
+              if (e.persisted) {
+                var loadingElements = document.querySelectorAll('.' + lazySizesCfg.loadingClass)
+
+                if (loadingElements.length && loadingElements.forEach) {
+                  requestAnimationFrame(function () {
+                    loadingElements.forEach(function (img) {
+                      if (img.complete) {
+                        unveilElement(img)
+                      }
+                    })
+                  })
+                }
+              }
+            })
+
+            if (window.MutationObserver) {
+              new MutationObserver(throttledCheckElements).observe(docElem, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+              })
+            } else {
+              docElem[_addEventListener]('DOMNodeInserted', throttledCheckElements, true)
+
+              docElem[_addEventListener]('DOMAttrModified', throttledCheckElements, true)
+
+              setInterval(throttledCheckElements, 999)
+            }
+
+            addEventListener('hashchange', throttledCheckElements, true) //, 'fullscreenchange'
+            ;['focus', 'mouseover', 'click', 'load', 'transitionend', 'animationend'].forEach(
+              function (name) {
+                document[_addEventListener](name, throttledCheckElements, true)
+              }
+            )
+
+            if (/d$|^c/.test(document.readyState)) {
+              onload()
+            } else {
+              addEventListener('load', onload)
+
+              document[_addEventListener]('DOMContentLoaded', throttledCheckElements)
+
+              setTimeout(onload, 20000)
+            }
+
+            if (lazysizes.elements.length) {
+              checkElements()
+
+              rAF._lsFlush()
+            } else {
+              throttledCheckElements()
+            }
+          },
+          checkElems: throttledCheckElements,
+          unveil: unveilElement,
+          _aLSL: altLoadmodeScrollListner,
+        }
+      })()
+
+      var autoSizer = (function () {
+        var autosizesElems
+        var sizeElement = rAFIt(function (elem, parent, event, width) {
+          var sources, i, len
+          elem._lazysizesWidth = width
+          width += 'px'
+          elem.setAttribute('sizes', width)
+
+          if (regPicture.test(parent.nodeName || '')) {
+            sources = parent.getElementsByTagName('source')
+
+            for (i = 0, len = sources.length; i < len; i++) {
+              sources[i].setAttribute('sizes', width)
+            }
+          }
+
+          if (!event.detail.dataAttr) {
+            updatePolyfill(elem, event.detail)
           }
         })
-        lazysizes = {
-          cfg: lazySizesCfg,
-          autoSizer: autoSizer,
-          loader: loader,
-          init: init,
-          uP: updatePolyfill,
-          aC: addClass,
-          rC: removeClass,
-          hC: hasClass,
-          fire: triggerEvent,
-          gW: getWidth,
-          rAF: rAF,
+
+        var getSizeElement = function getSizeElement(elem, dataAttr, width) {
+          var event
+          var parent = elem.parentNode
+
+          if (parent) {
+            width = getWidth(elem, parent, width)
+            event = triggerEvent(elem, 'lazybeforesizes', {
+              width: width,
+              dataAttr: !!dataAttr,
+            })
+
+            if (!event.defaultPrevented) {
+              width = event.detail.width
+
+              if (width && width !== elem._lazysizesWidth) {
+                sizeElement(elem, parent, event, width)
+              }
+            }
+          }
         }
-        return lazysizes
+
+        var updateElementsSizes = function updateElementsSizes() {
+          var i
+          var len = autosizesElems.length
+
+          if (len) {
+            i = 0
+
+            for (; i < len; i++) {
+              getSizeElement(autosizesElems[i])
+            }
+          }
+        }
+
+        var debouncedUpdateElementsSizes = debounce(updateElementsSizes)
+        return {
+          _: function _() {
+            autosizesElems = document.getElementsByClassName(lazySizesCfg.autosizesClass)
+            addEventListener('resize', debouncedUpdateElementsSizes)
+          },
+          checkElems: debouncedUpdateElementsSizes,
+          updateElem: getSizeElement,
+        }
+      })()
+
+      var init = function init() {
+        if (!init.i && document.getElementsByClassName) {
+          init.i = true
+
+          autoSizer._()
+
+          loader._()
+        }
       }
-    )
+
+      setTimeout(function () {
+        if (lazySizesCfg.init) {
+          init()
+        }
+      })
+      lazysizes = {
+        cfg: lazySizesCfg,
+        autoSizer: autoSizer,
+        loader: loader,
+        init: init,
+        uP: updatePolyfill,
+        aC: addClass,
+        rC: removeClass,
+        hC: hasClass,
+        fire: triggerEvent,
+        gW: getWidth,
+        rAF: rAF,
+      }
+      return lazysizes
+    })
   })
 
   var ls_rias = createCommonjsModule(function (module) {
     ;(function (window, factory) {
       var globalInstall = function globalInstall() {
         factory(window.lazySizes)
-        window.removeEventListener("lazyunveilread", globalInstall, true)
+        window.removeEventListener('lazyunveilread', globalInstall, true)
       }
 
       factory = factory.bind(null, window, window.document)
@@ -20234,7 +18600,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (window.lazySizes) {
         globalInstall()
       } else {
-        window.addEventListener("lazyunveilread", globalInstall, true)
+        window.addEventListener('lazyunveilread', globalInstall, true)
       }
     })(window, function (window, document, lazySizes) {
       var config, riasCfg
@@ -20250,9 +18616,9 @@ document.addEventListener("DOMContentLoaded", function () {
       var regPlaceholder = /\s*\{\s*([a-z0-9]+)\s*\}\s*/gi
       var regObj = /^\[.*\]|\{.*\}$/
       var regAllowedSizes = /^(?:auto|\d+(px)?)$/
-      var anchor = document.createElement("a")
-      var img = document.createElement("img")
-      var buggySizes = "srcset" in img && !("sizes" in img)
+      var anchor = document.createElement('a')
+      var img = document.createElement('img')
+      var buggySizes = 'srcset' in img && !('sizes' in img)
       var supportPicture = !!window.HTMLPictureElement && !buggySizes
 
       ;(function () {
@@ -20261,9 +18627,9 @@ document.addEventListener("DOMContentLoaded", function () {
         var noop = function noop() {}
 
         var riasDefaults = {
-          prefix: "",
-          postfix: "",
-          srcAttr: "data-src",
+          prefix: '',
+          postfix: '',
+          srcAttr: 'data-src',
           absUrl: false,
           modifyOptions: noop,
           widthmap: {},
@@ -20288,7 +18654,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         riasCfg = config.rias
 
-        if (!("widths" in riasCfg)) {
+        if (!('widths' in riasCfg)) {
           riasCfg.widths = []
           ;(function (widths) {
             var width
@@ -20319,15 +18685,15 @@ document.addEventListener("DOMContentLoaded", function () {
         var elemStyles = window.getComputedStyle(elem)
         parent = elem.parentNode
         options = {
-          isPicture: !!(parent && regPicture.test(parent.nodeName || "")),
+          isPicture: !!(parent && regPicture.test(parent.nodeName || '')),
         }
 
         setOption = function setOption(attr, run) {
-          var attrVal = elem.getAttribute("data-" + attr)
+          var attrVal = elem.getAttribute('data-' + attr)
 
           if (!attrVal) {
             // no data- attr, get value from the CSS
-            var styles = elemStyles.getPropertyValue("--ls-" + attr) // at least Safari 9 returns null rather than
+            var styles = elemStyles.getPropertyValue('--ls-' + attr) // at least Safari 9 returns null rather than
             // an empty string for getPropertyValue causing
             // .trim() to fail
 
@@ -20337,13 +18703,13 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           if (attrVal) {
-            if (attrVal == "true") {
+            if (attrVal == 'true') {
               attrVal = true
-            } else if (attrVal == "false") {
+            } else if (attrVal == 'false') {
               attrVal = false
             } else if (regNumber.test(attrVal)) {
               attrVal = parseFloat(attrVal)
-            } else if (typeof riasCfg[attr] == "function") {
+            } else if (typeof riasCfg[attr] == 'function') {
               attrVal = riasCfg[attr](elem, attrVal)
             } else if (regObj.test(attrVal)) {
               try {
@@ -20352,9 +18718,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             options[attr] = attrVal
-          } else if (attr in riasCfg && typeof riasCfg[attr] != "function") {
+          } else if (attr in riasCfg && typeof riasCfg[attr] != 'function') {
             options[attr] = riasCfg[attr]
-          } else if (run && typeof riasCfg[attr] == "function") {
+          } else if (run && typeof riasCfg[attr] == 'function') {
             options[attr] = riasCfg[attr](elem, attrVal)
           }
         }
@@ -20381,19 +18747,18 @@ document.addEventListener("DOMContentLoaded", function () {
         candidates.srcset = []
 
         if (options.absUrl) {
-          anchor.setAttribute("href", url)
+          anchor.setAttribute('href', url)
           url = anchor.href
         }
 
-        url = ((options.prefix || "") + url + (options.postfix || "")).replace(
+        url = ((options.prefix || '') + url + (options.postfix || '')).replace(
           regPlaceholder,
           replaceFn
         )
         options.widths.forEach(function (width) {
           var widthAlias = options.widthmap[width] || width
           var ratio = options.aspectratio || options.ratio
-          var traditionalRatio =
-            !options.aspectratio && riasCfg.traditionalRatio
+          var traditionalRatio = !options.aspectratio && riasCfg.traditionalRatio
           var candidate = {
             u: url
               .replace(regWidth, widthAlias)
@@ -20403,14 +18768,12 @@ document.addEventListener("DOMContentLoaded", function () {
                   ? traditionalRatio
                     ? Math.round(width * ratio)
                     : Math.round(width / ratio)
-                  : ""
+                  : ''
               ),
             w: width,
           }
           candidates.push(candidate)
-          candidates.srcset.push(
-            (candidate.c = candidate.u + " " + width + "w")
-          )
+          candidates.srcset.push((candidate.c = candidate.u + ' ' + width + 'w'))
         })
         return candidates
       }
@@ -20424,7 +18787,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return
         }
 
-        if (opts.ratio === "container") {
+        if (opts.ratio === 'container') {
           // calculate image or parent ratio
           elemW = sizeElement.scrollWidth
           elemH = sizeElement.scrollHeight
@@ -20443,13 +18806,13 @@ document.addEventListener("DOMContentLoaded", function () {
         src = replaceUrlProps(src, opts)
         src.isPicture = opts.isPicture
 
-        if (buggySizes && elem.nodeName.toUpperCase() == "IMG") {
+        if (buggySizes && elem.nodeName.toUpperCase() == 'IMG') {
           elem.removeAttribute(config.srcsetAttr)
         } else {
-          elem.setAttribute(config.srcsetAttr, src.srcset.join(", "))
+          elem.setAttribute(config.srcsetAttr, src.srcset.join(', '))
         }
 
-        Object.defineProperty(elem, "_lazyrias", {
+        Object.defineProperty(elem, '_lazyrias', {
           value: src,
           writable: true,
         })
@@ -20462,24 +18825,22 @@ document.addEventListener("DOMContentLoaded", function () {
           details: opts,
           detail: opts,
         })
-        lazySizes.fire(elem, "lazyriasmodifyoptions", opts)
+        lazySizes.fire(elem, 'lazyriasmodifyoptions', opts)
         return opts
       }
 
       function getSrc(elem) {
         return (
-          elem.getAttribute(
-            elem.getAttribute("data-srcattr") || riasCfg.srcAttr
-          ) ||
+          elem.getAttribute(elem.getAttribute('data-srcattr') || riasCfg.srcAttr) ||
           elem.getAttribute(config.srcsetAttr) ||
           elem.getAttribute(config.srcAttr) ||
-          elem.getAttribute("data-pfsrcset") ||
-          ""
+          elem.getAttribute('data-pfsrcset') ||
+          ''
         )
       }
 
       addEventListener(
-        "lazybeforesizes",
+        'lazybeforesizes',
         function (e) {
           if (e.detail.instance != lazySizes) {
             return
@@ -20505,9 +18866,8 @@ document.addEventListener("DOMContentLoaded", function () {
             e.defaultPrevented ||
             riasCfg.disabled ||
             !(
-              (sizes =
-                elem.getAttribute(config.sizesAttr) ||
-                elem.getAttribute("sizes")) && regAllowedSizes.test(sizes)
+              (sizes = elem.getAttribute(config.sizesAttr) || elem.getAttribute('sizes')) &&
+              regAllowedSizes.test(sizes)
             )
           ) {
             return
@@ -20515,17 +18875,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
           src = getSrc(elem)
           elemOpts = createAttrObject(elem, src)
-          hasPlaceholder =
-            regWidth.test(elemOpts.prefix) || regWidth.test(elemOpts.postfix)
+          hasPlaceholder = regWidth.test(elemOpts.prefix) || regWidth.test(elemOpts.postfix)
 
           if (elemOpts.isPicture && (parent = elem.parentNode)) {
-            sources = parent.getElementsByTagName("source")
+            sources = parent.getElementsByTagName('source')
 
             for (i = 0, len = sources.length; i < len; i++) {
-              if (
-                hasPlaceholder ||
-                regWidth.test((sourceSrc = getSrc(sources[i])))
-              ) {
+              if (hasPlaceholder || regWidth.test((sourceSrc = getSrc(sources[i])))) {
                 setSrc(sourceSrc, elemOpts, sources[i])
                 modified = true
               }
@@ -20539,7 +18895,7 @@ document.addEventListener("DOMContentLoaded", function () {
             emptyList = []
             emptyList.srcset = []
             emptyList.isPicture = true
-            Object.defineProperty(elem, "_lazyrias", {
+            Object.defineProperty(elem, '_lazyrias', {
               value: emptyList,
               writable: true,
             })
@@ -20548,7 +18904,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (modified) {
             if (supportPicture) {
               elem.removeAttribute(config.srcAttr)
-            } else if (sizes != "auto") {
+            } else if (sizes != 'auto') {
               detail = {
                 width: parseInt(sizes, 10),
               }
@@ -20589,10 +18945,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   lowerCandidate.d += 0.15 * bonusFactor
                 }
 
-                if (
-                  lowerCandidate.d + (candidate.d - srces.d) * bonusFactor >
-                  srces.d
-                ) {
+                if (lowerCandidate.d + (candidate.d - srces.d) * bonusFactor > srces.d) {
                   candidate = lowerCandidate
                 }
               }
@@ -20610,17 +18963,15 @@ document.addEventListener("DOMContentLoaded", function () {
           if (
             !elem._lazyrias &&
             lazySizes.pWS &&
-            (src = lazySizes.pWS(elem.getAttribute(config.srcsetAttr || "")))
-              .length
+            (src = lazySizes.pWS(elem.getAttribute(config.srcsetAttr || ''))).length
           ) {
-            Object.defineProperty(elem, "_lazyrias", {
+            Object.defineProperty(elem, '_lazyrias', {
               value: src,
               writable: true,
             })
 
             if (testPicture && elem.parentNode) {
-              src.isPicture =
-                elem.parentNode.nodeName.toUpperCase() == "PICTURE"
+              src.isPicture = elem.parentNode.nodeName.toUpperCase() == 'PICTURE'
             }
           }
 
@@ -20639,17 +18990,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (srces.isPicture && window.matchMedia) {
             for (
-              i = 0,
-                sources = elem.parentNode.getElementsByTagName("source"),
-                len = sources.length;
+              i = 0, sources = elem.parentNode.getElementsByTagName('source'), len = sources.length;
               i < len;
               i++
             ) {
               if (
                 getWSet(sources[i]) &&
-                !sources[i].getAttribute("type") &&
-                (!(media = sources[i].getAttribute("media")) ||
-                  (matchMedia(media) || {}).matches)
+                !sources[i].getAttribute('type') &&
+                (!(media = sources[i].getAttribute('media')) || (matchMedia(media) || {}).matches)
               ) {
                 srces = sources[i]._lazyrias
                 break
@@ -20674,18 +19022,12 @@ document.addEventListener("DOMContentLoaded", function () {
           var candidate
           var elem = e.target
 
-          if (
-            !buggySizes &&
-            (window.respimage || window.picturefill || lazySizesCfg.pf)
-          ) {
-            document.removeEventListener("lazybeforesizes", _polyfill)
+          if (!buggySizes && (window.respimage || window.picturefill || lazySizesCfg.pf)) {
+            document.removeEventListener('lazybeforesizes', _polyfill)
             return
           }
 
-          if (
-            !("_lazyrias" in elem) &&
-            (!e.detail.dataAttr || !getWSet(elem, true))
-          ) {
+          if (!('_lazyrias' in elem) && (!e.detail.dataAttr || !getWSet(elem, true))) {
             return
           }
 
@@ -20696,13 +19038,13 @@ document.addEventListener("DOMContentLoaded", function () {
             candidate.cached = true
             lazySizes.rAF(function () {
               elem.setAttribute(config.srcAttr, candidate.u)
-              elem.setAttribute("src", candidate.u)
+              elem.setAttribute('src', candidate.u)
             })
           }
         }
 
         if (!supportPicture) {
-          addEventListener("lazybeforesizes", _polyfill)
+          addEventListener('lazybeforesizes', _polyfill)
         } else {
           _polyfill = function _polyfill() {}
         }
@@ -20716,17 +19058,17 @@ document.addEventListener("DOMContentLoaded", function () {
     /*
     This plugin extends lazySizes to lazyLoad:
     background images, videos/posters and scripts
-    
+
     Background-Image:
     For background images, use data-bg attribute:
     <div class="lazyload" data-bg="bg-img.jpg"></div>
-    
+
      Video:
      For video/audio use data-poster and preload="none":
      <video class="lazyload" preload="none" data-poster="poster.jpg" src="src.mp4">
      <!-- sources -->
      </video>
-    
+
      For video that plays automatically if in view:
      <video
     	class="lazyload"
@@ -20736,12 +19078,12 @@ document.addEventListener("DOMContentLoaded", function () {
     	data-poster="poster.jpg"
     	src="src.mp4">
     </video>
-    
+
      Scripts:
      For scripts use data-script:
      <div class="lazyload" data-script="module-name.js"></div>
-    
-    
+
+
      Script modules using require:
      For modules using require use data-require:
      <div class="lazyload" data-require="module-name"></div>
@@ -20749,7 +19091,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ;(function (window, factory) {
       var globalInstall = function globalInstall() {
         factory(window.lazySizes)
-        window.removeEventListener("lazyunveilread", globalInstall, true)
+        window.removeEventListener('lazyunveilread', globalInstall, true)
       }
 
       factory = factory.bind(null, window, window.document)
@@ -20759,7 +19101,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (window.lazySizes) {
         globalInstall()
       } else {
-        window.addEventListener("lazyunveilread", globalInstall, true)
+        window.addEventListener('lazyunveilread', globalInstall, true)
       }
     })(window, function (window, document, lazySizes) {
       var bgLoad, regBgUrlEscape
@@ -20769,7 +19111,7 @@ document.addEventListener("DOMContentLoaded", function () {
         regBgUrlEscape = /\(|\)|\s|'/
 
         bgLoad = function bgLoad(url, cb) {
-          var img = document.createElement("img")
+          var img = document.createElement('img')
 
           img.onload = function () {
             img.onload = null
@@ -20787,7 +19129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         addEventListener(
-          "lazybeforeunveil",
+          'lazybeforeunveil',
           function (e) {
             if (e.detail.instance != lazySizes) {
               return
@@ -20798,36 +19140,36 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!e.defaultPrevented) {
               var target = e.target
 
-              if (target.preload == "none") {
-                target.preload = target.getAttribute("data-preload") || "auto"
+              if (target.preload == 'none') {
+                target.preload = target.getAttribute('data-preload') || 'auto'
               }
 
-              if (target.getAttribute("data-autoplay") != null) {
-                if (target.getAttribute("data-expand") && !target.autoplay) {
+              if (target.getAttribute('data-autoplay') != null) {
+                if (target.getAttribute('data-expand') && !target.autoplay) {
                   try {
                     target.play()
                   } catch (er) {}
                 } else {
                   requestAnimationFrame(function () {
-                    target.setAttribute("data-expand", "-10")
+                    target.setAttribute('data-expand', '-10')
                     lazySizes.aC(target, lazySizes.cfg.lazyClass)
                   })
                 }
               }
 
-              tmp = target.getAttribute("data-link")
+              tmp = target.getAttribute('data-link')
 
               if (tmp) {
                 addStyleScript(tmp, true)
               } // handle data-script
 
-              tmp = target.getAttribute("data-script")
+              tmp = target.getAttribute('data-script')
 
               if (tmp) {
                 addStyleScript(tmp)
               } // handle data-require
 
-              tmp = target.getAttribute("data-require")
+              tmp = target.getAttribute('data-require')
 
               if (tmp) {
                 if (lazySizes.cfg.requireJs) {
@@ -20837,24 +19179,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
               } // handle data-bg
 
-              bg = target.getAttribute("data-bg")
+              bg = target.getAttribute('data-bg')
 
               if (bg) {
                 e.detail.firesLoad = true
 
                 load = function load() {
                   target.style.backgroundImage =
-                    "url(" +
-                    (regBgUrlEscape.test(bg) ? JSON.stringify(bg) : bg) +
-                    ")"
+                    'url(' + (regBgUrlEscape.test(bg) ? JSON.stringify(bg) : bg) + ')'
                   e.detail.firesLoad = false
-                  lazySizes.fire(target, "_lazyloaded", {}, true, true)
+                  lazySizes.fire(target, '_lazyloaded', {}, true, true)
                 }
 
                 bgLoad(bg, load)
               } // handle data-poster
 
-              poster = target.getAttribute("data-poster")
+              poster = target.getAttribute('data-poster')
 
               if (poster) {
                 e.detail.firesLoad = true
@@ -20862,7 +19202,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 load = function load() {
                   target.poster = poster
                   e.detail.firesLoad = false
-                  lazySizes.fire(target, "_lazyloaded", {}, true, true)
+                  lazySizes.fire(target, '_lazyloaded', {}, true, true)
                 }
 
                 bgLoad(poster, load)
@@ -20878,11 +19218,11 @@ document.addEventListener("DOMContentLoaded", function () {
           return
         }
 
-        var elem = document.createElement(style ? "link" : "script")
-        var insertElem = document.getElementsByTagName("script")[0]
+        var elem = document.createElement(style ? 'link' : 'script')
+        var insertElem = document.getElementsByTagName('script')[0]
 
         if (style) {
-          elem.rel = "stylesheet"
+          elem.rel = 'stylesheet'
           elem.href = src
         } else {
           elem.src = src
@@ -20899,7 +19239,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ;(function (window, factory) {
       var globalInstall = function globalInstall() {
         factory(window.lazySizes)
-        window.removeEventListener("lazyunveilread", globalInstall, true)
+        window.removeEventListener('lazyunveilread', globalInstall, true)
       }
 
       factory = factory.bind(null, window, window.document)
@@ -20909,7 +19249,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (window.lazySizes) {
         globalInstall()
       } else {
-        window.addEventListener("lazyunveilread", globalInstall, true)
+        window.addEventListener('lazyunveilread', globalInstall, true)
       }
     })(window, function (window, document, lazySizes) {
       if (!window.addEventListener) {
@@ -20943,12 +19283,9 @@ document.addEventListener("DOMContentLoaded", function () {
           getComputedStyle(elem) || {
             getPropertyValue: function getPropertyValue() {},
           }
-        ).getPropertyValue("background-size")
+        ).getPropertyValue('background-size')
 
-        if (
-          !allowedBackgroundSize[bgSize] &&
-          allowedBackgroundSize[elem.style.backgroundSize]
-        ) {
+        if (!allowedBackgroundSize[bgSize] && allowedBackgroundSize[elem.style.backgroundSize]) {
           bgSize = elem.style.backgroundSize
         }
 
@@ -20960,48 +19297,45 @@ document.addEventListener("DOMContentLoaded", function () {
           var typeMatch = match.match(regType)
 
           if (typeMatch && typeMatch[1]) {
-            source.setAttribute("type", typeMatch[1])
+            source.setAttribute('type', typeMatch[1])
           } else {
-            source.setAttribute(
-              "media",
-              lazySizesCfg.customMedia[match] || match
-            )
+            source.setAttribute('media', lazySizesCfg.customMedia[match] || match)
           }
         }
       }
 
       var createPicture = function createPicture(sets, elem, img) {
-        var picture = document.createElement("picture")
+        var picture = document.createElement('picture')
         var sizes = elem.getAttribute(lazySizesCfg.sizesAttr)
-        var ratio = elem.getAttribute("data-ratio")
-        var optimumx = elem.getAttribute("data-optimumx")
+        var ratio = elem.getAttribute('data-ratio')
+        var optimumx = elem.getAttribute('data-optimumx')
 
         if (elem._lazybgset && elem._lazybgset.parentNode == elem) {
           elem.removeChild(elem._lazybgset)
         }
 
-        Object.defineProperty(img, "_lazybgset", {
+        Object.defineProperty(img, '_lazybgset', {
           value: elem,
           writable: true,
         })
-        Object.defineProperty(elem, "_lazybgset", {
+        Object.defineProperty(elem, '_lazybgset', {
           value: picture,
           writable: true,
         })
-        sets = sets.replace(regWhite, " ").split(regSplitSet)
-        picture.style.display = "none"
+        sets = sets.replace(regWhite, ' ').split(regSplitSet)
+        picture.style.display = 'none'
         img.className = lazySizesCfg.lazyClass
 
         if (sets.length == 1 && !sizes) {
-          sizes = "auto"
+          sizes = 'auto'
         }
 
         sets.forEach(function (set) {
           var match
-          var source = document.createElement("source")
+          var source = document.createElement('source')
 
-          if (sizes && sizes != "auto") {
-            source.setAttribute("sizes", sizes)
+          if (sizes && sizes != 'auto') {
+            source.setAttribute('sizes', sizes)
           }
 
           if ((match = set.match(regSource))) {
@@ -21018,15 +19352,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (sizes) {
           img.setAttribute(lazySizesCfg.sizesAttr, sizes)
           elem.removeAttribute(lazySizesCfg.sizesAttr)
-          elem.removeAttribute("sizes")
+          elem.removeAttribute('sizes')
         }
 
         if (optimumx) {
-          img.setAttribute("data-optimumx", optimumx)
+          img.setAttribute('data-optimumx', optimumx)
         }
 
         if (ratio) {
-          img.setAttribute("data-ratio", ratio)
+          img.setAttribute('data-ratio', ratio)
         }
 
         picture.appendChild(img)
@@ -21043,42 +19377,39 @@ document.addEventListener("DOMContentLoaded", function () {
         var bg = image.currentSrc || image.src
 
         if (bg) {
-          var event = lazySizes.fire(elem, "bgsetproxy", {
+          var event = lazySizes.fire(elem, 'bgsetproxy', {
             src: bg,
             useSrc: regBgUrlEscape.test(bg) ? JSON.stringify(bg) : bg,
           })
 
           if (!event.defaultPrevented) {
-            elem.style.backgroundImage = "url(" + event.detail.useSrc + ")"
+            elem.style.backgroundImage = 'url(' + event.detail.useSrc + ')'
           }
         }
 
         if (image._lazybgsetLoading) {
-          lazySizes.fire(elem, "_lazyloaded", {}, false, true)
+          lazySizes.fire(elem, '_lazyloaded', {}, false, true)
           delete image._lazybgsetLoading
         }
       }
 
-      addEventListener("lazybeforeunveil", function (e) {
+      addEventListener('lazybeforeunveil', function (e) {
         var set, image, elem
 
-        if (
-          e.defaultPrevented ||
-          !(set = e.target.getAttribute("data-bgset"))
-        ) {
+        if (e.defaultPrevented || !(set = e.target.getAttribute('data-bgset'))) {
           return
         }
 
         elem = e.target
-        image = document.createElement("img")
-        image.alt = ""
+        image = document.createElement('img')
+        image.alt = ''
         image._lazybgsetLoading = true
         e.detail.firesLoad = true
         createPicture(set, elem, image)
         setTimeout(function () {
           lazySizes.loader.unveil(image)
           lazySizes.rAF(function () {
-            lazySizes.fire(image, "_lazyloaded", {}, true, true)
+            lazySizes.fire(image, '_lazyloaded', {}, true, true)
 
             if (image.complete) {
               proxyLoad({
@@ -21088,9 +19419,9 @@ document.addEventListener("DOMContentLoaded", function () {
           })
         })
       })
-      document.addEventListener("load", proxyLoad, true)
+      document.addEventListener('load', proxyLoad, true)
       window.addEventListener(
-        "lazybeforesizes",
+        'lazybeforesizes',
         function (e) {
           if (e.detail.instance != lazySizes) {
             return
@@ -21103,7 +19434,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (allowedBackgroundSize[bgSize]) {
               e.target._lazysizesParentFit = bgSize
               lazySizes.rAF(function () {
-                e.target.setAttribute("data-parent-fit", bgSize)
+                e.target.setAttribute('data-parent-fit', bgSize)
 
                 if (e.target._lazysizesParentFit) {
                   delete e.target._lazysizesParentFit
@@ -21114,20 +19445,13 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         true
       )
-      document.documentElement.addEventListener(
-        "lazybeforesizes",
-        function (e) {
-          if (
-            e.defaultPrevented ||
-            !e.target._lazybgset ||
-            e.detail.instance != lazySizes
-          ) {
-            return
-          }
-
-          e.detail.width = proxyWidth(e.target._lazybgset)
+      document.documentElement.addEventListener('lazybeforesizes', function (e) {
+        if (e.defaultPrevented || !e.target._lazybgset || e.detail.instance != lazySizes) {
+          return
         }
-      )
+
+        e.detail.width = proxyWidth(e.target._lazybgset)
+      })
     })
   })
 
@@ -21139,7 +19463,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       var globalInstall = function globalInstall() {
         factory(window.lazySizes)
-        window.removeEventListener("lazyunveilread", globalInstall, true)
+        window.removeEventListener('lazyunveilread', globalInstall, true)
       }
 
       factory = factory.bind(null, window, window.document)
@@ -21149,371 +19473,337 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (window.lazySizes) {
         globalInstall()
       } else {
-        window.addEventListener("lazyunveilread", globalInstall, true)
+        window.addEventListener('lazyunveilread', globalInstall, true)
       }
-    })(
-      typeof window != "undefined" ? window : 0,
-      function (window, document, lazySizes) {
-        var polyfill
-        var lazySizesCfg = lazySizes.cfg
-        var img = document.createElement("img")
-        var supportSrcset = "sizes" in img && "srcset" in img
-        var regHDesc = /\s+\d+h/g
+    })(typeof window != 'undefined' ? window : 0, function (window, document, lazySizes) {
+      var polyfill
+      var lazySizesCfg = lazySizes.cfg
+      var img = document.createElement('img')
+      var supportSrcset = 'sizes' in img && 'srcset' in img
+      var regHDesc = /\s+\d+h/g
 
-        var fixEdgeHDescriptor = (function () {
-          var regDescriptors = /\s+(\d+)(w|h)\s+(\d+)(w|h)/
-          var forEach = Array.prototype.forEach
-          return function () {
-            var img = document.createElement("img")
+      var fixEdgeHDescriptor = (function () {
+        var regDescriptors = /\s+(\d+)(w|h)\s+(\d+)(w|h)/
+        var forEach = Array.prototype.forEach
+        return function () {
+          var img = document.createElement('img')
 
-            var removeHDescriptors = function removeHDescriptors(source) {
-              var ratio, match
-              var srcset = source.getAttribute(lazySizesCfg.srcsetAttr)
+          var removeHDescriptors = function removeHDescriptors(source) {
+            var ratio, match
+            var srcset = source.getAttribute(lazySizesCfg.srcsetAttr)
 
-              if (srcset) {
-                if ((match = srcset.match(regDescriptors))) {
-                  if (match[2] == "w") {
-                    ratio = match[1] / match[3]
-                  } else {
-                    ratio = match[3] / match[1]
-                  }
+            if (srcset) {
+              if ((match = srcset.match(regDescriptors))) {
+                if (match[2] == 'w') {
+                  ratio = match[1] / match[3]
+                } else {
+                  ratio = match[3] / match[1]
+                }
 
-                  if (ratio) {
-                    source.setAttribute("data-aspectratio", ratio)
-                  }
+                if (ratio) {
+                  source.setAttribute('data-aspectratio', ratio)
+                }
 
-                  source.setAttribute(
-                    lazySizesCfg.srcsetAttr,
-                    srcset.replace(regHDesc, "")
-                  )
+                source.setAttribute(lazySizesCfg.srcsetAttr, srcset.replace(regHDesc, ''))
+              }
+            }
+          }
+
+          var handler = function handler(e) {
+            if (e.detail.instance != lazySizes) {
+              return
+            }
+
+            var picture = e.target.parentNode
+
+            if (picture && picture.nodeName == 'PICTURE') {
+              forEach.call(picture.getElementsByTagName('source'), removeHDescriptors)
+            }
+
+            removeHDescriptors(e.target)
+          }
+
+          var test = function test() {
+            if (!!img.currentSrc) {
+              document.removeEventListener('lazybeforeunveil', handler)
+            }
+          }
+
+          document.addEventListener('lazybeforeunveil', handler)
+          img.onload = test
+          img.onerror = test
+          img.srcset = 'data:,a 1w 1h'
+
+          if (img.complete) {
+            test()
+          }
+        }
+      })()
+
+      if (!lazySizesCfg.supportsType) {
+        lazySizesCfg.supportsType = function (
+          type
+          /*, elem*/
+        ) {
+          return !type
+        }
+      }
+
+      if (window.HTMLPictureElement && supportSrcset) {
+        if (!lazySizes.hasHDescriptorFix && document.msElementsFromPoint) {
+          lazySizes.hasHDescriptorFix = true
+          fixEdgeHDescriptor()
+        }
+
+        return
+      }
+
+      if (window.picturefill || lazySizesCfg.pf) {
+        return
+      }
+
+      lazySizesCfg.pf = function (options) {
+        var i, len
+
+        if (window.picturefill) {
+          return
+        }
+
+        for (i = 0, len = options.elements.length; i < len; i++) {
+          polyfill(options.elements[i])
+        }
+      } // partial polyfill
+
+      polyfill = (function () {
+        var ascendingSort = function ascendingSort(a, b) {
+          return a.w - b.w
+        }
+
+        var regPxLength = /^\s*\d+\.*\d*px\s*$/
+
+        var reduceCandidate = function reduceCandidate(srces) {
+          var lowerCandidate, bonusFactor
+          var len = srces.length
+          var candidate = srces[len - 1]
+          var i = 0
+
+          for (i; i < len; i++) {
+            candidate = srces[i]
+            candidate.d = candidate.w / srces.w
+
+            if (candidate.d >= srces.d) {
+              if (
+                !candidate.cached &&
+                (lowerCandidate = srces[i - 1]) &&
+                lowerCandidate.d > srces.d - 0.13 * Math.pow(srces.d, 2.2)
+              ) {
+                bonusFactor = Math.pow(lowerCandidate.d - 0.6, 1.6)
+
+                if (lowerCandidate.cached) {
+                  lowerCandidate.d += 0.15 * bonusFactor
+                }
+
+                if (lowerCandidate.d + (candidate.d - srces.d) * bonusFactor > srces.d) {
+                  candidate = lowerCandidate
                 }
               }
+
+              break
+            }
+          }
+
+          return candidate
+        }
+
+        var parseWsrcset = (function () {
+          var candidates
+          var regWCandidates = /(([^,\s].[^\s]+)\s+(\d+)w)/g
+          var regMultiple = /\s/
+
+          var addCandidate = function addCandidate(match, candidate, url, wDescriptor) {
+            candidates.push({
+              c: candidate,
+              u: url,
+              w: wDescriptor * 1,
+            })
+          }
+
+          return function (input) {
+            candidates = []
+            input = input.trim()
+            input.replace(regHDesc, '').replace(regWCandidates, addCandidate)
+
+            if (!candidates.length && input && !regMultiple.test(input)) {
+              candidates.push({
+                c: input,
+                u: input,
+                w: 99,
+              })
             }
 
-            var handler = function handler(e) {
-              if (e.detail.instance != lazySizes) {
-                return
-              }
-
-              var picture = e.target.parentNode
-
-              if (picture && picture.nodeName == "PICTURE") {
-                forEach.call(
-                  picture.getElementsByTagName("source"),
-                  removeHDescriptors
-                )
-              }
-
-              removeHDescriptors(e.target)
-            }
-
-            var test = function test() {
-              if (!!img.currentSrc) {
-                document.removeEventListener("lazybeforeunveil", handler)
-              }
-            }
-
-            document.addEventListener("lazybeforeunveil", handler)
-            img.onload = test
-            img.onerror = test
-            img.srcset = "data:,a 1w 1h"
-
-            if (img.complete) {
-              test()
-            }
+            return candidates
           }
         })()
 
-        if (!lazySizesCfg.supportsType) {
-          lazySizesCfg.supportsType = function (
-            type
-            /*, elem*/
-          ) {
-            return !type
-          }
-        }
-
-        if (window.HTMLPictureElement && supportSrcset) {
-          if (!lazySizes.hasHDescriptorFix && document.msElementsFromPoint) {
-            lazySizes.hasHDescriptorFix = true
-            fixEdgeHDescriptor()
-          }
-
-          return
-        }
-
-        if (window.picturefill || lazySizesCfg.pf) {
-          return
-        }
-
-        lazySizesCfg.pf = function (options) {
-          var i, len
-
-          if (window.picturefill) {
+        var runMatchMedia = function runMatchMedia() {
+          if (runMatchMedia.init) {
             return
           }
 
-          for (i = 0, len = options.elements.length; i < len; i++) {
-            polyfill(options.elements[i])
-          }
-        } // partial polyfill
+          runMatchMedia.init = true
+          addEventListener(
+            'resize',
+            (function () {
+              var timer
+              var matchMediaElems = document.getElementsByClassName('lazymatchmedia')
 
-        polyfill = (function () {
-          var ascendingSort = function ascendingSort(a, b) {
-            return a.w - b.w
-          }
+              var run = function run() {
+                var i, len
 
-          var regPxLength = /^\s*\d+\.*\d*px\s*$/
-
-          var reduceCandidate = function reduceCandidate(srces) {
-            var lowerCandidate, bonusFactor
-            var len = srces.length
-            var candidate = srces[len - 1]
-            var i = 0
-
-            for (i; i < len; i++) {
-              candidate = srces[i]
-              candidate.d = candidate.w / srces.w
-
-              if (candidate.d >= srces.d) {
-                if (
-                  !candidate.cached &&
-                  (lowerCandidate = srces[i - 1]) &&
-                  lowerCandidate.d > srces.d - 0.13 * Math.pow(srces.d, 2.2)
-                ) {
-                  bonusFactor = Math.pow(lowerCandidate.d - 0.6, 1.6)
-
-                  if (lowerCandidate.cached) {
-                    lowerCandidate.d += 0.15 * bonusFactor
-                  }
-
-                  if (
-                    lowerCandidate.d + (candidate.d - srces.d) * bonusFactor >
-                    srces.d
-                  ) {
-                    candidate = lowerCandidate
-                  }
+                for (i = 0, len = matchMediaElems.length; i < len; i++) {
+                  polyfill(matchMediaElems[i])
                 }
+              }
 
+              return function () {
+                clearTimeout(timer)
+                timer = setTimeout(run, 66)
+              }
+            })()
+          )
+        }
+
+        var createSrcset = function createSrcset(elem, isImage) {
+          var parsedSet
+          var srcSet = elem.getAttribute('srcset') || elem.getAttribute(lazySizesCfg.srcsetAttr)
+
+          if (!srcSet && isImage) {
+            srcSet = !elem._lazypolyfill
+              ? elem.getAttribute(lazySizesCfg.srcAttr) || elem.getAttribute('src')
+              : elem._lazypolyfill._set
+          }
+
+          if (!elem._lazypolyfill || elem._lazypolyfill._set != srcSet) {
+            parsedSet = parseWsrcset(srcSet || '')
+
+            if (isImage && elem.parentNode) {
+              parsedSet.isPicture = elem.parentNode.nodeName.toUpperCase() == 'PICTURE'
+
+              if (parsedSet.isPicture) {
+                if (window.matchMedia) {
+                  lazySizes.aC(elem, 'lazymatchmedia')
+                  runMatchMedia()
+                }
+              }
+            }
+
+            parsedSet._set = srcSet
+            Object.defineProperty(elem, '_lazypolyfill', {
+              value: parsedSet,
+              writable: true,
+            })
+          }
+        }
+
+        var getX = function getX(elem) {
+          var dpr = window.devicePixelRatio || 1
+          var optimum = lazySizes.getX && lazySizes.getX(elem)
+          return Math.min(optimum || dpr, 2.5, dpr)
+        }
+
+        var _matchesMedia = function matchesMedia(media) {
+          if (window.matchMedia) {
+            _matchesMedia = function matchesMedia(media) {
+              return !media || (matchMedia(media) || {}).matches
+            }
+          } else {
+            return !media
+          }
+
+          return _matchesMedia(media)
+        }
+
+        var getCandidate = function getCandidate(elem) {
+          var sources, i, len, source, srces, src, width
+          source = elem
+          createSrcset(source, true)
+          srces = source._lazypolyfill
+
+          if (srces.isPicture) {
+            for (
+              i = 0, sources = elem.parentNode.getElementsByTagName('source'), len = sources.length;
+              i < len;
+              i++
+            ) {
+              if (
+                lazySizesCfg.supportsType(sources[i].getAttribute('type'), elem) &&
+                _matchesMedia(sources[i].getAttribute('media'))
+              ) {
+                source = sources[i]
+                createSrcset(source)
+                srces = source._lazypolyfill
                 break
               }
             }
-
-            return candidate
           }
 
-          var parseWsrcset = (function () {
-            var candidates
-            var regWCandidates = /(([^,\s].[^\s]+)\s+(\d+)w)/g
-            var regMultiple = /\s/
+          if (srces.length > 1) {
+            width = source.getAttribute('sizes') || ''
+            width =
+              (regPxLength.test(width) && parseInt(width, 10)) ||
+              lazySizes.gW(elem, elem.parentNode)
+            srces.d = getX(elem)
 
-            var addCandidate = function addCandidate(
-              match,
-              candidate,
-              url,
-              wDescriptor
-            ) {
-              candidates.push({
-                c: candidate,
-                u: url,
-                w: wDescriptor * 1,
-              })
-            }
-
-            return function (input) {
-              candidates = []
-              input = input.trim()
-              input.replace(regHDesc, "").replace(regWCandidates, addCandidate)
-
-              if (!candidates.length && input && !regMultiple.test(input)) {
-                candidates.push({
-                  c: input,
-                  u: input,
-                  w: 99,
-                })
-              }
-
-              return candidates
-            }
-          })()
-
-          var runMatchMedia = function runMatchMedia() {
-            if (runMatchMedia.init) {
-              return
-            }
-
-            runMatchMedia.init = true
-            addEventListener(
-              "resize",
-              (function () {
-                var timer
-                var matchMediaElems =
-                  document.getElementsByClassName("lazymatchmedia")
-
-                var run = function run() {
-                  var i, len
-
-                  for (i = 0, len = matchMediaElems.length; i < len; i++) {
-                    polyfill(matchMediaElems[i])
-                  }
-                }
-
-                return function () {
-                  clearTimeout(timer)
-                  timer = setTimeout(run, 66)
-                }
-              })()
-            )
-          }
-
-          var createSrcset = function createSrcset(elem, isImage) {
-            var parsedSet
-            var srcSet =
-              elem.getAttribute("srcset") ||
-              elem.getAttribute(lazySizesCfg.srcsetAttr)
-
-            if (!srcSet && isImage) {
-              srcSet = !elem._lazypolyfill
-                ? elem.getAttribute(lazySizesCfg.srcAttr) ||
-                  elem.getAttribute("src")
-                : elem._lazypolyfill._set
-            }
-
-            if (!elem._lazypolyfill || elem._lazypolyfill._set != srcSet) {
-              parsedSet = parseWsrcset(srcSet || "")
-
-              if (isImage && elem.parentNode) {
-                parsedSet.isPicture =
-                  elem.parentNode.nodeName.toUpperCase() == "PICTURE"
-
-                if (parsedSet.isPicture) {
-                  if (window.matchMedia) {
-                    lazySizes.aC(elem, "lazymatchmedia")
-                    runMatchMedia()
-                  }
-                }
-              }
-
-              parsedSet._set = srcSet
-              Object.defineProperty(elem, "_lazypolyfill", {
-                value: parsedSet,
-                writable: true,
-              })
-            }
-          }
-
-          var getX = function getX(elem) {
-            var dpr = window.devicePixelRatio || 1
-            var optimum = lazySizes.getX && lazySizes.getX(elem)
-            return Math.min(optimum || dpr, 2.5, dpr)
-          }
-
-          var _matchesMedia = function matchesMedia(media) {
-            if (window.matchMedia) {
-              _matchesMedia = function matchesMedia(media) {
-                return !media || (matchMedia(media) || {}).matches
-              }
+            if (!srces.src || !srces.w || srces.w < width) {
+              srces.w = width
+              src = reduceCandidate(srces.sort(ascendingSort))
+              srces.src = src
             } else {
-              return !media
+              src = srces.src
             }
-
-            return _matchesMedia(media)
+          } else {
+            src = srces[0]
           }
 
-          var getCandidate = function getCandidate(elem) {
-            var sources, i, len, source, srces, src, width
-            source = elem
-            createSrcset(source, true)
-            srces = source._lazypolyfill
-
-            if (srces.isPicture) {
-              for (
-                i = 0,
-                  sources = elem.parentNode.getElementsByTagName("source"),
-                  len = sources.length;
-                i < len;
-                i++
-              ) {
-                if (
-                  lazySizesCfg.supportsType(
-                    sources[i].getAttribute("type"),
-                    elem
-                  ) &&
-                  _matchesMedia(sources[i].getAttribute("media"))
-                ) {
-                  source = sources[i]
-                  createSrcset(source)
-                  srces = source._lazypolyfill
-                  break
-                }
-              }
-            }
-
-            if (srces.length > 1) {
-              width = source.getAttribute("sizes") || ""
-              width =
-                (regPxLength.test(width) && parseInt(width, 10)) ||
-                lazySizes.gW(elem, elem.parentNode)
-              srces.d = getX(elem)
-
-              if (!srces.src || !srces.w || srces.w < width) {
-                srces.w = width
-                src = reduceCandidate(srces.sort(ascendingSort))
-                srces.src = src
-              } else {
-                src = srces.src
-              }
-            } else {
-              src = srces[0]
-            }
-
-            return src
-          }
-
-          var p = function p(elem) {
-            if (
-              supportSrcset &&
-              elem.parentNode &&
-              elem.parentNode.nodeName.toUpperCase() != "PICTURE"
-            ) {
-              return
-            }
-
-            var candidate = getCandidate(elem)
-
-            if (
-              candidate &&
-              candidate.u &&
-              elem._lazypolyfill.cur != candidate.u
-            ) {
-              elem._lazypolyfill.cur = candidate.u
-              candidate.cached = true
-              elem.setAttribute(lazySizesCfg.srcAttr, candidate.u)
-              elem.setAttribute("src", candidate.u)
-            }
-          }
-
-          p.parse = parseWsrcset
-          return p
-        })()
-
-        if (lazySizesCfg.loadedClass && lazySizesCfg.loadingClass) {
-          ;(function () {
-            var sels = []
-            ;[
-              'img[sizes$="px"][srcset].',
-              "picture > img:not([srcset]).",
-            ].forEach(function (sel) {
-              sels.push(sel + lazySizesCfg.loadedClass)
-              sels.push(sel + lazySizesCfg.loadingClass)
-            })
-            lazySizesCfg.pf({
-              elements: document.querySelectorAll(sels.join(", ")),
-            })
-          })()
+          return src
         }
+
+        var p = function p(elem) {
+          if (
+            supportSrcset &&
+            elem.parentNode &&
+            elem.parentNode.nodeName.toUpperCase() != 'PICTURE'
+          ) {
+            return
+          }
+
+          var candidate = getCandidate(elem)
+
+          if (candidate && candidate.u && elem._lazypolyfill.cur != candidate.u) {
+            elem._lazypolyfill.cur = candidate.u
+            candidate.cached = true
+            elem.setAttribute(lazySizesCfg.srcAttr, candidate.u)
+            elem.setAttribute('src', candidate.u)
+          }
+        }
+
+        p.parse = parseWsrcset
+        return p
+      })()
+
+      if (lazySizesCfg.loadedClass && lazySizesCfg.loadingClass) {
+        ;(function () {
+          var sels = []
+          ;['img[sizes$="px"][srcset].', 'picture > img:not([srcset]).'].forEach(function (sel) {
+            sels.push(sel + lazySizesCfg.loadedClass)
+            sels.push(sel + lazySizesCfg.loadingClass)
+          })
+          lazySizesCfg.pf({
+            elements: document.querySelectorAll(sels.join(', ')),
+          })
+        })()
       }
-    )
+    })
   })
 
   ;(function () {
@@ -21537,35 +19827,29 @@ document.addEventListener("DOMContentLoaded", function () {
       new PopoverManager() // Then, we instantiate specific sections that may appear in all pages, and then only the template specific sections
 
       var sections = new SectionContainer()
-      sections.register("account", AccountSection)
-      sections.register("announcement-bar", AnnouncementBarSection)
-      sections.register("blog", BlogSection)
-      sections.register("blog-sidebar", BlogSidebarSection)
-      sections.register("blog-post", BlogPostSection)
-      sections.register("cart", CartSection)
-      sections.register("collection-list", CollectionListSection)
-      sections.register("collection", CollectionSection)
-      sections.register("featured-collection", FeaturedCollectionSection)
-      sections.register("footer", FooterSection)
-      sections.register("gift-card", GiftCardSection)
-      sections.register("header", HeaderSection)
-      sections.register("login", LoginSection)
-      sections.register("map", MapSection)
-      sections.register("minimal-header", MinimalHeaderSection)
-      sections.register("popups", PopupsSection)
-      sections.register(
-        "product-recommendations",
-        ProductRecommendationsSection
-      )
-      sections.register("product", ProductSection)
-      sections.register("quick-links", QuickLinksSection)
-      sections.register(
-        "recently-viewed-products",
-        RecentlyViewedProductsSection
-      )
-      sections.register("slideshow", SlideshowSection)
-      sections.register("text-with-icons", TextWithIconsSection)
-      sections.register("video", VideoSection)
+      sections.register('account', AccountSection)
+      sections.register('announcement-bar', AnnouncementBarSection)
+      sections.register('blog', BlogSection)
+      sections.register('blog-sidebar', BlogSidebarSection)
+      sections.register('blog-post', BlogPostSection)
+      sections.register('cart', CartSection)
+      sections.register('collection-list', CollectionListSection)
+      sections.register('collection', CollectionSection)
+      sections.register('featured-collection', FeaturedCollectionSection)
+      sections.register('footer', FooterSection)
+      sections.register('gift-card', GiftCardSection)
+      sections.register('header', HeaderSection)
+      sections.register('login', LoginSection)
+      sections.register('map', MapSection)
+      sections.register('minimal-header', MinimalHeaderSection)
+      sections.register('popups', PopupsSection)
+      sections.register('product-recommendations', ProductRecommendationsSection)
+      sections.register('product', ProductSection)
+      sections.register('quick-links', QuickLinksSection)
+      sections.register('recently-viewed-products', RecentlyViewedProductsSection)
+      sections.register('slideshow', SlideshowSection)
+      sections.register('text-with-icons', TextWithIconsSection)
+      sections.register('video', VideoSection)
       /**
        * ----------------------------------------------------------------------------
        * RTE
@@ -21573,19 +19857,17 @@ document.addEventListener("DOMContentLoaded", function () {
        */
       ;(function () {
         // We wrap each RTE table by a specific class to allow wrapping
-        document.querySelectorAll(".rte table").forEach(function (table) {
-          table.outerHTML =
-            '<div class="table-wrapper">' + table.outerHTML + "</div>"
+        document.querySelectorAll('.rte table').forEach(function (table) {
+          table.outerHTML = '<div class="table-wrapper">' + table.outerHTML + '</div>'
         })
-        document.querySelectorAll(".rte iframe").forEach(function (iframe) {
+        document.querySelectorAll('.rte iframe').forEach(function (iframe) {
           // We scope the wrapping only for YouTube and Vimeo
           if (
-            iframe.src.indexOf("youtube") !== -1 ||
-            iframe.src.indexOf("youtu.be") !== -1 ||
-            iframe.src.indexOf("vimeo") !== -1
+            iframe.src.indexOf('youtube') !== -1 ||
+            iframe.src.indexOf('youtu.be') !== -1 ||
+            iframe.src.indexOf('vimeo') !== -1
           ) {
-            iframe.outerHTML =
-              '<div class="video-wrapper">' + iframe.outerHTML + "</div>" // Re-set the src attribute on each iframe after page load for Chrome's "incorrect iFrame content on 'back'" bug.
+            iframe.outerHTML = '<div class="video-wrapper">' + iframe.outerHTML + '</div>' // Re-set the src attribute on each iframe after page load for Chrome's "incorrect iFrame content on 'back'" bug.
             // https://code.google.com/p/chromium/issues/detail?id=395791. Need to specifically target video and admin bar
 
             iframe.src = iframe.src
@@ -21609,13 +19891,11 @@ document.addEventListener("DOMContentLoaded", function () {
       ;(function () {
         var touchingCarousel = false,
           touchStartCoords
-        document.body.addEventListener("touchstart", function (e) {
-          var flickitySliderElement = e.target.closest(".flickity-slider")
+        document.body.addEventListener('touchstart', function (e) {
+          var flickitySliderElement = e.target.closest('.flickity-slider')
 
           if (flickitySliderElement) {
-            var flickity = js.data(
-              flickitySliderElement.closest(".flickity-enabled")
-            )
+            var flickity = js.data(flickitySliderElement.closest('.flickity-enabled'))
 
             if (flickity.isDraggable) {
               touchingCarousel = true
@@ -21634,7 +19914,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         })
         document.body.addEventListener(
-          "touchmove",
+          'touchmove',
           function (e) {
             if (!(touchingCarousel && e.cancelable)) {
               return
@@ -21667,185 +19947,160 @@ document.addEventListener("DOMContentLoaded", function () {
         // of the card itself
         var documentDelegate = new Delegate(document.body)
         documentDelegate.on(
-          "click",
-          ".expandable-content__toggle",
+          'click',
+          '.expandable-content__toggle',
           function (item, expandableButton) {
-            var parentSection = expandableButton.closest(".expandable-content")
+            var parentSection = expandableButton.closest('.expandable-content')
 
-            if (parentSection.getAttribute("aria-expanded") === "true") {
+            if (parentSection.getAttribute('aria-expanded') === 'true') {
               // Previously expanded, so we have to close it
-              parentSection.setAttribute("aria-expanded", "false")
-              parentSection.style["max-height"] = "".concat(
-                parentSection.offsetHeight,
-                "px"
-              )
+              parentSection.setAttribute('aria-expanded', 'false')
+              parentSection.style['max-height'] = ''.concat(parentSection.offsetHeight, 'px')
               parentSection.offsetHeight // Use to force a redraw
 
-              parentSection.style["max-height"] = null // Remove the attribute to let the CSS decide the max-height
+              parentSection.style['max-height'] = null // Remove the attribute to let the CSS decide the max-height
 
               var expandableText = expandableButton.querySelector(
-                ".expandable-content__toggle-text"
+                '.expandable-content__toggle-text'
               )
-              expandableText.innerHTML =
-                expandableText.getAttribute("data-view-more") // We also have to scroll back to the top to preserve scroll position
+              expandableText.innerHTML = expandableText.getAttribute('data-view-more') // We also have to scroll back to the top to preserve scroll position
 
-              var parentCard = parentSection.closest(".card")
+              var parentCard = parentSection.closest('.card')
 
               if (parentCard) {
                 var amountToScroll =
                   parentCard.getBoundingClientRect().top -
                   15 -
                   parseInt(
-                    getComputedStyle(document.documentElement).getPropertyValue(
-                      "--header-height"
-                    )
+                    getComputedStyle(document.documentElement).getPropertyValue('--header-height')
                   )
                 window.scrollBy({
                   top: amountToScroll,
-                  behavior: "smooth",
+                  behavior: 'smooth',
                 })
               }
             } else {
               // Previously collapsed, so we have to open it
-              parentSection.setAttribute("aria-expanded", "true") // Because the expandable button is still positioned absolutely, we need to add margin to the sibling
+              parentSection.setAttribute('aria-expanded', 'true') // Because the expandable button is still positioned absolutely, we need to add margin to the sibling
               // text to account the button. It's a bit ugly and hacky but this was the simplest I've found
 
               if (expandableButton.previousElementSibling) {
-                expandableButton.previousElementSibling.style["margin-bottom"] =
-                  "".concat(parseInt(expandableButton.clientHeight), "px")
+                expandableButton.previousElementSibling.style['margin-bottom'] = ''.concat(
+                  parseInt(expandableButton.clientHeight),
+                  'px'
+                )
               }
 
-              Animation.slideDown(parentSection, null, "max-height")
+              Animation.slideDown(parentSection, null, 'max-height')
 
               var _expandableText = expandableButton.querySelector(
-                ".expandable-content__toggle-text"
+                '.expandable-content__toggle-text'
               )
 
-              _expandableText.innerHTML =
-                _expandableText.getAttribute("data-view-less")
+              _expandableText.innerHTML = _expandableText.getAttribute('data-view-less')
             }
           }
         )
 
         var processCollapsibles = function processCollapsibles() {
-          document
-            .querySelectorAll(".expandable-content[aria-expanded]")
-            .forEach(function (item) {
-              if (item.scrollHeight > item.clientHeight) {
-                item.classList.add("expandable-content--expandable")
-              } else {
-                item.setAttribute("aria-expanded", "true")
-              }
-            })
+          document.querySelectorAll('.expandable-content[aria-expanded]').forEach(function (item) {
+            if (item.scrollHeight > item.clientHeight) {
+              item.classList.add('expandable-content--expandable')
+            } else {
+              item.setAttribute('aria-expanded', 'true')
+            }
+          })
         }
 
-        document.addEventListener("shopify:section:load", function (event) {
+        document.addEventListener('shopify:section:load', function (event) {
           processCollapsibles()
         })
         processCollapsibles()
       })()
       ;(function () {
-        // Mobile browsers (like iOS) do not support opening keyboard, so we simply prevent the autofocus by unblurring
-        // all the fields
-        if (Responsive.getCurrentBreakpoint() === "phone") {
-          var autoFocusedElements =
-            document.querySelectorAll("input[autofocus]")
+        if (Responsive.getCurrentBreakpoint() === 'phone') {
+          var autoFocusedElements = document.querySelectorAll('input[autofocus]')
 
           for (var i = 0; i < autoFocusedElements.length; i++) {
             autoFocusedElements[i].blur()
-            autoFocusedElements[i].removeAttribute("autofocus")
+            autoFocusedElements[i].removeAttribute('autofocus')
           }
         }
       })()
       ;(function () {
         var documentDelegate = new Delegate(document.body)
-        documentDelegate.on(
-          "click",
-          '[href^="#"], [data-href]',
-          function (event, target) {
-            var selector = target.hasAttribute("href")
-              ? target.getAttribute("href")
-              : target.getAttribute("data-href")
+        documentDelegate.on('click', '[href^="#"], [data-href]', function (event, target) {
+          var selector = target.hasAttribute('href')
+            ? target.getAttribute('href')
+            : target.getAttribute('data-href')
 
-            if (selector === "#" || selector === "#main") {
-              return
-            }
-
-            var element = null
-
-            try {
-              element = document.querySelector(selector)
-            } catch (exception) {
-              // We may have an invalid selector, so if we catch it we just return
-              return
-            }
-
-            var offset = parseInt(target.getAttribute("data-offset") || 0),
-              toTop = 0
-
-            while (element && element.offsetParent.tagName !== "BODY") {
-              toTop += element.offsetTop
-              element = element.offsetParent
-            }
-
-            toTop += element?.offsetTop ?? 0
-            window.scrollTo({
-              behavior: "smooth",
-              top: toTop - offset,
-            })
-            event.preventDefault()
+          if (selector === '#' || selector === '#main') {
+            return
           }
-        )
+
+          var element = null
+
+          try {
+            element = document.querySelector(selector)
+          } catch (exception) {
+            return
+          }
+
+          var offset = parseInt(target.getAttribute('data-offset') || 0),
+            toTop = 0
+
+          while (element && element.offsetParent.tagName !== 'BODY') {
+            toTop += element.offsetTop
+            element = element.offsetParent
+          }
+
+          toTop += element?.offsetTop ?? 0
+          window.scrollTo({
+            behavior: 'smooth',
+            top: toTop - offset,
+          })
+          event.preventDefault()
+        })
       })()
       ;(function () {
         function handleFirstTab(event) {
-          if (event.key === "Tab") {
-            document.body.classList.add("is-tabbing")
-            window.removeEventListener("keydown", handleFirstTab)
+          if (event.key === 'Tab') {
+            document.body.classList.add('is-tabbing')
+            window.removeEventListener('keydown', handleFirstTab)
           }
         }
 
-        window.addEventListener("keydown", handleFirstTab)
+        window.addEventListener('keydown', handleFirstTab)
       })()
       ;(function () {
         var documentDelegate = new Delegate(document.body)
-        documentDelegate.on(
-          "keyup",
-          "input, textarea",
-          function (event, target) {
-            target.classList.toggle("is-filled", target.value !== "")
-          }
-        )
-        documentDelegate.on("change", "select", function (event, target) {
-          target.parentNode.classList.toggle("is-filled", target.value !== "")
+        documentDelegate.on('keyup', 'input, textarea', function (event, target) {
+          target.classList.toggle('is-filled', target.value !== '')
         })
-      })() // This snippet allows to automatically adds a target="_blank" to any link that is external. This is actually
-      // somewhat always desired by merchant and will allow to reduce support
+        documentDelegate.on('change', 'select', function (event, target) {
+          target.parentNode.classList.toggle('is-filled', target.value !== '')
+        })
+      })()
       ;(function () {
         var links = document.links
         fastdom.mutate(function () {
           for (var i = 0, linksLength = links.length; i < linksLength; i++) {
             if (links[i].hostname !== window.location.hostname) {
-              links[i].target = "_blank"
-              links[i].relList.add("noopener")
-              links[i].setAttribute(
-                "aria-describedby",
-                "a11y-new-window-message"
-              )
+              links[i].target = '_blank'
+              links[i].relList.add('noopener')
+              links[i].setAttribute('aria-describedby', 'a11y-new-window-message')
             }
           }
         })
       })()
-    } // In order to prevent loading polyfills on modern browser, we first detect if the browser support fetch and assign (if
-    // it does then it supports actually all the features we need). If that's not the case we first load the polyfill from
-    // polyfill.io and then boot the theme, otherwise we can skip this step completely
+    }
 
-    if ("fetch" in window && "assign" in Object) {
+    if ('fetch' in window && 'assign' in Object) {
       bootTheme()
     } else {
-      var scriptEl = document.createElement("script")
+      var scriptEl = document.createElement('script')
       scriptEl.src =
-        "//cdn.polyfill.io/v3/polyfill.min.js?unknown=polyfill&features=fetch,Element.prototype.closest,Element.prototype.matches,Element.prototype.remove,Element.prototype.classList,Array.prototype.includes,String.prototype.includes,Object.assign,CustomEvent,URL,DOMTokenList"
+        '//cdn.polyfill.io/v3/polyfill.min.js?unknown=polyfill&features=fetch,Element.prototype.closest,Element.prototype.matches,Element.prototype.remove,Element.prototype.classList,Array.prototype.includes,String.prototype.includes,Object.assign,CustomEvent,URL,DOMTokenList'
       scriptEl.async = false
 
       scriptEl.onload = function () {
@@ -21857,208 +20112,111 @@ document.addEventListener("DOMContentLoaded", function () {
   })()
 })
 
-/* Rule to copy discount code from product page section */
-document.querySelectorAll(".copy_button").forEach(function (copybutton) {
-  copybutton.addEventListener("click", function () {
-    const promoText = document.querySelectorAll(".heading_discount_code")
+document.querySelectorAll('.copy_button').forEach(function (copybutton) {
+  copybutton.addEventListener('click', function () {
+    const promoText = document.querySelectorAll('.heading_discount_code')
     promoText.forEach(function (text) {
       navigator.clipboard.writeText(text.innerText).then(function () {
-        document
-          .querySelector(".copy_notice")
-          .classList.remove("hide-copy-notice")
-        document.querySelector(".copy_notice").classList.add("show-copy-notice")
+        document.querySelector('.copy_notice').classList.remove('hide-copy-notice')
+        document.querySelector('.copy_notice').classList.add('show-copy-notice')
 
         setTimeout(() => {
-          document
-            .querySelector(".copy_notice")
-            .classList.remove("show-copy-notice")
-          document
-            .querySelector(".copy_notice")
-            .classList.add("hide-copy-notice")
+          document.querySelector('.copy_notice').classList.remove('show-copy-notice')
+          document.querySelector('.copy_notice').classList.add('hide-copy-notice')
         }, 5000)
-        console.log("Text copied to clipboard")
       })
     })
   })
 })
 
-/* Rule to scroll to reviews section product page section */
-document.querySelectorAll(".reviews_button").forEach((button) => {
-  button.addEventListener("click", () => {
+document.querySelectorAll('.reviews_button').forEach((button) => {
+  button.addEventListener('click', () => {
     window.scroll({
-      top: document.querySelector("#netreviews_rating_section").offsetTop,
-      behavior: "smooth",
+      top: document.querySelector('#netreviews_rating_section').offsetTop,
+      behavior: 'smooth',
     })
   })
 })
 
-/* Rule show ro hide pick-up text on product page section */
-/*
-let currentTime = new Date().getHours();
-if (currentTime >= 17 || currentTime < 9) {
-    document.querySelector('.promotional-text').style.display = 'none';
-}
-*/
-
-/* Rules to accordion on product page */
-var acc = document.getElementsByClassName("accordion")
+var acc = document.getElementsByClassName('accordion')
 var i
 
 for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function () {
-    this.classList.toggle("active")
+  acc[i].addEventListener('click', function () {
+    this.classList.toggle('active')
     var panel = this.nextElementSibling
-    if (panel.style.display === "block") {
-      panel.style.display = "none"
+    if (panel.style.display === 'block') {
+      panel.style.display = 'none'
     } else {
-      panel.style.display = "block"
+      panel.style.display = 'block'
     }
   })
 }
 
-/* Rules to modals on product page */
-document.querySelectorAll(".promotion_modal").forEach((button) => {
-  let promoModal = button.parentNode.parentNode.querySelector("#promo_modal")
-  button.addEventListener("click", () => {
-    if (promoModal.classList.contains("show-promotion-modal")) {
-      promoModal.classList.remove("show-promotion-modal")
-      promoModal.classList.add("hide-promotion-modal")
+document.querySelectorAll('.promotion_modal').forEach((button) => {
+  let promoModal = button.parentNode.parentNode.querySelector('#promo_modal')
+  button.addEventListener('click', () => {
+    if (promoModal.classList.contains('show-promotion-modal')) {
+      promoModal.classList.remove('show-promotion-modal')
+      promoModal.classList.add('hide-promotion-modal')
     } else {
-      promoModal.classList.remove("hide-promotion-modal")
-      promoModal.classList.add("show-promotion-modal")
+      promoModal.classList.remove('hide-promotion-modal')
+      promoModal.classList.add('show-promotion-modal')
     }
   })
-  document.addEventListener("click", (event) => {
+  document.addEventListener('click', (event) => {
     if (
-      event.target.closest(".promo_modal") == null &&
-      event.target.closest(".promotion_modal") == null
+      event.target.closest('.promo_modal') == null &&
+      event.target.closest('.promotion_modal') == null
     ) {
-      promoModal.classList.remove("show-promotion-modal")
-      promoModal.classList.add("hide-promotion-modal")
+      promoModal.classList.remove('show-promotion-modal')
+      promoModal.classList.add('hide-promotion-modal')
     }
   })
 })
 
-let curUrl = window.location.href
+if (document && window.location.href.includes('/blogs/blog-page')) {
+  let sidebar_newsletter = document?.querySelector('#newsletter-blog-sidebar-0')
+  let sidebar_newsletter_text = sidebar_newsletter?.querySelector('.alert')
 
-if (document && curUrl.includes("/blogs/blog-page")) {
-  let sidebar_newsletter = document?.querySelector("#newsletter-blog-sidebar-0")
-  let sidebar_newsletter_text = sidebar_newsletter?.querySelector(".alert")
+  let bottom_newsletter = document?.querySelector('#newsletter-newsletter')
+  let bottom_newsletter_text = bottom_newsletter?.querySelector('.alert')
 
-  let bottom_newsletter = document?.querySelector("#newsletter-newsletter")
-  let bottom_newsletter_text = bottom_newsletter?.querySelector(".alert")
-
-  // Check if the URL meets the conditions and perform actions accordingly
-  if (
-    curUrl.includes("?customer_posted=true") &&
-    curUrl.includes("#newsletter-blog-sidebar-0")
-  ) {
-    console.log(
-      "URL contains '?customer_posted=true' and '#newsletter-blog-sidebar-0'"
-    )
-    bottom_newsletter_text.style.display = "none"
-  } else if (
-    sidebar_newsletter_text &&
-    curUrl.includes("?customer_posted=true")
-  ) {
-    // Your code here if the conditions are not met
-    console.log("URL does not meet the specified conditions")
-    sidebar_newsletter_text.style.display = "none"
+  if (window.location.href.includes('?customer_posted=true') && window.location.href.includes('#newsletter-blog-sidebar-0')) {
+    console.log("URL contains '?customer_posted=true' and '#newsletter-blog-sidebar-0'")
+    bottom_newsletter_text.style.display = 'none'
+  } else if (sidebar_newsletter_text && window.location.href.includes('?customer_posted=true')) {
+    console.log('URL does not meet the specified conditions')
+    sidebar_newsletter_text.style.display = 'none'
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const productItems = document.querySelectorAll(".product-item")
-
-  // Callback function to check for "netreviews_review_rate_and_stars" class
-  function checkForNetReviewsRateAndStars(mutationsList, observer) {
-    productItems.forEach((productItem) => {
-      const hasNetReviewsRateAndStars =
-        productItem.querySelectorAll(".coral").length > 0
-
-      let review_div = productItem.querySelector(".NETREVIEWS_PRODUCT_STARS")
-      let noReviews_div = productItem.querySelector("#no_reviews_stars")
-
-      if (hasNetReviewsRateAndStars) {
-        console.log(
-          'This div contains elements with class "netreviews_review_rate_and_stars".'
-        )
-        noReviews_div.style.display = "none"
-        review_div.style.display = "block"
-      } else {
-        console.log(
-          'This div does not contain elements with class "netreviews_review_rate_and_stars".'
-        )
-        noReviews_div.style.display = "block"
-        review_div.style.display = "none"
-      }
-    })
-  }
-
-  // Create a MutationObserver to monitor changes in the DOM
-  const observer = new MutationObserver(checkForNetReviewsRateAndStars)
-
-  // Start observing changes in the "product-item" divs and their descendants
-  productItems.forEach((productItem) => {
-    observer.observe(productItem, { childList: true, subtree: true })
-  })
-})
-
-/*document.addEventListener("DOMContentLoaded", function() {
-  let product_card = document.querySelectorAll(".product-item__info-inner");
-
-  product_card.forEach((productItem) => {
-
-    let review_div = productItem.querySelector('.NETREVIEWS_PRODUCT_STARS');
-    let green_star = productItem.getElementsByClassName('coral');
-    let noReviews_div = productItem.querySelector('#no_reviews_stars');
-
-    console.log(green_star.length);
-  
-    if (green_star) {
-      console.log('tem reviews');
-      //noReviews_div.style.display = 'none';
-    } else {
-      console.log('nao tem reviews');
-      //noReviews_div.style.display = 'block';
-    }
-
-  });
-});*/
-
-// show/hide payment container mobile on scroll
-if (curUrl.includes("/products/")) {
-  document.addEventListener("DOMContentLoaded", function () {
-    var hiddenMobileContainer = document.querySelector(
-      ".hidden-mobile-payment-container"
-    )
+if (window.location.href.includes('/products/')) {
+  document.addEventListener('DOMContentLoaded', function () {
+    var hiddenMobileContainer = document.querySelector('.hidden-mobile-payment-container')
 
     if (hiddenMobileContainer) {
-      // Set scrollThreshold for showing the section at 20% and hiding at 70% of the page scroll
       var showThreshold = 0.2 * document.body.scrollHeight
       var hideThreshold = 0.6 * document.body.scrollHeight
 
-      window.addEventListener("scroll", function () {
+      window.addEventListener('scroll', function () {
         if (window.scrollY > showThreshold && window.scrollY < hideThreshold) {
-          // Show the section when scrolling is between 20% and 70%
-          hiddenMobileContainer.style.display = "block"
+          hiddenMobileContainer.style.display = 'block'
         } else {
-          // Hide the section when scrolling is outside the 20% to 70% range
-          hiddenMobileContainer.style.display = "none"
+          hiddenMobileContainer.style.display = 'none'
         }
       })
     }
   })
 }
 
-// Add event listener to all submit newsleter form button to add a tracking code
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   const submitButtons = document.querySelectorAll(
-    ".form__submit, .button.button--primary.button--full.form-submit-button"
+    '.form__submit, .button.button--primary.button--full.form-submit-button'
   )
   submitButtons.forEach((button) => {
-    button.addEventListener("click", function (event) {
-      fbq("track", "Lead")
+    button.addEventListener('click', function (event) {
+      fbq('track', 'Lead')
     })
   })
 })

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+
 {% schema %}
   {
     "name": "Header custom",
@@ -39,6 +41,28 @@
     ]
   }
 {% endschema %}
+
+{%- liquid
+  assign path = request.path
+  assign base_path = path
+
+  if path == '/en' or path contains '/en/'
+    assign base_path = path | remove_first: '/en'
+  elsif path == '/es' or path contains '/es/'
+    assign base_path = path | remove_first: '/es'
+  endif
+
+  if base_path == ''
+    assign base_path = '/'
+  endif
+
+  assign current_prefix = 'pt'
+  if path == '/en' or path contains '/en/'
+    assign current_prefix = 'en'
+  elsif path == '/es' or path contains '/es/'
+    assign current_prefix = 'es'
+  endif
+-%}
 
 <style>
   .cart_children_wrapper {
@@ -163,8 +187,10 @@
 
   #header_custom_mobile > ul {
     display: grid;
-    grid-template-columns: repeat(3, max-content);
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
     gap: 1rem;
+    align-items: center;
     list-style-type: none;
   }
 
@@ -268,7 +294,8 @@
 
   #header_custom > #icons_header {
     display: grid;
-    grid-template-columns: repeat(4, max-content);
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
     gap: 2rem;
     list-style-type: none;
     align-items: center;
@@ -557,53 +584,111 @@
       }
     });
 
-    const onResize = () => {
-      cartIcons.forEach((cartIcon) => {
-        cartIcon.addEventListener('click', function (e) {
-          e.preventDefault();
+    const cart = document.getElementById('mini-cart-modal');
+    const cartOverlay = document.querySelector('#mini-cart-overlay');
+    const closeCartBtn = document.querySelector('#mini-cart-modal-header svg');
+    const sideBarBtn = document.querySelector('#top-mini-cart > button');
 
-          const cart = cartIcon.nextSibling;
+    function closeMiniCart() {
 
-          if (innerWidth >= 2559) {
-            cart.style.marginRight = '17vw';
-          }
+      if (!cart.classList.contains('is-visible')) return;
 
-          if (innerWidth < 2559 && innerWidth >= 1499) {
-            cart.style.marginRight = '8vw';
-          }
+      cart.classList.remove('is-visible');
+      cart.classList.add('is-hidden');
 
-          if (innerWidth < 1499 && innerWidth >= 1000) {
-            cart.style.marginRight = '2vw';
-          }
+      if (cartOverlay) {
+        cartOverlay.classList.remove('active');
+        cartOverlay.classList.add('closing');
+      }
+    }
 
-          if (innerWidth >= 1000) {
-            cart.style.top = '4.85rem';
-          }
+    function openMiniCart() {
 
-          if (innerWidth < 1000) {
-            cart.style.transform = 'scale(1)';
-            cart.style.maxHeight = 'calc(100vh - 40px)';
-            cart.style.padding = '1rem 1rem 2rem 1rem';
+      if (cart.classList.contains('is-visible')) return;
 
-            const a = cart.querySelector('a');
+      cart.classList.remove('is-hidden');
+      cart.classList.add('is-visible');
 
-            a.style.padding = '0 1rem';
-          }
+      if (cartOverlay) {
+        cartOverlay.classList.remove('closing');
+        cartOverlay.classList.add('active');
+      }
+    }
 
-          if (cart.style.visibility === 'visible') {
-            cart.style.visibility = 'hidden';
-            cart.style.opacity = 0;
-          } else {
-            cart.style.visibility = 'visible';
-            cart.style.opacity = 1;
-          }
-        });
+    window.addEventListener('click', (event) => {
+      if (event.target === cartOverlay) {
+        closeMiniCart();
+      }
+    });
+
+    (function () {
+      const counters = document.querySelectorAll('.header__cart-count');
+      let cartFetchTimeout = null;
+
+      function updateCounters(count) {
+        counters.forEach(c => c.innerText = count ?? 0);
+      }
+
+      function refreshCartFromServer() {
+        fetch('/cart.js')
+          .then(r => r.json())
+          .then(cart => updateCounters(cart.item_count))
+          .catch(() => {});
+      }
+
+      // Atualização inicial
+      refreshCartFromServer();
+
+      const originalFetch = window.fetch;
+      window.fetch = function () {
+        const fetchPromise = originalFetch.apply(this, arguments);
+
+        fetchPromise
+          .then(response => {
+            const url = arguments[0];
+
+            if (typeof url === 'string' && url.includes('/cart')) {
+              response.clone().json()
+                .then(data => {
+                  // Caso normal (sucesso)
+                  if (data && typeof data.item_count === 'number') {
+                    updateCounters(data.item_count);
+                  } else {
+                    // Sucesso estranho ou resposta incompleta
+                    refreshCartFromServer();
+                  }
+                })
+                .catch(() => {
+                  // JSON inválido → confirmar carrinho real
+                  refreshCartFromServer();
+                });
+            }
+
+            return response;
+          })
+          .catch(() => {
+            // ERRO no fetch (ex: quantidade excedida)
+            refreshCartFromServer();
+          });
+
+        return fetchPromise;
+      };
+    })();
+
+    closeCartBtn?.addEventListener('click', () => closeMiniCart());
+    sideBarBtn?.addEventListener('click', () => openMiniCart());
+
+    cartIcons.forEach((cartIcon) => {
+      cartIcon.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (cart && cart.classList.contains('is-visible')) {
+          closeMiniCart();
+        } else {
+          openMiniCart();
+        }
       });
-    };
-
-    onResize();
-
-    window.addEventListener('resize', onResize);
+    });
 
     if (form) {
       const div = form.querySelector('#search_results_modal');
@@ -912,7 +997,7 @@
 <header id="header_container_custom">
   <div id="header_custom">
     {% if section.settings.logo %}
-      <a href="/">
+      <a href="{{ routes.root_url }}">
         <img
           src="{{ section.settings.logo | img_url: 'master' }}"
           alt="Bioself"
@@ -963,6 +1048,68 @@
     </form>
 
     <ul id="icons_header">
+      <div class="header_switch_language" data-lang-switcher>
+        <span
+          class="lang_trigger"
+          role="button"
+          tabindex="0"
+          aria-haspopup="listbox"
+          aria-expanded="false">
+          <span class="lang_current">
+            {%- if current_prefix == 'en' -%}
+              <span class="fi fi-gb"></span>EN{%- elsif current_prefix == 'es' -%}
+              <span class="fi fi-es"></span>ES{%- else -%}
+              <span class="fi fi-pt"></span>PT{%- endif -%}
+          </span>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11 5.5L7 9.5L3 5.5"
+              stroke="currentColor"
+              stroke-width="var(--icon-stroke-width)"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </span>
+
+        <div
+          class="lang_dropdown"
+          role="listbox"
+          aria-label="Selecionar idioma"
+          hidden>
+          {%- if current_prefix != 'pt' -%}
+            <a
+              class="lang_option"
+              role="option"
+              href="{{ base_path }}"
+              hreflang="pt">
+              <span class="fi fi-pt"></span>PT</a>
+          {%- endif -%}
+
+          {%- if current_prefix != 'en' -%}
+            <a
+              class="lang_option"
+              role="option"
+              href="/en{{ base_path }}"
+              hreflang="en">
+              <span class="fi fi-gb"></span>EN</a>
+          {%- endif -%}
+
+          {%- if current_prefix != 'es' -%}
+            <a
+              class="lang_option"
+              role="option"
+              href="/es{{ base_path }}"
+              hreflang="es">
+              <span class="fi fi-es"></span>ES</a>
+          {%- endif -%}
+        </div>
+      </div>
+
       <a href="#ba-loyalty-home">
         <li id="biopoints_custom">
           <svg
@@ -1026,7 +1173,7 @@
   </svg>
 
   <span>Conta</span>
-</li></a><a href="{{ routes.cart_url }}" class="cart_link_custom">
+</li></a><a href="#" class="cart_link_custom">
 <li id="cart_custom">
   <div class="cart_children_wrapper">
     <span class="header__cart-count">{{ cart.item_count }}</span>
@@ -1047,81 +1194,10 @@
         stroke-linejoin="round" />
     </svg>
   </div>
-</li></a>{%- render 'mini-cart' -%}</ul></div>{%- liquid
-assign path = request.path
-assign base_path = path
-
-if path == '/en' or path contains '/en/'
-  assign base_path = path | remove_first: '/en'
-elsif path == '/es' or path contains '/es/'
-  assign base_path = path | remove_first: '/es'
-endif
-
-if base_path == ''
-  assign base_path = '/'
-endif
-
-assign current_prefix = 'pt'
-if path == '/en' or path contains '/en/'
-  assign current_prefix = 'en'
-elsif path == '/es' or path contains '/es/'
-  assign current_prefix = 'es'
-endif-%}<div class="header_switch_language" data-lang-switcher>
-<span
-  class="lang_trigger"
-  role="button"
-  tabindex="0"
-  aria-haspopup="listbox"
-  aria-expanded="false">
-  <span class="lang_current">
-    {%- if current_prefix == 'en' -%}English{%- elsif current_prefix == 'es' -%}Español{%- else -%}Português{%- endif -%}
-  </span>
-  <svg
-    width="18"
-    height="18"
-    viewBox="0 0 14 14"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M11 5.5L7 9.5L3 5.5"
-      stroke="currentColor"
-      stroke-width="var(--icon-stroke-width)"
-      stroke-linecap="round"
-      stroke-linejoin="round"></path>
-  </svg>
-</span>
-
-<div
-  class="lang_dropdown"
-  role="listbox"
-  aria-label="Selecionar idioma"
-  hidden>
-  {%- if current_prefix != 'pt' -%}
-    <a
-      class="lang_option"
-      role="option"
-      href="{{ base_path }}"
-      hreflang="pt">Português</a>
-  {%- endif -%}
-
-  {%- if current_prefix != 'en' -%}
-    <a
-      class="lang_option"
-      role="option"
-      href="/en{{ base_path }}"
-      hreflang="en">English</a>
-  {%- endif -%}
-
-  {%- if current_prefix != 'es' -%}
-    <a
-      class="lang_option"
-      role="option"
-      href="/es{{ base_path }}"
-      hreflang="es">Español</a>
-  {%- endif -%}
-</div></div></header><header id="header_custom_mobile">
+</li></a>{% comment %} {%- render 'mini-cart-modal' -%} {% endcomment %}
+</ul></div></header><header id="header_custom_mobile">
 {% if section.settings.logo %}
-  <a href="/">
+  <a href="{{ routes.root_url }}">
     <img
       src="{{ section.settings.logo | img_url: 'master' }}"
       alt="Bioself"
@@ -1177,7 +1253,7 @@ endif-%}<div class="header_switch_language" data-lang-switcher>
     </li>
   </a>
 
-  <a href="{{ routes.cart_url }}" class="cart_link_custom">
+  <a href="#" class="cart_link_custom">
     <li id="cart_custom">
       <div class="cart_children_wrapper">
         <span class="header__cart-count">{{ cart.item_count }}</span>
@@ -1201,7 +1277,7 @@ endif-%}<div class="header_switch_language" data-lang-switcher>
     </li>
   </a>
 
-  {%- render 'mini-cart' -%}
+{% comment %} {%- render 'mini-cart-modal' -%} {% endcomment %}
 </ul></header><form id="search_form_mobile">
 <div id="search-mobile">
   <input type="search" placeholder="Pesquisar e... Bioself!">

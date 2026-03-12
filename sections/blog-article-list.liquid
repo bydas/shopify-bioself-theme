@@ -1,4 +1,7 @@
-<section data-section-id="{{ section.id }}" data-section-type="blog" class="article-list-cat container">
+<section
+  data-section-id="{{ section.id }}"
+  data-section-type="blog"
+  class="article-list-cat container">
   {% assign url = canonical_url | split: '/' | last %}
   {% assign cat = url | split: '_' | last | replace: '-', ' ' %}
 
@@ -6,7 +9,7 @@
     <header class="article_page_title">
       <h1 class="page__title heading h1">
         Categoria:
-        <span>{{ cat }} </span>
+        <span>{{ cat }}</span>
       </h1>
 
       {%- if section.settings.show_tags and blog.all_tags.size > 0 -%}
@@ -29,23 +32,23 @@
               aria-haspopup="true"
               aria-expanded="false"
               aria-controls="blog-tag-selector"
-              data-action="open-value-picker"
-            >
+              data-action="open-value-picker">
               {%- if current_tags == blank -%}
                 {{- 'blog.general.all_tag' | t -}}
               {%- else -%}
                 {{- current_tags.first -}}
               {%- endif -%}
 
-              {%- render 'icon', icon: 'arrow-bottom' -%}
+              {%- render 'icon'
+                , icon: 'arrow-bottom' -%}
             </button>
 
             <div
               id="blog-tag-selector"
               class="value-picker"
-              aria-hidden="true"
-            >
-              {% render 'icon', icon: 'nav-triangle-borderless' %}
+              aria-hidden="true">
+              {% render 'icon'
+                , icon: 'nav-triangle-borderless' %}
 
               <div class="value-picker__inner">
                 <header class="value-picker__header">
@@ -54,28 +57,24 @@
                     class="value-picker__close"
                     data-action="close-value-picker"
                     aria-controls="blog-tag-selector"
-                    aria-label="{{ 'general.accessibility.close' | t }}"
-                  >
-                    {% render 'icon', icon: 'close' %}
+                    aria-label="{{ 'general.accessibility.close' | t }}">
+                    {% render 'icon'
+                      , icon: 'close' %}
                   </button>
                 </header>
 
                 <div class="value-picker__choice-list">
-                  <a
-                    href="/blogs/{{ blog.handle }}"
-                    class="value-picker__choice-item {% if current_tags == blank %}is-selected{% endif %}"
-                  >
+                  <a href="/blogs/{{ blog.handle }}" class="value-picker__choice-item {% if current_tags == blank %}is-selected{% endif %}">
                     {{- 'blog.general.all_tag' | t }}
-                    {% render 'icon', icon: 'check-2' -%}
+                    {% render 'icon'
+                      , icon: 'check-2' -%}
                   </a>
 
                   {%- for tag in blog.all_tags -%}
-                    <a
-                      href="/blogs/{{ blog.handle }}/tagged/{{ tag | handle }}"
-                      class="value-picker__choice-item {% if current_tags contains tag %}is-selected{% endif %}"
-                    >
+                    <a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handle }}" class="value-picker__choice-item {% if current_tags contains tag %}is-selected{% endif %}">
                       {{- tag }}
-                      {% render 'icon', icon: 'check-2' -%}
+                      {% render 'icon'
+                        , icon: 'check-2' -%}
                     </a>
                   {%- endfor -%}
                 </div>
@@ -111,15 +110,19 @@
     {%- for tag in blog.all_tags -%}
       {% if current_tags contains tag %}
         {% if canonical_url contains 'author' %}
-          {% comment %}
-            <span>{{ shop.metaobjects['autores']['handle'] }}</span>
-          {% endcomment %}
+        {% comment %}
+          <span>{{ shop.metaobjects['autores']['handle'] }}</span>
+        {% endcomment %}
         {% else %}
           <nav class="breadcrumb_articles_list">
-            <a href="/">{{ shop.name }}</a>
-            <span> &gt; </span>
+            <a href="{{ routes.root_url }}">{{ shop.name }}</a>
+            <span>
+              &gt;
+            </span>
             <a href="{{ blog.url }}">Blog</a>
-            <span> &gt; </span>
+            <span>
+              &gt;
+            </span>
             {%- for tag in blog.all_tags -%}
               {% if current_tags contains tag %}
                 {% unless canonical_url contains 'author' %}
@@ -139,69 +142,74 @@
     {% unless canonical_url contains 'tagged' %}
       <div class="article-block-list block-list--loose block-list--no-flush">
         {%- for article in blog.articles offset: 2 -%}
-          {%- render 'article-item', article: article, featured: false -%}
+          {%- render 'article-item'
+            , article: article
+            , featured: false -%}
         {%- endfor -%}
       </div>
     {% else %}
       <div class="article-block-list block-list--loose block-list--no-flush ">
         {%- for article in blog.articles -%}
-          {%- render 'article-item', article: article, featured: false -%}
+          {%- render 'article-item'
+            , article: article
+            , featured: false -%}
         {%- endfor -%}
       </div>
     {% endunless %}
-    {%- render 'pagination', paginate: paginate -%}
+    {%- render 'pagination'
+      , paginate: paginate -%}
   {%- endpaginate -%}
 </section>
 
 {% schema %}
-{
-  "name": "Blog article list",
-  "class": "shopify-section__blog-posts",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_blog_heading",
-      "label": "Show blog heading",
-      "info": "Display blog Category and title",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "articles_per_page",
-      "min": 4,
-      "max": 30,
-      "step": 1,
-      "label": "Posts per page",
-      "default": 12
-    },
-    {
-      "type": "checkbox",
-      "id": "show_tags",
-      "label": "Show tags",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_category",
-      "label": "Show category",
-      "info": "The first article's tag will be shown as category.",
-      "default": true
-    }, {
-      "type": "checkbox",
-      "id": "show_author",
-      "label": "Show author",
-      "default": true
-    }, {
-      "type": "checkbox",
-      "id": "show_date",
-      "label": "Show date",
-      "default": true
-    }, {
-      "type": "checkbox",
-      "id": "show_excerpt",
-      "label": "Show excerpt",
-      "default": false
-    }
-  ]
-}
+  {
+    "name": "Blog article list",
+    "class": "shopify-section__blog-posts",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_blog_heading",
+        "label": "Show blog heading",
+        "info": "Display blog Category and title",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "articles_per_page",
+        "min": 4,
+        "max": 30,
+        "step": 1,
+        "label": "Posts per page",
+        "default": 12
+      },
+      {
+        "type": "checkbox",
+        "id": "show_tags",
+        "label": "Show tags",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_category",
+        "label": "Show category",
+        "info": "The first article's tag will be shown as category.",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "Show author",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "show_date",
+        "label": "Show date",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "show_excerpt",
+        "label": "Show excerpt",
+        "default": false
+      }
+    ]
+  }
 {% endschema %}

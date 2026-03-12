@@ -1,35 +1,32 @@
 {% schema %}
-{
-  "name": "Newsletter custom",
-  "settings": [
-    {
-      "type": "text",
-      "label": "Título",
-      "id": "newsletter_title"
-    },
-    {
-      "type": "text",
-      "label": "Texto do botão",
-      "id": "newsletter_btn"
-    },
-    {
-      "type": "page",
-      "label": "Página de termos",
-      "id": "newsletter_page"
-    },
-    {
-      "type": "text",
-      "label": "Texto de termos",
-      "id": "newsletter_terms"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Newsletter custom",
-      "category": "custom"
-    }
-  ]
-}
+  {
+    "name": "Newsletter custom",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Título",
+        "id": "newsletter_title"
+      }, {
+        "type": "text",
+        "label": "Texto do botão",
+        "id": "newsletter_btn"
+      }, {
+        "type": "page",
+        "label": "Página de termos",
+        "id": "newsletter_page"
+      }, {
+        "type": "text",
+        "label": "Texto de termos",
+        "id": "newsletter_terms"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Newsletter custom",
+        "category": "custom"
+      }
+    ]
+  }
 {% endschema %}
 
 <style>
@@ -37,7 +34,7 @@
     display: grid;
     grid-template-rows: repeat(3, max-content);
     margin: 2rem var(--desktop-container-gutter);
-    padding: 0.5rem 0 2rem 0;
+    padding: 0.5rem 0 2rem;
     border-radius: 0.65rem;
     border: 1px solid #308a36;
   }
@@ -47,7 +44,7 @@
     grid-template-rows: repeat(3, max-content);
     gap: 0.5rem;
     margin: 1rem var(--mobile-container-gutter);
-    padding: 0.25rem 0 1rem 0;
+    padding: 0.25rem 0 1rem;
     border-radius: 0.65rem;
     border: 1px solid #308a36;
   }
@@ -70,23 +67,21 @@
 
   #newsletter_custom > h1 {
     font-size: 21px;
-    margin: 0;
+    margin: 0 6rem;
     text-transform: uppercase;
     color: #308a36;
     text-align: center;
-    margin: 0 6rem;
   }
 
   #newsletter_custom_mobile_1 > h1 {
     font-size: 16px;
-    margin: 0;
+    margin: 0 1rem;
     text-transform: uppercase;
     color: #308a36;
     text-align: center;
-    margin: 0 1rem;
   }
 
-  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+  @media screen and (max-width: 1599px) and(min-width: 1000px) {
     #newsletter_custom > h1 {
       font-size: 18px !important;
     }
@@ -94,6 +89,13 @@
     #newsletter_inputs > button,
     #newsletter_inputs > input {
       padding: 0.5rem 1.6rem !important;
+    }
+
+    #newsletter_checkbox > input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      appearance: auto;
     }
 
     #newsletter_inputs > button,
@@ -116,6 +118,7 @@
 
   #newsletter_custom > form {
     gap: 0.5rem;
+    margin: 0 6rem;
   }
 
   #newsletter_custom_mobile_1 > form {
@@ -128,8 +131,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr max-content;
     gap: 0.5rem;
-    margin: 0 6rem;
-    margin-top: 2rem !important;
+    margin: 2rem !important 6rem 0;
   }
 
   #newsletter_inputs > input,
@@ -249,8 +251,25 @@
 </style>
 
 <section id="newsletter_custom">
-  <svg width="30px" height="30px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
-    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 23.5l15-15M23.5 23.5l-15-15"></path> </g>
+  <svg
+    width="30px"
+    height="30px"
+    viewBox="0 0 32 32"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <path
+        stroke="#308a36"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8.5 23.5l15-15M23.5 23.5l-15-15"></path>
+    </g>
   </svg>
 
   {% if section.settings.newsletter_title %}
@@ -260,30 +279,32 @@
   <div class="already_accepted_newsletter">
     <span>
       Obrigado pelo teu registo. Irás receber um email na tua caixa de correio para confirmares a tua inscrição na
+
       newsletter Bioself.
     </span>
   </div>
 
-  {% form 'customer', class: 'newsletter_custom_form' %}
+  {% form 'customer'
+    , class: 'newsletter_custom_form' %}
     <div id="newsletter_inputs">
       <input
         type="text"
         id="newsletter[contact][name]"
         name="contact[first_name]"
         placeholder="Nome"
-        required
-      >
+        required>
 
       <input
         type="email"
         id="newsletter[contact][email]"
         name="contact[email]"
         placeholder="E-mail"
-        required
-      >
+        required>
 
-      <input type="hidden" name="form_type" value="customer">
-      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input
+        type="hidden"
+        name="contact[tags]"
+        value="newsletter">
 
       {% if section.settings.newsletter_btn %}
         <button type="submit">{{ section.settings.newsletter_btn }}</button>
@@ -296,8 +317,7 @@
           type="checkbox"
           id="selected_terms"
           name="selected_terms"
-          required
-        >
+          required>
 
         <label for="selected_terms">
           {{ section.settings.newsletter_terms }}
@@ -311,8 +331,25 @@
 </section>
 
 <section id="newsletter_custom_mobile_1">
-  <svg width="25px" height="25px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
-    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path stroke="#308a36" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 23.5l15-15M23.5 23.5l-15-15"></path> </g>
+  <svg
+    width="25px"
+    height="25px"
+    viewBox="0 0 32 32"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <path
+        stroke="#308a36"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8.5 23.5l15-15M23.5 23.5l-15-15"></path>
+    </g>
   </svg>
 
   {% if section.settings.newsletter_title %}
@@ -322,29 +359,31 @@
   <div class="already_accepted_newsletter">
     <span>
       Obrigado pelo teu registo. Irás receber um email na tua caixa de correio para confirmares a tua inscrição na
+
       newsletter Bioself.
     </span>
   </div>
 
-  {% form 'customer', class: 'newsletter_custom_form' %}
+  {% form 'customer'
+    , class: 'newsletter_custom_form' %}
     <input
       type="text"
       id="newsletter[contact][name]"
       name="contact[first_name]"
       placeholder="Nome"
-      required
-    >
+      required>
 
     <input
       type="email"
       id="newsletter[contact][email]"
       name="contact[email]"
       placeholder="E-mail"
-      required
-    >
+      required>
 
-    <input type="hidden" name="form_type" value="customer">
-    <input type="hidden" name="contact[tags]" value="newsletter">
+    <input
+      type="hidden"
+      name="contact[tags]"
+      value="newsletter">
 
     {% if section.settings.newsletter_page %}
       <div id="newsletter_checkbox">
@@ -352,8 +391,7 @@
           type="checkbox"
           id="selected_terms"
           name="selected_terms"
-          required
-        >
+          required>
 
         <label for="selected_terms">
           {{ section.settings.newsletter_terms }}

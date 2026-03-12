@@ -195,13 +195,13 @@
     const blogPostsListRita = document.getElementById('blogPostsListRita');
     const loadMoreBtnRita = document.getElementById('loadMoreBtnRita');
     const loadMoreWrapperRita = document.getElementById('loadMoreWrapperRita');
-  
+
     // Dados da seção
     const blogHandle = section.dataset.blogHandle;
     const authorName = 'Rita Silva';
     let endCursor = null;
     let hasNextPage = false;
-  
+
     // Função para buscar artigos via GraphQL
     async function fetchArticles() {
       try {
@@ -210,25 +210,25 @@
           handle: blogHandle,
           pageSize: '8'
         });
-  
+
         if (endCursor) {
           params.append('after', endCursor);
         }
-  
+
         const res = await fetch(`https://bioself.apps.bydas.com/?action=get_next_blog_posts&${params.toString()}`);
         const { data, errors } = await res.json();
-  
+
         if (errors) {
           throw new Error(errors.map((e) => e.message).join(', '));
         }
-  
+
         return data.blogByHandle.articles;
       } catch (error) {
         console.error('GraphQL Error:', error);
         throw error;
       }
     }
-  
+
     // Função para renderizar artigos
     function renderArticles(articles) {
       articles.forEach((article) => {
@@ -246,7 +246,7 @@
           }
           return false;
         });
-  
+
         const li = document.createElement('li');
         li.innerHTML = `
         <a href="${article.node.onlineStoreUrl}">
@@ -264,24 +264,24 @@
         blogPostsListRita.appendChild(li);
       });
     }
-  
+
     // Carregar artigos iniciais
     async function loadInitialArticles() {
       try {
         const articlesData = await fetchArticles();
         const articles = articlesData.edges;
-  
+
         if (articles.length > 0) {
           renderArticles(articles);
           loadMoreBtnRita.style.display = 'block';
         } else {
           blogPostsListRita.innerHTML = '<p>Nenhum artigo encontrado</p>';
         }
-  
+
         // Atualizar estado da paginação
         hasNextPage = articlesData.pageInfo.hasNextPage;
         endCursor = articlesData.pageInfo.endCursor;
-  
+
         // Esconder botão se não houver mais artigos
         if (!hasNextPage) {
           loadMoreBtnRita.style.display = 'none';
@@ -291,20 +291,20 @@
         blogPostsListRita.innerHTML = '<p>Erro ao carregar artigos</p>';
       }
     }
-  
+
     // Carregar mais artigos
     async function loadMoreArticles() {
       loadMoreBtnRita.disabled = true;
       loadMoreBtnRita.textContent = 'A Carregar';
-  
+
       try {
         const articlesData = await fetchArticles();
         renderArticles(articlesData.edges);
-  
+
         // Atualizar estado da paginação
         hasNextPage = articlesData.pageInfo.hasNextPage;
         endCursor = articlesData.pageInfo.endCursor;
-  
+
         // Esconder botão se não houver mais artigos
         if (!hasNextPage) {
           loadMoreBtnRita.style.display = 'none';
@@ -317,10 +317,10 @@
         loadMoreBtnRita.textContent = '{{ section.settings.btn_text | escape }}';
       }
     }
-  
+
     // Iniciar carregamento
     loadInitialArticles();
-  
+
     // Evento do botão
     loadMoreBtnRita.addEventListener('click', loadMoreArticles);
   });

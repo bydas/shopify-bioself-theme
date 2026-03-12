@@ -22,7 +22,7 @@
   overflow: auto;
   max-width: 90vw;
   width: auto;
-  z-index: 2000;
+  z-index: 5002;
 }
 
 #modal_cruz_vermelha > #modal_form_cruz {
