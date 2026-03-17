@@ -537,7 +537,7 @@
         if (starsContainer) {
           const observer = new MutationObserver(() => {
             if (starsContainer.innerHTML.trim() === '') {
-              noReviewsFallback.style.display = 'block';
+              if (noReviewsFallback) noReviewsFallback.style.display = 'block';
 
               starsContainer.style.display = 'none';
               if (skeepersContainer) {
