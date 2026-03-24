@@ -1,0 +1,250 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow": {
+      "type": "about-us-slideshow",
+      "blocks": {
+        "image_cjGPcL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/sobre_bioself_demo.png",
+            "show_overlay": true,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "Sobre a\nBioself Natura",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_cjGPcL"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "small",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "text-with-icons-top": {
+      "type": "about-us-text-with-icons-top",
+      "blocks": {
+        "item_PgqUwV": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-delivery",
+            "custom_icon": "shopify://shop_images/delivery_white.png",
+            "title": "ENVIOS DE 24 A 48 HORAS",
+            "content": "<p>NA MAIORIA DOS PRODUTOS</p>"
+          }
+        },
+        "item_kEGLwX": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-returns",
+            "custom_icon": "shopify://shop_images/badge-with-a-star_white.png",
+            "title": "QUALIDADE GARANTIDA",
+            "content": "<p>DESDE 1981</p>"
+          }
+        },
+        "item_mwapiz": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-customer-support",
+            "custom_icon": "shopify://shop_images/promo_white.png",
+            "title": "PREÇOS COMPETITIVOS",
+            "content": "<p>SEMPRE!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_PgqUwV",
+        "item_kEGLwX",
+        "item_mwapiz"
+      ],
+      "settings": {
+        "show_section": true,
+        "stack_mobile": false,
+        "background_color": "#95c120",
+        "text_color": ""
+      }
+    },
+    "template": {
+      "type": "about-us-template",
+      "blocks": {
+        "title_PiMFAj": {
+          "type": "title",
+          "settings": {
+            "title": "QUEM SOMOS",
+            "description": "<p>A Bioself Natura é um ervanário com mais de 40 anos de experiência, somos uma empresa familiar na sua terceira geração.<br/><br/>Não pensem que tudo começou numa garagem no início dos anos 80 porque certamente não foi o caso. Começou sim com muita devoção e empenho em servir quem nos procurava da melhor forma, na Rua da Alegria 183 do Porto.</p><p><br/>São mais de 15000 dias que esta família se dedica à sua causa maior que é levantar-se todos os dias com um sorriso nos lábios e vir trabalhar. A máxima EAT – SLEEP – WORK – REPEAT faz seguramente parte do nosso ADN.</p><p><br/>Respiramos, bebemos e alimentamo-nos de um profundo compromisso em prestar um serviço de excelência e disponibilizar os melhores suplementos alimentares.</p><p><br/>A todos os nossos parceiros, clientes e amigos o nosso profundo agradecimento por nos apoiarem nesta magnífica jornada, que fique claro que tudo faremos por continuar a ser merecedores da vossa estima.</p><p><br/>Mais de quatro décadas passadas e o sentimento é de que estamos apenas a começar. Que maravilha!</p><p><br/>Tiago Moisés Silva</p>",
+            "text_align": "center"
+          }
+        },
+        "title_aWhLG3": {
+          "type": "title",
+          "settings": {
+            "title": "MISSÃO",
+            "description": "<p>Promover a saúde e bem-estar. Criar impacto por tornar o mundo um lugar melhor.</p>",
+            "text_align": "center"
+          }
+        },
+        "line_9UdHtJ": {
+          "type": "line",
+          "settings": {
+            "letter": "",
+            "letter_background_color": "",
+            "title": "",
+            "title_color": "",
+            "description": ""
+          }
+        },
+        "title_BJEKJp": {
+          "type": "title",
+          "settings": {
+            "title": "VALORES",
+            "description": "",
+            "text_align": "center"
+          }
+        },
+        "line_FeXc3f": {
+          "type": "line",
+          "settings": {
+            "letter": "N",
+            "letter_background_color": "#95c120",
+            "title": "NATUREZA",
+            "title_color": "#95c120",
+            "description": "Por tudo aquilo que representas, prestamos-te o nosso tributo!"
+          }
+        },
+        "line_B8JT3P": {
+          "type": "line",
+          "settings": {
+            "letter": "A",
+            "letter_background_color": "#95c120",
+            "title": "AMBIÇÃO",
+            "title_color": "#95c120",
+            "description": "De prestar um serviço de excelência."
+          }
+        },
+        "line_TEWYPk": {
+          "type": "line",
+          "settings": {
+            "letter": "T",
+            "letter_background_color": "#95c120",
+            "title": "TRATAR",
+            "title_color": "#95c120",
+            "description": "os outros como gostaríamos de ser tratados."
+          }
+        },
+        "line_raHd37": {
+          "type": "line",
+          "settings": {
+            "letter": "U",
+            "letter_background_color": "#95c120",
+            "title": "UNIÃO",
+            "title_color": "#95c120",
+            "description": "forte espírito de equipa."
+          }
+        },
+        "line_dfTHQ7": {
+          "type": "line",
+          "settings": {
+            "letter": "R",
+            "letter_background_color": "#95c120",
+            "title": "RESPEITO",
+            "title_color": "#95c120",
+            "description": "à vida, às pessoas e ao ambiente."
+          }
+        },
+        "line_mDHWJz": {
+          "type": "line",
+          "settings": {
+            "letter": "A",
+            "letter_background_color": "#95c120",
+            "title": "AMOR",
+            "title_color": "#95c120",
+            "description": "Em tudo o que fazemos, sempre!"
+          }
+        }
+      },
+      "block_order": [
+        "title_PiMFAj",
+        "title_aWhLG3",
+        "line_9UdHtJ",
+        "title_BJEKJp",
+        "line_FeXc3f",
+        "line_B8JT3P",
+        "line_TEWYPk",
+        "line_raHd37",
+        "line_dfTHQ7",
+        "line_mDHWJz"
+      ],
+      "settings": {
+        "hide_title": true
+      }
+    },
+    "text-with-icons-bottom": {
+      "type": "about-us-text-with-icons-bottom",
+      "blocks": {
+        "item_Ubdw9k": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-delivery",
+            "custom_icon": "shopify://shop_images/delivery.png",
+            "title": "ENVIOS DE 24 A 48 HORAS",
+            "content": ""
+          }
+        },
+        "item_CNjn3Y": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-returns",
+            "custom_icon": "shopify://shop_images/badge-with-a-star.png",
+            "title": "QUALIDADE GARANTIDA",
+            "content": ""
+          }
+        },
+        "item_kEg7Ay": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-shield",
+            "custom_icon": "shopify://shop_images/promo.png",
+            "title": "PREÇOS COMPETITIVOS",
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_Ubdw9k",
+        "item_CNjn3Y",
+        "item_kEg7Ay"
+      ],
+      "settings": {
+        "show_section": true,
+        "stack_mobile": false,
+        "background_color": "",
+        "text_color": "#308a36"
+      }
+    }
+  },
+  "order": [
+    "slideshow",
+    "text-with-icons-top",
+    "template",
+    "text-with-icons-bottom"
+  ]
+}
