@@ -563,7 +563,6 @@
           e.preventDefault();
 
           const cart = cartIcon.nextElementSibling;
-          if (!cart) return;
 
           if (innerWidth >= 2559) {
             cart.style.marginRight = '17vw';
@@ -1027,7 +1026,7 @@
   </svg>
 
   <span>Conta</span>
-</li></a><a href="#" class="cart_link_custom">
+</li></a><a href="{{ routes.cart_url }}" class="cart_link_custom">
 <li id="cart_custom">
   <div class="cart_children_wrapper">
     <span class="header__cart-count">{{ cart.item_count }}</span>
