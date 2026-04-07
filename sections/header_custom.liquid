@@ -43,6 +43,15 @@
 {% endschema %}
 
 <style>
+  #mini-cart .updating-quantity {
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  #mini-cart .updating-quantity input,
+  #mini-cart .updating-quantity button {
+    pointer-events: none;
+  }
+
   .cart_children_wrapper {
     position: relative;
   }
@@ -558,53 +567,47 @@
       }
     });
 
-    const onResize = () => {
-      document.body.addEventListener('click', (e) => {
-        const cartLink = e.target.closest('.cart_link_custom');
-        if (!cartLink) return;
+    document.body.addEventListener('click', (e) => {
+      const cartLink = e.target.closest('.cart_link_custom');
+      if (!cartLink) return;
 
-        e.preventDefault();
+      e.preventDefault();
 
-        // O mini‑carrinho é o próximo irmão do link clicado
-        const cart = cartLink.nextElementSibling;
-        if (!cart) return;
+      // O mini‑carrinho é o próximo irmão do link clicado
+      const cart = cartLink.nextElementSibling;
+      if (!cart) return;
 
-        const innerWidth = window.innerWidth;
+      const innerWidth = window.innerWidth;
 
-        // Aplica estilos responsivos (só para garantir que o carrinho esteja bem posicionado)
-        if (innerWidth >= 2559) {
-          cart.style.marginRight = '17vw';
-        } else if (innerWidth >= 1499) {
-          cart.style.marginRight = '8vw';
-        } else if (innerWidth >= 1000) {
-          cart.style.marginRight = '2vw';
-        }
+      // Aplica estilos responsivos (só para garantir que o carrinho esteja bem posicionado)
+      if (innerWidth >= 2559) {
+        cart.style.marginRight = '17vw';
+      } else if (innerWidth >= 1499) {
+        cart.style.marginRight = '8vw';
+      } else if (innerWidth >= 1000) {
+        cart.style.marginRight = '2vw';
+      }
 
-        if (innerWidth >= 1000) {
-          cart.style.top = '4.85rem';
-        } else {
-          // Mobile
-          cart.style.transform = 'scale(1)';
-          cart.style.maxHeight = 'calc(100vh - 40px)';
-          cart.style.padding = '1rem 1rem 2rem 1rem';
-          const a = cart.querySelector('a');
-          if (a) a.style.padding = '0 1rem';
-        }
+      if (innerWidth >= 1000) {
+        cart.style.top = '4.85rem';
+      } else {
+        // Mobile
+        cart.style.transform = 'scale(1)';
+        cart.style.maxHeight = 'calc(100vh - 40px)';
+        cart.style.padding = '1rem 1rem 2rem 1rem';
+        const a = cart.querySelector('a');
+        if (a) a.style.padding = '0 1rem';
+      }
 
-        // Alterna a visibilidade
-        if (cart.style.visibility === 'visible') {
-          cart.style.visibility = 'hidden';
-          cart.style.opacity = '0';
-        } else {
-          cart.style.visibility = 'visible';
-          cart.style.opacity = '1';
-        }
-      });
-    };
-
-    onResize();
-
-    window.addEventListener('resize', onResize);
+      // Alterna a visibilidade
+      if (cart.style.visibility === 'visible') {
+        cart.style.visibility = 'hidden';
+        cart.style.opacity = '0';
+      } else {
+        cart.style.visibility = 'visible';
+        cart.style.opacity = '1';
+      }
+    });
 
     if (form) {
       const div = form.querySelector('#search_results_modal');
