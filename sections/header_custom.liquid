@@ -563,6 +563,7 @@
           e.preventDefault();
 
           const cart = cartIcon.nextElementSibling;
+          if (!cart) return;
 
           if (innerWidth >= 2559) {
             cart.style.marginRight = '17vw';
