@@ -15,7 +15,6 @@
   {%- capture shipping_alert -%}
     {%- if settings.cart_show_free_shipping_threshold -%}
       {%- assign threshold_in_cents = settings.cart_free_shipping_threshold | times: 100 -%}
-
       {%- if cart.total_price >= threshold_in_cents -%}
         <p class="alert alert--tight alert--center text--strong">{{ 'cart.general.free_shipping' | t }}</p>
       {%- else -%}
@@ -30,12 +29,10 @@
       {%- if shipping_alert != blank -%}
         {{- shipping_alert -}}
       {%- endif -%}
-
       <div class="mini-cart__empty-state">
         {%- render 'icon', icon: 'big-cart' -%}
         <p class="heading h4">O teu carrinho está vazio</p>
       </div>
-
       <a href="{{ settings.cart_empty_button_link }}" class="button button--primary button--full">
         Vê os nossos produtos
       </a>
@@ -51,10 +48,16 @@
 
         <div class="mini-cart__line-item-list">
           {%- for line_item in cart.items -%}
-            <div class="mini-cart__line-item">
+            <!-- NOVO: data attributes para validação de stock -->
+            <div
+              class="mini-cart__line-item"
+              data-variant-id="{{ line_item.variant.id }}"
+              data-inventory-quantity="{{ line_item.variant.inventory_quantity }}"
+              data-inventory-management="{{ line_item.variant.inventory_management }}"
+              data-inventory-policy="{{ line_item.variant.inventory_policy }}"
+              data-current-quantity="{{ line_item.quantity }}"
+            >
               <div class="mini-cart__image-wrapper">
-                {%- comment -%}For vertical images we force to contain them on a square ratio to avoid growing too large{%- endcomment -%}
-
                 {%- if line_item.image.aspect_ratio < 1 -%}
                   <div class="aspect-ratio aspect-ratio--square">
                     <img src="{{ line_item.image | img_url: '180x' }}" alt="{{ line_item.image.alt | escape }}">
@@ -75,7 +78,6 @@
                     {%- if settings.show_vendor -%}
                       {%- assign vendor_handle = line_item.product.vendor | handle -%}
                       {%- assign collection_for_vendor = collections[vendor_handle] -%}
-
                       {%- unless collection_for_vendor.empty? -%}
                         <a class="mini-cart__product-vendor link" href="{{ collection_for_vendor.url }}">
                           {{- line_item.product.vendor -}}
@@ -90,27 +92,18 @@
                       {%- endunless -%}
                     {%- endif -%}
                   {%- endunless -%}
-
                   <a href="{{ line_item.url }}" class="mini-cart__product-title text--strong link">
                     {{- line_item.title -}}
                   </a>
-
                   {%- unless line_item.properties == blank -%}
                     <ul class="mini-cart__property-list" role="list">
                       {%- for property in line_item.properties -%}
                         {%- assign first_character_in_key = property.first | truncate: 1, '' -%}
-
-                        {%- if property.last == blank or first_character_in_key == '_' -%}
-                          {%- continue -%}
-                        {%- endif -%}
-
+                        {%- if property.last == blank or first_character_in_key == '_' -%}{%- continue -%}{%- endif -%}
                         <li class="mini-cart__property">{{ property.first }}: {{ property.last }}</li>
                       {%- endfor -%}
                     </ul>
                   {%- endunless -%}
-
-                  {%- comment -%}If we have a Shopify Script, we use the reduced price here, otherwise we check the compare at price{%- endcomment -%}
-
                   <div class="mini-cart__price-list">
                     {%- if line_item.final_line_price < line_item.original_line_price -%}
                       <span class="price price--highlight">{{ line_item.final_line_price | money }}</span>
@@ -124,7 +117,6 @@
                       <span class="price">{{ line_item.final_line_price | money }}</span>
                     {%- endif -%}
                   </div>
-
                   {%- if line_item.unit_price_measurement -%}
                     <div class="mini-cart__price-info">
                       <div class="unit-price-measurement">
@@ -132,20 +124,17 @@
                           {{- line_item.unit_price | money_without_trailing_zeros -}}
                         </span>
                         <span class="unit-price-measurement__separator">/ </span>
-
                         {%- if line_item.unit_price_measurement.reference_value != 1 -%}
                           <span class="unit-price-measurement__reference-value">
                             {{- line_item.unit_price_measurement.reference_value -}}
                           </span>
                         {%- endif -%}
-
                         <span class="unit-price-measurement__reference-unit">
                           {{- line_item.unit_price_measurement.reference_unit -}}
                         </span>
                       </div>
                     </div>
                   {%- endif -%}
-
                   {%- if line_item.line_level_discount_allocations != blank -%}
                     <ul class="mini-cart__discount-list" role="list">
                       {%- for discount_allocation in line_item.line_level_discount_allocations -%}
@@ -160,20 +149,16 @@
                   {%- endif -%}
                 </div>
 
-                {%- comment -%}If the product has the tag "__gift", we remove the price{%- endcomment -%}
-
                 {%- unless line_item.product.tags contains '__gift' -%}
                   <div class="mini-cart__quantity">
                     <div class="quantity-selector">
                       {%- assign allow_to_add_more = true -%}
-
                       {%- if line_item.variant.inventory_management
                         and line_item.variant.inventory_policy == 'deny'
                         and line_item.quantity == line_item.variant.inventory_quantity
                       -%}
                         {%- assign allow_to_add_more = false -%}
                       {%- endif -%}
-
                       <a
                         href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: 1 }}&id={{ line_item.key }}"
                         data-quantity="{{ line_item.quantity | minus: 1 }}"
@@ -208,7 +193,6 @@
                         {%- render 'icon', icon: 'plus' -%}
                       </a>
                     </div>
-
                     <a
                       href="{{ routes.cart_change_url }}?quantity=0&id={{ line_item.key }}"
                       data-action="decrease-quantity"
@@ -235,16 +219,12 @@
             </div>
           {%- endfor -%}
         {%- endif -%}
-
         <div class="mini-cart__recap-price-line">
           <span>{{ 'cart.general.total' | t }}</span>
           <span>{{ cart.total_price | money }}</span>
         </div>
 
-        {%- comment -%}To calculate the total discount, we take both into account the Shopify Script (for Plus merchants), but we also add the compare at price{%- endcomment -%}
-
         {%- assign total_discount = 0 -%}
-
         {%- for line_item in cart.items -%}
           {%- if line_item.final_line_price < line_item.original_line_price -%}
             {%- assign total_discount = total_discount | plus: line_item.total_discount -%}
@@ -256,7 +236,6 @@
             {%- assign total_discount = total_discount | plus: line_discount -%}
           {%- endif -%}
         {%- endfor -%}
-
         {%- if total_discount > 0 -%}
           {%- capture amount_saved -%}<span>{{ total_discount | money }}</span>{%- endcapture -%}
           <span class="mini-cart__amount-saved">
@@ -273,18 +252,10 @@
             onchange="termsAndConditionsCheckboxChanged(this);"
 
           >&nbsp;
-          <label
-            style="
-              display:inline;
-              float:none
-            "
-            for="effectiveAppsAgreeCB"
-          >
-            <span
-              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
-              >Li e aceito os
-            </span>
-
+          <label style="display:inline; float:none" for="effectiveAppsAgreeCB">
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
+              >Li e aceito os</span
+            >
             <a
               style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;text-decoration: underline;"
               href="https://bioself.pt/policies/terms-of-service"
@@ -292,9 +263,7 @@
               rel="noopener"
               >Termos e Condições Gerais</a
             >
-
-            <span
-              style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
               >de venda</span
             >
           </label>
@@ -312,11 +281,6 @@
         </div>
 
         {%- if settings.hide_express_checkout_buttons -%}
-          {%- comment -%}
-            By showing the div in the cart but hiding it in CSS, the express checkout buttons are hidden from the first step of the checkout, and
-            are rather deferred to the payment step. This is a hacky trick, but it is often requested by merchants.
-          {%- endcomment -%}
-
           {%- if additional_checkout_buttons -%}
             <div class="additional-checkout-buttons" style="display: none !important">
               {{ content_for_additional_checkout_buttons }}
@@ -334,20 +298,16 @@
 
     function attachCartListeners(cart) {
       if (cart.dataset.listenerAttached === 'true') return;
-
       cart.addEventListener('submit', function (e) {
         if (!isInputChecked) {
           e.preventDefault();
           e.stopPropagation();
-
           const button = cart.querySelector('button[type="submit"]');
-
           if (button) {
             button.disabled = true;
             button.pointerEvents = 'none';
             button.style.opacity = 0.5;
           }
-
           const errorContainer = document.createElement('div');
           errorContainer.id = 'error-message-container';
           errorContainer.style.backgroundColor = 'green';
@@ -360,12 +320,9 @@
           errorContainer.style.right = '0';
           errorContainer.style.zIndex = '1000';
           errorContainer.textContent = 'É necessário aceitar os Termos e Condições antes de prosseguir.';
-
           document.body.appendChild(errorContainer);
-
           setTimeout(function () {
             errorContainer.remove();
-
             if (button) {
               button.disabled = false;
               button.pointerEvents = 'auto';
@@ -374,67 +331,59 @@
           }, 5000);
         }
       });
-
       cart.dataset.listenerAttached = 'true';
     }
 
     function attachInputListeners(input) {
       if (input.dataset.listenerAttached === 'true') return;
-
       input.addEventListener('input', function (e) {
         isInputChecked = e.target.checked;
       });
-
       input.dataset.listenerAttached = 'true';
     }
 
     function attachListeners() {
       const carts = document.querySelectorAll('#mini-cart');
       const inputs = document.querySelectorAll('#effectiveAppsAgreeCB');
-
       carts.forEach((cart) => attachCartListeners(cart));
       inputs.forEach((input) => attachInputListeners(input));
     }
-
     attachListeners();
 
     const observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
         mutation.addedNodes.forEach(function (node) {
           if (node.nodeType === Node.ELEMENT_NODE) {
-            if (node.matches && node.matches('#mini-cart')) {
-              attachCartListeners(node);
-            }
-
-            if (node.querySelectorAll) {
-              node.querySelectorAll('#mini-cart').forEach((cart) => attachCartListeners(cart));
-            }
-
-            if (node.matches && node.matches('#effectiveAppsAgreeCB')) {
-              attachInputListeners(node);
-            }
-
-            if (node.querySelectorAll) {
+            if (node.matches && node.matches('#mini-cart')) attachCartListeners(node);
+            if (node.querySelectorAll) node.querySelectorAll('#mini-cart').forEach((cart) => attachCartListeners(cart));
+            if (node.matches && node.matches('#effectiveAppsAgreeCB')) attachInputListeners(node);
+            if (node.querySelectorAll)
               node.querySelectorAll('#effectiveAppsAgreeCB').forEach((input) => attachInputListeners(input));
-            }
           }
         });
       });
     });
-
     observer.observe(document.body, { childList: true, subtree: true });
   });
 </script>
+
+<style>
+  .mini-cart__line-item-list--loading {
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+</style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const carts = document.querySelectorAll('#mini-cart');
     const loader = document.getElementById('loader');
+    let isValidating = false;
 
     function showLoader() {
       loader.style.display = 'block';
       loader.style.width = '0%';
-
       setTimeout(() => {
         loader.style.width = '30%';
       }, 100);
@@ -442,7 +391,6 @@
 
     function hideLoader() {
       loader.style.width = '100%';
-
       setTimeout(() => {
         loader.style.display = 'none';
         loader.style.width = '0%';
@@ -451,35 +399,18 @@
 
     function fetchCart(data) {
       carts.forEach((cart) => (cart.innerHTML = data));
-
-      if (innerWidth >= 2559) {
-        carts.forEach((cart) => (cart.style.marginRight = '17vw'));
-      }
-
-      if (innerWidth < 2559 && innerWidth >= 1499) {
-        carts.forEach((cart) => (cart.style.marginRight = '8vw'));
-      }
-
-      if (innerWidth < 1499 && innerWidth >= 1000) {
-        carts.forEach((cart) => (cart.style.marginRight = '2vw'));
-      }
-
-      if (innerWidth >= 1000) {
-        carts.forEach((cart) => (cart.style.top = '4.85rem'));
-      }
-
+      if (innerWidth >= 2559) carts.forEach((cart) => (cart.style.marginRight = '17vw'));
+      if (innerWidth < 2559 && innerWidth >= 1499) carts.forEach((cart) => (cart.style.marginRight = '8vw'));
+      if (innerWidth < 1499 && innerWidth >= 1000) carts.forEach((cart) => (cart.style.marginRight = '2vw'));
+      if (innerWidth >= 1000) carts.forEach((cart) => (cart.style.top = '4.85rem'));
       if (innerWidth < 1000) {
         carts.forEach((cart) => {
           cart.style.transform = 'scale(1)';
           cart.style.maxHeight = 'calc(100vh - 40px)';
           cart.style.padding = '1rem 1rem 2rem 1rem';
         });
-
         const as = carts.forEach((cart) => cart.querySelector('a'));
-
-        if (as) {
-          as.forEach((a) => (a.style.padding = '0 1rem'));
-        }
+        if (as) as.forEach((a) => (a.style.padding = '0 1rem'));
       } else {
         carts.forEach((cart) => {
           cart.style.visibility = 'visible';
@@ -488,63 +419,121 @@
       }
     }
 
-    if (carts) {
-      document.addEventListener('click', function (e) {
-        carts.forEach((cart) => {
-          const items = cart.querySelectorAll('.mini-cart__line-item');
-
-          items.forEach((item) => {
-            const target = e.target.closest('a[data-line-id]');
-
-            if (target && cart.contains(target)) {
-              e.preventDefault();
-              showLoader();
-
-              fetch(target.href)
-                .then((res) => {
-                  if (!res.ok) {
-                    throw new Error('Error when fetching data');
-                  }
-
-                  return fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`).then((res) => {
-                    if (!res.ok) {
-                      throw new Error('Error getting cart');
-                    }
-
-                    return res.text();
-                  });
-                })
-                .then((data) => {
-                  if (data) {
-                    fetchCart(data);
-
-                    return fetch('/cart.js');
-                  }
-                })
-                .then((res) => {
-                  if (!res.ok) {
-                    throw new Error('Error when fetching cart data');
-                  }
-
-                  return res.json();
-                })
-                .then((data) => {
-                  if (data) {
-                    const cartCounters = document.querySelectorAll('.header__cart-count');
-
-                    if (cartCounters) {
-                      cartCounters.forEach((cart) => (cart.innerText = data.item_count));
-                    }
-                  }
-                })
-                .catch((error) => {
-                  console.error('Error when getting cart');
-                })
-                .finally(() => hideLoader());
-            }
-          });
-        });
-      });
+    function disableAllItems(cart) {
+      const itemList = cart.querySelector('.mini-cart__line-item-list');
+      if (itemList) itemList.classList.add('mini-cart__line-item-list--loading');
     }
+
+    function enableAllItems(cart) {
+      const itemList = cart.querySelector('.mini-cart__line-item-list');
+      if (itemList) itemList.classList.remove('mini-cart__line-item-list--loading');
+    }
+
+    function validateStock(lineItemElement, desiredQuantity) {
+      const inventoryManagement = lineItemElement.dataset.inventoryManagement;
+      if (!inventoryManagement) return true;
+      const inventoryQuantity = parseInt(lineItemElement.dataset.inventoryQuantity, 10);
+      const currentQuantity = parseInt(lineItemElement.dataset.currentQuantity, 10);
+      if (desiredQuantity > currentQuantity && desiredQuantity > inventoryQuantity) {
+        if (!isValidating) {
+          isValidating = true;
+          alert(`Stock insuficiente. Apenas ${inventoryQuantity} unidade(s) disponível(is).`);
+          setTimeout(() => { isValidating = false; }, 500);
+        }
+        return false;
+      }
+      return true;
+    }
+
+    function updateCart(cart, url, lineItemElement) {
+      disableAllItems(cart);
+      showLoader();
+      fetch(url)
+        .then((res) => {
+          if (!res.ok) throw new Error('Erro ao atualizar quantidade');
+          return fetch(`/cart?view=mini-cart&timestamp=${Date.now()}`);
+        })
+        .then((res) => {
+          if (!res.ok) throw new Error('Erro ao obter carrinho atualizado');
+          return res.text();
+        })
+        .then((data) => {
+          if (data) {
+            fetchCart(data);
+            return fetch('/cart.js');
+          }
+        })
+        .then((res) => {
+          if (!res.ok) throw new Error('Erro ao buscar dados do carrinho');
+          return res.json();
+        })
+        .then((data) => {
+          if (data) {
+            const cartCounters = document.querySelectorAll('.header__cart-count');
+            cartCounters.forEach((counter) => (counter.innerText = data.item_count));
+          }
+        })
+        .catch((error) => console.error('Erro:', error))
+        .finally(() => {
+          enableAllItems(cart);
+          hideLoader();
+        });
+    }
+
+    document.addEventListener('click', function (e) {
+      const target = e.target.closest('a[data-line-id]');
+      if (!target) return;
+      const cart = target.closest('#mini-cart');
+      if (!cart) return;
+
+      e.stopImmediatePropagation();
+      e.preventDefault();
+
+      const lineItem = target.closest('.mini-cart__line-item');
+      if (!lineItem) return;
+
+      const newQuantity = parseInt(target.dataset.quantity, 10);
+      const currentQuantity = parseInt(lineItem.dataset.currentQuantity, 10);
+
+      if (newQuantity > currentQuantity) {
+        if (!validateStock(lineItem, newQuantity)) return;
+      }
+      updateCart(cart, target.href, lineItem);
+    });
+
+    document.addEventListener('change', function (e) {
+      const input = e.target.closest('.quantity-selector__value');
+      if (!input) return;
+      const cart = input.closest('#mini-cart');
+      if (!cart) return;
+      const lineItem = input.closest('.mini-cart__line-item');
+      if (!lineItem) return;
+
+      if (input.hasAttribute('data-updating')) return;
+
+      let desiredQuantity = parseInt(input.value, 10);
+      if (isNaN(desiredQuantity) || desiredQuantity < 0) desiredQuantity = 0;
+      const currentQuantity = parseInt(lineItem.dataset.currentQuantity, 10);
+      const lineId = input.dataset.lineId;
+
+      if (desiredQuantity === currentQuantity) return;
+
+      if (desiredQuantity > currentQuantity) {
+        if (!validateStock(lineItem, desiredQuantity)) {
+          input.value = currentQuantity;
+          return;
+        }
+      }
+
+      input.setAttribute('data-updating', 'true');
+      let url;
+      if (desiredQuantity === 0) {
+        url = `/cart/change?quantity=0&id=${lineId}`;
+      } else {
+        url = `/cart/change?quantity=${desiredQuantity}&id=${lineId}`;
+      }
+      updateCart(cart, url, lineItem);
+      setTimeout(() => input.removeAttribute('data-updating'), 500);
+    });
   });
 </script>
