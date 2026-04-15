@@ -12,6 +12,14 @@
     "banner_collections_custom_MTeDyT": {
       "type": "banner_collections_custom",
       "blocks": {
+        "custom_Tc9QjN": {
+          "type": "custom",
+          "settings": {
+            "title": "ESI",
+            "banner": "shopify://shop_images/ESI_Banner_Bioself1920500.png",
+            "tags": "ESI,Marcas_ESI"
+          }
+        },
         "custom_qh6DAD": {
           "type": "custom",
           "disabled": true,
@@ -71,6 +79,7 @@
         }
       },
       "block_order": [
+        "custom_Tc9QjN",
         "custom_qh6DAD",
         "custom_aDbCqg",
         "custom_9UT4cN",
