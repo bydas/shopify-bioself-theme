@@ -373,6 +373,7 @@
     },
     "image_text_custom_dtgXxx": {
       "type": "image-text-custom",
+      "disabled": true,
       "settings": {
         "background_image": "shopify://shop_images/Rectangle.webp",
         "background_image_mobile": "shopify://shop_images/Rectangle_7.webp",
