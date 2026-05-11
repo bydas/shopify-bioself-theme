@@ -44,7 +44,8 @@
         "sub_description": "<p>Dá o primeiro passo para uma vida mais equilibrada.</p>",
         "btn_text": "Consultas de nutrição",
         "btn_link": "shopify://pages/servico-de-nutricao",
-        "image": "shopify://shop_images/Ellipse_35.png"
+        "image": "shopify://shop_images/Ellipse_35.png",
+        "mobile_image": "shopify://shop_images/image.png"
       }
     }
   },
