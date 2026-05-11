@@ -29,8 +29,8 @@
       "type": "blog-posts-rita",
       "name": "Blog posts rita",
       "settings": {
-        "title": "",
-        "selected_img": "shopify://shop_images/Ellipse_35_f260ff99-6feb-4dd6-b468-ea6f1e091847.png",
+        "title": "Publicações da Rita",
+        "selected_img": "shopify://shop_images/Ellipse_35_1.png",
         "selected-blog": "blog-page",
         "btn_text": "Ver mais publicações"
       }
