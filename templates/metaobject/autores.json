@@ -34,10 +34,22 @@
         "selected-blog": "blog-page",
         "btn_text": "Ver mais publicações"
       }
+    },
+    "blog_consultas_nutricao_pHVAbY": {
+      "type": "blog-consultas-nutricao",
+      "name": "Blog consultas",
+      "settings": {
+        "title": "",
+        "description": "<h1>Alimenta o teu equilíbrio com a Nutrição Funcional</h1>",
+        "sub_description": "",
+        "btn_text": "",
+        "btn_link": ""
+      }
     }
   },
   "order": [
     "author_profile_6GVzKy",
-    "blog_posts_rita_UYDY7H"
+    "blog_posts_rita_UYDY7H",
+    "blog_consultas_nutricao_pHVAbY"
   ]
 }
