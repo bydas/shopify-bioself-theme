@@ -19,9 +19,8 @@
         "author_bio": "{{ metaobject.bio | metafield_tag }}",
         "container_width": 1100,
         "image_radius": 160,
-        "mobile_alignment": "left",
         "background_color": "#ffffff",
-        "text_color": "#111111",
+        "text_color": "#000000",
         "padding_top": 48,
         "padding_bottom": 48
       }
