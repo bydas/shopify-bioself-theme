@@ -24,9 +24,20 @@
         "padding_top": 48,
         "padding_bottom": 48
       }
+    },
+    "blog_posts_rita_UYDY7H": {
+      "type": "blog-posts-rita",
+      "name": "Blog posts rita",
+      "settings": {
+        "title": "",
+        "selected_img": "shopify://shop_images/Ellipse_35_f260ff99-6feb-4dd6-b468-ea6f1e091847.png",
+        "selected-blog": "blog-page",
+        "btn_text": "Ver mais publicações"
+      }
     }
   },
   "order": [
-    "author_profile_6GVzKy"
+    "author_profile_6GVzKy",
+    "blog_posts_rita_UYDY7H"
   ]
 }
