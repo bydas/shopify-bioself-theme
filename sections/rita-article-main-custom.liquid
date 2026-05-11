@@ -6,7 +6,8 @@
     margin: 2rem var(--desktop-container-gutter);
   }
 
-  #rita-main-article-custom > article > p {
+  #rita-main-article-custom > article > p,
+  #rita-main-article-custom > article > ol span {
     line-height: 26px;
     font-weight: 500 !important;
     font-size: 1.25rem;
@@ -14,7 +15,8 @@
   }
 
   #rita-main-article-custom > article > a,
-  #rita-main-article-custom > article > p > a {
+  #rita-main-article-custom > article > p > a,
+  #rita-main-article-custom > article > ol a {
     color: #258439;
     text-decoration: underline;
     text-decoration-color: #258439;
@@ -182,7 +184,8 @@
       font-size: 1rem;
     }
 
-    #rita-main-article-custom > article > p {
+    #rita-main-article-custom > article > p,
+    #rita-main-article-custom > article > ol span {
       font-size: 1rem;
     }
 
@@ -289,7 +292,8 @@
             height="25"
             viewBox="0 0 25 25"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <mask
               id="mask0_2028_8909"
               style="mask-type:alpha"
@@ -332,7 +336,8 @@
             height="34"
             viewBox="0 0 34 34"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <mask
               id="mask0_2043_10663"
               style="mask-type:alpha"
@@ -357,7 +362,7 @@
         </button>
 
         {% assign meses = 'Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
- | split: ', '
+          | split: ', '
         %}
         {% assign mes_num = article.published_at | date: '%-m' | minus: 1 %}
         <span>
@@ -495,7 +500,8 @@
             src="{{ section.settings.selected_img | img_url: 'master' }}"
             alt="Imagem"
             width="auto"
-            height="auto">
+            height="auto"
+          >
         </picture>
       {% endunless %}
 
@@ -505,7 +511,8 @@
             src="{{ section.settings.logo | img_url: 'master' }}"
             alt="Logo"
             width="auto"
-            height="auto">
+            height="auto"
+          >
         {% endunless %}
 
         {% unless section.settings.title == blank %}
@@ -596,55 +603,60 @@
 </script>
 
 {% schema %}
-  {
-    "name": "Rita main custom",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "is_rita_page",
-        "label": "Artigo da Rita"
-      },
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Selecione a logo"
-      },
-      {
-        "type": "image_picker",
-        "id": "selected_img",
-        "label": "Selecione a imagem"
-      },
-      {
-        "type": "richtext",
-        "id": "title",
-        "label": "Titulo"
-      }, {
-        "type": "richtext",
-        "id": "description",
-        "label": "Descricao"
-      }, {
-        "type": "text",
-        "id": "alt_text",
-        "label": "Texto"
-      }, {
-        "type": "text",
-        "id": "btn_txt",
-        "label": "Texto do botao"
-      }, {
-        "type": "url",
-        "id": "btn_link",
-        "label": "Link do botao"
-      }, {
-        "type": "richtext",
-        "id": "aviso_legal",
-        "label": "Texto do aviso legal"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Rita main custom",
-        "category": "blog"
-      }
-    ]
-  }
+{
+  "name": "Rita main custom",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "is_rita_page",
+      "label": "Artigo da Rita"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Selecione a logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "selected_img",
+      "label": "Selecione a imagem"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Titulo"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descricao"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Texto"
+    },
+    {
+      "type": "text",
+      "id": "btn_txt",
+      "label": "Texto do botao"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Link do botao"
+    },
+    {
+      "type": "richtext",
+      "id": "aviso_legal",
+      "label": "Texto do aviso legal"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rita main custom",
+      "category": "blog"
+    }
+  ]
+}
 {% endschema %}
