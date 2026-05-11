@@ -6,6 +6,12 @@
 
 <section class="author-profile author-profile-{{ section.id }}">
   <div class="author-profile__container">
+    {% if section.settings.label != blank %}
+      <p class="author-profile__label">
+        {{ section.settings.label }}
+      </p>
+    {% endif %}
+
     {% if author_image != blank %}
       <div class="author-profile__image-wrapper">
         {{
@@ -21,25 +27,17 @@
       </div>
     {% endif %}
 
-    <div class="author-profile__content">
-      {% if section.settings.label != blank %}
-        <p class="author-profile__label">
-          {{ section.settings.label }}
-        </p>
-      {% endif %}
+    {% if author_name != blank %}
+      <h1 class="author-profile__name">
+        {{ author_name }}
+      </h1>
+    {% endif %}
 
-      {% if author_name != blank %}
-        <h1 class="author-profile__name">
-          {{ author_name }}
-        </h1>
-      {% endif %}
-
-      {% if author_bio != blank %}
-        <div class="author-profile__bio rte">
-          {{ author_bio }}
-        </div>
-      {% endif %}
-    </div>
+    {% if author_bio != blank %}
+      <div class="author-profile__bio rte">
+        {{ author_bio }}
+      </div>
+    {% endif %}
   </div>
 </section>
 
@@ -53,10 +51,19 @@
   .author-profile-{{ section.id }} .author-profile__container {
     max-width: {{ section.settings.container_width }}px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: {% if author_image != blank %}320px 1fr{% else %}1fr{% endif %};
-    gap: 48px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+  }
+
+  .author-profile-{{ section.id }} .author-profile__label {
+    margin: 0 0 20px;
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
   }
 
   .author-profile-{{ section.id }} .author-profile__image-wrapper {
@@ -66,6 +73,7 @@
     border-radius: {{ section.settings.image_radius }}px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.04);
+    margin-bottom: 28px;
   }
 
   .author-profile-{{ section.id }} .author-profile__image {
@@ -75,21 +83,8 @@
     display: block;
   }
 
-  .author-profile-{{ section.id }} .author-profile__content {
-    max-width: 720px;
-  }
-
-  .author-profile-{{ section.id }} .author-profile__label {
-    margin: 0 0 12px;
-    font-size: 13px;
-    line-height: 1.4;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-
   .author-profile-{{ section.id }} .author-profile__name {
-    margin: 0 0 20px;
+    margin: 0 0 24px;
     font-size: clamp(32px, 5vw, 64px);
     line-height: 1.05;
     font-weight: 600;
@@ -97,6 +92,7 @@
   }
 
   .author-profile-{{ section.id }} .author-profile__bio {
+    max-width: 760px;
     font-size: clamp(16px, 1.6vw, 19px);
     line-height: 1.75;
     color: inherit;
@@ -117,15 +113,9 @@
       padding-right: 16px;
     }
 
-    .author-profile-{{ section.id }} .author-profile__container {
-      grid-template-columns: 1fr;
-      gap: 28px;
-      text-align: {{ section.settings.mobile_alignment }};
-    }
-
     .author-profile-{{ section.id }} .author-profile__image-wrapper {
       max-width: 180px;
-      margin: 0 {% if section.settings.mobile_alignment == 'center' %}auto{% else %}0{% endif %};
+      margin-bottom: 22px;
     }
   }
 </style>
@@ -163,11 +153,11 @@
       "type": "range",
       "id": "container_width",
       "label": "Largura máxima",
-      "min": 800,
-      "max": 1400,
+      "min": 600,
+      "max": 1200,
       "step": 20,
       "unit": "px",
-      "default": 1100
+      "default": 900
     },
     {
       "type": "range",
@@ -178,22 +168,6 @@
       "step": 4,
       "unit": "px",
       "default": 160
-    },
-    {
-      "type": "select",
-      "id": "mobile_alignment",
-      "label": "Alinhamento em mobile",
-      "options": [
-        {
-          "value": "left",
-          "label": "Esquerda"
-        },
-        {
-          "value": "center",
-          "label": "Centro"
-        }
-      ],
-      "default": "center"
     },
     {
       "type": "color",
