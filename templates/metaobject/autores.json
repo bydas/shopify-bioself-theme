@@ -39,11 +39,12 @@
       "type": "blog-consultas-nutricao",
       "name": "Blog consultas",
       "settings": {
-        "title": "",
+        "title": "Nutricionista Rita de Cássia Silva",
         "description": "<h1>Alimenta o teu equilíbrio com a Nutrição Funcional</h1>",
-        "sub_description": "",
-        "btn_text": "",
-        "btn_link": ""
+        "sub_description": "<p>Dá o primeiro passo para uma vida mais equilibrada.</p>",
+        "btn_text": "Consultas de nutrição",
+        "btn_link": "shopify://pages/servico-de-nutricao",
+        "image": "shopify://shop_images/Ellipse_35.png"
       }
     }
   },
