@@ -8,6 +8,17 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "custom_html_JKEP4e": {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": {
+        "title": "{{ metaobject.nome.value }}",
+        "html": ""
+      }
+    }
+  },
+  "order": [
+    "custom_html_JKEP4e"
+  ]
 }
