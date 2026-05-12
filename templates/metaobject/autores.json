@@ -29,7 +29,7 @@
       "type": "blog-posts-rita",
       "name": "Blog posts rita",
       "settings": {
-        "title": "Publicações da Rita",
+        "title": "Publicações do Autor",
         "selected_img": "shopify://shop_images/Ellipse_35_1.png",
         "selected-blog": "blog-page",
         "btn_text": "Ver mais publicações"
