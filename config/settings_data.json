@@ -3425,11 +3425,6 @@
         "disabled": false,
         "settings": {}
       },
-      "11560147490181472608": {
-        "type": "shopify://apps/rivo-loyalty-referrals/blocks/app-embed/580e9665-b2cd-4dbc-b6ba-6445ac9e6871",
-        "disabled": false,
-        "settings": {}
-      },
       "17550530943902319648": {
         "type": "shopify://apps/appikon-back-in-stock/blocks/subscribe_it_helper/eb949c69-b3e6-4216-a322-1cd63915d46d",
         "disabled": true,
@@ -3460,6 +3455,11 @@
           "storefront_layout_drawer_position": "left",
           "storefront_layout_as_section_page": ""
         }
+      },
+      "11560147490181472608": {
+        "type": "shopify://apps/rivo-loyalty-rewards-referrals/blocks/app-embed/580e9665-b2cd-4dbc-b6ba-6445ac9e6871",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
