@@ -5,28 +5,6 @@
   - URLs do preload compatíveis com os URLs usados no picture
 {% endcomment %}
 
-{% if section.blocks.size > 0 %}
-  {% assign first_slide = section.blocks | first %}
-
-  {% if first_slide.settings.image_desktop %}
-    <link
-      rel="preload"
-      as="image"
-      href="{{ first_slide.settings.image_desktop | image_url: width: 1800 }}"
-      media="(min-width: 769px)"
-    >
-  {% endif %}
-
-  {% if first_slide.settings.image_mobile %}
-    <link
-      rel="preload"
-      as="image"
-      href="{{ first_slide.settings.image_mobile | image_url: width: 900 }}"
-      media="(max-width: 768px)"
-    >
-  {% endif %}
-{% endif %}
-
 <style>
   #slideshow-{{ section.id }}.custom_slideshow {
     display: grid;
