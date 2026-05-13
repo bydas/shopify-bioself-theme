@@ -1,38 +1,47 @@
-<!-- Preload critical CSS and JavaScript -->
-{{ 'theme.css' | asset_url | preload_tag: as: 'style' }}
-{{ 'theme.js' | asset_url | preload_tag: as: 'script' }}
+{% comment %}
+  Slideshow Custom
+  - Preload apenas da primeira imagem visível
+  - Desktop/mobile com media query
+  - URLs do preload compatíveis com os URLs usados no picture
+{% endcomment %}
 
-<!-- Preconnect for faster external resource loading -->
-<link rel="preconnect" href="https://cdn.shopify.com">
-<link rel="preconnect" href="https://fonts.shopifycdn.com">
-
-<!-- Preload only first visible images -->
 {% if section.blocks.size > 0 %}
   {% assign first_slide = section.blocks | first %}
+
   {% if first_slide.settings.image_desktop %}
-    {{ first_slide.settings.image_desktop | image_url: width: 1080 | preload_tag: as: 'image' }}
+    <link
+      rel="preload"
+      as="image"
+      href="{{ first_slide.settings.image_desktop | image_url: width: 1800 }}"
+      media="(min-width: 769px)"
+    >
   {% endif %}
 
   {% if first_slide.settings.image_mobile %}
-    {{ first_slide.settings.image_mobile | image_url: width: 1080 | preload_tag: as: 'image' }}
+    <link
+      rel="preload"
+      as="image"
+      href="{{ first_slide.settings.image_mobile | image_url: width: 900 }}"
+      media="(max-width: 768px)"
+    >
   {% endif %}
 {% endif %}
 
 <style>
-  .custom_slideshow {
+  #slideshow-{{ section.id }}.custom_slideshow {
     display: grid;
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     gap: 1rem;
   }
 
-  .slideshow-container {
+  #slideshow-{{ section.id }} .slideshow-container {
     position: relative;
     max-width: 100%;
     overflow: hidden;
   }
 
-  .slide {
+  #slideshow-{{ section.id }} .slide {
     display: none;
     width: 100%;
     height: auto;
@@ -41,32 +50,38 @@
     transition: transform 0.5s ease;
   }
 
-  .slide:active {
+  #slideshow-{{ section.id }} .slide.is-active {
+    display: block;
+  }
+
+  #slideshow-{{ section.id }} .slide:active {
     cursor: grabbing;
   }
 
-  .slideshow-container img {
+  #slideshow-{{ section.id }} .slideshow-container img {
+    display: block;
     width: 100%;
+    height: auto;
     max-height: 1080px;
     object-fit: cover;
   }
 
   @media screen and (max-width: 1000px) {
-    .custom_slideshow {
+    #slideshow-{{ section.id }}.custom_slideshow {
       margin: 0 var(--mobile-container-gutter) 1rem var(--mobile-container-gutter);
     }
 
-    .slideshow-container img {
+    #slideshow-{{ section.id }} .slideshow-container img {
       max-height: 600px;
       border-radius: 0.65rem;
     }
 
-    .slide {
+    #slideshow-{{ section.id }} .slide {
       cursor: grab;
     }
   }
 
-  .dots {
+  #slideshow-{{ section.id }} .dots {
     position: absolute;
     bottom: 2rem;
     left: 50%;
@@ -75,9 +90,10 @@
     gap: 1rem;
     justify-content: center;
     align-items: center;
+    z-index: 5;
   }
 
-  .dot {
+  #slideshow-{{ section.id }} .dot {
     display: inline-block;
     width: 8px;
     height: 8px;
@@ -87,13 +103,13 @@
     transition: all 0.3s ease;
   }
 
-  .dot.active-slide {
+  #slideshow-{{ section.id }} .dot.active-slide {
     width: 35px;
     border-radius: 5px;
     background-color: white;
   }
 
-  .arrow {
+  #slideshow-{{ section.id }} .arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -109,103 +125,157 @@
   }
 
   @media screen and (min-width: 1000px) {
-    .arrow {
+    #slideshow-{{ section.id }} .arrow {
       opacity: 0;
       visibility: hidden;
       transition: all 0.15s ease;
     }
 
-    .slideshow-container:hover > .arrow {
+    #slideshow-{{ section.id }} .slideshow-container:hover > .arrow {
       opacity: 1;
       visibility: visible;
     }
   }
 
   @media screen and (max-width: 1000px) {
-    .arrow {
+    #slideshow-{{ section.id }} .arrow {
       display: none;
     }
   }
 
-  .arrow-left {
+  #slideshow-{{ section.id }} .arrow-left {
     left: 10px;
     transform: translateY(-50%) rotate(180deg);
   }
 
-  .arrow-right {
+  #slideshow-{{ section.id }} .arrow-right {
     right: 10px;
   }
 
-  .arrow svg {
+  #slideshow-{{ section.id }} .arrow svg {
     fill: #ffffff;
     width: 14px;
     height: 14px;
   }
 
-  .arrow:hover {
+  #slideshow-{{ section.id }} .arrow:hover {
     background-color: rgba(0, 0, 0, 0.7);
   }
 </style>
 
 <section id="slideshow-{{ section.id }}" class="custom_slideshow">
   <div class="slideshow-container">
-    <div class="arrow arrow-left">
-      <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
-        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-      </svg>
-    </div>
-    <div class="arrow arrow-right">
-      <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
-        <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-      </svg>
-    </div>
+    {% if section.blocks.size > 1 %}
+      <div class="arrow arrow-left" aria-label="Slide anterior">
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
+          <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+        </svg>
+      </div>
+
+      <div class="arrow arrow-right" aria-label="Slide seguinte">
+        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="8.75" viewBox="0 0 320 512">
+          <path fill="#ffffff" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+        </svg>
+      </div>
+    {% endif %}
 
     {% for slide in section.blocks %}
-      <div class="slide">
-        {% if slide.settings.image_mobile and slide.settings.image_desktop %}
+      {% assign desktop_image = slide.settings.image_desktop %}
+      {% assign mobile_image = slide.settings.image_mobile %}
+      {% assign fallback_image = desktop_image %}
+
+      {% if fallback_image == blank %}
+        {% assign fallback_image = mobile_image %}
+      {% endif %}
+
+      {% if fallback_image != blank %}
+        {% assign desktop_image_url = desktop_image | image_url: width: 1800 %}
+        {% assign mobile_image_url = mobile_image | image_url: width: 900 %}
+        {% assign fallback_image_url = fallback_image | image_url: width: 1800 %}
+
+        <div class="slide{% if forloop.first %} is-active{% endif %}">
           <a href="{{ slide.settings.link | default: '#' }}">
             <picture>
-              <source media="(max-width: 768px)" srcset="{{ slide.settings.image_mobile | img_url: 'master' }}">
+              {% if mobile_image != blank %}
+                <source
+                  media="(max-width: 768px)"
+                  srcset="{{ mobile_image_url }}"
+                >
+              {% endif %}
+
               <img
-                src="{{ slide.settings.image_desktop | img_url: 'master' }}"
-                alt="Slide {{ forloop.index }}"
-                width="100%"
-                height="100%"
-                loading="eager"
+                src="{% if desktop_image != blank %}{{ desktop_image_url }}{% else %}{{ fallback_image_url }}{% endif %}"
+                alt="{{ fallback_image.alt | default: 'Slide' | escape }}"
+                width="{{ fallback_image.width }}"
+                height="{{ fallback_image.height }}"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                fetchpriority="{% if forloop.first %}high{% else %}auto{% endif %}"
               >
             </picture>
           </a>
-        {% endif %}
-      </div>
+        </div>
+      {% endif %}
     {% endfor %}
 
-    <div class="dots">
-      {% for slide in section.blocks %}
-        <span class="dot" data-index="{{ forloop.index }}"></span>
-      {% endfor %}
-    </div>
+    {% if section.blocks.size > 1 %}
+      <div class="dots">
+        {% for slide in section.blocks %}
+          <span class="dot{% if forloop.first %} active-slide{% endif %}" data-index="{{ forloop.index }}"></span>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </section>
 
 <script>
   (function () {
-    const sectionEl = document.querySelector('#slideshow-{{ section.id }}') ?? document;
+    const sectionEl = document.querySelector('#slideshow-{{ section.id }}');
+
+    if (!sectionEl || sectionEl.dataset.initialized === 'true') return;
+
+    sectionEl.dataset.initialized = 'true';
+
     const slides = sectionEl.querySelectorAll('.slide');
     const dots = sectionEl.querySelectorAll('.dot');
     const leftArrow = sectionEl.querySelector('.arrow-left');
     const rightArrow = sectionEl.querySelector('.arrow-right');
 
     let slideIndex = 0;
-    let autoSlideInterval;
-    let slideTime = parseInt('{{ section.settings.slide_time | default: 5 }}', 10) * 1000;
+    let autoSlideInterval = null;
+    const slideTime = parseInt('{{ section.settings.slide_time | default: 5 }}', 10) * 1000;
+
+    if (!slides.length) return;
 
     function showSlides() {
       slides.forEach((slide, index) => {
-        slide.style.display = index === slideIndex ? 'block' : 'none';
+        slide.classList.toggle('is-active', index === slideIndex);
       });
+
       dots.forEach((dot, index) => {
-        dot.className = index === slideIndex ? 'dot active-slide' : 'dot';
+        dot.classList.toggle('active-slide', index === slideIndex);
       });
+    }
+
+    function autoSlide() {
+      if (slides.length <= 1) return;
+
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlides();
+    }
+
+    function resetAutoSlide() {
+      if (slides.length <= 1) return;
+
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = setInterval(autoSlide, slideTime);
+    }
+
+    function changeSlide(direction) {
+      if (slides.length <= 1) return;
+
+      slideIndex = (slideIndex + direction + slides.length) % slides.length;
+      showSlides();
+      resetAutoSlide();
     }
 
     function currentSlide(index) {
@@ -215,24 +285,10 @@
     }
 
     dots.forEach((dot) => {
-      dot.addEventListener('click', () => currentSlide(Number(dot.dataset.index)));
+      dot.addEventListener('click', () => {
+        currentSlide(Number(dot.dataset.index));
+      });
     });
-
-    function autoSlide() {
-      slideIndex = (slideIndex + 1) % slides.length;
-      showSlides();
-    }
-
-    function resetAutoSlide() {
-      clearInterval(autoSlideInterval);
-      autoSlideInterval = setInterval(autoSlide, slideTime);
-    }
-
-    function changeSlide(direction) {
-      slideIndex = (slideIndex + direction + slides.length) % slides.length;
-      showSlides();
-      resetAutoSlide();
-    }
 
     leftArrow?.addEventListener('click', () => changeSlide(-1));
     rightArrow?.addEventListener('click', () => changeSlide(1));
@@ -242,40 +298,50 @@
       let isDragging = false;
 
       slides.forEach((slide) => {
-        slide.addEventListener('mousedown', (e) => {
-          e.preventDefault();
-          startX = e.clientX;
+        slide.addEventListener('mousedown', (event) => {
+          event.preventDefault();
+          startX = event.clientX;
           isDragging = true;
           slide.style.cursor = 'grabbing';
         });
 
-        slide.addEventListener('touchstart', (e) => {
-          startX = e.touches[0].clientX;
-          isDragging = true;
-          slide.style.cursor = 'grabbing';
-        });
+        slide.addEventListener(
+          'touchstart',
+          (event) => {
+            startX = event.touches[0].clientX;
+            isDragging = true;
+            slide.style.cursor = 'grabbing';
+          },
+          { passive: true }
+        );
 
-        slide.addEventListener('mousemove', (e) => {
+        slide.addEventListener('mousemove', (event) => {
           if (!isDragging) return;
-          const currentX = e.clientX;
+
+          const currentX = event.clientX;
           const diffX = startX - currentX;
+
           if (Math.abs(diffX) > 50) {
-            if (diffX > 0) changeSlide(1);
-            else changeSlide(-1);
+            changeSlide(diffX > 0 ? 1 : -1);
             isDragging = false;
           }
         });
 
-        slide.addEventListener('touchmove', (e) => {
-          if (!isDragging) return;
-          const currentX = e.touches[0].clientX;
-          const diffX = startX - currentX;
-          if (Math.abs(diffX) > 50) {
-            if (diffX > 0) changeSlide(1);
-            else changeSlide(-1);
-            isDragging = false;
-          }
-        });
+        slide.addEventListener(
+          'touchmove',
+          (event) => {
+            if (!isDragging) return;
+
+            const currentX = event.touches[0].clientX;
+            const diffX = startX - currentX;
+
+            if (Math.abs(diffX) > 50) {
+              changeSlide(diffX > 0 ? 1 : -1);
+              isDragging = false;
+            }
+          },
+          { passive: true }
+        );
 
         slide.addEventListener('mouseup', () => {
           isDragging = false;
@@ -294,10 +360,17 @@
       });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      showSlides();
+    showSlides();
+    handleDrag();
+
+    if (slides.length > 1) {
       autoSlideInterval = setInterval(autoSlide, slideTime);
-      handleDrag();
+    }
+
+    document.addEventListener('shopify:section:unload', function (event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        clearInterval(autoSlideInterval);
+      }
     });
   })();
 </script>
