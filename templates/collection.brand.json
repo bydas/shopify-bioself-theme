@@ -42,6 +42,7 @@
           "settings": {
             "title": "Solgar",
             "banner": "shopify://shop_images/banner-solgar-1920x500.jpg",
+            "banner_mobile": "shopify://shop_images/MAIO26_Mobile.png",
             "tags": "Solgar,Marcas_Solgar"
           }
         },
