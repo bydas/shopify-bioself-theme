@@ -6,32 +6,36 @@
 
 <section class="author-profile author-profile-{{ section.id }}">
   <div class="author-profile__container">
-    {% if section.settings.label != blank %}
-      <p class="author-profile__label">
-        {{ section.settings.label }}
-      </p>
-    {% endif %}
+    <div class="author-profile__header">
+      {% if author_image != blank %}
+        <div class="author-profile__image-wrapper">
+          {{
+            author_image
+            | image_url: width: 800
+            | image_tag:
+              class: 'author-profile__image',
+              loading: 'lazy',
+              widths: '300, 400, 600, 800',
+              sizes: '(max-width: 749px) 180px, 320px',
+              alt: author_name
+          }}
+        </div>
+      {% endif %}
 
-    {% if author_image != blank %}
-      <div class="author-profile__image-wrapper">
-        {{
-          author_image
-          | image_url: width: 800
-          | image_tag:
-            class: 'author-profile__image',
-            loading: 'lazy',
-            widths: '300, 400, 600, 800',
-            sizes: '(max-width: 749px) 180px, 320px',
-            alt: author_name
-        }}
+      <div class="author-profile__title-area">
+        {% if section.settings.label != blank %}
+          <p class="author-profile__label">
+            {{ section.settings.label }}
+          </p>
+        {% endif %}
+
+        {% if author_name != blank %}
+          <h1 class="author-profile__name">
+            {{ author_name }}
+          </h1>
+        {% endif %}
       </div>
-    {% endif %}
-
-    {% if author_name != blank %}
-      <h1 class="author-profile__name">
-        {{ author_name }}
-      </h1>
-    {% endif %}
+    </div>
 
     {% if author_bio != blank %}
       <div class="author-profile__bio rte">
@@ -53,39 +57,26 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     text-align: left;
   }
 
-  @media screen and (min-width: 1499px) {
-    .author-profile-{{ section.id }} {
-      margin: 2rem 9vw;
-    }
-  }
-
-  @media screen and (min-width: 2559px) {
-    .author-profile-{{ section.id }} {
-      margin: 2rem 18vw;
-    }
-  }
-
-  .author-profile-{{ section.id }} .author-profile__label {
-    margin: 0 0 20px;
-    font-size: 13px;
-    line-height: 1.4;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.7;
+  .author-profile-{{ section.id }} .author-profile__header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    margin-bottom: 32px;
   }
 
   .author-profile-{{ section.id }} .author-profile__image-wrapper {
-    width: 100%;
+    flex: 0 0 320px;
+    width: 320px;
     max-width: 320px;
     aspect-ratio: 1 / 1;
     border-radius: {{ section.settings.image_radius }}px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.04);
-    margin-bottom: 28px;
   }
 
   .author-profile-{{ section.id }} .author-profile__image {
@@ -95,8 +86,22 @@
     display: block;
   }
 
+  .author-profile-{{ section.id }} .author-profile__title-area {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .author-profile-{{ section.id }} .author-profile__label {
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
   .author-profile-{{ section.id }} .author-profile__name {
-    margin: 0 0 24px;
+    margin: 0;
     font-size: clamp(32px, 5vw, 64px);
     line-height: 1.05;
     font-weight: 600;
@@ -104,7 +109,8 @@
   }
 
   .author-profile-{{ section.id }} .author-profile__bio {
-    max-width: 760px;
+    width: 100%;
+    max-width: none;
     font-size: clamp(16px, 1.6vw, 19px);
     line-height: 1.75;
     color: inherit;
@@ -119,6 +125,18 @@
     margin-bottom: 0;
   }
 
+  @media screen and (min-width: 1499px) {
+    .author-profile-{{ section.id }} {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    .author-profile-{{ section.id }} {
+      margin: 2rem 18vw;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .author-profile-{{ section.id }} {
       padding-left: 16px;
@@ -126,9 +144,17 @@
       margin: 1rem var(--mobile-container-gutter);
     }
 
+    .author-profile-{{ section.id }} .author-profile__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+
     .author-profile-{{ section.id }} .author-profile__image-wrapper {
+      flex: 0 0 auto;
+      width: 180px;
       max-width: 180px;
-      margin-bottom: 22px;
     }
   }
 </style>
