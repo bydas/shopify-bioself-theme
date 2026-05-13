@@ -47,7 +47,6 @@
 
 <style>
   .author-profile-{{ section.id }} {
-    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
     margin: 2rem var(--desktop-container-gutter);
     background: {{ section.settings.background_color }};
     color: {{ section.settings.text_color }};
@@ -209,26 +208,6 @@
       "id": "text_color",
       "label": "Cor do texto",
       "default": "#111111"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Espaçamento superior",
-      "min": 0,
-      "max": 160,
-      "step": 4,
-      "unit": "px",
-      "default": 80
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Espaçamento inferior",
-      "min": 0,
-      "max": 160,
-      "step": 4,
-      "unit": "px",
-      "default": 80
     }
   ],
   "presets": [
