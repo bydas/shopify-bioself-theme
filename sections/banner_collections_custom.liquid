@@ -49,39 +49,31 @@
       {% assign array_tags = block.settings.tags | split: ',' %}
 
       {% for tag in array_tags %}
-        {% assign clean_tag = tag | strip %}
+        {% assign tag_clean = tag | strip %}
 
-        {% if collection.tags contains clean_tag %}
+        {% if collection.tags contains tag_clean %}
           {% assign block_has_tag = true %}
           {% break %}
         {% endif %}
       {% endfor %}
 
       {% if block_has_tag == true %}
-        {% assign banner_desktop = block.settings.banner %}
-        {% assign banner_mobile = block.settings.banner_mobile %}
-        {% assign main_banner = banner_desktop %}
-
-        {% if main_banner == blank %}
-          {% assign main_banner = banner_mobile %}
-        {% endif %}
-
-        {% if main_banner != blank %}
+        {% if block.settings.banner != blank %}
           <section id="banner_collections_custom">
             <picture>
-              {% if banner_mobile != blank %}
+              {% if block.settings.banner_mobile != blank %}
                 <source
                   media="(max-width: 1000px)"
-                  srcset="{{ banner_mobile | image_url: width: 1200 }}"
+                  srcset="{{ block.settings.banner_mobile | img_url: 'master' }}"
                 >
               {% endif %}
 
               <img
-                src="{{ main_banner | image_url: width: 2200 }}"
-                alt="{% if block.settings.title == blank %}Imagem do banner{% else %}{{ block.settings.title | escape }}{% endif %}"
-                width="{{ main_banner.width }}"
-                height="{{ main_banner.height }}"
-                loading="lazy"
+                src="{{ block.settings.banner | img_url: 'master' }}"
+                alt="{% if block.settings.title == blank %}Imagem do banner{% else %}{{ block.settings.title }}{% endif %}"
+                loading="eager"
+                width="100%"
+                height="auto"
               >
             </picture>
           </section>
@@ -114,7 +106,7 @@
           "type": "image_picker",
           "id": "banner_mobile",
           "label": "Imagem do banner mobile",
-          "info": "Aparece em ecrãs com 1000px ou menos. Recomendado: 1000x600px ou formato vertical."
+          "info": "Aparece em ecrãs com 1000px ou menos. Recomendado: 800x600px ou formato vertical."
         },
         {
           "type": "text",
