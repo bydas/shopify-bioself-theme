@@ -31,27 +31,27 @@
       });
     </script>
     {% comment %}
-     <script>
-      (function (w, d, t, r, u) {
-        var f, n, i;
-        (w[u] = w[u] || []),
-          (f = function () {
-            var o = { ti: '343146853', enableAutoSpaTracking: true };
-            (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
-          }),
-          (n = d.createElement(t)),
-          (n.src = r),
-          (n.async = 1),
-          (n.onload = n.onreadystatechange =
-            function () {
-              var s = this.readyState;
-              (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
+       <script>
+        (function (w, d, t, r, u) {
+          var f, n, i;
+          (w[u] = w[u] || []),
+            (f = function () {
+              var o = { ti: '343146853', enableAutoSpaTracking: true };
+              (o.q = w[u]), (w[u] = new UET(o)), w[u].push('pageLoad');
             }),
-          (i = d.getElementsByTagName(t)[0]),
-          i.parentNode.insertBefore(n, i);
-      })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
-    </script>
-{% endcomment %}
+            (n = d.createElement(t)),
+            (n.src = r),
+            (n.async = 1),
+            (n.onload = n.onreadystatechange =
+              function () {
+                var s = this.readyState;
+                (s && s !== 'loaded' && s !== 'complete') || (f(), (n.onload = n.onreadystatechange = null));
+              }),
+            (i = d.getElementsByTagName(t)[0]),
+            i.parentNode.insertBefore(n, i);
+        })(window, document, 'script', '//bat.bing.com/bat.js', 'uetq');
+      </script>
+    {% endcomment %}
 
     {% style %}
       .shopify-pc__prefs__overlay {
@@ -60,144 +60,41 @@
         background-color: transparent !important;
       }
 
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Light.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Light.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 100 300;
-        font-style: normal;
+      {{ settings.heading_font | font_face: font_display: 'swap' }}
+      {{ settings.text_font | font_face: font_display: 'swap' }}
+
+      :root {
+        --font-heading-family: {{ settings.heading_font.family }}, {{ settings.heading_font.fallback_families }};
+        --font-heading-weight: {{ settings.heading_font.weight }};
+        --font-heading-style: {{ settings.heading_font.style }};
+
+        --font-body-family: {{ settings.text_font.family }}, {{ settings.text_font.fallback_families }};
+        --font-body-weight: {{ settings.text_font.weight }};
+        --font-body-style: {{ settings.text_font.style }};
+
+        --base-font-size: {{ settings.base_text_font_size }}px;
       }
 
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-LightItalic.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-LightItalic.ttf?v=1740500320')
-            format('truetype');
-        font-weight: 100 300;
-        font-style: italic;
+      body {
+        font-family: var(--font-body-family);
+        font-weight: var(--font-body-weight);
+        font-style: var(--font-body-style);
+        font-size: var(--base-font-size);
       }
 
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Regular.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Regular.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 400;
-        font-style: normal;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Italic.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Italic.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 400;
-        font-style: italic;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Medium.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Medium.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 500;
-        font-style: normal;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-MediumItalic.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-MediumItalic.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 500;
-        font-style: italic;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBold.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBold.ttf?v=1740500320')
-            format('truetype');
-        font-weight: 600;
-        font-style: normal;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBoldItalic.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-SemiBoldItalic.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 600;
-        font-style: italic;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Bold.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Bold.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 700;
-        font-style: normal;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BoldItalic.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BoldItalic.ttf?v=1740500320')
-            format('truetype');
-        font-weight: 700;
-        font-style: italic;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBold.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBold.ttf?v=1740500320')
-            format('truetype');
-        font-weight: 800;
-        font-style: normal;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBoldItalic.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-ExtraBoldItalic.ttf?v=1740500321')
-            format('truetype');
-        font-weight: 800;
-        font-style: italic;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Black.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-Black.ttf?v=1740500320')
-            format('truetype');
-        font-weight: 900;
-        font-style: normal;
-      }
-
-      @font-face {
-        font-family: 'Red Hat Display';
-        src: url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BlackItalic.woff2?v=1740479613')
-            format('woff2'),
-          url('https://cdn.shopify.com/s/files/1/0451/2327/2853/files/RedHatDisplay-BlackItalic.ttf?v=1740500320')
-            format('truetype');
-        font-weight: 900;
-        font-style: italic;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      .heading,
+      .section-title,
+      .product-title,
+      .product-item-meta__title {
+        font-family: var(--font-heading-family);
+        font-weight: var(--font-heading-weight);
+        font-style: var(--font-heading-style);
       }
     {% endstyle %}
 
@@ -286,7 +183,6 @@
       <meta name="robots" content="noindex">
     {% endif %}
 
-   
     {%- capture seo_page_title -%}
       {%- if request.page_type == 'search' and search.terms != blank -%}
         {{ search.terms | split: ' AND ' | last | split: 'product_type:' | last }} - {{ shop.name }}
@@ -316,9 +212,7 @@
           const [, linkPart] = linkEl.href.split('pt');
           const tempHref = shopUrl + (linkPart || '') + requestPath;
 
-          href = tempHref.includes('/collections/')
-            ? tempHref.replace(linkPart, '')
-            : tempHref;
+          href = tempHref.includes('/collections/') ? tempHref.replace(linkPart, '') : tempHref;
         }
 
         canonical.href = href;
