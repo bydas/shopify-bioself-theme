@@ -12,6 +12,15 @@
     "banner_collections_custom_MTeDyT": {
       "type": "banner_collections_custom",
       "blocks": {
+        "custom_pXkz4w": {
+          "type": "custom",
+          "settings": {
+            "title": "Hawa Pharma",
+            "banner": "shopify://shop_images/Hawa_Desktop_Logo.png",
+            "banner_mobile": "shopify://shop_images/HawaLogo_Mobile.png",
+            "tags": "Hawa"
+          }
+        },
         "custom_Tc9QjN": {
           "type": "custom",
           "settings": {
@@ -79,6 +88,7 @@
         }
       },
       "block_order": [
+        "custom_pXkz4w",
         "custom_Tc9QjN",
         "custom_qh6DAD",
         "custom_aDbCqg",
