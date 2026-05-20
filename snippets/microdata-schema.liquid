@@ -1,13 +1,17 @@
 {%- comment -%}
-  This snippet structures the micro-data using JSON-LD specification. Please note that for Product especially,
-  the schema often changes. We try to output as much info as possible, but Google may add new requirements over time,
-  or change the format of some info
+  This snippet structures the micro-data using JSON-LD specification.
+  Please note that for Product especially, the schema often changes.
+  We try to output as much info as possible, but Google may add new requirements over time,
+  or change the format of some info.
 {%- endcomment -%}
 
 {%- if request.page_type == 'product' -%}
   {%- assign days_product_price_valid_until = 10 | times: 86400 -%}
 
   {%- assign gtin_option = 'gtin' -%}
+  {%- assign is_barcode_available = false -%}
+  {%- assign is_valid_gtin_length = false -%}
+
   {%- if product.selected_or_first_available_variant.barcode != blank -%}
     {%- assign is_barcode_available = true -%}
     {%- assign gtin_string_length = product.selected_or_first_available_variant.barcode | size -%}
@@ -22,93 +26,125 @@
     {%- endif -%}
   {%- endif -%}
 
+  {%- assign product_url = shop.url | append: product.url -%}
+  {%- assign product_image = product.featured_media.preview_image | default: product.featured_image -%}
+
+  {%- if product_image != blank -%}
+    {%- assign product_image_url = product_image | image_url: width: 1024 | prepend: 'https:' -%}
+  {%- endif -%}
+
   {%- capture main_entity_microdata -%}
     "@type": "Product",
     "offers": [
       {%- for variant in product.variants -%}
+        {%- assign variant_url = shop.url | append: product.url | append: '?variant=' | append: variant.id -%}
         {
           "@type": "Offer",
           "name": {{ variant.title | json }},
           "availability": {%- if variant.available -%}"https://schema.org/InStock"{%- else -%}"https://schema.org/OutOfStock"{%- endif -%},
           "price": {{ variant.price | divided_by: 100.0 | json }},
           "priceCurrency": {{ cart.currency.iso_code | json }},
-          "priceValidUntil": "{{ 'now' | date: '%s' | plus: days_product_price_valid_until | date: '%Y-%m-%d'}}",
+          "priceValidUntil": {{ 'now' | date: '%s' | plus: days_product_price_valid_until | date: '%Y-%m-%d' | json }},
           {%- if variant.sku != blank -%}
             "sku": {{ variant.sku | json }},
           {%- endif -%}
-          "url": "{{ product.url }}?variant={{ variant.id }}"
-        }{% unless forloop.last %},{% endunless %}
+          "url": {{ variant_url | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ],
-    {%- if is_barcode_available and is_valid_gtin_length %}
-      "{{gtin_option}}": {{ product.selected_or_first_available_variant.barcode | json }},
+    {%- if is_barcode_available and is_valid_gtin_length -%}
+      "{{ gtin_option }}": {{ product.selected_or_first_available_variant.barcode | json }},
       "productId": {{ product.selected_or_first_available_variant.barcode | json }},
-    {%- elsif is_barcode_available %}
+    {%- elsif is_barcode_available -%}
       "mpn": {{ product.selected_or_first_available_variant.barcode | json }},
       "productId": {{ product.selected_or_first_available_variant.barcode | json }},
-    {%- endif %}
+    {%- endif -%}
     "brand": {
+      "@type": "Brand",
       "name": {{ product.vendor | json }}
     },
     "name": {{ product.title | json }},
     "description": {{ product.description | strip_html | json }},
     "category": {{ product.type | json }},
-    "url": "{{ product.url }}",
-    "sku": {{ product.selected_or_first_available_variant.sku | json }},
-    "image": {
-      "@type": "ImageObject",
-      "url": "https:{{ product.featured_media | img_url: '1024x' }}",
-      "image": "https:{{ product.featured_media | img_url: '1024x' }}",
-      "name": {{ product.featured_media.alt | json }},
-      "width": "1024",
-      "height": "1024"
-    }
+    "url": {{ product_url | json }},
+    "sku": {{ product.selected_or_first_available_variant.sku | json }}
+    {%- if product_image != blank -%}
+      ,
+      "image": {
+        "@type": "ImageObject",
+        "url": {{ product_image_url | json }},
+        "image": {{ product_image_url | json }},
+        "name": {{ product_image.alt | default: product.title | json }},
+        "width": "1024",
+        "height": "1024"
+      }
+    {%- endif -%}
   {%- endcapture -%}
+
 {%- elsif request.page_type == 'article' -%}
+  {%- assign article_url = shop.url | append: article.url -%}
+  {%- assign article_author_tag = blank -%}
+  {%- assign article_category_tag = blank -%}
+
+  {%- for tag in article.tags -%}
+    {%- if tag contains 'author_' and article_author_tag == blank -%}
+      {%- assign article_author_tag = tag -%}
+    {%- elsif article_category_tag == blank -%}
+      {%- assign article_category_tag = tag -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if article.image != blank -%}
+    {%- assign article_image_url = article.image | image_url: width: 1024 | prepend: 'https:' -%}
+  {%- endif -%}
+
   {%- capture main_entity_microdata -%}
     "@type": "BlogPosting",
-    "mainEntityOfPage": "{{ article.url }}",
+    "mainEntityOfPage": {{ article_url | json }},
     "articleSection": {{ blog.title | json }},
-    "keywords": "{{ article.tags | join: ', ' }}",
+    "keywords": {{ article.tags | join: ', ' | json }},
     "headline": {{ article.title | json }},
     "description": {{ article.excerpt_or_content | strip_html | truncatewords: 25 | json }},
-    "dateCreated": "{{ article.created_at | date: '%Y-%m-%dT%T' }}",
-    "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%T' }}",
-    "dateModified": "{{ article.published_at | date: '%Y-%m-%dT%T' }}",
-    "image": {
-      "@type": "ImageObject",
-      "url": "https:{{ article.image | img_url: '1024x' }}",
-      "image": "https:{{ article.image | img_url: '1024x' }}",
-      "name": {{ article.image.alt | json }},
-      "width": "1024",
-      "height": "1024"
-    },
+    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%T' | json }},
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%T' | json }},
+    "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%T' | json }},
+    {%- if article.image != blank -%}
+      "image": {
+        "@type": "ImageObject",
+        "url": {{ article_image_url | json }},
+        "image": {{ article_image_url | json }},
+        "name": {{ article.image.alt | default: article.title | json }},
+        "width": "1024",
+        "height": "1024"
+      },
+    {%- endif -%}
     "author": {
       "@type": "Person"
-      {%- assign articleTags = article.tags | first -%}
-      {%- if articleTags contains "author_" -%}
-          {%- assign articleTagHandle = articleTags | handleize -%}
-          {%- assign tag_handle = articleTags | split: "_" | last | handleize -%}
-          {%- assign author = shop.metaobjects['autores'][tag_handle].nome.value -%}
-          {%- assign authorUrl = shop.url | append: blog.url | append: "/tagged/" | append: articleTagHandle  -%}
-          ,
-          "name": "{{ author }}",
-          "url": "{{ authorUrl }}"
+      {%- if article_author_tag != blank -%}
+        {%- assign article_author_tag_handle = article_author_tag | handleize -%}
+        {%- assign tag_handle = article_author_tag | split: '_' | last | handleize -%}
+        {%- assign author = shop.metaobjects['autores'][tag_handle].nome.value -%}
+        {%- assign author_url = shop.url | append: blog.url | append: '/tagged/' | append: article_author_tag_handle -%}
+        ,
+        "name": {{ author | default: shop.name | json }},
+        "url": {{ author_url | json }}
+      {%- else -%}
+        ,
+        "name": {{ shop.name | json }}
       {%- endif -%}
-
     },
     "publisher": {
       "@type": "Organization",
       "name": {{ shop.name | json }}
     },
-    "commentCount": {{ article.comments_count }},
+    "commentCount": {{ article.comments_count | json }},
     "comment": [
       {%- for comment in article.comments limit: 5 -%}
         {
           "@type": "Comment",
           "author": {{ comment.author | json }},
-          "datePublished": "{{ comment.created_at | date: '%Y-%m-%dT%T' }}",
-          "text": {{ comment.content | json }}
+          "datePublished": {{ comment.created_at | date: '%Y-%m-%dT%T' | json }},
+          "text": {{ comment.content | strip_html | json }}
         }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]
@@ -117,136 +153,157 @@
 
 {%- capture breadcrumb_entity_microdata -%}
   "@type": "BreadcrumbList",
-  "itemListElement": [{
+  "itemListElement": [
+    {
       "@type": "ListItem",
       "position": 1,
       "name": {{ 'general.breadcrumb.home' | t | json }},
-      "item": "{{ shop.url }}"
+      "item": {{ shop.url | json }}
     }
 
     {%- if request.page_type == 'product' -%}
-      {%- if collection -%}
-        ,{
+      {%- assign breadcrumb_collection = collection -%}
+
+      {%- if breadcrumb_collection == blank and product.collections.size > 0 -%}
+        {%- assign breadcrumb_collection = product.collections | first -%}
+      {%- endif -%}
+
+      {%- if breadcrumb_collection != blank -%}
+        {%- assign breadcrumb_collection_url = shop.url | append: breadcrumb_collection.url -%}
+        {%- assign breadcrumb_product_url = shop.url | append: product.url | within: breadcrumb_collection -%}
+
+        ,
+        {
           "@type": "ListItem",
           "position": 2,
-          "name": {{ collection.title | json }},
-          "item": "{{ shop.url }}{{ collection.url }}"
+          "name": {{ breadcrumb_collection.title | json }},
+          "item": {{ breadcrumb_collection_url | json }}
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": {{ product.title | json }},
-          "item": "{{ shop.url }}{{ product.url | within: collection }}"
+          "item": {{ breadcrumb_product_url | json }}
         }
       {%- else -%}
-        {% assign product_collection = product.collections | first | json %}
-        {% assign collection_information = product_collection | split: ',' %}
-
-        {% for information in collection_information %}
-          {% assign information_split = information | split: ':' %}
-          {% assign information_key = information_split | first %}
-          {% assign information_value = information_split | last %}
-          {% if information_key == '"title"' %}
-            {% assign collection_name = information_value %}
-          {% endif %}
-          {% if information_key == '"handle"' %}
-            {% assign collection_handle = information_value | replace: '"', '' %}
-          {% endif %}
-        {% endfor %}
-        ,{
-        "@type": "ListItem",
-        "position": 2,
-        "name": {{ collection_name }},
-        "item": "{{ shop.url }}/collections/{{ collection_handle }}"
-        },
+        ,
         {
           "@type": "ListItem",
-          "position": 3,
+          "position": 2,
           "name": {{ product.title | json }},
-          "item": "{{ shop.url }}{{ product.url }}"
+          "item": {{ product_url | json }}
         }
       {%- endif -%}
+
     {%- elsif request.page_type == 'collection' -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Coleções",
-          "item": "{{ shop.url }}/collections"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": {{ collection.title | json }},
-          "item": "{{ shop.url }}{{ collection.url }}"
-        }
+      {%- assign collections_url = shop.url | append: '/collections' -%}
+      {%- assign collection_url = shop.url | append: collection.url -%}
+
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Coleções",
+        "item": {{ collections_url | json }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": {{ collection.title | json }},
+        "item": {{ collection_url | json }}
+      }
+
     {%- elsif request.page_type == 'blog' -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ blog.title | json }},
-          "item": "{{ shop.url }}{{ blog.url }}"
-        }
-        {%- if request.path contains 'tagged' -%}
-          {%- assign currentTag = request.path | split: '/' | last -%}
-          {%- unless currentTag contains 'author' -%}
-            ,{
-              "@type": "ListItem",
-              "position": 3,
-              "name": "{{ current_tags }}",
-              "item": "{{ shop.url }}{{ blog.url }}/tagged/{{ currentTag }}"
-            }
-          {%- endunless -%}
-        {% endif %}
+      {%- assign blog_url = shop.url | append: blog.url -%}
+
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ blog.title | json }},
+        "item": {{ blog_url | json }}
+      }
+
+      {%- if request.path contains 'tagged' -%}
+        {%- assign current_tag = request.path | split: '/' | last -%}
+        {%- assign current_tag_url = shop.url | append: blog.url | append: '/tagged/' | append: current_tag -%}
+
+        {%- unless current_tag contains 'author' -%}
+          ,
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ current_tags | join: ', ' | json }},
+            "item": {{ current_tag_url | json }}
+          }
+        {%- endunless -%}
+      {%- endif -%}
+
     {%- elsif request.page_type == 'article' -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ blog.title | json }},
-          "item": "{{ shop.url }}{{ blog.url }}"
-        },
+      {%- assign blog_url = shop.url | append: blog.url -%}
+
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ blog.title | json }},
+        "item": {{ blog_url | json }}
+      }
+
+      {%- if article_category_tag != blank -%}
+        {%- assign article_category_url = shop.url | append: blog.url | append: '/tagged/' | append: article_category_tag | handleize -%}
+
+        ,
         {
-          {%- for tag in article.tags -%}
-            {%- unless tag contains 'author' -%}
-              {%- assign articleTag = tag -%}
-              {%- break -%}
-            {%- endunless -%}
-          {%- endfor -%}
           "@type": "ListItem",
           "position": 3,
-          "name": "{{ articleTag }}",
-          "item": "{{ shop.url }}{{ blog.url }}/tagged/{{ articleTag | handleize }}"
+          "name": {{ article_category_tag | json }},
+          "item": {{ article_category_url | json }}
         },
         {
           "@type": "ListItem",
           "position": 4,
-          "name": {{ blog.title | json }},
-          "item": "{{ shop.url }}{{ article.url }}"
+          "name": {{ article.title | json }},
+          "item": {{ article_url | json }}
         }
-    {%- elsif request.page_type == 'page' -%}
-       ,{
+      {%- else -%}
+        ,
+        {
           "@type": "ListItem",
-          "position": 2,
-          "name": {{ page.title | json }},
-          "item": "{{ shop.url }}{{ page.url }}"
+          "position": 3,
+          "name": {{ article.title | json }},
+          "item": {{ article_url | json }}
         }
+      {%- endif -%}
+
+    {%- elsif request.page_type == 'page' -%}
+      {%- assign page_url = shop.url | append: page.url -%}
+
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ page.title | json }},
+        "item": {{ page_url | json }}
+      }
     {%- endif -%}
   ]
 {%- endcapture -%}
 
-{% if main_entity_microdata != blank %}
+{%- if main_entity_microdata != blank -%}
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       {{ main_entity_microdata }}
     }
   </script>
-{% endif %}
+{%- endif -%}
 
-{% if breadcrumb_entity_microdata != blank %}
+{%- if breadcrumb_entity_microdata != blank -%}
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       {{ breadcrumb_entity_microdata }}
     }
   </script>
-{% endif %}
+{%- endif -%}
