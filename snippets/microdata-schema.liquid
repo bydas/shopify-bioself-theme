@@ -1,7 +1,7 @@
 {%- comment -%}
-This snippet structures the micro-data using JSON-LD specification. Please note that for Product especially,
-the schema often changes. We try to output as much info as possible, but Google may add new requirements over time,
-or change the format of some info
+  This snippet structures the micro-data using JSON-LD specification. Please note that for Product especially,
+  the schema often changes. We try to output as much info as possible, but Google may add new requirements over time,
+  or change the format of some info
 {%- endcomment -%}
 
 {%- if request.page_type == 'product' -%}
@@ -12,7 +12,11 @@ or change the format of some info
     {%- assign is_barcode_available = true -%}
     {%- assign gtin_string_length = product.selected_or_first_available_variant.barcode | size -%}
 
-    {%- if gtin_string_length == 8 or gtin_string_length == 12 or gtin_string_length == 13 or gtin_string_length == 14 -%}
+    {%- if gtin_string_length == 8
+      or gtin_string_length == 12
+      or gtin_string_length == 13
+      or gtin_string_length == 14
+    -%}
       {%- assign is_valid_gtin_length = true -%}
       {%- assign gtin_option = gtin_option | append: gtin_string_length -%}
     {%- endif -%}
@@ -166,6 +170,12 @@ or change the format of some info
         ,{
           "@type": "ListItem",
           "position": 2,
+          "name": "Coleções",
+          "item": "{{ shop.url }}/collections"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
           "name": {{ collection.title | json }},
           "item": "{{ shop.url }}{{ collection.url }}"
         }
@@ -225,18 +235,18 @@ or change the format of some info
 
 {% if main_entity_microdata != blank %}
   <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    {{ main_entity_microdata }}
-  }
+    {
+      "@context": "http://schema.org",
+      {{ main_entity_microdata }}
+    }
   </script>
 {% endif %}
 
 {% if breadcrumb_entity_microdata != blank %}
   <script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    {{ breadcrumb_entity_microdata }}
-  }
+    {
+      "@context": "http://schema.org",
+      {{ breadcrumb_entity_microdata }}
+    }
   </script>
 {% endif %}
