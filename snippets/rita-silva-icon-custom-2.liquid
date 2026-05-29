@@ -28,15 +28,17 @@
   }
 </style>
 
-<div id="rita_icon_custom-2">
-  <img
-    src="{% if img != blank %}{{ img | img_url: 'master' }}{% else %}https://cdn.shopify.com/s/files/1/0451/2327/2853/files/Ellipse_35_1.png?v=1756740925{% endif %}"
-    alt="Rita Silva"
-    width="auto"
-    height="auto"
-  >
+<a href="{{ shop.url }}/pages/autores/rita-silva" style="display: grid; width: max-content;">
+  <div id="rita_icon_custom-2">
+    <img
+      src="{% if img != blank %}{{ img | img_url: 'master' }}{% else %}https://cdn.shopify.com/s/files/1/0451/2327/2853/files/Ellipse_35_1.png?v=1756740925{% endif %}"
+      alt="Rita Silva"
+      width="auto"
+      height="auto"
+    >
 
-  <div>
-    <span>Rita Silva</span>
+    <div>
+      <span>Rita Silva</span>
+    </div>
   </div>
-</div>
+</a>
