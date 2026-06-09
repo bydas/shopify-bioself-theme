@@ -251,6 +251,7 @@
           "type": "shopify://apps/revoq-eu-withdrawal-button/blocks/widerrufsbutton-form/019c3356-2775-7d52-b915-4b0f965005ae",
           "settings": {
             "button_shape": "rounded",
+            "button_radius": 7.2,
             "button_size": "medium",
             "button_variant": "filled",
             "button_color": "#008a00",
