@@ -244,6 +244,18 @@
         "text_color": "#308a36"
       }
     },
+    "rich_text_MJC47y": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "text_width": "wide",
+        "main-title": "Formulário de Resolução",
+        "title": "",
+        "content": "",
+        "button_text": "",
+        "button_link": "shopify://collections/all"
+      }
+    },
     "178100257647c37e9c": {
       "type": "apps",
       "blocks": {
@@ -269,7 +281,7 @@
             "input_background_color": "#ffffff",
             "name_placeholder": "-",
             "order_placeholder": "-",
-            "show_heading": true,
+            "show_heading": false,
             "heading_text": "-",
             "show_section_heading": true,
             "section_heading_text": "-",
@@ -294,6 +306,7 @@
     "text-with-icons-top",
     "template",
     "text-with-icons-bottom",
+    "rich_text_MJC47y",
     "178100257647c37e9c"
   ]
 }
