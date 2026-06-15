@@ -521,7 +521,7 @@
         <h6>{{ section.settings.footer_menu_1.title }}</h6>
 
         <ul class="footer_additional_menu">
-          {% for link in section.settings.footer_menu_1.links %}
+        {% for link in section.settings.footer_menu_1.links limit: 10 %}
             <li>
               <a href="{{ link.url }}">{{ link.title }}</a>
             </li>
