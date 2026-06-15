@@ -544,19 +544,19 @@
       </li>
     {% endif %}
 
-    {% if section.settings.footer_menu_3 %}
-      <li>
-        <h6>{{ section.settings.footer_menu_3.title | upcase }}</h6>
+   {% if section.settings.footer_menu_3 %}
+    <li>
+      <h6>{{ section.settings.footer_menu_3.title | upcase }}</h6>
 
-        <ul class="footer_additional_menu">
-          {% for link in section.settings.footer_menu_3.links %}
-            <li>
-              <a href="{{ link.url }}">{{ link.title }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% endif %}
+      <ul class="footer_additional_menu">
+        {% for link in section.settings.footer_menu_3.links limit: 10 %}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endif %}
 
     {% if section.settings.footer_menu_4 %}
       <li>
