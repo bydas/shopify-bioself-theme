@@ -12,6 +12,15 @@
     "banner_collections_custom_MTeDyT": {
       "type": "banner_collections_custom",
       "blocks": {
+        "custom_Xd3WNe": {
+          "type": "custom",
+          "settings": {
+            "title": "Melatonox",
+            "banner": "shopify://shop_images/Bioself_Desktop-02.jpg",
+            "banner_mobile": "shopify://shop_images/Prancheta_2-80.jpg",
+            "tags": "melatonox"
+          }
+        },
         "custom_pXkz4w": {
           "type": "custom",
           "settings": {
@@ -88,6 +97,7 @@
         }
       },
       "block_order": [
+        "custom_Xd3WNe",
         "custom_pXkz4w",
         "custom_Tc9QjN",
         "custom_qh6DAD",
