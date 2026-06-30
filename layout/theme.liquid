@@ -467,7 +467,7 @@
       })(window, document, 'clarity', 'script', 'ick368r4xr');
     </script>
 
-    {%- if request.page_type == 'page' and canonical_url contains '/pages/autores/rita-silva' -%}
+    {%- if request.page_type == 'page' and page.handle contains '/pages/autores/rita-silva' -%}
       <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -516,6 +516,7 @@
         }
       </script>
     {% else %}
+      {{ page.handle }}
       {% render 'microdata-schema' %}
     {%- endif -%}
   </head>
