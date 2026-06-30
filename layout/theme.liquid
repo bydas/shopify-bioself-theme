@@ -516,7 +516,7 @@
         }
       </script>
     {% else %}
-      {{ page.handle }}
+      <script>console.log("{{ page.handle }}")</script>
       {% render 'microdata-schema' %}
     {%- endif -%}
   </head>
