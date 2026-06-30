@@ -468,6 +468,56 @@
     </script>
 
     {% render 'microdata-schema' %}
+
+    {% if request.path == '/pages/autores/rita-silva' %}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          "url": "https://bioself.pt/pages/autores/rita-silva",
+          "mainEntity": {
+            "@type": "Person",
+            "name": "Rita de Cássia Silva",
+            "alternateName": "Rita Silva",
+            "url": "https://bioself.pt/pages/autores/rita-silva",
+            "jobTitle": "Nutricionista Funcional",
+            "description": "Nutricionista (Cédula Profissional 4249N da Ordem dos Nutricionistas) que desde 2020 acompanha pessoas que procuram melhorar a saúde de forma integrativa. Tem especial interesse por nutrição funcional, metabolismo, suplementação alimentar e saúde intestinal.",
+            "image": "https://bioself.pt/cdn/shop/files/dra-rita-silva-nutricionista-bioself-600x600.jpg",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Bioself",
+              "url": "https://bioself.pt"
+            },
+            "alumniOf": [
+              {
+                "@type": "CollegeOrUniversity",
+                "name": "Faculdade de Ciências da Nutrição e Alimentação da Universidade do Porto"
+              },
+              {
+                "@type": "CollegeOrUniversity",
+                "name": "NOVA Medical School"
+              },
+              {
+                "@type": "CollegeOrUniversity",
+                "name": "CESPU - Cooperativa de Ensino Superior Politécnico e Universitário"
+              }
+            ],
+            "knowsAbout": [
+              "Nutrição Funcional",
+              "Metabolismo",
+              "Suplementação Alimentar",
+              "Saúde Intestinal",
+              "Microbiota Intestinal",
+              "Medicina Mente-Corpo"
+            ],
+            "sameAs": [
+              "http://www.linkedin.com/in/rita-de-c%C3%A1ssia-silva-nutricionista-bioself",
+              "https://www.instagram.com/bioselfnatura/"
+            ]
+          }
+        }
+      </script>
+    {% endif %}
   </head>
 
   <body
