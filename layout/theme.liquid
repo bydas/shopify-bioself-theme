@@ -516,7 +516,6 @@
         }
       </script>
     {% else %}
-      <script>console.log("{{ page.handle }}")</script>
       {% render 'microdata-schema' %}
     {%- endif -%}
   </head>
@@ -525,6 +524,8 @@
     class="bioself--v1 {% if settings.animation_image_zoom %}features--animate-zoom{% endif %} template-{{ request.page_type | handle }} {% if request.page_type contains '/' %}template-{{ request.page_type | split: '/' | last | handle }}{% endif %}"
     data-instant-intensity="viewport"
   >
+    <script>console.log("{{ page.handle }}")</script>
+    
     <div id="loader"></div>
 
     <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
