@@ -3376,9 +3376,10 @@
       },
       "popups_custom": {
         "type": "popups_custom",
+        "custom_css": [],
         "settings": {
           "title": "Recebe 10% de desconto na tua primeira compra",
-          "subtitle": "<p><strong>Há mais de 45 anos a cuidar da saúde e bem-estar. Subscreve a nossa newsletter e recebe já o teu desconto.</strong></p><p><strong>Terás também oferta de um e-book de suplementação 😉</strong><br/><br/></p>",
+          "subtitle": "<p><strong>Há mais de 45 anos a cuidar da saúde e bem-estar. Subscreve a nossa newsletter e recebe já o teu desconto.</strong></p><p><br/><strong>Recebe também um e-book gratuito sobre suplementação.</strong><br/><br/></p>",
           "termos": "<p>Li e aceito os <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Termos de Utilização do Site</a></p>",
           "background_color": "#308a36",
           "text_color": "#ffffff",
