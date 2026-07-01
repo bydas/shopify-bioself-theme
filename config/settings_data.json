@@ -3377,8 +3377,8 @@
       "popups_custom": {
         "type": "popups_custom",
         "settings": {
-          "title": "Subscreve a nossa newsletter!",
-          "subtitle": "<p>Queremos ajudar-te a conquistar os teus objetivos. Subscreve a nossa newsletter para acederes a descontos exclusivos, a um ebook único sobre suplementação alimentar e a outros conteúdos com dicas que podes adotar para alcançares a tua melhor versão. Recebe agora estas surpresas no teu e-mail!</p>",
+          "title": "Recebe 10% de desconto na tua primeira compra",
+          "subtitle": "<p>Há mais de 45 anos a cuidar da saúde e bem-estar. Subscreve a nossa newsletter e recebe já o teu desconto.<br/><br/></p>",
           "termos": "<p>Li e aceito os <a href=\"/policies/terms-of-service\" target=\"_blank\" title=\"Terms of Service\">Termos de Utilização do Site</a></p>",
           "background_color": "#308a36",
           "text_color": "#ffffff",
