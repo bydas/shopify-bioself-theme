@@ -727,7 +727,7 @@
           "a4db8789-63d6-4721-9210-f284442cfcf7": {
             "type": "message",
             "settings": {
-              "text": "<p><strong>Promoções válidas de 1 a 30 de Junho</strong></p>",
+              "text": "<p><strong>Promoções válidas de 1 a 3 de Julho</strong></p>",
               "link": ""
             }
           },
@@ -3412,12 +3412,12 @@
         "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
         "disabled": false,
         "settings": {
+          "greeting_message": "👋 Olá! Envie-nos uma mensagem se tiver questões, teremos todo o gosto em ajudar. Tentaremos ser céleres na resposta.",
           "button_color": "#202a36",
           "button_icon": "chat_bubble",
           "button_text": "no_text",
           "button_horizontal_position": "bottom_right",
-          "button_vertical_position": "lowest",
-          "greeting_message": "👋 Olá! Envie-nos uma mensagem se tiver questões, teremos todo o gosto em ajudar. Tentaremos ser céleres na resposta."
+          "button_vertical_position": "lowest"
         }
       },
       "14060646107696862457": {
