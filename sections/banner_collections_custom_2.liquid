@@ -1,0 +1,129 @@
+<style>
+  #banner_collections_custom {
+    display: grid;
+    margin: 2rem var(--desktop-container-gutter);
+  }
+
+  #banner_collections_custom picture,
+  #banner_collections_custom img {
+    display: block;
+    width: 100%;
+  }
+
+  #banner_collections_custom img {
+    height: auto;
+    max-height: 45dvh;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #banner_collections_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #banner_collections_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #banner_collections_custom {
+      margin: 1rem var(--mobile-container-gutter);
+    }
+
+    #banner_collections_custom img {
+      max-height: unset !important;
+    }
+  }
+</style>
+
+{% assign banner_was_shown = false %}
+
+{% if collection != blank and section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+    {% unless banner_was_shown %}
+      {% assign block_has_collection = false %}
+
+      {% for selected_collection in block.settings.collections %}
+        {% if selected_collection.id == collection.id %}
+          {% assign block_has_collection = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% if block_has_collection and block.settings.banner != blank %}
+        {% assign banner_was_shown = true %}
+
+        <section
+          id="banner_collections_custom"
+          {{ block.shopify_attributes }}
+        >
+          <picture>
+            {% if block.settings.banner_mobile != blank %}
+              <source
+                media="(max-width: 1000px)"
+                srcset="{{ block.settings.banner_mobile | image_url: width: 1600 }}"
+              >
+            {% endif %}
+
+            <img
+              src="{{ block.settings.banner | image_url: width: 2560 }}"
+              alt="{% if block.settings.title == blank %}Imagem do banner{% else %}{{ block.settings.title | escape }}{% endif %}"
+              loading="eager"
+              width="{{ block.settings.banner.width }}"
+              height="{{ block.settings.banner.height }}"
+            >
+          </picture>
+        </section>
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Banner Custom",
+  "blocks": [
+    {
+      "type": "custom",
+      "name": "Banner da Coleção",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título do bloco"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner",
+          "label": "Imagem do banner desktop",
+          "info": "Recomendado: 1920x500px"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_mobile",
+          "label": "Imagem do banner mobile",
+          "info": "Aparece em ecrãs com 1000px ou menos. Recomendado: 800x600px ou formato vertical."
+        },
+        {
+          "type": "collection_list",
+          "id": "collections",
+          "label": "Selecionar coleções",
+          "limit": 50,
+          "info": "O banner será apresentado apenas nas coleções selecionadas."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Custom",
+      "category": "banner"
+    }
+  ]
+}
+{% endschema %}
