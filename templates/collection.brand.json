@@ -132,108 +132,6 @@
       "name": "Banner Custom",
       "settings": {}
     },
-    "banner_collections_custom_MTeDyT": {
-      "type": "banner_collections_custom",
-      "blocks": {
-        "custom_Xd3WNe": {
-          "type": "custom",
-          "settings": {
-            "title": "Melatonox",
-            "banner": "shopify://shop_images/Bioself_Desktop-02.jpg",
-            "banner_mobile": "shopify://shop_images/Prancheta_2-80.jpg",
-            "tags": "Melatonox"
-          }
-        },
-        "custom_pXkz4w": {
-          "type": "custom",
-          "settings": {
-            "title": "Hawa Pharma",
-            "banner": "shopify://shop_images/Hawa_Desktop_Logo.png",
-            "banner_mobile": "shopify://shop_images/Hawa_mobilev4.png",
-            "tags": "Hawa"
-          }
-        },
-        "custom_Tc9QjN": {
-          "type": "custom",
-          "settings": {
-            "title": "ESI",
-            "banner": "shopify://shop_images/ESI_Banner_Bioself1920500.png",
-            "tags": "ESI,Marcas_ESI"
-          }
-        },
-        "custom_qh6DAD": {
-          "type": "custom",
-          "disabled": true,
-          "settings": {
-            "title": "Dietmed",
-            "banner": "shopify://shop_images/banner_campanha-naturmil-dietmed.jpg",
-            "tags": "Dietmed,Naturmil"
-          }
-        },
-        "custom_aDbCqg": {
-          "type": "custom",
-          "settings": {
-            "title": "Bioscalin",
-            "banner": "shopify://shop_images/banner-bioscalin-1920x500.jpg",
-            "tags": "Bioscalin"
-          }
-        },
-        "custom_9UT4cN": {
-          "type": "custom",
-          "settings": {
-            "title": "Solgar",
-            "banner": "shopify://shop_images/banner-solgar-1920x500.jpg",
-            "tags": "Solgar,Marcas_Solgar"
-          }
-        },
-        "custom_jX8RL3": {
-          "type": "custom",
-          "settings": {
-            "title": "Now Foods",
-            "banner": "shopify://shop_images/banner-now-foods-1920x500.jpg",
-            "tags": "Marcas_Now"
-          }
-        },
-        "custom_QbWjQD": {
-          "type": "custom",
-          "settings": {
-            "title": "Nutergia",
-            "banner": "shopify://shop_images/banner-nutergia-1920x500.jpg",
-            "tags": "Marcas_Nutergia"
-          }
-        },
-        "custom_XfGcUU": {
-          "type": "custom",
-          "settings": {
-            "title": "Florais de Bach",
-            "banner": "shopify://shop_images/banner-florais-bach-1920x500.jpg",
-            "tags": "Marcas_Florais de Bach"
-          }
-        },
-        "custom_xpWTMw": {
-          "type": "custom",
-          "settings": {
-            "title": "Auri Foods",
-            "banner": "shopify://shop_images/auri-foods-banner.png",
-            "tags": "Auri Foods"
-          }
-        }
-      },
-      "block_order": [
-        "custom_Xd3WNe",
-        "custom_pXkz4w",
-        "custom_Tc9QjN",
-        "custom_qh6DAD",
-        "custom_aDbCqg",
-        "custom_9UT4cN",
-        "custom_jX8RL3",
-        "custom_QbWjQD",
-        "custom_XfGcUU",
-        "custom_xpWTMw"
-      ],
-      "disabled": true,
-      "settings": {}
-    },
     "collection_custom_page_YJnKbe": {
       "type": "collection-custom-page",
       "blocks": {
@@ -370,7 +268,6 @@
   },
   "order": [
     "banner_collections_custom_2_RJpHDd",
-    "banner_collections_custom_MTeDyT",
     "collection_custom_page_YJnKbe",
     "brand_info_dLbW46",
     "biopoints_CEMpjq",
