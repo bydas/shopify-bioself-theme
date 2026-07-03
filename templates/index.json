@@ -313,7 +313,6 @@
     },
     "review_carousel_WzY7CF": {
       "type": "review-carousel",
-      "disabled": true,
       "name": "Review carousel",
       "settings": {
         "heading": "O QUE DIZEM DE NÓS",
@@ -322,6 +321,7 @@
     },
     "opinioes_verificadas_custom_gqWRmC": {
       "type": "opinioes-verificadas-custom",
+      "disabled": true,
       "settings": {
         "selected_section_title": "O que dizem de nós",
         "selected_image": "shopify://shop_images/Rectangle_1_8b94206a-1985-49cc-9bce-ca07dee99b34.webp",
