@@ -311,6 +311,17 @@
         "selected_section_title": "Explora por Categorias"
       }
     },
+    "review_carousel_WzY7CF": {
+      "type": "review-carousel",
+      "disabled": true,
+      "name": "Review carousel",
+      "settings": {
+        "heading": "O QUE DIZEM DE NÓS",
+        "heading_size": "h2",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
     "opinioes_verificadas_custom_gqWRmC": {
       "type": "opinioes-verificadas-custom",
       "settings": {
@@ -512,6 +523,7 @@
     "slideshow_custom_TYHkfV",
     "bioself_blog_tnVbj3",
     "collection_categorias_custom_mUaHG8",
+    "review_carousel_WzY7CF",
     "opinioes_verificadas_custom_gqWRmC",
     "newsletter_custom_U9NWnB",
     "collection_brands_custom_HCBAUq",
