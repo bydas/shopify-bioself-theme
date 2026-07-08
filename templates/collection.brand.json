@@ -12,6 +12,17 @@
     "banner_collections_custom_2_RJpHDd": {
       "type": "banner_collections_custom_2",
       "blocks": {
+        "custom_CVU6nk": {
+          "type": "custom",
+          "settings": {
+            "title": "Kondrosamina",
+            "banner": "shopify://shop_images/kondrosamina-desktop.jpg",
+            "banner_mobile": "shopify://shop_images/kondrosamina-mobile.jpg",
+            "collections": [
+              "kondrosamina"
+            ]
+          }
+        },
         "custom_zXPmkT": {
           "type": "custom",
           "settings": {
@@ -129,6 +140,7 @@
         }
       },
       "block_order": [
+        "custom_CVU6nk",
         "custom_zXPmkT",
         "custom_T69pQG",
         "custom_CYJyXz",
