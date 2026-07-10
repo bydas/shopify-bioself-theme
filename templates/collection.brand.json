@@ -163,7 +163,9 @@
           "type": "coupon",
           "settings": {
             "title": "Physalis",
-            "selected_tags": "Physalis",
+            "selected_collections": [
+              "physalis"
+            ],
             "collection_cupon_title": "Poupa 10% EXTRA ao comprar 2 ou mais produtos da marca Physalis 🥳",
             "collection_cupon_boolean": false,
             "collection_cupon_description": "Campanha válida de 1 a 31 de Julho.",
@@ -176,7 +178,10 @@
           "type": "coupon",
           "settings": {
             "title": "Naturmil e Dietmed",
-            "selected_tags": "Naturmil,Dietmed",
+            "selected_collections": [
+              "naturmil",
+              "dietmed"
+            ],
             "collection_cupon_title": "Poupa 20% EXTRA ao comprar 3 ou mais produtos Naturmil e Dietmed 🥳",
             "collection_cupon_boolean": false,
             "collection_cupon_description": "Campanha válida de 1 a 31 de Julho.",
@@ -189,7 +194,9 @@
           "type": "coupon",
           "settings": {
             "title": "Sovex",
-            "selected_tags": "Sovex",
+            "selected_collections": [
+              "sovex"
+            ],
             "collection_cupon_title": "Poupa 15% EXTRA ao comprar 2 ou mais produtos da marca Sovex 🥳",
             "collection_cupon_boolean": false,
             "collection_cupon_description": "Campanha válida de 1 a 31 de Julho.",
@@ -203,7 +210,9 @@
           "disabled": true,
           "settings": {
             "title": "Soria Natural",
-            "selected_tags": "Soria Natural",
+            "selected_collections": [
+              "soria-natural"
+            ],
             "collection_cupon_title": "Poupa 10% EXTRA ao comprar 2 ou mais produtos da marca Soria Natural 🥳",
             "collection_cupon_boolean": false,
             "collection_cupon_description": "Campanha válida de 1 a 30 de Junho.",
