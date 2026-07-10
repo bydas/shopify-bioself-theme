@@ -955,13 +955,40 @@
 
     const brands = [];
     const categories = [];
+    const brandTitles = new Set();
+    const categoryTitles = new Set();
+
+    /*
+     * Primeiro adicionamos as marcas, garantindo títulos únicos.
+     * Depois adicionamos as categorias, ignorando:
+     * - categorias repetidas;
+     * - categorias cujo título já exista numa marca.
+     *
+     * O título é normalizado para que diferenças de maiúsculas,
+     * minúsculas, espaços ou acentos não criem duplicados.
+     */
+    activeCollections.forEach((collection) => {
+      if (!isBrandCollection(collection)) return;
+
+      const titleKey = normaliseSearchText(getCollectionTitle(collection));
+
+      if (!titleKey || brandTitles.has(titleKey)) return;
+
+      brandTitles.add(titleKey);
+      brands.push(collection);
+    });
 
     activeCollections.forEach((collection) => {
-      if (isBrandCollection(collection)) {
-        brands.push(collection);
-      } else {
-        categories.push(collection);
+      if (isBrandCollection(collection)) return;
+
+      const titleKey = normaliseSearchText(getCollectionTitle(collection));
+
+      if (!titleKey || brandTitles.has(titleKey) || categoryTitles.has(titleKey)) {
+        return;
       }
+
+      categoryTitles.add(titleKey);
+      categories.push(collection);
     });
 
     renderSearchGroup(container, brands, 'Marca', 'brands');
