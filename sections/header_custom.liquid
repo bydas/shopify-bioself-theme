@@ -771,6 +771,91 @@
     return Array.from(collectionsByKey.values());
   }
 
+  /*
+   * Guarda o resultado da validação por handle para que a mesma coleção
+   * não seja consultada novamente a cada carácter introduzido na pesquisa.
+   */
+  const activeCollectionProductsCache = new Map();
+
+  function getCollectionProductsCount(collection) {
+    const collectionData = getCollectionData(collection);
+    const rawCount = collectionData.products_count ?? collectionData.productsCount ?? null;
+
+    if (rawCount === null || rawCount === undefined || rawCount === '') {
+      return null;
+    }
+
+    const count = Number(rawCount);
+    return Number.isFinite(count) ? count : null;
+  }
+
+  async function collectionHasActiveProduct(collection) {
+    const handle = getCollectionHandle(collection);
+
+    if (!handle) return false;
+
+    if (activeCollectionProductsCache.has(handle)) {
+      return activeCollectionProductsCache.get(handle);
+    }
+
+    const knownProductsCount = getCollectionProductsCount(collection);
+
+    /*
+     * Uma contagem igual a zero permite excluir imediatamente a coleção.
+     * Para valores superiores a zero, ainda validamos no endpoint público,
+     * garantindo que existe pelo menos um produto ativo e publicado.
+     */
+    if (knownProductsCount === 0) {
+      activeCollectionProductsCache.set(handle, false);
+      return false;
+    }
+
+    try {
+      const params = new URLSearchParams({ limit: '1' });
+      const response = await fetch(
+        `${getShopRoot()}collections/${encodeURIComponent(handle)}/products.json?${params.toString()}`,
+        {
+          headers: {
+            Accept: 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Erro ${response.status} ao validar os produtos da coleção ${handle}.`);
+      }
+
+      const data = await response.json();
+      const hasActiveProduct = Array.isArray(data?.products) && data.products.length > 0;
+
+      activeCollectionProductsCache.set(handle, hasActiveProduct);
+      return hasActiveProduct;
+    } catch (error) {
+      console.warn(`Não foi possível validar os produtos ativos da coleção ${handle}.`, error);
+
+      /*
+       * Fallback: se o endpoint público falhar, utiliza a contagem devolvida
+       * pela aplicação, quando disponível.
+       */
+      const fallbackResult = knownProductsCount !== null && knownProductsCount > 0;
+
+      activeCollectionProductsCache.set(handle, fallbackResult);
+      return fallbackResult;
+    }
+  }
+
+  async function filterCollectionsWithActiveProducts(collections) {
+    const validatedCollections = await Promise.all(
+      collections.map(async (collection) => {
+        const hasActiveProduct = await collectionHasActiveProduct(collection);
+
+        return hasActiveProduct ? collection : null;
+      })
+    );
+
+    return validatedCollections.filter(Boolean);
+  }
+
   async function searchProductsHtml(query, signal) {
     const params = new URLSearchParams({
       view: 'ajax',
@@ -862,10 +947,16 @@
 
     const collections = mergeCollections(shopifyCollections, appCollections);
 
+    const activeCollections = await filterCollectionsWithActiveProducts(collections);
+
+    if (signal.aborted) {
+      throw new DOMException('Pesquisa cancelada.', 'AbortError');
+    }
+
     const brands = [];
     const categories = [];
 
-    collections.forEach((collection) => {
+    activeCollections.forEach((collection) => {
       if (isBrandCollection(collection)) {
         brands.push(collection);
       } else {
