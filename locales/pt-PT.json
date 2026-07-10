@@ -532,6 +532,9 @@
       },
       "stock": {
         "empty_cart_label": "O teu carrinho está vazio"
+      },
+      "marketing": {
+        "accept_marketing_checkbox_label": "Aceito receber comunicações de marketing da Bioself por e-mail. Pode cancelar a subscrição a qualquer momento."
       }
     },
     "notices": {
