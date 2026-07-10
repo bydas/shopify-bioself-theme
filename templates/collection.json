@@ -41,9 +41,9 @@
         "newsletter_terms": "Li e aceito os"
       }
     },
-    "brand_info_DG3LhF": {
-      "type": "brand-info",
-      "name": "Brand info",
+    "collection_custom_info_CCJECE": {
+      "type": "collection-custom-info",
+      "name": "Collection info",
       "settings": {}
     },
     "biopoints_thgNVD": {
@@ -118,7 +118,7 @@
   "order": [
     "banner_collections_custom_2_WBmxj9",
     "collection_custom_page_VtpgLU",
-    "brand_info_DG3LhF",
+    "collection_custom_info_CCJECE",
     "biopoints_thgNVD",
     "blog_collection_custom_JGfqAb",
     "static-rich-text",
