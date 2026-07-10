@@ -4,60 +4,6 @@
   assign banner_alt = collection.title
   assign banner_source = blank
 
-  assign current_collection_is_brand = false
-
-  comment
-    Regra 1: a coleção é marca quando usa o template "brand".
-  endcomment
-  if collection.template_suffix == 'brand'
-    assign current_collection_is_brand = true
-  endif
-
-  comment
-    Regra 2: a coleção é marca quando está no menu com handle "pagina-marcas".
-    A verificação cobre até três níveis do menu.
-  endcomment
-  unless current_collection_is_brand
-    assign brands_menu = linklists['pagina-marcas']
-
-    if brands_menu != blank
-      for brand_link_level_1 in brands_menu.links
-        assign brand_collection_level_1 = brand_link_level_1.object
-
-        if brand_collection_level_1 != blank and brand_collection_level_1.id == collection.id
-          assign current_collection_is_brand = true
-          break
-        endif
-
-        for brand_link_level_2 in brand_link_level_1.links
-          assign brand_collection_level_2 = brand_link_level_2.object
-
-          if brand_collection_level_2 != blank and brand_collection_level_2.id == collection.id
-            assign current_collection_is_brand = true
-            break
-          endif
-
-          for brand_link_level_3 in brand_link_level_2.links
-            assign brand_collection_level_3 = brand_link_level_3.object
-
-            if brand_collection_level_3 != blank and brand_collection_level_3.id == collection.id
-              assign current_collection_is_brand = true
-              break
-            endif
-          endfor
-
-          if current_collection_is_brand
-            break
-          endif
-        endfor
-
-        if current_collection_is_brand
-          break
-        endif
-      endfor
-    endif
-  endunless
-
   comment
     PRIORIDADE 1: bloco da secção associado à coleção atual.
 
@@ -87,10 +33,9 @@
 
     Só são usados quando:
     - não existe banner proveniente de um bloco;
-    - a coleção atual não é uma marca;
     - existe pelo menos uma das imagens nos metafields.
   endcomment
-  if banner_source == blank and current_collection_is_brand == false
+  if banner_source == blank
     assign metafield_banner_desktop = collection.metafields.custom.imagem_de_container.value
     assign metafield_banner_mobile = collection.metafields.custom.imagem_de_container_mobile.value
 
