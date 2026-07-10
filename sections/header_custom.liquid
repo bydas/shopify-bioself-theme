@@ -576,6 +576,54 @@
     white-space: nowrap;
   }
 </style>
+
+{%- comment -%}
+  Coleções tratadas como marcas através do menu com handle "pagina-marcas".
+  São considerados links de coleção até três níveis de profundidade.
+{%- endcomment -%}
+<script type="application/json" id="bioself-brand-menu-handles">
+  [
+    {%- assign brand_menu = linklists['pagina-marcas'] -%}
+    {%- if brand_menu != blank -%}
+      {%- for brand_link in brand_menu.links -%}
+        {%- assign brand_handle = blank -%}
+        {%- if brand_link.type == 'collection_link' and brand_link.object != blank -%}
+          {%- assign brand_handle = brand_link.object.handle -%}
+        {%- elsif brand_link.url contains '/collections/' -%}
+          {%- assign brand_handle = brand_link.url | split: '/collections/' | last | split: '?' | first | split: '#' | first -%}
+        {%- endif -%}
+        {%- if brand_handle != blank -%}
+          {{- brand_handle | json -}},
+        {%- endif -%}
+
+        {%- for brand_child_link in brand_link.links -%}
+          {%- assign brand_child_handle = blank -%}
+          {%- if brand_child_link.type == 'collection_link' and brand_child_link.object != blank -%}
+            {%- assign brand_child_handle = brand_child_link.object.handle -%}
+          {%- elsif brand_child_link.url contains '/collections/' -%}
+            {%- assign brand_child_handle = brand_child_link.url | split: '/collections/' | last | split: '?' | first | split: '#' | first -%}
+          {%- endif -%}
+          {%- if brand_child_handle != blank -%}
+            {{- brand_child_handle | json -}},
+          {%- endif -%}
+
+          {%- for brand_grandchild_link in brand_child_link.links -%}
+            {%- assign brand_grandchild_handle = blank -%}
+            {%- if brand_grandchild_link.type == 'collection_link' and brand_grandchild_link.object != blank -%}
+              {%- assign brand_grandchild_handle = brand_grandchild_link.object.handle -%}
+            {%- elsif brand_grandchild_link.url contains '/collections/' -%}
+              {%- assign brand_grandchild_handle = brand_grandchild_link.url | split: '/collections/' | last | split: '?' | first | split: '#' | first -%}
+            {%- endif -%}
+            {%- if brand_grandchild_handle != blank -%}
+              {{- brand_grandchild_handle | json -}},
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      {%- endfor -%}
+    {%- endif -%}
+  ]
+</script>
+
 <script>
   function getShopRoot() {
     return window.Shopify?.routes?.root || '/';
@@ -587,60 +635,140 @@
       .toLocaleLowerCase('pt-PT');
   }
 
-  function getCollectionHandle(collection) {
-    if (collection?.handle) return collection.handle;
+  function getCollectionData(collection) {
+    return collection?.collection || collection || {};
+  }
 
-    const url = collection?.url || '';
+  function getCollectionHandle(collection) {
+    const collectionData = getCollectionData(collection);
+
+    if (collectionData.handle) {
+      return String(collectionData.handle).trim().toLowerCase();
+    }
+
+    const url = collectionData.url || '';
     const match = url.match(/\/collections\/([^/?#]+)/);
 
-    return match ? match[1] : '';
+    return match ? decodeURIComponent(match[1]).trim().toLowerCase() : '';
   }
 
   function getCollectionUrl(collection) {
-    if (collection?.url) return collection.url;
+    const collectionData = getCollectionData(collection);
 
-    const handle = getCollectionHandle(collection);
+    if (collectionData.url) return collectionData.url;
+
+    const handle = getCollectionHandle(collectionData);
     return handle ? `${getShopRoot()}collections/${handle}` : '#';
   }
 
-  async function searchBrands(query, signal) {
+  function getCollectionTitle(collection) {
+    return getCollectionData(collection)?.title || '';
+  }
+
+  function getCollectionTemplateSuffix(collection) {
+    const collectionData = getCollectionData(collection);
+
+    return normaliseSearchText(collectionData.template_suffix || collectionData.templateSuffix || '');
+  }
+
+  function getBrandMenuHandles() {
+    const element = document.querySelector('#bioself-brand-menu-handles');
+
+    if (!element) return new Set();
+
+    try {
+      const jsonText = (element.textContent || '[]').trim().replace(/,\s*]$/, ']');
+      const handles = JSON.parse(jsonText || '[]');
+
+      return new Set(handles.map((handle) => normaliseSearchText(handle)).filter(Boolean));
+    } catch (error) {
+      console.error('Não foi possível ler o menu pagina-marcas.', error);
+      return new Set();
+    }
+  }
+
+  const brandMenuHandles = getBrandMenuHandles();
+
+  function isBrandCollection(collection) {
+    const handle = getCollectionHandle(collection);
+    const templateSuffix = getCollectionTemplateSuffix(collection);
+
+    return (handle && brandMenuHandles.has(handle)) || templateSuffix === 'brand';
+  }
+
+  async function searchCollectionsFromApp(query, signal) {
     const params = new URLSearchParams({
       action: 'search_collections',
       q: query,
-      limit: '3',
+      limit: '8',
     });
 
     const response = await fetch(`https://bioself.apps.bydas.com/?${params.toString()}`, { signal });
 
     if (!response.ok) {
-      throw new Error(`Erro ${response.status} ao pesquisar marcas.`);
+      throw new Error(`Erro ${response.status} ao pesquisar coleções na aplicação.`);
     }
 
-    const { data, errors } = await response.json();
+    const responseData = await response.json();
+    const errors = responseData?.errors;
 
     if (errors) {
       throw new Error(errors.map((error) => error.message).join(', '));
     }
 
-    return data?.collections || [];
+    let collections = responseData?.data?.collections || responseData?.collections || null;
+
+    if (!collections) {
+      const singleCollection = responseData?.data?.collection || responseData?.collection || null;
+
+      collections = singleCollection ? [singleCollection] : [];
+    }
+
+    return collections.map(getCollectionData);
   }
 
-  async function searchCategoryCollections(query, signal) {
+  async function searchCollectionsFromShopify(query, signal) {
     const params = new URLSearchParams({
       q: query,
       'resources[type]': 'collection',
-      'resources[limit]': '5',
+      'resources[limit]': '8',
     });
 
     const response = await fetch(`${getShopRoot()}search/suggest.json?${params.toString()}`, { signal });
 
     if (!response.ok) {
-      throw new Error(`Erro ${response.status} ao pesquisar categorias.`);
+      throw new Error(`Erro ${response.status} ao pesquisar coleções na Shopify.`);
     }
 
     const data = await response.json();
 
-    return data?.resources?.results?.collections || data?.resources?.collections || [];
+    return (data?.resources?.results?.collections || data?.resources?.collections || []).map(getCollectionData);
+  }
+
+  function mergeCollections(shopifyCollections, appCollections) {
+    const collectionsByKey = new Map();
+
+    const addCollection = (collection, overwrite = false) => {
+      const collectionData = getCollectionData(collection);
+      const handle = getCollectionHandle(collectionData);
+      const title = normaliseSearchText(getCollectionTitle(collectionData));
+      const key = handle ? `handle:${handle}` : title ? `title:${title}` : '';
+
+      if (!key) return;
+
+      if (overwrite || !collectionsByKey.has(key)) {
+        collectionsByKey.set(key, collectionData);
+      }
+    };
+
+    /*
+     * Primeiro entram os resultados da Shopify. Depois, os dados da aplicação
+     * substituem os equivalentes, porque podem incluir template_suffix.
+     */
+    shopifyCollections.forEach((collection) => addCollection(collection));
+    appCollections.forEach((collection) => addCollection(collection, true));
+
+    return Array.from(collectionsByKey.values());
   }
 
   async function searchProductsHtml(query, signal) {
@@ -679,7 +807,7 @@
 
       const title = document.createElement('p');
       title.classList.add('search-bar__item-title');
-      title.innerText = item.title || '';
+      title.innerText = getCollectionTitle(item);
 
       const type = document.createElement('span');
       type.classList.add('search-bar__item-type');
@@ -709,8 +837,8 @@
 
   async function loadSearchResults(container, query, signal) {
     const results = await Promise.allSettled([
-      searchBrands(query, signal),
-      searchCategoryCollections(query, signal),
+      searchCollectionsFromApp(query, signal),
+      searchCollectionsFromShopify(query, signal),
       searchProductsHtml(query, signal),
     ]);
 
@@ -718,11 +846,11 @@
       throw new DOMException('Pesquisa cancelada.', 'AbortError');
     }
 
-    const [brandsResult, categoriesResult, productsResult] = results;
+    const [appCollectionsResult, shopifyCollectionsResult, productsResult] = results;
 
-    const brands = brandsResult.status === 'fulfilled' ? brandsResult.value : [];
+    const appCollections = appCollectionsResult.status === 'fulfilled' ? appCollectionsResult.value : [];
 
-    const categoriesFound = categoriesResult.status === 'fulfilled' ? categoriesResult.value : [];
+    const shopifyCollections = shopifyCollectionsResult.status === 'fulfilled' ? shopifyCollectionsResult.value : [];
 
     const productsHtml = productsResult.status === 'fulfilled' ? productsResult.value : '';
 
@@ -732,35 +860,17 @@
       }
     });
 
-    const brandKeys = new Set();
+    const collections = mergeCollections(shopifyCollections, appCollections);
 
-    brands.forEach((brand) => {
-      const handle = getCollectionHandle(brand);
-      const title = normaliseSearchText(brand?.title);
+    const brands = [];
+    const categories = [];
 
-      if (handle) brandKeys.add(`handle:${handle}`);
-      if (title) brandKeys.add(`title:${title}`);
-    });
-
-    const categoryKeys = new Set();
-    const categories = categoriesFound.filter((category) => {
-      const handle = getCollectionHandle(category);
-      const title = normaliseSearchText(category?.title);
-      const handleKey = handle ? `handle:${handle}` : '';
-      const titleKey = title ? `title:${title}` : '';
-
-      if ((handleKey && brandKeys.has(handleKey)) || (titleKey && brandKeys.has(titleKey))) {
-        return false;
+    collections.forEach((collection) => {
+      if (isBrandCollection(collection)) {
+        brands.push(collection);
+      } else {
+        categories.push(collection);
       }
-
-      if ((handleKey && categoryKeys.has(handleKey)) || (titleKey && categoryKeys.has(titleKey))) {
-        return false;
-      }
-
-      if (handleKey) categoryKeys.add(handleKey);
-      if (titleKey) categoryKeys.add(titleKey);
-
-      return true;
     });
 
     renderSearchGroup(container, brands, 'Marca', 'brands');
