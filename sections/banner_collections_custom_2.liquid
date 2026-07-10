@@ -102,8 +102,20 @@
   #banner-custom-{{ section.id }} {
     display: block;
     width: 100%;
-    margin: 0;
+    margin: 2rem var(--desktop-container-gutter);
     overflow: hidden;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #banner-custom-{{ section.id }} {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #banner-custom-{{ section.id }} {
+      margin: 2rem 18vw;
+    }
   }
 
   #banner-custom-{{ section.id }} .banner-custom__picture {
@@ -117,6 +129,12 @@
     height: auto;
     margin: 0;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #banner-custom-{{ section.id }}{
+      margin: 1rem var(--mobile-container-gutter);
+    }
   }
 </style>
 
