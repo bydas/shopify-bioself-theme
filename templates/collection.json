@@ -12,18 +12,18 @@
     "banner_collections_custom_2_WBmxj9": {
       "type": "banner_collections_custom_2",
       "blocks": {
-        "custom_mCWK79": {
-          "type": "custom",
+        "collection_banner_w9mYRh": {
+          "type": "collection_banner",
           "settings": {
-            "title": "Magnésio",
-            "collections": [
-              "magnesio"
-            ]
+            "collection": "naturmil",
+            "image_desktop": "shopify://shop_images/Bioself_Desktop-01.jpg",
+            "image_mobile": "shopify://shop_images/Bioself_Mobile-01.jpg",
+            "alt_text": ""
           }
         }
       },
       "block_order": [
-        "custom_mCWK79"
+        "collection_banner_w9mYRh"
       ],
       "name": "Banner Custom",
       "settings": {}
