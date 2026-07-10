@@ -11,20 +11,6 @@
   "sections": {
     "banner_collections_custom_2_WBmxj9": {
       "type": "banner_collections_custom_2",
-      "blocks": {
-        "collection_banner_w9mYRh": {
-          "type": "collection_banner",
-          "settings": {
-            "collection": "naturmil",
-            "image_desktop": "shopify://shop_images/Bioself_Desktop-01.jpg",
-            "image_mobile": "shopify://shop_images/Bioself_Mobile-01.jpg",
-            "alt_text": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_banner_w9mYRh"
-      ],
       "name": "Banner Custom",
       "settings": {}
     },
