@@ -30,25 +30,6 @@
     },
     "collection_custom_page_VtpgLU": {
       "type": "collection-custom-page",
-      "blocks": {
-        "coupon_8PCk4e": {
-          "type": "coupon",
-          "disabled": true,
-          "settings": {
-            "title": "",
-            "selected_tags": "Naturmil",
-            "collection_cupon_title": "Poupe 10% ao comprar 2 ou mais produtos",
-            "collection_cupon_boolean": false,
-            "collection_cupon_description": "Campanha válida de 1 a 28 de Fevereiro",
-            "collection_cupon_text": "Ver detalhes",
-            "collection_cupon_code": "",
-            "campaign_details": "Adiciona 2 ou mais artigos das marcas selecionadas e o desconto será aplicado automaticamente, sem necessidade de cupão. Promoção válida de 1 a 28 de Fevereiro, limitada ao stock existente e não acumulável com outras ofertas."
-          }
-        }
-      },
-      "block_order": [
-        "coupon_8PCk4e"
-      ],
       "settings": {
         "menu_nav_1": "categorias",
         "menu_nav_2": "marcas",
@@ -60,8 +41,9 @@
         "newsletter_terms": "Li e aceito os"
       }
     },
-    "collection_custom_info_gKHKAQ": {
-      "type": "collection-custom-info",
+    "brand_info_DG3LhF": {
+      "type": "brand-info",
+      "name": "Brand info",
       "settings": {}
     },
     "biopoints_thgNVD": {
@@ -136,7 +118,7 @@
   "order": [
     "banner_collections_custom_2_WBmxj9",
     "collection_custom_page_VtpgLU",
-    "collection_custom_info_gKHKAQ",
+    "brand_info_DG3LhF",
     "biopoints_thgNVD",
     "blog_collection_custom_JGfqAb",
     "static-rich-text",
