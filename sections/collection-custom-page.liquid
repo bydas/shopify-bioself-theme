@@ -56,10 +56,11 @@
           "label": "Título do bloco"
         },
         {
-          "type": "text",
-          "id": "selected_tags",
-          "label": "Selecionar tags",
-          "info": "Separe as tags por vírgula e com o texto exatamente igual. E.g: 'SHOP,Soria Natural'"
+          "type": "collection_list",
+          "id": "selected_collections",
+          "label": "Selecionar coleções",
+          "limit": 50,
+          "info": "O cupão será apresentado apenas nas coleções selecionadas."
         },
         {
           "type": "text",
@@ -103,7 +104,7 @@
 }
 {% endschema %}
 
-{% assign some_block_has_tag = false %}
+{% assign some_block_matches_collection = false %}
 
 {%- capture query_value -%}
   {%- render 'get-url-query', query_key: 'limit' -%}
@@ -1641,20 +1642,19 @@
 
     <div id="main_collection_products_custom">
       {% for block in section.blocks %}
-        {% assign block_has_tag = false %}
+        {% assign block_matches_collection = false %}
 
         {% assign current_index = forloop.index %}
-        {% assign array_tags = block.settings.selected_tags | split: ',' %}
 
-        {% for tag in array_tags %}
-          {% if collection.tags contains tag %}
-            {% assign block_has_tag = true %}
-            {% assign some_block_has_tag = true %}
+        {% for selected_collection in block.settings.selected_collections %}
+          {% if selected_collection.id == collection.id %}
+            {% assign block_matches_collection = true %}
+            {% assign some_block_matches_collection = true %}
             {% break %}
           {% endif %}
         {% endfor %}
 
-        {% if block_has_tag == true %}
+        {% if block_matches_collection == true %}
           <div id="cupon_collection_custom">
             <svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M26.2727 0.55475L36.0079 10.6563C37.9248 12.6443 39 15.3277 39 18.1241C39 20.9204 37.9248 23.6038 36.0079 25.5918L27.4791 34.4425C27.3106 34.6176 27.1101 34.757 26.8891 34.8526C26.6681 34.9483 26.4309 34.9983 26.1911 35C25.9512 35.0016 25.7134 34.9547 25.4912 34.862C25.2691 34.7694 25.0668 34.6327 24.8961 34.4599C24.5514 34.1108 24.3559 33.6355 24.3527 33.1386C24.3512 32.8925 24.3968 32.6486 24.4872 32.4206C24.5775 32.1927 24.7107 31.9852 24.8792 31.8101L33.4002 22.9595C34.6407 21.6732 35.3366 19.9368 35.3366 18.1274C35.3366 16.318 34.6407 14.5816 33.4002 13.2953L23.6755 3.19515C23.3352 2.84147 23.1458 2.36361 23.149 1.86669C23.1522 1.36977 23.3476 0.894493 23.6924 0.545415C24.0372 0.196338 24.503 0.00205499 24.9874 0.0053061C25.4718 0.00855722 25.9351 0.209076 26.2753 0.562751L26.2727 0.55475ZM1.11654e-05 15.429V3.7499C0.000355705 2.75547 0.385586 1.80188 1.07103 1.09871C1.75647 0.395544 2.68603 0.000353463 3.65539 1.45017e-08H15.0401C15.6809 -5.004e-05 16.3155 0.129478 16.9074 0.381178C17.4994 0.632878 18.0372 1.00181 18.4901 1.46689L31.2839 14.5915C32.1975 15.5288 32.7106 16.8 32.7106 18.1254C32.7106 19.4508 32.1975 20.722 31.2839 21.6593L21.1173 32.0848C20.2036 33.022 18.9645 33.5484 17.6725 33.5484C16.3804 33.5484 15.1413 33.022 14.2277 32.0848L1.42993 18.9602C0.975595 18.498 0.615247 17.9479 0.369786 17.3417C0.124324 16.7355 -0.00136413 16.0854 1.11654e-05 15.429ZM10.9662 8.74932C10.9662 8.25479 10.8232 7.77137 10.5554 7.36018C10.2876 6.949 9.90691 6.62852 9.46154 6.43927C9.01617 6.25002 8.5261 6.20051 8.0533 6.29698C7.5805 6.39346 7.1462 6.6316 6.80533 6.98128C6.46446 7.33097 6.23233 7.77649 6.13828 8.26152C6.04423 8.74654 6.0925 9.24928 6.27698 9.70617C6.46146 10.1631 6.77386 10.5536 7.17468 10.8283C7.5755 11.103 8.04674 11.2497 8.5288 11.2497C9.17523 11.2497 9.79518 10.9863 10.2523 10.5173C10.7094 10.0484 10.9662 9.41246 10.9662 8.74932Z" fill="#258439"/>
@@ -1696,7 +1696,7 @@
         {% endif %}
       {% endfor %}
 
-      {% if some_block_has_tag == true %}
+      {% if some_block_matches_collection == true %}
         <div id="line_main_break_custom"></div>
       {% endif %}
 
@@ -1956,19 +1956,18 @@
 
 <main id="brands_collections_custom_products_mobile">
   {% for block in section.blocks %}
-    {% assign block_has_tag = false %}
+    {% assign block_matches_collection = false %}
     {% assign current_index = forloop.index %}
-    {% assign array_tags = block.settings.selected_tags | split: ',' %}
 
-    {% for tag in array_tags %}
-      {% if collection.tags contains tag %}
-        {% assign block_has_tag = true %}
-        {% assign some_block_has_tag = true %}
+    {% for selected_collection in block.settings.selected_collections %}
+      {% if selected_collection.id == collection.id %}
+        {% assign block_matches_collection = true %}
+        {% assign some_block_matches_collection = true %}
         {% break %}
       {% endif %}
     {% endfor %}
 
-    {% if block_has_tag == true %}
+    {% if block_matches_collection == true %}
       <div id="cupon_collection_custom">
         <div id="first_row_cupon">
           <svg width="39" height="35" viewBox="0 0 39 35" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2012,7 +2011,7 @@
     {% endif %}
   {% endfor %}
 
-  {% if some_block_has_tag == true %}
+  {% if some_block_matches_collection == true %}
     <div id="line_main_break_custom"></div>
   {% endif %}
 
@@ -2271,19 +2270,18 @@
 </main>
 
 {% for block in section.blocks %}
-  {% assign block_has_tag = false %}
+  {% assign block_matches_collection = false %}
   {% assign current_index = forloop.index %}
-  {% assign array_tags = block.settings.selected_tags | split: ',' %}
 
-  {% for tag in array_tags %}
-    {% if collection.tags contains tag %}
-      {% assign block_has_tag = true %}
-      {% assign some_block_has_tag = true %}
+  {% for selected_collection in block.settings.selected_collections %}
+    {% if selected_collection.id == collection.id %}
+      {% assign block_matches_collection = true %}
+      {% assign some_block_matches_collection = true %}
       {% break %}
     {% endif %}
   {% endfor %}
 
-  {% if block_has_tag == true %}
+  {% if block_matches_collection == true %}
     <section id="modal_campaign_details" index="{{ current_index }}">
       <svg
         xmlns="http://www.w3.org/2000/svg"
