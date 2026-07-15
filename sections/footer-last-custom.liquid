@@ -5,12 +5,22 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Selecione uma imagem"
+      "label": "Selecione a primeira imagem"
     },
     {
       "type": "url",
       "id": "image_url",
-      "label": "Selecione um link"
+      "label": "Link da primeira imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Selecione a segunda imagem"
+    },
+    {
+      "type": "url",
+      "id": "image_url_2",
+      "label": "Link da segunda imagem"
     },
     {
       "type": "textarea",
@@ -83,22 +93,25 @@
     align-items: center;
   }
 
-  #custom_last_footer > #footer_top_block > a {
+  .footer_custom_images {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer_custom_images > a {
     display: grid;
     text-decoration: none;
   }
 
-  #custom_last_footer_mobile > a {
-    display: grid;
-    text-decoration: none;
-  }
-
-  #custom_last_footer > #footer_top_block > a > img {
+  #custom_last_footer .footer_custom_images > a > img {
+    display: block;
     width: 150px;
     height: auto;
   }
 
-  #custom_last_footer_mobile > a > img {
+  #custom_last_footer_mobile .footer_custom_images > a > img {
+    display: block;
     width: 100px;
     height: auto;
   }
@@ -111,7 +124,7 @@
 
   #custom_last_footer_mobile > div {
     display: grid;
-    grid-template-columns: repeat(2, max-content);
+    grid-template-columns: max-content minmax(0, 1fr);
     gap: 0.5rem;
     justify-content: center;
     align-items: center;
@@ -128,8 +141,23 @@
     font-weight: 500;
   }
 
+  #custom_last_footer > #footer_top_block > #footer_custom_text > #custom_title {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  #custom_last_footer_mobile > #custom_title {
+    font-size: 12px;
+    margin: 0;
+    text-align: center;
+    justify-self: center;
+    max-width: 20rem;
+    font-weight: 600;
+  }
+
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
-    #custom_last_footer > #footer_top_block > a > img {
+    #custom_last_footer .footer_custom_images > a > img {
       width: 120px !important;
     }
 
@@ -146,21 +174,14 @@
     #custom_last_footer_mobile > div > span {
       max-width: 12rem;
     }
-  }
 
-  #custom_last_footer > #footer_top_block > #footer_custom_text > #custom_title {
-    font-size: 15px;
-    margin: 0;
-    font-weight: 600;
-  }
+    #custom_last_footer_mobile .footer_custom_images {
+      gap: 0.5rem;
+    }
 
-  #custom_last_footer_mobile > #custom_title {
-    font-size: 12px;
-    margin: 0;
-    text-align: center;
-    justify-self: center;
-    max-width: 20rem;
-    font-weight: 600;
+    #custom_last_footer_mobile .footer_custom_images > a > img {
+      width: 80px;
+    }
   }
 
   @media screen and (min-width: 1499px) {
@@ -185,10 +206,23 @@
     }
   }
 
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 480px) {
     #custom_last_footer_mobile > div {
       grid-template-columns: 1fr;
       justify-items: center;
+      gap: 1rem;
+    }
+
+    #custom_last_footer_mobile > div > span {
+      max-width: 20rem;
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    #custom_last_footer_mobile .footer_custom_images {
+      flex-wrap: wrap;
+      justify-content: center;
     }
   }
 </style>
@@ -198,23 +232,50 @@
 
 <section id="custom_last_footer">
   <div id="footer_top_block">
-    {% if section.settings.image and section.settings.image_url %}
-      <a href="{{ section.settings.image_url }}">
+    <div class="footer_custom_images">
+      {% if section.settings.image != blank %}
+        {% if section.settings.image_url != blank %}
+          <a href="{{ section.settings.image_url }}">
+        {% endif %}
+
         <img
-          src="{{ section.settings.image | img_url: 'master' }}"
-          width="100px"
-          height="100%"
-          alt="bioself natura logotipo MNSRM"
+          src="{{ section.settings.image | image_url: width: 500 }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          alt="{{ section.settings.image.alt | default: 'Imagem do rodapé' | escape }}"
+          loading="lazy"
         >
-      </a>
-    {% endif %}
+
+        {% if section.settings.image_url != blank %}
+          </a>
+        {% endif %}
+      {% endif %}
+
+      {% if section.settings.image_2 != blank %}
+        {% if section.settings.image_url_2 != blank %}
+          <a href="{{ section.settings.image_url_2 }}">
+        {% endif %}
+
+        <img
+          src="{{ section.settings.image_2 | image_url: width: 500 }}"
+          width="{{ section.settings.image_2.width }}"
+          height="{{ section.settings.image_2.height }}"
+          alt="{{ section.settings.image_2.alt | default: 'Imagem do rodapé' | escape }}"
+          loading="lazy"
+        >
+
+        {% if section.settings.image_url_2 != blank %}
+          </a>
+        {% endif %}
+      {% endif %}
+    </div>
 
     <div id="footer_custom_text">
-      {% if section.settings.multiline_text %}
+      {% if section.settings.multiline_text != blank %}
         <span>{{ section.settings.multiline_text }}</span>
       {% endif %}
 
-      {% if section.settings.single_line_text %}
+      {% if section.settings.single_line_text != blank %}
         <span id="custom_title">{{ section.settings.single_line_text }}</span>
       {% endif %}
     </div>
@@ -243,23 +304,50 @@
   {% endunless %}
 
   <div>
-    {% if section.settings.image and section.settings.image_url %}
-      <a href="{{ section.settings.image_url }}">
-        <img
-          src="{{ section.settings.image | img_url: 'master' }}"
-          width="100px"
-          height="100%"
-          alt="bioself natura logotipo MNSRM"
-        >
-      </a>
-    {% endif %}
+    <div class="footer_custom_images">
+      {% if section.settings.image != blank %}
+        {% if section.settings.image_url != blank %}
+          <a href="{{ section.settings.image_url }}">
+        {% endif %}
 
-    {% if section.settings.multiline_text %}
+        <img
+          src="{{ section.settings.image | image_url: width: 300 }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          alt="{{ section.settings.image.alt | default: 'Imagem do rodapé' | escape }}"
+          loading="lazy"
+        >
+
+        {% if section.settings.image_url != blank %}
+          </a>
+        {% endif %}
+      {% endif %}
+
+      {% if section.settings.image_2 != blank %}
+        {% if section.settings.image_url_2 != blank %}
+          <a href="{{ section.settings.image_url_2 }}">
+        {% endif %}
+
+        <img
+          src="{{ section.settings.image_2 | image_url: width: 300 }}"
+          width="{{ section.settings.image_2.width }}"
+          height="{{ section.settings.image_2.height }}"
+          alt="{{ section.settings.image_2.alt | default: 'Imagem do rodapé' | escape }}"
+          loading="lazy"
+        >
+
+        {% if section.settings.image_url_2 != blank %}
+          </a>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {% if section.settings.multiline_text != blank %}
       <span>{{ section.settings.multiline_text }}</span>
     {% endif %}
   </div>
 
-  {% if section.settings.single_line_text %}
+  {% if section.settings.single_line_text != blank %}
     <span id="custom_title">{{ section.settings.single_line_text }}</span>
   {% endif %}
 </section>
