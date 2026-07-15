@@ -9,7 +9,7 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Selecione a primeira imagem"
+      "label": "Selecionar primeira imagem"
     },
     {
       "type": "url",
@@ -43,7 +43,7 @@
     {
       "type": "image_picker",
       "id": "image_2",
-      "label": "Selecione a segunda imagem"
+      "label": "Selecionar segunda imagem"
     },
     {
       "type": "url",
@@ -95,7 +95,7 @@
 {% endschema %}
 
 <style>
-  #custom_last_footer {
+  #custom_last_footer_{{ section.id }} {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -103,16 +103,20 @@
     justify-content: space-between;
   }
 
-  #custom_last_footer_mobile {
+  #custom_last_footer_mobile_{{ section.id }} {
     display: none;
-    grid-template-rows: repeat(2, max-content);
+    grid-template-rows: repeat(3, max-content);
     gap: 2rem;
-    margin: 2rem var(--mobile-container-gutter) 6.5rem var(--mobile-container-gutter);
+    margin:
+      2rem
+      var(--mobile-container-gutter)
+      6.5rem
+      var(--mobile-container-gutter);
     align-items: center;
   }
 
-  #custom_last_footer > ul,
-  #custom_last_footer_mobile > ul {
+  #custom_last_footer_{{ section.id }} > ul,
+  #custom_last_footer_mobile_{{ section.id }} > ul {
     list-style-type: none;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(50px, max-content));
@@ -122,70 +126,91 @@
     margin: 0;
   }
 
-  #custom_last_footer > ul {
+  #custom_last_footer_{{ section.id }} > ul {
     justify-content: right;
   }
 
-  #custom_last_footer_mobile > ul {
+  #custom_last_footer_mobile_{{ section.id }} > ul {
     justify-content: center;
   }
 
-  #custom_last_footer_mobile > ul > li,
-  #custom_last_footer > ul > li {
+  #custom_last_footer_{{ section.id }} > ul > li,
+  #custom_last_footer_mobile_{{ section.id }} > ul > li {
     display: grid;
     padding: 0;
     margin: 0;
   }
 
-  #custom_last_footer > #footer_top_block {
+  #custom_last_footer_{{ section.id }} .footer-top-block {
     display: grid;
     grid-template-columns: max-content max-content;
     gap: 1rem;
     align-items: center;
   }
 
-  .footer_custom_images {
+  /*
+   * As duas imagens ficam organizadas verticalmente.
+   * A segunda imagem aparece sempre por baixo da primeira.
+   */
+  #custom_last_footer_{{ section.id }} .footer-custom-images,
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
   }
 
-  .footer_custom_image_link {
-    display: grid;
-    text-decoration: none;
+  #custom_last_footer_{{ section.id }} .footer-custom-image-link,
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-image-link {
+    display: block;
+    width: max-content;
+    max-width: 100%;
     line-height: 0;
+    text-decoration: none;
   }
 
-  .footer_custom_image {
+  #custom_last_footer_{{ section.id }} .footer-custom-image,
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-image {
     display: block;
     max-width: 100%;
     height: auto;
     object-fit: contain;
   }
 
-  #custom_last_footer .footer_image_1 {
+  #custom_last_footer_{{ section.id }} .footer-image-1 {
     width: {{ section.settings.image_width }}px;
   }
 
-  #custom_last_footer .footer_image_2 {
+  #custom_last_footer_{{ section.id }} .footer-image-2 {
     width: {{ section.settings.image_2_width }}px;
   }
 
-  #custom_last_footer_mobile .footer_image_1 {
+  #custom_last_footer_mobile_{{ section.id }} .footer-image-1 {
     width: {{ section.settings.image_width_mobile }}px;
   }
 
-  #custom_last_footer_mobile .footer_image_2 {
+  #custom_last_footer_mobile_{{ section.id }} .footer-image-2 {
     width: {{ section.settings.image_2_width_mobile }}px;
   }
 
-  #custom_last_footer > #footer_top_block > #footer_custom_text {
+  #custom_last_footer_{{ section.id }} .footer-custom-text {
     display: grid;
     grid-template-rows: repeat(2, max-content);
     gap: 0.5rem;
   }
 
-  #custom_last_footer_mobile > .footer_mobile_content {
+  #custom_last_footer_{{ section.id }} .footer-custom-text > span {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  #custom_last_footer_{{ section.id }} .footer-custom-title {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  #custom_last_footer_mobile_{{ section.id }} .footer-mobile-content {
     display: grid;
     grid-template-columns: max-content minmax(0, 1fr);
     gap: 0.75rem;
@@ -193,24 +218,15 @@
     align-items: center;
   }
 
-  #custom_last_footer > #footer_top_block > #footer_custom_text > span {
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  #custom_last_footer_mobile > .footer_mobile_content > span {
+  #custom_last_footer_mobile_{{ section.id }}
+    .footer-mobile-content
+    > .footer-description {
     font-size: 10px;
     max-width: 14rem;
     font-weight: 500;
   }
 
-  #custom_last_footer > #footer_top_block > #footer_custom_text > #custom_title {
-    font-size: 15px;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  #custom_last_footer_mobile > #custom_title {
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-title {
     font-size: 12px;
     margin: 0;
     text-align: center;
@@ -219,53 +235,71 @@
     font-weight: 600;
   }
 
+  @media screen and (max-width: 1599px) and (min-width: 1001px) {
+    #custom_last_footer_{{ section.id }} .footer-custom-text > span {
+      font-size: 10px;
+    }
+
+    #custom_last_footer_{{ section.id }} .footer-custom-title {
+      font-size: 13px;
+    }
+  }
+
   @media screen and (min-width: 1499px) {
-    #custom_last_footer {
+    #custom_last_footer_{{ section.id }} {
       margin: 2rem 9vw;
     }
   }
 
   @media screen and (min-width: 2559px) {
-    #custom_last_footer {
+    #custom_last_footer_{{ section.id }} {
       margin: 2rem 18vw;
     }
   }
 
   @media screen and (max-width: 1000px) {
-    #custom_last_footer {
+    #custom_last_footer_{{ section.id }} {
       display: none;
     }
 
-    #custom_last_footer_mobile {
+    #custom_last_footer_mobile_{{ section.id }} {
       display: grid;
+    }
+
+    #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
+      align-items: center;
     }
   }
 
   @media screen and (max-width: 480px) {
-    #custom_last_footer_mobile > .footer_mobile_content {
+    #custom_last_footer_mobile_{{ section.id }} .footer-mobile-content {
       grid-template-columns: 1fr;
       justify-items: center;
       gap: 1rem;
     }
 
-    #custom_last_footer_mobile > .footer_mobile_content > span {
+    #custom_last_footer_mobile_{{ section.id }}
+      .footer-mobile-content
+      > .footer-description {
       max-width: 20rem;
       text-align: center;
     }
 
-    #custom_last_footer_mobile .footer_custom_images {
-      max-width: 100%;
+    #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
+      width: 100%;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
     }
   }
 
   @media screen and (max-width: 360px) {
-    #custom_last_footer_mobile > .footer_mobile_content > span {
+    #custom_last_footer_mobile_{{ section.id }}
+      .footer-mobile-content
+      > .footer-description {
       max-width: 12rem;
     }
 
-    #custom_last_footer_mobile .footer_custom_images {
+    #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
       gap: 0.5rem;
     }
   }
@@ -274,61 +308,71 @@
 {% assign alt_payments = 'mbway,multibanco' | split: ',' %}
 {% assign new_payments = shop.enabled_payment_types | concat: alt_payments %}
 
-<section id="custom_last_footer">
-  <div id="footer_top_block">
-    <div class="footer_custom_images">
+<section id="custom_last_footer_{{ section.id }}">
+  <div class="footer-top-block">
+    <div class="footer-custom-images">
       {% if section.settings.image != blank %}
         {% if section.settings.image_url != blank %}
           <a
-            class="footer_custom_image_link"
+            class="footer-custom-image-link"
             href="{{ section.settings.image_url }}"
           >
-        {% endif %}
-
-        <img
-          class="footer_custom_image footer_image_1"
-          src="{{ section.settings.image | image_url: width: 800 }}"
-          width="{{ section.settings.image.width }}"
-          height="{{ section.settings.image.height }}"
-          alt="{{ section.settings.image.alt | default: 'Imagem do rodapé' | escape }}"
-          loading="lazy"
-        >
-
-        {% if section.settings.image_url != blank %}
+            <img
+              class="footer-custom-image footer-image-1"
+              src="{{ section.settings.image | image_url: width: 800 }}"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+              alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
+              loading="lazy"
+            >
           </a>
+        {% else %}
+          <img
+            class="footer-custom-image footer-image-1"
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
+            loading="lazy"
+          >
         {% endif %}
       {% endif %}
 
       {% if section.settings.image_2 != blank %}
         {% if section.settings.image_url_2 != blank %}
           <a
-            class="footer_custom_image_link"
+            class="footer-custom-image-link"
             href="{{ section.settings.image_url_2 }}"
           >
-        {% endif %}
-
-        <img
-          class="footer_custom_image footer_image_2"
-          src="{{ section.settings.image_2 | image_url: width: 800 }}"
-          width="{{ section.settings.image_2.width }}"
-          height="{{ section.settings.image_2.height }}"
-          alt="{{ section.settings.image_2.alt | default: 'Imagem do rodapé' | escape }}"
-          loading="lazy"
-        >
-
-        {% if section.settings.image_url_2 != blank %}
+            <img
+              class="footer-custom-image footer-image-2"
+              src="{{ section.settings.image_2 | image_url: width: 800 }}"
+              width="{{ section.settings.image_2.width }}"
+              height="{{ section.settings.image_2.height }}"
+              alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
+              loading="lazy"
+            >
           </a>
+        {% else %}
+          <img
+            class="footer-custom-image footer-image-2"
+            src="{{ section.settings.image_2 | image_url: width: 800 }}"
+            width="{{ section.settings.image_2.width }}"
+            height="{{ section.settings.image_2.height }}"
+            alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
+            loading="lazy"
+          >
         {% endif %}
       {% endif %}
     </div>
 
-    <div id="footer_custom_text">
+    <div class="footer-custom-text">
       {% if section.settings.multiline_text != blank %}
         <span>{{ section.settings.multiline_text }}</span>
       {% endif %}
 
       {% if section.settings.single_line_text != blank %}
-        <span id="custom_title">
+        <span class="footer-custom-title">
           {{ section.settings.single_line_text }}
         </span>
       {% endif %}
@@ -346,7 +390,7 @@
   {% endunless %}
 </section>
 
-<section id="custom_last_footer_mobile">
+<section id="custom_last_footer_mobile_{{ section.id }}">
   {% unless new_payments.size == 0 %}
     <ul>
       {% for payment in new_payments %}
@@ -357,60 +401,72 @@
     </ul>
   {% endunless %}
 
-  <div class="footer_mobile_content">
-    <div class="footer_custom_images">
+  <div class="footer-mobile-content">
+    <div class="footer-custom-images">
       {% if section.settings.image != blank %}
         {% if section.settings.image_url != blank %}
           <a
-            class="footer_custom_image_link"
+            class="footer-custom-image-link"
             href="{{ section.settings.image_url }}"
           >
-        {% endif %}
-
-        <img
-          class="footer_custom_image footer_image_1"
-          src="{{ section.settings.image | image_url: width: 500 }}"
-          width="{{ section.settings.image.width }}"
-          height="{{ section.settings.image.height }}"
-          alt="{{ section.settings.image.alt | default: 'Imagem do rodapé' | escape }}"
-          loading="lazy"
-        >
-
-        {% if section.settings.image_url != blank %}
+            <img
+              class="footer-custom-image footer-image-1"
+              src="{{ section.settings.image | image_url: width: 500 }}"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+              alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
+              loading="lazy"
+            >
           </a>
+        {% else %}
+          <img
+            class="footer-custom-image footer-image-1"
+            src="{{ section.settings.image | image_url: width: 500 }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
+            loading="lazy"
+          >
         {% endif %}
       {% endif %}
 
       {% if section.settings.image_2 != blank %}
         {% if section.settings.image_url_2 != blank %}
           <a
-            class="footer_custom_image_link"
+            class="footer-custom-image-link"
             href="{{ section.settings.image_url_2 }}"
           >
-        {% endif %}
-
-        <img
-          class="footer_custom_image footer_image_2"
-          src="{{ section.settings.image_2 | image_url: width: 500 }}"
-          width="{{ section.settings.image_2.width }}"
-          height="{{ section.settings.image_2.height }}"
-          alt="{{ section.settings.image_2.alt | default: 'Imagem do rodapé' | escape }}"
-          loading="lazy"
-        >
-
-        {% if section.settings.image_url_2 != blank %}
+            <img
+              class="footer-custom-image footer-image-2"
+              src="{{ section.settings.image_2 | image_url: width: 500 }}"
+              width="{{ section.settings.image_2.width }}"
+              height="{{ section.settings.image_2.height }}"
+              alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
+              loading="lazy"
+            >
           </a>
+        {% else %}
+          <img
+            class="footer-custom-image footer-image-2"
+            src="{{ section.settings.image_2 | image_url: width: 500 }}"
+            width="{{ section.settings.image_2.width }}"
+            height="{{ section.settings.image_2.height }}"
+            alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
+            loading="lazy"
+          >
         {% endif %}
       {% endif %}
     </div>
 
     {% if section.settings.multiline_text != blank %}
-      <span>{{ section.settings.multiline_text }}</span>
+      <span class="footer-description">
+        {{ section.settings.multiline_text }}
+      </span>
     {% endif %}
   </div>
 
   {% if section.settings.single_line_text != blank %}
-    <span id="custom_title">
+    <span class="footer-custom-title">
       {{ section.settings.single_line_text }}
     </span>
   {% endif %}
