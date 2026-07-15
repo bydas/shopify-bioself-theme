@@ -3359,6 +3359,12 @@
         "settings": {
           "image": "shopify://shop_images/infarmed-logotipo.jpg",
           "image_url": "https://www.infarmed.pt/web/infarmed/entidades/licenciamentos/locais-de-venda-mnsrm/lista-de-locais-de-venda-mnsrm",
+          "image_width": 150,
+          "image_width_mobile": 100,
+          "image_2": "shopify://shop_images/BARRA-1920x277.webp",
+          "image_url_2": "",
+          "image_2_width": 300,
+          "image_2_width_mobile": 200,
           "multiline_text": "Autorizado a disponibilizar MNSRM através da internet,<br>pelo Infarmed<br>Registo: 00080/2022<br>Responsável Técnico: Dr. Tiago Silva",
           "single_line_text": "© Bioself Natura Lda. NIPC 501241493"
         }

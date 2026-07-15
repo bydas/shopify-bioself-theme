@@ -21,8 +21,8 @@
       "id": "image_width",
       "label": "Largura no computador",
       "min": 40,
-      "max": 300,
-      "step": 5,
+      "max": 800,
+      "step": 10,
       "unit": "px",
       "default": 150
     },
@@ -31,7 +31,7 @@
       "id": "image_width_mobile",
       "label": "Largura no telemóvel",
       "min": 40,
-      "max": 200,
+      "max": 500,
       "step": 5,
       "unit": "px",
       "default": 100
@@ -55,8 +55,8 @@
       "id": "image_2_width",
       "label": "Largura no computador",
       "min": 40,
-      "max": 300,
-      "step": 5,
+      "max": 800,
+      "step": 10,
       "unit": "px",
       "default": 150
     },
@@ -65,14 +65,14 @@
       "id": "image_2_width_mobile",
       "label": "Largura no telemóvel",
       "min": 40,
-      "max": 200,
+      "max": 500,
       "step": 5,
       "unit": "px",
       "default": 100
     },
     {
       "type": "header",
-      "content": "Texto"
+      "content": "Texto da primeira imagem"
     },
     {
       "type": "textarea",
@@ -97,15 +97,16 @@
 <style>
   #custom_last_footer_{{ section.id }} {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
     margin: 2rem var(--desktop-container-gutter);
     justify-content: space-between;
+    align-items: start;
   }
 
   #custom_last_footer_mobile_{{ section.id }} {
     display: none;
-    grid-template-rows: repeat(3, max-content);
+    grid-template-rows: repeat(2, max-content);
     gap: 2rem;
     margin:
       2rem
@@ -115,6 +116,134 @@
     align-items: center;
   }
 
+  /*
+   * Coluna que contém:
+   * 1. Primeira imagem e texto
+   * 2. Segunda imagem por baixo de ambos
+   */
+  #custom_last_footer_{{ section.id }} .footer-content-column,
+  #custom_last_footer_mobile_{{ section.id }} .footer-content-column {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 1rem;
+    width: 100%;
+  }
+
+  /*
+   * Primeira imagem e respetivo texto.
+   */
+  #custom_last_footer_{{ section.id }} .footer-primary-row {
+    display: grid;
+    grid-template-columns: max-content minmax(0, max-content);
+    gap: 1rem;
+    align-items: center;
+    justify-content: start;
+  }
+
+  #custom_last_footer_mobile_{{ section.id }} .footer-primary-row {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /*
+   * A segunda imagem fica abaixo da primeira imagem
+   * e do respetivo bloco de texto.
+   */
+  #custom_last_footer_{{ section.id }} .footer-secondary-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  #custom_last_footer_mobile_{{ section.id }} .footer-secondary-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  #custom_last_footer_{{ section.id }} .footer-custom-image-link,
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-image-link {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    line-height: 0;
+    text-decoration: none;
+  }
+
+  #custom_last_footer_{{ section.id }} .footer-custom-image,
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /*
+   * Tamanhos definidos no editor do tema.
+   */
+  #custom_last_footer_{{ section.id }} .footer-image-1 {
+    width: {{ section.settings.image_width }}px;
+  }
+
+  #custom_last_footer_{{ section.id }} .footer-image-2 {
+    width: {{ section.settings.image_2_width }}px;
+  }
+
+  #custom_last_footer_mobile_{{ section.id }} .footer-image-1 {
+    width: {{ section.settings.image_width_mobile }}px;
+  }
+
+  #custom_last_footer_mobile_{{ section.id }} .footer-image-2 {
+    width: {{ section.settings.image_2_width_mobile }}px;
+  }
+
+  /*
+   * Texto associado exclusivamente à primeira imagem.
+   */
+  #custom_last_footer_{{ section.id }} .footer-custom-text,
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-text {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 0.5rem;
+    align-content: center;
+  }
+
+  #custom_last_footer_{{ section.id }} .footer-description {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  #custom_last_footer_{{ section.id }} .footer-custom-title {
+    display: block;
+    font-size: 15px;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  #custom_last_footer_mobile_{{ section.id }} .footer-description {
+    display: block;
+    font-size: 10px;
+    max-width: 14rem;
+    font-weight: 500;
+  }
+
+  #custom_last_footer_mobile_{{ section.id }} .footer-custom-title {
+    display: block;
+    font-size: 12px;
+    margin: 0;
+    max-width: 20rem;
+    font-weight: 600;
+  }
+
+  /*
+   * Métodos de pagamento.
+   */
   #custom_last_footer_{{ section.id }} > ul,
   #custom_last_footer_mobile_{{ section.id }} > ul {
     list-style-type: none;
@@ -141,102 +270,8 @@
     margin: 0;
   }
 
-  #custom_last_footer_{{ section.id }} .footer-top-block {
-    display: grid;
-    grid-template-columns: max-content max-content;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  /*
-   * As duas imagens ficam organizadas verticalmente.
-   * A segunda imagem aparece sempre por baixo da primeira.
-   */
-  #custom_last_footer_{{ section.id }} .footer-custom-images,
-  #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  #custom_last_footer_{{ section.id }} .footer-custom-image-link,
-  #custom_last_footer_mobile_{{ section.id }} .footer-custom-image-link {
-    display: block;
-    width: max-content;
-    max-width: 100%;
-    line-height: 0;
-    text-decoration: none;
-  }
-
-  #custom_last_footer_{{ section.id }} .footer-custom-image,
-  #custom_last_footer_mobile_{{ section.id }} .footer-custom-image {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-
-  #custom_last_footer_{{ section.id }} .footer-image-1 {
-    width: {{ section.settings.image_width }}px;
-  }
-
-  #custom_last_footer_{{ section.id }} .footer-image-2 {
-    width: {{ section.settings.image_2_width }}px;
-  }
-
-  #custom_last_footer_mobile_{{ section.id }} .footer-image-1 {
-    width: {{ section.settings.image_width_mobile }}px;
-  }
-
-  #custom_last_footer_mobile_{{ section.id }} .footer-image-2 {
-    width: {{ section.settings.image_2_width_mobile }}px;
-  }
-
-  #custom_last_footer_{{ section.id }} .footer-custom-text {
-    display: grid;
-    grid-template-rows: repeat(2, max-content);
-    gap: 0.5rem;
-  }
-
-  #custom_last_footer_{{ section.id }} .footer-custom-text > span {
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  #custom_last_footer_{{ section.id }} .footer-custom-title {
-    font-size: 15px;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  #custom_last_footer_mobile_{{ section.id }} .footer-mobile-content {
-    display: grid;
-    grid-template-columns: max-content minmax(0, 1fr);
-    gap: 0.75rem;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #custom_last_footer_mobile_{{ section.id }}
-    .footer-mobile-content
-    > .footer-description {
-    font-size: 10px;
-    max-width: 14rem;
-    font-weight: 500;
-  }
-
-  #custom_last_footer_mobile_{{ section.id }} .footer-custom-title {
-    font-size: 12px;
-    margin: 0;
-    text-align: center;
-    justify-self: center;
-    max-width: 20rem;
-    font-weight: 600;
-  }
-
   @media screen and (max-width: 1599px) and (min-width: 1001px) {
-    #custom_last_footer_{{ section.id }} .footer-custom-text > span {
+    #custom_last_footer_{{ section.id }} .footer-description {
       font-size: 10px;
     }
 
@@ -265,42 +300,39 @@
     #custom_last_footer_mobile_{{ section.id }} {
       display: grid;
     }
-
-    #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
-      align-items: center;
-    }
   }
 
   @media screen and (max-width: 480px) {
-    #custom_last_footer_mobile_{{ section.id }} .footer-mobile-content {
+    #custom_last_footer_mobile_{{ section.id }} .footer-primary-row {
       grid-template-columns: 1fr;
       justify-items: center;
       gap: 1rem;
     }
 
-    #custom_last_footer_mobile_{{ section.id }}
-      .footer-mobile-content
-      > .footer-description {
+    #custom_last_footer_mobile_{{ section.id }} .footer-custom-text {
+      justify-items: center;
+      text-align: center;
+    }
+
+    #custom_last_footer_mobile_{{ section.id }} .footer-description {
       max-width: 20rem;
       text-align: center;
     }
 
-    #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
-      width: 100%;
-      align-items: center;
+    #custom_last_footer_mobile_{{ section.id }} .footer-custom-title {
+      max-width: 20rem;
+      text-align: center;
+    }
+
+    #custom_last_footer_mobile_{{ section.id }} .footer-secondary-row {
       justify-content: center;
     }
   }
 
   @media screen and (max-width: 360px) {
-    #custom_last_footer_mobile_{{ section.id }}
-      .footer-mobile-content
-      > .footer-description {
+    #custom_last_footer_mobile_{{ section.id }} .footer-description,
+    #custom_last_footer_mobile_{{ section.id }} .footer-custom-title {
       max-width: 12rem;
-    }
-
-    #custom_last_footer_mobile_{{ section.id }} .footer-custom-images {
-      gap: 0.5rem;
     }
   }
 </style>
@@ -309,8 +341,8 @@
 {% assign new_payments = shop.enabled_payment_types | concat: alt_payments %}
 
 <section id="custom_last_footer_{{ section.id }}">
-  <div class="footer-top-block">
-    <div class="footer-custom-images">
+  <div class="footer-content-column">
+    <div class="footer-primary-row">
       {% if section.settings.image != blank %}
         {% if section.settings.image_url != blank %}
           <a
@@ -319,7 +351,7 @@
           >
             <img
               class="footer-custom-image footer-image-1"
-              src="{{ section.settings.image | image_url: width: 800 }}"
+              src="{{ section.settings.image | image_url: width: 1600 }}"
               width="{{ section.settings.image.width }}"
               height="{{ section.settings.image.height }}"
               alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
@@ -329,7 +361,7 @@
         {% else %}
           <img
             class="footer-custom-image footer-image-1"
-            src="{{ section.settings.image | image_url: width: 800 }}"
+            src="{{ section.settings.image | image_url: width: 1600 }}"
             width="{{ section.settings.image.width }}"
             height="{{ section.settings.image.height }}"
             alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
@@ -338,7 +370,25 @@
         {% endif %}
       {% endif %}
 
-      {% if section.settings.image_2 != blank %}
+      {% if section.settings.multiline_text != blank or section.settings.single_line_text != blank %}
+        <div class="footer-custom-text">
+          {% if section.settings.multiline_text != blank %}
+            <span class="footer-description">
+              {{ section.settings.multiline_text }}
+            </span>
+          {% endif %}
+
+          {% if section.settings.single_line_text != blank %}
+            <span class="footer-custom-title">
+              {{ section.settings.single_line_text }}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.image_2 != blank %}
+      <div class="footer-secondary-row">
         {% if section.settings.image_url_2 != blank %}
           <a
             class="footer-custom-image-link"
@@ -346,7 +396,7 @@
           >
             <img
               class="footer-custom-image footer-image-2"
-              src="{{ section.settings.image_2 | image_url: width: 800 }}"
+              src="{{ section.settings.image_2 | image_url: width: 1600 }}"
               width="{{ section.settings.image_2.width }}"
               height="{{ section.settings.image_2.height }}"
               alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
@@ -356,27 +406,15 @@
         {% else %}
           <img
             class="footer-custom-image footer-image-2"
-            src="{{ section.settings.image_2 | image_url: width: 800 }}"
+            src="{{ section.settings.image_2 | image_url: width: 1600 }}"
             width="{{ section.settings.image_2.width }}"
             height="{{ section.settings.image_2.height }}"
             alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
             loading="lazy"
           >
         {% endif %}
-      {% endif %}
-    </div>
-
-    <div class="footer-custom-text">
-      {% if section.settings.multiline_text != blank %}
-        <span>{{ section.settings.multiline_text }}</span>
-      {% endif %}
-
-      {% if section.settings.single_line_text != blank %}
-        <span class="footer-custom-title">
-          {{ section.settings.single_line_text }}
-        </span>
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
   </div>
 
   {% unless new_payments.size == 0 %}
@@ -401,8 +439,8 @@
     </ul>
   {% endunless %}
 
-  <div class="footer-mobile-content">
-    <div class="footer-custom-images">
+  <div class="footer-content-column">
+    <div class="footer-primary-row">
       {% if section.settings.image != blank %}
         {% if section.settings.image_url != blank %}
           <a
@@ -411,7 +449,7 @@
           >
             <img
               class="footer-custom-image footer-image-1"
-              src="{{ section.settings.image | image_url: width: 500 }}"
+              src="{{ section.settings.image | image_url: width: 1000 }}"
               width="{{ section.settings.image.width }}"
               height="{{ section.settings.image.height }}"
               alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
@@ -421,7 +459,7 @@
         {% else %}
           <img
             class="footer-custom-image footer-image-1"
-            src="{{ section.settings.image | image_url: width: 500 }}"
+            src="{{ section.settings.image | image_url: width: 1000 }}"
             width="{{ section.settings.image.width }}"
             height="{{ section.settings.image.height }}"
             alt="{{ section.settings.image.alt | default: 'Primeira imagem do rodapé' | escape }}"
@@ -430,7 +468,25 @@
         {% endif %}
       {% endif %}
 
-      {% if section.settings.image_2 != blank %}
+      {% if section.settings.multiline_text != blank or section.settings.single_line_text != blank %}
+        <div class="footer-custom-text">
+          {% if section.settings.multiline_text != blank %}
+            <span class="footer-description">
+              {{ section.settings.multiline_text }}
+            </span>
+          {% endif %}
+
+          {% if section.settings.single_line_text != blank %}
+            <span class="footer-custom-title">
+              {{ section.settings.single_line_text }}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.image_2 != blank %}
+      <div class="footer-secondary-row">
         {% if section.settings.image_url_2 != blank %}
           <a
             class="footer-custom-image-link"
@@ -438,7 +494,7 @@
           >
             <img
               class="footer-custom-image footer-image-2"
-              src="{{ section.settings.image_2 | image_url: width: 500 }}"
+              src="{{ section.settings.image_2 | image_url: width: 1000 }}"
               width="{{ section.settings.image_2.width }}"
               height="{{ section.settings.image_2.height }}"
               alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
@@ -448,26 +504,14 @@
         {% else %}
           <img
             class="footer-custom-image footer-image-2"
-            src="{{ section.settings.image_2 | image_url: width: 500 }}"
+            src="{{ section.settings.image_2 | image_url: width: 1000 }}"
             width="{{ section.settings.image_2.width }}"
             height="{{ section.settings.image_2.height }}"
             alt="{{ section.settings.image_2.alt | default: 'Segunda imagem do rodapé' | escape }}"
             loading="lazy"
           >
         {% endif %}
-      {% endif %}
-    </div>
-
-    {% if section.settings.multiline_text != blank %}
-      <span class="footer-description">
-        {{ section.settings.multiline_text }}
-      </span>
+      </div>
     {% endif %}
   </div>
-
-  {% if section.settings.single_line_text != blank %}
-    <span class="footer-custom-title">
-      {{ section.settings.single_line_text }}
-    </span>
-  {% endif %}
 </section>
