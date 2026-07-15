@@ -145,7 +145,8 @@
         "settings": {
           "show_social_media": false,
           "show_payment_icons": false,
-          "logo_img_url": "",
+          "logo_img": "shopify://shop_images/BARRA-1920x277.webp",
+          "logo_img_url": "https://cdn.shopify.com/s/files/1/0451/2327/2853/files/Ficha_de_Operacao_Bioself.pdf?v=1784128085",
           "logo_text": "",
           "promotional_text": "",
           "show_locale_selector": false,
