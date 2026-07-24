@@ -1,1 +1,634 @@
-{"sections":{"new_header_servico_banner_WAheg4":{"type":"new-header-servico-banner","blocks":{"heading_6E3Knq":{"type":"heading","settings":{"text":"Consulta de Nutrição","font_weight":"900","font_size":0,"margin_top":0,"margin_bottom":0,"color":"#000000"}},"heading_wwNdKW":{"type":"heading","settings":{"text":"Emagrecimento","font_weight":"900","font_size":0,"margin_top":0,"margin_bottom":8,"color":"#258439"}},"subheading_TWFR4U":{"type":"subheading","settings":{"text":"Online e Presencial","font_weight":"900","font_size":0,"margin_top":0,"margin_bottom":0,"color":"#000000"}},"description_CQ98pJ":{"type":"description","settings":{"text":"<p>Tem dificuldade em perder peso, problemas digestivos ou cansaço constante? Recupere o bem-estar através de uma avaliação integrada, onde identificamos a origem dos desequilíbrios e otimizamos a sua saúde.</p>","font_weight":"600","font_size":22,"margin_top":0,"margin_bottom":0,"color":"#000000"}},"button_gak9Fc":{"type":"button","settings":{"label":"MARQUE CONSULTA","link":"#servico_form_custom","font_weight":"700","font_size":0,"margin_top":0,"margin_bottom":0,"text_color":"#ffffff","background_color":"#258439"}}},"block_order":["heading_6E3Knq","heading_wwNdKW","subheading_TWFR4U","description_CQ98pJ","button_gak9Fc"],"name":"Artigo CTA com imagem","settings":{"image":"shopify://shop_images/image_37.png","background_color":"#eff5ef","image_height":"auto","button_radius":8}},"solucoes_saude_EGANMh":{"type":"solucoes-saude","blocks":{"card_BJrG6M":{"type":"card","settings":{"icon_image":"shopify://shop_images/Vector_b5694b34-d3f8-4b92-b6cc-6ab1949f2575.png","icon_image_width":54,"icon_image_height":54,"title":"PERDA DE\nPESO","text":"<p>Alcance um peso mais equilibrado, emagreça sem dietas restritivas e acabe com o efeito ioiô.</p>","button_label":"","button_link":""}},"card_8WVGxE":{"type":"card","settings":{"icon_image":"shopify://shop_images/Group_466.png","icon_image_width":54,"icon_image_height":54,"title":"GESTÃO\nDE PESO","text":"<p>Mantenha os resultados e estabilize o seu peso ideal a longo prazo, com hábitos sustentáveis.</p>","button_label":"","button_link":""}},"card_H4KEKc":{"type":"card","settings":{"icon_image":"shopify://shop_images/Vector_2_f16c6be1-e14d-4e07-8d39-909514b9960b.png","icon_image_width":54,"icon_image_height":54,"title":"COMPULSÃO ALIMENTAR","text":"<p>Aprenda a gerir a compulsão alimentar e a fome emocional com estratégias práticas, adaptadas a si.</p>","button_label":"","button_link":""}},"card_jnkJXQ":{"type":"card","settings":{"icon_image":"shopify://shop_images/Vector_3_bcb9631e-88a6-4507-be07-2aa1505b5826.png","icon_image_width":54,"icon_image_height":54,"title":"BLOQUEIOS METABÓLICOS","text":"<p>Ultrapasse os fatores que podem estar a bloquear o emagrecimento, o seu progresso e vitalidade.</p>","button_label":"","button_link":""}}},"block_order":["card_BJrG6M","card_8WVGxE","card_H4KEKc","card_jnkJXQ"],"name":"Soluções de saúde","settings":{"heading":"Nutrição Funcional focada no Emagrecimento","subtitle":"<p>Com uma abordagem flexível e sem extremismos, atuamos na dificuldade em emagrecer, para que recupere a sua autoestima e o prazer de comer sem culpas.</p>","align_text":true,"section_button_label":"MARQUE CONSULTA","section_button_link":"#servico_form_custom"}},"custom_banner_DtapxB":{"type":"consulta-custom-banner","name":"Banner Customizado","settings":{"image_desktop":"shopify://shop_images/Frame_501_1.jpg","image_mobile":"shopify://shop_images/LP-BANNER-MOB.jpg","link":"#servico_form_custom","image_alt":"Desconto de 20% na primeira consulta de nutrição","button_label":"Marque consulta","button_link":"#servico_form_custom","use_prescribed_campaign_banner":true}},"servico_nutricao_steps_EFpMbD":{"type":"consulta-servico-nutricao-steps","blocks":{"step_rTKDTC":{"type":"step","settings":{"title":"OBTENHA UMA AVALIAÇÃO CLÍNICA E FÍSICA ","description":"<p>Avaliamos o seu estado nutricional e metabólico através do histórico de saúde, análises e exames, aliado a uma avaliação física através de bioimpedância e medição de perímetros.</p>"}},"step_cpxhRT":{"type":"step","settings":{"title":"RECEBA UM PLANO ALIMENTAR PERSONALIZADO","description":"<p>Obtenha um plano alimentar ajustado à sua realidade. Para facilitar o seu dia a dia e escolhas, receba recomendações concretas de produtos alimentares.</p>"}},"step_ERENCy":{"type":"step","settings":{"title":"GARANTA RECOMENDAÇÃO DE SUPLEMENTOS","description":"<p>Em determinados casos clínicos, recomendamos suplementos alimentares que contribuem para o seu bem-estar, potenciam os resultados e apoiam a sua saúde.</p>"}},"step_gHJcwi":{"type":"step","settings":{"title":"BENEFICIE DE UM ACOMPANHAMENTO PRÓXIMO","description":"<p>Para que se sinta sempre acompanhado(a) na sua jornada, disponibilizamos um canal direto de contacto com a Nutricionista para esclarecer dúvidas.</p>"}}},"block_order":["step_rTKDTC","step_cpxhRT","step_ERENCy","step_gHJcwi"],"name":"Servico Nutricao Etapas","settings":{"title":"Etapas da Consulta de Nutrição Funcional","main_image":"shopify://shop_images/Rectangle_1cf95bc4-7a2f-45a5-b4b9-16dfcfc45441.jpg"}},"servico_nutricao_cta_H3cCYf":{"type":"consulta-servico-nutricao-cta","name":"Servico Nutricao CTA","settings":{"title":"<p>Invista na sua saúde com uma abordagem totalmente adaptada a si. Dê o primeiro passo e obtenha resultados consistentes.</p>","btn_txt":"MARQUE CONSULTA"}},"consulta_para_si_bCa7Aw":{"type":"consulta-para-si","blocks":{"item_DjgUBB":{"type":"item","settings":{"title":"Estratégias eficazes","text":"<p>Pretende alcançar resultados duradouros, sem extremismos e que respeitem o seu corpo.</p>"}},"item_L7GDbU":{"type":"item","settings":{"title":"Personalização","text":"<p>Procura um plano alimentar e de suplementação, flexível e totalmente ajustado à sua rotina diária.</p>"}},"item_FXeiiH":{"type":"item","settings":{"title":"Acompanhamento próximo","text":"<p>Deseja ser ouvido(a) e ter uma orientação integrada ao longo de todo o processo.</p>"}}},"block_order":["item_DjgUBB","item_L7GDbU","item_FXeiiH"],"name":"Consulta para si","settings":{"title":"A consulta de Nutrição é para si se procura..."}},"conheca_nutricionista_GEEEEm":{"type":"conheca-nutricionista","name":"Conheça a Nutricionista","settings":{"heading":"Conheça a Nutricionista","name":"Dr.ª Rita de Cássia Silva","certificate":"Nutricionista CP: 4249N","description":"<p>Nutricionista desde 2019, percebeu cedo que a nutrição vai muito além de contar calorias. Motivada pela complexidade do corpo humano, dedica-se ao estudo da nutrição numa perspetiva funcional e integrativa para proporcionar um acompanhamento individualizado. A sua grande paixão é ver como mudanças consistentes na rotina transformam vidas. Mais do que prescrever planos, foca-se em gerar saúde, conforto e bem-estar real, contribuindo diariamente para a qualidade de vida.</p>","formation":"<p>Formação</p><ul><li>Licenciatura em Ciências da Nutrição (FCNAUP);</li><li>Mestrado em Nutrição Humana e Metabolismo (NOVA Medical School);</li><li>Pós-Graduações em Nutrição e Suplementação Alimentar e em Terapêutica Ortomolecular e Nutrição Funcional (CESPU);</li><li>Especializações avançadas em Microbiota Intestinal (NOVA) e Aplicação de Medicina Funcional na Prática Clínica (The Institute for Functional Medicine).</li></ul>","image":"shopify://shop_images/Rectangle_61bd8d8b-edbc-4de9-9c98-388e64a1f2b8.png","button_label":"Marque consulta","button_link":"#servico_form_custom"}},"testemunhos_nutricao_xrK8Ea":{"type":"testemunhos-nutricao","blocks":{"testimonial_tCrybA":{"type":"testimonial","settings":{"quote":"<p>“Quando procurei a Dr.ª Rita, estava a passar por uma fase complicada devido à síndrome do cólon irritado e não sabia bem o que fazer. A sua análise foi super completa e senti que olhou para mim como uma pessoa, e não apenas como um conjunto de sintomas. O plano alimentar e de suplementação que construímos juntas foi personalizado e, acredite, tem sido fácil de seguir!”</p>","name":"Marta, 38 anos","context":"(Sistema Digestivo)"}},"testimonial_CMtqgQ":{"type":"testimonial","settings":{"quote":"<p>“Senti que finalmente tinha um acompanhamento pensado para mim, sem planos impossíveis ou restrições exageradas. O processo foi claro, próximo e adaptado à minha rotina.”</p>","name":"Ana, 42 anos","context":"(Gestão de Peso)"}},"testimonial_XMxRzt":{"type":"testimonial","settings":{"quote":"<p>“Gostei muito da forma como tudo foi explicado. Saí da consulta com recomendações práticas, fáceis de aplicar e com a sensação de que estava realmente acompanhada.”</p>","name":"Joana, 35 anos","context":"(Saúde da Mulher)"}},"testimonial_F4Nk7V":{"type":"testimonial","settings":{"quote":"<p>“O acompanhamento ajudou-me a compreender melhor o meu corpo e a melhorar vários sintomas que já tinha normalizado. Foi um processo muito humano e profissional.”</p>","name":"Carla, 46 anos","context":"(Menopausa)"}}},"block_order":["testimonial_tCrybA","testimonial_CMtqgQ","testimonial_XMxRzt","testimonial_F4Nk7V"],"name":"Testemunhos Nutrição","settings":{"title":"O que dizem os nossos clientes"}},"custom_banner_jb8ecU":{"type":"consulta-custom-banner","name":"Banner Customizado","settings":{"image_desktop":"shopify://shop_images/Frame_501_1.jpg","image_mobile":"shopify://shop_images/LP-BANNER-MOB.jpg","link":"#servico_form_custom","image_alt":"Desconto de 20% na primeira consulta de nutrição","button_label":"","button_link":"","use_prescribed_campaign_banner":true}},"servico_nutricao_form_LJajLT":{"type":"consulta-servico-nutricao-form","name":"Servico Nutricao Form","settings":{"title":"Marcar Consulta de Nutrição","description":"<p>Preencha os seus dados no formulário abaixo e entraremos em contacto para realizar a sua marcação.</p>"}},"faq_2_EThpxa":{"type":"consulta-faq-2","blocks":{"custom_zLCYVJ":{"type":"custom","settings":{"title":"Qual é o preço das consultas?","answer":"<p>A primeira consulta (online ou presencial) tem o valor de 50 € e uma duração aproximada de 1h30. As consultas de seguimento têm o valor de 40 € e duram cerca de 1 hora.</p>"}},"custom_XVaWy6":{"type":"custom","settings":{"title":"Como funcionam as consultas online?","answer":"<p>As consultas online são realizadas por videochamada, através de plataformas como Zoom, GoogleMeet ou WhatsApp, de forma simples e segura — no conforto da tua casa.</p>"}},"custom_gfi69M":{"type":"custom","settings":{"title":"Onde são realizadas as consultas presenciais?","answer":"<p>As consultas presenciais decorrem na Bioself Natura, localizada na Rua da Alegria, nº 183, 4000-043 Porto.</p>"}},"custom_cqHNXB":{"type":"custom","settings":{"title":"Têm acordos com seguros de saúde?","answer":"<p>Atualmente, não temos acordos diretos com seguros de saúde. No entanto, poderás submeter a fatura da consulta ao teu seguro e verificar se existe possibilidade de reembolso, conforme as condições da tua apólice.</p>"}}},"block_order":["custom_zLCYVJ","custom_XVaWy6","custom_gfi69M","custom_cqHNXB"],"name":"Perguntas Frequentes","settings":{"title":"Perguntas frequentes","layout":"homepage"}},"slideshow":{"type":"about-us-slideshow","blocks":{"image_cjGPcL":{"type":"image","settings":{"image":"shopify://shop_images/sobre_bioself_demo.png","show_overlay":true,"overlay_opacity":30,"text_color":"#ffffff","title":"Sobre a\nBioself Natura","content":"","content_position":"middle_center","button_background":"#ffffff","button_text_color":"#000000","button_text":"Button","link":""}}},"block_order":["image_cjGPcL"],"disabled":true,"settings":{"edge_to_edge":true,"section_size":"small","carousel_effect":"slide","autoplay":true,"cycle_speed":5}},"text-with-icons-top":{"type":"about-us-text-with-icons-top","blocks":{"item_PgqUwV":{"type":"item","settings":{"icon":"bi-delivery","custom_icon":"shopify://shop_images/delivery_white.png","title":"ENVIOS DE 24 A 48 HORAS","content":"<p>NA MAIORIA DOS PRODUTOS</p>"}},"item_kEGLwX":{"type":"item","settings":{"icon":"bi-returns","custom_icon":"shopify://shop_images/badge-with-a-star_white.png","title":"QUALIDADE GARANTIDA","content":"<p>DESDE 1981</p>"}},"item_mwapiz":{"type":"item","settings":{"icon":"bi-customer-support","custom_icon":"shopify://shop_images/promo_white.png","title":"PREÇOS COMPETITIVOS","content":"<p>SEMPRE!</p>"}}},"block_order":["item_PgqUwV","item_kEGLwX","item_mwapiz"],"disabled":true,"settings":{"show_section":true,"stack_mobile":false,"background_color":"#95c120","text_color":""}},"template":{"type":"about-us-template","blocks":{"title_PiMFAj":{"type":"title","settings":{"title":"QUEM SOMOS","description":"<p>A Bioself Natura é um ervanário com mais de 40 anos de experiência, somos uma empresa familiar na sua terceira geração.<br/><br/>Não pensem que tudo começou numa garagem no início dos anos 80 porque certamente não foi o caso. Começou sim com muita devoção e empenho em servir quem nos procurava da melhor forma, na Rua da Alegria 183 do Porto.</p><p><br/>São mais de 15000 dias que esta família se dedica à sua causa maior que é levantar-se todos os dias com um sorriso nos lábios e vir trabalhar. A máxima EAT – SLEEP – WORK – REPEAT faz seguramente parte do nosso ADN.</p><p><br/>Respiramos, bebemos e alimentamo-nos de um profundo compromisso em prestar um serviço de excelência e disponibilizar os melhores suplementos alimentares.</p><p><br/>A todos os nossos parceiros, clientes e amigos o nosso profundo agradecimento por nos apoiarem nesta magnífica jornada, que fique claro que tudo faremos por continuar a ser merecedores da vossa estima.</p><p><br/>Mais de quatro décadas passadas e o sentimento é de que estamos apenas a começar. Que maravilha!</p><p><br/>Tiago Moisés Silva</p>","text_align":"center"}},"title_aWhLG3":{"type":"title","settings":{"title":"MISSÃO","description":"<p>Promover a saúde e bem-estar. Criar impacto por tornar o mundo um lugar melhor.</p>","text_align":"center"}},"line_9UdHtJ":{"type":"line","settings":{"letter":"","letter_background_color":"","title":"","title_color":"","description":""}},"title_BJEKJp":{"type":"title","settings":{"title":"VALORES","description":"","text_align":"center"}},"line_FeXc3f":{"type":"line","settings":{"letter":"N","letter_background_color":"#95c120","title":"NATUREZA","title_color":"#95c120","description":"Por tudo aquilo que representas, prestamos-te o nosso tributo!"}},"line_B8JT3P":{"type":"line","settings":{"letter":"A","letter_background_color":"#95c120","title":"AMBIÇÃO","title_color":"#95c120","description":"De prestar um serviço de excelência."}},"line_TEWYPk":{"type":"line","settings":{"letter":"T","letter_background_color":"#95c120","title":"TRATAR","title_color":"#95c120","description":"os outros como gostaríamos de ser tratados."}},"line_raHd37":{"type":"line","settings":{"letter":"U","letter_background_color":"#95c120","title":"UNIÃO","title_color":"#95c120","description":"forte espírito de equipa."}},"line_dfTHQ7":{"type":"line","settings":{"letter":"R","letter_background_color":"#95c120","title":"RESPEITO","title_color":"#95c120","description":"à vida, às pessoas e ao ambiente."}},"line_mDHWJz":{"type":"line","settings":{"letter":"A","letter_background_color":"#95c120","title":"AMOR","title_color":"#95c120","description":"Em tudo o que fazemos, sempre!"}}},"block_order":["title_PiMFAj","title_aWhLG3","line_9UdHtJ","title_BJEKJp","line_FeXc3f","line_B8JT3P","line_TEWYPk","line_raHd37","line_dfTHQ7","line_mDHWJz"],"disabled":true,"settings":{"hide_title":true}},"text-with-icons-bottom":{"type":"about-us-text-with-icons-bottom","blocks":{"item_Ubdw9k":{"type":"item","settings":{"icon":"bi-delivery","custom_icon":"shopify://shop_images/delivery.png","title":"ENVIOS DE 24 A 48 HORAS","content":""}},"item_CNjn3Y":{"type":"item","settings":{"icon":"bi-returns","custom_icon":"shopify://shop_images/badge-with-a-star.png","title":"QUALIDADE GARANTIDA","content":""}},"item_kEg7Ay":{"type":"item","settings":{"icon":"bi-shield","custom_icon":"shopify://shop_images/promo.png","title":"PREÇOS COMPETITIVOS","content":""}}},"block_order":["item_Ubdw9k","item_CNjn3Y","item_kEg7Ay"],"disabled":true,"settings":{"show_section":true,"stack_mobile":false,"background_color":"","text_color":"#308a36"}}},"order":["new_header_servico_banner_WAheg4","solucoes_saude_EGANMh","custom_banner_DtapxB","servico_nutricao_steps_EFpMbD","servico_nutricao_cta_H3cCYf","consulta_para_si_bCa7Aw","conheca_nutricionista_GEEEEm","testemunhos_nutricao_xrK8Ea","custom_banner_jb8ecU","servico_nutricao_form_LJajLT","faq_2_EThpxa","slideshow","text-with-icons-top","template","text-with-icons-bottom"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "new_header_servico_banner_WAheg4": {
+      "type": "new-header-servico-banner",
+      "blocks": {
+        "heading_6E3Knq": {
+          "type": "heading",
+          "settings": {
+            "text": "Consulta de Nutrição",
+            "font_weight": "900",
+            "font_size": 0,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "color": "#000000"
+          }
+        },
+        "heading_wwNdKW": {
+          "type": "heading",
+          "settings": {
+            "text": "Emagrecimento",
+            "font_weight": "900",
+            "font_size": 0,
+            "margin_top": 0,
+            "margin_bottom": 8,
+            "color": "#258439"
+          }
+        },
+        "subheading_TWFR4U": {
+          "type": "subheading",
+          "settings": {
+            "text": "Online e Presencial",
+            "font_weight": "900",
+            "font_size": 0,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "color": "#000000"
+          }
+        },
+        "description_CQ98pJ": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Tem dificuldade em perder peso, problemas digestivos ou cansaço constante? Recupere o bem-estar através de uma avaliação integrada, onde identificamos a origem dos desequilíbrios e otimizamos a sua saúde.</p>",
+            "font_weight": "600",
+            "font_size": 22,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "color": "#000000"
+          }
+        },
+        "button_gak9Fc": {
+          "type": "button",
+          "settings": {
+            "label": "MARQUE CONSULTA",
+            "link": "#servico_form_custom",
+            "font_weight": "700",
+            "font_size": 0,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "text_color": "#ffffff",
+            "background_color": "#258439"
+          }
+        }
+      },
+      "block_order": [
+        "heading_6E3Knq",
+        "heading_wwNdKW",
+        "subheading_TWFR4U",
+        "description_CQ98pJ",
+        "button_gak9Fc"
+      ],
+      "name": "Artigo CTA com imagem",
+      "settings": {
+        "image": "shopify://shop_images/image_37.png",
+        "background_color": "#eff5ef",
+        "image_height": "auto",
+        "button_radius": 8
+      }
+    },
+    "solucoes_saude_EGANMh": {
+      "type": "solucoes-saude",
+      "blocks": {
+        "card_BJrG6M": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_b5694b34-d3f8-4b92-b6cc-6ab1949f2575.png",
+            "icon_image_width": 54,
+            "icon_image_height": 54,
+            "title": "PERDA DE\nPESO",
+            "text": "<p>Alcance um peso mais equilibrado, emagreça sem dietas restritivas e acabe com o efeito ioiô.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "card_8WVGxE": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify://shop_images/Group_466.png",
+            "icon_image_width": 54,
+            "icon_image_height": 54,
+            "title": "GESTÃO\nDE PESO",
+            "text": "<p>Mantenha os resultados e estabilize o seu peso ideal a longo prazo, com hábitos sustentáveis.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "card_H4KEKc": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_2_f16c6be1-e14d-4e07-8d39-909514b9960b.png",
+            "icon_image_width": 54,
+            "icon_image_height": 54,
+            "title": "COMPULSÃO ALIMENTAR",
+            "text": "<p>Aprenda a gerir a compulsão alimentar e a fome emocional com estratégias práticas, adaptadas a si.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "card_jnkJXQ": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_3_bcb9631e-88a6-4507-be07-2aa1505b5826.png",
+            "icon_image_width": 54,
+            "icon_image_height": 54,
+            "title": "BLOQUEIOS METABÓLICOS",
+            "text": "<p>Ultrapasse os fatores que podem estar a bloquear o emagrecimento, o seu progresso e vitalidade.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_BJrG6M",
+        "card_8WVGxE",
+        "card_H4KEKc",
+        "card_jnkJXQ"
+      ],
+      "name": "Soluções de saúde",
+      "settings": {
+        "heading": "Nutrição Funcional focada no Emagrecimento",
+        "subtitle": "<p>Com uma abordagem flexível e sem extremismos, atuamos na dificuldade em emagrecer, para que recupere a sua autoestima e o prazer de comer sem culpas.</p>",
+        "align_text": true,
+        "section_button_label": "MARQUE CONSULTA",
+        "section_button_link": "#servico_form_custom"
+      }
+    },
+    "custom_banner_DtapxB": {
+      "type": "consulta-custom-banner",
+      "name": "Banner Customizado",
+      "settings": {
+        "image_desktop": "shopify://shop_images/Frame_501_1.jpg",
+        "image_mobile": "shopify://shop_images/LP-BANNER-MOB.jpg",
+        "link": "#servico_form_custom",
+        "image_alt": "Desconto de 20% na primeira consulta de nutrição",
+        "button_label": "Marque consulta",
+        "button_link": "#servico_form_custom",
+        "use_prescribed_campaign_banner": true
+      }
+    },
+    "servico_nutricao_steps_EFpMbD": {
+      "type": "consulta-servico-nutricao-steps",
+      "blocks": {
+        "step_rTKDTC": {
+          "type": "step",
+          "settings": {
+            "title": "OBTENHA UMA AVALIAÇÃO CLÍNICA E FÍSICA ",
+            "description": "<p>Avaliamos o seu estado nutricional e metabólico através do histórico de saúde, análises e exames, aliado a uma avaliação física através de bioimpedância e medição de perímetros.</p>"
+          }
+        },
+        "step_cpxhRT": {
+          "type": "step",
+          "settings": {
+            "title": "RECEBA UM PLANO ALIMENTAR PERSONALIZADO",
+            "description": "<p>Obtenha um plano alimentar ajustado à sua realidade. Para facilitar o seu dia a dia e escolhas, receba recomendações concretas de produtos alimentares.</p>"
+          }
+        },
+        "step_ERENCy": {
+          "type": "step",
+          "settings": {
+            "title": "GARANTA RECOMENDAÇÃO DE SUPLEMENTOS",
+            "description": "<p>Em determinados casos clínicos, recomendamos suplementos alimentares que contribuem para o seu bem-estar, potenciam os resultados e apoiam a sua saúde.</p>"
+          }
+        },
+        "step_gHJcwi": {
+          "type": "step",
+          "settings": {
+            "title": "BENEFICIE DE UM ACOMPANHAMENTO PRÓXIMO",
+            "description": "<p>Para que se sinta sempre acompanhado(a) na sua jornada, disponibilizamos um canal direto de contacto com a Nutricionista para esclarecer dúvidas.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_rTKDTC",
+        "step_cpxhRT",
+        "step_ERENCy",
+        "step_gHJcwi"
+      ],
+      "name": "Servico Nutricao Etapas",
+      "settings": {
+        "title": "Etapas da Consulta de Nutrição Funcional",
+        "main_image": "shopify://shop_images/Rectangle_1cf95bc4-7a2f-45a5-b4b9-16dfcfc45441.jpg"
+      }
+    },
+    "servico_nutricao_cta_H3cCYf": {
+      "type": "consulta-servico-nutricao-cta",
+      "name": "Servico Nutricao CTA",
+      "settings": {
+        "title": "<p>Invista na sua saúde com uma abordagem totalmente adaptada a si. Dê o primeiro passo e obtenha resultados consistentes.</p>",
+        "btn_txt": "MARQUE CONSULTA"
+      }
+    },
+    "consulta_para_si_bCa7Aw": {
+      "type": "consulta-para-si",
+      "blocks": {
+        "item_DjgUBB": {
+          "type": "item",
+          "settings": {
+            "title": "Estratégias eficazes",
+            "text": "<p>Pretende alcançar resultados duradouros, sem extremismos e que respeitem o seu corpo.</p>"
+          }
+        },
+        "item_L7GDbU": {
+          "type": "item",
+          "settings": {
+            "title": "Personalização",
+            "text": "<p>Procura um plano alimentar e de suplementação, flexível e totalmente ajustado à sua rotina diária.</p>"
+          }
+        },
+        "item_FXeiiH": {
+          "type": "item",
+          "settings": {
+            "title": "Acompanhamento próximo",
+            "text": "<p>Deseja ser ouvido(a) e ter uma orientação integrada ao longo de todo o processo.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_DjgUBB",
+        "item_L7GDbU",
+        "item_FXeiiH"
+      ],
+      "name": "Consulta para si",
+      "settings": {
+        "title": "A consulta de Nutrição é para si se procura..."
+      }
+    },
+    "conheca_nutricionista_GEEEEm": {
+      "type": "conheca-nutricionista",
+      "name": "Conheça a Nutricionista",
+      "settings": {
+        "heading": "Conheça a Nutricionista",
+        "name": "Dr.ª Rita de Cássia Silva",
+        "certificate": "Nutricionista CP: 4249N",
+        "description": "<p>Nutricionista desde 2019, percebeu cedo que a nutrição vai muito além de contar calorias. Motivada pela complexidade do corpo humano, dedica-se ao estudo da nutrição numa perspetiva funcional e integrativa para proporcionar um acompanhamento individualizado. A sua grande paixão é ver como mudanças consistentes na rotina transformam vidas. Mais do que prescrever planos, foca-se em gerar saúde, conforto e bem-estar real, contribuindo diariamente para a qualidade de vida.</p>",
+        "formation": "<p>Formação</p><ul><li>Licenciatura em Ciências da Nutrição (FCNAUP);</li><li>Mestrado em Nutrição Humana e Metabolismo (NOVA Medical School);</li><li>Pós-Graduações em Nutrição e Suplementação Alimentar e em Terapêutica Ortomolecular e Nutrição Funcional (CESPU);</li><li>Especializações avançadas em Microbiota Intestinal (NOVA) e Aplicação de Medicina Funcional na Prática Clínica (The Institute for Functional Medicine).</li></ul>",
+        "image": "shopify://shop_images/Rectangle_61bd8d8b-edbc-4de9-9c98-388e64a1f2b8.png",
+        "button_label": "Marque consulta",
+        "button_link": "#servico_form_custom"
+      }
+    },
+    "testemunhos_nutricao_xrK8Ea": {
+      "type": "testemunhos-nutricao",
+      "blocks": {
+        "testimonial_tCrybA": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“Quando procurei a Dr.ª Rita, estava a passar por uma fase complicada devido à síndrome do cólon irritado e não sabia bem o que fazer. A sua análise foi super completa e senti que olhou para mim como uma pessoa, e não apenas como um conjunto de sintomas. O plano alimentar e de suplementação que construímos juntas foi personalizado e, acredite, tem sido fácil de seguir!”</p>",
+            "name": "Marta, 38 anos",
+            "context": "(Sistema Digestivo)"
+          }
+        },
+        "testimonial_CMtqgQ": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“Senti que finalmente tinha um acompanhamento pensado para mim, sem planos impossíveis ou restrições exageradas. O processo foi claro, próximo e adaptado à minha rotina.”</p>",
+            "name": "Ana, 42 anos",
+            "context": "(Gestão de Peso)"
+          }
+        },
+        "testimonial_XMxRzt": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“Gostei muito da forma como tudo foi explicado. Saí da consulta com recomendações práticas, fáceis de aplicar e com a sensação de que estava realmente acompanhada.”</p>",
+            "name": "Joana, 35 anos",
+            "context": "(Saúde da Mulher)"
+          }
+        },
+        "testimonial_F4Nk7V": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“O acompanhamento ajudou-me a compreender melhor o meu corpo e a melhorar vários sintomas que já tinha normalizado. Foi um processo muito humano e profissional.”</p>",
+            "name": "Carla, 46 anos",
+            "context": "(Menopausa)"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_tCrybA",
+        "testimonial_CMtqgQ",
+        "testimonial_XMxRzt",
+        "testimonial_F4Nk7V"
+      ],
+      "name": "Testemunhos Nutrição",
+      "settings": {
+        "title": "O que dizem os nossos clientes"
+      }
+    },
+    "custom_banner_jb8ecU": {
+      "type": "consulta-custom-banner",
+      "name": "Banner Customizado",
+      "settings": {
+        "image_desktop": "shopify://shop_images/Frame_501_1.jpg",
+        "image_mobile": "shopify://shop_images/LP-BANNER-MOB.jpg",
+        "link": "#servico_form_custom",
+        "image_alt": "Desconto de 20% na primeira consulta de nutrição",
+        "button_label": "",
+        "button_link": "",
+        "use_prescribed_campaign_banner": true
+      }
+    },
+    "servico_nutricao_form_LJajLT": {
+      "type": "consulta-servico-nutricao-form",
+      "name": "Servico Nutricao Form",
+      "settings": {
+        "title": "Marcar Consulta de Nutrição",
+        "description": "<p>Preencha os seus dados no formulário abaixo e entraremos em contacto para realizar a sua marcação.</p>"
+      }
+    },
+    "faq_2_EThpxa": {
+      "type": "consulta-faq-2",
+      "blocks": {
+        "custom_zLCYVJ": {
+          "type": "custom",
+          "settings": {
+            "title": "Qual é o preço das consultas?",
+            "answer": "<p>A primeira consulta (online ou presencial) tem o valor de 50 € e uma duração aproximada de 1h30. As consultas de seguimento têm o valor de 40 € e duram cerca de 1 hora.</p>"
+          }
+        },
+        "custom_XVaWy6": {
+          "type": "custom",
+          "settings": {
+            "title": "Como funcionam as consultas online?",
+            "answer": "<p>As consultas online são realizadas por videochamada, através de plataformas como Zoom, GoogleMeet ou WhatsApp, de forma simples e segura — no conforto da tua casa.</p>"
+          }
+        },
+        "custom_gfi69M": {
+          "type": "custom",
+          "settings": {
+            "title": "Onde são realizadas as consultas presenciais?",
+            "answer": "<p>As consultas presenciais decorrem na Bioself Natura, localizada na Rua da Alegria, nº 183, 4000-043 Porto.</p>"
+          }
+        },
+        "custom_cqHNXB": {
+          "type": "custom",
+          "settings": {
+            "title": "Têm acordos com seguros de saúde?",
+            "answer": "<p>Atualmente, não temos acordos diretos com seguros de saúde. No entanto, poderás submeter a fatura da consulta ao teu seguro e verificar se existe possibilidade de reembolso, conforme as condições da tua apólice.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "custom_zLCYVJ",
+        "custom_XVaWy6",
+        "custom_gfi69M",
+        "custom_cqHNXB"
+      ],
+      "name": "Perguntas Frequentes",
+      "settings": {
+        "title": "Perguntas frequentes",
+        "layout": "homepage"
+      }
+    },
+    "slideshow": {
+      "type": "about-us-slideshow",
+      "blocks": {
+        "image_cjGPcL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/sobre_bioself_demo.png",
+            "show_overlay": true,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "Sobre a\nBioself Natura",
+            "content": "",
+            "content_position": "middle_center",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "button_text": "Button",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_cjGPcL"
+      ],
+      "disabled": true,
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "small",
+        "carousel_effect": "slide",
+        "autoplay": true,
+        "cycle_speed": 5
+      }
+    },
+    "text-with-icons-top": {
+      "type": "about-us-text-with-icons-top",
+      "blocks": {
+        "item_PgqUwV": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-delivery",
+            "custom_icon": "shopify://shop_images/delivery_white.png",
+            "title": "ENVIOS DE 24 A 48 HORAS",
+            "content": "<p>NA MAIORIA DOS PRODUTOS</p>"
+          }
+        },
+        "item_kEGLwX": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-returns",
+            "custom_icon": "shopify://shop_images/badge-with-a-star_white.png",
+            "title": "QUALIDADE GARANTIDA",
+            "content": "<p>DESDE 1981</p>"
+          }
+        },
+        "item_mwapiz": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-customer-support",
+            "custom_icon": "shopify://shop_images/promo_white.png",
+            "title": "PREÇOS COMPETITIVOS",
+            "content": "<p>SEMPRE!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_PgqUwV",
+        "item_kEGLwX",
+        "item_mwapiz"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_section": true,
+        "stack_mobile": false,
+        "background_color": "#95c120",
+        "text_color": ""
+      }
+    },
+    "template": {
+      "type": "about-us-template",
+      "blocks": {
+        "title_PiMFAj": {
+          "type": "title",
+          "settings": {
+            "title": "QUEM SOMOS",
+            "description": "<p>A Bioself Natura é um ervanário com mais de 40 anos de experiência, somos uma empresa familiar na sua terceira geração.<br/><br/>Não pensem que tudo começou numa garagem no início dos anos 80 porque certamente não foi o caso. Começou sim com muita devoção e empenho em servir quem nos procurava da melhor forma, na Rua da Alegria 183 do Porto.</p><p><br/>São mais de 15000 dias que esta família se dedica à sua causa maior que é levantar-se todos os dias com um sorriso nos lábios e vir trabalhar. A máxima EAT – SLEEP – WORK – REPEAT faz seguramente parte do nosso ADN.</p><p><br/>Respiramos, bebemos e alimentamo-nos de um profundo compromisso em prestar um serviço de excelência e disponibilizar os melhores suplementos alimentares.</p><p><br/>A todos os nossos parceiros, clientes e amigos o nosso profundo agradecimento por nos apoiarem nesta magnífica jornada, que fique claro que tudo faremos por continuar a ser merecedores da vossa estima.</p><p><br/>Mais de quatro décadas passadas e o sentimento é de que estamos apenas a começar. Que maravilha!</p><p><br/>Tiago Moisés Silva</p>",
+            "text_align": "center"
+          }
+        },
+        "title_aWhLG3": {
+          "type": "title",
+          "settings": {
+            "title": "MISSÃO",
+            "description": "<p>Promover a saúde e bem-estar. Criar impacto por tornar o mundo um lugar melhor.</p>",
+            "text_align": "center"
+          }
+        },
+        "line_9UdHtJ": {
+          "type": "line",
+          "settings": {
+            "letter": "",
+            "letter_background_color": "",
+            "title": "",
+            "title_color": "",
+            "description": ""
+          }
+        },
+        "title_BJEKJp": {
+          "type": "title",
+          "settings": {
+            "title": "VALORES",
+            "description": "",
+            "text_align": "center"
+          }
+        },
+        "line_FeXc3f": {
+          "type": "line",
+          "settings": {
+            "letter": "N",
+            "letter_background_color": "#95c120",
+            "title": "NATUREZA",
+            "title_color": "#95c120",
+            "description": "Por tudo aquilo que representas, prestamos-te o nosso tributo!"
+          }
+        },
+        "line_B8JT3P": {
+          "type": "line",
+          "settings": {
+            "letter": "A",
+            "letter_background_color": "#95c120",
+            "title": "AMBIÇÃO",
+            "title_color": "#95c120",
+            "description": "De prestar um serviço de excelência."
+          }
+        },
+        "line_TEWYPk": {
+          "type": "line",
+          "settings": {
+            "letter": "T",
+            "letter_background_color": "#95c120",
+            "title": "TRATAR",
+            "title_color": "#95c120",
+            "description": "os outros como gostaríamos de ser tratados."
+          }
+        },
+        "line_raHd37": {
+          "type": "line",
+          "settings": {
+            "letter": "U",
+            "letter_background_color": "#95c120",
+            "title": "UNIÃO",
+            "title_color": "#95c120",
+            "description": "forte espírito de equipa."
+          }
+        },
+        "line_dfTHQ7": {
+          "type": "line",
+          "settings": {
+            "letter": "R",
+            "letter_background_color": "#95c120",
+            "title": "RESPEITO",
+            "title_color": "#95c120",
+            "description": "à vida, às pessoas e ao ambiente."
+          }
+        },
+        "line_mDHWJz": {
+          "type": "line",
+          "settings": {
+            "letter": "A",
+            "letter_background_color": "#95c120",
+            "title": "AMOR",
+            "title_color": "#95c120",
+            "description": "Em tudo o que fazemos, sempre!"
+          }
+        }
+      },
+      "block_order": [
+        "title_PiMFAj",
+        "title_aWhLG3",
+        "line_9UdHtJ",
+        "title_BJEKJp",
+        "line_FeXc3f",
+        "line_B8JT3P",
+        "line_TEWYPk",
+        "line_raHd37",
+        "line_dfTHQ7",
+        "line_mDHWJz"
+      ],
+      "disabled": true,
+      "settings": {
+        "hide_title": true
+      }
+    },
+    "text-with-icons-bottom": {
+      "type": "about-us-text-with-icons-bottom",
+      "blocks": {
+        "item_Ubdw9k": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-delivery",
+            "custom_icon": "shopify://shop_images/delivery.png",
+            "title": "ENVIOS DE 24 A 48 HORAS",
+            "content": ""
+          }
+        },
+        "item_CNjn3Y": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-returns",
+            "custom_icon": "shopify://shop_images/badge-with-a-star.png",
+            "title": "QUALIDADE GARANTIDA",
+            "content": ""
+          }
+        },
+        "item_kEg7Ay": {
+          "type": "item",
+          "settings": {
+            "icon": "bi-shield",
+            "custom_icon": "shopify://shop_images/promo.png",
+            "title": "PREÇOS COMPETITIVOS",
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_Ubdw9k",
+        "item_CNjn3Y",
+        "item_kEg7Ay"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_section": true,
+        "stack_mobile": false,
+        "background_color": "",
+        "text_color": "#308a36"
+      }
+    }
+  },
+  "order": [
+    "new_header_servico_banner_WAheg4",
+    "solucoes_saude_EGANMh",
+    "custom_banner_DtapxB",
+    "servico_nutricao_steps_EFpMbD",
+    "servico_nutricao_cta_H3cCYf",
+    "consulta_para_si_bCa7Aw",
+    "conheca_nutricionista_GEEEEm",
+    "testemunhos_nutricao_xrK8Ea",
+    "custom_banner_jb8ecU",
+    "servico_nutricao_form_LJajLT",
+    "faq_2_EThpxa",
+    "slideshow",
+    "text-with-icons-top",
+    "template",
+    "text-with-icons-bottom"
+  ]
+}
