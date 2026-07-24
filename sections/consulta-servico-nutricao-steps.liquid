@@ -1,0 +1,523 @@
+{% assign step_blocks = section.blocks | where: 'type', 'step' %}
+
+<style>
+  #section_step_custom {
+    --step-image-height: 700px;
+
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 46px;
+    width: 100%;
+    margin: 64px 0;
+    padding: 0;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  #section_step_custom > h2 {
+    padding: 0;
+    margin: 0 var(--desktop-container-gutter);
+    font-size: 36px;
+    line-height: 1.15;
+    font-weight: 900 !important;
+    color: #000;
+    text-align: center;
+    letter-spacing: -0.03em;
+  }
+
+  #section_step_custom > div {
+    width: auto;
+    max-width: 2500px;
+    margin: 0 var(--desktop-container-gutter);
+    display: grid;
+    grid-template-columns: minmax(0, 50%) minmax(0, min(700px, 44%));
+    justify-content: space-between;
+    align-items: stretch;
+    column-gap: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  #section_step_custom > div > img {
+    width: 100%;
+    height: var(--step-image-height);
+    display: block;
+    border-radius: 0 8px 8px 0;
+    object-fit: cover;
+    object-position: center center;
+    box-sizing: border-box;
+  }
+
+  #section_step_custom > div > ul {
+    width: 100%;
+    max-width: 700px;
+    height: var(--step-image-height);
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-self: end;
+    gap: 42px;
+    box-sizing: border-box;
+  }
+
+  #section_step_custom > div > ul > li {
+    width: 100%;
+    max-width: 700px;
+    min-width: 0;
+    min-height: 128px;
+    padding: 24px 42px 22px 58px;
+    margin: 0;
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    place-items: center;
+    text-align: center;
+    background-color: #eef6f0;
+    border-radius: 8px;
+    color: #000;
+    gap: 14px;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  #section_step_custom > div > ul > li > * {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  #section_step_custom > div > ul > li > h3 {
+    width: 100%;
+    max-width: 100%;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 900 !important;
+    color: #000;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  #section_step_custom > div > ul > li > p {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #000;
+    margin: 0 auto;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    box-sizing: border-box;
+  }
+
+  #section_step_custom > div > ul > li > div {
+    position: absolute;
+    z-index: 1;
+    background-color: #adffbf;
+    border-radius: 50%;
+    width: 62px;
+    height: 62px;
+    display: grid;
+    place-items: center;
+    left: -22px;
+    top: -22px;
+  }
+
+  #section_step_custom > div > ul > li > div > span {
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    font-size: 32px;
+    color: #258439;
+    font-weight: 900 !important;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #section_step_custom {
+      --step-image-height: 740px;
+    }
+
+    #section_step_custom > div {
+      margin-left: 0;
+      margin-right: 9vw;
+      grid-template-columns: minmax(0, 50%) minmax(0, min(700px, 44%));
+      justify-content: space-between;
+      column-gap: 0;
+    }
+
+    #section_step_custom > div > ul {
+      gap: 48px;
+    }
+
+    #section_step_custom > div > ul > li {
+      min-height: 138px;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #section_step_custom {
+      --step-image-height: 780px;
+    }
+
+    #section_step_custom > div {
+      margin-left: 0;
+      margin-right: 18vw;
+      grid-template-columns: minmax(0, 50%) minmax(0, 700px);
+      justify-content: space-between;
+      column-gap: 0;
+    }
+
+    #section_step_custom > div > ul {
+      gap: 56px;
+    }
+
+    #section_step_custom > div > ul > li {
+      min-height: 150px;
+    }
+  }
+
+  @media screen and (max-width: 1500px) and (min-width: 1201px) {
+    #section_step_custom {
+      --step-image-height: 640px;
+      gap: 40px;
+    }
+
+    #section_step_custom > div {
+      grid-template-columns: minmax(0, 50%) minmax(0, min(620px, 46%));
+    }
+
+    #section_step_custom > div > ul {
+      gap: 30px;
+    }
+
+    #section_step_custom > div > ul > li {
+      min-height: 118px;
+      padding: 22px 28px 20px 42px;
+    }
+
+    #section_step_custom > div > ul > li > h3 {
+      font-size: 18px;
+    }
+
+    #section_step_custom > div > ul > li > p {
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    #section_step_custom > div > ul > li > div {
+      width: 54px;
+      height: 54px;
+      left: -18px;
+      top: -18px;
+    }
+
+    #section_step_custom > div > ul > li > div > span {
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) and (min-width: 1001px) {
+    #section_step_custom {
+      gap: 36px;
+      margin: 48px 0;
+      width: 100%;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > h2 {
+      font-size: 30px;
+      line-height: 1.15;
+      margin: 0 var(--desktop-container-gutter);
+      padding: 0;
+    }
+
+    #section_step_custom > div {
+      width: auto;
+      max-width: none;
+      min-width: 0;
+      margin: 0 var(--desktop-container-gutter);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: repeat(2, max-content);
+      justify-content: stretch;
+      gap: 36px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > ul {
+      order: 1;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      min-width: 0;
+      gap: 34px;
+      margin: 0;
+      padding: 18px 0 0 0;
+      justify-content: flex-start;
+      justify-self: stretch;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > img {
+      order: 2;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      display: block;
+      margin: 0;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: center center;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > ul > li {
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      min-height: auto;
+      padding: 36px 24px 26px 24px;
+      box-sizing: border-box;
+      overflow-wrap: anywhere;
+    }
+
+    #section_step_custom > div > ul > li > h3 {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    #section_step_custom > div > ul > li > p {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      font-size: 16px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > ul > li > div {
+      width: 50px;
+      height: 50px;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #section_step_custom > div > ul > li > div > span {
+      font-size: 26px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #section_step_custom {
+      gap: 32px;
+      margin: 40px 0;
+      width: 100%;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > h2 {
+      font-size: 28px;
+      line-height: 1.15;
+      margin: 0 var(--mobile-container-gutter);
+      padding: 0;
+    }
+
+    #section_step_custom > div {
+      width: auto;
+      max-width: none;
+      min-width: 0;
+      margin: 0 var(--mobile-container-gutter);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: repeat(2, max-content);
+      justify-content: stretch;
+      gap: 32px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > ul {
+      order: 1;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      min-width: 0;
+      gap: 34px;
+      margin: 0;
+      padding: 18px 0 0 0;
+      justify-content: flex-start;
+      justify-self: stretch;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > img {
+      order: 2;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      display: block;
+      margin: 0;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: center center;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > ul > li {
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      min-height: auto;
+      padding: 36px 20px 26px 20px;
+      box-sizing: border-box;
+      overflow-wrap: anywhere;
+    }
+
+    #section_step_custom > div > ul > li > h3 {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    #section_step_custom > div > ul > li > p {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      font-size: 16px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      box-sizing: border-box;
+    }
+
+    #section_step_custom > div > ul > li > div {
+      width: 50px;
+      height: 50px;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #section_step_custom > div > ul > li > div > span {
+      font-size: 26px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    #section_step_custom > h2 {
+      font-size: 25px;
+    }
+
+    #section_step_custom > div > ul {
+      gap: 30px;
+    }
+
+    #section_step_custom > div > ul > li {
+      padding: 34px 16px 24px 16px;
+    }
+
+    #section_step_custom > div > img {
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>
+
+<section id="section_step_custom">
+  {% if section.settings.title != blank %}
+    <h2>{{ section.settings.title }}</h2>
+  {% endif %}
+
+  <div>
+    {% if section.settings.main_image != blank %}
+      <img
+        src="{{ section.settings.main_image | image_url: width: 1800 }}"
+        alt="Nutricionista Dra. Rita de Cássia Silva a entregar um plano alimentar personalizado"
+        width="{{ section.settings.main_image.width }}"
+        height="{{ section.settings.main_image.height }}"
+        loading="lazy"
+      >
+    {% endif %}
+
+    {% unless step_blocks.size == 0 %}
+      <ul>
+        {% for step in step_blocks %}
+          <li>
+            <div>
+              <span>{{ forloop.index }}</span>
+            </div>
+
+            {% if step.settings.title != blank %}
+              <h3>{{ step.settings.title }}</h3>
+            {% endif %}
+
+            {% if step.settings.description != blank %}
+              {{ step.settings.description }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endunless %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Servico Nutricao Etapas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Secção",
+      "default": "Etapas da Consulta de Nutrição Funcional"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Imagem da Secção"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Etapa",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título da Etapa"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Descrição da Etapa"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Etapas",
+      "category": "step"
+    }
+  ]
+}
+{% endschema %}

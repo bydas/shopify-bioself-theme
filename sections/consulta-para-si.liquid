@@ -1,0 +1,216 @@
+<section class="consulta-para-si">
+  <div class="consulta-para-si__box">
+    {% if section.settings.title != blank %}
+      <h2 class="consulta-para-si__title">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+
+    <div class="consulta-para-si__grid">
+      {% for block in section.blocks %}
+        <div class="consulta-para-si__item" {{ block.shopify_attributes }}>
+          <div class="consulta-para-si__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M7.5 12.4L10.4 15.2L16.8 8.8" />
+            </svg>
+          </div>
+
+          {% if block.settings.title != blank %}
+            <p class="title">{{ block.settings.title }}</p>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="consulta-para-si__text">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .consulta-para-si {
+    margin: 64px var(--desktop-container-gutter);
+  }
+
+  .consulta-para-si__box {
+    width: 100%;
+    margin: 0;
+    padding: 40px 70px 38px;
+    border: 1px solid #23843c;
+    border-radius: 7px;
+    background: #ffffff;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .consulta-para-si__title {
+    margin: 0 0 38px;
+    padding: 0;
+    color: #000000;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 900 !important;
+    letter-spacing: -0.03em;
+  }
+
+  .consulta-para-si__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 70px;
+    align-items: start;
+  }
+
+  .consulta-para-si__item {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .consulta-para-si__icon {
+    width: 42px;
+    height: 42px;
+    margin: 0 0 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #adffbf;
+  }
+
+  .consulta-para-si__icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #23843c;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .consulta-para-si__item .title {
+    margin: 0 0 10px;
+    padding: 0;
+    color: #000000;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 900 !important;
+  }
+
+  .consulta-para-si__text {
+    margin: 0 auto;
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.38;
+    font-weight: 500;
+  }
+
+  .consulta-para-si__text p {
+    margin: 0;
+  }
+
+  @media screen and (min-width: 1499px) {
+    .consulta-para-si {
+      margin: 64px 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    .consulta-para-si {
+      margin: 64px 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .consulta-para-si {
+      margin: 40px var(--mobile-container-gutter);
+    }
+
+    .consulta-para-si__box {
+      padding: 30px 20px 32px;
+    }
+
+    .consulta-para-si__grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .consulta-para-si__title {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .consulta-para-si__item .title {
+      font-size: 17px;
+    }
+
+    .consulta-para-si__text {
+      font-size: 15px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Consulta para si",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "A consulta de Nutrição é para si se procura..."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Estratégias eficazes"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto",
+          "default": "<p>Pretende alcançar resultados duradouros, sem extremismos e que respeitem o seu corpo.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Consulta para si",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Personalização",
+            "text": "<p>Pretende alcançar resultados duradouros, sem extremismos e que respeitem o seu corpo.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Personalização",
+            "text": "<p>Procura um plano alimentar e de suplementação, flexível e totalmente ajustado à sua rotina diária.</p>"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Acompanhamento próximo",
+            "text": "<p>Deseja ser ouvido(a) e ter uma orientação integrada ao longo de todo o processo.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

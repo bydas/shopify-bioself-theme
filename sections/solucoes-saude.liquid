@@ -1,0 +1,491 @@
+{% liquid
+  assign section_id = section.id | replace: '_', '' | downcase
+%}
+
+<section class="solucoes-saude solucoes-saude-{{ section_id }}">
+  <div class="solucoes-saude__container">
+    <div class="solucoes-saude__header">
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading | newline_to_br }}</h2>
+      {% endif %}
+
+      {% if section.settings.subtitle != blank %}
+        <div class="solucoes-saude__subtitle">
+          {{ section.settings.subtitle }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="solucoes-saude__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign icon_image_width = block.settings.icon_image_width | default: 54
+          assign icon_image_height = block.settings.icon_image_height | default: 54
+          assign icon_image_render_width = icon_image_width | times: 2
+        %}
+
+        <article
+          class="solucoes-saude__card"
+          style="--icon-image-width: {{ icon_image_width }}px; --icon-image-height: {{ icon_image_height }}px;"
+          {{ block.shopify_attributes }}
+        >
+          <div class="solucoes-saude__icon-wrap">
+            {% if block.settings.icon_image != blank %}
+              {{
+                block.settings.icon_image
+                | image_url: width: icon_image_render_width
+                | image_tag: loading: 'lazy', class: 'solucoes-saude__icon-image'
+              }}
+            {% else %}
+              {% case forloop.index %}
+                {% when 1 %}
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <path d="M14 43c9-2 16-2 24 2 5 2 9 2 12 0" />
+                    <path d="M18 36c8-1 15 0 22 4" />
+                    <path d="M32 34c-6-8-4-18 8-24" />
+                    <path d="M38 11c5 0 9 1 12 4-4 4-8 5-13 4" />
+                    <circle cx="46" cy="33" r="9" />
+                    <path d="M46 28v10" />
+                    <path d="M41 33h10" />
+                  </svg>
+                {% when 2 %}
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <path d="M24 12v12" />
+                    <path d="M40 12v12" />
+                    <rect x="15" y="23" width="34" height="10" rx="5" />
+                    <rect x="15" y="39" width="34" height="10" rx="5" />
+                    <path d="M23 33v6" />
+                    <path d="M41 33v6" />
+                    <circle cx="48" cy="18" r="8" />
+                    <path d="M48 14v8" />
+                    <path d="M44 18h8" />
+                  </svg>
+                {% else %}
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <path d="M22 18c6 4 8 10 10 18" />
+                    <path d="M42 18c-6 4-8 10-10 18" />
+                    <path d="M20 18h24" />
+                    <path d="M32 36c-7 0-12-6-12-14" />
+                    <path d="M32 36c7 0 12-6 12-14" />
+                    <path d="M32 36v12" />
+                    <circle cx="16" cy="18" r="5" />
+                    <circle cx="48" cy="18" r="5" />
+                  </svg>
+              {% endcase %}
+            {% endif %}
+          </div>
+
+          {% if block.settings.title != blank %}
+            <h3>{{ block.settings.title | newline_to_br }}</h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="solucoes-saude__text">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.button_label != blank %}
+            <a class="solucoes-saude__button" href="{{ block.settings.button_link | default: '#' }}">
+              {{ block.settings.button_label }}
+            </a>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.section_button_label != blank %}
+      <div class="solucoes-saude__section-button-wrap">
+        <a
+          class="solucoes-saude__section-button"
+          href="{{ section.settings.section_button_link | default: '#' }}"
+        >
+          {{ section.settings.section_button_label }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .solucoes-saude-{{ section_id }} {
+    background: #ffffff;
+    margin: 64px 0;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__container {
+    width: auto;
+    margin: 0 var(--desktop-container-gutter);
+    padding: 0;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__header h2 {
+    margin: 0 auto 20px;
+    color: #000000;
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 900 !important;
+    letter-spacing: -0.04em;
+    max-width: none;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__subtitle {
+    margin: 0 auto;
+    max-width: 1240px;
+    color: #000000;
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__subtitle p {
+    margin: 0;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, 1fr);
+    gap: 32px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__card {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 28px 24px;
+    border: 1px solid #23843c;
+    border-radius: 7px;
+    background: #ffffff;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__icon-wrap {
+    width: 94px;
+    height: 94px;
+    margin: 0 auto 30px;
+    border: 2px solid #ffa800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__icon-wrap svg,
+  .solucoes-saude-{{ section_id }} .solucoes-saude__icon-image {
+    width: var(--icon-image-width, 54px);
+    height: var(--icon-image-height, 54px);
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__icon-wrap svg {
+    fill: none;
+    stroke: #23843c;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__icon-image {
+    object-fit: contain;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__card h3 {
+    margin: 0 auto 26px;
+    color: #23843c;
+    font-size: 25px;
+    line-height: 1.25;
+    font-weight: 900 !important;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__text {
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.4;
+    padding: 0;
+    {% if section.settings.align_text %}
+      text-align: center;
+    {% endif %}
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__text ul {
+    margin: 0;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__text li {
+    margin-bottom: 14px;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__text li:last-child {
+    margin-bottom: 0;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__text li::marker {
+    color: #000000;
+    font-size: 0.85em;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__text strong {
+    font-weight: 900 !important;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    margin-top: auto;
+    padding: 12px 22px;
+    border-radius: 5px;
+    background: #23843c;
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 900 !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__section-button-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__section-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 14px 28px;
+    border-radius: 5px;
+    background: #23843c;
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 900 !important;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .solucoes-saude-{{ section_id }} .solucoes-saude__section-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  @media screen and (min-width: 1001px) {
+    .solucoes-saude-{{ section_id }} .solucoes-saude__header h2 {
+      font-size: clamp(26px, 2.05vw, 42px);
+      white-space: nowrap;
+    }
+  }
+
+  @media screen and (min-width: 1499px) {
+    .solucoes-saude-{{ section_id }} .solucoes-saude__container {
+      margin: 0 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    .solucoes-saude-{{ section_id }} .solucoes-saude__container {
+      margin: 0 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .solucoes-saude-{{ section_id }} {
+      margin: 40px 0;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__container {
+      margin: 0 var(--mobile-container-gutter);
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__header h2 {
+      font-size: 28px;
+      white-space: normal;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__card {
+      min-height: auto;
+      padding: 30px 20px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .solucoes-saude-{{ section_id }} .solucoes-saude__header {
+      margin-bottom: 32px;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__header h2 {
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__subtitle {
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__card h3 {
+      font-size: 23px;
+      line-height: 1.25;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__text {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+
+    .solucoes-saude-{{ section_id }} .solucoes-saude__button,
+    .solucoes-saude-{{ section_id }} .solucoes-saude__section-button {
+      font-size: 15px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Soluções de saúde",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Título",
+      "default": "Soluções Personalizadas para os seus Objetivos de Saúde"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "<p>Consulta de Nutrição Funcional com base numa abordagem prática, flexível e sem extremismos.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "align_text",
+      "label": "Alinhar texto",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Botão após os blocos"
+    },
+    {
+      "type": "text",
+      "id": "section_button_label",
+      "label": "Texto do botão"
+    },
+    {
+      "type": "url",
+      "id": "section_button_link",
+      "label": "Link do botão"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Cartão",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Ícone"
+        },
+        {
+          "type": "range",
+          "id": "icon_image_width",
+          "label": "Largura da imagem",
+          "min": 20,
+          "max": 140,
+          "step": 2,
+          "unit": "px",
+          "default": 54
+        },
+        {
+          "type": "range",
+          "id": "icon_image_height",
+          "label": "Altura da imagem",
+          "min": 20,
+          "max": 140,
+          "step": 2,
+          "unit": "px",
+          "default": 54
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Título",
+          "default": "EMAGRECIMENTO\nE GESTÃO DE PESO"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto",
+          "default": "<ul><li><strong>Alcance um peso mais equilibrado</strong>, mesmo quando sente dificuldade em ver resultados;</li><li><strong>Emagreça sem dietas restritivas</strong> e acabe com o efeito ioiô.</li><li><strong>Aprenda a gerir a compulsão alimentar</strong> e a fome emocional com estratégias práticas adaptadas ao seu dia-a-dia;</li><li><strong>Ultrapasse os fatores que podem estar a bloquear a perda de peso</strong>, o seu progresso e vitalidade;</li><li><strong>Recupere a liberdade e o prazer de comer</strong>, sem culpas e com resultados consistentes.</li></ul>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto do botão",
+          "default": "Saiba mais"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link do botão"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Soluções de saúde",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "EMAGRECIMENTO\nE GESTÃO DE PESO",
+            "text": "<ul><li><strong>Alcance um peso mais equilibrado</strong>, mesmo quando sente dificuldade em ver resultados;</li><li><strong>Emagreça sem dietas restritivas</strong> e acabe com o efeito ioiô.</li><li><strong>Aprenda a gerir a compulsão alimentar</strong> e a fome emocional com estratégias práticas adaptadas ao seu dia-a-dia;</li><li><strong>Ultrapasse os fatores que podem estar a bloquear a perda de peso</strong>, o seu progresso e vitalidade;</li><li><strong>Recupere a liberdade e o prazer de comer</strong>, sem culpas e com resultados consistentes.</li></ul>",
+            "button_label": "Saiba mais"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "SISTEMA\nDIGESTIVO",
+            "text": "<ul><li><strong>Reduza gases, cólicas, enfartamento e barriga inchada</strong> após as refeições;</li><li><strong>Regule o seu trânsito intestinal</strong> - intestino preso, solto ou com flutuações frequentes - de forma natural e consistente;</li><li><strong>Atue sobre a raiz do problema</strong>, seja Gastrite, Síndrome do Intestino Irritável ou outras patologias;</li><li><strong>Volte a saber o que comer</strong> sem medo de desencadear sintomas;</li><li><strong>Deixe de normalizar o desconforto digestivo</strong> e sinta-se bem todos os dias.</li></ul>",
+            "button_label": "Saiba mais"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "SAÚDE DA MULHER\nE MENOPAUSA",
+            "text": "<ul><li><strong>Reduza o cansaço constante</strong> e recupere o seu foco e produtividade.</li><li><strong>Promova maior equilíbrio do ciclo menstrual</strong>, incluindo menstruação irregular, síndrome dos ovários poliquísticos ou endometriose;</li><li><strong>Aprenda a gerir as alterações de humor</strong>, a irritabilidade e o desejo frequente por doces;</li><li><strong>Viva a transição para a menopausa com mais equilíbrio</strong>, reduzindo o impacto dos calores e das variações de peso;</li><li><strong>Recupere o equilíbrio do organismo</strong> e sinta-se com mais energia, leveza e confiança.</li></ul>",
+            "button_label": "Saiba mais"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

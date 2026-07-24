@@ -1,0 +1,666 @@
+{% assign article_cta_image_height_auto = '100%' %}
+{% assign article_cta_image_height_small = '400px' %}
+{% assign article_cta_image_height_medium = '550px' %}
+{% assign article_cta_image_height_large = '700px' %}
+
+{% case section.settings.image_height %}
+  {% when 'auto' %}
+    {% assign article_cta_image_height = article_cta_image_height_auto %}
+  {% when 'small' %}
+    {% assign article_cta_image_height = article_cta_image_height_small %}
+  {% when 'medium' %}
+    {% assign article_cta_image_height = article_cta_image_height_medium %}
+  {% when 'large' %}
+    {% assign article_cta_image_height = article_cta_image_height_large %}
+  {% else %}
+    {% assign article_cta_image_height = article_cta_image_height_medium %}
+{% endcase %}
+
+{% assign article_cta_image = section.settings.image %}
+{% assign article_cta_heading_font_bold = settings.heading_font | font_modify: 'weight', 'bolder' %}
+
+{% if article_cta_image == blank and article.image != blank %}
+  {% assign article_cta_image = article.image %}
+{% endif %}
+
+<style>
+  {% if article_cta_heading_font_bold %}
+    {{ article_cta_heading_font_bold | font_face: font_display: 'swap' }}
+  {% endif %}
+
+  #article-cta-hero-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: {{ section.settings.background_color }};
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__content {
+    display: grid;
+    align-content: center;
+    gap: 2rem;
+    padding: 4rem 2rem 4rem var(--desktop-container-gutter);
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__blocks {
+    display: grid;
+    gap: 1rem;
+    max-width: 620px;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__block {
+    display: grid;
+    justify-items: start;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__title {
+    font-family: var(--font-heading-family, var(--heading-font-family));
+    font-size: 2.5rem;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__subtitle {
+    font-family: var(--font-heading-family, var(--heading-font-family));
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__description p {
+    margin: 0;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.9rem 1.6rem;
+    border-radius: {{ section.settings.button_radius }}px;
+    line-height: 1;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__button:hover {
+    opacity: 0.85;
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__image-wrapper {
+    width: 100%;
+    height: {{ article_cta_image_height }};
+  }
+
+  #article-cta-hero-{{ section.id }} .article-cta-hero__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #article-cta-hero-{{ section.id }} .article-cta-hero__content {
+      padding-left: 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #article-cta-hero-{{ section.id }} .article-cta-hero__content {
+      padding-left: 18vw;
+    }
+  }
+
+  @media screen and (min-width: 1001px) {
+    #article-cta-hero-{{ section.id }} .article-cta-hero__blocks {
+      max-width: 720px;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__title {
+      font-size: 3.1rem;
+      line-height: 1.05;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__subtitle {
+      font-size: 1.85rem;
+      line-height: 1.2;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__description {
+      font-size: 1.35rem;
+      line-height: 1.55;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__button {
+      font-size: 1rem;
+      padding: 1.05rem 1.9rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #article-cta-hero-{{ section.id }} {
+      grid-template-columns: 1fr;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__image-wrapper {
+      order: 1;
+      height: auto;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__image {
+      height: auto;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__content {
+      order: 2;
+      padding: 2rem var(--mobile-container-gutter);
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__block {
+      text-align: center;
+      justify-items: center;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__blocks {
+      gap: 1rem;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__title {
+      font-size: 32px !important;
+      line-height: 1.1;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__subtitle {
+      font-size: 24px !important;
+      line-height: 1.2;
+    }
+
+    #article-cta-hero-{{ section.id }}
+      .article-cta-hero__block--heading
+      + .article-cta-hero__block--heading {
+      margin-top: -8px !important;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__description {
+      font-size: 16px !important;
+      line-height: 1.6;
+    }
+
+    #article-cta-hero-{{ section.id }} .article-cta-hero__button {
+      font-size: 15px !important;
+    }
+  }
+</style>
+
+<section id="article-cta-hero-{{ section.id }}" class="article-cta-hero">
+  <div class="article-cta-hero__content">
+    <div class="article-cta-hero__blocks">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'heading' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="article-cta-hero__block article-cta-hero__block--heading"
+                style="
+                  margin-top: {{ block.settings.margin_top }}px;
+                  margin-bottom: {{ block.settings.margin_bottom }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <h2
+                  class="article-cta-hero__title"
+                  style="
+                    color: {{ block.settings.color }};
+                    font-weight: {{ block.settings.font_weight }} !important;
+                    {% if block.settings.font_size > 0 %}
+                      font-size: {{ block.settings.font_size }}px;
+                    {% endif %}
+                  "
+                >
+                  {{ block.settings.text }}
+                </h2>
+              </div>
+            {% endif %}
+
+          {% when 'subheading' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="article-cta-hero__block"
+                style="
+                  margin-top: {{ block.settings.margin_top }}px;
+                  margin-bottom: {{ block.settings.margin_bottom }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <h3
+                  class="article-cta-hero__subtitle"
+                  style="
+                    color: {{ block.settings.color }};
+                    font-weight: {{ block.settings.font_weight }} !important;
+                    {% if block.settings.font_size > 0 %}
+                      font-size: {{ block.settings.font_size }}px;
+                    {% endif %}
+                  "
+                >
+                  {{ block.settings.text }}
+                </h3>
+              </div>
+            {% endif %}
+
+          {% when 'description' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="article-cta-hero__block"
+                style="
+                  margin-top: {{ block.settings.margin_top }}px;
+                  margin-bottom: {{ block.settings.margin_bottom }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <div
+                  class="article-cta-hero__description"
+                  style="
+                    color: {{ block.settings.color }};
+                    font-weight: {{ block.settings.font_weight }} !important;
+                    {% if block.settings.font_size > 0 %}
+                      font-size: {{ block.settings.font_size }}px;
+                    {% endif %}
+                  "
+                >
+                  {{ block.settings.text }}
+                </div>
+              </div>
+            {% endif %}
+
+          {% when 'button' %}
+            {% if block.settings.label != blank %}
+              <div
+                class="article-cta-hero__block"
+                style="
+                  margin-top: {{ block.settings.margin_top }}px;
+                  margin-bottom: {{ block.settings.margin_bottom }}px;
+                "
+                {{ block.shopify_attributes }}
+              >
+                <a
+                  class="article-cta-hero__button"
+                  href="{{ block.settings.link | default: '#' }}"
+                  style="
+                    color: {{ block.settings.text_color }};
+                    background-color: {{ block.settings.background_color }};
+                    font-weight: {{ block.settings.font_weight }} !important;
+                    {% if block.settings.font_size > 0 %}
+                      font-size: {{ block.settings.font_size }}px;
+                    {% endif %}
+                  "
+                >
+                  {{ block.settings.label }}
+                </a>
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if article_cta_image != blank %}
+    <div class="article-cta-hero__image-wrapper">
+      <img
+        class="article-cta-hero__image"
+        src="{{ article_cta_image | image_url: width: 1600 }}"
+        alt="Nutricionista Dra. Rita de Cássia Silva no gabinete de consultas de nutrição"
+        width="{{ article_cta_image.width }}"
+        height="{{ article_cta_image.height }}"
+        loading="eager"
+      >
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Artigo CTA com imagem",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#f1f8f3"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "Altura da imagem",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automática"
+        },
+        {
+          "value": "small",
+          "label": "Pequena"
+        },
+        {
+          "value": "medium",
+          "label": "Média"
+        },
+        {
+          "value": "large",
+          "label": "Grande"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Arredondamento do botão",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Título",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Título",
+          "default": "Consulta de Nutrição"
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Peso da fonte",
+          "options": [
+            { "value": "100", "label": "Thin — 100" },
+            { "value": "200", "label": "Extra Light — 200" },
+            { "value": "300", "label": "Light — 300" },
+            { "value": "400", "label": "Regular — 400" },
+            { "value": "500", "label": "Medium — 500" },
+            { "value": "600", "label": "Semi Bold — 600" },
+            { "value": "700", "label": "Bold — 700" },
+            { "value": "800", "label": "Extra Bold — 800" },
+            { "value": "900", "label": "Black — 900" }
+          ],
+          "default": "900"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Tamanho da fonte personalizado",
+          "info": "Defina 0 para manter o tamanho responsivo do tema.",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margem superior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margem inferior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Cor",
+          "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subtítulo",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Subtítulo",
+          "default": "Online ou Presencial"
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Peso da fonte",
+          "options": [
+            { "value": "100", "label": "Thin — 100" },
+            { "value": "200", "label": "Extra Light — 200" },
+            { "value": "300", "label": "Light — 300" },
+            { "value": "400", "label": "Regular — 400" },
+            { "value": "500", "label": "Medium — 500" },
+            { "value": "600", "label": "Semi Bold — 600" },
+            { "value": "700", "label": "Bold — 700" },
+            { "value": "800", "label": "Extra Bold — 800" },
+            { "value": "900", "label": "Black — 900" }
+          ],
+          "default": "700"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Tamanho da fonte personalizado",
+          "info": "Defina 0 para manter o tamanho responsivo do tema.",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margem superior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margem inferior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Cor",
+          "default": "#258439"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Descrição",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Descrição",
+          "default": "<p>Tem dificuldade em perder peso, problemas digestivos ou cansaço constante? Recupere o bem-estar através de uma avaliação integrada, onde identificamos a origem dos desequilíbrios e otimizamos a sua saúde.</p>"
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Peso da fonte",
+          "options": [
+            { "value": "300", "label": "Light — 300" },
+            { "value": "400", "label": "Regular — 400" },
+            { "value": "500", "label": "Medium — 500" },
+            { "value": "600", "label": "Semi Bold — 600" },
+            { "value": "700", "label": "Bold — 700" }
+          ],
+          "default": "400"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Tamanho da fonte personalizado",
+          "info": "Defina 0 para manter o tamanho responsivo do tema.",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margem superior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margem inferior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Cor",
+          "default": "#333333"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Botão",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto do botão",
+          "default": "MARQUE CONSULTA"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link do botão"
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Peso da fonte",
+          "options": [
+            { "value": "400", "label": "Regular — 400" },
+            { "value": "500", "label": "Medium — 500" },
+            { "value": "600", "label": "Semi Bold — 600" },
+            { "value": "700", "label": "Bold — 700" },
+            { "value": "800", "label": "Extra Bold — 800" },
+            { "value": "900", "label": "Black — 900" }
+          ],
+          "default": "700"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Tamanho da fonte personalizado",
+          "info": "Defina 0 para manter o tamanho responsivo do tema.",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margem superior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margem inferior",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Cor do texto",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Cor de fundo",
+          "default": "#258439"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Artigo CTA com imagem",
+      "category": "blog",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

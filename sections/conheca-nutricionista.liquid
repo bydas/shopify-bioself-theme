@@ -1,0 +1,301 @@
+<section class="conheca-nutricionista">
+  <div class="conheca-nutricionista__container">
+    <div class="conheca-nutricionista__content">
+      {% if section.settings.heading != blank or section.settings.name != blank %}
+        <h2>
+          {% if section.settings.heading != blank %}
+            {{ section.settings.heading }}
+          {% endif %}
+
+          <br>
+
+          {% if section.settings.name != blank %}
+            <span>{{ section.settings.name }}</span>
+          {% endif %}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.certificate != blank %}
+        <div class="conheca-nutricionista__intro">
+          <p>{{ section.settings.certificate }}</p>
+        </div>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="conheca-nutricionista__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.formation != blank %}
+        <div class="conheca-nutricionista__formation">
+          {{ section.settings.formation }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a class="conheca-nutricionista__button" href="{{ section.settings.button_link | default: '#' }}">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if section.settings.image != blank %}
+      <div class="conheca-nutricionista__image-wrapper">
+        {{
+          section.settings.image
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            class: 'conheca-nutricionista__image',
+            alt: 'Nutricionista da Bioself Dra. Rita de Cássia Silva a receber um cliente'
+        }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .conheca-nutricionista {
+    background: #eef6f0;
+    padding: 76px 0;
+    margin: 64px 0;
+  }
+
+  .conheca-nutricionista__container {
+    width: auto;
+    margin: 0 var(--desktop-container-gutter);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 440px;
+    align-items: center;
+    gap: 110px;
+  }
+
+  .conheca-nutricionista__content {
+    width: 100%;
+  }
+
+  .conheca-nutricionista__content h2 {
+    margin: 0 0 34px;
+    padding: 0;
+    color: #000000;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 900 !important;
+    letter-spacing: -0.03em;
+  }
+
+  .conheca-nutricionista__content h2 span {
+    color: #23843c;
+  }
+
+  .conheca-nutricionista__intro {
+    margin-bottom: 28px;
+  }
+
+  .conheca-nutricionista__intro p {
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    font-size: 19px;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  .conheca-nutricionista__description {
+    margin-bottom: 30px;
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.42;
+    font-weight: 500;
+  }
+
+  .conheca-nutricionista__description p {
+    margin: 0;
+  }
+
+  .conheca-nutricionista__formation {
+    margin-bottom: 34px;
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.42;
+    font-weight: 500;
+  }
+
+  .conheca-nutricionista__formation p {
+    margin: 0 0 6px;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+  }
+
+  .conheca-nutricionista__formation ul {
+    margin: 0;
+    padding-left: 24px;
+  }
+
+  .conheca-nutricionista__formation li {
+    margin-bottom: 6px;
+  }
+
+  .conheca-nutricionista__formation li:last-child {
+    margin-bottom: 0;
+  }
+
+  .conheca-nutricionista__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 13px 30px;
+    border-radius: 5px;
+    background: #23843c;
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 900 !important;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .conheca-nutricionista__button:hover {
+    color: #ffffff;
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .conheca-nutricionista__image-wrapper {
+    width: 100%;
+  }
+
+  .conheca-nutricionista__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: block;
+    border-radius: 7px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media screen and (min-width: 1499px) {
+    .conheca-nutricionista__container {
+      margin: 0 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    .conheca-nutricionista__container {
+      margin: 0 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .conheca-nutricionista__container {
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 70px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .conheca-nutricionista {
+      padding: 44px 0;
+      margin: 40px 0;
+    }
+
+    .conheca-nutricionista__container {
+      margin: 0 var(--mobile-container-gutter);
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .conheca-nutricionista__content h2 {
+      font-size: 26px;
+      margin-bottom: 26px;
+    }
+
+    .conheca-nutricionista__intro p {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .conheca-nutricionista {
+      padding: 38px 0;
+    }
+
+    .conheca-nutricionista__content h2 {
+      font-size: 24px;
+    }
+
+    .conheca-nutricionista__description,
+    .conheca-nutricionista__formation {
+      font-size: 15px;
+    }
+
+    .conheca-nutricionista__button {
+      width: 100%;
+      min-height: 44px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Conheça a Nutricionista",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Conheça a Nutricionista"
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Nome",
+      "default": "Dr.ª Rita de Cássia Silva"
+    },
+    {
+      "type": "text",
+      "id": "certificate",
+      "label": "Cédula profissional",
+      "default": "Nutricionista CP: 4249N"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição",
+      "default": "<p>Nutricionista desde 2019, percebeu cedo que a nutrição vai muito além de contar calorias. Motivada pela complexidade do corpo humano, dedica-se ao estudo da nutrição numa perspetiva funcional e integrativa para proporcionar um acompanhamento individualizado. A sua grande paixão é ver como mudanças consistentes na rotina transformam vidas. Mais do que prescrever planos, foca-se em gerar saúde, conforto e bem-estar real, contribuindo diariamente para a qualidade de vida.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "formation",
+      "label": "Formação",
+      "default": "<p>Formação</p><ul><li>Licenciatura em Ciências da Nutrição (FCNAUP);</li><li>Mestrado em Nutrição Humana e Metabolismo (NOVA Medical School);</li><li>Pós-Graduações em Nutrição e Suplementação Alimentar e em Terapêutica Ortomolecular e Nutrição Funcional (CESPU);</li><li>Especializações avançadas em Microbiota Intestinal (NOVA) e Aplicação de Medicina Funcional na Prática Clínica (The Institute for Functional Medicine).</li></ul>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "Marque consulta"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Conheça a Nutricionista",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,105 @@
+<style>
+  #sevico_cta_custom {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: #258439;
+    color: white;
+    margin: 2rem var(--desktop-container-gutter);
+    justify-items: center;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #sevico_cta_custom {
+      margin: 2rem 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #sevico_cta_custom {
+      margin: 2rem 18vw;
+    }
+  }
+
+  #sevico_cta_custom > div {
+    display: grid;
+    text-align: center;
+    max-width: 60%;
+  }
+
+  #sevico_cta_custom > div > p {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 900 !important;
+    line-height: normal;
+  }
+
+  #sevico_cta_custom > a {
+    margin: 0;
+    color: black;
+    border-radius: 0.5rem;
+    padding: 0.5rem 2rem;
+    background-color: #FFBB12;
+    font-size: 1rem;
+    font-weight: 700 !important;
+    text-align: center;
+    line-height: normal;
+  }
+
+  @media screen and (max-width: 1599px) and (min-width: 1000px) {
+    #sevico_cta_custom > div > p {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #sevico_cta_custom {
+      margin: 2rem var(--mobile-container-gutter);
+    }
+
+    #sevico_cta_custom > div > p {
+      font-size: 1.25rem;
+    }
+
+    #sevico_cta_custom > div {
+      max-width: 80%;
+    }
+  }
+</style>
+
+<section id="sevico_cta_custom">
+  {% if section.settings.title != blank %}
+    <div>{{ section.settings.title }}</div>
+  {% endif %}
+
+  {% if section.settings.btn_txt != blank %}
+    <a href="#servico_form_custom">{{ section.settings.btn_txt }}</a>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Servico Nutricao CTA",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "text",
+      "id": "btn_txt",
+      "label": "Texto do Botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao CTA",
+      "category": "cta"
+    }
+  ]
+}
+{% endschema %}

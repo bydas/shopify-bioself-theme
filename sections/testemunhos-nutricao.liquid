@@ -1,0 +1,322 @@
+{% liquid
+  assign section_id = section.id | replace: '_', '' | downcase
+%}
+
+<section
+  id="testemunhos-nutricao-{{ section_id }}"
+  class="testemunhos-nutricao"
+  data-testemunhos-section
+>
+  <div class="testemunhos-nutricao__box">
+    {% if section.settings.title != blank %}
+      <p class="title">{{ section.settings.title }}</p>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="testemunhos-nutricao__slides">
+        {% for block in section.blocks %}
+          <div
+            class="testemunhos-nutricao__slide{% if forloop.first %} is-active{% endif %}"
+            data-testemunhos-slide
+            data-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.quote != blank %}
+              <div class="testemunhos-nutricao__quote rte">
+                {{ block.settings.quote }}
+              </div>
+            {% endif %}
+
+            {% if block.settings.name != blank %}
+              <p class="testemunhos-nutricao__name">{{ block.settings.name }}</p>
+            {% endif %}
+
+            {% if block.settings.context != blank %}
+              <p class="testemunhos-nutricao__context">{{ block.settings.context }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.blocks.size > 1 %}
+        <div class="testemunhos-nutricao__dots" role="tablist" aria-label="Testemunhos">
+          {% for block in section.blocks %}
+            <button
+              type="button"
+              class="testemunhos-nutricao__dot{% if forloop.first %} is-active{% endif %}"
+              data-testemunhos-dot
+              data-index="{{ forloop.index0 }}"
+              aria-label="Ver testemunho {{ forloop.index }}"
+              {% if forloop.first %}
+                aria-current="true"
+              {% endif %}
+            ></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .testemunhos-nutricao {
+    margin: 64px var(--desktop-container-gutter);
+  }
+
+  .testemunhos-nutricao__box {
+    width: 100%;
+    margin: 0;
+    padding: 44px 70px 38px;
+    border: 1px solid #23843c;
+    border-radius: 7px;
+    background: #ffffff;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .testemunhos-nutricao__box .title {
+    margin: 0 0 34px;
+    padding: 0;
+    color: #000000;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 900 !important;
+    letter-spacing: -0.03em;
+  }
+
+  .testemunhos-nutricao__slides {
+    position: relative;
+    min-height: 160px;
+  }
+
+  .testemunhos-nutricao__slide {
+    display: none;
+  }
+
+  .testemunhos-nutricao__slide.is-active {
+    display: block;
+  }
+
+  .testemunhos-nutricao__quote {
+    margin: 0 auto 24px;
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.45;
+    font-weight: 500;
+  }
+
+  .testemunhos-nutricao__quote p:not(.title) {
+    margin: 0;
+  }
+
+  .testemunhos-nutricao__name {
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.2;
+    font-weight: 900 !important;
+  }
+
+  .testemunhos-nutricao__context {
+    margin: 4px 0 0;
+    padding: 0;
+    color: #000000;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .testemunhos-nutricao__dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .testemunhos-nutricao__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #000000;
+    cursor: pointer;
+    opacity: 1;
+    transition: width 0.2s ease, opacity 0.2s ease;
+  }
+
+  .testemunhos-nutricao__dot.is-active {
+    width: 26px;
+    height: 6px;
+  }
+
+  @media screen and (min-width: 1499px) {
+    .testemunhos-nutricao {
+      margin: 64px 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    .testemunhos-nutricao {
+      margin: 64px 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .testemunhos-nutricao {
+      margin: 40px var(--mobile-container-gutter);
+    }
+
+    .testemunhos-nutricao__box {
+      padding: 30px 20px 26px;
+    }
+
+    .testemunhos-nutricao__box .title {
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+
+    .testemunhos-nutricao__slides {
+      min-height: auto;
+    }
+
+    .testemunhos-nutricao__quote {
+      font-size: 15px;
+    }
+
+    .testemunhos-nutricao__name {
+      font-size: 15px;
+    }
+
+    .testemunhos-nutricao__context {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    function initTestemunhosNutricao(section) {
+      if (!section) return;
+
+      const slides = section.querySelectorAll('[data-testemunhos-slide]');
+      const dots = section.querySelectorAll('[data-testemunhos-dot]');
+
+      if (!slides.length || !dots.length) return;
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const index = dot.dataset.index;
+
+          slides.forEach((slide) => {
+            slide.classList.toggle('is-active', slide.dataset.index === index);
+          });
+
+          dots.forEach((item) => {
+            const isActive = item.dataset.index === index;
+
+            item.classList.toggle('is-active', isActive);
+
+            if (isActive) {
+              item.setAttribute('aria-current', 'true');
+            } else {
+              item.removeAttribute('aria-current');
+            }
+          });
+        });
+      });
+    }
+
+    initTestemunhosNutricao(document.querySelector('#testemunhos-nutricao-{{ section_id }}'));
+
+    document.addEventListener('shopify:section:load', (event) => {
+      const section = event.target.querySelector('#testemunhos-nutricao-{{ section_id }}');
+
+      if (section) {
+        initTestemunhosNutricao(section);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Testemunhos Nutrição",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "O que dizem os nossos clientes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testemunho",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Testemunho",
+          "default": "<p>“Quando procurei a Dr.ª Rita, estava a passar por uma fase complicada devido à síndrome do cólon irritado e não sabia bem o que fazer. A sua análise foi super completa e senti que olhou para mim como uma pessoa, e não apenas como um conjunto de sintomas. O plano alimentar e de suplementação que construímos juntas foi personalizado e, acredite, tem sido fácil de seguir!”</p>"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome",
+          "default": "Marta, 38 anos"
+        },
+        {
+          "type": "text",
+          "id": "context",
+          "label": "Área",
+          "default": "(Sistema Digestivo)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testemunhos Nutrição",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“Quando procurei a Dr.ª Rita, estava a passar por uma fase complicada devido à síndrome do cólon irritado e não sabia bem o que fazer. A sua análise foi super completa e senti que olhou para mim como uma pessoa, e não apenas como um conjunto de sintomas. O plano alimentar e de suplementação que construímos juntas foi personalizado e, acredite, tem sido fácil de seguir!”</p>",
+            "name": "Marta, 38 anos",
+            "context": "(Sistema Digestivo)"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“Senti que finalmente tinha um acompanhamento pensado para mim, sem planos impossíveis ou restrições exageradas. O processo foi claro, próximo e adaptado à minha rotina.”</p>",
+            "name": "Ana, 42 anos",
+            "context": "(Gestão de Peso)"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“Gostei muito da forma como tudo foi explicado. Saí da consulta com recomendações práticas, fáceis de aplicar e com a sensação de que estava realmente acompanhada.”</p>",
+            "name": "Joana, 35 anos",
+            "context": "(Saúde da Mulher)"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“O acompanhamento ajudou-me a compreender melhor o meu corpo e a melhorar vários sintomas que já tinha normalizado. Foi um processo muito humano e profissional.”</p>",
+            "name": "Carla, 46 anos",
+            "context": "(Menopausa)"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

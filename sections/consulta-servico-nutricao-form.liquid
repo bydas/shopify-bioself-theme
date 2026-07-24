@@ -1,0 +1,540 @@
+<style>
+  #servico_form_custom {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 0;
+    text-align: center;
+    margin: 64px var(--desktop-container-gutter);
+  }
+
+  #servico_form_custom > h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 900 !important;
+    text-transform: none;
+    color: #000;
+    letter-spacing: -0.04em;
+  }
+
+  #servico_form_custom > .servico-form-description {
+    max-width: 620px;
+    margin: 24px auto 52px;
+    color: #000;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  #servico_form_custom > .servico-form-description p {
+    margin: 0;
+  }
+
+  #servico_form_custom > form {
+    width: min(100%, 820px);
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-auto-flow: row;
+    gap: 24px;
+    text-align: left;
+  }
+
+  #servico_form_custom > form > .default-container {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    gap: 8px;
+  }
+
+  #servico_form_custom > form > .default-container > label {
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 900 !important;
+    text-align: left;
+    color: #258439;
+  }
+
+  #servico_form_custom > form > div > input,
+  #servico_form_custom > form > div > textarea {
+    width: 100%;
+    min-height: 40px;
+    background-color: #f4fff1;
+    border: 1px solid #258439;
+    border-radius: 6px;
+    padding: 10px 12px;
+    resize: none;
+    color: #000;
+    font-size: 15px;
+    line-height: 1.3;
+    box-sizing: border-box;
+  }
+
+  #servico_form_custom > form > div > textarea {
+    min-height: 112px;
+  }
+
+  #servico_form_custom > form > div > input::placeholder,
+  #servico_form_custom > form > div > textarea::placeholder {
+    color: #8a8a8a;
+    opacity: 1;
+  }
+
+  #servico_form_custom > form > .contact_div_container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-template-rows: max-content;
+    gap: 96px;
+    align-items: center;
+  }
+
+  #servico_form_custom > form > div > div {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 10px;
+    align-items: center;
+  }
+
+  #servico_form_custom input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #258439;
+    cursor: pointer;
+  }
+
+  #servico_form_custom > form > div > div > label,
+  .terms_container > label {
+    padding: 0;
+    margin: 0;
+    color: #258439;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 500 !important;
+    cursor: pointer;
+  }
+
+  .terms_container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 10px;
+    align-items: center;
+  }
+
+  .terms_container > label {
+    color: #000 !important;
+  }
+
+  .terms_container > label > a {
+    color: #000;
+    text-decoration: underline;
+    cursor: pointer !important;
+  }
+
+  #servico_form_custom > form > button {
+    width: 100%;
+    min-height: 42px;
+    background-color: #258439;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    padding: 12px 20px;
+    font-weight: 900 !important;
+    font-size: 15px;
+    line-height: 1;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #servico_form_custom > form > button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  #servico_form_custom > form > button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #servico_form_custom {
+      margin: 64px 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #servico_form_custom {
+      margin: 64px 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #servico_form_custom {
+      margin: 40px var(--mobile-container-gutter) 60px var(--mobile-container-gutter);
+    }
+
+    #servico_form_custom > h2 {
+      font-size: 28px;
+    }
+
+    #servico_form_custom > .servico-form-description {
+      margin: 18px auto 36px;
+      font-size: 16px;
+    }
+
+    #servico_form_custom > form {
+      width: 100%;
+      gap: 20px;
+    }
+
+    #servico_form_custom > form > .contact_div_container {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    #servico_form_custom > form > div > div {
+      grid-template-columns: max-content 1fr;
+    }
+
+    #servico_form_custom > form > div > div > label,
+    .terms_container > label,
+    #servico_form_custom > form > .default-container > label {
+      font-size: 14px;
+    }
+
+    #servico_form_custom > form > div > input,
+    #servico_form_custom > form > div > textarea {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<section id="servico_form_custom">
+  {% unless section.settings.title == blank %}
+    <h2>{{ section.settings.title }}</h2>
+  {% endunless %}
+
+  {% unless section.settings.description == blank %}
+    <div class="servico-form-description">
+      {{ section.settings.description }}
+    </div>
+  {% endunless %}
+
+  <form>
+    <div class="name default-container">
+      <label for="name">Nome*</label>
+      <input
+        type="text"
+        name="contact[first_name]"
+        id="name"
+        placeholder="Jane Doe"
+        required
+      >
+    </div>
+
+    <div class="default-container">
+      <label for="phone">Contacto</label>
+      <input
+        type="tel"
+        name="contact[phone]"
+        id="phone"
+        placeholder="962345678"
+      >
+    </div>
+
+    <div class="default-container">
+      <label for="email">E-mail*</label>
+      <input
+        type="email"
+        name="contact[email]"
+        id="email"
+        placeholder="janedoe@janedoe.pt"
+        required
+      >
+    </div>
+
+    <div class="contact_div_container">
+      <div>
+        <input
+          id="consulta_presencial"
+          type="checkbox"
+          name="contact[consulta_presencial]"
+          value="presencial"
+        >
+        <label for="consulta_presencial">Consulta presencial</label>
+      </div>
+
+      <div>
+        <input
+          id="consulta_online"
+          type="checkbox"
+          name="contact[consulta_online]"
+          value="online"
+        >
+        <label for="consulta_online">Consulta online</label>
+      </div>
+    </div>
+
+    <div class="default-container">
+      <label for="message">Motivo da consulta*</label>
+      <textarea
+        name="contact[body]"
+        id="message"
+        required
+      ></textarea>
+    </div>
+
+    <div class="terms_container">
+      <input
+        id="terms_agreed"
+        type="checkbox"
+        name="contact[terms_agreed]"
+        required
+      >
+      <label for="terms_agreed">
+        Li e aceito a
+        <a href="/policies/privacy-policy" target="_blank">Política de Privacidade</a>*
+      </label>
+    </div>
+
+    <button type="submit">Enviar</button>
+  </form>
+</section>
+
+<style>
+  #servico_modal_post_submitted {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+    padding: 6dvh 6dvw;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 1003;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 1rem;
+    position: fixed;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    transition: opacity 0.1s;
+    justify-items: center;
+  }
+
+  #success_servico_icon {
+    justify-self: center;
+  }
+
+  #servico_modal_post_submitted > p {
+    padding: 0;
+    margin: 0;
+    width: 70%;
+    line-height: normal;
+    text-align: center;
+  }
+
+  #escape_servico_modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.1s;
+  }
+
+  #escape_servico_modal:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 1000px) {
+    #servico_modal_post_submitted {
+      padding: 2rem 1rem;
+      width: 90%;
+    }
+
+    #servico_modal_post_submitted > p {
+      width: 100%;
+    }
+  }
+</style>
+
+<div id="servico_modal_post_submitted">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="14"
+    width="10.5"
+    viewBox="0 0 384 512"
+    id="escape_servico_modal"
+  >
+    <path fill="#000000" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+  </svg>
+
+  <svg
+    id="success_servico_icon"
+    width="56"
+    height="55"
+    viewBox="0 0 56 55"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M24.1644 40.0247L43.4836 20.7055L39.6472 16.8691L24.1644 32.3518L16.3545 24.5419L12.518 28.3784L24.1644 40.0247ZM28.0008 54.8224C24.21 54.8224 20.6476 54.1031 17.3136 52.6644C13.9795 51.2258 11.0794 49.2733 8.61308 46.807C6.1468 44.3407 4.19432 41.4406 2.75566 38.1065C1.31699 34.7725 0.597656 31.21 0.597656 27.4193C0.597656 23.6285 1.31699 20.0661 2.75566 16.732C4.19432 13.398 6.1468 10.4978 8.61308 8.03154C11.0794 5.56525 13.9795 3.61278 17.3136 2.17411C20.6476 0.735446 24.21 0.0161133 28.0008 0.0161133C31.7916 0.0161133 35.354 0.735446 38.688 2.17411C42.0221 3.61278 44.9223 5.56525 47.3886 8.03154C49.8548 10.4978 51.8073 13.398 53.246 16.732C54.6846 20.0661 55.404 23.6285 55.404 27.4193C55.404 31.21 54.6846 34.7725 53.246 38.1065C51.8073 41.4406 49.8548 44.3407 47.3886 46.807C44.9223 49.2733 42.0221 51.2258 38.688 52.6644C35.354 54.1031 31.7916 54.8224 28.0008 54.8224Z" fill="#88A44E" />
+  </svg>
+
+  <p>
+    Obrigado pela confiança 💚<br>
+    A tua jornada de bem-estar já começou.<br>
+    Em breve, entraremos em contacto para dar o próximo passo contigo.
+  </p>
+</div>
+
+<script>
+  const sectionServico = document.querySelector('#servico_form_custom');
+
+  if (sectionServico) {
+    const formServico = sectionServico.querySelector('form');
+    let isSubmitting = false;
+
+    formServico?.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (isSubmitting) return;
+      isSubmitting = true;
+
+      const submitButton = formServico.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+
+      try {
+        submitButton.textContent = 'A enviar...';
+        submitButton.disabled = true;
+
+        const formData = new FormData(formServico);
+        formData.append('action', 'send_servico_form_email');
+
+        const response = await fetch('https://bioself.apps.bydas.com/', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Falha no envio');
+        }
+
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            send_to: 'AW-342178610/kdSFCM-NhLEbELL2lKMB',
+          });
+        }
+
+        showSuccessModal();
+
+        setTimeout(() => {
+          formServico.reset();
+        }, 500);
+      } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+        alert('Erro ao enviar o formulário. Tente novamente.');
+      } finally {
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        isSubmitting = false;
+      }
+    });
+
+    function showSuccessModal() {
+      const servicoModal = document.getElementById('servico_modal_post_submitted');
+      const overlayModal = document.getElementById('modal_overlay');
+
+      if (!overlayModal) {
+        const newOverlay = document.createElement('div');
+        newOverlay.id = 'modal_overlay';
+        newOverlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0,0,0,0.5);
+          z-index: 1002;
+          display: block;
+        `;
+        document.body.appendChild(newOverlay);
+
+        newOverlay.addEventListener('click', function () {
+          closeModal();
+        });
+      } else {
+        overlayModal.style.display = 'block';
+      }
+
+      if (servicoModal) {
+        servicoModal.style.opacity = '1';
+        servicoModal.style.visibility = 'visible';
+        servicoModal.style.position = 'fixed';
+        servicoModal.style.zIndex = '1003';
+
+        const escapeIconModalServico = document.getElementById('escape_servico_modal');
+
+        if (escapeIconModalServico) {
+          const newEscapeIcon = escapeIconModalServico.cloneNode(true);
+          escapeIconModalServico.parentNode.replaceChild(newEscapeIcon, escapeIconModalServico);
+
+          newEscapeIcon.addEventListener('click', closeModal);
+        }
+      }
+
+      sectionServico.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function closeModal() {
+      const servicoModal = document.getElementById('servico_modal_post_submitted');
+      const overlayModal = document.getElementById('modal_overlay');
+
+      if (servicoModal) {
+        servicoModal.style.opacity = '0';
+        servicoModal.style.visibility = 'hidden';
+      }
+
+      if (overlayModal) {
+        overlayModal.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Servico Nutricao Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Marcar Consulta de Nutrição"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição",
+      "default": "<p>Preencha os seus dados no formulário abaixo e entraremos em contacto para realizar a sua marcação.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Servico Nutricao Form",
+      "category": "form"
+    }
+  ]
+}
+{% endschema %}
