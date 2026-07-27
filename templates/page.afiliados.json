@@ -1,0 +1,187 @@
+{
+  "sections": {
+    "afiliados_hero": {
+      "type": "afiliados-hero",
+      "settings": {
+        "heading": "Programa de Afiliados",
+        "accent_heading": "Embaixadores",
+        "description": "<p>Inspira a tua comunidade, promove o bem-estar e transforma a tua influência em rendimento.</p>",
+        "background_color": "#eff5ef",
+        "heading_color": "#000000",
+        "accent_color": "#258439",
+        "text_color": "#000000"
+      }
+    },
+    "afiliados_como_funciona": {
+      "type": "afiliados-como-funciona",
+      "blocks": {
+        "step_registo": {
+          "type": "step",
+          "settings": {
+            "title": "Faz o teu registo",
+            "text": "<p>Regista-te através do nosso formulário. Queremos conhecer o teu perfil e a tua paixão pelo estilo de vida saudável.</p>"
+          }
+        },
+        "step_link": {
+          "type": "step",
+          "settings": {
+            "title": "Recebe link e cupão",
+            "text": "<p>Após a aprovação, recebes um link e um cupão personalizado para partilhares com a tua comunidade.</p>"
+          }
+        },
+        "step_partilha": {
+          "type": "step",
+          "settings": {
+            "title": "Partilha e Inspira",
+            "text": "<p>Partilha os teus produtos favoritos através de reviews, dicas e conteúdos autênticos para a tua comunidade.</p>"
+          }
+        },
+        "step_comissoes": {
+          "type": "step",
+          "settings": {
+            "title": "Ganha Comissões",
+            "text": "<p>Recebe comissões por cada venda feita com o teu código e acompanha o teu sucesso na tua área privada.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_registo",
+        "step_link",
+        "step_partilha",
+        "step_comissoes"
+      ],
+      "settings": {
+        "heading": "Como funciona",
+        "description": "<p>Juntar-te ao Programa de Embaixadores Bioself é simples. Após aprovação, receberás um link e um código personalizados para partilhar com a tua comunidade e começar a gerar comissões pelas vendas realizadas através das tuas recomendações.</p>",
+        "button_label": "QUERO SER EMBAIXADOR",
+        "button_link": "#afiliados_form"
+      }
+    },
+    "afiliados_beneficios": {
+      "type": "afiliados-beneficios",
+      "blocks": {
+        "benefit_comissoes": {
+          "type": "benefit",
+          "settings": {
+            "icon": "commission",
+            "title": "COMISSÕES ATÉ X%",
+            "text": "<p>Ganha uma percentagem sobre cada venda que gerares na Bioself, transformando a tua influência em rendimento.</p>"
+          }
+        },
+        "benefit_cookies": {
+          "type": "benefit",
+          "settings": {
+            "icon": "cookies",
+            "title": "COOKIES DE 30 DIAS",
+            "text": "<p>O período de atribuição de 30 dias aumenta as tuas oportunidades de gerar comissões, mesmo quando a compra não é imediata.</p>"
+          }
+        },
+        "benefit_ofertas": {
+          "type": "benefit",
+          "settings": {
+            "icon": "offers",
+            "title": "OFERTAS EXCLUSIVAS",
+            "text": "<p>Recebe produtos para testar e promover, além de acesso prioritário a campanhas e lançamentos.</p>"
+          }
+        },
+        "benefit_apoio": {
+          "type": "benefit",
+          "settings": {
+            "icon": "support",
+            "title": "APOIO DEDICADO",
+            "text": "<p>Conta com o apoio da nossa equipa para esclarecer dúvidas e tirar o máximo partido da tua parceria com a Bioself.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_comissoes",
+        "benefit_cookies",
+        "benefit_ofertas",
+        "benefit_apoio"
+      ],
+      "settings": {
+        "heading": "Benefícios de ser um Afiliado Bioself",
+        "description": "<p>Ao inspirares a tua comunidade a investir no seu bem-estar, crias uma fonte de rendimento adicional e tens acesso a vantagens exclusivas na Bioself.</p>",
+        "button_label": "QUERO SER EMBAIXADOR",
+        "button_link": "#afiliados_form"
+      }
+    },
+    "afiliados_formulario": {
+      "type": "afiliados-formulario",
+      "settings": {
+        "heading": "Candidata-te ao Programa de Afiliados",
+        "description": "<p>Preenche os teus dados abaixo para te candidatares. A nossa equipa analisará o teu perfil e entrará em contacto brevemente.</p>",
+        "button_label": "ENVIAR",
+        "success_message": "Recebemos a tua candidatura. A nossa equipa entrará em contacto brevemente.",
+        "privacy_url": "/policies/privacy-policy",
+        "affiliate_policy_url": "/pages/politica-de-afiliados"
+      }
+    },
+    "afiliados_faq": {
+      "type": "consulta-faq-2",
+      "blocks": {
+        "faq_tornar_afiliado": {
+          "type": "custom",
+          "settings": {
+            "title": "Como me posso tornar um Afiliado Bioself?",
+            "answer": "<p>Preenche o formulário de candidatura desta página. A nossa equipa analisará o teu perfil e entrará em contacto para confirmar a aprovação e os próximos passos.</p>"
+          }
+        },
+        "faq_comissoes": {
+          "type": "custom",
+          "settings": {
+            "title": "Como ganho comissões?",
+            "answer": "<p>Após a aprovação, receberás um link e um código personalizados. As compras elegíveis realizadas através dessas referências geram comissões na tua conta de afiliado.</p>"
+          }
+        },
+        "faq_percentagem": {
+          "type": "custom",
+          "settings": {
+            "title": "Qual é a percentagem de comissão por cada venda realizada?",
+            "answer": "<p>A percentagem e as condições aplicáveis são comunicadas durante a aprovação da candidatura e podem variar consoante as campanhas em vigor.</p>"
+          }
+        },
+        "faq_usar_comissoes": {
+          "type": "custom",
+          "settings": {
+            "title": "Como e quando posso usar as minhas comissões?",
+            "answer": "<p>As comissões ficam disponíveis após a validação das vendas elegíveis, de acordo com os prazos e condições definidos na Política de Afiliados.</p>"
+          }
+        },
+        "faq_consultar": {
+          "type": "custom",
+          "settings": {
+            "title": "Onde posso consultar as minhas comissões e histórico de vendas?",
+            "answer": "<p>Podes acompanhar as vendas, comissões e respetivo histórico na tua área privada de afiliado.</p>"
+          }
+        },
+        "faq_cancelar": {
+          "type": "custom",
+          "settings": {
+            "title": "Posso cancelar a minha conta a qualquer momento?",
+            "answer": "<p>Sim. Podes solicitar o cancelamento da tua participação através dos contactos indicados na Política de Afiliados.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_tornar_afiliado",
+        "faq_comissoes",
+        "faq_percentagem",
+        "faq_usar_comissoes",
+        "faq_consultar",
+        "faq_cancelar"
+      ],
+      "settings": {
+        "title": "Perguntas frequentes",
+        "layout": "homepage"
+      }
+    }
+  },
+  "order": [
+    "afiliados_hero",
+    "afiliados_como_funciona",
+    "afiliados_beneficios",
+    "afiliados_formulario",
+    "afiliados_faq"
+  ]
+}

@@ -1,0 +1,259 @@
+<style>
+  #afiliados-como-funciona-{{ section.id }} {
+    margin: 64px var(--desktop-container-gutter);
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__panel {
+    padding: 38px 40px 28px;
+    border: 1px solid #258439;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__heading {
+    margin: 0;
+    color: #000000;
+    font-family: var(--font-heading-family, var(--heading-font-family));
+    font-size: 32px;
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__description {
+    max-width: 930px;
+    margin: 18px auto 0;
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__description p,
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__step-text p {
+    margin: 0;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__steps {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 30px;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__step {
+    display: grid;
+    align-content: start;
+    justify-items: center;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__number {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    background: #b9ffc4;
+    color: #258439;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__step-title {
+    margin: 0 0 6px;
+    color: #000000;
+    font-family: var(--font-heading-family, var(--heading-font-family));
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: 900;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__step-text {
+    color: #000000;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 210px;
+    margin-top: 34px;
+    padding: 13px 24px;
+    border-radius: 5px;
+    background: #258439;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 800;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #afiliados-como-funciona-{{ section.id }} {
+      margin-right: 9vw;
+      margin-left: 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #afiliados-como-funciona-{{ section.id }} {
+      margin-right: 18vw;
+      margin-left: 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #afiliados-como-funciona-{{ section.id }} {
+      margin: 40px var(--mobile-container-gutter);
+    }
+
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__panel {
+      padding: 30px 24px;
+    }
+
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px 24px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__panel {
+      padding: 30px 20px;
+    }
+
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__heading {
+      font-size: 25px;
+    }
+
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__description {
+      margin-top: 14px;
+      font-size: 16px;
+    }
+
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+      margin-top: 28px;
+    }
+
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__step-title {
+      font-size: 18px;
+    }
+
+    #afiliados-como-funciona-{{ section.id }} .afiliados-como-funciona__button {
+      width: 100%;
+      min-width: 0;
+      margin-top: 30px;
+    }
+  }
+</style>
+
+<section id="afiliados-como-funciona-{{ section.id }}" class="afiliados-como-funciona">
+  <div class="afiliados-como-funciona__panel">
+    {% if section.settings.heading != blank %}
+      <h2 class="afiliados-como-funciona__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="afiliados-como-funciona__description rte">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="afiliados-como-funciona__steps">
+        {% for block in section.blocks %}
+          <div class="afiliados-como-funciona__step" {{ block.shopify_attributes }}>
+            <span class="afiliados-como-funciona__number" aria-hidden="true">{{ forloop.index }}</span>
+
+            {% if block.settings.title != blank %}
+              <h3 class="afiliados-como-funciona__step-title">{{ block.settings.title }}</h3>
+            {% endif %}
+
+            {% if block.settings.text != blank %}
+              <div class="afiliados-como-funciona__step-text rte">
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_label != blank %}
+      <a class="afiliados-como-funciona__button" href="{{ section.settings.button_link | default: '#afiliados_form' }}">
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Afiliados - Como funciona",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Como funciona"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "QUERO SER EMBAIXADOR"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Ligação do botão"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Passo",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Afiliados - Como funciona",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}

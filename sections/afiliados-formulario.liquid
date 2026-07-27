@@ -1,0 +1,428 @@
+{% assign form_id = 'AfiliadosForm-' | append: section.id %}
+{% assign privacy_url = section.settings.privacy_url | default: routes.root_url %}
+{% assign affiliate_policy_url = section.settings.affiliate_policy_url | default: routes.root_url %}
+
+<style>
+  #afiliados-form-{{ section.id }} {
+    width: min(calc(100% - (var(--desktop-container-gutter) * 2)), 900px);
+    margin: 72px auto;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__header {
+    margin-bottom: 34px;
+    text-align: center;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__heading {
+    margin: 0;
+    color: #000000;
+    font-family: var(--font-heading-family, var(--heading-font-family));
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__description {
+    max-width: 760px;
+    margin: 18px auto 0;
+    color: #000000;
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__description p {
+    margin: 0;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__form {
+    display: grid;
+    gap: 16px;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__field {
+    display: grid;
+    gap: 6px;
+    text-align: left;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__label,
+  #afiliados-form-{{ section.id }} .afiliados-form__legend {
+    margin: 0;
+    color: #258439;
+    font-size: 14px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__input,
+  #afiliados-form-{{ section.id }} .afiliados-form__textarea {
+    width: 100%;
+    margin: 0;
+    border: 1px solid #258439;
+    border-radius: 6px;
+    background: #f5faf3;
+    color: #000000;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.35;
+    box-shadow: none;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__input {
+    min-height: 46px;
+    padding: 11px 14px;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__textarea {
+    min-height: 132px;
+    padding: 13px 14px;
+    resize: vertical;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__input:focus,
+  #afiliados-form-{{ section.id }} .afiliados-form__textarea:focus {
+    outline: 2px solid rgba(37, 132, 57, 0.2);
+    outline-offset: 1px;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__radio-group {
+    display: grid;
+    gap: 7px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__choice,
+  #afiliados-form-{{ section.id }} .afiliados-form__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 0;
+    color: #000000;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__choice input,
+  #afiliados-form-{{ section.id }} .afiliados-form__consent input {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin: 2px 0 0;
+    accent-color: #258439;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__consent a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__button {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 2px;
+    padding: 13px 24px;
+    border: 0;
+    border-radius: 5px;
+    background: #258439;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 800;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__button:hover {
+    opacity: 0.9;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__message {
+    margin: 0 0 20px;
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__message--success {
+    background: #eff8f0;
+    color: #1f6f32;
+  }
+
+  #afiliados-form-{{ section.id }} .afiliados-form__message--error {
+    background: #fff2f2;
+    color: #9f1d1d;
+  }
+
+  @media screen and (min-width: 1499px) {
+    #afiliados-form-{{ section.id }} {
+      width: min(calc(100% - 18vw), 900px);
+      margin-top: 80px;
+      margin-bottom: 80px;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #afiliados-form-{{ section.id }} {
+      width: min(calc(100% - 36vw), 900px);
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #afiliados-form-{{ section.id }} {
+      width: auto;
+      margin: 40px var(--mobile-container-gutter) 60px;
+    }
+
+    #afiliados-form-{{ section.id }} .afiliados-form__heading {
+      font-size: 32px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #afiliados-form-{{ section.id }} .afiliados-form__header {
+      margin-bottom: 28px;
+    }
+
+    #afiliados-form-{{ section.id }} .afiliados-form__heading {
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    #afiliados-form-{{ section.id }} .afiliados-form__description {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+  }
+</style>
+
+<section id="afiliados_form" class="afiliados-form">
+  <div id="afiliados-form-{{ section.id }}">
+    <header class="afiliados-form__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="afiliados-form__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="afiliados-form__description rte">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+    </header>
+
+    {% form 'contact', id: form_id, class: 'afiliados-form__form' %}
+      <input type="hidden" name="contact[Tipo de contacto]" value="Candidatura ao Programa de Afiliados">
+
+      {% if form.posted_successfully? %}
+        <p class="afiliados-form__message afiliados-form__message--success" tabindex="-1" autofocus>
+          {{ section.settings.success_message }}
+        </p>
+      {% endif %}
+
+      {% if form.errors %}
+        <div class="afiliados-form__message afiliados-form__message--error" role="alert">
+          {{ form.errors | default_errors }}
+        </div>
+      {% endif %}
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-name">Nome completo</label>
+        <input
+          class="afiliados-form__input"
+          id="{{ form_id }}-name"
+          type="text"
+          name="contact[Nome completo]"
+          value="{% if form.name %}{{ form.name }}{% endif %}"
+          placeholder="O teu nome completo"
+          autocomplete="name"
+          required
+        >
+      </div>
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-email">E-mail</label>
+        <input
+          class="afiliados-form__input"
+          id="{{ form_id }}-email"
+          type="email"
+          name="contact[email]"
+          value="{% if form.email %}{{ form.email }}{% endif %}"
+          placeholder="exemplo@email.com"
+          autocomplete="email"
+          spellcheck="false"
+          autocapitalize="off"
+          required
+        >
+      </div>
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-phone">Contacto</label>
+        <input
+          class="afiliados-form__input"
+          id="{{ form_id }}-phone"
+          type="tel"
+          name="contact[Contacto]"
+          value="{% if form.phone %}{{ form.phone }}{% endif %}"
+          placeholder="912 345 678"
+          autocomplete="tel"
+          required
+        >
+      </div>
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-address">Morada</label>
+        <input
+          class="afiliados-form__input"
+          id="{{ form_id }}-address"
+          type="text"
+          name="contact[Morada]"
+          placeholder="Rua, nº de porta, andar e localidade"
+          autocomplete="street-address"
+          required
+        >
+      </div>
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-birth-date">Data de nascimento</label>
+        <input
+          class="afiliados-form__input"
+          id="{{ form_id }}-birth-date"
+          type="date"
+          name="contact[Data de nascimento]"
+          required
+        >
+      </div>
+
+      <fieldset class="afiliados-form__radio-group">
+        <legend class="afiliados-form__legend">Tens atividade aberta e podes passar faturas?</legend>
+        <label class="afiliados-form__choice" for="{{ form_id }}-invoice-yes">
+          <input
+            id="{{ form_id }}-invoice-yes"
+            type="radio"
+            name="contact[Atividade aberta e emissão de faturas]"
+            value="Sim"
+            required
+          >
+          <span>Sim</span>
+        </label>
+        <label class="afiliados-form__choice" for="{{ form_id }}-invoice-no">
+          <input
+            id="{{ form_id }}-invoice-no"
+            type="radio"
+            name="contact[Atividade aberta e emissão de faturas]"
+            value="Não"
+          >
+          <span>Não</span>
+        </label>
+      </fieldset>
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-social">Links para site/redes sociais</label>
+        <input
+          class="afiliados-form__input"
+          id="{{ form_id }}-social"
+          type="text"
+          name="contact[Site e redes sociais]"
+          placeholder="www.teusite.pt / @utilizador"
+          required
+        >
+      </div>
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-audience">Qual o teu tipo de público?</label>
+        <input
+          class="afiliados-form__input"
+          id="{{ form_id }}-audience"
+          type="text"
+          name="contact[Tipo de público]"
+          placeholder="Ex.: Desportistas, Grávidas, Idosos"
+          required
+        >
+      </div>
+
+      <div class="afiliados-form__field">
+        <label class="afiliados-form__label" for="{{ form_id }}-strategy">
+          Como pretendes promover os produtos da loja Bioself?
+        </label>
+        <textarea
+          class="afiliados-form__textarea"
+          id="{{ form_id }}-strategy"
+          name="contact[Estratégia de promoção]"
+          placeholder="Descreve brevemente a tua estratégia"
+          required
+        ></textarea>
+      </div>
+
+      <label class="afiliados-form__consent" for="{{ form_id }}-consent">
+        <input
+          id="{{ form_id }}-consent"
+          type="checkbox"
+          name="contact[Consentimento]"
+          value="Aceite"
+          required
+        >
+        <span>
+          Li e aceito a <a href="{{ privacy_url }}">Política de Privacidade</a> e a
+          <a href="{{ affiliate_policy_url }}">Política de Afiliados</a>.
+        </span>
+      </label>
+
+      <button class="afiliados-form__button" type="submit">
+        {{ section.settings.button_label }}
+      </button>
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Afiliados - Formulário",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Candidata-te ao Programa de Afiliados"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "ENVIAR"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Mensagem de sucesso",
+      "default": "Recebemos a tua candidatura. A nossa equipa entrará em contacto brevemente."
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Política de Privacidade"
+    },
+    {
+      "type": "url",
+      "id": "affiliate_policy_url",
+      "label": "Política de Afiliados"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Afiliados - Formulário"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,334 @@
+<style>
+  #afiliados-beneficios-{{ section.id }} {
+    margin: 64px var(--desktop-container-gutter);
+    text-align: center;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__heading {
+    margin: 0;
+    color: #000000;
+    font-family: var(--font-heading-family, var(--heading-font-family));
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__description {
+    max-width: 940px;
+    margin: 20px auto 0;
+    color: #000000;
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__description p,
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__card-text p {
+    margin: 0;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 38px;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__card {
+    display: grid;
+    align-content: start;
+    justify-items: center;
+    min-height: 312px;
+    padding: 34px 24px 30px;
+    border: 1px solid #258439;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__icon {
+    display: grid;
+    place-items: center;
+    width: 86px;
+    height: 86px;
+    margin-bottom: 28px;
+    border: 1.5px solid #f5b400;
+    border-radius: 50%;
+    color: #258439;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__icon svg,
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__icon-image {
+    display: block;
+    width: 48px;
+    height: 48px;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__icon svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__icon-image {
+    object-fit: contain;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__card-title {
+    margin: 0 0 14px;
+    color: #258439;
+    font-family: var(--font-heading-family, var(--heading-font-family));
+    font-size: 22px;
+    line-height: 1.15;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__card-text {
+    color: #000000;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 210px;
+    margin-top: 36px;
+    padding: 13px 24px;
+    border-radius: 5px;
+    background: #258439;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 800;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  @media screen and (min-width: 1499px) {
+    #afiliados-beneficios-{{ section.id }} {
+      margin-right: 9vw;
+      margin-left: 9vw;
+    }
+  }
+
+  @media screen and (min-width: 2559px) {
+    #afiliados-beneficios-{{ section.id }} {
+      margin-right: 18vw;
+      margin-left: 18vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    #afiliados-beneficios-{{ section.id }} {
+      margin: 40px var(--mobile-container-gutter);
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__heading {
+      font-size: 32px;
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__heading {
+      font-size: 25px;
+      line-height: 1.2;
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__description {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__card {
+      min-height: 0;
+      padding: 30px 20px;
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__icon {
+      margin-bottom: 22px;
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__card-title {
+      font-size: 20px;
+    }
+
+    #afiliados-beneficios-{{ section.id }} .afiliados-beneficios__button {
+      width: 100%;
+      min-width: 0;
+      margin-top: 30px;
+    }
+  }
+</style>
+
+<section id="afiliados-beneficios-{{ section.id }}" class="afiliados-beneficios">
+  {% if section.settings.heading != blank %}
+    <h2 class="afiliados-beneficios__heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  {% if section.settings.description != blank %}
+    <div class="afiliados-beneficios__description rte">
+      {{ section.settings.description }}
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <div class="afiliados-beneficios__grid">
+      {% for block in section.blocks %}
+        <article class="afiliados-beneficios__card" {{ block.shopify_attributes }}>
+          <div class="afiliados-beneficios__icon" aria-hidden="true">
+            {% if block.settings.custom_icon != blank %}
+              {{
+                block.settings.custom_icon
+                | image_url: width: 120
+                | image_tag: class: 'afiliados-beneficios__icon-image', loading: 'lazy', alt: ''
+              }}
+            {% else %}
+              {% case block.settings.icon %}
+                {% when 'cookies' %}
+                  <svg viewBox="0 0 64 64" role="img">
+                    <path d="M18 22h28l-2 30H20L18 22Z" />
+                    <path d="M25 22v-4a7 7 0 0 1 14 0v4" />
+                    <path d="M27 35h10" />
+                    <path d="M32 30v10" />
+                  </svg>
+                {% when 'offers' %}
+                  <svg viewBox="0 0 64 64" role="img">
+                    <path d="M10 28V12h16l28 28-16 16L10 28Z" />
+                    <circle cx="21" cy="22" r="3" />
+                  </svg>
+                {% when 'support' %}
+                  <svg viewBox="0 0 64 64" role="img">
+                    <path d="M14 52V30" />
+                    <path d="M26 52V20" />
+                    <path d="M38 52V34" />
+                    <path d="M50 52V12" />
+                    <path d="M10 52h46" />
+                  </svg>
+                {% else %}
+                  <svg viewBox="0 0 64 64" role="img">
+                    <path d="M32 8l6 5 8-1 2 8 7 4-4 7 2 8-8 2-5 7-8-4-7 4-5-7-8-2 2-8-4-7 7-4 2-8 8 1 7-5Z" />
+                    <path d="M24 40l16-16" />
+                    <circle cx="25" cy="25" r="2" />
+                    <circle cx="39" cy="39" r="2" />
+                  </svg>
+              {% endcase %}
+            {% endif %}
+          </div>
+
+          {% if block.settings.title != blank %}
+            <h3 class="afiliados-beneficios__card-title">{{ block.settings.title }}</h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="afiliados-beneficios__card-text rte">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.button_label != blank %}
+    <a class="afiliados-beneficios__button" href="{{ section.settings.button_link | default: '#afiliados_form' }}">
+      {{ section.settings.button_label }}
+    </a>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Afiliados - Benefícios",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Benefícios de ser um Afiliado Bioself"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão",
+      "default": "QUERO SER EMBAIXADOR"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Ligação do botão"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícone",
+          "options": [
+            { "value": "commission", "label": "Comissões" },
+            { "value": "cookies", "label": "Cookies" },
+            { "value": "offers", "label": "Ofertas" },
+            { "value": "support", "label": "Apoio" }
+          ],
+          "default": "commission"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Ícone personalizado"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Afiliados - Benefícios",
+      "blocks": [
+        { "type": "benefit" },
+        { "type": "benefit" },
+        { "type": "benefit" },
+        { "type": "benefit" }
+      ]
+    }
+  ]
+}
+{% endschema %}
