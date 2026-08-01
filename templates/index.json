@@ -164,15 +164,6 @@
         "image_4_url": ""
       }
     },
-    "custom_banner_kmb4Yz": {
-      "type": "custom-banner",
-      "name": "Banner Customizado",
-      "settings": {
-        "image_desktop": "shopify://shop_images/banner-desktop_100.png",
-        "image_mobile": "shopify://shop_images/banner-mobile_100.png",
-        "link": "shopify://pages/biopoints"
-      }
-    },
     "product_collection_list_custom_yfhcVR": {
       "type": "product-collection-list-custom",
       "settings": {
@@ -180,8 +171,18 @@
         "title_collection": "Vitafor: Nutrição de alta performance!"
       }
     },
+    "custom_banner_kmb4Yz": {
+      "type": "custom-banner",
+      "name": "Banner Biopoints",
+      "settings": {
+        "image_desktop": "shopify://shop_images/banner-desktop_100.png",
+        "image_mobile": "shopify://shop_images/banner-mobile_100.png",
+        "link": "shopify://pages/biopoints"
+      }
+    },
     "blog_consultas_nutricao_JDkWEd": {
       "type": "blog-consultas-nutricao",
+      "disabled": true,
       "name": "Consultas",
       "settings": {
         "title": "Nutricionista Rita de Cássia Silva",
@@ -512,8 +513,8 @@
     "collection_list_2_BYnyXr",
     "collection_campanhas_2_tndV7M",
     "collection_campanhas_1_iQwbFn",
-    "custom_banner_kmb4Yz",
     "product_collection_list_custom_yfhcVR",
+    "custom_banner_kmb4Yz",
     "blog_consultas_nutricao_JDkWEd",
     "products_collection_with_image_AhgAw9",
     "collection_campanhas_3_t96Pgd",
