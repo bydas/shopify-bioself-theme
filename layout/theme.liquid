@@ -698,7 +698,8 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        const hasSubmitted = localStorage.getItem('newsletterSubmitted') === 'true';
+        const isCustomerLoggedIn = {% if customer %}true{% else %}false{% endif %};
+        const hasSubmitted = !isCustomerLoggedIn && localStorage.getItem('newsletterSubmitted') === 'true';
 
         const formsDetails = document.querySelectorAll('.newsletter_custom_form');
         formsDetails.forEach((f) => (f.style.display = hasSubmitted ? 'none' : 'grid'));

@@ -1,3 +1,4 @@
+{% unless customer and customer.accepts_marketing %}
 <style>
   @media screen and (max-width: 1599px) and (min-width: 1000px) {
     #newsletter_custom > h1 {
@@ -229,6 +230,7 @@
 
       <input type="hidden" name="form_type" value="customer">
       <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="hidden" name="contact[accepts_marketing]" value="true">
 
       {% if section.settings.newsletter_btn %}
         <button type="submit">{{ section.settings.newsletter_btn }}</button>
@@ -288,6 +290,7 @@
 
     <input type="hidden" name="form_type" value="customer">
     <input type="hidden" name="contact[tags]" value="newsletter">
+    <input type="hidden" name="contact[accepts_marketing]" value="true">
 
     {% if section.settings.newsletter_page %}
       <div id="newsletter_checkbox">
@@ -310,3 +313,4 @@
     {% endif %}
   {% endform %}
 </section>
+{% endunless %}
