@@ -12,6 +12,7 @@
     "afiliados_hero": {
       "type": "afiliados-hero",
       "settings": {
+        "image": "shopify://shop_images/imagem-afiliados-bioself.png",
         "heading": "Programa de Afiliados",
         "accent_heading": "Embaixadores",
         "description": "<p>Inspira a tua comunidade, promove o bem-estar e transforma a tua influência em rendimento.</p>",
@@ -73,7 +74,7 @@
           "type": "benefit",
           "settings": {
             "icon": "commission",
-            "title": "COMISSÕES ATÉ X%",
+            "title": "COMISSÕES ATÉ 10%",
             "text": "<p>Ganha uma percentagem sobre cada venda que gerares na Bioself, transformando a tua influência em rendimento.</p>"
           }
         },
