@@ -63,7 +63,7 @@
       "settings": {
         "heading": "Como funciona",
         "description": "<p>Aderir ao <strong>Programa de Embaixadores Bioself</strong> é simples. Após aprovação, receberás um link e um código personalizados para <strong>partilhar com a tua comunidade</strong> e começar a <strong>gerar comissões pelas vendas realizadas</strong> através das tuas recomendações.</p>",
-        "button_label": "QUERO SER EMBAIXADOR",
+        "button_label": "CANDIDATAR-ME AO PROGRAMA",
         "button_link": "#afiliados_form"
       }
     },
@@ -112,7 +112,7 @@
       "settings": {
         "heading": "Benefícios de ser um Embaixador Bioself",
         "description": "<p>Ao inspirares a tua comunidade a investir no seu bem-estar, crias uma fonte de rendimento adicional e tens acesso a vantagens exclusivas na Bioself.</p>",
-        "button_label": "QUERO SER EMBAIXADOR",
+        "button_label": "CANDIDATAR-ME AO PROGRAMA",
         "button_link": "#afiliados_form"
       }
     },
