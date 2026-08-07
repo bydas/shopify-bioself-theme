@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "afiliados_hero": {
@@ -52,7 +61,7 @@
       ],
       "settings": {
         "heading": "Como funciona",
-        "description": "<p>Juntar-te ao Programa de Embaixadores Bioself é simples. Após aprovação, receberás um link e um código personalizados para partilhar com a tua comunidade e começar a gerar comissões pelas vendas realizadas através das tuas recomendações.</p>",
+        "description": "<p>Juntar-te ao <strong>Programa de Embaixadores Bioself</strong> é simples. Após aprovação, receberás um link e um código personalizados para <strong>partilhar com a tua comunidade</strong> e começar a <strong>gerar comissões pelas vendas realizadas</strong> através das tuas recomendações.</p>",
         "button_label": "QUERO SER EMBAIXADOR",
         "button_link": "#afiliados_form"
       }
