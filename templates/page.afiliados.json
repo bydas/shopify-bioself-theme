@@ -13,11 +13,11 @@
       "type": "afiliados-hero",
       "settings": {
         "image": "shopify://shop_images/imagem-afiliados-bioself.png",
-        "heading": "Programa de Afiliados",
-        "accent_heading": "Embaixadores",
-        "description": "<p>Inspira a tua comunidade, promove o bem-estar e transforma a tua influência em rendimento.</p>",
+        "heading": "Programa de Embaixadores Bioself",
+        "accent_heading": "",
+        "description": "<p>Ganha <strong>até 10%</strong> de comissão ao recomendar os teus produtos favoritos. Inspira a tua comunidade e promove o bem-estar.<br/><br/><br/><br/></p>",
         "background_color": "#eff5ef",
-        "heading_color": "#000000",
+        "heading_color": "#258439",
         "accent_color": "#258439",
         "text_color": "#000000"
       }
@@ -110,7 +110,7 @@
         "benefit_apoio"
       ],
       "settings": {
-        "heading": "Benefícios de ser um Afiliado Bioself",
+        "heading": "Benefícios de ser um Embaixador Bioself",
         "description": "<p>Ao inspirares a tua comunidade a investir no seu bem-estar, crias uma fonte de rendimento adicional e tens acesso a vantagens exclusivas na Bioself.</p>",
         "button_label": "QUERO SER EMBAIXADOR",
         "button_link": "#afiliados_form"
@@ -119,7 +119,7 @@
     "afiliados_formulario": {
       "type": "afiliados-formulario",
       "settings": {
-        "heading": "Candidata-te ao Programa de Afiliados",
+        "heading": "Candidata-te ao Programa de Embaixadores",
         "description": "<p>Preenche os teus dados abaixo para te candidatares. A nossa equipa analisará o teu perfil e entrará em contacto brevemente.</p>",
         "button_label": "ENVIAR",
         "success_message": "Recebemos a tua candidatura. A nossa equipa entrará em contacto brevemente.",
@@ -133,7 +133,7 @@
         "faq_tornar_afiliado": {
           "type": "custom",
           "settings": {
-            "title": "Como me posso tornar um Afiliado Bioself?",
+            "title": "Como me posso tornar um Embaixador Bioself?",
             "answer": "<p>Preenche o formulário de candidatura desta página. A nossa equipa analisará o teu perfil e entrará em contacto para confirmar a aprovação e os próximos passos.</p>"
           }
         },
