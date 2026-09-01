@@ -76,29 +76,12 @@
             "collection_cupon_code": "",
             "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Setembro. Acumulável com o desconto direto e limitada ao stock existente."
           }
-        },
-        "coupon_3Pfb9d": {
-          "type": "coupon",
-          "disabled": true,
-          "settings": {
-            "title": "Soria Natural",
-            "selected_collections": [
-              "soria-natural"
-            ],
-            "collection_cupon_title": "Poupa 10% EXTRA ao comprar 2 ou mais produtos da marca Soria Natural 🥳",
-            "collection_cupon_boolean": false,
-            "collection_cupon_description": "Campanha válida de 1 a 30 de Junho.",
-            "collection_cupon_text": "Ver detalhes",
-            "collection_cupon_code": "",
-            "campaign_details": "Adiciona duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Soria Natural — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Junho. Acumulável com o desconto direto e limitada ao stock existente."
-          }
         }
       },
       "block_order": [
         "coupon_p7CWJx",
         "coupon_bcxBan",
-        "coupon_WwbydV",
-        "coupon_3Pfb9d"
+        "coupon_WwbydV"
       ],
       "settings": {
         "menu_nav_1": "categorias",
