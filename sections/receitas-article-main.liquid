@@ -1,57 +1,41 @@
-{%- comment -%} 1) Normalizar quebras e limpar HTML {%- endcomment -%}
+{%- assign para_sep = '||__PARA__||' -%}
 {%- assign norm = article.content
   | replace: '<a ', '[[A '
   | replace: '</a>', '[[/A]]'
-  | replace: '</p>', '\n\n'
+  | replace: '</p>', para_sep
   | replace: '<p>', ''
-  | replace: '<br />', '\n'
-  | replace: '<br>', '\n'
-  | replace: '</h1>', '\n\n'
+  | replace: '<br />', ' '
+  | replace: '<br>', ' '
+  | replace: '</h1>', para_sep
   | replace: '<h1>', ''
-  | replace: '</h2>', '\n\n'
+  | replace: '</h2>', para_sep
   | replace: '<h2>', ''
-  | replace: '</h3>', '\n\n'
+  | replace: '</h3>', para_sep
   | replace: '<h3>', ''
-  | replace: '</h4>', '\n\n'
-  | replace: '<h4>', ''
-  | replace: '</h5>', '\n\n'
-  | replace: '<h5>', ''
-  | replace: '</h6>', '\n\n'
-  | replace: '<h6>', ''
 -%}
-
 {%- assign text = norm | strip_html -%}
+{%- assign blocks = text | split: para_sep -%}
 
-{%- comment -%} 2) Uniformizar \r\n e partir por linhas em branco {%- endcomment -%}
-{%- assign text = text | replace: '\r\n', '\n' -%}
-{%- assign blocks = text | split: '\n\n' -%}
-
-{%- assign first_clean_paragraph = '' -%}
-{%- assign stop = 'INGREDIENTES|PREPARAÇÃO|PREPARACAO|INFORMAÇÃO NUTRICIONAL|INFORMACAO NUTRICIONAL' | split: '|' -%}
 {%- assign acc = '' -%}
 {%- for b in blocks -%}
   {%- assign cand = b | strip -%}
   {%- if cand == '' -%}{% continue %}{%- endif -%}
   {%- assign up = cand | upcase -%}
-
-  {%- assign is_stop = false -%}
-  {%- for s in stop -%}
-    {%- if up contains s -%}{%- assign is_stop = true -%}{%- break -%}{%- endif -%}
-  {%- endfor -%}
-  {%- if is_stop -%}{%- break -%}{%- endif -%}
-
+  {%- if up contains 'INGREDIENTES' or up contains 'PREPARA' -%}{%- break -%}{%- endif -%}
   {%- if up == cand -%}{% continue %}{%- endif -%}
   {% assign cand_size = cand | size %}
   {%- if cand_size < 60 -%}{% continue %}{%- endif -%}
-  {%- unless cand contains '. ' or cand contains '!' or cand contains '?' -%}{% continue %}{%- endunless -%}
+  {%- unless cand contains '.' or cand contains '!' or cand contains '?' -%}{% continue %}{%- endunless -%}
 
   {%- if acc == '' -%}
     {%- assign acc = cand -%}
   {%- else -%}
-    {%- assign acc = acc | append: '\n\n' | append: cand -%}
+    {%- assign acc = acc | append: para_sep | append: cand -%}
   {%- endif -%}
 {%- endfor -%}
+
 {%- assign first_clean_paragraph = acc
+  | replace: para_sep, '<br><br>'
   | replace: '[[A ', '<a '
   | replace: '[[/A]]', '</a>' -%}
 
@@ -473,7 +457,7 @@
 </style>
 
 <section id="receitas_article_main_custom">
-  <p>{{ first_clean_paragraph | newline_to_br }}</p>
+  <p>{{ first_clean_paragraph }}</p>
 
   <main>
     <aside>
