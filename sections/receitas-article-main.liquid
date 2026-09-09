@@ -27,28 +27,33 @@
 {%- assign blocks = text | split: '\n\n' -%}
 
 {%- assign first_clean_paragraph = '' -%}
+{%- assign stop = 'INGREDIENTES|PREPARAÇÃO|PREPARACAO|INFORMAÇÃO NUTRICIONAL|INFORMACAO NUTRICIONAL' | split: '|' -%}
+{%- assign acc = '' -%}
 {%- for b in blocks -%}
   {%- assign cand = b | strip -%}
   {%- if cand == '' -%}{% continue %}{%- endif -%}
-
-  {%- comment -%} Heurísticas de filtragem {%- endcomment -%}
   {%- assign up = cand | upcase -%}
+
+  {%- assign is_stop = false -%}
+  {%- for s in stop -%}
+    {%- if up contains s -%}{%- assign is_stop = true -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if is_stop -%}{%- break -%}{%- endif -%}
 
   {%- if up == cand -%}{% continue %}{%- endif -%}
   {% assign cand_size = cand | size %}
   {%- if cand_size < 60 -%}{% continue %}{%- endif -%}
   {%- unless cand contains '. ' or cand contains '!' or cand contains '?' -%}{% continue %}{%- endunless -%}
 
-  {%- assign first_clean_paragraph = cand -%}
-  {%- break -%}
+  {%- if acc == '' -%}
+    {%- assign acc = cand -%}
+  {%- else -%}
+    {%- assign acc = acc | append: '\n\n' | append: cand -%}
+  {%- endif -%}
 {%- endfor -%}
-
-{%- if first_clean_paragraph != '' -%}
-  {%- assign first_clean_paragraph = first_clean_paragraph
-    | replace: '[[A ', '<a '
-    | replace: '[[/A]]', '</a>'
-  -%}
-{%- endif -%}
+{%- assign first_clean_paragraph = acc
+  | replace: '[[A ', '<a '
+  | replace: '[[/A]]', '</a>' -%}
 
 {%- assign html = article.content -%}
 
@@ -468,7 +473,7 @@
 </style>
 
 <section id="receitas_article_main_custom">
-  <p>{{ first_clean_paragraph }}</p>
+  <p>{{ first_clean_paragraph | newline_to_br }}</p>
 
   <main>
     <aside>
