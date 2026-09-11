@@ -466,7 +466,7 @@
   <div id="custom_footer_left">
     <div>
       {% if section.settings.footer_image %}
-        <a>
+        <a href="{{ routes.root_url }}">
           <img
             src="{{ section.settings.footer_image | img_url: 'master' }}"
             class="custom_footer_hero"
@@ -609,13 +609,15 @@
 <section id="custom_footer_mobile">
   <div id="custom_footer_top">
     {% if section.settings.footer_image %}
-      <img
-        src="{{ section.settings.footer_image | img_url: 'master' }}"
-        class="custom_footer_hero"
-        alt="Bioself"
-        width="100%"
-        height="100%"
-      >
+      <a href="{{ routes.root_url }}">
+        <img
+          src="{{ section.settings.footer_image | img_url: 'master' }}"
+          class="custom_footer_hero"
+          alt="Bioself"
+          width="100%"
+          height="100%"
+        >
+      </a>
     {% endif %}
 
     <ul id="custom_footer_links">
