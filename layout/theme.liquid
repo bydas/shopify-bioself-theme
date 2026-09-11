@@ -550,11 +550,9 @@
     </main>
 
     {% section 'newsletter' %}
-    {% unless page and page.handle == 'contactos-e-informacoes' %}
-      {% section 'footer-customizado' %}
-      {% section 'footer-last-custom' %}
-      {% section 'footer' %}
-    {% endunless %}
+    {% section 'footer-customizado' %}
+    {% section 'footer-last-custom' %}
+    {% section 'footer' %}
 
     <ul hidden>
       <li id="a11y-new-window-message">{{ 'general.accessibility.new_window' | t }}</li>
