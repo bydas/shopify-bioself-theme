@@ -529,13 +529,17 @@
     <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
     <span class="loading-bar"></span>
 
-    {% section 'announcement-bar' %}
+    {% unless page and page.handle == 'contactos-e-informacoes' %}
+      {% section 'announcement-bar' %}
+    {% endunless %}
 
     {%- unless request.page_type == 'cart' -%}
       {% section 'popups_custom' %}
     {%- endunless -%}
 
-    {% section 'header_custom' %}
+    {% unless page and page.handle == 'contactos-e-informacoes' %}
+      {% section 'header_custom' %}
+    {% endunless %}
 
     {% if template.name == 'index' %}
       {% section 'announcement-bar-bottom' %}
