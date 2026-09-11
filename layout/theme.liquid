@@ -549,9 +549,10 @@
       {{ content_for_layout }}
     </main>
 
-    {% section 'newsletter' %}
-    {% section 'footer-customizado' %}
-    {% section 'footer-last-custom' %}
+    {% section 'newsletter' %}    {% unless page and page.handle == 'contactos-e-informacoes' %}
+      {% section 'footer-customizado' %}
+      {% section 'footer-last-custom' %}
+    {% endunless %}
     {% section 'footer' %}
 
     <ul hidden>
