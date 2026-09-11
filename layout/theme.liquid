@@ -529,7 +529,7 @@
     <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
     <span class="loading-bar"></span>
 
-    {% unless page and page.handle == 'contactos-e-informacoes' %}
+    {% unless page and page.handle == 'contactos-embalagem' %}
       {% section 'announcement-bar' %}
     {% endunless %}
 
@@ -537,7 +537,7 @@
       {% section 'popups_custom' %}
     {%- endunless -%}
 
-    {% unless page and page.handle == 'contactos-e-informacoes' %}
+    {% unless page and page.handle == 'contactos-embalagem' %}
       {% section 'header_custom' %}
     {% endunless %}
 
@@ -550,7 +550,7 @@
     </main>
 
     {% section 'newsletter' %}
-    {% unless page and page.handle == 'contactos-e-informacoes' %}
+    {% unless page and page.handle == 'contactos-embalagem' %}
       {% section 'footer-customizado' %}
       {% section 'footer-last-custom' %}
       {% section 'footer' %}
