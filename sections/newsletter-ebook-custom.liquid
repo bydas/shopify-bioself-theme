@@ -102,12 +102,12 @@
 
     #newsletter_inputs > button,
     #newsletter_inputs > input,
-    #newsletter_custom > form > #newsletter_checkbox > label,
-    #newsletter_checkbox > label > a {
+    #newsletter_custom > form > .newsletter_checkbox > label,
+    .newsletter_checkbox > label > a {
       font-size: 12px !important;
     }
 
-    #selected_terms {
+    .newsletter_terms_checkbox {
       width: 12px !important;
       height: 12px !important;
     }
@@ -188,7 +188,7 @@
     color: #308a36;
   }
 
-  #newsletter_custom > form > #newsletter_checkbox {
+  #newsletter_custom > form > .newsletter_checkbox {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     gap: 0.65rem;
@@ -196,18 +196,18 @@
     margin: 0 6rem;
   }
 
-  #newsletter_custom > form > #newsletter_checkbox > label {
+  #newsletter_custom > form > .newsletter_checkbox > label {
     font-weight: 500;
   }
 
-  #newsletter_custom_mobile_1 > form > #newsletter_checkbox {
+  #newsletter_custom_mobile_1 > form > .newsletter_checkbox {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     gap: 0.5rem;
     align-items: center;
   }
 
-  #newsletter_checkbox > label > a {
+  .newsletter_checkbox > label > a {
     text-decoration: underline;
     font-size: 14px;
   }
@@ -225,7 +225,7 @@
   }
 
   @media screen and (min-width: 1000px) {
-    #newsletter_custom > form > #newsletter_checkbox,
+    #newsletter_custom > form > .newsletter_checkbox,
     #newsletter_custom > form > #newsletter_inputs,
     #newsletter_custom > h1 {
       margin: 0 10vw;
@@ -243,13 +243,14 @@
   }
 
   @media screen and (max-width: 359px) {
-    #newsletter_custom_mobile_1 > form > #newsletter_checkbox > label {
+    #newsletter_custom_mobile_1 > form > .newsletter_checkbox > label {
       max-width: 10rem;
     }
   }
 </style>
 
-{%- assign newsletter_id = 'newsletter-' | append: section.id -%}
+{%- assign newsletter_id_desktop = 'newsletter-desktop-' | append: section.id -%}
+{%- assign newsletter_id_mobile = 'newsletter-mobile-' | append: section.id -%}
 
 <section id="newsletter_custom">
   {% if section.settings.newsletter_title %}
@@ -260,13 +261,13 @@
     {{ section.settings.newsletter_subtitle }}
   {% endif %}
 
-  {% form 'customer', id: newsletter_id %}
+  {% form 'customer', id: newsletter_id_desktop %}
     <div id="newsletter_inputs">
       <input type="hidden" name="contact[tags]" value="newsletter">
 
       <input
         type="text"
-        id="newsletter[contact][first_name]"
+        id="newsletter_desktop_first_name"
         name="contact[first_name]"
         placeholder="Nome"
         required
@@ -274,27 +275,28 @@
 
       <input
         type="email"
-        id="newsletter[contact][email]"
+        id="newsletter_desktop_email"
         name="contact[email]"
         placeholder="E-mail"
         required
       >
 
       {% if section.settings.newsletter_btn %}
-        <button type="submit">{{ section.settings.newsletter_btn }}</button>
+        <button type="submit" class="newsletter-submit">{{ section.settings.newsletter_btn }}</button>
       {% endif %}
     </div>
 
     {% if section.settings.newsletter_page %}
-      <div id="newsletter_checkbox">
+      <div class="newsletter_checkbox">
         <input
           type="checkbox"
-          id="selected_terms"
+          id="selected_terms_desktop"
           name="selected_terms"
           required
+          class="newsletter_terms_checkbox"
         >
 
-        <label for="selected_terms">
+        <label for="selected_terms_desktop">
           {{ section.settings.newsletter_terms }}
           <a href="{{ section.settings.newsletter_page.url }}" target="_blank">
             {{- section.settings.newsletter_page.title -}}
@@ -310,12 +312,12 @@
     <h1>{{ section.settings.newsletter_title }}</h1>
   {% endif %}
 
-  {% form 'customer', id: newsletter_id %}
+  {% form 'customer', id: newsletter_id_mobile %}
     <input type="hidden" name="contact[tags]" value="newsletter">
 
     <input
       type="text"
-      id="newsletter[contact][first_name]"
+      id="newsletter_mobile_first_name"
       name="contact[first_name]"
       placeholder="Nome"
       required
@@ -323,24 +325,24 @@
 
     <input
       type="email"
-      id="newsletter[contact][email]"
+      id="newsletter_mobile_email"
       name="contact[email]"
       placeholder="E-mail"
       required
     >
 
     {% if section.settings.newsletter_page %}
-      <div id="newsletter_checkbox">
+      <div class="newsletter_checkbox">
         <input
           type="checkbox"
-          id="selected_terms"
+          id="selected_terms_mobile"
           name="selected_terms"
           required
+          class="newsletter_terms_checkbox"
         >
 
-        <label for="selected_terms">
+        <label for="selected_terms_mobile">
           {{ section.settings.newsletter_terms }}
-
           <a href="{{ section.settings.newsletter_page.url }}" target="_blank">
             {{- section.settings.newsletter_page.title -}}
           </a>
@@ -349,21 +351,26 @@
     {% endif %}
 
     {% if section.settings.newsletter_btn %}
-      <button id="newsletter_submit" type="submit">
+      <button
+        type="submit"
+        class="newsletter-submit"
+        id="newsletter_submit_mobile_{{ section.id }}"
+      >
         {{ section.settings.newsletter_btn }}
       </button>
     {% endif %}
-
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function() {
-        const submitButton = document.getElementById('newsletter_submit');
-
-        if (submitButton) {
-          submitButton.addEventListener('click', function() {
-            fbq('track', 'Lead');
-          });
-        }
-      });
-    </script>
   {% endform %}
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.newsletter-submit');
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead');
+        }
+      });
+    });
+  });
+</script>
