@@ -9,24 +9,131 @@
  */
 {
   "sections": {
-    "servico_nutricao_head_cVhcd9": {
-      "type": "servico-nutricao-head",
-      "name": "Servico Nutricao Head",
+    "new_header_servico_banner_WAheg4": {
+      "type": "new-header-servico-banner",
+      "blocks": {
+        "heading_HpVHpr": {
+          "type": "heading",
+          "settings": {
+            "text": "Consulta de Nutrição",
+            "font_weight": "900",
+            "font_size": 0,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "color": "#000000"
+          }
+        },
+        "subheading_HpVHpr": {
+          "type": "subheading",
+          "settings": {
+            "text": "Online ou Presencial",
+            "font_weight": "700",
+            "font_size": 0,
+            "margin_top": 8,
+            "margin_bottom": 0,
+            "color": "#258439"
+          }
+        },
+        "description_HpVHpr": {
+          "type": "description",
+          "settings": {
+            "text": "<p>Tem dificuldade em perder peso, problemas digestivos ou cansaço constante? Recupere o bem-estar através de uma avaliação integrada, onde identificamos a origem dos desequilíbrios e otimizamos a sua saúde.</p>",
+            "font_weight": "400",
+            "font_size": 0,
+            "margin_top": 24,
+            "margin_bottom": 0,
+            "color": "#333333"
+          }
+        },
+        "button_HpVHpr": {
+          "type": "button",
+          "settings": {
+            "label": "MARQUE CONSULTA",
+            "link": "#servico_form_custom",
+            "font_weight": "700",
+            "font_size": 0,
+            "margin_top": 24,
+            "margin_bottom": 0,
+            "text_color": "#ffffff",
+            "background_color": "#258439"
+          }
+        }
+      },
+      "block_order": [
+        "heading_HpVHpr",
+        "subheading_HpVHpr",
+        "description_HpVHpr",
+        "button_HpVHpr"
+      ],
+      "name": "Artigo CTA com imagem",
       "settings": {
-        "first_image": "shopify://shop_images/image_55.png",
-        "second_image": "shopify://shop_images/Rectangle_20ba74e8-4e8e-49f7-ae74-a694700e2315.png",
-        "title": "<h1><strong>Transforma o teu Bem-estar!</strong></h1><h2><strong>Consulta Online ou Presencial</strong></h2>",
-        "description": "<p>Sou a Rita de Cássia Silva, Nutricionista (CP: 4249N), e o meu propósito é acompanhar-te numa jornada de reconexão com o teu corpo rumo ao equilíbrio. Acredito numa abordagem individualizada, onde a nutrição se adapta às tuas necessidades, respeita o teu ritmo e valoriza a ligação entre corpo, mente e emoções. Se sentes que chegou o momento de cuidar verdadeiramente de ti, estou aqui para caminhar contigo.</p>",
-        "btn_txt": "MARCA JÁ A TUA CONSULTA"
+        "image": "shopify://shop_images/image_37.jpg",
+        "background_color": "#eff5ef",
+        "image_height": "auto",
+        "button_radius": 8
       }
     },
-    "servico_nutricao_msg_block_7h8TLG": {
-      "type": "servico-nutricao-msg-block",
-      "name": "Servico Nutricao Block",
+    "solucoes_saude_EGANMh": {
+      "type": "solucoes-saude",
+      "blocks": {
+        "card_BJrG6M": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify://shop_images/Layer_1_269a178d-b796-4cdd-8634-7301092a04c9.png",
+            "icon_image_width": 54,
+            "icon_image_height": 54,
+            "title": "EMAGRECIMENTO\nE GESTÃO DE PESO",
+            "text": "<ul><li><strong>Alcance um peso mais equilibrado</strong>, mesmo quando sente dificuldade em ver resultados;</li><li><strong>Emagreça sem dietas restritivas</strong> e acabe com o efeito ioiô;</li><li><strong>Aprenda a gerir a compulsão alimentar</strong> e a fome emocional com estratégias práticas adaptadas ao seu dia-a-dia;</li><li><strong>Ultrapasse os fatores que podem estar a bloquear a perda de peso</strong>, o seu progresso e vitalidade;</li><li><strong>Recupere a liberdade e o prazer de comer</strong>, sem culpas e com resultados consistentes.</li></ul>",
+            "button_label": "Saiba mais",
+            "button_link": "#servico_form_custom"
+          }
+        },
+        "card_KtA3eE": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_f5460765-e1bd-48c5-930f-78d71185749a.png",
+            "icon_image_width": 54,
+            "icon_image_height": 54,
+            "title": "SISTEMA\nDIGESTIVO",
+            "text": "<ul><li><strong>Reduza gases, cólicas, enfartamento e barriga inchada</strong> após as refeições;</li><li><strong>Regule o seu trânsito intestinal</strong> - intestino preso, solto ou com flutuações frequentes - de forma natural e consistente;</li><li><strong>Atue sobre a raiz do problema</strong>, seja Gastrite, Síndrome do Intestino Irritável ou outras patologias;</li><li><strong>Volte a saber o que comer</strong> sem medo de desencadear sintomas;</li><li><strong>Deixe de normalizar o desconforto digestivo</strong> e sinta-se bem todos os dias.</li></ul>",
+            "button_label": "Saiba mais",
+            "button_link": "#servico_form_custom"
+          }
+        },
+        "card_QKLJpF": {
+          "type": "card",
+          "settings": {
+            "icon_image": "shopify://shop_images/Vector_1_a9d89302-53a1-4c16-ac26-acfc315ebcc2.png",
+            "icon_image_width": 72,
+            "icon_image_height": 72,
+            "title": "SAÚDE DA MULHER\nE MENOPAUSA",
+            "text": "<ul><li><strong>Reduza o cansaço constante</strong> e recupere o seu foco e produtividade.</li><li><strong>Promova maior equilíbrio do ciclo menstrual</strong>, incluindo menstruação irregular, síndrome dos ovários poliquísticos ou endometriose;</li><li><strong>Aprenda a gerir as alterações de humor</strong>, a irritabilidade e o desejo frequente por doces;</li><li><strong>Viva a transição para a menopausa com mais equilíbrio</strong>, reduzindo o impacto dos calores e das variações de peso;</li><li><strong>Recupere o equilíbrio do organismo</strong> e sinta-se com mais energia, leveza e confiança.</li></ul>",
+            "button_label": "Saiba mais",
+            "button_link": "#servico_form_custom"
+          }
+        }
+      },
+      "block_order": [
+        "card_BJrG6M",
+        "card_KtA3eE",
+        "card_QKLJpF"
+      ],
+      "name": "Soluções de saúde",
       "settings": {
-        "title": "<h1>Alimenta o teu equilíbrio.</h1><h1> A Nutrição Funcional mostra-te o caminho!</h1>",
-        "description": "<p>Na Bioself, a consulta de Nutrição baseia-se numa abordagem funcional e integrativa, valorizando a ligação entre alimentação, corpo, mente, emoções e estilo de vida.  O objetivo é compreender a origem dos desequilíbrios e ajustar a intervenção à tua realidade. Com um acompanhamento próximo, materiais de apoio e orientações práticas, vais sentir-te mais confiante e saudável.</p>",
-        "btn_txt": "SIM, QUERO CUIDAR DE MIM!"
+        "heading": "Soluções Personalizadas para os seus Objetivos de Saúde",
+        "subtitle": "<p>Consulta de Nutrição Funcional com base numa abordagem prática, flexível e sem extremismos.</p>"
+      }
+    },
+    "custom_banner_DtapxB": {
+      "type": "servico-nutricao-custom-banner",
+      "name": "Banner Customizado",
+      "settings": {
+        "image_desktop": "shopify://shop_images/Frame_501_1.jpg",
+        "image_mobile": "shopify://shop_images/LP-BANNER-MOB.jpg",
+        "link": "#servico_form_custom",
+        "image_alt": "Desconto de 20% na primeira consulta de nutrição",
+        "button_label": "Marque consulta",
+        "button_link": "#servico_form_custom"
       }
     },
     "servico_nutricao_steps_EFpMbD": {
@@ -35,196 +142,165 @@
         "step_rTKDTC": {
           "type": "step",
           "settings": {
-            "title": "AVALIAÇÃO CLÍNICA E FÍSICA COMPLETAS ",
-            "description": "<p>Dedico-me a analisar detalhadamente o teu histórico de saúde, análises e exames, de forma a ter uma visão completa do teu estado nutricional e metabólico. Realizo também uma avaliação física com recurso a bioimpedância e perímetros corporais.</p>"
+            "title": "OBTENHA UMA AVALIAÇÃO CLÍNICA E FÍSICA ",
+            "description": "<p>Avaliamos o seu estado nutricional e metabólico através do histórico de saúde, análises e exames, aliado a uma avaliação física através de bioimpedância e medição de perímetros.</p>"
           }
         },
         "step_cpxhRT": {
           "type": "step",
           "settings": {
-            "title": "PLANO  ALIMENTAR PERSONALIZADO",
-            "description": "<p>Não existem planos iguais, cada pessoa é única! Crio um plano que responde às tuas necessidades e objetivos. Tendo em conta a tua individualidade gastrointestinal e bioquímica, em conjunto, vamos definir estratégias práticas, realistas e sustentáveis.</p>"
+            "title": "RECEBA UM PLANO ALIMENTAR PERSONALIZADO",
+            "description": "<p>Obtenha um plano alimentar ajustado à sua realidade. Para facilitar o seu dia a dia e escolhas, receba recomendações concretas de produtos alimentares.</p>"
           }
         },
         "step_ERENCy": {
           "type": "step",
           "settings": {
-            "title": "SUPLEMENTAÇÃO ALIMENTAR",
-            "description": "<p>Sempre que fizer sentido no teu percurso, vais receber recomendações de suplementação ajustadas às tuas necessidades. Estas orientações personalizadas contribuem para o teu bem-estar, potenciam os resultados e apoiam a tua saúde.</p>"
+            "title": "GARANTA RECOMENDAÇÃO DE SUPLEMENTOS",
+            "description": "<p>Em determinados casos clínicos, recomendamos suplementos alimentares que contribuem para o seu bem-estar, potenciam os resultados e apoiam a sua saúde.</p>"
+          }
+        },
+        "step_gHJcwi": {
+          "type": "step",
+          "settings": {
+            "title": "BENEFICIE DE UM ACOMPANHAMENTO PRÓXIMO",
+            "description": "<p>Para que se sinta sempre acompanhado(a) na sua jornada, disponibilizamos um canal direto de contacto com a Nutricionista para esclarecer dúvidas.</p>"
           }
         }
       },
       "block_order": [
         "step_rTKDTC",
         "step_cpxhRT",
-        "step_ERENCy"
+        "step_ERENCy",
+        "step_gHJcwi"
       ],
       "name": "Servico Nutricao Etapas",
       "settings": {
-        "title": "ETAPAS DA CONSULTA DE NUTRIÇÃO FUNCIONAL",
-        "main_image": "shopify://shop_images/Rectangle_9d2a316f-502b-4355-bfba-aaa09548ffcf.png"
-      }
-    },
-    "servico_nutricao_who_to_block_6LXiPB": {
-      "type": "servico-nutricao-who-to-block",
-      "name": "Servico Nutricao Who",
-      "settings": {
-        "title": "A QUEM SE DESTINA",
-        "description": "<p>Esta consulta é para ti se procuras uma abordagem sem extremismos, que respeita o teu corpo e promova equilíbrio.</p><p>É também para ti se já experimentaste várias estratégias sem resultados duradouros.</p><p>Se desejas recuperar o conforto digestivo e restaurar a função gastrointestinal.</p><p>Ou se enfrentas desafios como dificuldade em perder peso, stress, fadiga, alterações no ciclo menstrual, desequilíbrios hormonais e metabólicos, e procuras orientação de forma próxima e integrada!</p>"
+        "title": "Etapas da Consulta de Nutrição Funcional",
+        "main_image": "shopify://shop_images/Rectangle_1cf95bc4-7a2f-45a5-b4b9-16dfcfc45441.jpg"
       }
     },
     "servico_nutricao_cta_H3cCYf": {
       "type": "servico-nutricao-cta",
       "name": "Servico Nutricao CTA",
       "settings": {
-        "title": "<h1>Na consulta de Nutrição Funcional na Bioself, vais experienciar uma abordagem distinta, adaptada a ti! </h1>",
-        "btn_txt": "QUERO COMEÇAR ESTE CAMINHO"
+        "title": "<p>Invista na sua saúde com uma abordagem totalmente adaptada a si. Dê o primeiro passo e obtenha resultados consistentes.</p>",
+        "btn_txt": "MARQUE CONSULTA"
       }
     },
-    "servico_nutricao_reviews_hrY7tx": {
-      "type": "servico-nutricao-reviews",
+    "consulta_para_si_bCa7Aw": {
+      "type": "consulta-para-si",
       "blocks": {
-        "review_J47GFF": {
-          "type": "review",
+        "item_DjgUBB": {
+          "type": "item",
           "settings": {
-            "description": "<p>Quando procurei a Dra. Rita, estava a passar por uma fase complicada devido à síndrome do cólon irritado e não sabia bem o que fazer. A sua análise foi super completa e senti que olhou para mim como uma pessoa, e não apenas como um conjunto de sintomas. O plano alimentar e de suplementação que construímos juntas foi personalizado e, acredite, tem sido fácil de seguir!</p>",
-            "name": "Marta",
-            "age": 38
+            "title": "Estratégias eficazes",
+            "text": "<p>Pretende alcançar resultados duradouros, sem extremismos e que respeitem o seu corpo.</p>"
           }
         },
-        "review_99TEit": {
-          "type": "review",
+        "item_L7GDbU": {
+          "type": "item",
           "settings": {
-            "description": "<p>Uma abordagem honesta, diferente e descomplicada, mas, principalmente, adequada à minha realidade de rotinas e ao meu quotidiano. Obrigada, Drª. Rita por ser uma profissional incrível!<br/></p>",
-            "name": "Catarina",
-            "age": 35
+            "title": "Personalização",
+            "text": "<p>Procura um plano alimentar e de suplementação, flexível e totalmente ajustado à sua rotina diária.</p>"
           }
         },
-        "review_QEPUfJ": {
-          "type": "review",
+        "item_FXeiiH": {
+          "type": "item",
           "settings": {
-            "description": "<p>Procurei a Drª. Rita, com o objetivo de alterar a minha alimentação, para ganhar algum peso e para combater o acne. E a verdade é que com uma alimentação mais cuidada e com o exercício físico, os objetivos foram surgindo.</p>",
-            "name": "Verónica",
-            "age": 32
-          }
-        },
-        "review_gy9Rid": {
-          "type": "review",
-          "settings": {
-            "description": "<p>Graças às consultas de nutrição com a Drª. Rita, em dois meses perdi 9 kg. Com um plano alimentar adequado para mim, deixei de ter azia, perdi peso e volume e ganhei energia a comer o que gosto. Obrigada!</p>",
-            "name": "Rosa",
-            "age": 56
-          }
-        },
-        "review_Up6Em3": {
-          "type": "review",
-          "settings": {
-            "description": "<p>Quando marquei consulta, foi na tentativa de procurar uma solução para o meu problema intestinal. E 2 meses depois, posso dizer que foi a melhor coisa que eu fiz! Além de conseguirmos melhorar a minha condição intestinal, conseguimos melhorar a minha autoestima, diminuir o meu peso e claro sentir-me melhor no meu dia a dia. Obrigada Drª. Rita.</p>",
-            "name": "Cátia",
-            "age": 24
+            "title": "Acompanhamento próximo",
+            "text": "<p>Deseja ser ouvido(a) e ter uma orientação integrada ao longo de todo o processo.</p>"
           }
         }
       },
       "block_order": [
-        "review_J47GFF",
-        "review_99TEit",
-        "review_QEPUfJ",
-        "review_gy9Rid",
-        "review_Up6Em3"
+        "item_DjgUBB",
+        "item_L7GDbU",
+        "item_FXeiiH"
       ],
-      "name": "Servico Nutricao Reviews",
+      "name": "Consulta para si",
       "settings": {
-        "title": "O QUE DIZEM OS NOSSOS CLIENTES"
+        "title": "A consulta de Nutrição é para si se procura..."
       }
     },
-    "servico_nutricao_know_better_AYrtPJ": {
-      "type": "servico-nutricao-know-better",
+    "conheca_nutricionista_GEEEEm": {
+      "type": "conheca-nutricionista",
+      "name": "Conheça a Nutricionista",
+      "settings": {
+        "heading": "Conheça a Nutricionista",
+        "name": "Dr.ª Rita de Cássia Silva",
+        "certificate": "Nutricionista CP: 4249N",
+        "description": "<p>Nutricionista desde 2019, percebeu cedo que a nutrição vai muito além de contar calorias. Motivada pela complexidade do corpo humano, dedica-se ao estudo da nutrição numa perspetiva funcional e integrativa para proporcionar um acompanhamento individualizado. A sua grande paixão é ver como mudanças consistentes na rotina transformam vidas. Mais do que prescrever planos, foca-se em gerar saúde, conforto e bem-estar real, contribuindo diariamente para a qualidade de vida.</p>",
+        "formation": "<p>Formação</p><ul><li>Licenciatura em Ciências da Nutrição (FCNAUP);</li><li>Mestrado em Nutrição Humana e Metabolismo (NOVA Medical School);</li><li>Pós-Graduações em Nutrição e Suplementação Alimentar e em Terapêutica Ortomolecular e Nutrição Funcional (CESPU);</li><li>Especializações avançadas em Microbiota Intestinal (NOVA) e Aplicação de Medicina Funcional na Prática Clínica (The Institute for Functional Medicine).</li></ul>",
+        "image": "shopify://shop_images/Rectangle_61bd8d8b-edbc-4de9-9c98-388e64a1f2b8.png",
+        "button_label": "Marque consulta",
+        "button_link": "#servico_form_custom"
+      }
+    },
+    "testemunhos_nutricao_xrK8Ea": {
+      "type": "testemunhos-nutricao",
       "blocks": {
-        "path_DqQDhz": {
-          "type": "path",
+        "testimonial_tCrybA": {
+          "type": "testimonial",
           "settings": {
-            "icon": "shopify://shop_images/Vector_a26fdafb-1ae9-49b3-be7b-f5bb1ade9fc6.png",
-            "title": "O MEU PERCURSO",
-            "description": "<p>Sou Nutricionista desde 2019, apaixonada pela nutrição funcional, metabolismo e suplementação. Desde cedo percebi que a saúde vai muito além de contar calorias, pois envolve compreender a complexidade do corpo e da mente como um todo.</p><p>Por isso, tenho-me dedicado a estudar a extraordinária rede que envolve os vários sistemas do organismo e a nutrição, com foco especial na saúde intestinal.</p>"
+            "quote": "<p>“Quando procurei a Dr.ª Rita, estava a passar por uma fase complicada devido à síndrome do cólon irritado e não sabia bem o que fazer. A sua análise foi super completa e senti que olhou para mim como uma pessoa, e não apenas como um conjunto de sintomas. O plano alimentar e de suplementação que construímos juntas foi personalizado e, acredite, tem sido fácil de seguir!”</p>",
+            "name": "Marta, 38 anos",
+            "context": "(Sistema Digestivo)"
           }
         },
-        "path_XDpqtX": {
-          "type": "path",
+        "testimonial_CMtqgQ": {
+          "type": "testimonial",
           "settings": {
-            "icon": "shopify://shop_images/Isolation_Mode.png",
-            "title": "O QUE ME MOVE",
-            "description": "<p>A intervenção nutricional que pratico respeita o corpo, a história e o ritmo de cada pessoa.</p><p>É prática, flexível e centrada na tua realidade, sem extremismos e sem fórmulas rígidas.</p><p>Sou guiada por uma abordagem integrativa, que une o conhecimento científico à escuta ativa, à empatia e ao cuidado genuíno.</p>"
+            "quote": "<p>“Senti que finalmente tinha um acompanhamento pensado para mim, sem planos impossíveis ou restrições exageradas. O processo foi claro, próximo e adaptado à minha rotina.”</p>",
+            "name": "Ana, 42 anos",
+            "context": "(Gestão de Peso)"
           }
         },
-        "path_fkPGfJ": {
-          "type": "path",
+        "testimonial_XMxRzt": {
+          "type": "testimonial",
           "settings": {
-            "icon": "shopify://shop_images/Layer_1.png",
-            "title": "ALÉM DA NUTRIÇÃO",
-            "description": "<p>Interesso-me profundamente por desenvolvimento pessoal, espiritualidade e coaching, áreas que me ajudam a evoluir e a estar mais presente para os outros.</p><p>Adoro ler, ir ao cinema e estar com a minha família e amigos. Sinto-me uma eterna estudante, sempre em busca de mais ferramentas para cuidar melhor de quem me procura.</p>"
+            "quote": "<p>“Gostei muito da forma como tudo foi explicado. Saí da consulta com recomendações práticas, fáceis de aplicar e com a sensação de que estava realmente acompanhada.”</p>",
+            "name": "Joana, 35 anos",
+            "context": "(Saúde da Mulher)"
+          }
+        },
+        "testimonial_F4Nk7V": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>“O acompanhamento ajudou-me a compreender melhor o meu corpo e a melhorar vários sintomas que já tinha normalizado. Foi um processo muito humano e profissional.”</p>",
+            "name": "Carla, 46 anos",
+            "context": "(Menopausa)"
           }
         }
       },
       "block_order": [
-        "path_DqQDhz",
-        "path_XDpqtX",
-        "path_fkPGfJ"
+        "testimonial_tCrybA",
+        "testimonial_CMtqgQ",
+        "testimonial_XMxRzt",
+        "testimonial_F4Nk7V"
       ],
-      "name": "Servico Nutricao Know",
+      "name": "Testemunhos Nutrição",
       "settings": {
-        "bg_img": "shopify://shop_images/Rectangle_1_f2fe2aa0-c7d6-4256-a488-1e8875641159.png",
-        "title": "<h1>Conhece melhor</h1><h1>a nutricionista</h1>",
-        "description": "<p>Dedicada a guiar-te na transformação</p><p>da tua saúde. </p>"
+        "title": "O que dizem os nossos clientes"
       }
     },
-    "servico_nutricao_formacao_NJftjr": {
-      "type": "servico-nutricao-formacao",
-      "blocks": {
-        "formacao_Q7wMP3": {
-          "type": "formacao",
-          "settings": {
-            "icon": "shopify://shop_images/Vector_cbe425b0-b44d-4aac-bdd1-2f249a1127c1.png",
-            "description": "<p>Pós-Graduação em Nutrição e Suplementação Alimentar</p><p><em>CESPU</em></p><p>Mestrado em Nutrição Humana e Metabolismo</p><p><em>NOVA Medical School</em></p><p>Pós-Graduação em Terapêutica Ortomolecular e Nutrição Funcional</p><p><em>CESPU</em></p><p>Licenciatura em Ciências da Nutrição</p><p><em>FCNAUP</em></p>"
-          }
-        },
-        "formacao_9HpcNh": {
-          "type": "formacao",
-          "settings": {
-            "icon": "shopify://shop_images/Layer_1_11da2dc4-91e2-420c-9b1c-0ce2b0aafcbd.png",
-            "description": "<p>Certificação Intensiva em Nutrição na Saúde Gastrointestinal</p><p><em>Nutrition Academy</em></p><p>Curso Pós-graduado em Microbiota Intestinal</p><p><em>NOVA Medical School</em></p>"
-          }
-        },
-        "formacao_YD6FQQ": {
-          "type": "formacao",
-          "settings": {
-            "icon": "shopify://shop_images/Layer_1_1.png",
-            "description": "<p>Applying Functional Medicine in Clinical Practice</p><p><em>The Institute for Functional Medicine</em></p><p><em>Curso de Análises Clínicas</em></p><p>Nutrition Academy</p><p>MD Course in Mind Body Medicine</p><p><em>Harvard Medical School</em></p><p>Therapeutic Food Plans</p><p><em>The Institute for Functional </em>Medicine</p><p>Coaching Nutricional</p><p><em>Instituto Nutricoaching</em></p>"
-          }
-        }
-      },
-      "block_order": [
-        "formacao_Q7wMP3",
-        "formacao_9HpcNh",
-        "formacao_YD6FQQ"
-      ],
-      "name": "Servico Nutricao Formacao",
+    "custom_banner_jb8ecU": {
+      "type": "servico-nutricao-custom-banner",
+      "name": "Banner Customizado",
       "settings": {
-        "title": "formação que sustenta um acompanhamento de excelência"
+        "image_desktop": "shopify://shop_images/Frame_501_1.jpg",
+        "image_mobile": "shopify://shop_images/LP-BANNER-MOB.jpg",
+        "link": "#servico_form_custom",
+        "image_alt": "Desconto de 20% na primeira consulta de nutrição",
+        "button_label": "",
+        "button_link": ""
       }
     },
     "servico_nutricao_form_LJajLT": {
       "type": "servico-nutricao-form",
       "name": "Servico Nutricao Form",
       "settings": {
-        "title": "Marcar consulta"
-      }
-    },
-    "blog_collection_custom_xkhXGH": {
-      "type": "blog-collection-custom",
-      "name": "Blog custom",
-      "settings": {
-        "selected_blog": "blog-page",
-        "title_blog": "BIOSELF BLOG"
+        "title": "Marcar Consulta de Nutrição"
       }
     },
     "faq_2_EThpxa": {
@@ -508,16 +584,16 @@
     }
   },
   "order": [
-    "servico_nutricao_head_cVhcd9",
-    "servico_nutricao_msg_block_7h8TLG",
+    "new_header_servico_banner_WAheg4",
+    "solucoes_saude_EGANMh",
+    "custom_banner_DtapxB",
     "servico_nutricao_steps_EFpMbD",
-    "servico_nutricao_who_to_block_6LXiPB",
     "servico_nutricao_cta_H3cCYf",
-    "servico_nutricao_reviews_hrY7tx",
-    "servico_nutricao_know_better_AYrtPJ",
-    "servico_nutricao_formacao_NJftjr",
+    "consulta_para_si_bCa7Aw",
+    "conheca_nutricionista_GEEEEm",
+    "testemunhos_nutricao_xrK8Ea",
+    "custom_banner_jb8ecU",
     "servico_nutricao_form_LJajLT",
-    "blog_collection_custom_xkhXGH",
     "faq_2_EThpxa",
     "slideshow",
     "text-with-icons-top",
