@@ -131,12 +131,11 @@
     line-height: 1.1;
     font-weight: 900 !important;
     letter-spacing: -0.04em;
-    max-width: none;
+    max-width: 540px;
   }
 
   .solucoes-saude-{{ section_id }} .solucoes-saude__subtitle {
     margin: 0 auto;
-    max-width: 900px;
     color: #000000;
     font-size: 19px;
     line-height: 1.35;
@@ -285,13 +284,6 @@
     transform: translateY(-1px);
   }
 
-  @media screen and (min-width: 1001px) {
-    .solucoes-saude-{{ section_id }} .solucoes-saude__header h2 {
-      font-size: clamp(26px, 2.05vw, 42px);
-      white-space: nowrap;
-    }
-  }
-
   @media screen and (min-width: 1499px) {
     .solucoes-saude-{{ section_id }} .solucoes-saude__container {
       margin: 0 9vw;
@@ -313,11 +305,6 @@
       margin: 0 var(--mobile-container-gutter);
     }
 
-    .solucoes-saude-{{ section_id }} .solucoes-saude__header h2 {
-      font-size: 28px;
-      white-space: normal;
-    }
-
     .solucoes-saude-{{ section_id }} .solucoes-saude__grid {
       grid-template-columns: 1fr;
       gap: 24px;
@@ -325,7 +312,7 @@
 
     .solucoes-saude-{{ section_id }} .solucoes-saude__card {
       min-height: auto;
-      padding: 30px 20px;
+      padding: 30px 20px 24px;
     }
   }
 
@@ -352,7 +339,7 @@
     .solucoes-saude-{{ section_id }} .solucoes-saude__text {
       font-size: 16px;
       line-height: 1.5;
-      margin-bottom: 0;
+      margin-bottom: 30px;
     }
 
     .solucoes-saude-{{ section_id }} .solucoes-saude__button,
@@ -440,7 +427,7 @@
           "type": "richtext",
           "id": "text",
           "label": "Texto",
-          "default": "<ul><li><strong>Alcance um peso mais equilibrado</strong>, mesmo quando sente dificuldade em ver resultados;</li><li><strong>Emagreça sem dietas restritivas</strong> e acabe com o efeito ioiô.</li><li><strong>Aprenda a gerir a compulsão alimentar</strong> e a fome emocional com estratégias práticas adaptadas ao seu dia-a-dia;</li><li><strong>Ultrapasse os fatores que podem estar a bloquear a perda de peso</strong>, o seu progresso e vitalidade;</li><li><strong>Recupere a liberdade e o prazer de comer</strong>, sem culpas e com resultados consistentes.</li></ul>"
+          "default": "<ul><li><strong>Alcance um peso mais equilibrado</strong>, mesmo quando sente dificuldade em ver resultados;</li><li><strong>Emagreça sem dietas restritivas</strong> e acabe com o efeito ioiô;</li><li><strong>Aprenda a gerir a compulsão alimentar</strong> e a fome emocional com estratégias práticas adaptadas ao seu dia-a-dia;</li><li><strong>Ultrapasse os fatores que podem estar a bloquear a perda de peso</strong>, o seu progresso e vitalidade;</li><li><strong>Recupere a liberdade e o prazer de comer</strong>, sem culpas e com resultados consistentes.</li></ul>"
         },
         {
           "type": "text",
@@ -464,7 +451,7 @@
           "type": "card",
           "settings": {
             "title": "EMAGRECIMENTO\nE GESTÃO DE PESO",
-            "text": "<ul><li><strong>Alcance um peso mais equilibrado</strong>, mesmo quando sente dificuldade em ver resultados;</li><li><strong>Emagreça sem dietas restritivas</strong> e acabe com o efeito ioiô.</li><li><strong>Aprenda a gerir a compulsão alimentar</strong> e a fome emocional com estratégias práticas adaptadas ao seu dia-a-dia;</li><li><strong>Ultrapasse os fatores que podem estar a bloquear a perda de peso</strong>, o seu progresso e vitalidade;</li><li><strong>Recupere a liberdade e o prazer de comer</strong>, sem culpas e com resultados consistentes.</li></ul>",
+            "text": "<ul><li><strong>Alcance um peso mais equilibrado</strong>, mesmo quando sente dificuldade em ver resultados;</li><li><strong>Emagreça sem dietas restritivas</strong> e acabe com o efeito ioiô;</li><li><strong>Aprenda a gerir a compulsão alimentar</strong> e a fome emocional com estratégias práticas adaptadas ao seu dia-a-dia;</li><li><strong>Ultrapasse os fatores que podem estar a bloquear a perda de peso</strong>, o seu progresso e vitalidade;</li><li><strong>Recupere a liberdade e o prazer de comer</strong>, sem culpas e com resultados consistentes.</li></ul>",
             "button_label": "Saiba mais"
           }
         },
