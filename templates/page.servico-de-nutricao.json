@@ -121,15 +121,18 @@
       "name": "Soluções de saúde",
       "settings": {
         "heading": "Soluções Personalizadas para os seus Objetivos de Saúde",
-        "subtitle": "<p>Consulta de Nutrição Funcional com base numa abordagem prática, flexível e sem extremismos.</p>"
+        "subtitle": "<p>Consulta de Nutrição Funcional com base numa abordagem prática, flexível e sem extremismos.</p>",
+        "align_text": false,
+        "section_button_label": "",
+        "section_button_link": ""
       }
     },
     "custom_banner_DtapxB": {
       "type": "servico-nutricao-custom-banner",
       "name": "Banner Customizado",
       "settings": {
-        "image_desktop": "shopify://shop_images/Frame_501_1.jpg",
-        "image_mobile": "shopify://shop_images/LP-BANNER-MOB.jpg",
+        "image_desktop": "shopify://shop_images/banner-desktop.webp",
+        "image_mobile": "shopify://shop_images/banner-mobile.webp",
         "link": "#servico_form_custom",
         "image_alt": "Desconto de 20% na primeira consulta de nutrição",
         "button_label": "Marque consulta",
@@ -300,7 +303,8 @@
       "type": "servico-nutricao-form",
       "name": "Servico Nutricao Form",
       "settings": {
-        "title": "Marcar Consulta de Nutrição"
+        "title": "Marcar Consulta de Nutrição",
+        "description": "<p>Preencha os seus dados no formulário abaixo e entraremos em contacto para realizar a sua marcação.</p>"
       }
     },
     "faq_2_EThpxa": {
