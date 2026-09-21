@@ -152,17 +152,39 @@
         "section_button_link": "#servico_form_custom"
       }
     },
+    "banner_consulta_new_pCU94b": {
+      "type": "banner-consulta-new",
+      "name": "Banner de consulta (Novo)",
+      "settings": {
+        "image_desktop": "shopify://shop_images/imagem.webp",
+        "image_alt": "",
+        "heading": "Transforme a sua saúde com o nosso",
+        "highlighted_heading": "Acompanhamento em Nutrição Funcional",
+        "discount_value": "20",
+        "discount_suffix": "%",
+        "offer_text": "DESCONTO NA\n1ª CONSULTA\nDE NUTRIÇÃO",
+        "fine_print": "Campanha válida de 18/09 a 31/10 de 2026.",
+        "link": "",
+        "button_label": "Marque consulta e aproveite o desconto",
+        "button_link": "#servico_form_custom",
+        "background_color": "#24963f",
+        "offer_background_color": "#ffc800",
+        "text_color": "#ffffff",
+        "offer_text_color": "#000000"
+      }
+    },
     "custom_banner_DtapxB": {
       "type": "consulta-custom-banner",
+      "disabled": true,
       "name": "Banner Customizado",
       "settings": {
+        "use_prescribed_campaign_banner": true,
         "image_desktop": "shopify://shop_images/Frame_501_1.jpg",
         "image_mobile": "shopify://shop_images/LP-BANNER-MOB.jpg",
         "link": "#servico_form_custom",
         "image_alt": "Desconto de 20% na primeira consulta de nutrição",
         "button_label": "Marque consulta",
-        "button_link": "#servico_form_custom",
-        "use_prescribed_campaign_banner": true
+        "button_link": "#servico_form_custom"
       }
     },
     "servico_nutricao_steps_EFpMbD": {
@@ -313,17 +335,39 @@
         "title": "O que dizem os nossos clientes"
       }
     },
+    "banner_consulta_new_mxmeJk": {
+      "type": "banner-consulta-new",
+      "name": "Banner de consulta (Novo)",
+      "settings": {
+        "image_desktop": "shopify://shop_images/imagem.webp",
+        "image_alt": "",
+        "heading": "Transforme a sua saúde com o nosso",
+        "highlighted_heading": "Acompanhamento em Nutrição Funcional",
+        "discount_value": "20",
+        "discount_suffix": "%",
+        "offer_text": "DESCONTO NA\n1ª CONSULTA\nDE NUTRIÇÃO",
+        "fine_print": "Campanha válida de 18/09 a 31/10 de 2026.",
+        "link": "",
+        "button_label": "Marque consulta e aproveite o desconto",
+        "button_link": "#servico_form_custom",
+        "background_color": "#24963f",
+        "offer_background_color": "#ffc800",
+        "text_color": "#ffffff",
+        "offer_text_color": "#000000"
+      }
+    },
     "custom_banner_jb8ecU": {
       "type": "consulta-custom-banner",
+      "disabled": true,
       "name": "Banner Customizado",
       "settings": {
+        "use_prescribed_campaign_banner": true,
         "image_desktop": "shopify://shop_images/Frame_501_1.jpg",
         "image_mobile": "shopify://shop_images/LP-BANNER-MOB.jpg",
         "link": "#servico_form_custom",
         "image_alt": "Desconto de 20% na primeira consulta de nutrição",
         "button_label": "",
-        "button_link": "",
-        "use_prescribed_campaign_banner": true
+        "button_link": ""
       }
     },
     "servico_nutricao_form_LJajLT": {
@@ -617,12 +661,14 @@
   "order": [
     "new_header_servico_banner_WAheg4",
     "solucoes_saude_EGANMh",
+    "banner_consulta_new_pCU94b",
     "custom_banner_DtapxB",
     "servico_nutricao_steps_EFpMbD",
     "servico_nutricao_cta_H3cCYf",
     "consulta_para_si_bCa7Aw",
     "conheca_nutricionista_GEEEEm",
     "testemunhos_nutricao_xrK8Ea",
+    "banner_consulta_new_mxmeJk",
     "custom_banner_jb8ecU",
     "servico_nutricao_form_LJajLT",
     "faq_2_EThpxa",
