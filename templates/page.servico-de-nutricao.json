@@ -127,8 +127,30 @@
         "section_button_link": ""
       }
     },
+    "banner_consulta_new_DQYV7F": {
+      "type": "banner-consulta-new",
+      "name": "Banner de consulta (Novo)",
+      "settings": {
+        "image_desktop": "shopify://shop_images/imagem.webp",
+        "image_alt": "",
+        "heading": "Transforme a sua saúde com o nosso",
+        "highlighted_heading": "Acompanhamento em Nutrição Funcional",
+        "discount_value": "20",
+        "discount_suffix": "%",
+        "offer_text": "DESCONTO NA\n1ª CONSULTA\nDE NUTRIÇÃO",
+        "fine_print": "Campanha válida de 18/09 a 31/10 de 2026.",
+        "link": "#servico_form_custom",
+        "button_label": "Marque consulta e aproveite o desconto",
+        "button_link": "",
+        "background_color": "#24963f",
+        "offer_background_color": "#ffc800",
+        "text_color": "#ffffff",
+        "offer_text_color": "#000000"
+      }
+    },
     "custom_banner_DtapxB": {
       "type": "servico-nutricao-custom-banner",
+      "disabled": true,
       "name": "Banner Customizado",
       "settings": {
         "image_desktop": "shopify://shop_images/banner-desktop.webp",
@@ -287,8 +309,30 @@
         "title": "O que dizem os nossos clientes"
       }
     },
+    "banner_consulta_new_6mrWzy": {
+      "type": "banner-consulta-new",
+      "name": "Banner de consulta (Novo)",
+      "settings": {
+        "image_desktop": "shopify://shop_images/imagem.webp",
+        "image_alt": "",
+        "heading": "Transforme a sua saúde com o nosso",
+        "highlighted_heading": "Acompanhamento em Nutrição Funcional",
+        "discount_value": "20",
+        "discount_suffix": "%",
+        "offer_text": "DESCONTO NA\n1ª CONSULTA\nDE NUTRIÇÃO",
+        "fine_print": "Campanha válida de 18/09 a 31/10 de 2026.",
+        "link": "#servico_form_custom",
+        "button_label": "Marque consulta e aproveite o desconto",
+        "button_link": "",
+        "background_color": "#24963f",
+        "offer_background_color": "#ffc800",
+        "text_color": "#ffffff",
+        "offer_text_color": "#000000"
+      }
+    },
     "custom_banner_jb8ecU": {
       "type": "servico-nutricao-custom-banner",
+      "disabled": true,
       "name": "Banner Customizado",
       "settings": {
         "image_desktop": "shopify://shop_images/banner-desktop.webp",
@@ -590,12 +634,14 @@
   "order": [
     "new_header_servico_banner_WAheg4",
     "solucoes_saude_EGANMh",
+    "banner_consulta_new_DQYV7F",
     "custom_banner_DtapxB",
     "servico_nutricao_steps_EFpMbD",
     "servico_nutricao_cta_H3cCYf",
     "consulta_para_si_bCa7Aw",
     "conheca_nutricionista_GEEEEm",
     "testemunhos_nutricao_xrK8Ea",
+    "banner_consulta_new_6mrWzy",
     "custom_banner_jb8ecU",
     "servico_nutricao_form_LJajLT",
     "faq_2_EThpxa",
