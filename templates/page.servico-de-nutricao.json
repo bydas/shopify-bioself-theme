@@ -209,7 +209,7 @@
       "type": "servico-nutricao-cta",
       "name": "Servico Nutricao CTA",
       "settings": {
-        "title": "<p>Invista na sua saúde com uma abordagem totalmente adaptada a si. Dê o primeiro passo e obtenha resultados consistentes.</p>",
+        "title": "<h1>Invista na sua saúde com uma abordagem totalmente adaptada a si. Dê o primeiro passo e obtenha resultados consistentes.</h1>",
         "btn_txt": "MARQUE CONSULTA"
       }
     },
