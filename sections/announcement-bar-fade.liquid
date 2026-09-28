@@ -1,0 +1,142 @@
+{% liquid
+  assign announcement_id = 'announcement-fade-' | append: section.id
+%}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,500&amp;icon_names=calendar_month,delivery_truck_speed,kid_star,license,package_2,shopping_cart&amp;display=block">
+<section id="{{ announcement_id }}" class="announcement-fade" data-interval="{{ section.settings.interval }}" style="--announcement-background: {{ section.settings.background_color }}; --announcement-color: {{ section.settings.text_color }};">
+  <div class="announcement-fade__track" role="list" aria-label="Anúncios da loja">
+    {% for block in section.blocks %}
+      <div class="announcement-fade__item" role="listitem" {{ block.shopify_attributes }}>
+        {% if block.settings.link != blank %}
+          <a class="announcement-fade__link" href="{{ block.settings.link }}">
+        {% else %}
+          <span class="announcement-fade__link">
+        {% endif %}
+        {% case block.settings.icon %}
+          {% when 'rating' %}
+            <span class="announcement-fade__icon announcement-fade__icon--rating" aria-hidden="true">
+              {% for star in (1..5) %}<span class="announcement-fade__symbol announcement-fade__symbol--filled">kid_star</span>{% endfor %}
+            </span>
+          {% when 'package' %}
+            <span class="announcement-fade__icon" aria-hidden="true"><span class="announcement-fade__symbol">package_2</span></span>
+          {% when 'truck' %}
+            <span class="announcement-fade__icon" aria-hidden="true"><span class="announcement-fade__symbol">delivery_truck_speed</span></span>
+          {% when 'experience' %}
+            <span class="announcement-fade__icon" aria-hidden="true"><span class="announcement-fade__symbol">license</span></span>
+          {% when 'calendar' %}
+            <span class="announcement-fade__icon" aria-hidden="true"><span class="announcement-fade__symbol">calendar_month</span></span>
+          {% when 'cart' %}
+            <span class="announcement-fade__icon" aria-hidden="true"><span class="announcement-fade__symbol">shopping_cart</span></span>
+          {% when 'none' %}
+        {% endcase %}
+        {% assign text_one_value = block.settings.text_one | replace: '​', '' %}
+        {% assign text_two_value = block.settings.text_two | replace: '​', '' %}
+        {% assign text_three_value = block.settings.text_three | replace: '​', '' %}
+        {% assign text_one_plain = text_one_value | strip_html | strip %}
+        {% assign text_two_plain = text_two_value | strip_html | strip %}
+        {% assign text_three_plain = text_three_value | strip_html | strip %}
+        <span class="announcement-fade__copy">
+          {% if text_one_plain != blank %}<span class="announcement-fade__primary">{% if block.settings.link != blank %}{{ text_one_plain }}{% else %}{{ text_one_value }}{% endif %}</span>{% endif %}
+          {% if text_two_plain != blank %}<span>{% if block.settings.link != blank %}{{ text_two_plain }}{% else %}{{ text_two_value }}{% endif %}</span>{% endif %}
+          {% if text_three_plain != blank %}<span>{% if block.settings.link != blank %}{{ text_three_plain }}{% else %}{{ text_three_value }}{% endif %}</span>{% endif %}
+        </span>
+        {% if block.settings.link != blank %}</a>{% else %}</span>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+<style>
+  #{{ announcement_id }}{display:flex;align-items:center;min-height:64px;padding:12px 24px;background:var(--announcement-background);color:var(--announcement-color)}
+  #{{ announcement_id }} .announcement-fade__track{display:flex;align-items:center;justify-content:center;gap:clamp(20px,4vw,72px);width:min(100%,1440px);margin-inline:auto;overflow:hidden}
+  #{{ announcement_id }} .announcement-fade__item{display:flex;flex:1 1 0;align-items:center;justify-content:center;min-width:0;opacity:1;transition:opacity .3s ease;order:var(--announcement-order,0)}
+  #{{ announcement_id }} .announcement-fade__link{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-width:0;min-height:40px;color:inherit;text-decoration:none}
+  #{{ announcement_id }} a.announcement-fade__link:hover .announcement-fade__copy{text-decoration:underline;text-underline-offset:3px}
+  #{{ announcement_id }} a.announcement-fade__link:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:2px}
+  #{{ announcement_id }} .announcement-fade__item.is-fading{opacity:0}
+  #{{ announcement_id }} .announcement-fade__item.is-hidden{display:none}
+  #{{ announcement_id }} .announcement-fade__icon{display:inline-flex;flex:none;align-items:center;justify-content:center;width:24px;height:24px}
+  #{{ announcement_id }} .announcement-fade__symbol{display:block;font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;word-wrap:normal;direction:ltr;font-feature-settings:'liga';-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;font-variation-settings:'FILL' 1,'wght' 500}
+  #{{ announcement_id }} .announcement-fade__symbol--filled{font-variation-settings:'FILL' 1,'wght' 500}
+  #{{ announcement_id }} .announcement-fade__icon--rating{gap:2px;width:auto;color:#ffc629}
+  #{{ announcement_id }} .announcement-fade__icon--rating .announcement-fade__symbol{font-size:19px}
+  #{{ announcement_id }} .announcement-fade__copy{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;font-size:16px;line-height:1.25;text-align:center;flex-wrap:wrap}
+  #{{ announcement_id }} .announcement-fade__copy span{min-width:0;overflow-wrap:anywhere}
+  #{{ announcement_id }} .announcement-fade__primary{font-weight:700;white-space:normal}
+  @media(max-width:749px){
+    #{{ announcement_id }}{min-height:52px;padding:10px 16px}
+    #{{ announcement_id }} .announcement-fade__track{gap:0}
+    #{{ announcement_id }} .announcement-fade__item{flex:none;width:100%}
+    #{{ announcement_id }} .announcement-fade__link{gap:9px;min-height:32px}
+    #{{ announcement_id }} .announcement-fade__icon{width:21px;height:21px}
+    #{{ announcement_id }} .announcement-fade__symbol{font-size:21px}
+    #{{ announcement_id }} .announcement-fade__icon--rating{width:auto}
+    #{{ announcement_id }} .announcement-fade__icon--rating .announcement-fade__symbol{font-size:16px}
+    #{{ announcement_id }} .announcement-fade__copy{gap:6px;font-size:13px;flex-wrap:wrap}
+  }
+  @media(prefers-reduced-motion:reduce){#{{ announcement_id }} .announcement-fade__item{transition:none}}
+</style>
+<script>
+  (()=>{
+    const root=document.getElementById('{{ announcement_id }}');
+    if(!root||root.dataset.rotationReady)return;
+    root.dataset.rotationReady='true';
+    const track=root.querySelector('.announcement-fade__track');
+    const items=Array.from(track.children);
+    if(items.length<2)return;
+    let start=0;
+    const interval=Math.max(2,Number(root.dataset.interval)||5)*1000;
+    const update=()=>{
+      const visibleCount=Math.min(
+        window.matchMedia('(max-width:899px)').matches?1:
+        window.matchMedia('(max-width:1199px)').matches?2:3,
+        items.length
+      );
+      items.forEach((item,index)=>{
+        const order=(index-start+items.length)%items.length;
+        item.style.setProperty('--announcement-order',order);
+        item.classList.toggle('is-hidden',order>=visibleCount);
+      });
+      return visibleCount;
+    };
+    const rotate=()=>{
+      const visibleCount=update();
+      if(items.length<=visibleCount)return;
+      items.forEach(item=>item.classList.add('is-fading'));
+      window.setTimeout(()=>{
+        start=(start+visibleCount)%items.length;
+        update();
+        window.requestAnimationFrame(()=>items.forEach(item=>item.classList.remove('is-fading')));
+      },300);
+    };
+    update();
+    window.setInterval(rotate,interval);
+    window.addEventListener('resize',update,{passive:true});
+  })();
+</script>
+{% schema %}
+{
+  "name": "Barra de anúncios",
+  "settings": [
+    {"type":"range","id":"interval","label":"Alternar a cada","min":2,"max":20,"step":1,"unit":"s","default":5},
+    {"type":"color","id":"background_color","label":"Cor de fundo","default":"#218239"},
+    {"type":"color","id":"text_color","label":"Cor do texto e dos ícones","default":"#ffffff"}
+  ],
+  "blocks": [
+    {"type":"announcement","name":"Aviso","settings":[
+      {"type":"select","id":"icon","label":"Ícone","options":[{"value":"experience","label":"Experiência"},{"value":"calendar","label":"Calendário"},{"value":"cart","label":"Carrinho"},{"value":"rating","label":"Avaliações"},{"value":"package","label":"Entrega"},{"value":"truck","label":"Envio"},{"value":"none","label":"Sem ícone"}],"default":"none"},
+      {"type":"inline_richtext","id":"text_one","label":"Texto 1","default":"​"},
+      {"type":"inline_richtext","id":"text_two","label":"Texto 2","default":"​"},
+      {"type":"inline_richtext","id":"text_three","label":"Texto 3","default":"​"},
+      {"type":"url","id":"link","label":"Link do aviso"}
+    ]}
+  ],
+  "max_blocks": 12,
+  "presets": [{"name":"Barra de anúncios","category":"Announcement","blocks":[
+    {"type":"announcement","settings":{"icon":"rating","text_one":"4,9/5","text_two":"Mais de 3.500 avaliações"}},
+    {"type":"announcement","settings":{"icon":"package","text_one":"Entrega habitual no dia útil seguinte"}},
+    {"type":"announcement","settings":{"icon":"truck","text_one":"Envio grátis acima de 29,99 €"}},
+    {"type":"announcement","settings":{"icon":"experience","text_one":"45 anos de experiência"}},
+    {"type":"announcement","settings":{"icon":"calendar","text_one":"Promoções válidas de 1 a 30 de setembro"}},
+    {"type":"announcement","settings":{"icon":"cart","text_one":"Stock real - só vendemos produtos disponíveis"}}
+  ]}]
+}
+{% endschema %}
