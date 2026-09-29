@@ -531,10 +531,6 @@
 
     {% section 'announcement-bar-fade' %}
 
-    {% unless page and page.handle == 'contactos-embalagem' %}
-      {% section 'announcement-bar' %}
-    {% endunless %}
-
     {%- unless request.page_type == 'cart' -%}
       {% section 'popups_custom' %}
     {%- endunless -%}
