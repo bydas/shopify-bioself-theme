@@ -73,61 +73,84 @@
       "disabled": true,
       "settings": {}
     },
-    "collection_list_2_BYnyXr": {
-      "type": "collection-list-2",
+    "collection_benefits_carousel_KHDBB9": {
+      "type": "collection-benefits-carousel",
       "blocks": {
-        "collection_with_image_GTHi8q": {
-          "type": "collection_with_image",
+        "collection_card_KLtXVH": {
+          "type": "collection_card",
           "settings": {
-            "collection": "vitamina-c",
-            "image": "shopify://shop_images/vitaminac-sembg.webp"
-          }
-        },
-        "collection_with_image_3qcVmn": {
-          "type": "collection_with_image",
-          "settings": {
-            "collection": "vitamina-d",
-            "image": "shopify://shop_images/juventus-vitamina-d-capsulas.png"
-          }
-        },
-        "collection_with_image_XHY9Lr": {
-          "type": "collection_with_image",
-          "settings": {
-            "collection": "probioticos",
-            "image": "shopify://shop_images/probioticos-sembg.webp"
-          }
-        },
-        "collection_with_image_eGGbKY": {
-          "type": "collection_with_image",
-          "settings": {
-            "collection": "magnesio",
-            "image": "shopify://shop_images/magnesio-sembg.webp"
-          }
-        },
-        "collection_with_image_McQVLj": {
-          "type": "collection_with_image",
-          "settings": {
+            "image": "shopify://shop_images/c09175c3c5847b0b82d60b87ccb2a5b30c471bea.png",
+            "overlay_opacity": 60,
             "collection": "colagenio",
-            "image": "shopify://shop_images/colagenio-sembg.webp"
+            "subtitle": "Pele mais firme e jovem",
+            "button_text": "Comprar"
           }
         },
-        "collection_with_image_VWCCNd": {
-          "type": "collection_with_image",
+        "collection_card_QcRj6c": {
+          "type": "collection_card",
           "settings": {
+            "image": "shopify://shop_images/cef9726b409ea4d3fd28be24db283d6d62c95889.png",
+            "overlay_opacity": 60,
+            "collection": "magnesio",
+            "subtitle": "Menos stress e cansaço",
+            "button_text": "Equilibrar"
+          }
+        },
+        "collection_card_VnxKRJ": {
+          "type": "collection_card",
+          "settings": {
+            "image": "shopify://shop_images/1c09d5fe918c5d0b6566f2b15161baf692f23e26.jpg",
+            "overlay_opacity": 60,
+            "collection": "vitamina-d",
+            "subtitle": "Defesas mais fortes",
+            "button_text": "Reforçar"
+          }
+        },
+        "collection_card_4aHTJr": {
+          "type": "collection_card",
+          "settings": {
+            "image": "shopify://shop_images/e414c9699155acf1a4d9fcd57feac4d8e74adc50.png",
+            "overlay_opacity": 60,
             "collection": "omega-3",
-            "image": "shopify://shop_images/physalis-omega-3-forte-capsulas.png"
+            "subtitle": "Coração e cérebro",
+            "button_text": "Explorar"
+          }
+        },
+        "collection_card_H7Ntyg": {
+          "type": "collection_card",
+          "settings": {
+            "image": "shopify://shop_images/30ca11caf78b0b0f7d589b9732845a79b73253c8.png",
+            "overlay_opacity": 60,
+            "collection": "vitamina-c",
+            "subtitle": "Reforça a tua imunidade",
+            "button_text": "Começar"
+          }
+        },
+        "collection_card_QTixPN": {
+          "type": "collection_card",
+          "settings": {
+            "image": "shopify://shop_images/bdc725278f386363048eccece53d4cd1574de041.png",
+            "overlay_opacity": 60,
+            "collection": "probioticos",
+            "subtitle": "Equilíbrio digestivo diário",
+            "button_text": "Regular"
           }
         }
       },
       "block_order": [
-        "collection_with_image_GTHi8q",
-        "collection_with_image_3qcVmn",
-        "collection_with_image_XHY9Lr",
-        "collection_with_image_eGGbKY",
-        "collection_with_image_McQVLj",
-        "collection_with_image_VWCCNd"
+        "collection_card_KLtXVH",
+        "collection_card_QcRj6c",
+        "collection_card_VnxKRJ",
+        "collection_card_4aHTJr",
+        "collection_card_H7Ntyg",
+        "collection_card_QTixPN"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "O que queres melhorar hoje?",
+        "hover_button_text": "Ver mais",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     },
     "collection_campanhas_2_tndV7M": {
       "type": "collection-campanhas-2",
@@ -510,7 +533,7 @@
   "order": [
     "slideshow_custom_AiKNbT",
     "collection_images_slideshow_custom_KbWJmY",
-    "collection_list_2_BYnyXr",
+    "collection_benefits_carousel_KHDBB9",
     "collection_campanhas_2_tndV7M",
     "collection_campanhas_1_iQwbFn",
     "product_collection_list_custom_yfhcVR",
