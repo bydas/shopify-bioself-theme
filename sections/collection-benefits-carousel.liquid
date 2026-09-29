@@ -36,7 +36,7 @@
 </section>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&display=swap');
-  #{{ carousel_id }}{padding-block:var(--space-top) var(--space-bottom);background:#fff;font-family:"Red Hat Display",sans-serif;margin:2.5rem var(--desktop-container-gutter) 2rem var(--desktop-container-gutter)}
+  #{{ carousel_id }}{padding-block:var(--space-top) var(--space-bottom);background:#fff;font-family:"Red Hat Display",sans-serif}
   #{{ carousel_id }} .benefit-collections__inner{width:min(calc(100% - var(--theme-page-gutter)*2),var(--theme-page-width));margin-inline:auto}
   #{{ carousel_id }} .benefit-collections__heading{margin:0 0 20px;color:#111;font-size:28px;font-weight:700;line-height:1.2;text-transform:uppercase}
   #{{ carousel_id }} .benefit-collections__stage{position:relative}
@@ -61,10 +61,7 @@
   #{{ carousel_id }} .benefit-collections__arrow[hidden]{display:none}
   #{{ carousel_id }} .benefit-collections__arrow--prev{left:-12px}
   #{{ carousel_id }} .benefit-collections__arrow--next{right:-12px}
-  @media(max-width:999px){
-    #{{ carousel_id }} .benefit-collections__item{flex-basis:calc((100% - 56px)/3)}
-    #{{ carousel_id }}{margin:1rem var(--mobile-container-gutter)}
-  }
+  @media(max-width:999px){#{{ carousel_id }} .benefit-collections__item{flex-basis:calc((100% - 56px)/3)}}
   @media(max-width:699px){
     #{{ carousel_id }}{padding-block:calc(var(--space-top)/2) calc(var(--space-bottom)/2)}
     #{{ carousel_id }} .benefit-collections__inner{width:auto;margin-inline:var(--mobile-container-gutter)}
