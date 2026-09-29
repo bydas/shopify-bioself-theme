@@ -52,6 +52,7 @@
   #{{ announcement_id }} a.announcement-fade__link:hover .announcement-fade__copy{text-decoration:underline;text-underline-offset:3px}
   #{{ announcement_id }} a.announcement-fade__link:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:2px}
   #{{ announcement_id }} .announcement-fade__item.is-fading{opacity:0}
+  #{{ announcement_id }}.is-paused .announcement-fade__item{transition:none}
   #{{ announcement_id }} .announcement-fade__item.is-hidden{display:none}
   #{{ announcement_id }} .announcement-fade__icon{display:inline-flex;flex:none;align-items:center;justify-content:center;width:24px;height:24px}
   #{{ announcement_id }} .announcement-fade__symbol{display:block;font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;word-wrap:normal;direction:ltr;font-feature-settings:'liga';-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;font-variation-settings:'FILL' 1,'wght' 500}
@@ -83,6 +84,11 @@
     const items=Array.from(track.children);
     if(items.length<2)return;
     let start=0;
+    let timer;
+    let fadeTimer;
+    let fadeFrame;
+    let paused=false;
+    let hovering=root.matches(':hover');
     const interval=Math.max(2,Number(root.dataset.interval)||5)*1000;
     const update=()=>{
       const visibleCount=Math.min(
@@ -98,45 +104,199 @@
       return visibleCount;
     };
     const rotate=()=>{
+      if(paused)return;
       const visibleCount=update();
-      if(items.length<=visibleCount)return;
+      if(items.length<=visibleCount){schedule();return;}
       items.forEach(item=>item.classList.add('is-fading'));
-      window.setTimeout(()=>{
+      fadeTimer=window.setTimeout(()=>{
+        if(paused)return;
         start=(start+visibleCount)%items.length;
         update();
-        window.requestAnimationFrame(()=>items.forEach(item=>item.classList.remove('is-fading')));
+        fadeFrame=window.requestAnimationFrame(()=>{
+          items.forEach(item=>item.classList.remove('is-fading'));
+          schedule();
+        });
       },300);
     };
+    const schedule=()=>{
+      window.clearTimeout(timer);
+      if(!paused)timer=window.setTimeout(rotate,interval);
+    };
+    const pause=()=>{
+      paused=true;
+      window.clearTimeout(timer);
+      window.clearTimeout(fadeTimer);
+      window.cancelAnimationFrame(fadeFrame);
+      root.classList.add('is-paused');
+      items.forEach(item=>item.classList.remove('is-fading'));
+    };
+    const resume=()=>{
+      if(document.hidden||hovering||root.contains(document.activeElement))return;
+      paused=false;
+      root.classList.remove('is-paused');
+      schedule();
+    };
     update();
-    window.setInterval(rotate,interval);
+    root.addEventListener('mouseenter',()=>{hovering=true;pause();});
+    root.addEventListener('mouseleave',()=>{hovering=false;resume();});
+    root.addEventListener('focusin',pause);
+    root.addEventListener('focusout',()=>window.requestAnimationFrame(resume));
+    document.addEventListener('visibilitychange',()=>document.hidden?pause():resume());
+    if(hovering||root.contains(document.activeElement)||document.hidden)pause();
+    else schedule();
     window.addEventListener('resize',update,{passive:true});
   })();
 </script>
 {% schema %}
 {
-  "name": "Barra de anúncios",
+  "name": "t:bioself.home.announcement_fade",
   "settings": [
-    {"type":"range","id":"interval","label":"Alternar a cada","min":2,"max":20,"step":1,"unit":"s","default":5},
-    {"type":"color","id":"background_color","label":"Cor de fundo","default":"#218239"},
-    {"type":"color","id":"text_color","label":"Cor do texto e dos ícones","default":"#ffffff"}
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "t:bioself.home.announcement_interval",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:bioself.home.background_color",
+      "default": "#218239"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:bioself.home.announcement_text_color",
+      "default": "#ffffff"
+    }
   ],
   "blocks": [
-    {"type":"announcement","name":"Aviso","settings":[
-      {"type":"select","id":"icon","label":"Ícone","options":[{"value":"experience","label":"Experiência"},{"value":"calendar","label":"Calendário"},{"value":"cart","label":"Carrinho"},{"value":"rating","label":"Avaliações"},{"value":"package","label":"Entrega"},{"value":"truck","label":"Envio"},{"value":"none","label":"Sem ícone"}],"default":"none"},
-      {"type":"inline_richtext","id":"text_one","label":"Texto 1","default":"​"},
-      {"type":"inline_richtext","id":"text_two","label":"Texto 2","default":"​"},
-      {"type":"inline_richtext","id":"text_three","label":"Texto 3","default":"​"},
-      {"type":"url","id":"link","label":"Link do aviso"}
-    ]}
+    {
+      "type": "announcement",
+      "name": "t:bioself.home.announcement_message",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:bioself.home.announcement_icon",
+          "options": [
+            {
+              "value": "experience",
+              "label": "t:bioself.home.icon_experience"
+            },
+            {
+              "value": "calendar",
+              "label": "t:bioself.home.icon_calendar"
+            },
+            {
+              "value": "cart",
+              "label": "t:bioself.home.icon_cart"
+            },
+            {
+              "value": "rating",
+              "label": "t:bioself.home.icon_rating"
+            },
+            {
+              "value": "package",
+              "label": "t:bioself.home.icon_package"
+            },
+            {
+              "value": "truck",
+              "label": "t:bioself.home.icon_truck"
+            },
+            {
+              "value": "none",
+              "label": "t:bioself.home.icon_none"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text_one",
+          "label": "t:bioself.home.announcement_text_one",
+          "default": "​"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text_two",
+          "label": "t:bioself.home.announcement_text_two",
+          "default": "​"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text_three",
+          "label": "t:bioself.home.announcement_text_three",
+          "default": "​"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:bioself.home.announcement_link"
+        }
+      ]
+    }
   ],
   "max_blocks": 12,
-  "presets": [{"name":"Barra de anúncios","category":"Announcement","blocks":[
-    {"type":"announcement","settings":{"icon":"rating","text_one":"4,9/5","text_two":"Mais de 3.500 avaliações"}},
-    {"type":"announcement","settings":{"icon":"package","text_one":"Entrega habitual no dia útil seguinte"}},
-    {"type":"announcement","settings":{"icon":"truck","text_one":"Envio grátis acima de 29,99 €"}},
-    {"type":"announcement","settings":{"icon":"experience","text_one":"45 anos de experiência"}},
-    {"type":"announcement","settings":{"icon":"calendar","text_one":"Promoções válidas de 1 a 30 de setembro"}},
-    {"type":"announcement","settings":{"icon":"cart","text_one":"Stock real - só vendemos produtos disponíveis"}}
-  ]}]
+  "presets": [
+    {
+      "name": "t:bioself.home.announcement_fade",
+      "category": "t:categories.header",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "rating",
+            "text_one": "4,9/5",
+            "text_two": "Mais de 3.500 avaliações"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "package",
+            "text_one": "Entrega habitual no dia útil seguinte"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "truck",
+            "text_one": "Envio grátis acima de 29,99 €"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "experience",
+            "text_one": "45 anos de experiência"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "calendar",
+            "text_one": "Promoções válidas de 1 a 30 de setembro"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "icon": "cart",
+            "text_one": "Stock real - só vendemos produtos disponíveis"
+          }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  }
 }
 {% endschema %}
