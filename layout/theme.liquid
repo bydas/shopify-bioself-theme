@@ -529,6 +529,8 @@
     <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
     <span class="loading-bar"></span>
 
+    {% section 'announcement-bar-fade' %}
+
     {% unless page and page.handle == 'contactos-embalagem' %}
       {% section 'announcement-bar' %}
     {% endunless %}
