@@ -3449,7 +3449,7 @@
             "type": "announcement",
             "settings": {
               "icon": "cart",
-              "text_one": "&nbsp;Em stock · pronto para envio&nbsp;",
+              "text_one": "&nbsp;Stock real · pronto para envio&nbsp;",
               "text_two": "​",
               "text_three": "​",
               "link": ""
