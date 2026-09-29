@@ -1,0 +1,205 @@
+{% liquid
+  assign carousel_id = 'benefit-collections-' | append: section.id
+%}
+<section id="{{ carousel_id }}" class="benefit-collections" style="--space-top: {{ section.settings.padding_top }}px; --space-bottom: {{ section.settings.padding_bottom }}px">
+  <div class="benefit-collections__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="benefit-collections__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+    <div class="benefit-collections__stage">
+      <button class="benefit-collections__arrow benefit-collections__arrow--prev" type="button" aria-label="Ver coleções anteriores" aria-controls="{{ carousel_id }}-track" hidden><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <ul id="{{ carousel_id }}-track" class="benefit-collections__track" tabindex="0" aria-label="Coleções">
+        {% for block in section.blocks %}
+          {% assign chosen_collection = block.settings.collection %}
+          {% assign card_image = block.settings.image | default: chosen_collection.image %}
+          {% assign card_title = chosen_collection.title | default: 'Coleção' %}
+          <li class="benefit-collections__item" {{ block.shopify_attributes }}>
+            {% if chosen_collection != blank %}<a class="benefit-collections__card" href="{{ chosen_collection.url }}" aria-label="{{ card_title | escape }}">{% else %}<div class="benefit-collections__card benefit-collections__card--empty">{% endif %}
+              {% if card_image != blank %}
+                {{ card_image | image_url: width: 900 | image_tag: class: 'benefit-collections__image', loading: 'lazy', alt: card_title, widths: '320, 480, 640, 900', sizes: '(min-width: 1000px) 17vw, (min-width: 700px) 30vw, 72vw' }}
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'benefit-collections__image' }}
+              {% endif %}
+              <span class="benefit-collections__shade" style="opacity: {{ block.settings.overlay_opacity | default: 100 | divided_by: 100.0 }}" aria-hidden="true"></span>
+              <span class="benefit-collections__content">
+                <span class="benefit-collections__title">{{ card_title | escape }}</span>
+                {% if block.settings.subtitle != blank %}<span class="benefit-collections__subtitle">{{ block.settings.subtitle | escape | newline_to_br }}</span>{% endif %}
+                <span class="benefit-collections__cta"><span class="benefit-collections__cta-default">{{ block.settings.button_text | default: 'Explorar' | escape }}</span><span class="benefit-collections__cta-hover">{{ section.settings.hover_button_text | escape }}</span></span>
+              </span>
+            {% if chosen_collection != blank %}</a>{% else %}</div>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      <button class="benefit-collections__arrow benefit-collections__arrow--next" type="button" aria-label="Ver mais coleções" aria-controls="{{ carousel_id }}-track" hidden><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</section>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&display=swap');
+  #{{ carousel_id }}{padding-block:var(--space-top) var(--space-bottom);background:#fff;font-family:"Red Hat Display",sans-serif}
+  #{{ carousel_id }} .benefit-collections__inner{width:min(calc(100% - var(--theme-page-gutter)*2),var(--theme-page-width));margin-inline:auto}
+  #{{ carousel_id }} .benefit-collections__heading{margin:0 0 20px;color:#111;font-size:28px;font-weight:700;line-height:1.2;text-transform:uppercase}
+  #{{ carousel_id }} .benefit-collections__stage{position:relative}
+  #{{ carousel_id }} .benefit-collections__track{display:flex;gap:28px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;list-style:none;margin:0;padding:0}
+  #{{ carousel_id }} .benefit-collections__track::-webkit-scrollbar{display:none}
+  #{{ carousel_id }} .benefit-collections__item{flex:0 0 calc((100% - 140px)/6);min-width:0;scroll-snap-align:start}
+  #{{ carousel_id }} .benefit-collections__card{position:relative;display:block;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:20px;background:#888;color:#fff;text-decoration:none;isolation:isolate;font-family:inherit}
+  #{{ carousel_id }} .benefit-collections__image{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(1.06) contrast(1.08);transition:transform .25s ease}
+  #{{ carousel_id }} .benefit-collections__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.50),rgba(0,0,0,.34) 50%,rgba(0,0,0,.58))}
+  #{{ carousel_id }} .benefit-collections__content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:0 14px 16px;text-align:center}
+  #{{ carousel_id }} .benefit-collections__title{margin-top:auto;font-size:clamp(18px,1.6vw,24px);font-weight:800;line-height:1.15;text-transform:uppercase;text-shadow:none}
+  #{{ carousel_id }} .benefit-collections__subtitle{display:block;min-height:3.4em;margin-top:5px;font-size:clamp(13px,1.2vw,16px);font-weight:700;line-height:1.3;text-shadow:none}
+  #{{ carousel_id }} .benefit-collections__cta{display:grid;place-items:center;width:100%;min-height:40px;margin-top:auto;border:2px solid #fff;border-radius:6px;background:transparent;color:#fff;font-size:clamp(14px,1.2vw,16px);font-weight:700;line-height:1.2;transition:background-color .18s ease,color .18s ease}
+  #{{ carousel_id }} .benefit-collections__cta-default,#{{ carousel_id }} .benefit-collections__cta-hover{grid-area:1/1}
+  #{{ carousel_id }} .benefit-collections__cta-hover{visibility:hidden}
+  #{{ carousel_id }} .benefit-collections__card:not(.benefit-collections__card--empty):is(:hover,:focus-visible) .benefit-collections__image{transform:scale(1.04)}
+  #{{ carousel_id }} .benefit-collections__card:not(.benefit-collections__card--empty):is(:hover,:focus-visible) .benefit-collections__cta{background:#fff;color:#83694c}
+  #{{ carousel_id }} .benefit-collections__card:not(.benefit-collections__card--empty):is(:hover,:focus-visible) .benefit-collections__cta-default{visibility:hidden}
+  #{{ carousel_id }} .benefit-collections__card:not(.benefit-collections__card--empty):is(:hover,:focus-visible) .benefit-collections__cta-hover{visibility:visible}
+  #{{ carousel_id }} :is(.benefit-collections__card,.benefit-collections__track,.benefit-collections__arrow):focus-visible{outline:2px solid #308a36;outline-offset:3px}
+  #{{ carousel_id }} .benefit-collections__arrow{position:absolute;z-index:2;top:50%;width:38px;height:38px;padding:0;transform:translateY(-50%);border:0;border-radius:50%;background:#fff;color:#333;box-shadow:0 2px 12px #0003;cursor:pointer;font-size:30px;line-height:1}
+  #{{ carousel_id }} .benefit-collections__arrow[hidden]{display:none}
+  #{{ carousel_id }} .benefit-collections__arrow--prev{left:-12px}
+  #{{ carousel_id }} .benefit-collections__arrow--next{right:-12px}
+  @media(max-width:999px){#{{ carousel_id }} .benefit-collections__item{flex-basis:calc((100% - 56px)/3)}}
+  @media(max-width:699px){
+    #{{ carousel_id }}{padding-block:calc(var(--space-top)/2) calc(var(--space-bottom)/2)}
+    #{{ carousel_id }} .benefit-collections__inner{width:auto;margin-inline:var(--mobile-container-gutter)}
+    #{{ carousel_id }} .benefit-collections__heading{margin-bottom:16px;font-size:16px}
+    #{{ carousel_id }} .benefit-collections__track{gap:16px;margin-right:calc(-1*var(--mobile-container-gutter));padding-right:var(--mobile-container-gutter)}
+    #{{ carousel_id }} .benefit-collections__item{flex-basis:min(67vw,280px)}
+    #{{ carousel_id }} .benefit-collections__card{aspect-ratio:5/6;border-radius:16px}
+    #{{ carousel_id }} .benefit-collections__content{padding:0 16px 16px}
+    #{{ carousel_id }} .benefit-collections__title{font-size:clamp(20px,5.8vw,24px)}
+    #{{ carousel_id }} .benefit-collections__subtitle{font-size:clamp(15px,4.2vw,18px)}
+    #{{ carousel_id }} .benefit-collections__cta{min-height:44px;font-size:clamp(16px,4.2vw,18px);border-width:2px;border-radius:10px}
+    #{{ carousel_id }} .benefit-collections__arrow{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){#{{ carousel_id }} .benefit-collections__image,#{{ carousel_id }} .benefit-collections__cta{transition:none}}
+@media(max-width:1599px) and (min-width:1000px){#{{ carousel_id }} .benefit-collections__heading{font-size:24px}}@media(max-width:999px){#{{ carousel_id }} .benefit-collections__heading{font-size:16px}}</style>
+<script>
+  (()=>{
+    const root=document.getElementById('{{ carousel_id }}');
+    if(!root)return;
+    const track=root.querySelector('.benefit-collections__track');
+    const prev=root.querySelector('.benefit-collections__arrow--prev');
+    const next=root.querySelector('.benefit-collections__arrow--next');
+    const update=()=>{
+      const overflow=track.scrollWidth>track.clientWidth+2;
+      const mobile=matchMedia('(max-width:699px)').matches;
+      prev.hidden=mobile||!overflow||track.scrollLeft<2;
+      next.hidden=mobile||!overflow||track.scrollLeft+track.clientWidth>=track.scrollWidth-2;
+    };
+    const step=()=>track.querySelector('.benefit-collections__item')?.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap)||track.clientWidth;
+    prev.addEventListener('click',()=>track.scrollBy({left:-step(),behavior:'smooth'}));
+    next.addEventListener('click',()=>track.scrollBy({left:step(),behavior:'smooth'}));
+    track.addEventListener('scroll',update,{passive:true});
+    new ResizeObserver(update).observe(track);
+    update();
+  })();
+</script>
+{% schema %}
+{
+  "name": "t:bioself.home.benefit_carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:bioself.home.heading",
+      "default": "t:bioself.home.heading_default"
+    },
+    {
+      "type": "text",
+      "id": "hover_button_text",
+      "label": "t:bioself.home.hover_button_text",
+      "default": "t:bioself.home.hover_button_text_default"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:bioself.home.padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:bioself.home.padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "t:bioself.home.collection_card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:bioself.home.card_image"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "t:bioself.home.card_overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 100
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:bioself.home.card_collection"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "t:bioself.home.card_subtitle"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:bioself.home.card_button_text",
+          "default": "t:bioself.home.card_button_text_default"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "t:bioself.home.benefit_carousel",
+      "category": "t:categories.collections",
+      "blocks": [
+        {
+          "type": "collection_card"
+        },
+        {
+          "type": "collection_card"
+        },
+        {
+          "type": "collection_card"
+        },
+        {
+          "type": "collection_card"
+        },
+        {
+          "type": "collection_card"
+        },
+        {
+          "type": "collection_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
