@@ -3391,6 +3391,84 @@
           "text_color": "#ffffff",
           "delay": 10
         }
+      },
+      "announcement-bar-fade": {
+        "type": "announcement-bar-fade",
+        "blocks": {
+          "announcement_CXrHKi": {
+            "type": "announcement",
+            "settings": {
+              "icon": "rating",
+              "text_one": "4,9/5 · Mais de 3.500 avaliações&nbsp;",
+              "text_two": "",
+              "text_three": "​",
+              "link": "https://www.opinioes-verificadas.com/avis-clients/bioself.pt"
+            }
+          },
+          "announcement_VAGzWt": {
+            "type": "announcement",
+            "settings": {
+              "icon": "package",
+              "text_one": "​Entrega habitual no dia útil seguinte",
+              "text_two": "​",
+              "text_three": "​",
+              "link": "https://bioself.pt/policies/shipping-policy"
+            }
+          },
+          "announcement_ymNAdJ": {
+            "type": "announcement",
+            "settings": {
+              "icon": "truck",
+              "text_one": "​Envio grátis acima de 29,99 €",
+              "text_two": "​",
+              "text_three": "​",
+              "link": ""
+            }
+          },
+          "announcement_zD7gcG": {
+            "type": "announcement",
+            "settings": {
+              "icon": "experience",
+              "text_one": "45 anos de experiência",
+              "text_two": "​",
+              "text_three": "​",
+              "link": ""
+            }
+          },
+          "announcement_NKxMCj": {
+            "type": "announcement",
+            "settings": {
+              "icon": "calendar",
+              "text_one": "Promoções válidas de 1 a 30 de setembro",
+              "text_two": "​",
+              "text_three": "​",
+              "link": ""
+            }
+          },
+          "announcement_Jrq6VK": {
+            "type": "announcement",
+            "settings": {
+              "icon": "cart",
+              "text_one": "Stock real · apenas produtos disponíveis",
+              "text_two": "​",
+              "text_three": "​",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement_CXrHKi",
+          "announcement_VAGzWt",
+          "announcement_ymNAdJ",
+          "announcement_zD7gcG",
+          "announcement_NKxMCj",
+          "announcement_Jrq6VK"
+        ],
+        "settings": {
+          "interval": 5,
+          "background_color": "#218239",
+          "text_color": "#ffffff"
+        }
       }
     },
     "content_for_index": [
