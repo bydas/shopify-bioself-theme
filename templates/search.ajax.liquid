@@ -61,7 +61,7 @@
     {%- endif -%}
 
     <ul class="search-bar__result-linklist list--unstyled" role="list">
-      {%- for item in search.results | limit: 3 -%}
+      {%- for item in search.results limit: 3 -%}
         <li>
           <a href="{{ item.url }}" class="search-bar__result-link">{{ item.title }}</a>
         </li>
@@ -82,4 +82,13 @@
       <p class="heading h4">{{ 'header.search.no_results' | t }}</p>
     </div>
   {%- endif -%}
-{%- endif -%}
+{%- endif -%}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- for item in search.results | limit: 3 -%}"
+  to: "{%- for item in search.results limit: 3 -%}"
+  position: 2937..2980
+{%- endcomment -%}
