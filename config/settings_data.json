@@ -3560,6 +3560,14 @@
         "type": "shopify://apps/stape-conversion-tracking/blocks/gtm/7e13c847-7971-409d-8fe0-29ec14d5f048",
         "disabled": false,
         "settings": {}
+      },
+      "15211165803557997106": {
+        "type": "shopify://apps/rtb-house-ai-retargeting-ads/blocks/rtb_base_tag/01a0f261-ddac-73a3-8b57-02740c899e91",
+        "disabled": false,
+        "settings": {
+          "taggingHash": "a38K9MGsDeDM0AmQSnth",
+          "dc": "ams"
+        }
       }
     }
   },
