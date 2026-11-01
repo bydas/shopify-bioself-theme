@@ -18,9 +18,9 @@
             "title": "SETEMBRO2026",
             "background_color": "",
             "selected_tags": "SHOP",
-            "selected_title": "<p><strong>Cupão: OUTUBRO2026</strong><br/></p>",
+            "selected_title": "<p><strong>Cupão: NOVEMBRO2026</strong><br/></p>",
             "selected_description": "<p>Conquista <strong>10€ de desconto</strong> adicionais em compras superiores a 99.99€.</p>",
-            "selected_modal_description": "Aplica o código de cupão OUTUBRO2026 no checkout e conquista 10€ de desconto adicionais em compras superiores a 99.99€. Campanha exclusiva da loja online e válida de 1 a 31 de Outubro de 2026. Acumulável com outras campanhas em vigor e limitado ao stock existente."
+            "selected_modal_description": "Aplica o código de cupão NOVEMBRO2026 no checkout e conquista 12€ de desconto adicionais em compras superiores a 99.99€. Campanha exclusiva da loja online e válida de 1 a 30 de Novembro de 2026. Acumulável com outras campanhas em vigor e limitado ao stock existente."
           }
         },
         "coupon_iWDRdN": {
@@ -31,7 +31,7 @@
             "selected_tags": "Naturmil,Dietmed",
             "selected_title": "<p><strong>Campanha Extra 20%</strong></p>",
             "selected_description": "<p>Compra 3 ou mais artigos <strong>Dietmed</strong> e <strong>Naturmil</strong> e conquista <strong>20% EXTRA</strong>.</p>",
-            "selected_modal_description": "Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 31 de Outubro de 2026, limitada ao stock disponível. Chás e Packs não estão incluídos na promoção."
+            "selected_modal_description": "Adiciona 3 ou mais artigos das marcas indicadas ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. Podes escolher 3 unidades do mesmo produto ou combinar diferentes produtos das marcas em promoção. A campanha é válida de 1 a 30 de Novembro de 2026, limitada ao stock disponível. Chás e Packs não estão incluídos na promoção."
           }
         },
         "coupon_WRTneq": {
@@ -42,7 +42,7 @@
             "selected_tags": "V-C 15",
             "selected_title": "<p><strong>Campanha V-C 15 Forte 10% Extra</strong></p>",
             "selected_description": "<p>Compra 2 ou mais unidades <strong>VC-15 Forte Neo 24 Ampolas</strong> e conquista <strong>10% EXTRA</strong>.</p>",
-            "selected_modal_description": "Adiciona 2 ou mais unidades ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. A campanha é válida de 1 a 31 de Outubro de 2026, limitada ao stock disponível."
+            "selected_modal_description": "Adiciona 2 ou mais unidades ao carrinho e o desconto será aplicado automaticamente no checkout, sem necessidade de cupão. A campanha é válida de 1 a 30 de Novembro de 2026 , limitada ao stock disponível."
           }
         },
         "coupon_C38Njb": {
@@ -53,7 +53,7 @@
             "selected_tags": "Sovex",
             "selected_title": "<p><strong>Campanha Sovex 15% Extra</strong></p>",
             "selected_description": "<p>Compra 2 ou mais unidades de produtos da marca <strong>Sovex</strong> e conquista <strong>15% EXTRA</strong>.</p>",
-            "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro de 2026, limitada ao stock existente."
+            "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Sovex — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Novembro de 2026 , limitada ao stock existente."
           }
         },
         "coupon_YkzDgi": {
@@ -64,7 +64,7 @@
             "selected_tags": "Physalis",
             "selected_title": "<p><strong>Campanha Physalis &nbsp;10% Extra</strong></p>",
             "selected_description": "<p>Compra 2 ou mais unidades de produtos da marca <strong>Physalis</strong> e conquista <strong>10% EXTRA</strong>.</p>",
-            "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Physalis — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro, limitada ao stock existente. Óleos essenciais não incluídos na campanha."
+            "selected_modal_description": "Adiciona  duas ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Physalis — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Novembro de 2026 , limitada ao stock existente. Óleos essenciais não incluídos na campanha."
           }
         },
         "coupon_XhpUi6": {
@@ -81,13 +81,14 @@
         },
         "coupon_WWtqpi": {
           "type": "coupon",
+          "disabled": true,
           "settings": {
             "title": "Vitalenzym",
             "background_color": "#c9cdcd",
             "selected_tags": "Marcas_Vitalenzym",
             "selected_title": "<p><strong>Campanha Vitalenzym 20%</strong></p>",
             "selected_description": "<p>Compra 1 ou mais unidades de produtos da marca <strong>Vitalenzym</strong> e conquista <strong>20% EXTRA</strong>.</p>",
-            "selected_modal_description": "Adiciona 1 ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Vitalenzym — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 31 de Outubro, limitada ao stock existente."
+            "selected_modal_description": "Adiciona 1 ou mais unidades ao carrinho — do mesmo produto ou de produtos diferentes da marca Vitalenzym — e o desconto será automaticamente aplicado no checkout, sem necessidade de inserir cupão. A campanha é válida de 1 a 30 de Novembro de 2026 , limitada ao stock existente."
           }
         }
       },
