@@ -58,6 +58,7 @@
         },
         "coupon_YkzDgi": {
           "type": "coupon",
+          "disabled": true,
           "settings": {
             "title": "Physalis",
             "background_color": "#83bd3f",
