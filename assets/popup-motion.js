@@ -28,7 +28,8 @@
       running.delete(panel);
     };
     if (!panel.animate || reduced()) { complete(); return; }
-    const options = { duration: closing ? 300 : 400, easing: closing ? 'ease-in-out' : 'cubic-bezier(.2, .65, .3, 1)', fill: 'both' };
+    const exitDuration = visiblePanel ? Math.max(1, 300 * Number(visiblePanel.opacity)) : 300;
+    const options = { duration: closing ? exitDuration : 400, easing: closing ? 'ease-in-out' : 'cubic-bezier(.2, .65, .3, 1)', fill: 'both' };
     // Preserve each panel's centring and use one transform animation across divs and native dialogs.
     const baseTransform = window.getComputedStyle(panel).transform;
     const transform = baseTransform === 'none' ? '' : baseTransform;
@@ -37,7 +38,12 @@
       { opacity: 1, transform: transform || 'none' },
     ];
     state.animations.push(panel.animate(closing ? [visiblePanel || frames[1], frames[0]] : frames, options));
-    if (backdrop?.animate) state.animations.push(backdrop.animate(closing ? [visibleBackdrop || { opacity: 1 }, { opacity: 0 }] : [{ opacity: 0 }, { opacity: 1 }], options));
+    if (backdrop?.animate) {
+      const backdropFrames = closing ? [visibleBackdrop || { opacity: 1 }, { opacity: 0 }] : [{ opacity: 0 }, { opacity: 1 }];
+      // On interrupted entry, finish the backdrop fade before the panel.
+      const backdropOptions = visibleBackdrop ? { ...options, duration: exitDuration * 0.75 } : options;
+      state.animations.push(backdrop.animate(backdropFrames, backdropOptions));
+    }
     Promise.all(state.animations.map(animation => animation.finished.catch(() => {}))).then(complete);
   }
 
