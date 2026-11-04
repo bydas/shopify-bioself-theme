@@ -1,0 +1,49 @@
+{%- doc -%}
+  Keeps manually configured storefront links in the visitor's current language.
+  Native Shopify resource URLs already include their locale and are preserved.
+  Returns an attribute-safe URL; external, admin, app and asset URLs are unchanged.
+  @param {string} url - Link URL.
+{%- enddoc -%}
+{%- liquid
+  assign localized_href = url | default: '' | strip
+  if request.locale.primary == false and localized_href != blank
+    assign link_path = localized_href
+    assign internal_link = false
+    assign first_character = localized_href | slice: 0, 1
+    assign first_two_characters = localized_href | slice: 0, 2
+    if first_character == '/' and first_two_characters != '//'
+      assign internal_link = true
+    endif
+    if localized_href contains '://' or first_two_characters == '//'
+      assign link_protocol = localized_href | split: '://' | first
+      if link_protocol == 'https' or link_protocol == 'http' or first_two_characters == '//'
+        assign host_and_path = localized_href | split: '://' | last
+        if first_two_characters == '//'
+          assign host_and_path = localized_href | remove_first: '//'
+        endif
+        assign link_host = host_and_path | split: '/' | first | split: '?' | first | split: '#' | first
+        assign normalized_host = link_host | downcase | remove_first: 'www.'
+        assign primary_host = shop.domain | downcase | remove_first: 'www.'
+        assign permanent_host = shop.permanent_domain | downcase
+        assign current_host = request.host | downcase | remove_first: 'www.'
+        if normalized_host == primary_host or normalized_host == permanent_host or normalized_host == current_host
+          assign internal_link = true
+          assign link_path = host_and_path | remove_first: link_host
+          assign path_first_character = link_path | slice: 0, 1
+          if path_first_character != '/'
+            assign link_path = link_path | prepend: '/'
+          endif
+        endif
+      endif
+    endif
+    if internal_link
+      assign locale_root = routes.root_url | append: '/' | replace: '//', '/'
+      assign route_segment = link_path | remove_first: '/' | split: '/' | first | split: '?' | first | split: '#' | first | default: ''
+      case route_segment
+        when '', 'products', 'collections', 'pages', 'blogs', 'policies', 'search', 'account', 'cart'
+          assign localized_href = link_path | remove_first: '/' | prepend: locale_root
+      endcase
+    endif
+  endif
+  echo localized_href | escape_once
+-%}

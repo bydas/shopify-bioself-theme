@@ -1741,5 +1741,33 @@
     "information": "Informações",
     "benefits": "Benefícios",
     "cart": "Carrinho"
+  },
+  "newsletter_dialog": {
+    "enabled": "Ativar convite da newsletter",
+    "integration": "Integração Klaviyo",
+    "site": "ID público da conta",
+    "list": "ID da lista da newsletter",
+    "image": "Fotografia de natureza",
+    "info": "Usar a lista existente com double opt-in. O convite aparece 20 segundos após a escolha de cookies. As páginas de confirmação e os emails de boas-vindas são geridos no Klaviyo.",
+    "preview": "Estado de pré-visualização (apenas editor)",
+    "preview_info": "Seleciona esta secção para pré-visualizar. O editor do tema não envia emails.",
+    "states": {
+      "initial": "Inicial",
+      "focus": "Campo em foco",
+      "email_required": "Email em falta",
+      "email_invalid": "Email inválido",
+      "terms_required": "Termos por aceitar",
+      "combined": "Erros combinados",
+      "sending": "A enviar",
+      "failed": "Falha no envio",
+      "pending": "Confirmação pendente",
+      "pending_no_shortcut": "Pendente sem atalho",
+      "edit": "Alterar email",
+      "confirmed": "Confirmada (pré-visualização)",
+      "invalid": "Ligação inválida (pré-visualização)",
+      "already": "Já confirmada (pré-visualização)"
+    },
+    "name": "Popup da newsletter",
+    "terms": "Texto de aceitação dos termos"
   }
 }

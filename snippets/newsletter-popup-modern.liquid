@@ -1,0 +1,90 @@
+{% doc %}
+  Renders the newsletter invitation. Klaviyo owns confirmation and reward delivery.
+  @param {section} section - Newsletter popup section and its settings.
+{% enddoc %}
+{%- if customer == blank or customer.accepts_marketing == false or request.design_mode -%}
+  {%- assign popup_id = 'NewsletterPopup-' | append: section.id -%}
+  <section class="bioself-newsletter-popup" data-newsletter-popup
+    data-company-id="{{ section.settings.klaviyo_site_id | escape }}"
+    data-list-id="{{ section.settings.klaviyo_list_id | escape }}"
+    data-enabled="{{ section.settings.enabled }}"
+    {% if request.design_mode %}data-preview-state="{{ section.settings.preview_state | escape }}"{% endif %}>
+    <button class="bioself-newsletter-popup__scrim bioself-popup-scrim" type="button" data-newsletter-popup-close aria-label="{{ 'general.accessibility.close' | t }}" hidden></button>
+    <div class="bioself-newsletter-popup__dialog bioself-popup" role="dialog" aria-modal="true" aria-labelledby="{{ popup_id }}-title" aria-hidden="true" tabindex="-1" hidden>
+      <button class="bioself-newsletter-popup__close bioself-popup__close" type="button" data-newsletter-popup-close aria-label="{{ 'general.accessibility.close' | t }}">{{ 'newsletter-icon-close.svg' | inline_asset_content | replace: '<svg ', '<svg aria-hidden="true" focusable="false" ' | replace: 'width="24"', 'width="24"' | replace: 'height="24"', 'height="24"' }}</button>
+      <div class="bioself-newsletter-popup__visual">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 960 | image_tag: widths: '320, 480, 640, 960', sizes: '(max-width: 749px) 100vw, 480px', loading: 'lazy', alt: '' }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'bioself-newsletter-popup__placeholder' }}
+        {% endif %}
+        <span class="bioself-newsletter-popup__badge">{{ 'newsletter_dialog.badge' | t }}</span>
+        <p class="bioself-newsletter-popup__signature">{{ 'newsletter_dialog.signature' | t }}</p>
+      </div>
+      <div class="bioself-newsletter-popup__content">
+        <span data-newsletter-state-icon hidden><span data-newsletter-mail-icon>{{ 'newsletter-icon-mail.svg' | inline_asset_content | replace: '<svg ', '<svg aria-hidden="true" focusable="false" ' | replace: 'width="24"', 'width="40"' | replace: 'height="24"', 'height="40"' }}</span><span data-newsletter-check-icon hidden>{{ 'newsletter-icon-check_circle.svg' | inline_asset_content | replace: '<svg ', '<svg aria-hidden="true" focusable="false" ' | replace: 'width="24"', 'width="40"' | replace: 'height="24"', 'height="40"' }}</span></span>
+        <h2 class="bioself-newsletter-popup__title" id="{{ popup_id }}-title" tabindex="-1">{{ 'newsletter_dialog.title' | t }}</h2>
+        <div data-newsletter-form-panel>
+          <p class="bioself-newsletter-popup__intro" data-newsletter-intro>{{ 'newsletter_dialog.intro' | t }}</p>
+          <p class="bioself-newsletter-popup__offer">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5C9 3 5 3 2 4v15c3-1 7-1 10 1m0-15c3-2 7-2 10-1v15c-3-1-7-1-10 1V5Z"/></svg>
+            <span>{{ 'newsletter_dialog.ebook_html' | t }}</span>
+          </p>
+          <form id="{{ popup_id }}-form" class="bioself-newsletter-popup__form" novalidate>
+            <div>
+              <label class="visually-hidden" for="{{ popup_id }}-email">{{ 'newsletter_dialog.email' | t }}</label>
+              <input id="{{ popup_id }}-email" class="bioself-newsletter-popup__email" type="email" name="email" placeholder="{{ 'newsletter_dialog.email' | t }}" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="{{ popup_id }}-email-error">
+              <p class="bioself-newsletter-popup__error" id="{{ popup_id }}-email-error" data-newsletter-email-error hidden></p>
+            </div>
+            <div>
+              <label class="bioself-newsletter-popup__terms" for="{{ popup_id }}-terms">
+                <input id="{{ popup_id }}-terms" type="checkbox" required aria-describedby="{{ popup_id }}-terms-error">
+                <span>{% if section.settings.termos != blank %}{% render 'localized-content', content: section.settings.termos %}{% else %}{{ 'newsletter_dialog.terms_prefix' | t }} <a href="{{ shop.terms_of_service.url | prepend: routes.root_url | replace: '//policies', '/policies' }}" target="_blank" rel="noopener">{{ 'newsletter_dialog.terms_link' | t }}</a>{% endif %}</span>
+              </label>
+              <p class="bioself-newsletter-popup__error" id="{{ popup_id }}-terms-error" data-newsletter-terms-error hidden></p>
+            </div>
+            <p class="bioself-newsletter-popup__error bioself-newsletter-popup__failure" role="alert" data-newsletter-send-error hidden>{{ 'newsletter_dialog.failed' | t }}</p>
+            <button class="bioself-newsletter-popup__submit" type="submit" data-newsletter-submit>{{ 'newsletter_dialog.submit' | t }}</button>
+            <p class="bioself-newsletter-popup__fineprint">{{ 'newsletter_dialog.fineprint' | t }}</p>
+          </form>
+        </div>
+        <div class="bioself-newsletter-popup__pending" data-newsletter-pending-panel hidden>
+          <p>{{ 'newsletter_dialog.pending_intro' | t }}</p>
+          <p class="bioself-newsletter-popup__address" data-newsletter-address></p>
+          <p class="bioself-newsletter-popup__notice">{{ 'newsletter_dialog.pending_body' | t }}</p>
+          <p class="bioself-newsletter-popup__fineprint">{{ 'newsletter_dialog.spam' | t }}</p>
+          <a class="bioself-newsletter-popup__submit" data-newsletter-webmail target="_blank" rel="noopener noreferrer" hidden>{{ 'newsletter_dialog.open_email' | t }}</a>
+          <div class="bioself-newsletter-popup__links"><button type="button" data-newsletter-edit>{{ 'newsletter_dialog.edit_email' | t }}</button><button type="button" data-newsletter-popup-close>{{ 'newsletter_dialog.continue' | t }}</button></div>
+        </div>
+        {% if request.design_mode %}
+          <div class="bioself-newsletter-popup__result" data-newsletter-result-panel hidden><p data-newsletter-result-body></p><button class="bioself-newsletter-popup__submit" type="button" data-newsletter-result-action>{{ 'newsletter_dialog.continue' | t }}</button></div>
+        {% endif %}
+        <p class="visually-hidden" role="status" aria-live="polite" data-newsletter-status></p>
+      </div>
+    </div>
+    <script type="application/json" data-newsletter-copy>{
+      "title": {{ 'newsletter_dialog.title' | t | json }},
+      "intro": {{ 'newsletter_dialog.intro' | t | json }},
+      "submit": {{ 'newsletter_dialog.submit' | t | json }},
+      "sending": {{ 'newsletter_dialog.sending' | t | json }},
+      "failed": {{ 'newsletter_dialog.failed' | t | json }},
+      "retry": {{ 'newsletter_dialog.retry' | t | json }},
+      "emailRequired": {{ 'newsletter_dialog.email_required' | t | json }},
+      "emailInvalid": {{ 'newsletter_dialog.email_invalid' | t | json }},
+      "termsRequired": {{ 'newsletter_dialog.terms_required' | t | json }},
+      "pendingTitle": {{ 'newsletter_dialog.pending_title' | t | json }},
+      "editTitle": {{ 'newsletter_dialog.edit_title' | t | json }},
+      "editIntro": {{ 'newsletter_dialog.edit_intro' | t | json }},
+      "editSubmit": {{ 'newsletter_dialog.edit_submit' | t | json }},
+      "confirmedTitle": {{ 'newsletter_dialog.confirmed_title' | t | json }},
+      "confirmedBody": {{ 'newsletter_dialog.confirmed_body' | t | json }},
+      "invalidTitle": {{ 'newsletter_dialog.invalid_title' | t | json }},
+      "invalidBody": {{ 'newsletter_dialog.invalid_body' | t | json }},
+      "alreadyTitle": {{ 'newsletter_dialog.already_title' | t | json }},
+      "alreadyBody": {{ 'newsletter_dialog.already_body' | t | json }},
+      "back": {{ 'newsletter_dialog.back' | t | json }},
+      "continue": {{ 'newsletter_dialog.continue' | t | json }},
+      "cooldown": {{ 'newsletter_dialog.cooldown' | t | json }}
+    }</script>
+  </section>
+{%- endif -%}

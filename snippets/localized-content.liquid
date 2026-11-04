@@ -1,0 +1,25 @@
+{%- doc -%}
+  Localizes quoted links in merchant-authored rich text without changing its formatting.
+  @param {string} content - Trusted Shopify rich text or resource HTML.
+{%- enddoc -%}
+{%- if request.locale.primary == false and content contains 'href=' -%}
+  {%- assign localized_markup = content -%}
+  {%- capture quote_characters -%}"|'{%- endcapture -%}
+  {%- assign quote_characters = quote_characters | split: '|' -%}
+  {%- for quote in quote_characters -%}
+    {%- assign href_open = 'href=' | append: quote -%}
+    {%- assign href_parts = localized_markup | split: href_open -%}
+    {%- capture rewritten_markup -%}
+      {{- href_parts.first -}}
+      {%- for href_part in href_parts offset: 1 -%}
+        {%- assign original_href = href_part | split: quote | first -%}
+        {%- assign href_length = original_href | size -%}
+        {{- href_open -}}{%- render 'localized-url', url: original_href -%}{{- href_part | slice: href_length, href_part.size -}}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- assign localized_markup = rewritten_markup -%}
+  {%- endfor -%}
+  {{- localized_markup -}}
+{%- else -%}
+  {{- content -}}
+{%- endif -%}
