@@ -1,0 +1,140 @@
+{{ 'stock-real-component-information-banner.css' | asset_url | stylesheet_tag }}
+<div class="information-banner information-banner--{{ section.settings.layout }}" style="--information-background:{{ section.settings.background }};">
+  <div class="information-banner__inner">
+    <div class="information-banner__copy">
+      {% if section.settings.icon != 'none' %}<span class="information-banner__icon">{% render 'stock-real-icon', name: section.settings.icon, size: 40 %}</span>{% endif %}
+      <div>{% if section.settings.title != blank %}<h2>{{ section.settings.title | escape }}</h2>{% endif %}
+      {% if section.settings.text != blank %}<div class="rte">{% render 'stock-real-localized-content', content: section.settings.text %}</div>{% endif %}</div>
+    </div>
+    {% if section.settings.layout == 'notification' %}
+      <aside class="information-banner__card">
+        {% if section.settings.image != blank %}<div class="information-banner__media">{{ section.settings.image | image_url: width: 240 | image_tag: loading: 'lazy', class: 'information-banner__image', alt: section.settings.image_alt, widths: '160,240', sizes: '160px' }}</div>{% endif %}
+        <div class="information-banner__card-heading"><p class="information-banner__eyebrow">{{ section.settings.card_eyebrow | escape }}</p><h3>{{ section.settings.card_title | escape }}</h3></div>
+        <div class="information-banner__card-body rte">{% render 'stock-real-localized-content', content: section.settings.card_text %}</div>
+        {% if section.settings.button_label != blank %}
+          {% if section.settings.button_link != blank %}<a class="button information-banner__button" href="{% render 'stock-real-localized-url', url: section.settings.button_link %}">{% render 'stock-real-icon', name: 'notifications', size: 18 %}{{ section.settings.button_label | escape }}</a>
+          {% else %}<span class="information-banner__example" role="img" aria-label="{{ 'Exemplo ilustrativo de aviso de reposição' | escape }}">{% render 'stock-real-icon', name: 'notifications', size: 18 %}{{ section.settings.button_label | escape }}</span>{% endif %}
+        {% endif %}
+      </aside>
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Stock Real — Informação",
+  "tag": "section",
+  "class": "section-information-banner",
+  "enabled_on": {
+    "templates": [
+      "page",
+      "index",
+      "product",
+      "collection",
+      "article"
+    ]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Disposição",
+      "options": [
+        {
+          "value": "notice",
+          "label": "Aviso"
+        },
+        {
+          "value": "notification",
+          "label": "Aviso de reposição"
+        }
+      ],
+      "default": "notice"
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Ícone",
+      "options": [
+        {
+          "value": "none",
+          "label": "Sem ícone"
+        },
+        {
+          "value": "inventory_2",
+          "label": "Stock"
+        },
+        {
+          "value": "schedule",
+          "label": "Tempo de espera"
+        },
+        {
+          "value": "delivery_truck_speed",
+          "label": "Entrega"
+        },
+        {
+          "value": "notifications",
+          "label": "Notificações"
+        }
+      ],
+      "default": "delivery_truck_speed"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Fundo",
+      "default": "#eef5ef"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Ilustração"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Descrição da ilustração"
+    },
+    {
+      "type": "text",
+      "id": "card_eyebrow",
+      "label": "Antetítulo do cartão"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Título do cartão"
+    },
+    {
+      "type": "richtext",
+      "id": "card_text",
+      "label": "Texto do cartão"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Ligação do botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Faixa informativa",
+      "category": "Informações"
+    }
+  ]
+}
+{% endschema %}

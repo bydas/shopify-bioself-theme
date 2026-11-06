@@ -1,0 +1,9 @@
+{% if template.name == 'page' and template.suffix == 'stock-real' %}
+  {{ 'stock-real-page.css' | asset_url | stylesheet_tag }}
+  {% style %}
+    {% assign stock_heading = settings.heading_font | font_modify: 'weight', '900' %}
+    {% assign stock_body = settings.text_font | font_modify: 'weight', '500' %}
+    {{ stock_heading | font_face: font_display: 'swap' }}
+    {{ stock_body | font_face: font_display: 'swap' }}
+  {% endstyle %}
+{% endif %}

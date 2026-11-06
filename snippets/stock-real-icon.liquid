@@ -1,0 +1,32 @@
+{% doc %}
+  Renders an official Google Material Symbols SVG. Icons inherit the text colour.
+  Sources: https://github.com/google/material-design-icons (Apache-2.0).
+  @param {string} name - Material symbol name from the supported list.
+  @param {number} [size] - Icon size in pixels, default 24.
+  @param {boolean} [display_variant] - Use the official 48px Outlined symbol at weight 300.
+  @param {string} [class] - Additional CSS class.
+{% enddoc %}
+{%- liquid
+  assign supported_icons = 'add,bolt,delivery_truck_speed,inventory_2,notifications,remove,schedule' | split: ','
+  assign icon_size = size | default: 24 | plus: 0 | at_least: 1 | at_most: 96
+  assign icon_file = 'stock-real-icon_' | append: name | append: '.svg'
+  assign display_icons = 'balance,bolt,calendar_month,check_circle,cookie,cycle,delivery_truck_speed,ecg_heart,female,gastroenterology,handshake,inventory_2,ios_share,license,medication,metabolism,microbiology,monitor_weight,mood,paid,psychology,redeem,restaurant,schedule,shopping_cart,skillet,spa,support_agent,sync_alt,track_changes,tune' | split: ','
+  if display_variant and display_icons contains name
+    assign icon_file = 'stock-real-icon_' | append: name | append: '-display.svg'
+  endif
+  capture width_attribute
+    echo 'width="' | append: icon_size | append: '"'
+  endcapture
+  capture height_attribute
+    echo 'height="' | append: icon_size | append: '"'
+  endcapture
+  capture svg_attributes
+    echo '<svg class="material-icon ' | append: class | append: '" aria-hidden="true" focusable="false" '
+  endcapture
+-%}
+{%- if supported_icons contains name -%}
+  {{- icon_file | inline_asset_content | replace: 'width="24"', width_attribute | replace: 'height="24"', height_attribute | replace: '<svg ', svg_attributes -}}
+{%- endif -%}
+{% stylesheet %}
+  .material-icon { display: inline-block; flex-shrink: 0; vertical-align: middle; fill: currentColor; }
+{% endstylesheet %}

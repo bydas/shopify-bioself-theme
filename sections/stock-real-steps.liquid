@@ -1,0 +1,191 @@
+{{ 'stock-real-component-steps.css' | asset_url | stylesheet_tag }}
+<section class="steps{% if section.settings.mobile_layout == 'inline' %} steps--mobile-inline{% endif %}" style="--steps-columns: {{ section.settings.columns }}; --steps-padding-top: {{ section.settings.padding_top }}px; --steps-padding-bottom: {{ section.settings.padding_bottom }}px; --steps-padding-left: {{ section.settings.padding_left }}px; --steps-padding-right: {{ section.settings.padding_right }}px;">
+  <div class="steps__panel{% if section.settings.panel %} steps__panel--framed{% endif %}">
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="steps__intro">
+        {% if section.settings.title != blank %}<h2>{{ section.settings.title | escape }}</h2>{% endif %}
+        {% if section.settings.description != blank %}<div class="rte">{% render 'stock-real-localized-content', content: section.settings.description %}</div>{% endif %}
+      </div>
+    {% endif %}
+    <div class="steps__body{% if section.settings.main_image != blank %} steps__body--image{% endif %}">
+      {% if section.settings.main_image != blank %}
+        {{ section.settings.main_image | image_url: width: 1800 | image_tag: loading: 'lazy', class: 'steps__image', sizes: '(min-width: 1001px) 50vw, 100vw' }}
+      {% endif %}
+      <ol class="steps__list" role="list">
+        {% for block in section.blocks %}
+          <li class="steps__item" {{ block.shopify_attributes }}>
+            <span class="steps__number" aria-hidden="true">{{ forloop.index }}</span>
+            {% if block.settings.title != blank %}<h3>{{ block.settings.title | escape }}</h3>{% endif %}
+            {% if block.settings.description != blank %}<div class="rte">{% render 'stock-real-localized-content', content: block.settings.description %}</div>{% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% if section.settings.button_label != blank %}<a class="steps__button" href="{% assign localized_link_url = section.settings.button_link | default: '#' %}{% render 'stock-real-localized-url', url: localized_link_url %}">{{ section.settings.button_label | escape }}</a>{% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Stock Real — Etapas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Como funciona"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Imagem"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "checkbox",
+      "id": "panel",
+      "label": "Mostrar painel",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Colunas no computador",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do botão"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Ligação do botão"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding superior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding inferior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Padding à esquerda",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Padding à direita",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Disposição em mobile",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Centrado"
+        },
+        {
+          "value": "inline",
+          "label": "Ícone ao lado do texto"
+        }
+      ],
+      "default": "stacked"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Etapa",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Descrição"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Etapas",
+      "category": "Informações",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Etapa",
+            "description": "<p>Descreve esta etapa e explica o que acontece a seguir.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Etapa",
+            "description": "<p>Descreve esta etapa e explica o que acontece a seguir.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Etapa",
+            "description": "<p>Descreve esta etapa e explica o que acontece a seguir.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "tag": "section",
+  "class": "section-steps",
+  "enabled_on": {
+    "templates": [
+      "index",
+      "page",
+      "product",
+      "collection",
+      "blog",
+      "article"
+    ]
+  },
+  "max_blocks": 8
+}
+{% endschema %}

@@ -526,6 +526,7 @@
     {% else %}
       {% render 'microdata-schema' %}
     {%- endif -%}
+    {% render 'stock-real-styles' %}
   </head>
 
   <body
@@ -562,7 +563,7 @@
       {% section 'announcement-bar-bottom' %}
     {% endif %}
 
-    <main id="main" role="main">
+    <main id="main" role="main"{% if template.name == 'page' and template.suffix == 'stock-real' %} class="stock-real-page"{% endif %}>
       {{ content_for_layout }}
     </main>
 

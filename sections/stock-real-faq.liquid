@@ -1,0 +1,167 @@
+{{ 'stock-real-component-faq.css' | asset_url | stylesheet_tag }}
+
+{%- capture questions_json -%}
+  {%- assign first_question = true -%}
+  {%- for block in section.blocks -%}
+    {%- if block.settings.title != blank and block.settings.answer != blank -%}
+      {%- unless first_question -%},{%- endunless -%}
+      {
+        "@type": "Question",
+        "name": {{ block.settings.title | json }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ block.settings.answer | strip_html | json }}
+        }
+      }
+      {%- assign first_question = false -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if questions_json != blank -%}
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{{ questions_json }}]}
+  </script>
+{%- endif -%}
+
+<stock-real-faq class="bioself-faq" style="{% if section.settings.heading_color != blank %}--faq-heading-color: {{ section.settings.heading_color }};{% endif %}--faq-padding-top: {{ section.settings.padding_top | default: 0 }}px; --faq-padding-bottom: {{ section.settings.padding_bottom | default: 0 }}px; --faq-padding-left: {{ section.settings.padding_left | default: 0 }}px; --faq-padding-right: {{ section.settings.padding_right | default: 0 }}px;">
+  {%- if section.settings.title != blank -%}
+    <h2 class="bioself-faq__heading">{{ section.settings.title | escape }}</h2>
+  {%- endif -%}
+  <ul class="bioself-faq__questions">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.title != blank -%}
+        <li class="bioself-faq__question" {{ block.shopify_attributes }}>
+          <details name="faq-{{ section.id }}"{% if section.settings.open_first and forloop.first %} open{% endif %}>
+            <summary class="bioself-faq__summary">
+              <span>{{ block.settings.title | escape }}</span>
+              <span class="bioself-faq__icon" aria-hidden="true">
+                {% render 'stock-real-icon', name: 'add', class: 'bioself-faq__icon--collapsed' %}
+                {% render 'stock-real-icon', name: 'remove', class: 'bioself-faq__icon--expanded' %}
+              </span>
+            </summary>
+            <div class="bioself-faq__answer-wrap"><div class="answer_custom_block bioself-faq__answer rte">{% render 'stock-real-localized-content', content: block.settings.answer %}</div></div>
+          </details>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</stock-real-faq>
+
+<script src="{{ 'stock-real-component-faq.js' | asset_url }}" data-section="shopify-section-{{ section.id }}" defer></script>
+
+{% schema %}
+{
+  "name": "Stock Real — FAQ",
+  "tag": "section",
+  "class": "section-faq",
+  "limit": 1,
+  "max_blocks": 50,
+  "enabled_on": {
+    "templates": [
+      "index",
+      "page",
+      "product",
+      "collection",
+      "blog",
+      "article",
+      "metaobject"
+    ]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da secção",
+      "default": "Perguntas frequentes"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Abrir a primeira pergunta",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding superior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding inferior",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Padding à esquerda",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Padding à direita",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Cor dos títulos"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Pergunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título da pergunta",
+          "default": "Pergunta de exemplo"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Resposta",
+          "default": "<p>Adiciona uma resposta útil a esta pergunta.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perguntas frequentes",
+      "category": "Informações",
+      "blocks": [
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

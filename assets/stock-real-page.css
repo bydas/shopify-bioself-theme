@@ -1,0 +1,69 @@
+.stock-real-page {
+  --font-size-minimum: 14px; --font-weight-black: 900; --font-weight-bold: 700; --font-weight-medium: 500; --font-weight-semibold: 600;
+  --font-heading-family: "Red Hat Display",sans-serif; --font-body-family: "Red Hat Display",sans-serif;
+  --accent-color:#258439; --primary-button-background:#258439; --primary-button-text-color:#fff; --text-color:#17241b; --heading-color:#17241b; --background:#fff; --secondary-background:#eef5ef;
+  --space-2xs:clamp(8px,.8vw,10px); --space-xs:clamp(12px,1.2vw,15px); --space-sm:clamp(16px,1.6vw,20px); --space-md:clamp(24px,2.4vw,30px); --space-lg:clamp(32px,3.2vw,40px); --space-xl:clamp(48px,4vw,64px);
+  --space-heading-gap:var(--space-xs); --space-content-gap:var(--space-sm); --space-component-padding:var(--space-xl); --space-section:0px;
+  --grid-gap-horizontal:clamp(12px,2vw,20px); --grid-gap-vertical:var(--grid-gap-horizontal);
+  --theme-content-narrow:900px; --theme-page-gutter:clamp(20px,4vw,60px); --theme-container-inline:max(var(--theme-page-gutter),calc((100% - 1512px)/2));
+  --theme-full-media-inset:0px; --theme-full-media-content-inset:var(--theme-container-inline);
+  --button-min-height:48px; --button-radius:8px; --button-font-weight:700; --button-text-transform:uppercase; --font-size-button:16px; --font-size-body-sm:14px;
+  --content-container-radius:10px; --media-radius:10px; --theme-radius-pill:999px; --collection-card-border-width:1px; --product-card-border-width:1px; --product-on-sale-accent:#ffbb12;
+  --font-letter-spacing-heading:0; --font-heading-style:normal;
+  font-family:var(--font-body-family); color:var(--text-color);
+}
+.stock-real-page > .shopify-section { margin-block:0!important; padding-block:calc(var(--theme-section-gap)/2); }
+.stock-real-page > .shopify-section:first-child { padding-top:0; }
+.stock-real-page :is(h1,h2,h3) { font-family:var(--font-heading-family)!important; font-weight:var(--font-heading-weight)!important; line-height:var(--font-line-height-heading)!important; letter-spacing:0; }
+.stock-real-page h2 { font-size:var(--font-size-heading-lg)!important; }
+.stock-real-page h3 { font-size:var(--font-size-heading-md)!important; }
+.stock-real-page .rte { font-size:var(--font-size-body); font-weight:var(--font-body-weight); line-height:var(--font-line-height-body); }
+.stock-real-page .image-content__button { padding:12px 30px; transition:background-color .2s ease,color .2s ease; }
+.stock-real-page .image-content__button:hover { background:#ffbb12!important; color:#000!important; }
+.stock-real-page :where(a,summary):focus-visible { outline:3px solid #258439; outline-offset:3px; }
+.stock-real-page .material-icon { display:inline-block; flex-shrink:0; vertical-align:middle; fill:currentColor; }
+@media(width > 2560px) { .stock-real-page { --theme-full-media-inset:var(--theme-container-inline); --theme-full-media-content-inset:0px; } }
+.stock-real-page {
+  --font-size-heading-xl: clamp(3.1429rem, 2.5935rem + 1.3072vw, 4.2667rem);
+  --font-size-heading-lg: clamp(2rem, 1.5948rem + 1.0458vw, 2.9333rem);
+  --font-size-heading-md: clamp(1.4286rem, 1.1634rem + 0.6536vw, 2rem);
+  --font-size-heading-sm: var(--font-size-heading-md);
+  --font-size-body: clamp(1.2857rem, 1.098rem + 0.3922vw, 1.6rem);
+  --font-size-body-lg: var(--font-size-body);
+  --font-line-height-heading: 1.2;
+  --font-line-height-body: 1.4;
+  --font-letter-spacing-heading: 0;
+  --font-heading-weight: var(--font-weight-black, 900);
+  --font-body-weight: var(--font-weight-medium, 500);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-body-weight);
+}
+.stock-real-page :is(h3, .bioself-faq__summary) {
+  --font-heading-weight: var(--font-weight-bold, 700);
+}
+.stock-real-page .image-content--hero .image-content__heading {
+  line-height: 1.1;
+}
+.stock-real-page .image-content--hero .image-content__body {
+  font-size: clamp(1.4286rem, 1.2314rem + 0.3922vw, 1.7333rem);
+}
+.stock-real-page .image-content--hero .image-content__eyebrow {
+  font-size: clamp(0.9333rem, 0.8654rem + 0.2614vw, 1.2rem);
+}
+.stock-real-page .image-content--hero .rte strong {
+  font-size: clamp(1.5714rem, 1.3307rem + 0.5229vw, 2rem);
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1.25;
+}
+.stock-real-page .image-content__button {
+  --font-size-body: clamp(1.0714rem, 0.949rem + 0.1961vw, 1.2rem);
+}
+.stock-real-page .benefits-grid__items {
+  max-width: none;
+}
+
+/* A single page rhythm, without stacking section padding on top of it. */
+.stock-real-page { --theme-section-gap: clamp(32px, 3vw, 48px); }
+.stock-real-page .information-banner--notice {
+  padding-block: clamp(24px, 3vw, 48px);
+}
