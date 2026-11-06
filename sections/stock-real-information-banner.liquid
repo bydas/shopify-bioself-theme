@@ -8,7 +8,7 @@
     </div>
     {% if section.settings.layout == 'notification' %}
       <aside class="information-banner__card">
-        {% if section.settings.image != blank %}<div class="information-banner__media">{{ section.settings.image | image_url: width: 240 | image_tag: loading: 'lazy', class: 'information-banner__image', alt: section.settings.image_alt, widths: '160,240', sizes: '160px' }}</div>{% endif %}
+        {% if section.settings.image != blank %}<div class="information-banner__media">{{ section.settings.image | image_url: width: 240 | image_tag: loading: 'lazy', class: 'information-banner__image', alt: section.settings.image_alt, widths: '80,160', sizes: '80px' }}</div>{% endif %}
         <div class="information-banner__card-heading"><p class="information-banner__eyebrow">{{ section.settings.card_eyebrow | escape }}</p><h3>{{ section.settings.card_title | escape }}</h3></div>
         <div class="information-banner__card-body rte">{% render 'stock-real-localized-content', content: section.settings.card_text %}</div>
         {% if section.settings.button_label != blank %}
