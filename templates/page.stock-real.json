@@ -1,0 +1,287 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "stock-real-image-with-content",
+      "blocks": {
+        "eyebrow": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "DISPONIBILIDADE COM TRANSPARÊNCIA",
+            "text_color": "#258439",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "text": "Stock Real",
+            "icon": "none",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "text_color": ""
+          }
+        },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Mais confiança na tua compra.</strong></p>",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "text_color": ""
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Os produtos disponíveis para compra estão em stock físico na Bioself. A tua encomenda não depende de uma futura reposição do fornecedor.</p>",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "text_color": ""
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "label": "EXPLORAR PRODUTOS",
+            "link": "/collections/all",
+            "background_color": "",
+            "text_color": "",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "heading",
+        "subtitle",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/542b510a4f1ca3385967c58009bcb9f5.jpg",
+        "layout": "hero",
+        "image_position": "right",
+        "image_width": 45,
+        "image_height": "auto",
+        "background_color": "#eef5ef",
+        "text_color": "#17241b",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0
+      }
+    },
+    "benefits": {
+      "type": "stock-real-benefits-grid",
+      "blocks": {
+        "availability": {
+          "type": "benefit",
+          "settings": {
+            "icon": "inventory_2",
+            "title": "Disponibilidade antes\nde comprar",
+            "text": "<p>Sabes quais os produtos que podes encomendar.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "waiting": {
+          "type": "benefit",
+          "settings": {
+            "icon": "schedule",
+            "title": "Sem esperar\npor reposições",
+            "text": "<p>A preparação não depende de uma nova entrega do fornecedor.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "preparation": {
+          "type": "benefit",
+          "settings": {
+            "icon": "bolt",
+            "title": "Preparação\nmais rápida",
+            "text": "<p>Após o pagamento, a encomenda segue para preparação.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "availability",
+        "waiting",
+        "preparation"
+      ],
+      "settings": {
+        "heading": "O que ganhas com o Stock Real",
+        "description": "",
+        "text_alignment": "center",
+        "layout": "plain",
+        "panel": false,
+        "columns": 3,
+        "column_gap": 240,
+        "row_gap": 20,
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "background_color": "",
+        "text_color": "",
+        "mobile_layout": "inline",
+        "heading_color": "#17241b"
+      }
+    },
+    "steps": {
+      "type": "stock-real-steps",
+      "blocks": {
+        "choose": {
+          "type": "step",
+          "settings": {
+            "title": "Escolhes",
+            "description": "<p>Selecionas os produtos disponíveis no site.</p>"
+          }
+        },
+        "confirm": {
+          "type": "step",
+          "settings": {
+            "title": "Confirmas",
+            "description": "<p>Concluis a compra e o pagamento.</p>"
+          }
+        },
+        "prepare": {
+          "type": "step",
+          "settings": {
+            "title": "Preparamos",
+            "description": "<p>A equipa prepara e embala a encomenda.</p>"
+          }
+        },
+        "receive": {
+          "type": "step",
+          "settings": {
+            "title": "Recebes",
+            "description": "<p>A transportadora entrega na morada indicada.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "choose",
+        "confirm",
+        "prepare",
+        "receive"
+      ],
+      "settings": {
+        "title": "Da tua escolha até à entrega",
+        "description": "<p>Escolhes os produtos, confirmas o pagamento e nós tratamos da preparação e do envio.</p>",
+        "panel": false,
+        "columns": 4,
+        "button_label": "",
+        "button_link": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 0,
+        "padding_right": 0,
+        "mobile_layout": "inline"
+      }
+    },
+    "delivery": {
+      "type": "stock-real-information-banner",
+      "settings": {
+        "layout": "notice",
+        "icon": "delivery_truck_speed",
+        "title": "Quando recebes a tua encomenda?",
+        "text": "<p>Em Portugal Continental, as encomendas com pagamento confirmado até às 16h de um dia útil têm habitualmente entrega no dia útil seguinte. Os prazos podem variar em feriados e situações excecionais.</p>",
+        "background": "#eef5ef",
+        "image_alt": "",
+        "card_eyebrow": "",
+        "card_title": "",
+        "card_text": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "restock": {
+      "type": "stock-real-information-banner",
+      "settings": {
+        "layout": "notification",
+        "icon": "none",
+        "title": "Quando um produto está esgotado",
+        "text": "<p>Indicamos a indisponibilidade na página do produto. Podes pedir um aviso para saber quando voltar a estar disponível.</p>",
+        "background": "#eef5ef",
+        "image": "shopify://shop_images/bioceutica-pferde-gel-cavalo-hot-500-ml.png",
+        "image_alt": "Exemplo de produto esgotado",
+        "card_eyebrow": "PRODUTO ESGOTADO",
+        "card_title": "Recebe um aviso de reposição",
+        "card_text": "<p>Deixa os teus dados e avisamos-te quando este produto voltar a estar disponível.</p>",
+        "button_label": "NOTIFICAR",
+        "button_link": ""
+      }
+    },
+    "faq": {
+      "type": "stock-real-faq",
+      "blocks": {
+        "meaning": {
+          "type": "question",
+          "settings": {
+            "title": "O que significa «stock real»?",
+            "answer": "<p>Os produtos disponíveis para compra estão em stock físico na Bioself. A preparação da encomenda não depende de uma futura reposição do fornecedor.</p>"
+          }
+        },
+        "soldout": {
+          "type": "question",
+          "settings": {
+            "title": "Posso encomendar um produto esgotado?",
+            "answer": "<p>Não. Quando um produto está esgotado, indicamos a indisponibilidade na respetiva página. Podes pedir um aviso para saber quando voltar a estar disponível.</p>"
+          }
+        },
+        "notification": {
+          "type": "question",
+          "settings": {
+            "title": "Como recebo um aviso de reposição?",
+            "answer": "<p>Na página do produto esgotado, seleciona «Notificar» e deixa os teus dados. Receberás um aviso quando o produto voltar a estar disponível.</p>"
+          }
+        },
+        "payment": {
+          "type": "question",
+          "settings": {
+            "title": "Quando começa a preparação da minha encomenda?",
+            "answer": "<p>A preparação começa após a confirmação do pagamento. A nossa equipa prepara e embala os produtos para expedição.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "meaning",
+        "soldout",
+        "notification",
+        "payment"
+      ],
+      "settings": {
+        "title": "Perguntas frequentes",
+        "open_first": true,
+        "padding_top": 0,
+        "padding_bottom": 16,
+        "padding_left": 0,
+        "padding_right": 0,
+        "heading_color": "#17241b"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "benefits",
+    "steps",
+    "delivery",
+    "restock",
+    "faq"
+  ]
+}
